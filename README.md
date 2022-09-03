@@ -1,6 +1,8 @@
 # vue-fabric-editor
 基于fabric.js和Vue的图片编辑器。
 
+<p align="center"><img width="492" src="./src/assets/demo.png" /></p>
+
 ### 已有功能
 - 导入JSON文件
 - 保存为PNG、SVG、JSON文件
