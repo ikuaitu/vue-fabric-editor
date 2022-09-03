@@ -51,17 +51,17 @@ yarn serve
 
 ### 学习资料
 <!-- 中文文档 -->
-https://github.com/Rookie-Birds/Fabric-Tutorial_zh-CN
-https://gitbook.cn/books/61ed420bf275ee326adaee9d/index.html
-http://fabricjs.com/docs/fabric.Canvas.html
-https://www.cnblogs.com/rachelch/p/14172947.html
-http://fabricjs.com/kitchensink
-https://www.php.cn/js-tutorial-400300.html
-https://stackoverflow.com/questions/19043219/undo-redo-feature-in-fabric-js
+- https://github.com/Rookie-Birds/Fabric-Tutorial_zh-CN
+- https://gitbook.cn/books/61ed420bf275ee326adaee9d/index.html
+- http://fabricjs.com/docs/fabric.Canvas.html
+- https://www.cnblogs.com/rachelch/p/14172947.html
+- http://fabricjs.com/kitchensink
+- https://www.php.cn/js-tutorial-400300.html
+- https://stackoverflow.com/questions/19043219/undo-redo-feature-in-fabric-js
 
 ### 素材地址
 <!-- 素材 -->
-[svg首选](https://www.svgrepo.com/)
-[svg首选2](https://www.shareicon.net/)
-[svg纯色](https://svgsilh.com/zh/)
-[svg好多元素](http://gofreedownload.net/)
+- [svg首选](https://www.svgrepo.com/)
+- [svg首选2](https://www.shareicon.net/)
+- [svg纯色](https://svgsilh.com/zh/)
+- [svg好多元素](http://gofreedownload.net/)
