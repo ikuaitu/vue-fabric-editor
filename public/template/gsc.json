@@ -1,0 +1,2249 @@
+{
+	"version": "5.2.1",
+	"objects": [
+		{
+			"type": "rect",
+			"version": "5.2.1",
+			"originX": "left",
+			"originY": "top",
+			"left": 361,
+			"top": 449.5,
+			"width": 100,
+			"height": 100,
+			"fill": "red",
+			"stroke": null,
+			"strokeWidth": 1,
+			"strokeDashArray": null,
+			"strokeLineCap": "butt",
+			"strokeDashOffset": 0,
+			"strokeLineJoin": "miter",
+			"strokeUniform": false,
+			"strokeMiterLimit": 4,
+			"scaleX": 0.61,
+			"scaleY": 1.27,
+			"angle": 0,
+			"flipX": false,
+			"flipY": false,
+			"opacity": 0.22,
+			"shadow": "",
+			"visible": true,
+			"backgroundColor": "",
+			"fillRule": "nonzero",
+			"paintFirst": "fill",
+			"globalCompositeOperation": "source-over",
+			"skewX": 0,
+			"skewY": 0,
+			"rx": 0,
+			"ry": 0,
+			"id": "db8850e4-ab49-4c1d-ace9-cff261d789a6"
+		},
+		{
+			"type": "textbox",
+			"version": "5.2.1",
+			"originX": "left",
+			"originY": "top",
+			"left": 28.63,
+			"top": 99,
+			"width": 391.75,
+			"height": 33.9,
+			"fill": "rgba(249,249,249,1)",
+			"stroke": null,
+			"strokeWidth": 1,
+			"strokeDashArray": null,
+			"strokeLineCap": "butt",
+			"strokeDashOffset": 0,
+			"strokeLineJoin": "miter",
+			"strokeUniform": false,
+			"strokeMiterLimit": 4,
+			"scaleX": 1,
+			"scaleY": 1,
+			"angle": 0,
+			"flipX": false,
+			"flipY": false,
+			"opacity": 1,
+			"shadow": "",
+			"visible": true,
+			"backgroundColor": "",
+			"fillRule": "nonzero",
+			"paintFirst": "fill",
+			"globalCompositeOperation": "source-over",
+			"skewX": 0,
+			"skewY": 0,
+			"fontFamily": "arial",
+			"fontWeight": "normal",
+			"fontSize": 30,
+			"text": "$title",
+			"underline": false,
+			"overline": false,
+			"linethrough": false,
+			"textAlign": "center",
+			"fontStyle": "normal",
+			"lineHeight": 1.16,
+			"textBackgroundColor": "",
+			"charSpacing": 0,
+			"styles": {},
+			"direction": "ltr",
+			"path": null,
+			"pathStartOffset": 0,
+			"pathSide": "left",
+			"pathAlign": "baseline",
+			"minWidth": 20,
+			"splitByGrapheme": true,
+			"id": "c9ca9533-a6cb-45db-aeea-3852ae3da292"
+		},
+		{
+			"type": "textbox",
+			"version": "5.2.1",
+			"originX": "left",
+			"originY": "top",
+			"left": 74.5,
+			"top": 147,
+			"width": 300,
+			"height": 18.08,
+			"fill": "rgba(255,214,214,1)",
+			"stroke": null,
+			"strokeWidth": 1,
+			"strokeDashArray": null,
+			"strokeLineCap": "butt",
+			"strokeDashOffset": 0,
+			"strokeLineJoin": "miter",
+			"strokeUniform": false,
+			"strokeMiterLimit": 4,
+			"scaleX": 1,
+			"scaleY": 1,
+			"angle": 0,
+			"flipX": false,
+			"flipY": false,
+			"opacity": 1,
+			"shadow": "",
+			"visible": true,
+			"backgroundColor": "",
+			"fillRule": "nonzero",
+			"paintFirst": "fill",
+			"globalCompositeOperation": "source-over",
+			"skewX": 0,
+			"skewY": 0,
+			"fontFamily": "arial",
+			"fontWeight": "normal",
+			"fontSize": 16,
+			"text": "$author",
+			"underline": false,
+			"overline": false,
+			"linethrough": false,
+			"textAlign": "center",
+			"fontStyle": "normal",
+			"lineHeight": 1.16,
+			"textBackgroundColor": "",
+			"charSpacing": 0,
+			"styles": {},
+			"direction": "ltr",
+			"path": null,
+			"pathStartOffset": 0,
+			"pathSide": "left",
+			"pathAlign": "baseline",
+			"minWidth": 20,
+			"splitByGrapheme": true,
+			"id": "e6c096dc-de20-4e08-8b19-0a39c676437a"
+		},
+		{
+			"type": "textbox",
+			"version": "5.2.1",
+			"originX": "left",
+			"originY": "top",
+			"left": 33.83,
+			"top": 225,
+			"width": 381.34,
+			"height": 22.6,
+			"fill": "rgba(255,254,254,1)",
+			"stroke": null,
+			"strokeWidth": 1,
+			"strokeDashArray": null,
+			"strokeLineCap": "butt",
+			"strokeDashOffset": 0,
+			"strokeLineJoin": "miter",
+			"strokeUniform": false,
+			"strokeMiterLimit": 4,
+			"scaleX": 1,
+			"scaleY": 1,
+			"angle": 0,
+			"flipX": false,
+			"flipY": false,
+			"opacity": 1,
+			"shadow": "",
+			"visible": true,
+			"backgroundColor": "",
+			"fillRule": "nonzero",
+			"paintFirst": "fill",
+			"globalCompositeOperation": "source-over",
+			"skewX": 0,
+			"skewY": 0,
+			"fontFamily": "arial",
+			"fontWeight": "normal",
+			"fontSize": 20,
+			"text": "$paragraphs",
+			"underline": false,
+			"overline": false,
+			"linethrough": false,
+			"textAlign": "center",
+			"fontStyle": "normal",
+			"lineHeight": 2,
+			"textBackgroundColor": "",
+			"charSpacing": 0,
+			"styles": {},
+			"direction": "ltr",
+			"path": null,
+			"pathStartOffset": 0,
+			"pathSide": "left",
+			"pathAlign": "baseline",
+			"minWidth": 20,
+			"splitByGrapheme": true,
+			"id": "efd7e1ab-4f84-4e74-88db-bf9f0a7ce62e"
+		},
+		{
+			"type": "textbox",
+			"version": "5.2.1",
+			"originX": "left",
+			"originY": "top",
+			"left": 371,
+			"top": 468,
+			"width": 44.34,
+			"height": 97.63,
+			"fill": "rgba(255,255,255,1)",
+			"stroke": null,
+			"strokeWidth": 1,
+			"strokeDashArray": null,
+			"strokeLineCap": "butt",
+			"strokeDashOffset": 0,
+			"strokeLineJoin": "miter",
+			"strokeUniform": false,
+			"strokeMiterLimit": 4,
+			"scaleX": 1,
+			"scaleY": 1,
+			"angle": 0,
+			"flipX": false,
+			"flipY": false,
+			"opacity": 1,
+			"shadow": "",
+			"visible": true,
+			"backgroundColor": "",
+			"fillRule": "nonzero",
+			"paintFirst": "fill",
+			"globalCompositeOperation": "source-over",
+			"skewX": 0,
+			"skewY": 0,
+			"fontFamily": "2-2",
+			"fontWeight": "normal",
+			"fontSize": 40,
+			"text": "古诗",
+			"underline": false,
+			"overline": false,
+			"linethrough": false,
+			"textAlign": "left",
+			"fontStyle": "normal",
+			"lineHeight": 1.16,
+			"textBackgroundColor": "",
+			"charSpacing": 0,
+			"styles": {},
+			"direction": "ltr",
+			"path": null,
+			"pathStartOffset": 0,
+			"pathSide": "left",
+			"pathAlign": "baseline",
+			"minWidth": 20,
+			"splitByGrapheme": true,
+			"id": "7114118c-c141-48af-9b62-b19700ac09ea"
+		},
+		{
+			"type": "group",
+			"version": "5.2.1",
+			"originX": "left",
+			"originY": "top",
+			"left": 193,
+			"top": 479,
+			"width": 64,
+			"height": 64,
+			"fill": "rgb(0,0,0)",
+			"stroke": null,
+			"strokeWidth": 0,
+			"strokeDashArray": null,
+			"strokeLineCap": "butt",
+			"strokeDashOffset": 0,
+			"strokeLineJoin": "miter",
+			"strokeUniform": false,
+			"strokeMiterLimit": 4,
+			"scaleX": 1,
+			"scaleY": 1,
+			"angle": 0,
+			"flipX": false,
+			"flipY": false,
+			"opacity": 1,
+			"shadow": null,
+			"visible": true,
+			"backgroundColor": "",
+			"fillRule": "nonzero",
+			"paintFirst": "fill",
+			"globalCompositeOperation": "source-over",
+			"skewX": 0,
+			"skewY": 0,
+			"id": "5896de45-55cd-481d-a159-06bbc1eee74e",
+			"objects": [
+				{
+					"type": "circle",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -32.5,
+					"top": -32.5,
+					"width": 64,
+					"height": 64,
+					"fill": "#FFFFFF",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"radius": 32,
+					"startAngle": 0,
+					"endAngle": 360,
+					"id": "Layer_1"
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -8,
+					"top": -6.5,
+					"width": 15,
+					"height": 1,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							39,
+							27
+						],
+						[
+							"L",
+							25,
+							27
+						],
+						[
+							"C",
+							24.724,
+							27,
+							24.5,
+							26.776,
+							24.5,
+							26.5
+						],
+						[
+							"C",
+							24.5,
+							26.224,
+							24.724,
+							26,
+							25,
+							26
+						],
+						[
+							"L",
+							39,
+							26
+						],
+						[
+							"C",
+							39.276,
+							26,
+							39.5,
+							26.224,
+							39.5,
+							26.5
+						],
+						[
+							"C",
+							39.5,
+							26.776,
+							39.276,
+							27,
+							39,
+							27
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -8,
+					"top": -4.5,
+					"width": 15,
+					"height": 1,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							39,
+							29
+						],
+						[
+							"L",
+							25,
+							29
+						],
+						[
+							"C",
+							24.724,
+							29,
+							24.5,
+							28.776,
+							24.5,
+							28.5
+						],
+						[
+							"C",
+							24.5,
+							28.224,
+							24.724,
+							28,
+							25,
+							28
+						],
+						[
+							"L",
+							39,
+							28
+						],
+						[
+							"C",
+							39.276,
+							28,
+							39.5,
+							28.224,
+							39.5,
+							28.5
+						],
+						[
+							"C",
+							39.5,
+							28.776,
+							39.276,
+							29,
+							39,
+							29
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -19,
+					"top": -6.5,
+					"width": 5,
+					"height": 3,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							18,
+							29
+						],
+						[
+							"L",
+							14,
+							29
+						],
+						[
+							"C",
+							13.724,
+							29,
+							13.5,
+							28.776,
+							13.5,
+							28.5
+						],
+						[
+							"L",
+							13.5,
+							26.5
+						],
+						[
+							"C",
+							13.5,
+							26.224,
+							13.724,
+							26,
+							14,
+							26
+						],
+						[
+							"L",
+							18,
+							26
+						],
+						[
+							"C",
+							18.276,
+							26,
+							18.5,
+							26.224,
+							18.5,
+							26.5
+						],
+						[
+							"C",
+							18.5,
+							26.776,
+							18.276,
+							27,
+							18,
+							27
+						],
+						[
+							"L",
+							14.5,
+							27
+						],
+						[
+							"L",
+							14.5,
+							28
+						],
+						[
+							"L",
+							18,
+							28
+						],
+						[
+							"C",
+							18.276,
+							28,
+							18.5,
+							28.224,
+							18.5,
+							28.5
+						],
+						[
+							"C",
+							18.5,
+							28.776,
+							18.276,
+							29,
+							18,
+							29
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": 13,
+					"top": -6.5,
+					"width": 5,
+					"height": 3,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							50,
+							29
+						],
+						[
+							"L",
+							46,
+							29
+						],
+						[
+							"C",
+							45.724,
+							29,
+							45.5,
+							28.776,
+							45.5,
+							28.5
+						],
+						[
+							"C",
+							45.5,
+							28.224,
+							45.724,
+							28,
+							46,
+							28
+						],
+						[
+							"L",
+							49.5,
+							28
+						],
+						[
+							"L",
+							49.5,
+							27
+						],
+						[
+							"L",
+							46,
+							27
+						],
+						[
+							"C",
+							45.724,
+							27,
+							45.5,
+							26.776,
+							45.5,
+							26.5
+						],
+						[
+							"C",
+							45.5,
+							26.224,
+							45.724,
+							26,
+							46,
+							26
+						],
+						[
+							"L",
+							50,
+							26
+						],
+						[
+							"C",
+							50.276,
+							26,
+							50.5,
+							26.224,
+							50.5,
+							26.5
+						],
+						[
+							"L",
+							50.5,
+							28.5
+						],
+						[
+							"C",
+							50.5,
+							28.776,
+							50.276,
+							29,
+							50,
+							29
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -17,
+					"top": -14.5,
+					"width": 33,
+					"height": 3,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							47,
+							21
+						],
+						[
+							"L",
+							17,
+							21
+						],
+						[
+							"C",
+							16.811,
+							21,
+							16.638,
+							20.893,
+							16.553,
+							20.724
+						],
+						[
+							"L",
+							15.553,
+							18.724
+						],
+						[
+							"C",
+							15.476,
+							18.569,
+							15.484,
+							18.385,
+							15.574000000000002,
+							18.238
+						],
+						[
+							"C",
+							15.666,
+							18.09,
+							15.827,
+							18,
+							16,
+							18
+						],
+						[
+							"L",
+							48,
+							18
+						],
+						[
+							"C",
+							48.173,
+							18,
+							48.334,
+							18.09,
+							48.426,
+							18.237
+						],
+						[
+							"C",
+							48.517,
+							18.383999999999997,
+							48.525,
+							18.569,
+							48.447,
+							18.723
+						],
+						[
+							"L",
+							47.447,
+							20.723
+						],
+						[
+							"C",
+							47.362,
+							20.893,
+							47.189,
+							21,
+							47,
+							21
+						],
+						[
+							"z"
+						],
+						[
+							"M",
+							17.309,
+							20
+						],
+						[
+							"L",
+							46.692,
+							20
+						],
+						[
+							"L",
+							47.192,
+							19
+						],
+						[
+							"L",
+							16.809,
+							19
+						],
+						[
+							"L",
+							17.309,
+							20
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -13,
+					"top": -12.5,
+					"width": 4,
+					"height": 27,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							23,
+							47
+						],
+						[
+							"C",
+							22.724,
+							47,
+							22.5,
+							46.776,
+							22.5,
+							46.5
+						],
+						[
+							"L",
+							22.5,
+							21
+						],
+						[
+							"L",
+							20.5,
+							21
+						],
+						[
+							"L",
+							20.5,
+							46.5
+						],
+						[
+							"C",
+							20.5,
+							46.776,
+							20.276,
+							47,
+							20,
+							47
+						],
+						[
+							"C",
+							19.724,
+							47,
+							19.5,
+							46.776,
+							19.5,
+							46.5
+						],
+						[
+							"L",
+							19.5,
+							20.5
+						],
+						[
+							"C",
+							19.5,
+							20.224,
+							19.724,
+							20,
+							20,
+							20
+						],
+						[
+							"L",
+							23,
+							20
+						],
+						[
+							"C",
+							23.276,
+							20,
+							23.5,
+							20.224,
+							23.5,
+							20.5
+						],
+						[
+							"L",
+							23.5,
+							46.5
+						],
+						[
+							"C",
+							23.5,
+							46.776,
+							23.276,
+							47,
+							23,
+							47
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": 8,
+					"top": -12.5,
+					"width": 4,
+					"height": 27,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							44,
+							47
+						],
+						[
+							"C",
+							43.724,
+							47,
+							43.5,
+							46.776,
+							43.5,
+							46.5
+						],
+						[
+							"L",
+							43.5,
+							21
+						],
+						[
+							"L",
+							41.5,
+							21
+						],
+						[
+							"L",
+							41.5,
+							46.5
+						],
+						[
+							"C",
+							41.5,
+							46.776,
+							41.276,
+							47,
+							41,
+							47
+						],
+						[
+							"C",
+							40.724,
+							47,
+							40.5,
+							46.776,
+							40.5,
+							46.5
+						],
+						[
+							"L",
+							40.5,
+							20.5
+						],
+						[
+							"C",
+							40.5,
+							20.224,
+							40.724,
+							20,
+							41,
+							20
+						],
+						[
+							"L",
+							44,
+							20
+						],
+						[
+							"C",
+							44.276,
+							20,
+							44.5,
+							20.224,
+							44.5,
+							20.5
+						],
+						[
+							"L",
+							44.5,
+							46.5
+						],
+						[
+							"C",
+							44.5,
+							46.776,
+							44.276,
+							47,
+							44,
+							47
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -15,
+					"top": 15.5,
+					"width": 8,
+					"height": 5,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							25,
+							53
+						],
+						[
+							"C",
+							24.724,
+							53,
+							24.5,
+							52.776,
+							24.5,
+							52.5
+						],
+						[
+							"L",
+							24.5,
+							49
+						],
+						[
+							"L",
+							18.5,
+							49
+						],
+						[
+							"L",
+							18.5,
+							52.5
+						],
+						[
+							"C",
+							18.5,
+							52.776,
+							18.276,
+							53,
+							18,
+							53
+						],
+						[
+							"C",
+							17.724,
+							53,
+							17.5,
+							52.776,
+							17.5,
+							52.5
+						],
+						[
+							"L",
+							17.5,
+							48.5
+						],
+						[
+							"C",
+							17.5,
+							48.224,
+							17.724,
+							48,
+							18,
+							48
+						],
+						[
+							"L",
+							25,
+							48
+						],
+						[
+							"C",
+							25.276,
+							48,
+							25.5,
+							48.224,
+							25.5,
+							48.5
+						],
+						[
+							"L",
+							25.5,
+							52.5
+						],
+						[
+							"C",
+							25.5,
+							52.776,
+							25.276,
+							53,
+							25,
+							53
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": 6,
+					"top": 15.5,
+					"width": 8,
+					"height": 5,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							46,
+							53
+						],
+						[
+							"C",
+							45.724,
+							53,
+							45.5,
+							52.776,
+							45.5,
+							52.5
+						],
+						[
+							"L",
+							45.5,
+							49
+						],
+						[
+							"L",
+							39.5,
+							49
+						],
+						[
+							"L",
+							39.5,
+							52.5
+						],
+						[
+							"C",
+							39.5,
+							52.776,
+							39.276,
+							53,
+							39,
+							53
+						],
+						[
+							"C",
+							38.724,
+							53,
+							38.5,
+							52.776,
+							38.5,
+							52.5
+						],
+						[
+							"L",
+							38.5,
+							48.5
+						],
+						[
+							"C",
+							38.5,
+							48.224,
+							38.724,
+							48,
+							39,
+							48
+						],
+						[
+							"L",
+							46,
+							48
+						],
+						[
+							"C",
+							46.276,
+							48,
+							46.5,
+							48.224,
+							46.5,
+							48.5
+						],
+						[
+							"L",
+							46.5,
+							52.5
+						],
+						[
+							"C",
+							46.5,
+							52.776,
+							46.276,
+							53,
+							46,
+							53
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -20,
+					"top": -21.5,
+					"width": 39,
+					"height": 8,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							48,
+							19
+						],
+						[
+							"L",
+							16,
+							19
+						],
+						[
+							"C",
+							15.867,
+							19,
+							15.74,
+							18.947,
+							15.646,
+							18.854
+						],
+						[
+							"L",
+							14.291,
+							17.497999999999998
+						],
+						[
+							"C",
+							13.824,
+							17.031,
+							13.438,
+							16.496999999999996,
+							13.145,
+							15.908999999999997
+						],
+						[
+							"C",
+							12.722999999999999,
+							15.064999999999998,
+							12.498999999999999,
+							14.118999999999996,
+							12.498999999999999,
+							13.175999999999997
+						],
+						[
+							"L",
+							12.498999999999999,
+							11.5
+						],
+						[
+							"C",
+							12.498999999999999,
+							11.298,
+							12.620999999999999,
+							11.115,
+							12.807999999999998,
+							11.038
+						],
+						[
+							"C",
+							12.994999999999997,
+							10.96,
+							13.209999999999997,
+							11.003,
+							13.352999999999998,
+							11.146
+						],
+						[
+							"C",
+							15.307999999999998,
+							13.101,
+							17.904999999999998,
+							14.257000000000001,
+							20.665,
+							14.402000000000001
+						],
+						[
+							"L",
+							25.054,
+							14.633000000000001
+						],
+						[
+							"C",
+							29.653999999999996,
+							14.876000000000001,
+							34.346999999999994,
+							14.876000000000001,
+							38.947,
+							14.633000000000001
+						],
+						[
+							"L",
+							43.336000000000006,
+							14.402000000000001
+						],
+						[
+							"C",
+							46.096000000000004,
+							14.257000000000001,
+							48.69200000000001,
+							13.101,
+							50.648,
+							11.146
+						],
+						[
+							"C",
+							50.792,
+							11.003,
+							51.008,
+							10.959000000000001,
+							51.193000000000005,
+							11.038
+						],
+						[
+							"C",
+							51.38,
+							11.115,
+							51.502,
+							11.298,
+							51.502,
+							11.5
+						],
+						[
+							"L",
+							51.502,
+							13.175
+						],
+						[
+							"C",
+							51.502,
+							14.119,
+							51.278000000000006,
+							15.064,
+							50.856,
+							15.909
+						],
+						[
+							"C",
+							50.563,
+							16.496000000000002,
+							50.177,
+							17.031000000000002,
+							49.71,
+							17.498
+						],
+						[
+							"L",
+							48.355000000000004,
+							18.854000000000003
+						],
+						[
+							"C",
+							48.26,
+							18.947,
+							48.133,
+							19,
+							48,
+							19
+						],
+						[
+							"z"
+						],
+						[
+							"M",
+							16.207,
+							18
+						],
+						[
+							"L",
+							47.793,
+							18
+						],
+						[
+							"L",
+							49.002,
+							16.791
+						],
+						[
+							"C",
+							49.393,
+							16.4,
+							49.715,
+							15.954,
+							49.96,
+							15.462
+						],
+						[
+							"C",
+							50.314,
+							14.754999999999999,
+							50.5,
+							13.964,
+							50.5,
+							13.175
+						],
+						[
+							"L",
+							50.5,
+							12.63
+						],
+						[
+							"C",
+							48.494,
+							14.288,
+							46.009,
+							15.263000000000002,
+							43.388,
+							15.401
+						],
+						[
+							"L",
+							38.998999999999995,
+							15.632
+						],
+						[
+							"C",
+							34.364,
+							15.876,
+							29.635999999999996,
+							15.876,
+							25.000999999999998,
+							15.632
+						],
+						[
+							"L",
+							20.612,
+							15.401
+						],
+						[
+							"C",
+							17.991,
+							15.263,
+							15.505999999999998,
+							14.288,
+							13.499999999999998,
+							12.629999999999999
+						],
+						[
+							"L",
+							13.499999999999998,
+							13.174999999999999
+						],
+						[
+							"C",
+							13.499999999999998,
+							13.965,
+							13.686999999999998,
+							14.754999999999999,
+							14.04,
+							15.462
+						],
+						[
+							"C",
+							14.284999999999998,
+							15.954,
+							14.607,
+							16.4,
+							14.998,
+							16.791
+						],
+						[
+							"L",
+							16.207,
+							18
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -3,
+					"top": -12.5,
+					"width": 5,
+					"height": 5,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							34,
+							25
+						],
+						[
+							"C",
+							33.724,
+							25,
+							33.5,
+							24.776,
+							33.5,
+							24.5
+						],
+						[
+							"L",
+							33.5,
+							21
+						],
+						[
+							"L",
+							30.5,
+							21
+						],
+						[
+							"L",
+							30.5,
+							24.5
+						],
+						[
+							"C",
+							30.5,
+							24.776,
+							30.276,
+							25,
+							30,
+							25
+						],
+						[
+							"C",
+							29.724,
+							25,
+							29.5,
+							24.776,
+							29.5,
+							24.5
+						],
+						[
+							"L",
+							29.5,
+							20.5
+						],
+						[
+							"C",
+							29.5,
+							20.224,
+							29.724,
+							20,
+							30,
+							20
+						],
+						[
+							"L",
+							34,
+							20
+						],
+						[
+							"C",
+							34.276,
+							20,
+							34.5,
+							20.224,
+							34.5,
+							20.5
+						],
+						[
+							"L",
+							34.5,
+							24.5
+						],
+						[
+							"C",
+							34.5,
+							24.776,
+							34.276,
+							25,
+							34,
+							25
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -1,
+					"top": -4.5,
+					"width": 1,
+					"height": 7,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							32,
+							35
+						],
+						[
+							"C",
+							31.724,
+							35,
+							31.5,
+							34.776,
+							31.5,
+							34.5
+						],
+						[
+							"L",
+							31.5,
+							28.5
+						],
+						[
+							"C",
+							31.5,
+							28.224,
+							31.724,
+							28,
+							32,
+							28
+						],
+						[
+							"C",
+							32.275999999999996,
+							28,
+							32.5,
+							28.224,
+							32.5,
+							28.5
+						],
+						[
+							"L",
+							32.5,
+							34.5
+						],
+						[
+							"C",
+							32.5,
+							34.776,
+							32.276,
+							35,
+							32,
+							35
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -4,
+					"top": 1.5,
+					"width": 7,
+					"height": 7,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							32,
+							41
+						],
+						[
+							"C",
+							30.07,
+							41,
+							28.5,
+							39.43,
+							28.5,
+							37.5
+						],
+						[
+							"C",
+							28.5,
+							35.57,
+							30.07,
+							34,
+							32,
+							34
+						],
+						[
+							"C",
+							33.93,
+							34,
+							35.5,
+							35.57,
+							35.5,
+							37.5
+						],
+						[
+							"C",
+							35.5,
+							39.43,
+							33.93,
+							41,
+							32,
+							41
+						],
+						[
+							"z"
+						],
+						[
+							"M",
+							32,
+							35
+						],
+						[
+							"C",
+							30.621,
+							35,
+							29.5,
+							36.122,
+							29.5,
+							37.5
+						],
+						[
+							"C",
+							29.5,
+							38.878,
+							30.621,
+							40,
+							32,
+							40
+						],
+						[
+							"C",
+							33.379000000000005,
+							40,
+							34.5,
+							38.878,
+							34.5,
+							37.5
+						],
+						[
+							"C",
+							34.5,
+							36.122,
+							33.379,
+							35,
+							32,
+							35
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -21,
+					"top": 3.5,
+					"width": 4,
+					"height": 1,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							15,
+							37
+						],
+						[
+							"L",
+							12,
+							37
+						],
+						[
+							"C",
+							11.724,
+							37,
+							11.5,
+							36.776,
+							11.5,
+							36.5
+						],
+						[
+							"C",
+							11.5,
+							36.224,
+							11.724,
+							36,
+							12,
+							36
+						],
+						[
+							"L",
+							15,
+							36
+						],
+						[
+							"C",
+							15.276,
+							36,
+							15.5,
+							36.224,
+							15.5,
+							36.5
+						],
+						[
+							"C",
+							15.5,
+							36.776,
+							15.276,
+							37,
+							15,
+							37
+						],
+						[
+							"z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": 18,
+					"top": -10.5,
+					"width": 6,
+					"height": 1,
+					"fill": "#101820",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							56,
+							23
+						],
+						[
+							"L",
+							51,
+							23
+						],
+						[
+							"C",
+							50.724,
+							23,
+							50.5,
+							22.776,
+							50.5,
+							22.5
+						],
+						[
+							"C",
+							50.5,
+							22.224,
+							50.724,
+							22,
+							51,
+							22
+						],
+						[
+							"L",
+							56,
+							22
+						],
+						[
+							"C",
+							56.276,
+							22,
+							56.5,
+							22.224,
+							56.5,
+							22.5
+						],
+						[
+							"C",
+							56.5,
+							22.776,
+							56.276,
+							23,
+							56,
+							23
+						],
+						[
+							"z"
+						]
+					]
+				}
+			]
+		}
+	],
+	"background": "#A42E35"
+}

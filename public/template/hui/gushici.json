@@ -1,0 +1,778 @@
+{
+	"version": "5.2.1",
+	"objects": [
+		{
+			"type": "textbox",
+			"version": "5.2.1",
+			"originX": "left",
+			"originY": "top",
+			"left": 28.63,
+			"top": 91,
+			"width": 391.75,
+			"height": 27.12,
+			"fill": "rgba(249,249,249,1)",
+			"stroke": null,
+			"strokeWidth": 1,
+			"strokeDashArray": null,
+			"strokeLineCap": "butt",
+			"strokeDashOffset": 0,
+			"strokeLineJoin": "miter",
+			"strokeUniform": false,
+			"strokeMiterLimit": 4,
+			"scaleX": 1,
+			"scaleY": 1,
+			"angle": 0,
+			"flipX": false,
+			"flipY": false,
+			"opacity": 1,
+			"shadow": "",
+			"visible": true,
+			"backgroundColor": "",
+			"fillRule": "nonzero",
+			"paintFirst": "fill",
+			"globalCompositeOperation": "source-over",
+			"skewX": 0,
+			"skewY": 0,
+			"fontFamily": "2-2",
+			"fontWeight": "normal",
+			"fontSize": 24,
+			"text": "$title",
+			"underline": false,
+			"overline": false,
+			"linethrough": false,
+			"textAlign": "center",
+			"fontStyle": "normal",
+			"lineHeight": 1.16,
+			"textBackgroundColor": "",
+			"charSpacing": 0,
+			"styles": {},
+			"direction": "ltr",
+			"path": null,
+			"pathStartOffset": 0,
+			"pathSide": "left",
+			"pathAlign": "baseline",
+			"minWidth": 20,
+			"splitByGrapheme": true,
+			"id": "c9ca9533-a6cb-45db-aeea-3852ae3da292"
+		},
+		{
+			"type": "textbox",
+			"version": "5.2.1",
+			"originX": "left",
+			"originY": "top",
+			"left": 74.5,
+			"top": 141,
+			"width": 300,
+			"height": 18.08,
+			"fill": "rgba(214,237,211,1)",
+			"stroke": null,
+			"strokeWidth": 1,
+			"strokeDashArray": null,
+			"strokeLineCap": "butt",
+			"strokeDashOffset": 0,
+			"strokeLineJoin": "miter",
+			"strokeUniform": false,
+			"strokeMiterLimit": 4,
+			"scaleX": 1,
+			"scaleY": 1,
+			"angle": 0,
+			"flipX": false,
+			"flipY": false,
+			"opacity": 1,
+			"shadow": "",
+			"visible": true,
+			"backgroundColor": "",
+			"fillRule": "nonzero",
+			"paintFirst": "fill",
+			"globalCompositeOperation": "source-over",
+			"skewX": 0,
+			"skewY": 0,
+			"fontFamily": "Microsoft YaHei",
+			"fontWeight": "normal",
+			"fontSize": 16,
+			"text": "$author",
+			"underline": false,
+			"overline": false,
+			"linethrough": false,
+			"textAlign": "center",
+			"fontStyle": "normal",
+			"lineHeight": 1.16,
+			"textBackgroundColor": "",
+			"charSpacing": 0,
+			"styles": {},
+			"direction": "ltr",
+			"path": null,
+			"pathStartOffset": 0,
+			"pathSide": "left",
+			"pathAlign": "baseline",
+			"minWidth": 20,
+			"splitByGrapheme": true,
+			"id": "e6c096dc-de20-4e08-8b19-0a39c676437a"
+		},
+		{
+			"type": "textbox",
+			"version": "5.2.1",
+			"originX": "left",
+			"originY": "top",
+			"left": 34.82,
+			"top": 211,
+			"width": 381.34,
+			"height": 22.6,
+			"fill": "rgba(255,254,254,1)",
+			"stroke": null,
+			"strokeWidth": 1,
+			"strokeDashArray": null,
+			"strokeLineCap": "butt",
+			"strokeDashOffset": 0,
+			"strokeLineJoin": "miter",
+			"strokeUniform": false,
+			"strokeMiterLimit": 4,
+			"scaleX": 1,
+			"scaleY": 1,
+			"angle": 0,
+			"flipX": false,
+			"flipY": false,
+			"opacity": 1,
+			"shadow": "",
+			"visible": true,
+			"backgroundColor": "",
+			"fillRule": "nonzero",
+			"paintFirst": "fill",
+			"globalCompositeOperation": "source-over",
+			"skewX": 0,
+			"skewY": 0,
+			"fontFamily": "2-2",
+			"fontWeight": "normal",
+			"fontSize": 20,
+			"text": "$paragraphs",
+			"underline": false,
+			"overline": false,
+			"linethrough": false,
+			"textAlign": "center",
+			"fontStyle": "normal",
+			"lineHeight": 2,
+			"textBackgroundColor": "",
+			"charSpacing": 0,
+			"styles": {},
+			"direction": "ltr",
+			"path": null,
+			"pathStartOffset": 0,
+			"pathSide": "left",
+			"pathAlign": "baseline",
+			"minWidth": 20,
+			"splitByGrapheme": true,
+			"id": "efd7e1ab-4f84-4e74-88db-bf9f0a7ce62e"
+		},
+		{
+			"type": "group",
+			"version": "5.2.1",
+			"originX": "left",
+			"originY": "top",
+			"left": 41,
+			"top": 509,
+			"width": 100,
+			"height": 100,
+			"fill": "rgb(0,0,0)",
+			"stroke": null,
+			"strokeWidth": 0,
+			"strokeDashArray": null,
+			"strokeLineCap": "butt",
+			"strokeDashOffset": 0,
+			"strokeLineJoin": "miter",
+			"strokeUniform": false,
+			"strokeMiterLimit": 4,
+			"scaleX": 1,
+			"scaleY": 1,
+			"angle": 0,
+			"flipX": false,
+			"flipY": false,
+			"opacity": 1,
+			"shadow": "",
+			"visible": true,
+			"backgroundColor": "",
+			"fillRule": "nonzero",
+			"paintFirst": "fill",
+			"globalCompositeOperation": "source-over",
+			"skewX": 0,
+			"skewY": 0,
+			"id": "83f88aea-3856-4e7a-add9-6be88eca6788",
+			"objects": [
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": 15.15,
+					"top": -6.68,
+					"width": 30.62,
+					"height": 38.83,
+					"fill": "#c8da52",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							96.27,
+							66.52
+						],
+						[
+							"C",
+							96.27,
+							77.24,
+							89.41,
+							82.64999999999999,
+							80.96,
+							82.64999999999999
+						],
+						[
+							"C",
+							72.50999999999999,
+							82.64999999999999,
+							65.65,
+							77.24,
+							65.65,
+							66.52
+						],
+						[
+							"C",
+							65.65,
+							55.8,
+							81,
+							43.82,
+							81,
+							43.82
+						],
+						[
+							"C",
+							81,
+							43.82,
+							96.27,
+							55.8,
+							96.27,
+							66.52
+						],
+						[
+							"Z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -43.28,
+					"top": -45.5,
+					"width": 58.18,
+					"height": 73.77,
+					"fill": "#c8da52",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							65.4,
+							48.12
+						],
+						[
+							"C",
+							65.4,
+							68.49,
+							52.400000000000006,
+							78.77,
+							36.31,
+							78.77
+						],
+						[
+							"C",
+							20.22,
+							78.77,
+							7.22,
+							68.49,
+							7.22,
+							48.12
+						],
+						[
+							"C",
+							7.22,
+							27.75,
+							36.31,
+							5,
+							36.31,
+							5
+						],
+						[
+							"C",
+							36.31,
+							5,
+							65.4,
+							27.75,
+							65.4,
+							48.12
+						],
+						[
+							"Z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": 22.61,
+					"top": 11.74,
+					"width": 15.75,
+					"height": 32.08,
+					"fill": "#995f5b",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							88.55,
+							68.91
+						],
+						[
+							"C",
+							88.36223340009444,
+							68.7206873491769,
+							88.10663753637056,
+							68.61420167565832,
+							87.84,
+							68.61420167565832
+						],
+						[
+							"C",
+							87.57336246362944,
+							68.61420167565832,
+							87.31776659990555,
+							68.7206873491769,
+							87.13,
+							68.91
+						],
+						[
+							"L",
+							82,
+							74.09
+						],
+						[
+							"L",
+							82,
+							63.24
+						],
+						[
+							"C",
+							82,
+							62.687715250169205,
+							81.55228474983079,
+							62.24,
+							81,
+							62.24
+						],
+						[
+							"C",
+							80.44771525016921,
+							62.24,
+							80,
+							62.687715250169205,
+							80,
+							63.24
+						],
+						[
+							"L",
+							80,
+							74.09
+						],
+						[
+							"L",
+							74.82,
+							68.91
+						],
+						[
+							"C",
+							74.42996254568907,
+							68.5222764052892,
+							73.80003745431092,
+							68.5222764052892,
+							73.41,
+							68.91
+						],
+						[
+							"C",
+							73.2206873491769,
+							69.09776659990555,
+							73.11420167565832,
+							69.35336246362944,
+							73.11420167565832,
+							69.62
+						],
+						[
+							"C",
+							73.11420167565832,
+							69.88663753637056,
+							73.2206873491769,
+							70.14223340009444,
+							73.41,
+							70.33
+						],
+						[
+							"L",
+							80,
+							76.92
+						],
+						[
+							"L",
+							80,
+							93.32
+						],
+						[
+							"C",
+							80,
+							93.87228474983078,
+							80.44771525016921,
+							94.32,
+							81,
+							94.32
+						],
+						[
+							"C",
+							81.55228474983079,
+							94.32,
+							82,
+							93.87228474983078,
+							82,
+							93.32
+						],
+						[
+							"L",
+							82,
+							76.92
+						],
+						[
+							"L",
+							88.59,
+							70.33
+						],
+						[
+							"C",
+							88.7741233903074,
+							70.13695046427138,
+							88.87347683444519,
+							69.8783333881406,
+							88.86596499134237,
+							69.61166295799035
+						],
+						[
+							"C",
+							88.85845314823953,
+							69.34499252784009,
+							88.74469882757685,
+							69.09237848733751,
+							88.55,
+							68.91
+						],
+						[
+							"Z"
+						]
+					]
+				},
+				{
+					"type": "path",
+					"version": "5.2.1",
+					"originX": "left",
+					"originY": "top",
+					"left": -32.67,
+					"top": -20.29,
+					"width": 36.95,
+					"height": 64.11,
+					"fill": "#995f5b",
+					"stroke": null,
+					"strokeWidth": 1,
+					"strokeDashArray": null,
+					"strokeLineCap": "butt",
+					"strokeDashOffset": 0,
+					"strokeLineJoin": "miter",
+					"strokeUniform": false,
+					"strokeMiterLimit": 4,
+					"scaleX": 1,
+					"scaleY": 1,
+					"angle": 0,
+					"flipX": false,
+					"flipY": false,
+					"opacity": 1,
+					"shadow": null,
+					"visible": true,
+					"backgroundColor": "",
+					"fillRule": "nonzero",
+					"paintFirst": "fill",
+					"globalCompositeOperation": "source-over",
+					"skewX": 0,
+					"skewY": 0,
+					"id": "Layer_1",
+					"path": [
+						[
+							"M",
+							53.07,
+							53.79
+						],
+						[
+							"L",
+							37.31,
+							69.56
+						],
+						[
+							"L",
+							37.31,
+							53.94
+						],
+						[
+							"L",
+							50.6,
+							40.65
+						],
+						[
+							"C",
+							50.992122172379865,
+							40.26063925136929,
+							50.99436074863071,
+							39.62712217237986,
+							50.605000000000004,
+							39.235
+						],
+						[
+							"C",
+							50.215639251369296,
+							38.842877827620136,
+							49.58212217237987,
+							38.84063925136929,
+							49.190000000000005,
+							39.23
+						],
+						[
+							"L",
+							37.31,
+							51.12
+						],
+						[
+							"L",
+							37.31,
+							31.21
+						],
+						[
+							"C",
+							37.31,
+							30.657715250169208,
+							36.8622847498308,
+							30.21,
+							36.31,
+							30.21
+						],
+						[
+							"C",
+							35.757715250169205,
+							30.21,
+							35.31,
+							30.657715250169208,
+							35.31,
+							31.21
+						],
+						[
+							"L",
+							35.31,
+							51.12
+						],
+						[
+							"L",
+							23.43,
+							39.23
+						],
+						[
+							"C",
+							23.037877827620136,
+							38.83511640387098,
+							22.399883596129015,
+							38.83287782762013,
+							22.005,
+							39.224999999999994
+						],
+						[
+							"C",
+							21.610116403870983,
+							39.617122172379865,
+							21.607877827620136,
+							40.25511640387098,
+							22,
+							40.65
+						],
+						[
+							"L",
+							35.3,
+							53.94
+						],
+						[
+							"L",
+							35.3,
+							69.56
+						],
+						[
+							"L",
+							19.54,
+							53.79
+						],
+						[
+							"C",
+							19.149962545689075,
+							53.4022764052892,
+							18.520037454310923,
+							53.4022764052892,
+							18.13,
+							53.79
+						],
+						[
+							"C",
+							17.9406873491769,
+							53.97776659990556,
+							17.834201675658328,
+							54.23336246362944,
+							17.834201675658328,
+							54.5
+						],
+						[
+							"C",
+							17.834201675658328,
+							54.76663753637056,
+							17.9406873491769,
+							55.02223340009444,
+							18.13,
+							55.21
+						],
+						[
+							"L",
+							35.31,
+							72.39
+						],
+						[
+							"L",
+							35.31,
+							93.32
+						],
+						[
+							"C",
+							35.31,
+							93.87228474983078,
+							35.757715250169205,
+							94.32,
+							36.31,
+							94.32
+						],
+						[
+							"C",
+							36.8622847498308,
+							94.32,
+							37.31,
+							93.87228474983078,
+							37.31,
+							93.32
+						],
+						[
+							"L",
+							37.31,
+							72.39
+						],
+						[
+							"L",
+							54.49,
+							55.21
+						],
+						[
+							"C",
+							54.882122172379866,
+							54.81787782762014,
+							54.882122172379866,
+							54.18212217237986,
+							54.49,
+							53.79
+						],
+						[
+							"C",
+							54.09787782762014,
+							53.397877827620135,
+							53.462122172379864,
+							53.397877827620135,
+							53.07,
+							53.79
+						],
+						[
+							"Z"
+						]
+					]
+				}
+			]
+		}
+	],
+	"background": "#5B7157"
+}
