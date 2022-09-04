@@ -2,19 +2,17 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-03 23:03:20
+ * @LastEditTime: 2022-09-04 14:05:18
  * @Description: 导入模板
 -->
 
 <template>
 <div style="display:inline-block">
-  <Divider plain orientation="left">便签模板</Divider>
-   <Tooltip :content="item.label"  v-for="(item, i) in  cangList" :key="i + '-bai1-button'" placement="top">
+  <Divider plain orientation="left">标题模板</Divider>
+   <Tooltip :content="item.label"  v-for="(item, i) in  list" :key="i + '-bai1-button'" placement="top">
      <img class="tmpl-img" :alt="item.label" :src="item.src" @click="getTempData(item.tempUrl)">
   </Tooltip>
-  <!-- 紫色模板 -->
-  <Divider plain orientation="left">可用模板</Divider>
-  <Button v-for="(item, i) in  keList" :key="i + '-zi-button'" size="small" @click="getTempData(item.tempUrl)">{{item.label}}</Button>
+  <!-- <Divider plain orientation="left">形状模板</Divider> -->
 </div>
 </template>
 
@@ -28,52 +26,17 @@ export default {
   data() {
     return {
       jsonFile: null,
-      keList:[
+      list:[
         {
-          label: '大字',
-          tempUrl: '/template/text.json',
+          label: '教师节',
+          tempUrl: '/template/3a7471f2-b8cf-4939-ad1a-a7d586768640.json',
+          src: './template/3a7471f2-b8cf-4939-ad1a-a7d586768640.png',
         },
         {
-          label: '封面模板',
-          tempUrl: '/template/yangshi/fengmian.json',
+          label: '教师节',
+          tempUrl: '/template/ef5eb884-28e0-4d79-9e98-a73d759541f8.json',
+          src: './template/ef5eb884-28e0-4d79-9e98-a73d759541f8.png',
         },
-      ],
-      cangList:[
-      {
-        label: '成语',
-        tempUrl: '/template/6870dc08-34a8-420e-b92e-edd862bda729.json',
-        src: './svgImg/06f2b39a-03c0-416b-98ca-2af954468bcb.svg',
-        },
-        {
-        label: '成语',
-        tempUrl: '/template/64e58c78-cd10-479c-8783-6d34cc4c6725.json',
-        src: './svgImg/e356cc49-2c04-4096-840f-65822633bc01.svg',
-      },
-      {
-        label: '成语',
-        tempUrl: '/template/9f8557b5-3e58-4f9f-9cbf-ac2fe14b966e.json',
-        src: './svgImg/e356cc49-2c04-4096-840f-65822633bc01.svg',
-      },
-        {
-        label: '成语',
-        tempUrl: '/template/zhijia.json',
-        src: './svgImg/zhijia.svg',
-      },
-        {
-        label: '成语',
-        tempUrl: '/template/zhijia1.json',
-        src: './svgImg/zhijia1.svg',
-      },
-      {
-        label: '成语',
-        tempUrl: '/template/zhao/xinchengyu.json',
-        src: './svgImg/517576e9-b59d-4360-9802-75d8e96b9407.svg',
-      },
-        {
-        label: '好看成语',
-        tempUrl: '/template/xin/chengyu.json',
-        src: './svgImg/7b7ce1fa-24a7-4eed-845f-90f7b4883124.svg',
-      },
       ],
     };
   },

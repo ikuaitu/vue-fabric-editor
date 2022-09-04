@@ -1,7 +1,7 @@
 # vue-fabric-editor
 基于fabric.js和Vue的图片编辑器。
 
-<p align="center"><img width="492" src="./src/assets/demo.png" /></p>
+<p align="center"><img src="./src/assets/demo.png" /></p>
 
 ### 已有功能
 - 导入JSON文件
@@ -21,13 +21,14 @@ yarn serve
 ```
 
 ### 正式版发布前必须完成：
+- [ ] 整理模板文件
 - [ ] 统一svg图标调用
 - [ ] 字体图片列表
 - [ ] 统一上传文件方法
 - [ ] 字体整理与字体下拉列表
 - [ ] 加载字体方法统一
 - [ ] 撤销操作优化，回退\重做有问题
-- [ ] 整理模板文件
+
 
 ### Bug修复
 - [ ] 元素锁定后多选可选择，锁定时刻选中编辑
