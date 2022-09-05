@@ -29,12 +29,12 @@ export default {
       list:[
         {
           label: '教师节',
-          tempUrl: '/template/3a7471f2-b8cf-4939-ad1a-a7d586768640.json',
+          tempUrl: '/vue-fabric-editor/template/3a7471f2-b8cf-4939-ad1a-a7d586768640.json',
           src: './template/3a7471f2-b8cf-4939-ad1a-a7d586768640.png',
         },
         {
           label: '教师节',
-          tempUrl: '/template/ef5eb884-28e0-4d79-9e98-a73d759541f8.json',
+          tempUrl: '/vue-fabric-editor/template/ef5eb884-28e0-4d79-9e98-a73d759541f8.json',
           src: './template/ef5eb884-28e0-4d79-9e98-a73d759541f8.png',
         },
       ],
