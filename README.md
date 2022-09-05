@@ -1,9 +1,9 @@
 # vue-fabric-editor
 基于fabric.js和Vue的图片编辑器。
-
+可轻松的自定义字体、素材模板。
 <p align="center"><img src="./src/assets/demo.png" /></p>
 
-### 已有功能
+## 已有功能
 - 导入JSON文件
 - 保存为PNG、SVG、JSON文件
 - 插入SVG、图片文件
@@ -13,26 +13,64 @@
 - 撤销/重做
 - 背景属性设置
 - 外观属性/字体属性/描边/阴影
+- 自定义字体
+- 自定义模板素材
 
+## 使用
 ### 启动项目
 ```
 yarn install
 yarn serve
 ```
 
-### 正式版发布前必须完成：
-- [x] 整理模板文件
-- [x] 统一上传文件方法
-- [x] 加载字体方法统一
-- [x] 字体整理与字体下拉列表
-- [ ] 统一svg图标调用
-- [ ] 撤销操作优化，回退\重做有问题
+### 自定义字体
+字体相关的文件在`src/assets/fonts`中，将字体文件放目录下，并将新添加的字体名称更新到`font.css`和`font.js`文件中。
+```js
+// font.js
+const cnList = [
+    {
+        "name": "汉体",
+        "fontFamily": "汉体"
+    },
+    {
+        "name": "华康金刚黑",
+        "fontFamily": "华康金刚黑"
+    }
+]
+
+const enList = []
+export default [...cnList, ...enList]
+```
+
+```css
+/* font.css */
+@font-face{
+    font-family: '汉体';
+    src : url('./cn/汉体.ttf');
+}
+
+@font-face{
+    font-family: '华康金刚黑';
+    src : url('./cn/华康金刚黑.ttf');
+}
+```
+### 自定义模板
+自定义模板的入口在`src/components/importTmpl.vue`组件中，可将模板图片与JSON组件放在`public/template`文件中，将数据拼在组件中即可展示。
+
+
+## 贡献指南
+这是一个自己在使用的设计编辑器项目，市场上有很多类似的收费的编辑器，作为一个开发人员，还是希望能够找到可便捷的扩展、定制的编辑器，如果你也有需求，欢迎一起来维护。
+微信：13146890191
+
+
+## 规划
 
 ### Bug修复
 - [ ] 元素锁定后多选可选择，锁定时刻选中编辑
 - [ ] 反转后图形变形,水平翻转图片时的bug
 
-### 新增功能
+### 可能新增功能
+- [ ] svgIcon汇总
 - [ ] 标题样式列表模板
 - [ ] 渐变配置
 - [ ] 复制 粘贴 快捷键
@@ -47,20 +85,3 @@ yarn serve
 - [ ] 绘制线条
 - [ ] 绘制图形
 
-
-### 学习资料
-<!-- 中文文档 -->
-- https://github.com/Rookie-Birds/Fabric-Tutorial_zh-CN
-- https://gitbook.cn/books/61ed420bf275ee326adaee9d/index.html
-- http://fabricjs.com/docs/fabric.Canvas.html
-- https://www.cnblogs.com/rachelch/p/14172947.html
-- http://fabricjs.com/kitchensink
-- https://www.php.cn/js-tutorial-400300.html
-- https://stackoverflow.com/questions/19043219/undo-redo-feature-in-fabric-js
-
-### 素材地址
-<!-- 素材 -->
-- [svg首选](https://www.svgrepo.com/)
-- [svg首选2](https://www.shareicon.net/)
-- [svg纯色](https://svgsilh.com/zh/)
-- [svg好多元素](http://gofreedownload.net/)
