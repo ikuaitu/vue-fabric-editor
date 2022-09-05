@@ -10,7 +10,7 @@
   <div>
     <Divider plain orientation="left">素材</Divider>
     <div class="box">
-        <img :src="`/svg/${i}.svg`" alt="" :key="item" v-for="(item, i) in arr" @click="addItem(i)" >
+        <img :src="`/vue-fabric-editor/svg/${i}.svg`" alt="" :key="item" v-for="(item, i) in arr" @click="addItem(i)" >
     </div>
   </div>
 </template>
