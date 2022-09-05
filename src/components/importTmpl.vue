@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-04 14:05:18
+ * @LastEditTime: 2022-09-05 22:15:20
  * @Description: 导入模板
 -->
 
@@ -29,12 +29,12 @@ export default {
       list:[
         {
           label: '教师节',
-          tempUrl: '/vue-fabric-editor/template/3a7471f2-b8cf-4939-ad1a-a7d586768640.json',
+          tempUrl: './template/3a7471f2-b8cf-4939-ad1a-a7d586768640.json',
           src: './template/3a7471f2-b8cf-4939-ad1a-a7d586768640.png',
         },
         {
           label: '教师节',
-          tempUrl: '/vue-fabric-editor/template/ef5eb884-28e0-4d79-9e98-a73d759541f8.json',
+          tempUrl: './template/ef5eb884-28e0-4d79-9e98-a73d759541f8.json',
           src: './template/ef5eb884-28e0-4d79-9e98-a73d759541f8.png',
         },
       ],

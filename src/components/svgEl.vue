@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-04 00:20:36
+ * @LastEditTime: 2022-09-05 22:14:13
  * @Description: 素材面板
 -->
 
@@ -10,7 +10,7 @@
   <div>
     <Divider plain orientation="left">素材</Divider>
     <div class="box">
-        <img :src="`/vue-fabric-editor/svg/${i}.svg`" alt="" :key="item" v-for="(item, i) in arr" @click="addItem(i)" >
+        <img :src="`./svg/${i}.svg`" alt="" :key="item" v-for="(item, i) in arr" @click="addItem" >
     </div>
   </div>
 </template>
@@ -33,8 +33,8 @@ export default {
   },
   methods: {
     // 按照类型渲染
-    addItem(i) {
-      const url = `/svg/${i}.svg`
+    addItem(e) {
+      const url = e.target.src
       this.fabric.loadSVGFromURL(url, (objects, options) => {
         var item = this.fabric.util.groupSVGElements(objects, {...options, ...defaultPosition,
           id: uuid(),
