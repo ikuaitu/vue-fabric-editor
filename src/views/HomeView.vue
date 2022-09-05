@@ -140,6 +140,7 @@ export default {
       hotkeys(canvas.c)
       // 选中后的删除图标
       this.setRemoveIcon()
+      this.setControlsStyle(fabric)
   },
   methods:{
     setRemoveIcon(){
@@ -171,6 +172,14 @@ export default {
         ctx.drawImage(img, -size / 2, -size / 2, size, size);
         ctx.restore();
       }
+    },
+    setControlsStyle(fabric){
+      fabric.Object.prototype.transparentCorners = false;
+      fabric.Object.prototype.cornerSize = 10;
+      fabric.Object.prototype.cornerStrokeColor = '#C2C2C2';
+      fabric.Object.prototype.cornerColor = '#ffffff';
+      fabric.Object.prototype.cornerStyle = 'circle';
+      fabric.Object.prototype.borderColor = '#85CCF9';
     }
   }
 };
