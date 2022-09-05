@@ -327,6 +327,8 @@ export default {
     },
     // 修改字体
     changeFontFamily(fontName) {
+      if(!fontName) return
+
       // 跳过加载的属性
       const skipFonts = ['arial', 'Microsoft YaHei']
       if (skipFonts.includes(fontName)) {
