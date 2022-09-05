@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-03 23:02:58
+ * @LastEditTime: 2022-09-05 22:46:24
  * @Description: 导入JSON文件
 -->
 
@@ -24,7 +24,7 @@
 
 <script>
 import select from '@/mixins/select'
-import FontFaceObserver from 'fontfaceobserver'
+import { downFontByJSON } from '@/utils/utils'
 export default {
   name: 'ToolBar',
   mixins: [select],
@@ -45,28 +45,16 @@ export default {
         return
       }
       // 加载字体后导入
-      this.getFonts(this.jsonFile).then(() => {
+      downFontByJSON(this.jsonFile).then(() => {
         this.canvas.c.loadFromJSON(this.jsonFile, this.canvas.c.renderAll.bind(this.canvas.c));
       })
-    },
-    // 获取字体
-    getFonts(jsonFile) {
-      const skipFonts = ['arial', 'Microsoft YaHei']
-      const fontFamilys = JSON.parse(jsonFile).objects.filter(item => {
-        // 为text 并且不为跳过字体
-        return (item.type.includes('text') && !skipFonts.includes(item.fontFamily))
-      }).map(item => item.fontFamily)
-      const fontFamilysAll = fontFamilys.map(fontName => {
-        const font = new FontFaceObserver(fontName);
-        return font.load(null, 150000)
-      })
-      return Promise.all(fontFamilysAll)
     },
     handleUpload(file) {
       const reader = new FileReader();
       reader.readAsText(file, 'UTF-8');
       reader.onload = () => {
         this.jsonFile = reader.result
+        console.log(this.jsonFile)
       };
       return false;
     },

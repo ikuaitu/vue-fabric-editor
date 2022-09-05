@@ -71,6 +71,7 @@
 </template>
 
 <script>
+import { getImgStr } from "@/utils/utils";
 export default {
   name: 'bgBar',
   inject: ['canvas', 'fabric'],
@@ -144,12 +145,9 @@ export default {
     },
     // 文件选择
     handleUpload(file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.imgFile = reader.result
-      };
-      return false;
+      getImgStr(file).then(res => {
+        this.imgFile = res
+      })
     },
     // 背景颜色设置
     setThisColor() {

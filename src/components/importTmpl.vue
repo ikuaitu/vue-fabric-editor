@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-05 22:15:20
+ * @LastEditTime: 2022-09-05 22:46:31
  * @Description: 导入模板
 -->
 
@@ -18,8 +18,7 @@
 
 <script>
 import select from '@/mixins/select'
-
-import FontFaceObserver from 'fontfaceobserver'
+import { downFontByJSON } from '@/utils/utils'
 export default {
   name: 'ToolBar',
   mixins: [select],
@@ -48,26 +47,13 @@ export default {
               return h('div','正在加载字体，您耐心等候...')
           }
       });
-      this.getFonts(this.jsonFile).then(() => {
+      downFontByJSON(this.jsonFile).then(() => {
         this.$Spin.hide();
         this.canvas.c.loadFromJSON(this.jsonFile, this.canvas.c.renderAll.bind(this.canvas.c));
       }).catch((e) => {
         this.$Spin.hide();
         this.$Message.error('字体加载失败，请重试')
       })
-    },
-    // 获取字体
-    getFonts(jsonFile){
-      const skipFonts = ['arial','Microsoft YaHei']
-      const fontFamilys = JSON.parse(jsonFile).objects.filter(item => {
-        // 为text 并且不为跳过字体
-        return (item.type.includes('text') && !skipFonts.includes(item.fontFamily))
-      }).map(item => item.fontFamily)
-      const fontFamilysAll = fontFamilys.map(fontName => {
-         const font = new FontFaceObserver(fontName);
-         return font.load(null,150000)
-      })
-      return Promise.all(fontFamilysAll)
     },
     // 获取模板数据
     getTempData(tmplUrl){

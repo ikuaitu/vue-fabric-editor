@@ -224,7 +224,7 @@
 <script>
 import select from '@/mixins/select'
 import FontFaceObserver from 'fontfaceobserver'
-
+import fontList from "@/assets/fonts/font";
 export default {
   name: 'ToolBar',
   mixins: [select],
@@ -271,7 +271,7 @@ export default {
         blur: 0,
       },
       // 字体下拉列表
-      fontFamilyList: ['方正硬笔楷书简体', '方正字迹-徐万清手写体', '日本恋', '1-1', '2-2', '3-3', '4-4', '5-5', '6-6', '7-7', '8-8', '方正清刻本悦宋简', '苦累蛙圆体', '文鼎PL细上海宋', 'meibeiheiehi', 'arial', 'Microsoft YaHei', '阿瓜准圆体-bold1.0', '阿瓜准圆体-light1.0', '阿瓜准圆体-regular1.0', 'BRANIC', 'Harshita', '华文楷体', '华康金刚黑 Regular', '品如手写体'],
+      fontFamilyList: fontList.map(item => item.fontFamily),
       // 字体对齐方式
       textAlignList: ['left', 'center', 'right'],
       // 对齐图标
@@ -313,7 +313,6 @@ export default {
 
       }
     })
-
   },
   methods: {
     // 图片属性

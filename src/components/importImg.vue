@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-03 23:09:47
+ * @LastEditTime: 2022-09-05 22:33:57
  * @Description: 插入图片
 -->
 
@@ -24,6 +24,7 @@
 
 <script>
 import select from '@/mixins/select'
+import { getImgStr } from "@/utils/utils";
 import { v4 as uuid } from 'uuid';
 export default {
   name: 'ToolBar',
@@ -62,12 +63,9 @@ export default {
     },
     // 选择文件
     handleUpload(file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.imgFile = reader.result
-      };
-      return false;
+      getImgStr(file).then(res => {
+        this.imgFile = res
+      })
     },
   }
 };

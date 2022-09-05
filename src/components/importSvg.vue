@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-03 23:20:04
+ * @LastEditTime: 2022-09-05 22:36:02
  * @Description: 插入SVG元素
 -->
 
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { getImgStr } from "@/utils/utils";
 import select from '@/mixins/select'
 import { v4 as uuid } from 'uuid';
 export default {
@@ -72,12 +73,9 @@ export default {
       });
     },
     handleUpload (file) {
-      const reader = new FileReader();
-			reader.readAsDataURL(file);
-				reader.onload = () => {
-          this.svgFile = reader.result
-				};
-      return false;
+      getImgStr(file).then(res => {
+        this.svgFile = res
+      })
     },
   }
 };
