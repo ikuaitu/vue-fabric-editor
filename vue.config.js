@@ -7,7 +7,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
   chainWebpack: (config) => {
     config.plugin('html').tap((args) => {
-      args[0].title = '笔记生成工具'
+      args[0].title = '设计编辑器-vue-fabric-editor'
       return args
     })
   }
