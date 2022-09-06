@@ -31,6 +31,7 @@
             v-model="fontAttr.textBackgroundColor"
             @on-change="(value) => changeCommon('textBackgroundColor', value)"
             alpha
+            transfer
             size="small"
           />
         </FormItem>
@@ -109,6 +110,7 @@
             v-model="baseAttr.fill"
             @on-change="(value) => changeCommon('fill', value)"
             alpha
+            transfer
             size="small"
           />
         </FormItem>
@@ -163,6 +165,7 @@
             v-model="baseAttr.stroke"
             @on-change="(value) => changeCommon('stroke', value)"
             alpha
+            transfer
             size="small"
           />
         </FormItem>
@@ -176,6 +179,7 @@
             v-model="baseAttr.shadow.color"
             @on-change="(value) => changeShadow('color', value)"
             alpha
+            transfer
           />
         </FormItem>
         <FormItem label="模糊">

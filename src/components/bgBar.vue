@@ -3,7 +3,7 @@
     <Divider orientation="left" plain>颜色</Divider>
     <Form :label-width="40">
       <FormItem label="颜色" prop="name">
-        <ColorPicker v-model="color" @on-change="setThisColor" size="small" />
+        <ColorPicker v-model="color" @on-change="setThisColor" size="small" transfer />
       </FormItem>
       <FormItem label="图片" prop="name">
         <Button @click="insert" icon="ios-cloud-upload-outline" size="small"
