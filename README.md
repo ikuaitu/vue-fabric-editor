@@ -54,7 +54,7 @@ export default [...cnList, ...enList]
 }
 ```
 ### 自定义模板
-自定义模板的入口在`src/components/importTmpl.vue`组件中，可将模板图片与JSON组件放在`public/template`文件中，将数据拼在组件中即可展示。
+自定义模板的入口在`src/components/importTmpl.vue`组件中，可将模板图片与JSON文件放在`public/template`文件中，将数据拼在组件中即可展示。
 
 
 ## 贡献指南
