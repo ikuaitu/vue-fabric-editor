@@ -17,6 +17,7 @@
 
 <script>
 import select from '@/mixins/select'
+import EventBus from '@/plugin/eventbus'
 
 const maxStep = 10
 
@@ -36,7 +37,14 @@ export default {
       'object:modified': this.save,
       'selection:updated': this.save,
     });
+
+    EventBus.on('historyUndo', this.undo)
+    this.$once('hook:beforeDestroy', () => {
+      EventBus.off('historyUndo')
+    })
+
   },
+
   methods:{
     // 保存记录
     save() {
