@@ -40,7 +40,7 @@ export default {
 
     EventBus.on('historyUndo', this.undo)
     this.$once('hook:beforeDestroy', () => {
-      EventBus.off('historyUndo')
+      EventBus.off('historyUndo', this.undo)
     })
 
   },
