@@ -17,6 +17,7 @@
 
 <script>
 import select from '@/mixins/select'
+import onCtrlZ from '@/core/hotkeys/ctrlz';
 
 const maxStep = 10
 
@@ -36,7 +37,16 @@ export default {
       'object:modified': this.save,
       'selection:updated': this.save,
     });
+
+    onCtrlZ(this.undo)
+
+    // EventBus.on('historyUndo', this.undo)
+    // this.$once('hook:beforeDestroy', () => {
+    //   EventBus.off('historyUndo', this.undo)
+    // })
+
   },
+
   methods:{
     // 保存记录
     save() {
