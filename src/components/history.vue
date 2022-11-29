@@ -17,7 +17,7 @@
 
 <script>
 import select from '@/mixins/select'
-import EventBus from '@/plugin/eventbus'
+import onCtrlZ from '@/core/hotkeys/ctrlz';
 
 const maxStep = 10
 
@@ -38,10 +38,12 @@ export default {
       'selection:updated': this.save,
     });
 
-    EventBus.on('historyUndo', this.undo)
-    this.$once('hook:beforeDestroy', () => {
-      EventBus.off('historyUndo', this.undo)
-    })
+    onCtrlZ(this.undo)
+
+    // EventBus.on('historyUndo', this.undo)
+    // this.$once('hook:beforeDestroy', () => {
+    //   EventBus.off('historyUndo', this.undo)
+    // })
 
   },
 

@@ -104,7 +104,8 @@ import attribute from '@/components/attribute.vue'
 
 // 功能组件
 import EventHandle from '@/utils/eventHandler'
-import hotkeys from '@/plugin/hotkeys'
+import onBackSpace from '@/core/hotkeys/backspace'
+import onLRDU from '@/core/hotkeys/lrdu'
 
 import { fabric } from 'fabric';
 
@@ -137,7 +138,35 @@ export default {
       this.show = true
       this.$Spin.hide();
       event.init(canvas.c)
-      hotkeys(canvas.c)
+      onLRDU((event, handler) => {
+        const activeObject = this.canvas.getActiveObject()
+        if (activeObject) {
+          switch (handler.key) {
+            case 'left':
+                activeObject.set('left', activeObject.left - 1 )
+                break;
+            case 'right':
+                activeObject.set('left', activeObject.left + 1 )
+                break;
+            case 'down':
+                activeObject.set('top', activeObject.top + 1 )
+                break;
+            case 'up':
+                activeObject.set('top', activeObject.top - 1 )
+                break;
+            default:
+          }
+          this.canvas.renderAll()
+        }
+      })
+      onBackSpace(() => {
+        const activeObject = this.canvas.getActiveObjects();
+        if (activeObject) {
+          activeObject.map(item => this.canvas.remove(item))
+          this.canvas.requestRenderAll()
+          this.canvas.discardActiveObject()
+        }
+      })
       // 选中后的删除图标
       this.setRemoveIcon()
       this.setControlsStyle(fabric)

@@ -7,7 +7,6 @@
  */
 
 import hotkeys from 'hotkeys-js';
-import EventBus from './eventbus';
 
 export default function(canvas){
     hotkeys('left,right,down,up', function (event, handler){
@@ -41,7 +40,4 @@ export default function(canvas){
         }
     });
 
-    hotkeys('ctrl+z', function(event, handler) {
-        EventBus.emit('historyUndo')
-    })
 }
