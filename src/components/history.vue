@@ -17,7 +17,8 @@
 
 <script>
 import select from '@/mixins/select'
-import onCtrlZ from '@/core/hotkeys/ctrlz';
+import onHotKeys from '@/core/hotkeys'
+import keyNames from '@/core/hotkeys/constantKey'
 
 const maxStep = 10
 
@@ -38,7 +39,7 @@ export default {
       'selection:updated': this.save,
     });
 
-    onCtrlZ(this.undo)
+    onHotKeys(keyNames.ctrlz, this.undo)
 
     // EventBus.on('historyUndo', this.undo)
     // this.$once('hook:beforeDestroy', () => {
