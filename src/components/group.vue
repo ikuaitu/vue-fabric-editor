@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-03 22:55:36
+ * @LastEditTime: 2022-12-07 13:34:56
  * @Description: 组合与拆分组合
 -->
 
@@ -17,7 +17,7 @@
 
 <script>
 import select from '@/mixins/select'
-
+import { v4 as uuid } from 'uuid';
 export default {
   name: 'ToolBar',
   mixins: [select],
@@ -40,6 +40,9 @@ export default {
     unGroup(){
       // 先获取当前选中的对象，然后打散
       this.canvas.c.getActiveObject().toActiveSelection()
+      this.canvas.c.getActiveObject().getObjects().forEach(item => {
+        item.set('id', uuid())
+      })
       this.canvas.c.discardActiveObject().renderAll();
     },
     group(){

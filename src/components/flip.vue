@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-03 22:42:29
+ * @LastEditTime: 2022-12-07 13:28:38
  * @Description: 元素翻转
 -->
 
@@ -29,7 +29,7 @@ export default {
     },
     flip(type){
       const activeObject = this.canvas.c.getActiveObject();
-      activeObject.set('scale' + type, -1).setCoords()
+      activeObject.set('flip' + type, !activeObject['flip' + type]).setCoords()
       this.canvas.c.requestRenderAll()
     }
   }
