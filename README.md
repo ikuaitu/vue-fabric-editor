@@ -83,3 +83,5 @@ export default [...cnList, ...enList]
 - [ ] 绘制线条
 - [ ] 绘制图形
 
+## License
+Licensed under the MIT License.
