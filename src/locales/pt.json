@@ -4,6 +4,8 @@
     "background": "Fundo",
 
     "size": "Tamanho",
+    "width": "Largura",
+    "height": "Altura",
     "common_elements": "Elementos comuns",
     "quick_navigation": "Navegação rápida",
     "color_macthing": "Seleção de cor",
@@ -55,5 +57,32 @@
      "activity": "Atividade",
      "vintage": "vintage",
      "animals": "animais",
-     "hand_painted": "pintado à mão"
+     "hand_painted": "pintado à mão",
+     "scenary_x": "Cena {number}",
+     "color": "Cor",
+     "red_book_vertical": "Red Book - V",
+     "red_book_horizontal": "Red Book - H",
+     "phone_wallpaper": "Phone Wallpaper",
+
+     "attributes": {
+         "font": "Fonte",
+         "align": "Alinhamento",
+         "bold": "Negrito:",
+         "italic": "Italico:",
+         "underline": "Underline:",
+         "stroke": "Stroke:",
+         "swipe_up": "Swipe UP:",
+         "line_height": "Line height",
+         "char_spacing": "Espaço Char.",
+         "exterior": "Exterior",
+         "angle": "Ângulo",
+         "left": "Esq",
+         "top": "Topo",
+         "opacity": "Transparência",
+         "shadow": "Sombra",
+         "blur": "Blur",
+         "offset_x": "X",
+         "offset_y": "Y",
+         "picture_filter": "Filtro"
+     }
 }
