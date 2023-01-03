@@ -8,7 +8,7 @@
 
 <template>
   <div class="box">
-    <Divider plain orientation="left" v-if="list.length">图层</Divider>
+    <Divider plain orientation="left" v-if="list.length">{{ $t('layers') }}</Divider>
     <div class="layer-box">
       <div v-for="item in list" @click="select(item.id)" :key="item.id"
         :class="isSelect(item) && 'active'"

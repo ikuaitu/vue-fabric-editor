@@ -17,7 +17,7 @@
           <InputNumber :max="2000" :min="1" v-model="height" @on-change="setSize" size="small"></InputNumber>
       </FormItem>
     </Form>
-    <Divider plain orientation="left">预设尺寸</Divider>
+    <Divider plain orientation="left">{{ $t('default_size') }}</Divider>
     <ButtonGroup vertical>
       <Button
         v-for="(item, i) in presetSize"

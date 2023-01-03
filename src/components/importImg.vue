@@ -8,15 +8,15 @@
 
 <template>
   <div style="display: inline-block">
-    <Button @click="insert" size="small">插入图片</Button>
+    <Button @click="insert" size="small">{{ $t('insert_picture') }}</Button>
     <Modal
       v-model="showModal"
-      title="请选择"
+      :title="$t('please_choose')"
       @on-ok="insertImgFile"
       @on-cancel="showModal = false,imgFile = null "
     >
       <Upload :before-upload="handleUpload" action="#">
-        <Button icon="ios-cloud-upload-outline">选择图片文件</Button>
+        <Button icon="ios-cloud-upload-outline">{{  $t('select_image') }}</Button>
       </Upload>
     </Modal>
   </div>

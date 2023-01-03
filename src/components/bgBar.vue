@@ -7,11 +7,11 @@
       </FormItem>
       <FormItem label="图片" prop="name">
         <Button @click="insert" icon="ios-cloud-upload-outline" size="small"
-          >上传背景</Button
+          >{{ $t('upload_background') }}</Button
         >
       </FormItem>
     </Form>
-    <Divider orientation="left" plain>配色</Divider>
+    <Divider orientation="left" plain>{{ $t('color_macthing') }}</Divider>
     <div class="color-list">
       <template v-for="(item, i) in colorList">
         <div :key="item.label + i" class="item">
@@ -25,7 +25,7 @@
         </div>
       </template>
     </div>
-    <Divider orientation="left" plain>背景纹理</Divider>
+    <Divider orientation="left" plain>{{ $t('background_texture') }}</Divider>
     <div>
       <img
         src="@/assets/1.png"
@@ -59,12 +59,12 @@
     </div>
     <Modal
       v-model="showModal"
-      title="请选择背景图片"
+      :title="$t('alert.select_image')"
       @on-ok="insertImgFile"
       @on-cancel="showModal = false"
     >
       <Upload :before-upload="handleUpload" action="#">
-        <Button icon="ios-cloud-upload-outline">选择图片文件</Button>
+        <Button icon="ios-cloud-upload-outline">{{ $t('select_image') }}</Button>
       </Upload>
     </Modal>
   </div>
