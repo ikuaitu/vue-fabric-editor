@@ -8,21 +8,21 @@
 
 <template>
 <div style="display:inline-block">
-  <Button @click="insert" size="small">插入SVG元素</Button>
+  <Button @click="insert" size="small">{{ $t('insert_svg') }}</Button>
   <Modal
         v-model="showModal"
-        title="请选择"
+        :title="$t('please_choose')"
         @on-ok="insertSvg"
         @on-cancel="showModal = false">
         <RadioGroup v-model="insertType" type="button" button-style="solid" style="padding-bottom:  10px">
-            <Radio label="string">字符串</Radio>
-            <Radio label="file">文件</Radio>
+            <Radio label="string">{{ $t('string') }}</Radio>
+            <Radio label="file">{{ $t('file') }}</Radio>
         </RadioGroup>
         <!-- 字符串 -->
         <Input v-if="insertType === 'string'" v-model="svgStr" show-word-limit type="textarea" placeholder="请输入SVG字符" />
         <!-- 文件 -->
         <Upload v-if="insertType === 'file'" :before-upload="handleUpload" action="#">
-            <Button icon="ios-cloud-upload-outline">选择SVG文件</Button>
+            <Button icon="ios-cloud-upload-outline">{{ $t('select_svg') }}</Button>
         </Upload>
     </Modal>
 </div>

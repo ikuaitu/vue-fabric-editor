@@ -33,9 +33,9 @@
         <Content style=" display: flex; height: calc(100vh - 64px);">
           <div v-if="show" style="width: 380px; height: 100%; background:#fff; display: flex">
               <Menu :active-name="menuActive" accordion @on-select="activeIndex => menuActive = activeIndex" width="80px">
-                <MenuItem :name="1" style="padding:10px"><Icon type="md-book" />模板</MenuItem>
-                <MenuItem :name="2" style="padding:10px"><Icon type="md-create" />元素</MenuItem>
-                <MenuItem :name="3" style="padding:10px"><Icon type="ios-build" />背景</MenuItem>
+                <MenuItem :name="1" style="padding:10px"><Icon type="md-book" />{{ $t('templates') }}</MenuItem>
+                <MenuItem :name="2" style="padding:10px"><Icon type="md-create" />{{ $t('elements') }}</MenuItem>
+                <MenuItem :name="3" style="padding:10px"><Icon type="ios-build" />{{ $t('background') }}</MenuItem>
               </Menu>
               <div class="content">
                   <!-- 生成模板 -->

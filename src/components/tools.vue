@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Divider plain orientation="left">常用元素</Divider>
+    <Divider plain orientation="left">{{$t('common_elements')}}</Divider>
     <div class="tool-box">
       <span @click="addText">
         <svg
@@ -88,18 +88,18 @@
         </svg>
       </span>
     </div>
-    <Divider plain orientation="left">快捷导航</Divider>
+    <Divider plain orientation="left">{{ $t('quick_navigation') }}</Divider>
     <div>
-      <a href="https://color.uisdc.com/pick.html" target="_blank">配色</a>
+      <a href="https://color.uisdc.com/pick.html" target="_blank">{{  $t('color_macthing') }}</a>
       <Divider type="vertical" />
-      <a href="https://www.svgrepo.com/" target="_blank">素材</a>
+      <a href="https://www.svgrepo.com/" target="_blank">{{ $t('material') }}</a>
       <Divider type="vertical" />
-      <a href="https://unsplash.com/" target="_blank">图片</a>
+      <a href="https://unsplash.com/" target="_blank">{{ $t('picture') }}</a>
       <Divider type="vertical" />
       <a
         href="https://www.pexels.com/zh-cn/search/%E8%83%8C%E6%99%AF/"
         target="_blank"
-        >背景</a
+        >{{ $t('background') }}</a
       >
     </div>
   </div>
@@ -120,7 +120,7 @@ export default {
   },
   methods: {
     addText() {
-      const text = new this.fabric.IText('万事大吉', {
+      const text = new this.fabric.IText(this.$t('everything_is_fine'), {
         ...defaultPosition,
         fontSize: 40, id: uuid(),
       });
@@ -138,7 +138,7 @@ export default {
       this.canvas.c.renderAll()
     },
     addTextBox() {
-      const text = new this.fabric.Textbox('诸事顺遂', {
+      const text = new this.fabric.Textbox(this.$t('everything_goes_well'), {
         ...defaultPosition,
         splitByGrapheme: true, width: 300,
         fontSize: 40, id: uuid(),

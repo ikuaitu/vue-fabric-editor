@@ -8,14 +8,14 @@
 
 <template>
   <div>
-    <Button @click="clear">清空</Button>
+    <Button @click="clear">{{ $t('empty') }}</Button>
     <Dropdown style="margin-left: 10px" @on-click="saveWith">
-      <Button type="primary">保存 <Icon type="ios-arrow-down"></Icon></Button>
+      <Button type="primary">{{ $t('keep') }} <Icon type="ios-arrow-down"></Icon></Button>
       <DropdownMenu slot="list">
-        <DropdownItem name="clipboard">复制到剪切板</DropdownItem>
-        <DropdownItem name="saveImg">保存为图片</DropdownItem>
-        <DropdownItem name="saveSvg">保存为SVG</DropdownItem>
-        <DropdownItem name="saveJson" divided>保存为JSON文件</DropdownItem>
+        <DropdownItem name="clipboard">{{ $t('copy_to_clipboard') }}</DropdownItem>
+        <DropdownItem name="saveImg">{{ $t('save_as_picture') }}</DropdownItem>
+        <DropdownItem name="saveSvg">{{ $t('save_as_svg') }}</DropdownItem>
+        <DropdownItem name="saveJson" divided>{{ $t('save_as_json') }}</DropdownItem>
       </DropdownMenu>
     </Dropdown>
   </div>
