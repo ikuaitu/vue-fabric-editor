@@ -19,7 +19,7 @@ function loadLocaleMessages() {
   return messages;
 }
 export default new VueI18n({
-  locale: process.env.VUE_APP_I18N_LOCALE || "pt",
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "pt",
+  locale: process.env.VUE_APP_I18N_LOCALE || "ch",
+  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "ch",
   messages: loadLocaleMessages()
 });
