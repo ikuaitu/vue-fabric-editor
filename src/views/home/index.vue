@@ -108,6 +108,9 @@ import { hotKeyOnLRDU, hotKeyOnBackSpace, hotkeyOnCtrlC, hotkeyOnCtrlV } from '.
 
 import { fabric } from 'fabric';
 
+// 对齐辅助线
+import initAligningGuidelines from '@/utils/aligningGuidelines';
+
 const event = new EventHandle()
 const canvas = {}
 export default {
@@ -137,6 +140,8 @@ export default {
       this.show = true
       this.$Spin.hide();
       event.init(canvas.c)
+      initAligningGuidelines(canvas.c)
+
       hotKeyOnLRDU.call(this)
       hotKeyOnBackSpace.call(this)
       hotkeyOnCtrlC.call(this)
