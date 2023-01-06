@@ -2,11 +2,11 @@
     "templates": "模板",
     "elements": "元素",
     "background": "背景",
-    
     "size": "尺寸",
     "width": "宽度",
     "height": "高度",
-    "common_elements": "共同要素",
+    "common_elements": "基础要素",
+    "draw_elements": "绘制元素",
     "quick_navigation": "快捷导航",
     "color_macthing": "配色",
     "background_texture": "背景纹理",

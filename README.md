@@ -82,7 +82,7 @@ export default [...cnList, ...enList]
 - [ ] 平铺背景、等比例背景
 - [ ] 预览
 - [ ] 描边 strokeDashArray
-- [ ] 绘制线条
+- [x] 绘制线条
 - [ ] 绘制图形
 
 ## License

@@ -111,6 +111,8 @@ import { fabric } from 'fabric';
 // 对齐辅助线
 import initAligningGuidelines from '@/utils/aligningGuidelines';
 
+
+
 const event = new EventHandle()
 const canvas = {}
 export default {
@@ -213,6 +215,8 @@ export default {
   width: 300px;
   height: 300px;
   margin: 0 auto;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVQ4jWNgYGAQIYAJglEDhoUBg9+FowbQ2gAARjwKARjtnN8AAAAASUVORK5CYII=");
+  background-size: 30px 30px;
 }
 .content{
   flex: 1;

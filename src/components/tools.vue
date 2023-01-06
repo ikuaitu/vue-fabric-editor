@@ -88,6 +88,12 @@
         </svg>
       </span>
     </div>
+    <Divider plain orientation="left">{{ $t('draw_elements') }}</Divider>
+    <div class="tool-box">
+      <span @click="drawingLineModeSwitch" :class="isDrawingLineMode && 'bg'">
+        <svg t="1673022047861" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4206" width="20" height="20"><path d="M187.733333 1024h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM34.133333 989.866667h136.533334v-136.533334H34.133333v136.533334zM1006.933333 204.8h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM853.333333 170.666667h136.533334V34.133333h-136.533334v136.533334z" fill="" p-id="4207"></path><path d="M187.733333 853.333333c-3.413333 0-10.24 0-13.653333-3.413333-6.826667-6.826667-6.826667-17.066667 0-23.893333l648.533333-648.533334c6.826667-6.826667 17.066667-6.826667 23.893334 0s6.826667 17.066667 0 23.893334l-648.533334 648.533333c0 3.413333-6.826667 3.413333-10.24 3.413333z" fill="" p-id="4208"></path></svg>
+      </span>
+    </div>
     <Divider plain orientation="left">{{ $t('quick_navigation') }}</Divider>
     <div>
       <a href="https://color.uisdc.com/pick.html" target="_blank">{{  $t('color_macthing') }}</a>
@@ -107,7 +113,7 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
-
+import initializeLineDrawing from '@/utils/initializeLineDrawing';
 const defaultPosition = {
   left: 100, top: 100, shadow: '', fontFamily: 'arial'
 }
@@ -116,7 +122,12 @@ export default {
   inject: ['canvas', 'fabric'],
   data() {
     return {
+      isDrawingLineMode: false
     };
+  },
+  created() {
+    // 线条绘制
+    initializeLineDrawing(this.canvas.c, defaultPosition)
   },
   methods: {
     addText() {
@@ -180,6 +191,13 @@ export default {
       this.canvas.c.add(circle)
       this.canvas.c.setActiveObject(circle);
     },
+    drawingLineModeSwitch(){
+      this.isDrawingLineMode = this.canvas.c.isDrawingLineMode = !this.canvas.c.isDrawingLineMode
+      this.canvas.c.forEachObject(obj => {
+          obj.selectable = !this.isDrawingLineMode;
+          obj.evented = !this.isDrawingLineMode;
+      })
+    }
   }
 };
 </script>
@@ -202,8 +220,19 @@ export default {
       }
     }
   }
+  .bg{
+    background: #d8d8d8;
+
+    &:hover {
+      svg {
+        fill: #2d8cf0;
+      }
+    }
+  }
 }
 .img {
   width: 20px;
 }
+
+
 </style>
