@@ -2,23 +2,25 @@
  * @Author: 秦少卫
  * @Date: 2023-01-06 23:40:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-07 01:13:15
+ * @LastEditTime: 2023-01-07 01:35:50
  * @Description: 线条绘制
  */
 
 import { v4 as uuid } from 'uuid';
-
+import Arrow from "@/core/objects/Arrow";
 function initializeLineDrawing (canvas, defaultPosition) {
-    let isDrawingLine = false,
+    let isDrawingLine = false,isDrawingLineMode = false, isArrow = false,
         lineToDraw, pointer, pointerPoints
     canvas.on('mouse:down', (o) => {
-        if (!canvas.isDrawingLineMode) return
+        if (!isDrawingLineMode) return
 
         isDrawingLine = true
         pointer = canvas.getPointer(o.e)
         pointerPoints = [pointer.x, pointer.y, pointer.x, pointer.y]
 
-        lineToDraw = new fabric.Line(pointerPoints, {
+
+        const nodeHandler = isArrow ? Arrow : fabric.Line
+        lineToDraw = new nodeHandler(pointerPoints, {
             strokeWidth: 2,
             stroke: '#000000',
             ...defaultPosition,
@@ -71,6 +73,15 @@ function initializeLineDrawing (canvas, defaultPosition) {
         lineToDraw.setCoords()
         isDrawingLine = false
     });
+
+    return {
+        setArrow(params){
+            isArrow = params
+        },
+        setMode(params){
+            isDrawingLineMode = params
+        }
+    }
 
 }
 

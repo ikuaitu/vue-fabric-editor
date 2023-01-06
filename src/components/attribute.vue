@@ -235,7 +235,7 @@ export default {
   data() {
     return {
       // 通用元素
-      baseType: ['text', 'i-text', 'textbox', 'rect', 'circle', 'triangle', 'image', 'group', 'line'],
+      baseType: ['text', 'i-text', 'textbox', 'rect', 'circle', 'triangle', 'image', 'group', 'line', 'arrow'],
       // 文字元素
       textType: ['i-text', 'textbox', 'text'],
       // 图片元素

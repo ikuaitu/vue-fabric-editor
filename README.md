@@ -78,12 +78,12 @@ export default [...cnList, ...enList]
 - [ ] 画布大小保存
 - [ ] 替换图片、加载url图片
 - [x] 缩放
-- [ ] 三角形、箭头、线条
+- [x] 三角形、箭头、线条
 - [ ] 平铺背景、等比例背景
 - [ ] 预览
 - [ ] 描边 strokeDashArray
 - [x] 绘制线条
-- [ ] 绘制图形
+
 
 ## License
 Licensed under the MIT License.

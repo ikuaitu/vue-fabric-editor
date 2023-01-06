@@ -104,13 +104,12 @@ import attribute from '@/components/attribute.vue'
 
 // 功能组件
 import EventHandle from '@/utils/eventHandler'
-import { hotKeyOnLRDU, hotKeyOnBackSpace, hotkeyOnCtrlC, hotkeyOnCtrlV } from './modules/hotkeysModules'
 
 import { fabric } from 'fabric';
 
 // 对齐辅助线
-import initAligningGuidelines from '@/utils/aligningGuidelines';
-
+import initAligningGuidelines from '@/core/initAligningGuidelines';
+import initHotkeys from '@/core/initHotKeys';
 
 
 const event = new EventHandle()
@@ -143,11 +142,8 @@ export default {
       this.$Spin.hide();
       event.init(canvas.c)
       initAligningGuidelines(canvas.c)
+      initHotkeys(canvas.c)
 
-      hotKeyOnLRDU.call(this)
-      hotKeyOnBackSpace.call(this)
-      hotkeyOnCtrlC.call(this)
-      hotkeyOnCtrlV.call(this)
       // 选中后的删除图标
       this.setRemoveIcon()
       this.setControlsStyle(fabric)
