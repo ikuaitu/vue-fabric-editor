@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-06 23:20:40
+ * @LastEditTime: 2023-01-07 02:19:27
  * @Description: 图层面板
 -->
 
@@ -109,7 +109,6 @@ export default {
       // http://www.cppcns.com/wangluo/javascript/380901.html
       if (this.mSelectMode !== 'one') return
       const activeObject = this.canvas.c.getActiveObjects()[0];
-      console.log(activeObject, '1111')
       activeObject && activeObject.bringForward()
       this.canvas.c.renderAll()
     },

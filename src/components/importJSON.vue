@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-05 22:46:24
+ * @LastEditTime: 2023-01-07 02:19:24
  * @Description: 导入JSON文件
 -->
 
@@ -54,7 +54,6 @@ export default {
       reader.readAsText(file, 'UTF-8');
       reader.onload = () => {
         this.jsonFile = reader.result
-        console.log(this.jsonFile)
       };
       return false;
     },

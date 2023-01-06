@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-03 22:25:45
+ * @LastEditTime: 2023-01-07 02:19:20
  * @Description: 组合元素对齐
 -->
 
@@ -102,7 +102,6 @@ export default {
       const activeObject = this.canvas.c.getActiveObject();
       if (activeObject && activeObject.type === 'activeSelection') {
             const activeSelection = activeObject;
-            console.log(activeSelection)
             const activeObjectTop = -(activeObject.height / 2);
             activeSelection.forEachObject(item => {
               item.set({

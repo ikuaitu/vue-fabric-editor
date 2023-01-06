@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-07 00:19:55
+ * @LastEditTime: 2023-01-07 02:19:31
  * @Description: 素材面板
 -->
 
@@ -112,9 +112,7 @@ export default {
     },
     // 按照类型渲染
     addItem(e) {
-
       const url = e.target.src
-      console.log(url)
       this.fabric.loadSVGFromURL(url, (objects, options) => {
         var item = this.fabric.util.groupSVGElements(objects, {...options, ...defaultPosition,
           id: uuid(),
