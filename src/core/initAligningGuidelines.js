@@ -190,7 +190,12 @@ function initAligningGuidelines(canvas) {
     });
 
     canvas.on('before:render', function () {
-        canvas.clearContext(canvas.contextTop);
+        // fix 保存图片时报错
+        try {
+            canvas.clearContext(canvas.contextTop);
+        } catch (error) {
+
+        }
     });
 
     canvas.on('after:render', function () {
