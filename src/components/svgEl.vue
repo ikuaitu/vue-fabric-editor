@@ -2,87 +2,87 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-07 00:19:55
+ * @LastEditTime: 2023-01-07 02:19:31
  * @Description: 素材面板
 -->
 
 <template>
   <div>
-    <Divider plain orientation="left">卡通</Divider>
+    <Divider plain orientation="left">{{ $t('cartoon')  }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(460, 489)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">卡通水果</Divider>
+    <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(386, 409)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">体育</Divider>
+    <Divider plain orientation="left">{{ $t('sports') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(410, 459)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">秋天</Divider>
+    <Divider plain orientation="left">{{ $t('seasons') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(40, 49)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">计算机</Divider>
+    <Divider plain orientation="left">{{ $t('eletronics') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(50, 75)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">水果</Divider>
+    <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(76, 89)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">服饰</Divider>
+    <Divider plain orientation="left">{{ $t('clothes')  }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(89, 136)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">旗子</Divider>
+    <Divider plain orientation="left">{{ $t('flags')  }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(137, 151)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">树木</Divider>
+    <Divider plain orientation="left">{{ $t('threes')  }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(152, 181)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">食物</Divider>
+    <Divider plain orientation="left">{{ $t('food')  }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(182, 201)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">手绘衣服</Divider>
+    <Divider plain orientation="left">{{ $t('clothes')  }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(202, 222)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">奖牌</Divider>
+    <Divider plain orientation="left">{{ $t('medals') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(223, 252)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">商务</Divider>
+    <Divider plain orientation="left">{{ $t('business') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(253, 261)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">活动</Divider>
+    <Divider plain orientation="left">{{ $t('activity') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(262, 270)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">水果</Divider>
+    <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(271, 300)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">复古</Divider>
+    <Divider plain orientation="left">{{ $t('vintage') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(301, 350)" @click="addItem" >
     </div>
-    <Divider plain orientation="left">卡通</Divider>
+    <Divider plain orientation="left">{{  $t('cartoon') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(351, 385)" @click="addItem" >
     </div>
 
-    <Divider plain orientation="left">动物</Divider>
+    <Divider plain orientation="left">{{ $t('animals') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(490, 519)" @click="addItem" >
     </div>
 
-    <Divider plain orientation="left">手绘</Divider>
+    <Divider plain orientation="left">{{ $t('hand_painted') }}</Divider>
     <div class="box">
         <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(0, 39)" @click="addItem" >
     </div>
@@ -112,9 +112,7 @@ export default {
     },
     // 按照类型渲染
     addItem(e) {
-      
       const url = e.target.src
-      console.log(url)
       this.fabric.loadSVGFromURL(url, (objects, options) => {
         var item = this.fabric.util.groupSVGElements(objects, {...options, ...defaultPosition,
           id: uuid(),

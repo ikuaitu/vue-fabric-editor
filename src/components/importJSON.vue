@@ -2,21 +2,21 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-05 22:46:24
+ * @LastEditTime: 2023-01-07 02:19:24
  * @Description: 导入JSON文件
 -->
 
 <template>
   <div style="display: inline-block">
-    <Button @click="insert" size="small">导入文件</Button>
+    <Button @click="insert" size="small">{{ $t('import_files') }}</Button>
     <Modal
       v-model="showModal"
-      title="请选择"
+      :title="$t('please_choose')"
       @on-ok="insertSvgFile"
       @on-cancel="(showModal = false), (jsonFile = null)"
     >
       <Upload :before-upload="handleUpload" action="#">
-        <Button icon="ios-cloud-upload-outline">选择JSON文件</Button>
+        <Button icon="ios-cloud-upload-outline">{{ $t('select_json') }}</Button>
       </Upload>
     </Modal>
   </div>
@@ -41,7 +41,7 @@ export default {
     },
     insertSvgFile() {
       if (!this.jsonFile) {
-        this.$Message.error('请选择文件')
+        this.$Message.error(this.$t('alert.select_file'))
         return
       }
       // 加载字体后导入
@@ -54,7 +54,6 @@ export default {
       reader.readAsText(file, 'UTF-8');
       reader.onload = () => {
         this.jsonFile = reader.result
-        console.log(this.jsonFile)
       };
       return false;
     },

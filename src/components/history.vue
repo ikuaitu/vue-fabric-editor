@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-03 22:57:06
+ * @LastEditTime: 2023-01-07 02:09:06
  * @Description: 回退重做
 -->
 
@@ -17,9 +17,7 @@
 
 <script>
 import select from '@/mixins/select'
-import onHotKeys from '@/core/hotkeys'
-import keyNames from '@/core/hotkeys/constantKey'
-
+import { keyNames, hotkeys } from '@/core/initHotKeys'
 const maxStep = 10
 
 export default {
@@ -39,12 +37,7 @@ export default {
       'selection:updated': this.save,
     });
 
-    onHotKeys(keyNames.ctrlz, this.undo)
-
-    // EventBus.on('historyUndo', this.undo)
-    // this.$once('hook:beforeDestroy', () => {
-    //   EventBus.off('historyUndo', this.undo)
-    // })
+    hotkeys(keyNames.ctrlz, this.undo)
 
   },
 

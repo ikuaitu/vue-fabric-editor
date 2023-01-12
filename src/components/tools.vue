@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Divider plain orientation="left">常用元素</Divider>
+    <Divider plain orientation="left">{{$t('common_elements')}}</Divider>
     <div class="tool-box">
       <span @click="addText">
         <svg
@@ -88,18 +88,28 @@
         </svg>
       </span>
     </div>
-    <Divider plain orientation="left">快捷导航</Divider>
+    <Divider plain orientation="left">{{ $t('draw_elements') }}</Divider>
+    <div class="tool-box">
+      <span @click="drawingLineModeSwitch(false)" :class="isDrawingLineMode && !isArrow && 'bg'">
+        <svg t="1673022047861" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4206" width="20" height="20"><path d="M187.733333 1024h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM34.133333 989.866667h136.533334v-136.533334H34.133333v136.533334zM1006.933333 204.8h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM853.333333 170.666667h136.533334V34.133333h-136.533334v136.533334z" fill="" p-id="4207"></path><path d="M187.733333 853.333333c-3.413333 0-10.24 0-13.653333-3.413333-6.826667-6.826667-6.826667-17.066667 0-23.893333l648.533333-648.533334c6.826667-6.826667 17.066667-6.826667 23.893334 0s6.826667 17.066667 0 23.893334l-648.533334 648.533333c0 3.413333-6.826667 3.413333-10.24 3.413333z" fill="" p-id="4208"></path></svg>
+      </span>
+      <span @click="drawingLineModeSwitch(true)" :class="isDrawingLineMode && isArrow && 'bg'">
+        <!-- <svg t="1673022047861" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4206" width="20" height="20"><path d="M187.733333 1024h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM34.133333 989.866667h136.533334v-136.533334H34.133333v136.533334zM1006.933333 204.8h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM853.333333 170.666667h136.533334V34.133333h-136.533334v136.533334z" fill="" p-id="4207"></path><path d="M187.733333 853.333333c-3.413333 0-10.24 0-13.653333-3.413333-6.826667-6.826667-6.826667-17.066667 0-23.893333l648.533333-648.533334c6.826667-6.826667 17.066667-6.826667 23.893334 0s6.826667 17.066667 0 23.893334l-648.533334 648.533333c0 3.413333-6.826667 3.413333-10.24 3.413333z" fill="" p-id="4208"></path></svg> -->
+        <svg t="1673026778912" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2659" width="20" height="20"><path d="M320 738.133333L827.733333 230.4l-29.866666-29.866667L290.133333 708.266667v-268.8h-42.666666v341.333333h341.333333v-42.666667H320z" fill="#444444" p-id="2660"></path></svg>
+      </span>
+    </div>
+    <Divider plain orientation="left">{{ $t('quick_navigation') }}</Divider>
     <div>
-      <a href="https://color.uisdc.com/pick.html" target="_blank">配色</a>
+      <a href="https://color.uisdc.com/pick.html" target="_blank">{{  $t('color_macthing') }}</a>
       <Divider type="vertical" />
-      <a href="https://www.svgrepo.com/" target="_blank">素材</a>
+      <a href="https://www.svgrepo.com/" target="_blank">{{ $t('material') }}</a>
       <Divider type="vertical" />
-      <a href="https://unsplash.com/" target="_blank">图片</a>
+      <a href="https://unsplash.com/" target="_blank">{{ $t('picture') }}</a>
       <Divider type="vertical" />
       <a
         href="https://www.pexels.com/zh-cn/search/%E8%83%8C%E6%99%AF/"
         target="_blank"
-        >背景</a
+        >{{ $t('background') }}</a
       >
     </div>
   </div>
@@ -107,7 +117,7 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
-
+import initializeLineDrawing from '@/core/initializeLineDrawing';
 const defaultPosition = {
   left: 100, top: 100, shadow: '', fontFamily: 'arial'
 }
@@ -116,11 +126,17 @@ export default {
   inject: ['canvas', 'fabric'],
   data() {
     return {
+      isDrawingLineMode: false,
+      isArrow: false
     };
+  },
+  created() {
+    // 线条绘制
+    this.drawHandler = initializeLineDrawing(this.canvas.c, defaultPosition)
   },
   methods: {
     addText() {
-      const text = new this.fabric.IText('万事大吉', {
+      const text = new this.fabric.IText(this.$t('everything_is_fine'), {
         ...defaultPosition,
         fontSize: 40, id: uuid(),
       });
@@ -138,7 +154,7 @@ export default {
       this.canvas.c.renderAll()
     },
     addTextBox() {
-      const text = new this.fabric.Textbox('诸事顺遂', {
+      const text = new this.fabric.Textbox(this.$t('everything_goes_well'), {
         ...defaultPosition,
         splitByGrapheme: true, width: 300,
         fontSize: 40, id: uuid(),
@@ -180,6 +196,16 @@ export default {
       this.canvas.c.add(circle)
       this.canvas.c.setActiveObject(circle);
     },
+    drawingLineModeSwitch(isArrow){
+      this.isArrow = isArrow
+      this.isDrawingLineMode = !this.isDrawingLineMode
+      this.drawHandler.setMode(this.isDrawingLineMode)
+      this.drawHandler.setArrow(isArrow)
+      this.canvas.c.forEachObject(obj => {
+          obj.selectable = !this.isDrawingLineMode;
+          obj.evented = !this.isDrawingLineMode;
+      })
+    }
   }
 };
 </script>
@@ -202,8 +228,19 @@ export default {
       }
     }
   }
+  .bg{
+    background: #d8d8d8;
+
+    &:hover {
+      svg {
+        fill: #2d8cf0;
+      }
+    }
+  }
 }
 .img {
   width: 20px;
 }
+
+
 </style>

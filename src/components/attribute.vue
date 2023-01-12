@@ -2,9 +2,9 @@
   <div class="box" v-if="mSelectMode === 'one'">
     <!-- 字体属性 -->
     <div v-show="textType.includes(mSelectOneType)">
-      <Divider plain orientation="left">字体</Divider>
+      <Divider plain orientation="left">{{ $t('attributes.font')}}</Divider>
       <Form label-position="left" :label-width="40">
-        <FormItem label="大小">
+        <FormItem :label="$t('size')">
           <InputNumber
             v-model="fontAttr.fontSize"
             @on-change="(value) => changeCommon('fontSize', value)"
@@ -12,7 +12,7 @@
             size="small"
           ></InputNumber>
         </FormItem>
-        <FormItem label="字体">
+        <FormItem :label="$t(size)">
           <Select
             v-model="fontAttr.fontFamily"
             @on-change="changeFontFamily"
@@ -26,7 +26,7 @@
             >
           </Select>
         </FormItem>
-        <FormItem label="背景">
+        <FormItem :label="$t('background')">
           <ColorPicker
             v-model="fontAttr.textBackgroundColor"
             @on-change="(value) => changeCommon('textBackgroundColor', value)"
@@ -35,7 +35,7 @@
             size="small"
           />
         </FormItem>
-        <FormItem label="对齐">
+        <FormItem :label="$t('attributes.align')">
           <RadioGroup
             v-model="fontAttr.textAlign"
             @on-change="(value) => changeCommon('textAlign', value)"
@@ -48,14 +48,14 @@
           </RadioGroup>
         </FormItem>
         <div style="padding: 5px 0">
-          加粗：<i-switch
+          {{ $t('attributes.bold') }} <i-switch
             v-model="fontAttr.fontWeight"
             true-value="bold"
             false-value="normal"
             size="small"
             @on-change="(value) => changeCommon('fontWeight', value)"
           />
-          斜体：<i-switch
+          {{ $t('attributes.italic') }} <i-switch
             v-model="fontAttr.fontStyle"
             true-value="italic"
             false-value="normal"
@@ -63,25 +63,25 @@
             @on-change="(value) => changeCommon('fontStyle', value)"
           />
           <br />
-          下划：<i-switch
+          {{ $t('attributes.underline') }} <i-switch
             v-model="fontAttr.underline"
             size="small"
             @on-change="(value) => changeCommon('underline', value)"
           />
-          中划：<i-switch
+          {{ $t('attributes.stroke') }} <i-switch
             v-model="fontAttr.linethrough"
             size="small"
             @on-change="(value) => changeCommon('linethrough', value)"
           />
           <br />
-          上划：<i-switch
+          {{$t('attributes.swipe_up')}} <i-switch
             v-model="fontAttr.overline"
             size="small"
             @on-change="(value) => changeCommon('overline', value)"
           />
         </div>
 
-        <FormItem label="行高">
+        <FormItem :label="$t('attributes.line_height')">
           <InputNumber
             v-model="fontAttr.lineHeight"
             @on-change="(value) => changeCommon('lineHeight', value)"
@@ -91,7 +91,7 @@
           ></InputNumber>
         </FormItem>
 
-        <FormItem label="间距">
+        <FormItem :label="$t('attributes.char_spacing')">
           <InputNumber
             v-model="fontAttr.charSpacing"
             @on-change="(value) => changeCommon('charSpacing', value)"
@@ -103,9 +103,9 @@
     </div>
     <!-- 通用属性 -->
     <div v-show="baseType.includes(mSelectOneType)">
-      <Divider plain orientation="left">外观</Divider>
+      <Divider plain orientation="left">{{ $t('attributes.exterior') }}</Divider>
       <Form label-position="left" :label-width="40">
-        <FormItem label="颜色">
+        <FormItem :label="$t('color')">
           <ColorPicker
             v-model="baseAttr.fill"
             @on-change="(value) => changeCommon('fill', value)"
@@ -114,7 +114,7 @@
             size="small"
           />
         </FormItem>
-        <FormItem label="旋转">
+        <FormItem :label="$t('attributes.angle')">
           <InputNumber
             v-model="baseAttr.angle"
             :max="360"
@@ -123,7 +123,7 @@
             size="small"
           ></InputNumber>
         </FormItem>
-        <FormItem label="X轴">
+        <FormItem :label="$t('attributes.left')">
           <InputNumber
             v-model="baseAttr.left"
             :max="360"
@@ -132,7 +132,7 @@
             size="small"
           ></InputNumber>
         </FormItem>
-        <FormItem label="Y轴">
+        <FormItem :label="$t('attributes.top')">
           <InputNumber
             v-model="baseAttr.top"
             :max="360"
@@ -141,7 +141,7 @@
             size="small"
           ></InputNumber>
         </FormItem>
-        <FormItem label="透明">
+        <FormItem :label="$t('attributes.opacity')">
           <Slider
             v-model="baseAttr.opacity"
             @on-change="(value) => changeCommon('opacity', value)"
@@ -149,9 +149,9 @@
           ></Slider>
         </FormItem>
       </Form>
-      <Divider plain orientation="left">描边</Divider>
+      <Divider plain orientation="left">{{  $t('attributes.stroke') }}</Divider>
       <Form label-position="left" :label-width="40">
-        <FormItem label="宽度">
+        <FormItem :label="$t('width')">
           <InputNumber
             v-model="baseAttr.strokeWidth"
             :max="360"
@@ -160,7 +160,7 @@
             size="small"
           ></InputNumber>
         </FormItem>
-        <FormItem label="颜色">
+        <FormItem :label="$t('color')">
           <ColorPicker
             v-model="baseAttr.stroke"
             @on-change="(value) => changeCommon('stroke', value)"
@@ -171,9 +171,9 @@
         </FormItem>
       </Form>
 
-      <Divider plain orientation="left">阴影</Divider>
+      <Divider plain orientation="left">{{ $t('attributes.shadow')}}</Divider>
       <Form label-position="left" :label-width="40">
-        <FormItem label="颜色">
+        <FormItem :label="$t('color')">
           <ColorPicker
             size="small"
             v-model="baseAttr.shadow.color"
@@ -182,7 +182,7 @@
             transfer
           />
         </FormItem>
-        <FormItem label="模糊">
+        <FormItem :label="$t('attributes.blur')">
           <InputNumber
             v-model="baseAttr.shadow.blur"
             :max="360"
@@ -190,7 +190,7 @@
             size="small"
           ></InputNumber>
         </FormItem>
-        <FormItem label="X轴">
+        <FormItem :label="$t('attributes.offset_x')">
           <InputNumber
             v-model="baseAttr.shadow.offsetX"
             :max="360"
@@ -198,7 +198,7 @@
             size="small"
           ></InputNumber>
         </FormItem>
-        <FormItem label="Y轴">
+        <FormItem :label="$t('attributes.offset_y')">
           <InputNumber
             v-model="baseAttr.shadow.offsetY"
             :max="360"
@@ -211,8 +211,8 @@
 
     <!-- 图片属性 -->
     <div v-show="imgType.includes(mSelectOneType)">
-      <Divider plain orientation="left">图片滤镜</Divider>
-      模糊：<Slider
+      <Divider plain orientation="left">{{ $t('attributes.picture_filter')}}</Divider>
+      {{ $t('attributes.blur')}}: <Slider
         v-model="imgAttr.blur"
         :max="1"
         :min="0"
@@ -235,7 +235,7 @@ export default {
   data() {
     return {
       // 通用元素
-      baseType: ['text', 'i-text', 'textbox', 'rect', 'circle', 'triangle', 'image', 'group'],
+      baseType: ['text', 'i-text', 'textbox', 'rect', 'circle', 'triangle', 'image', 'group', 'line', 'arrow'],
       // 文字元素
       textType: ['i-text', 'textbox', 'text'],
       // 图片元素

@@ -8,7 +8,7 @@
 
 <template>
 <div style="display:inline-block">
-  <Divider plain orientation="left">标题模板</Divider>
+  <Divider plain orientation="left">{{ $t('title_template') }}</Divider>
    <Tooltip :content="item.label"  v-for="(item, i) in  list" :key="i + '-bai1-button'" placement="top">
      <img class="tmpl-img" :alt="item.label" :src="item.src" @click="getTempData(item.tempUrl)">
   </Tooltip>
@@ -59,7 +59,7 @@ export default {
     insertSvgFile(){
       this.$Spin.show({
           render: (h) => {
-              return h('div','正在加载字体，您耐心等候...')
+              return h('div', this.$t('alert.loading_fonts'))
           }
       });
       downFontByJSON(this.jsonFile).then(() => {
@@ -67,14 +67,14 @@ export default {
         this.canvas.c.loadFromJSON(this.jsonFile, this.canvas.c.renderAll.bind(this.canvas.c));
       }).catch((e) => {
         this.$Spin.hide();
-        this.$Message.error('字体加载失败，请重试')
+        this.$Message.error(this.$t('alert.loading_fonts_failed'))
       })
     },
     // 获取模板数据
     getTempData(tmplUrl){
       this.$Spin.show({
           render: (h) => {
-              return h('div','加载数据中...')
+              return h('div',this.$t('alert.loading_data'))
           }
       });
       const getTemp = this.$http.get(tmplUrl)

@@ -8,16 +8,16 @@
 
 <template>
   <div>
-    <Divider plain orientation="left">尺寸</Divider>
+    <Divider plain orientation="left">{{ $t('size') }}</Divider>
     <Form :label-width="40">
-      <FormItem label="宽度" prop="name">
+      <FormItem :label="$t('width')" prop="name">
           <InputNumber :max="2000" :min="1" v-model="width" @on-change="setSize" size="small"></InputNumber>
       </FormItem>
-      <FormItem label="高度" prop="name">
+      <FormItem :label="$t('height')" prop="name">
           <InputNumber :max="2000" :min="1" v-model="height" @on-change="setSize" size="small"></InputNumber>
       </FormItem>
     </Form>
-    <Divider plain orientation="left">预设尺寸</Divider>
+    <Divider plain orientation="left">{{ $t('default_size') }}</Divider>
     <ButtonGroup vertical>
       <Button
         v-for="(item, i) in presetSize"
@@ -33,26 +33,6 @@
 </template>
 
 <script>
-
-const presetConfigSize = [{
-  label: '红书竖版',
-  width: 900,
-  height: 1200,
-  scale: 0.5,
-},
-{
-  label: '红书横版',
-  width: 1200,
-  height: 900,
-  scale: 0.5,
-},
-{
-  label: '手机壁纸',
-  width: 1080,
-  height: 1920,
-  scale: 0.4,
-},
-]
 export default {
   name: 'canvasSize',
   inject: ['canvas', 'fabric'],
@@ -60,7 +40,25 @@ export default {
     return {
       width: 900 * 0.5,
       height: 1200 * 0.5,
-      presetSize: [...presetConfigSize]
+      presetSize: [{
+        label: this.$t('red_book_vertical'),
+        width: 900,
+        height: 1200,
+        scale: 0.5,
+      },
+      {
+        label: this.$t('red_book_horizontal'),
+        width: 1200,
+        height: 900,
+        scale: 0.5,
+      },
+      {
+        label: this.$t('phone_wallpaper'),
+        width: 1080,
+        height: 1920,
+        scale: 0.4,
+      },
+      ]
     };
   },
   created() {
