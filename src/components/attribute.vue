@@ -12,7 +12,7 @@
             size="small"
           ></InputNumber>
         </FormItem>
-        <FormItem :label="$t(size)">
+        <FormItem :label="$t('size')">
           <Select
             v-model="fontAttr.fontFamily"
             @on-change="changeFontFamily"
