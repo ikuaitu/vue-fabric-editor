@@ -1,5 +1,7 @@
 import Vue from "vue";
 import VueI18n from "vue-i18n";
+import { getLocal, setLocal } from '@/utils/local'
+import { LANG } from '@/config/constants/app'
 Vue.use(VueI18n);
 
 function loadLocaleMessages() {
@@ -18,8 +20,18 @@ function loadLocaleMessages() {
   });
   return messages;
 }
+
+function getLocalLang() {
+  const localLang = getLocal(LANG)
+  if(!localLang) {
+    setLocal(LANG, 'ch')
+  }
+  return localLang ? localLang : 'ch'
+}
+const lang = getLocalLang()
+
 export default new VueI18n({
-  locale: process.env.VUE_APP_I18N_LOCALE || "ch",
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || "ch",
+  locale: lang,
+  fallbackLocale: lang,
   messages: loadLocaleMessages()
 });
