@@ -37,7 +37,7 @@ import { v4 as uuid } from 'uuid';
 import { setLocal } from '@/utils/local';
 import { LANG } from '@/config/constants/app'
 const LANGMAP = {
-  ch: '简体中文',
+  zh: '简体中文',
   en: 'English',
   pt: 'Portugal'
 }
@@ -48,7 +48,7 @@ export default {
     return {
       langList: [
         {
-          langType: 'ch',
+          langType: 'zh',
           langName: '简体中文'
         },
         {

@@ -22,13 +22,18 @@ function loadLocaleMessages() {
 }
 
 function getLocalLang() {
-  const localLang = getLocal(LANG)
+  let localLang = getLocal(LANG)
   if(!localLang) {
-    setLocal(LANG, 'ch')
+    let defaultLang = navigator.language
+    if(defaultLang) {
+      defaultLang = localLang = defaultLang.split('-')[0]
+    }
+    setLocal(LANG, defaultLang)
   }
-  return localLang ? localLang : 'ch'
+  return localLang
 }
 const lang = getLocalLang()
+console.log(lang)
 
 export default new VueI18n({
   locale: lang,
