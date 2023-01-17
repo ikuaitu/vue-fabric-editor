@@ -8,7 +8,17 @@
 
 <template>
   <div>
-    <Button @click="clear">{{ $t('empty') }}</Button>
+    <Dropdown @on-click="setLang">
+      <Button>{{ lang | langMap }} <Icon type="ios-arrow-down"></Icon></Button>
+      <DropdownMenu slot="list">
+        <DropdownItem
+          v-for="lang in langList"
+          :key="lang.langType"
+          :name="lang.langType"
+        >{{ lang.langName }}</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+    <Button style="margin-left: 10px" @click="clear">{{ $t('empty') }}</Button>
     <Dropdown style="margin-left: 10px" @on-click="saveWith">
       <Button type="primary">{{ $t('keep') }} <Icon type="ios-arrow-down"></Icon></Button>
       <DropdownMenu slot="list">
@@ -24,12 +34,43 @@
 <script>
 import select from '@/mixins/select'
 import { v4 as uuid } from 'uuid';
+import { setLocal } from '@/utils/local';
+import { LANG } from '@/config/constants/app'
+const LANGMAP = {
+  zh: '简体中文',
+  en: 'English',
+  pt: 'Portugal'
+}
 export default {
   name: 'saveBar',
   mixins: [select],
   data() {
     return {
+      langList: [
+        {
+          langType: 'zh',
+          langName: '简体中文'
+        },
+        {
+          langType: 'en',
+          langName: 'English'
+        },
+        {
+          langType: 'pt',
+          langName: 'Portugal'
+        }
+      ]
     };
+  },
+  filters: {
+    langMap(key) {
+      return LANGMAP[key]
+    }
+  },
+  computed: {
+    lang() {
+      return this.$i18n.locale
+    }
   },
   methods: {
     saveWith(type) {
@@ -66,6 +107,12 @@ export default {
       this.canvas.c.clear();
       this.canvas.c.setBackgroundColor('#ffffff', this.canvas.c.renderAll.bind(this.canvas.c))
     },
+
+    // 设置语言
+    setLang(type) {
+      this.$i18n.locale = type
+      setLocal(LANG, type)
+    }
   }
 };
 </script>
