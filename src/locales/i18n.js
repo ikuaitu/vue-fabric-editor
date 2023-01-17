@@ -2,11 +2,12 @@ import Vue from "vue";
 import VueI18n from "vue-i18n";
 import { getLocal, setLocal } from '@/utils/local'
 import { LANG } from '@/config/constants/app'
+
 Vue.use(VueI18n);
 
 function loadLocaleMessages() {
   const locales = require.context(
-    "./locales",
+    "@/locales/lang/",
     true,
     /[A-Za-z0-9-_,\s]+\.json$/i
   );
@@ -34,7 +35,6 @@ function getLocalLang() {
 }
 const lang = getLocalLang()
 console.log(lang)
-
 export default new VueI18n({
   locale: lang,
   fallbackLocale: lang,
