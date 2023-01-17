@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-07 02:19:31
+ * @LastEditTime: 2023-01-17 19:45:19
  * @Description: 素材面板
 -->
 
@@ -10,81 +10,81 @@
   <div>
     <Divider plain orientation="left">{{ $t('cartoon')  }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(460, 489)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(460, 489)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(386, 409)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(386, 409)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('sports') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(410, 459)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(410, 459)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('seasons') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(40, 49)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(40, 49)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('eletronics') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(50, 75)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(50, 75)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(76, 89)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(76, 89)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('clothes')  }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(89, 136)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(89, 136)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('flags')  }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(137, 151)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(137, 151)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('threes')  }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(152, 181)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(152, 181)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('food')  }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(182, 201)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(182, 201)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('clothes')  }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(202, 222)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(202, 222)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('medals') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(223, 252)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(223, 252)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('business') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(253, 261)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(253, 261)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('activity') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(262, 270)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(262, 270)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(271, 300)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(271, 300)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{ $t('vintage') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(301, 350)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(301, 350)" @click="addItem" >
     </div>
     <Divider plain orientation="left">{{  $t('cartoon') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(351, 385)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(351, 385)" @click="addItem" >
     </div>
 
     <Divider plain orientation="left">{{ $t('animals') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(490, 519)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(490, 519)" @click="addItem" >
     </div>
 
     <Divider plain orientation="left">{{ $t('hand_painted') }}</Divider>
     <div class="box">
-        <img :src="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(0, 39)" @click="addItem" >
+        <img v-lazy="`./svg/${item}.svg`" alt="" :key="item" v-for="(item) in getIndex(0, 39)" @click="addItem" >
     </div>
 
   </div>
