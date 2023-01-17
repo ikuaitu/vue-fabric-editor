@@ -12,7 +12,7 @@
             size="small"
           ></InputNumber>
         </FormItem>
-        <FormItem :label="$t('size')">
+        <FormItem :label="$t('attributes.font')">
           <Select
             v-model="fontAttr.fontFamily"
             @on-change="changeFontFamily"
@@ -212,15 +212,18 @@
     <!-- 图片属性 -->
     <div v-show="imgType.includes(mSelectOneType)">
       <Divider plain orientation="left">{{ $t('attributes.picture_filter')}}</Divider>
-      {{ $t('attributes.blur')}}: <Slider
-        v-model="imgAttr.blur"
-        :max="1"
-        :min="0"
-        :step="0.1"
-        @on-change="imgBlur"
-        show-input
-        size="small"
-      ></Slider>
+      <Form label-position="left" :label-width="40">
+        <FormItem :label="$t('attributes.blur')">
+          <Slider
+            v-model="imgAttr.blur"
+            :max="1"
+            :min="0"
+            :step="0.1"
+            @on-change="imgBlur"
+            size="small"
+          ></Slider>
+        </FormItem>
+      </Form>
     </div>
   </div>
 </template>
