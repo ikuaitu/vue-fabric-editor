@@ -1,241 +1,293 @@
 <template>
-  <div class="box" v-if="mSelectMode === 'one'">
+  <div class="box"
+       v-if="mSelectMode === 'one'">
     <!-- 字体属性 -->
     <div v-show="textType.includes(mSelectOneType)">
-      <Divider plain orientation="left">{{ $t('attributes.font')}}</Divider>
-      <Form label-position="left" :label-width="40">
-        <FormItem :label="$t('size')">
-          <InputNumber
-            v-model="fontAttr.fontSize"
-            @on-change="(value) => changeCommon('fontSize', value)"
-            show-input
-            size="small"
-          ></InputNumber>
-        </FormItem>
-        <FormItem :label="$t('size')">
-          <Select
-            v-model="fontAttr.fontFamily"
-            @on-change="changeFontFamily"
-            size="small"
-          >
-            <Option
-              v-for="item in fontFamilyList"
-              :value="item"
-              :key="'font-' + item"
-              >{{ item }}</Option
-            >
-          </Select>
-        </FormItem>
-        <FormItem :label="$t('background')">
-          <ColorPicker
-            v-model="fontAttr.textBackgroundColor"
-            @on-change="(value) => changeCommon('textBackgroundColor', value)"
-            alpha
-            transfer
-            size="small"
-          />
-        </FormItem>
-        <FormItem :label="$t('attributes.align')">
-          <RadioGroup
-            v-model="fontAttr.textAlign"
-            @on-change="(value) => changeCommon('textAlign', value)"
-            size="small"
-            type="button"
-          >
-            <Radio v-for="(item, i) in textAlignList" :label="item" :key="item">
+      <Divider plain
+               orientation="left">{{ $t('attributes.font')}}</Divider>
+      <div class="flex-view">
+        <div class="flex-item">
+          <span class="label">{{$t('background')}}</span>
+          <div class="content">
+            <ColorPicker v-model="fontAttr.textBackgroundColor"
+                         @on-change="(value) => changeCommon('textBackgroundColor', value)"
+                         alpha
+                         size="large" />
+          </div>
+        </div>
+      </div>
+      <div class="flex-view">
+        <div class="flex-item">
+          <div class="left">
+            <Select v-model="fontAttr.fontFamily"
+                    @on-change="changeFontFamily"
+                    size="large">
+              <Option v-for="item in fontFamilyList"
+                      :value="item"
+                      :key="'font-' + item">
+                {{item}}
+              </Option>
+            </Select>
+          </div>
+          <div class="right">
+            <InputNumber v-model="fontAttr.fontSize"
+                         @on-change="(value) => changeCommon('fontSize', value)"
+                         show-input
+                         size="large"></InputNumber>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-view">
+        <div class="flex-item">
+          <RadioGroup v-model="fontAttr.textAlign"
+                      @on-change="(value) => changeCommon('textAlign', value)"
+                      size="large"
+                      type="button">
+            <Radio v-for="(item, i) in textAlignList"
+                   :label="item"
+                   :key="item">
               <span v-html="textAlignListSvg[i]"></span>
             </Radio>
           </RadioGroup>
-        </FormItem>
-        <div style="padding: 5px 0">
-          {{ $t('attributes.bold') }} <i-switch
-            v-model="fontAttr.fontWeight"
-            true-value="bold"
-            false-value="normal"
-            size="small"
-            @on-change="(value) => changeCommon('fontWeight', value)"
-          />
-          {{ $t('attributes.italic') }} <i-switch
-            v-model="fontAttr.fontStyle"
-            true-value="italic"
-            false-value="normal"
-            size="small"
-            @on-change="(value) => changeCommon('fontStyle', value)"
-          />
-          <br />
-          {{ $t('attributes.underline') }} <i-switch
-            v-model="fontAttr.underline"
-            size="small"
-            @on-change="(value) => changeCommon('underline', value)"
-          />
-          {{ $t('attributes.stroke') }} <i-switch
-            v-model="fontAttr.linethrough"
-            size="small"
-            @on-change="(value) => changeCommon('linethrough', value)"
-          />
-          <br />
-          {{$t('attributes.swipe_up')}} <i-switch
-            v-model="fontAttr.overline"
-            size="small"
-            @on-change="(value) => changeCommon('overline', value)"
-          />
         </div>
+      </div>
 
-        <FormItem :label="$t('attributes.line_height')">
-          <InputNumber
-            v-model="fontAttr.lineHeight"
-            @on-change="(value) => changeCommon('lineHeight', value)"
-            show-input
-            size="small"
-            :step="0.1"
-          ></InputNumber>
-        </FormItem>
+      <div class="flex-view">
+        <div class="flex-item">
+          <ButtonGroup size="large">
+            <Button @click="changeFontWeight('fontWeight',fontAttr.fontWeight)"><svg viewBox="0 0 1024 1024"
+                   width="16"
+                   height="16">
+                <path d="M793.99865 476a244 244 0 0 0 54-130.42C862.75865 192.98 743.01865 64 593.85865 64H195.01865a32 32 0 0 0-32 32v96a32 32 0 0 0 32 32h63.74v576H195.01865a32 32 0 0 0-32 32v96a32 32 0 0 0 32 32h418.64c141.6 0 268.28-103.5 282-244.8 9.48-96.9-32.78-184.12-101.66-239.2zM418.33865 224h175.52a96 96 0 0 1 0 192h-175.52z m175.52 576h-175.52V576h175.52a112 112 0 0 1 0 224z"
+                      :fill="fontAttr.fontWeight==='bold'?'#305ef4' : '#666'"></path>
+              </svg></Button>
+            <Button @click="changeFontStyle('fontStyle',fontAttr.fontStyle)"><svg viewBox="0 0 1024 1024"
+                   width="16"
+                   height="16">
+                <path d="M832 96v64a32 32 0 0 1-32 32h-125.52l-160 640H608a32 32 0 0 1 32 32v64a32 32 0 0 1-32 32H224a32 32 0 0 1-32-32v-64a32 32 0 0 1 32-32h125.52l160-640H416a32 32 0 0 1-32-32V96a32 32 0 0 1 32-32h384a32 32 0 0 1 32 32z"
+                      :fill="fontAttr.fontStyle==='italic'?'#305ef4' : '#666'"></path>
+              </svg></Button>
+            <Button @click="changeLineThrough('linethrough', fontAttr.linethrough)"><svg viewBox="0 0 1024 1024"
+                   width="16"
+                   height="16">
+                <path d="M893.088 501.792H125.344a32 32 0 0 0 0 64h767.744a32 32 0 0 0 0-64zM448 448h112V208h288V96H160v112h288zM448 640h112v288H448z"
+                      :fill="fontAttr.linethrough?'#305ef4' : '#666'"></path>
+              </svg></Button>
+            <Button @click="changeUnderline('underline', fontAttr.underline)"><svg viewBox="0 0 1024 1024"
+                   width="16"
+                   height="16">
+                <path d="M703.232 67.008h127.488v413.248c0 158.016-142.656 286.016-318.72 286.016-176 0-318.72-128-318.72-286.016V67.008h127.488v413.248c0 39.872 18.176 78.144 51.136 107.776 36.8 32.96 86.528 51.072 140.096 51.072s103.36-18.112 140.032-51.136c33.024-29.632 51.2-67.968 51.2-107.776V67.008zM193.28 871.616h637.44v85.376H193.28v-85.376z"
+                      :fill="fontAttr.underline?'#305ef4' : '#666'"></path>
+              </svg></Button>
+          </ButtonGroup>
+        </div>
+      </div>
 
-        <FormItem :label="$t('attributes.char_spacing')">
-          <InputNumber
-            v-model="fontAttr.charSpacing"
-            @on-change="(value) => changeCommon('charSpacing', value)"
-            show-input
-            size="small"
-          ></InputNumber>
-        </FormItem>
-      </Form>
+      <!-- <div style="padding: 5px 0">
+        {{$t('attributes.swipe_up')}}
+        <i-switch v-model="fontAttr.overline"
+                  size="small"
+                  @on-change="(value) => changeCommon('overline', value)" />
+      </div> -->
+
+      <div class="flex-view">
+        <div class="flex-item">
+          <span class="label">{{$t('attributes.line_height')}}</span>
+          <div class="content">
+            <InputNumber v-model="fontAttr.lineHeight"
+                         @on-change="(value) => changeCommon('lineHeight', value)"
+                         show-input
+                         size="large"
+                         :step="0.1"></InputNumber>
+          </div>
+        </div>
+        <div class="flex-item">
+          <span class="label">{{$t('attributes.char_spacing')}}</span>
+          <div class="content">
+            <InputNumber v-model="fontAttr.charSpacing"
+                         @on-change="(value) => changeCommon('charSpacing', value)"
+                         show-input
+                         size="large"></InputNumber>
+          </div>
+        </div>
+      </div>
+
     </div>
+
     <!-- 通用属性 -->
     <div v-show="baseType.includes(mSelectOneType)">
-      <Divider plain orientation="left">{{ $t('attributes.exterior') }}</Divider>
-      <Form label-position="left" :label-width="40">
-        <FormItem :label="$t('color')">
-          <ColorPicker
-            v-model="baseAttr.fill"
-            @on-change="(value) => changeCommon('fill', value)"
-            alpha
-            transfer
-            size="small"
-          />
-        </FormItem>
-        <FormItem :label="$t('attributes.angle')">
-          <InputNumber
-            v-model="baseAttr.angle"
-            :max="360"
-            @on-change="(value) => changeCommon('angle', value)"
-            show-input
-            size="small"
-          ></InputNumber>
-        </FormItem>
-        <FormItem :label="$t('attributes.left')">
-          <InputNumber
-            v-model="baseAttr.left"
-            :max="360"
-            @on-change="(value) => changeCommon('left', value)"
-            show-input
-            size="small"
-          ></InputNumber>
-        </FormItem>
-        <FormItem :label="$t('attributes.top')">
-          <InputNumber
-            v-model="baseAttr.top"
-            :max="360"
-            @on-change="(value) => changeCommon('top', value)"
-            show-input
-            size="small"
-          ></InputNumber>
-        </FormItem>
-        <FormItem :label="$t('attributes.opacity')">
-          <Slider
-            v-model="baseAttr.opacity"
-            @on-change="(value) => changeCommon('opacity', value)"
-            size="small"
-          ></Slider>
-        </FormItem>
-      </Form>
-      <Divider plain orientation="left">{{  $t('attributes.stroke') }}</Divider>
-      <Form label-position="left" :label-width="40">
-        <FormItem :label="$t('width')">
-          <InputNumber
-            v-model="baseAttr.strokeWidth"
-            :max="360"
-            @on-change="(value) => changeCommon('strokeWidth', value)"
-            show-input
-            size="small"
-          ></InputNumber>
-        </FormItem>
-        <FormItem :label="$t('color')">
-          <ColorPicker
-            v-model="baseAttr.stroke"
-            @on-change="(value) => changeCommon('stroke', value)"
-            alpha
-            transfer
-            size="small"
-          />
-        </FormItem>
-      </Form>
+      <Divider plain
+               orientation="left">{{ $t('attributes.exterior') }}</Divider>
+      <div class="flex-view">
+        <div class="flex-item">
+          <span class="label">{{$t('attributes.left')}}</span>
+          <div class="content">
+            <InputNumber v-model="baseAttr.left"
+                         :max="360"
+                         @on-change="(value) => changeCommon('left', value)"
+                         show-input
+                         size="large"></InputNumber>
+          </div>
+        </div>
+        <div class="flex-item">
+          <span class="label">{{$t('attributes.top')}}</span>
+          <div class="content">
+            <InputNumber v-model="baseAttr.top"
+                         :max="360"
+                         @on-change="(value) => changeCommon('top', value)"
+                         show-input
+                         size="large"></InputNumber>
+          </div>
+        </div>
+      </div>
+      <div class="flex-view">
+        <div class="flex-item">
+          <span class="label">{{$t('color')}}</span>
+          <div class="content">
+            <ColorPicker v-model="baseAttr.fill"
+                         @on-change="(value) => changeCommon('fill', value)"
+                         alpha
+                         size="large" />
+          </div>
+        </div>
+        <div class="flex-item">
+          <span class="label">{{$t('attributes.angle')}}</span>
+          <div class="content">
+            <InputNumber v-model="baseAttr.angle"
+                         :max="360"
+                         @on-change="(value) => changeCommon('angle', value)"
+                         show-input
+                         size="large"></InputNumber>
+          </div>
+        </div>
+      </div>
+      <div class="flex-view">
+        <div class="flex-item"
+             style="width:100%;">
+          <span class="label">{{$t('attributes.opacity')}}</span>
+          <div class="content"
+               style="width: calc(100% - 50px);">
+            <Slider v-model="baseAttr.opacity"
+                    @on-change="(value) => changeCommon('opacity', value)"
+                    size="large"></Slider>
+          </div>
+        </div>
+      </div>
 
-      <Divider plain orientation="left">{{ $t('attributes.shadow')}}</Divider>
-      <Form label-position="left" :label-width="40">
-        <FormItem :label="$t('color')">
-          <ColorPicker
-            size="small"
-            v-model="baseAttr.shadow.color"
-            @on-change="(value) => changeShadow('color', value)"
-            alpha
-            transfer
-          />
-        </FormItem>
-        <FormItem :label="$t('attributes.blur')">
-          <InputNumber
-            v-model="baseAttr.shadow.blur"
-            :max="360"
-            @on-change="(value) => changeShadow('blur', value)"
-            size="small"
-          ></InputNumber>
-        </FormItem>
-        <FormItem :label="$t('attributes.offset_x')">
-          <InputNumber
-            v-model="baseAttr.shadow.offsetX"
-            :max="360"
-            @on-change="(value) => changeShadow('offsetX', value)"
-            size="small"
-          ></InputNumber>
-        </FormItem>
-        <FormItem :label="$t('attributes.offset_y')">
-          <InputNumber
-            v-model="baseAttr.shadow.offsetY"
-            :max="360"
-            @on-change="(value) => changeShadow('offsetY', value)"
-            size="small"
-          ></InputNumber>
-        </FormItem>
-      </Form>
+      <Divider plain
+               orientation="left">{{  $t('attributes.stroke') }}</Divider>
+      <div class="flex-view">
+        <div class="flex-item">
+          <span class="label">{{$t('width')}}</span>
+          <div class="content">
+            <InputNumber v-model="baseAttr.strokeWidth"
+                         :max="360"
+                         @on-change="(value) => changeCommon('strokeWidth', value)"
+                         show-input
+                         size="large"></InputNumber>
+          </div>
+        </div>
+        <div class="flex-item">
+          <span class="label">{{$t('color')}}</span>
+          <div class="content">
+            <ColorPicker v-model="baseAttr.stroke"
+                         @on-change="(value) => changeCommon('stroke', value)"
+                         alpha
+                         size="large" />
+          </div>
+        </div>
+      </div>
+
+      <Divider plain
+               orientation="left">{{ $t('attributes.shadow')}}</Divider>
+      <div class="flex-view">
+        <div class="flex-item">
+          <span class="label">{{$t('color')}}</span>
+          <div class="content">
+            <ColorPicker v-model="baseAttr.shadow.color"
+                         @on-change="(value) => changeCommon('color', value)"
+                         alpha
+                         size="large" />
+          </div>
+        </div>
+        <div class="flex-item">
+          <span class="label">{{$t('attributes.blur')}}</span>
+          <div class="content">
+            <InputNumber v-model="baseAttr.shadow.blur"
+                         :max="360"
+                         @on-change="(value) => changeShadow('blur', value)"
+                         size="large"></InputNumber>
+          </div>
+        </div>
+      </div>
+      <div class="flex-view">
+        <div class="flex-item">
+          <span class="label">{{$t('attributes.offset_x')}}</span>
+          <div class="content">
+            <InputNumber v-model="baseAttr.shadow.offsetX"
+                         :max="360"
+                         @on-change="(value) => changeShadow('offsetX', value)"
+                         size="large"></InputNumber>
+          </div>
+        </div>
+        <div class="flex-item">
+          <span class="label">{{$t('attributes.offset_y')}}</span>
+          <div class="content">
+            <InputNumber v-model="baseAttr.shadow.offsetY"
+                         :max="360"
+                         @on-change="(value) => changeShadow('offsetY', value)"
+                         size="large"></InputNumber>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- 图片属性 -->
     <div v-show="imgType.includes(mSelectOneType)">
-      <Divider plain orientation="left">{{ $t('attributes.picture_filter')}}</Divider>
-      {{ $t('attributes.blur')}}: <Slider
-        v-model="imgAttr.blur"
-        :max="1"
-        :min="0"
-        :step="0.1"
-        @on-change="imgBlur"
-        show-input
-        size="small"
-      ></Slider>
+      <Divider plain
+               orientation="left">{{ $t('attributes.picture_filter')}}</Divider>
+      <div class="flex-view">
+        <div class="flex-item"
+             style="width:100%;">
+          <span class="label">{{ $t('attributes.blur')}}</span>
+          <div class="content"
+               style="width: calc(100% - 50px);">
+            <Slider v-model="imgAttr.blur"
+                    :max="1"
+                    :min="0"
+                    :step="0.1"
+                    @on-change="imgBlur"
+                    size="large"></Slider>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import fontList from '@/assets/fonts/font'
 import select from '@/mixins/select'
 import FontFaceObserver from 'fontfaceobserver'
-import fontList from "@/assets/fonts/font";
 export default {
   name: 'ToolBar',
   mixins: [select],
   data() {
     return {
       // 通用元素
-      baseType: ['text', 'i-text', 'textbox', 'rect', 'circle', 'triangle', 'image', 'group', 'line', 'arrow'],
+      baseType: [
+        'text',
+        'i-text',
+        'textbox',
+        'rect',
+        'circle',
+        'triangle',
+        'image',
+        'group',
+        'line',
+        'arrow',
+      ],
       // 文字元素
       textType: ['i-text', 'textbox', 'text'],
       // 图片元素
@@ -254,7 +306,7 @@ export default {
           blur: 0,
           offsetX: 0,
           offsetY: 0,
-        }
+        },
       },
       // 字体属性
       fontAttr: {
@@ -268,24 +320,27 @@ export default {
         fontStyle: '',
         underline: false,
         linethrough: false,
-        overline: false
+        overline: false,
       },
       // 图片属性
       imgAttr: {
         blur: 0,
       },
       // 字体下拉列表
-      fontFamilyList: fontList.map(item => item.fontFamily),
+      fontFamilyList: fontList.map((item) => item.fontFamily),
       // 字体对齐方式
       textAlignList: ['left', 'center', 'right'],
       // 对齐图标
-      textAlignListSvg: ['<svg t="1650441458823" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3554" width="14" height="14"><path d="M198.4 198.4h341.333333c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-341.333333c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m0 170.666667h569.6c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-569.6c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m0 170.666666h454.4c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-454.4c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533334z m0 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z" p-id="3555"></path></svg>', '<svg t="1650441512015" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3704" width="14" height="14"><path d="M313.6 198.4h398.933333c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-398.933333c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 10.666667-8.533333 19.2-8.533333z m-115.2 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m115.2 170.666666h398.933333c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-398.933333c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 10.666667-8.533333 19.2-8.533334z m-115.2 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z" p-id="3705"></path></svg>', '<svg t="1650441519862" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3854" width="14" height="14"><path d="M454.4 283.733333v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h341.333334c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-341.333334c-8.533333 0-14.933333-2.133333-19.2-8.533334-4.266667-4.266667-8.533333-10.666667-8.533333-19.2z m-226.133333 170.666667v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h569.6c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333H256c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-4.266667-8.533333-10.666667-8.533333-19.2z m113.066666 170.666667v-57.6c0-8.533333 2.133333-14.933333 8.533334-19.2 6.4-6.4 12.8-8.533333 19.2-8.533334h454.4c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-454.4c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-4.266667-8.533333-10.666667-8.533334-19.2z m-170.666666 170.666666v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-4.266667-8.533333-10.666667-8.533333-19.2z" p-id="3855"></path></svg>']
-    };
+      textAlignListSvg: [
+        '<svg t="1650441458823" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3554" width="14" height="14"><path d="M198.4 198.4h341.333333c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-341.333333c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m0 170.666667h569.6c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-569.6c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m0 170.666666h454.4c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-454.4c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533334z m0 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z" p-id="3555"></path></svg>',
+        '<svg t="1650441512015" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3704" width="14" height="14"><path d="M313.6 198.4h398.933333c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-398.933333c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 10.666667-8.533333 19.2-8.533333z m-115.2 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m115.2 170.666666h398.933333c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-398.933333c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 10.666667-8.533333 19.2-8.533334z m-115.2 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z" p-id="3705"></path></svg>',
+        '<svg t="1650441519862" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3854" width="14" height="14"><path d="M454.4 283.733333v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h341.333334c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-341.333334c-8.533333 0-14.933333-2.133333-19.2-8.533334-4.266667-4.266667-8.533333-10.666667-8.533333-19.2z m-226.133333 170.666667v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h569.6c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333H256c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-4.266667-8.533333-10.666667-8.533333-19.2z m113.066666 170.666667v-57.6c0-8.533333 2.133333-14.933333 8.533334-19.2 6.4-6.4 12.8-8.533333 19.2-8.533334h454.4c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-454.4c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-4.266667-8.533333-10.666667-8.533334-19.2z m-170.666666 170.666666v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-4.266667-8.533333-10.666667-8.533333-19.2z" p-id="3855"></path></svg>',
+      ],
+    }
   },
   created() {
-
     this.event.on('selectOne', (e) => {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvas.c.getActiveObjects()[0]
       if (activeObject) {
         // base
         this.baseAttr.opacity = activeObject.get('opacity') * 100
@@ -295,7 +350,11 @@ export default {
         this.baseAttr.stroke = activeObject.get('stroke')
         this.baseAttr.strokeWidth = activeObject.get('strokeWidth')
         this.baseAttr.shadow = activeObject.get('shadow') || {}
-        if (activeObject.type === 'i-text' || activeObject.type === 'text' || activeObject.type === 'textbox') {
+        if (
+          activeObject.type === 'i-text' ||
+          activeObject.type === 'text' ||
+          activeObject.type === 'textbox'
+        ) {
           this.fontAttr.fontSize = activeObject.get('fontSize')
           this.fontAttr.fontFamily = activeObject.get('fontFamily')
           this.fontAttr.lineHeight = activeObject.get('lineHeight')
@@ -305,16 +364,18 @@ export default {
           this.fontAttr.charSpacing = activeObject.get('charSpacing')
           this.fontAttr.overline = activeObject.get('overline')
           this.fontAttr.fontStyle = activeObject.get('fontStyle')
-          this.fontAttr.textBackgroundColor = activeObject.get('textBackgroundColor')
+          this.fontAttr.textBackgroundColor = activeObject.get(
+            'textBackgroundColor'
+          )
           this.fontAttr.fontWeight = activeObject.get('fontWeight')
         }
 
         // 图片滤镜
         if (activeObject.type === 'image') {
-          this.imgAttr.blur = activeObject.filters[0] ? activeObject.filters[0].blur : 0
+          this.imgAttr.blur = activeObject.filters[0]
+            ? activeObject.filters[0].blur
+            : 0
         }
-
-
       }
     })
   },
@@ -323,36 +384,39 @@ export default {
     imgBlur(blur) {
       const activeObject = this.canvas.c.getActiveObjects()[0]
       if (activeObject) {
-        const filter = new this.fabric.Image.filters.Blur({ blur });
+        const filter = new this.fabric.Image.filters.Blur({ blur })
         activeObject.filters = [filter]
-        activeObject.applyFilters();
+        activeObject.applyFilters()
         this.canvas.c.renderAll()
       }
     },
     // 修改字体
     changeFontFamily(fontName) {
-      if(!fontName) return
+      if (!fontName) return
 
       // 跳过加载的属性
       const skipFonts = ['arial', 'Microsoft YaHei']
       if (skipFonts.includes(fontName)) {
         const activeObject = this.canvas.c.getActiveObjects()[0]
-        activeObject && activeObject.set('fontFamily', fontName);
+        activeObject && activeObject.set('fontFamily', fontName)
         this.canvas.c.renderAll()
         return
       }
-      this.$Spin.show();
+      this.$Spin.show()
       // 字体加载
-      var font = new FontFaceObserver(fontName);
-      font.load(null, 150000).then(() => {
-        const activeObject = this.canvas.c.getActiveObjects()[0]
-        activeObject && activeObject.set('fontFamily', fontName);
-        this.canvas.c.renderAll()
-        this.$Spin.hide();
-      }).catch((err) => {
-        console.log(err)
-        this.$Spin.hide();
-      })
+      var font = new FontFaceObserver(fontName)
+      font
+        .load(null, 150000)
+        .then(() => {
+          const activeObject = this.canvas.c.getActiveObjects()[0]
+          activeObject && activeObject.set('fontFamily', fontName)
+          this.canvas.c.renderAll()
+          this.$Spin.hide()
+        })
+        .catch((err) => {
+          console.log(err)
+          this.$Spin.hide()
+        })
     },
     // 通用属性改变
     changeCommon(key, value) {
@@ -369,27 +433,105 @@ export default {
     // 阴影设置
     changeShadow() {
       const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.set('shadow', new fabric.Shadow(this.baseAttr.shadow));
+      activeObject &&
+        activeObject.set('shadow', new fabric.Shadow(this.baseAttr.shadow))
       this.canvas.c.renderAll()
-    }
-  }
-};
+    },
+    //加粗
+    changeFontWeight(key, value) {
+      let nValue = value === 'normal' ? 'bold' : 'normal'
+      this.fontAttr.fontWeight = nValue
+      const activeObject = this.canvas.c.getActiveObjects()[0]
+      activeObject && activeObject.set(key, nValue)
+      this.canvas.c.renderAll()
+    },
+    //斜体
+    changeFontStyle(key, value) {
+      let nValue = value === 'normal' ? 'italic' : 'normal'
+      this.fontAttr.fontStyle = nValue
+      const activeObject = this.canvas.c.getActiveObjects()[0]
+      activeObject && activeObject.set(key, nValue)
+      this.canvas.c.renderAll()
+    },
+    //中划
+    changeLineThrough(key, value) {
+      let nValue = value === false ? true : false
+      this.fontAttr.linethrough = nValue
+      const activeObject = this.canvas.c.getActiveObjects()[0]
+      activeObject && activeObject.set(key, nValue)
+      this.canvas.c.renderAll()
+    },
+    //下划
+    changeUnderline(key, value) {
+      let nValue = value === false ? true : false
+      this.fontAttr.underline = nValue
+      const activeObject = this.canvas.c.getActiveObjects()[0]
+      activeObject && activeObject.set(key, nValue)
+      this.canvas.c.renderAll()
+    },
+  },
+}
 </script>
 <style scoped lang="less">
-/deep/ .ivu-form-item {
-  margin-bottom: 0;
-}
 /deep/ .ivu-color-picker {
   display: block;
 }
 /deep/ .ivu-input-number {
   display: block;
   width: 100%;
-  top: 4px;
 }
 
 /deep/ .ivu-divider-plain.ivu-divider-with-text-left {
   margin: 10px 0;
   font-weight: bold;
+  font-size: 16px;
+  color: #000000;
+}
+.box {
+  width: 100%;
+}
+.flex-view {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+  display: inline-flex;
+  justify-content: space-between;
+  border-radius: 5px;
+  background: #f6f7f9;
+}
+.flex-item {
+  display: inline-flex;
+  .label {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    font-size: 14px;
+    color: #333333;
+  }
+  .content {
+    width: 80px;
+  }
+  .right {
+    margin-left: 10px;
+    /deep/ .ivu-input-number {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  /deep/ .ivu-radio-group-button .ivu-radio-wrapper {
+    width: 48px;
+    line-height: 40px;
+    text-align: center;
+  }
+
+  /deep/ .ivu-btn-group-large > .ivu-btn {
+    font-size: 24px;
+  }
+
+  /deep/ .ivu-radio-group-button.ivu-radio-group-large .ivu-radio-wrapper {
+    font-size: 24px;
+  }
 }
 </style>
