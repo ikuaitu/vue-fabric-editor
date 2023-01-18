@@ -25,33 +25,41 @@
         <dele></dele>
         &nbsp;
         <clone></clone>
+          <div style="float:right">
+              <save></save>
+              <lang></lang>
+          </div>
+        </Header>
+        <Content style=" display: flex; height: calc(100vh - 64px);">
+          <div v-if="show" style="width: 380px; height: 100%; background:#fff; display: flex">
+              <Menu :active-name="menuActive" accordion @on-select="activeIndex => menuActive = activeIndex" width="80px">
+                <MenuItem :name="1" style="padding:10px"><Icon type="md-book" />{{ $t('templates') }}</MenuItem>
+                <MenuItem :name="2" style="padding:10px"><Icon type="md-create" />{{ $t('elements') }}</MenuItem>
+                <MenuItem :name="3" style="padding:10px"><Icon type="ios-build" />{{ $t('background') }}</MenuItem>
+              </Menu>
+              <div class="content">
+                  <!-- 生成模板 -->
+                  <div v-show="menuActive === 1" class="left-panel">
+                    <import-tmpl></import-tmpl>
+                  </div>
+                  <!-- 常用元素 -->
+                  <div v-show="menuActive === 2" class="left-panel">
+                    <tools></tools>
+                    <svgEl></svgEl>
+                  </div>
+                  <!-- 背景设置 -->
+                  <div v-show="menuActive === 3" class="left-panel">
+                    <set-size></set-size>
+                    <bg-bar></bg-bar>
+                  </div>
 
-        <div style="float:right">
-          <save></save>
-        </div>
-      </Header>
-      <Content style=" display: flex; height: calc(100vh - 64px);">
-        <div v-if="show"
-             class="menu-view">
-          <Menu :active-name="menuActive"
-                accordion
-                @on-select="activeIndex => menuActive = activeIndex"
-                width="80px">
-            <MenuItem :name="1"
-                      style="padding:10px">
-            <Icon type="md-book" />{{ $t('templates') }}</MenuItem>
-            <MenuItem :name="2"
-                      style="padding:10px">
-            <Icon type="md-create" />{{ $t('elements') }}</MenuItem>
-            <MenuItem :name="3"
-                      style="padding:10px">
-            <Icon type="ios-build" />{{ $t('background') }}</MenuItem>
-          </Menu>
-          <div class="content">
-            <!-- 生成模板 -->
-            <div v-show="menuActive === 1"
-                 class="left-panel">
-              <import-tmpl></import-tmpl>
+              </div>
+          </div>
+          <!-- 画布区域 -->
+          <div style="width: 100%;position: relative; background:#F1F1F1;">
+            <div class="canvas-box">
+              <canvas id="canvas"></canvas>
+
             </div>
             <!-- 常用元素 -->
             <div v-show="menuActive === 2"
@@ -96,6 +104,11 @@ import importSvg from '@/components/importSvg.vue'
 // 顶部组件
 import align from '@/components/align.vue'
 import centerAlign from '@/components/centerAlign.vue'
+
+import flip from '@/components/flip.vue'
+import save from '@/components/save.vue'
+import lang from '@/components/lang.vue'
+
 import clone from '@/components/clone.vue'
 import dele from '@/components/del.vue'
 import flip from '@/components/flip.vue'
@@ -143,26 +156,7 @@ export default {
     }
   },
   components: {
-    setSize,
-    tools,
-    bgBar,
-    lock,
-    layer,
-    align,
-    attribute,
-    dele,
-    importSvg,
-    save,
-    importJSON,
-    clone,
-    flip,
-    importImg,
-    importTmpl,
-    centerAlign,
-    group,
-    zoom,
-    svgEl,
-    history,
+    setSize,tools,bgBar,lock,layer, align, attribute, dele,importSvg,save,lang,importJSON,clone,flip,importImg, importTmpl, centerAlign, group, zoom,svgEl,history
   },
   created() {
     this.$Spin.show()

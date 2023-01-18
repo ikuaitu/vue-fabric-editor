@@ -47,6 +47,7 @@
             <Radio v-for="(item, i) in textAlignList"
                    :label="item"
                    :key="item">
+
               <span v-html="textAlignListSvg[i]"></span>
             </Radio>
           </RadioGroup>
@@ -245,6 +246,7 @@
 
     <!-- 图片属性 -->
     <div v-show="imgType.includes(mSelectOneType)">
+
       <Divider plain
                orientation="left">{{ $t('attributes.picture_filter')}}</Divider>
       <div class="flex-view">
@@ -262,6 +264,21 @@
           </div>
         </div>
       </div>
+
+      <Divider plain orientation="left">{{ $t('attributes.picture_filter')}}</Divider>
+      <Form label-position="left" :label-width="40">
+        <FormItem :label="$t('attributes.blur')">
+          <Slider
+            v-model="imgAttr.blur"
+            :max="1"
+            :min="0"
+            :step="0.1"
+            @on-change="imgBlur"
+            size="small"
+          ></Slider>
+        </FormItem>
+      </Form>
+
     </div>
   </div>
 </template>

@@ -2,13 +2,13 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-04 00:12:54
+ * @LastEditTime: 2023-01-17 17:34:51
  * @Description: 保存文件
 -->
 
 <template>
-  <div>
-    <Button @click="clear">{{ $t('empty') }}</Button>
+  <div class="save-box">
+    <Button style="margin-left: 10px" @click="clear">{{ $t('empty') }}</Button>
     <Dropdown style="margin-left: 10px" @on-click="saveWith">
       <Button type="primary">{{ $t('keep') }} <Icon type="ios-arrow-down"></Icon></Button>
       <DropdownMenu slot="list">
@@ -65,10 +65,14 @@ export default {
     clear() {
       this.canvas.c.clear();
       this.canvas.c.setBackgroundColor('#ffffff', this.canvas.c.renderAll.bind(this.canvas.c))
-    },
+    }
   }
 };
 </script>
 
 <style scoped lang="less">
+.save-box{
+  display: inline-block;
+  padding-right: 10px;
+}
 </style>
