@@ -7,20 +7,13 @@
 -->
 
 <template>
-  <div style="display:inline-block">
-    <Divider plain
-             orientation="left">{{ $t('title_template') }}</Divider>
-    <Tooltip :content="item.label"
-             v-for="(item, i) in  list"
-             :key="i + '-bai1-button'"
-             placement="top">
-      <img class="tmpl-img"
-           :alt="item.label"
-           :src="item.src"
-           @click="getTempData(item.tempUrl)">
-    </Tooltip>
-    <!-- <Divider plain orientation="left">形状模板</Divider> -->
-  </div>
+<div style="display:inline-block">
+  <Divider plain orientation="left">{{ $t('title_template') }}</Divider>
+   <Tooltip :content="item.label"  v-for="(item, i) in  list" :key="i + '-bai1-button'" placement="top">
+     <img class="tmpl-img" :alt="item.label" :src="item.src" @click="getTempData(item.tempUrl)">
+  </Tooltip>
+  <!-- <Divider plain orientation="left">形状模板</Divider> -->
+</div>
 </template>
 
 <script>
@@ -32,7 +25,7 @@ export default {
   data() {
     return {
       jsonFile: null,
-      list: [
+      list:[
         {
           label: '笔记模板',
           tempUrl: './template/073606d4-22de-491b-8b51-b90d72101d89.json',
@@ -59,54 +52,45 @@ export default {
           src: './template/ecc3fca2-f66e-465e-b2c7-80b7522fdb3b.png',
         },
       ],
-    }
+    };
   },
-  methods: {
+  methods:{
     // 插入文件
-    insertSvgFile() {
+    insertSvgFile(){
       this.$Spin.show({
-        render: (h) => {
-          return h('div', this.$t('alert.loading_fonts'))
-        },
+          render: (h) => {
+              return h('div', this.$t('alert.loading_fonts'))
+          }
+      });
+      downFontByJSON(this.jsonFile).then(() => {
+        this.$Spin.hide();
+        this.canvas.c.loadFromJSON(this.jsonFile, this.canvas.c.renderAll.bind(this.canvas.c));
+      }).catch((e) => {
+        this.$Spin.hide();
+        this.$Message.error(this.$t('alert.loading_fonts_failed'))
       })
-      downFontByJSON(this.jsonFile)
-        .then(() => {
-          this.$Spin.hide()
-          this.canvas.c.loadFromJSON(
-            this.jsonFile,
-            this.canvas.c.renderAll.bind(this.canvas.c)
-          )
-        })
-        .catch((e) => {
-          this.$Spin.hide()
-          this.$Message.error(this.$t('alert.loading_fonts_failed'))
-        })
     },
     // 获取模板数据
-    getTempData(tmplUrl) {
+    getTempData(tmplUrl){
       this.$Spin.show({
-        render: (h) => {
-          return h('div', this.$t('alert.loading_data'))
-        },
-      })
+          render: (h) => {
+              return h('div',this.$t('alert.loading_data'))
+          }
+      });
       const getTemp = this.$http.get(tmplUrl)
-      getTemp.then((res) => {
+      getTemp.then(res => {
         this.jsonFile = JSON.stringify(res.data)
         this.insertSvgFile()
       })
-    },
-  },
-}
+    }
+  }
+};
 </script>
 
 <style scoped lang="less">
-.tmpl-img {
-  width: 95px;
+.tmpl-img{
+  width: 77px;
   cursor: pointer;
-}
-/deep/.ivu-tooltip:nth-child(2n) {
-  .tmpl-img {
-    margin-right: 10px;
-  }
+  margin-right: 5px;
 }
 </style>
