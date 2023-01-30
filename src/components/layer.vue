@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-07 02:19:27
+ * @LastEditTime: 2023-01-31 01:34:03
  * @Description: 图层面板
 -->
 
@@ -184,7 +184,7 @@ export default {
     font-size: 14px;
     line-height: 28px;
     &.active {
-      color: #f02d2d;
+      color: #2d8cf0;
       background: #f0faff;
       font-weight: bold;
     }
@@ -215,7 +215,7 @@ svg {
 <style lang="less">
 span.active {
   svg.icon {
-    fill: #f02d2d;
+    fill: #2d8cf0;
   }
 }
 </style>
