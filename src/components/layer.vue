@@ -2,33 +2,39 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-31 01:34:03
+ * @LastEditTime: 2023-01-31 01:43:49
  * @Description: 图层面板
 -->
 
 <template>
   <div class="box">
-    <Divider plain
-             orientation="left"
-             v-if="list.length">{{ $t('layers') }}</Divider>
+    <Divider plain orientation="left" v-if="list.length">{{
+      $t("layers")
+    }}</Divider>
     <div class="layer-box">
-      <div v-for="item in list"
-           @click="select(item.id)"
-           :key="item.id"
-           :class="isSelect(item) && 'active'">
-        <Tooltip :content="item.name || item.text || item.type"
-                 placement="left">
+      <div
+        v-for="item in list"
+        @click="select(item.id)"
+        :key="item.id"
+        :class="isSelect(item) && 'active'"
+      >
+        <Tooltip
+          :content="item.name || item.text || item.type"
+          placement="left"
+        >
           <div class="ellipsis">
-            <span :class=" isSelect(item) && 'active' "
-                  v-html="iconType(item.type)"></span> | {{ textType(item.type, item) }}
+            <span
+              :class="isSelect(item) && 'active'"
+              v-html="iconType(item.type)"
+            ></span>
+            | {{ textType(item.type, item) }}
           </div>
         </Tooltip>
       </div>
     </div>
     <!-- 层级调整按钮 -->
     <div class="btn-box">
-      <ButtonGroup v-show="mSelectMode === 'one'"
-                   size="default">
+      <ButtonGroup v-show="mSelectMode === 'one'" size="small">
         <Button @click="up"><span v-html="btnIconType('up')"></span></Button>
         <Button @click="down"><span v-html="btnIconType('down')"></span></Button>
         <Button @click="upTop"><span v-html="btnIconType('upTop')"></span></Button>
@@ -110,12 +116,12 @@ export default {
     // 按钮类型
     btnIconType(type) {
       const iconType = {
-        up: '<svg t="1650442206559" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1799" width="14" height="14"><path d="M876.2 434.3L536.7 94.9c-6.6-6.6-15.5-10.3-24.7-10.3-9.3 0-18.2 3.7-24.7 10.3L147.8 434.3c-13.7 13.7-13.7 35.8 0 49.5 13.7 13.7 35.8 13.7 49.5 0L477 204.1v700.2c0 19.3 15.7 35 35 35s35-15.7 35-35V204.1l279.7 279.7c6.8 6.8 15.8 10.3 24.7 10.3s17.9-3.4 24.7-10.3c13.7-13.7 13.7-35.8 0.1-49.5z" p-id="1800"></path></svg>',
+        up: '<svg t="1650442206559" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1799" width="12" height="12"><path d="M876.2 434.3L536.7 94.9c-6.6-6.6-15.5-10.3-24.7-10.3-9.3 0-18.2 3.7-24.7 10.3L147.8 434.3c-13.7 13.7-13.7 35.8 0 49.5 13.7 13.7 35.8 13.7 49.5 0L477 204.1v700.2c0 19.3 15.7 35 35 35s35-15.7 35-35V204.1l279.7 279.7c6.8 6.8 15.8 10.3 24.7 10.3s17.9-3.4 24.7-10.3c13.7-13.7 13.7-35.8 0.1-49.5z" p-id="1800"></path></svg>',
+        down: '<svg t="1650442229022" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1997" width="12" height="12"><path d="M876.2 589.7L536.7 929.1c-6.6 6.6-15.5 10.3-24.7 10.3-9.3 0-18.2-3.7-24.7-10.3L147.8 589.7c-13.7-13.7-13.7-35.8 0-49.5 13.7-13.7 35.8-13.7 49.5 0L477 819.9V119.6c0-19.3 15.7-35 35-35s35 15.7 35 35v700.2l279.7-279.7c6.8-6.8 15.8-10.3 24.7-10.3s17.9 3.4 24.7 10.3c13.7 13.8 13.7 35.9 0.1 49.6z" p-id="1998" ></path></svg>',
         upTop:
-          '<svg t="1650442106652" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1839" width="14" height="14"><path d="M548.352 219.648a58.88 58.88 0 0 0-16.896-10.752 51.2 51.2 0 0 0-38.912 0 58.88 58.88 0 0 0-16.896 10.752l-256 256a51.2 51.2 0 0 0 72.704 72.704L460.8 379.392V972.8a51.2 51.2 0 0 0 102.4 0V379.392l168.448 168.96a51.2 51.2 0 0 0 72.704-72.704zM972.8 0H51.2a51.2 51.2 0 0 0 0 102.4h921.6a51.2 51.2 0 0 0 0-102.4z" p-id="1840" ></path></svg>',
-        down: '<svg t="1650442229022" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1997" width="14" height="14"><path d="M876.2 589.7L536.7 929.1c-6.6 6.6-15.5 10.3-24.7 10.3-9.3 0-18.2-3.7-24.7-10.3L147.8 589.7c-13.7-13.7-13.7-35.8 0-49.5 13.7-13.7 35.8-13.7 49.5 0L477 819.9V119.6c0-19.3 15.7-35 35-35s35 15.7 35 35v700.2l279.7-279.7c6.8-6.8 15.8-10.3 24.7-10.3s17.9 3.4 24.7 10.3c13.7 13.8 13.7 35.9 0.1 49.6z" p-id="1998" ></path></svg>',
+          '<svg t="1650442106652" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1839" width="11" height="11"><path d="M548.352 219.648a58.88 58.88 0 0 0-16.896-10.752 51.2 51.2 0 0 0-38.912 0 58.88 58.88 0 0 0-16.896 10.752l-256 256a51.2 51.2 0 0 0 72.704 72.704L460.8 379.392V972.8a51.2 51.2 0 0 0 102.4 0V379.392l168.448 168.96a51.2 51.2 0 0 0 72.704-72.704zM972.8 0H51.2a51.2 51.2 0 0 0 0 102.4h921.6a51.2 51.2 0 0 0 0-102.4z" p-id="1840" ></path></svg>',
         downTop:
-          '<svg t="1650442146918" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2045" width="14" height="14"><path d="M548.352 804.352a58.88 58.88 0 0 1-16.896 10.752 51.2 51.2 0 0 1-38.912 0 58.88 58.88 0 0 1-16.896-10.752l-256-256a51.2 51.2 0 0 1 72.704-72.704L460.8 644.608V51.2a51.2 51.2 0 0 1 102.4 0v593.408l168.448-168.96a51.2 51.2 0 0 1 72.704 72.704zM972.8 1024H51.2a51.2 51.2 0 0 1 0-102.4h921.6a51.2 51.2 0 0 1 0 102.4z" p-id="2046"></path></svg>',
+          '<svg t="1650442146918" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2045" width="11" height="11"><path d="M548.352 804.352a58.88 58.88 0 0 1-16.896 10.752 51.2 51.2 0 0 1-38.912 0 58.88 58.88 0 0 1-16.896-10.752l-256-256a51.2 51.2 0 0 1 72.704-72.704L460.8 644.608V51.2a51.2 51.2 0 0 1 102.4 0v593.408l168.448-168.96a51.2 51.2 0 0 1 72.704 72.704zM972.8 1024H51.2a51.2 51.2 0 0 1 0-102.4h921.6a51.2 51.2 0 0 1 0 102.4z" p-id="2046"></path></svg>',
       }
       return iconType[type]
     },
