@@ -111,6 +111,7 @@ import { fabric } from 'fabric';
 
 // 对齐辅助线
 import initAligningGuidelines from '@/core/initAligningGuidelines';
+import initControlsRotate from '@/core/initControlsRotate';
 import initHotkeys from '@/core/initHotKeys';
 import initControls from '@/core/initControls';
 
@@ -146,6 +147,7 @@ export default {
       initAligningGuidelines(canvas.c)
       initHotkeys(canvas.c)
       initControls(canvas.c)
+      initControlsRotate(canvas.c)
   }
 };
 </script>
