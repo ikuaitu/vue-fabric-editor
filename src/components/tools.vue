@@ -141,6 +141,7 @@ export default {
         fontSize: 40, id: uuid(),
       });
       this.canvas.c.add(text)
+      text.center()
       this.canvas.c.setActiveObject(text);
     },
     addImg(e) {
@@ -151,6 +152,7 @@ export default {
         name: '图片default'
       });
       this.canvas.c.add(imgInstance)
+      imgInstance.center()
       this.canvas.c.renderAll()
     },
     addTextBox() {
@@ -160,6 +162,7 @@ export default {
         fontSize: 40, id: uuid(),
       });
       this.canvas.c.add(text)
+      text.center()
       this.canvas.c.setActiveObject(text);
     },
     addTriangle() {
@@ -171,6 +174,7 @@ export default {
         fill: '#92706B'
       })
       this.canvas.c.add(triangle)
+      triangle.center()
       this.canvas.c.setActiveObject(triangle);
     },
     addCircle() {
@@ -182,6 +186,7 @@ export default {
         name: '圆形'
       });
       this.canvas.c.add(circle)
+      circle.center()
       this.canvas.c.setActiveObject(circle);
     },
     addRect() {
@@ -194,6 +199,7 @@ export default {
         name: '矩形'
       });
       this.canvas.c.add(circle)
+      circle.center()
       this.canvas.c.setActiveObject(circle);
     },
     drawingLineModeSwitch(isArrow){

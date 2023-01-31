@@ -57,7 +57,7 @@
               </div>
           </div>
           <!-- 画布区域 -->
-          <div style="width: 100%;position: relative; background:#F1F1F1;">
+          <div id="workspace" style="width: 100%;position: relative; background:#F1F1F1;">
             <div class="canvas-box">
               <canvas id="canvas"></canvas>
             </div>
@@ -148,6 +148,7 @@ export default {
       initHotkeys(canvas.c)
       initControls(canvas.c)
       initControlsRotate(canvas.c)
+
   }
 };
 </script>

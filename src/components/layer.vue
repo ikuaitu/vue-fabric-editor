@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-31 01:43:49
+ * @LastEditTime: 2023-01-31 13:30:55
  * @Description: 图层面板
 -->
 
@@ -111,7 +111,7 @@ export default {
       this.list = [...this.canvas.c.getObjects()].reverse().map((item) => {
         const { type, id, name, text } = item
         return { type, id, name, text }
-      })
+      }).filter(item => item.id !== 'workspace')
     },
     // 按钮类型
     btnIconType(type) {

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-04 00:21:58
+ * @LastEditTime: 2023-01-31 13:37:05
  * @Description: 尺寸设置
 -->
 
@@ -61,20 +61,54 @@ export default {
       ]
     };
   },
-  created() {
+  mounted() {
+    this.initWorkspace()
     this.setSize()
   },
   methods: {
+    initWorkspace(){
+      this.canvas.c.setBackgroundColor('#F1F1F1', this.canvas.c.renderAll.bind(this.canvas.c))
+      this.canvas.c.backgroundImage = ''
+      this.canvas.c.renderAll()
+
+      const workspace = document.querySelector('#workspace')
+      this.canvas.c.setWidth(workspace.offsetWidth);
+      this.canvas.c.setHeight(workspace.offsetHeight);
+      const resizeObserver = new ResizeObserver((entries) => {
+        const { width, height } = entries[0].contentRect
+        this.canvas.c.setWidth(width);
+        this.canvas.c.setHeight(height);
+        this.canvas.c.renderAll()
+        if(this.rectBg){
+          // this.rectBg.center()
+        }
+      });
+      resizeObserver.observe(workspace);
+
+      const rectBg = new this.fabric.Rect({
+        fill: '#ffffff',
+        width: this.width,
+        height: this.height,
+        id: 'workspace',
+      });
+      rectBg.set('selectable',false)
+      this.rectBg = rectBg
+      this.canvas.c.add(rectBg)
+      rectBg.center()
+      this.canvas.c.renderAll()
+    },
     setSizeBy(width, height) {
-      this.canvas.c.setWidth(width);
-      this.canvas.c.setHeight(height);
+      this.rectBg.set('width', width);
+      this.rectBg.set('height', height);
+      this.rectBg.center()
       this.canvas.c.renderAll()
       this.width = width
       this.height = height
     },
     setSize() {
-      this.canvas.c.setWidth(this.width);
-      this.canvas.c.setHeight(this.height);
+      this.rectBg.set('width', this.width);
+      this.rectBg.set('height', this.height);
+      this.rectBg.center()
       this.canvas.c.renderAll()
     }
   }
