@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-31 13:37:05
+ * @LastEditTime: 2023-01-31 14:06:04
  * @Description: 尺寸设置
 -->
 
@@ -76,11 +76,28 @@ export default {
       this.canvas.c.setHeight(workspace.offsetHeight);
       const resizeObserver = new ResizeObserver((entries) => {
         const { width, height } = entries[0].contentRect
+        const oldWidth = this.canvas.c.width
+        const oldHeight = this.canvas.c.height
+        const diffWidth = width / 2 - oldWidth / 2;
+		    const diffHeight = height / 2 - oldHeight / 2;
         this.canvas.c.setWidth(width);
         this.canvas.c.setHeight(height);
+
+        this.canvas.c.getObjects().forEach((obj) => {
+				if (obj.id !== 'workspace') {
+					const left = obj.left + diffWidth;
+					const top = obj.top + diffHeight;
+					obj.set({
+						left,
+						top,
+					});
+					obj.setCoords();
+				}
+			});
         this.canvas.c.renderAll()
+        console.log(this.canvas.c)
         if(this.rectBg){
-          // this.rectBg.center()
+          this.rectBg.center()
         }
       });
       resizeObserver.observe(workspace);

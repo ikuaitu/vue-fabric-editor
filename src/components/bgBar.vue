@@ -155,8 +155,10 @@ export default {
     },
     // 背景颜色设置
     setColor(color) {
-      this.canvas.c.setBackgroundColor(color, this.canvas.c.renderAll.bind(this.canvas.c))
-      this.canvas.c.backgroundImage = ''
+      const workspace = this.canvas.c.getObjects().find(item => item.id = 'workspace')
+      workspace.set('fill', color)
+      // this.canvas.c.setBackgroundColor(color, this.canvas.c.renderAll.bind(this.canvas.c))
+      // this.canvas.c.backgroundImage = ''
       this.canvas.c.renderAll()
     }
   }
