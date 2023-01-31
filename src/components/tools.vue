@@ -208,8 +208,10 @@ export default {
       this.drawHandler.setMode(this.isDrawingLineMode)
       this.drawHandler.setArrow(isArrow)
       this.canvas.c.forEachObject(obj => {
-          obj.selectable = !this.isDrawingLineMode;
-          obj.evented = !this.isDrawingLineMode;
+          if(obj.id !== 'workspace'){
+            obj.selectable = !this.isDrawingLineMode;
+            obj.evented = !this.isDrawingLineMode;
+          }
       })
     }
   }

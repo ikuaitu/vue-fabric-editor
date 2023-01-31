@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-31 14:06:04
+ * @LastEditTime: 2023-01-31 23:18:29
  * @Description: 尺寸设置
 -->
 
@@ -38,25 +38,25 @@ export default {
   inject: ['canvas', 'fabric'],
   data() {
     return {
-      width: 900 * 0.5,
-      height: 1200 * 0.5,
+      width: 900,
+      height: 1200,
       presetSize: [{
         label: this.$t('red_book_vertical'),
         width: 900,
         height: 1200,
-        scale: 0.5,
+        scale: 1,
       },
       {
         label: this.$t('red_book_horizontal'),
         width: 1200,
         height: 900,
-        scale: 0.5,
+        scale: 1,
       },
       {
         label: this.$t('phone_wallpaper'),
         width: 1080,
         height: 1920,
-        scale: 0.4,
+        scale: 1,
       },
       ]
     };
@@ -82,7 +82,11 @@ export default {
 		    const diffHeight = height / 2 - oldHeight / 2;
         this.canvas.c.setWidth(width);
         this.canvas.c.setHeight(height);
-
+        const workspaceObj = this.canvas.c.getObjects().find(item => item.id === 'workspace')
+        if(workspaceObj){
+          workspaceObj.center()
+          this.setViewport()
+        }
         this.canvas.c.getObjects().forEach((obj) => {
 				if (obj.id !== 'workspace') {
 					const left = obj.left + diffWidth;
@@ -95,10 +99,6 @@ export default {
 				}
 			});
         this.canvas.c.renderAll()
-        console.log(this.canvas.c)
-        if(this.rectBg){
-          this.rectBg.center()
-        }
       });
       resizeObserver.observe(workspace);
 
@@ -109,23 +109,50 @@ export default {
         id: 'workspace',
       });
       rectBg.set('selectable',false)
-      this.rectBg = rectBg
+      rectBg.set('hasControls',false)
+      rectBg.set('shadow', new fabric.Shadow({
+        color: 'rgba(0,0,0,0.53)',
+        blur: 4,
+        offsetX: 0,
+        offsetY: 0,
+      }))
       this.canvas.c.add(rectBg)
       rectBg.center()
+      this.setViewport()
+      this.canvas.c.renderAll()
+    },
+    setViewport(){
+      const scale = this.getScale()
+      this.canvas.c.zoomToPoint({
+        x:this.canvas.c.width/2,
+        y:this.canvas.c.height/2
+      },scale - 0.05)
       this.canvas.c.renderAll()
     },
     setSizeBy(width, height) {
-      this.rectBg.set('width', width);
-      this.rectBg.set('height', height);
-      this.rectBg.center()
+      const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')
+      workspace.set('width', width);
+      workspace.set('height', height);
+      workspace.center()
       this.canvas.c.renderAll()
       this.width = width
       this.height = height
     },
+    getScale(){
+        const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')
+        const viewPortWidth = this.canvas.c.width
+        const viewPortHeight = this.canvas.c.height
+        if (viewPortWidth/viewPortHeight < workspace.width/workspace.height) {
+            return viewPortWidth / workspace.width
+        }else{ // 按照宽度缩放
+            return viewPortHeight / workspace.height
+        }
+    },
     setSize() {
-      this.rectBg.set('width', this.width);
-      this.rectBg.set('height', this.height);
-      this.rectBg.center()
+      const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')
+      workspace.set('width', this.width);
+      workspace.set('height', this.height);
+      workspace.center()
       this.canvas.c.renderAll()
     }
   }

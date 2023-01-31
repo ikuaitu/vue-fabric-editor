@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-17 17:34:51
+ * @LastEditTime: 2023-01-31 22:36:34
  * @Description: 保存文件
 -->
 
@@ -41,12 +41,19 @@ export default {
       this.downFile(fileStr,'json')
     },
     saveSvg() {
-      const dataUrl = this.canvas.c.toSVG()
+      const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')
+      const { left, top, width, height } = workspace
+      const dataUrl = this.canvas.c.toSVG({
+        width, height,
+        viewBox:{ x:left, y: top, width, height, }
+      })
       const fileStr = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(dataUrl)}`;
       this.downFile(fileStr,'svg')
     },
     saveImg() {
-      const option = { name: 'New Image', format: 'png', quality: 1, multiplier: 2 }
+      const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')
+      const { left, top, width, height } = workspace
+      const option = { name: 'New Image', format: 'png', quality: 1, multiplier: 2, left, top, width, height  }
       const dataUrl = this.canvas.c.toDataURL(option)
       this.downFile(dataUrl,'png')
     },
@@ -63,8 +70,13 @@ export default {
       this._mixinClipboard(JSON.stringify(jsonStr, null, '\t'))
     },
     clear() {
-      this.canvas.c.clear();
-      this.canvas.c.setBackgroundColor('#ffffff', this.canvas.c.renderAll.bind(this.canvas.c))
+      this.canvas.c.getObjects().forEach((obj) => {
+				if (obj.id !== 'workspace') {
+					this.canvas.c.remove(obj)
+				}
+			});
+      this.canvas.c.discardActiveObject()
+      this.canvas.c.renderAll()
     }
   }
 };

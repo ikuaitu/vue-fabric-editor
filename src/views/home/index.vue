@@ -18,8 +18,6 @@
           &nbsp;
           <group></group>
           &nbsp;
-          <zoom></zoom>
-          &nbsp;
           <lock></lock>
           &nbsp;
           <dele></dele>
@@ -60,6 +58,7 @@
           <div id="workspace" style="width: 100%;position: relative; background:#F1F1F1;">
             <div class="canvas-box">
               <canvas id="canvas"></canvas>
+              <zoom></zoom>
             </div>
           </div>
           <!-- 属性区域 -->

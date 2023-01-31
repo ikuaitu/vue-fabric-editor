@@ -2,15 +2,18 @@
  * @Author: 秦少卫
  * @Date: 2022-04-21 20:20:20
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-04-25 10:32:58
+ * @LastEditTime: 2023-01-31 23:13:43
  * @Description: file content
 -->
 <template>
-  <ButtonGroup size="small">
+<div class="box">
+  <ButtonGroup>
     <Button @click="big"><svg t="1650853919128" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1271" width="14" height="14"><path d="M970.837333 919.850667l-205.696-205.653334A382.421333 382.421333 0 0 0 853.333333 469.333333a384 384 0 0 0-384-384 384 384 0 0 0-384 384 384 384 0 0 0 384 384 382.421333 382.421333 0 0 0 244.906667-88.192l205.653333 205.653334a36.053333 36.053333 0 0 0 50.986667 0 36.266667 36.266667 0 0 0-0.042667-50.944z m-380.117333-162.986667c-38.4 16.256-79.189333 24.448-121.386667 24.448a311.296 311.296 0 0 1-220.586666-91.392A311.296 311.296 0 0 1 157.312 469.333333 311.296 311.296 0 0 1 248.746667 248.746667 311.296 311.296 0 0 1 469.333333 157.354667a311.296 311.296 0 0 1 220.586667 91.392A311.296 311.296 0 0 1 781.354667 469.333333a311.296 311.296 0 0 1-91.392 220.586667 310.186667 310.186667 0 0 1-99.242667 66.901333z" fill="#595959" p-id="1272"></path><path d="M652.672 431.829333h-147.84V292.010667a35.968 35.968 0 1 0-71.978667 0v139.818666H292.010667a35.968 35.968 0 1 0 0 72.021334h140.8v140.8a35.968 35.968 0 1 0 72.021333 0v-140.8h147.84a35.968 35.968 0 1 0 0-72.021334z" fill="#595959" p-id="1273"></path></svg></Button>
     <Button @click="small"><svg t="1650853934351" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1470" width="14" height="14"><path d="M970.837333 919.850667l-205.696-205.653334A382.421333 382.421333 0 0 0 853.333333 469.333333a384 384 0 0 0-384-384 384 384 0 0 0-384 384 384 384 0 0 0 384 384 382.421333 382.421333 0 0 0 244.906667-88.192l205.653333 205.653334a36.053333 36.053333 0 0 0 50.986667 0 36.266667 36.266667 0 0 0-0.042667-50.944z m-380.117333-162.986667c-38.4 16.256-79.189333 24.448-121.386667 24.448a311.296 311.296 0 0 1-220.586666-91.392A311.296 311.296 0 0 1 157.312 469.333333 311.296 311.296 0 0 1 248.746667 248.746667 311.296 311.296 0 0 1 469.333333 157.354667a311.296 311.296 0 0 1 220.586667 91.392A311.296 311.296 0 0 1 781.354667 469.333333a311.296 311.296 0 0 1-91.392 220.586667 310.186667 310.186667 0 0 1-99.242667 66.901333z" fill="#595959" p-id="1471"></path><path d="M652.672 431.829333H292.010667a35.968 35.968 0 1 0 0 72.021334h360.661333a35.968 35.968 0 1 0 0-72.021334z" fill="#595959" p-id="1472"></path></svg></Button>
     <Button @click="rSet">1:1</Button>
+    <Button @click="setViewport" icon="md-resize"></Button>
   </ButtonGroup>
+</div>
 </template>
 
 <script>
@@ -36,9 +39,9 @@ export default {
     rSet(){
       this.canvas.c.zoomToPoint(
         new this.fabric.Point(this.canvas.c.getWidth() / 2, this.canvas.c.getHeight() / 2),
-			  1,
+			  0.95,
       )
-      this.zoom = `${Math.round(100)}%`
+      this.zoom = `${Math.round(95)}%`
     },
     big(){
       let zoomRatio = this.canvas.c.getZoom();
@@ -57,9 +60,35 @@ export default {
 			  zoomRatio,
       )
       this.zoom = `${Math.round(zoomRatio * 100)}%`
-    }
+    },
+    setViewport(){
+      const scale = this.getScale()
+      this.canvas.c.zoomToPoint({
+        x: this.canvas.c.width/2,
+        y: this.canvas.c.height/2
+      },scale - 0.05)
+      this.canvas.c.renderAll()
+    },
+    getScale(){
+        const workspaceEl = document.querySelector('#workspace')
+        const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')
+        // const viewPortWidth = this.canvas.c.width
+        // const viewPortHeight = this.canvas.c.height
+        const viewPortWidth = workspaceEl.offsetWidth
+        const viewPortHeight = workspaceEl.offsetHeight
+        if (viewPortWidth/viewPortHeight < workspace.width/workspace.height) {
+            return viewPortWidth / workspace.width
+        }else{ // 按照宽度缩放
+            return viewPortHeight / workspace.height
+        }
+    },
   }
 };
 </script>
 <style scoped lang="less">
+.box{
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
 </style>
