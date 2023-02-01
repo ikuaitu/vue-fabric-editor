@@ -5,6 +5,9 @@
 </template>
 
 <style lang="less">
+ul, li {
+  list-style: none;
+}
 svg {
   vertical-align: middle;
 }
