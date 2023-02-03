@@ -34,7 +34,10 @@
     "insert_picture": "Inserir imagem",
     "select_image": "Selecionar arquivo de imagem",
     "upload_background": "Carregar plano de fundo",
-
+    "mouseMenu": {
+        "copy": "Copiar",
+        "delete": "Eliminar"
+    },
     "alert": {
         "loading_fonts": "Carregando fontes, aguarde...",
         "loading_fonts_failed": "Falha ao carregar as fontes, tente novamente",

@@ -60,6 +60,8 @@
           <div style="width: 100%;position: relative; background:#F1F1F1;">
             <div class="canvas-box">
               <canvas id="canvas"></canvas>
+
+              <mouseMenu v-if="show" />
             </div>
           </div>
           <!-- 属性区域 -->
@@ -104,6 +106,9 @@ import history from '@/components/history.vue'
 import layer from '@/components/layer.vue'
 import attribute from '@/components/attribute.vue'
 
+// 右键菜单
+import mouseMenu from '@/components/mouseMenu.vue'
+
 // 功能组件
 import EventHandle from '@/utils/eventHandler'
 
@@ -133,13 +138,16 @@ export default {
     };
   },
   components: {
-    setSize,tools,bgBar,lock,layer, align, attribute, dele,importSvg,save,lang,importJSON,clone,flip,importImg, importTmpl, centerAlign, group, zoom,svgEl,history
+    setSize,tools,bgBar,lock,layer, align, attribute, dele,importSvg,save,lang,importJSON,clone,flip,importImg, importTmpl, centerAlign, group, zoom,svgEl,history,mouseMenu
   },
   created(){
      this.$Spin.show();
   },
   mounted() {
-      this.canvas = canvas.c = new fabric.Canvas('canvas');
+      this.canvas = canvas.c = new fabric.Canvas('canvas', {
+        fireRightClick: true, // 启用右键，button的数字为3
+        stopContextMenu: true, // 禁止默认右键菜单
+      });
       this.canvas.set('backgroundColor', '#fff')
       this.show = true
       this.$Spin.hide();
