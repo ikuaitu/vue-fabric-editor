@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-03 13:50:38
+ * @LastEditTime: 2023-02-03 20:29:51
  * @Description: 尺寸设置
 -->
 
@@ -68,24 +68,22 @@ export default {
   },
   methods: {
     rSet(){
-      const scale = 0.5
-      // const scale = this.getScale()
-      alert(scale)
+      // const scale = 0.5
+      const scale = this.getScale()
+      // alert(scale)
       const workspace = document.querySelector('#workspace')
       let width = workspace.offsetWidth, height = workspace.offsetHeight
       if(this.width * scale > workspace.offsetWidth){
         width = this.width * scale
-        alert(1)
       }
 
       if(this.height * scale > workspace.offsetHeight){
         height = this.height * scale
-        alert(2)
       }
 
 		  // this.handler.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
 		  // this.zoomToPoint(new fabric.Point(center.left, center.top), 1);
-      const center = this.canvas.c.getCenter()
+      // const center = this.canvas.c.getCenter()
       // console.log(this.canvas.c.getCenter())
       // this.canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
       this.canvas.c.zoomToPoint(
