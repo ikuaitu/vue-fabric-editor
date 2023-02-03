@@ -55,7 +55,7 @@
               </div>
           </div>
           <!-- 画布区域 -->
-          <div id="workspace" style="width: 100%;position: relative; background:#F1F1F1;">
+          <div id="workspace" style="width: 100%;position: relative; background:#F1F1F1; ">
             <div class="canvas-box">
               <canvas id="canvas"></canvas>
               <zoom></zoom>
@@ -163,17 +163,18 @@ export default {
    display: block;
 }
 .canvas-box{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
 }
+
 #canvas{
   width: 300px;
   height: 300px;
   margin: 0 auto;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVQ4jWNgYGAQIYAJglEDhoUBg9+FowbQ2gAARjwKARjtnN8AAAAASUVORK5CYII=");
   background-size: 30px 30px;
+}
+#workspace{
+  overflow: auto;
 }
 .content{
   flex: 1;
