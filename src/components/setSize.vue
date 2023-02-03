@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-03 08:59:06
+ * @LastEditTime: 2023-02-03 13:50:38
  * @Description: 尺寸设置
 -->
 
@@ -68,12 +68,11 @@ export default {
   },
   methods: {
     rSet(){
-      const scale = 0.3
+      const scale = 0.5
       // const scale = this.getScale()
       alert(scale)
       const workspace = document.querySelector('#workspace')
       let width = workspace.offsetWidth, height = workspace.offsetHeight
-      
       if(this.width * scale > workspace.offsetWidth){
         width = this.width * scale
         alert(1)
@@ -83,17 +82,27 @@ export default {
         height = this.height * scale
         alert(2)
       }
-      const Point = this.canvas.c.getVpCenter()
-      console.log(this.canvas.c.getVpCenter())
+
+		  // this.handler.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+		  // this.zoomToPoint(new fabric.Point(center.left, center.top), 1);
+      const center = this.canvas.c.getCenter()
+      // console.log(this.canvas.c.getCenter())
+      // this.canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
       this.canvas.c.zoomToPoint(
-        // Point,
-        // new this.fabric.Point(workspace.offsetWidth/2,  0),
-        new this.fabric.Point(workspace.offsetWidth - this.width * scale,  workspace.offsetWidth - this.height * scale),
+        // new fabric.Point(center.left, center.top),
+        // center,
+        new this.fabric.Point(workspace.offsetWidth/2,  workspace.offsetHeight/2),
+        // new this.fabric.Point(workspace.offsetWidth - this.width * scale,  workspace.offsetWidth - this.height * scale),
         // new this.fabric.Point(0,  0),
 			  scale
       )
+
+      const workspace1 = this.canvas.c.getObjects().find(item => item.id === 'workspace')
+      // workspace.set('width', width);
+      // workspace.set('height', height);
       this.canvas.c.setWidth(width);
       this.canvas.c.setHeight(height);
+      workspace1.center()
       this.canvas.c.renderAll()
     },
     initWorkspace(){
