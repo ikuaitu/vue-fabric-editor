@@ -66,22 +66,23 @@ function copyElement(canvas){
     hotkeys(keyNames.ctrlc, (event, handler) => {
         const activeObject = canvas.getActiveObjects()
         if(activeObject.length === 0) return
-        copyEl = cloneDeep(activeObject[0])
-        if(copyEl.left === activeObject[0].left) {
-            copyEl.left += 10
-            copyEl.top += 10
-        }
-        Message.success('复制成功')
+        canvas.getActiveObject().clone(_copyEl => {
+            canvas.discardActiveObject();
+            _copyEl.set({
+                left: _copyEl.left + 20,
+                top: _copyEl.top + 20,
+                evented: true,
+                id: uuid()
+            });
+			copyEl = _copyEl
+			Message.success('复制成功')
+        })
     })
     // 粘贴
     hotkeys(keyNames.ctrlv, (event, handler) => {
         if(!copyEl) return Message.warning('暂无复制内容')
-        const myCopyEl = cloneDeep(copyEl)
-        myCopyEl.id = uuid()
-        copyEl.left += 10
-        copyEl.top += 10
-        canvas.add(myCopyEl)
-        canvas.setActiveObject(myCopyEl)
+		canvas.add(copyEl)
+		canvas.setActiveObject(copyEl)
     })
 }
 
