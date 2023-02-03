@@ -39,7 +39,7 @@ export default({
             this.menu && (this.menu.oncontextmenu =  e => e.preventDefault())
             this.init()
         });
-        // 点击其他区域右键监听和和fabric右键功能有冲突，只监听了点击事件进行隐藏
+        // 监听点击 隐藏(右键点击外部和fabric右键有冲突，因为点击非canvas只有点击左键才可以隐藏)
         window.addEventListener('click', debounce(this.clickHide, 200))
     },
 

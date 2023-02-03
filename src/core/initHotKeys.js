@@ -74,15 +74,15 @@ function copyElement(canvas){
                 evented: true,
                 id: uuid()
             });
-			copyEl = _copyEl
-			Message.success('复制成功')
+            copyEl = _copyEl
+            Message.success('复制成功')
         })
     })
     // 粘贴
     hotkeys(keyNames.ctrlv, (event, handler) => {
         if(!copyEl) return Message.warning('暂无复制内容')
-		canvas.add(copyEl)
-		canvas.setActiveObject(copyEl)
+        canvas.add(copyEl)
+        canvas.setActiveObject(copyEl)
     })
 }
 
