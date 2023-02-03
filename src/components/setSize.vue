@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-03 20:29:51
+ * @LastEditTime: 2023-02-03 23:45:11
  * @Description: 尺寸设置
 -->
 
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+
+import EditorWorkspace from '@/core/initWorkspace';
 export default {
   name: 'canvasSize',
   inject: ['canvas', 'fabric'],
@@ -63,52 +65,44 @@ export default {
     };
   },
   mounted() {
-    this.initWorkspace()
+
+    this.canvas.editor.editorWorkspace = new EditorWorkspace(this.canvas.c, {
+      width: this.width,
+      height: this.height
+    })
+
+    // this.editorWorkspace =
+
+    // this.initWorkspace()
     // this.setSize()
   },
   methods: {
     rSet(){
-      // const scale = 0.5
       const scale = this.getScale()
-      // alert(scale)
-      const workspace = document.querySelector('#workspace')
-      let width = workspace.offsetWidth, height = workspace.offsetHeight
-      if(this.width * scale > workspace.offsetWidth){
+      const workspaceEl = document.querySelector('#workspace')
+      let width = workspaceEl.offsetWidth, height = workspaceEl.offsetHeight
+      if(this.width * scale > workspaceEl.offsetWidth){
         width = this.width * scale
       }
 
-      if(this.height * scale > workspace.offsetHeight){
+      if(this.height * scale > workspaceEl.offsetHeight){
         height = this.height * scale
       }
 
-		  // this.handler.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
-		  // this.zoomToPoint(new fabric.Point(center.left, center.top), 1);
-      // const center = this.canvas.c.getCenter()
-      // console.log(this.canvas.c.getCenter())
-      // this.canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
       this.canvas.c.zoomToPoint(
-        // new fabric.Point(center.left, center.top),
-        // center,
-        new this.fabric.Point(workspace.offsetWidth/2,  workspace.offsetHeight/2),
-        // new this.fabric.Point(workspace.offsetWidth - this.width * scale,  workspace.offsetWidth - this.height * scale),
-        // new this.fabric.Point(0,  0),
-			  scale
+        new this.fabric.Point(workspaceEl.offsetWidth/2,  workspaceEl.offsetHeight/2),
+			  scale - 0.08
       )
-
-      const workspace1 = this.canvas.c.getObjects().find(item => item.id === 'workspace')
-      // workspace.set('width', width);
-      // workspace.set('height', height);
+      alert(scale)
+      const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')
       this.canvas.c.setWidth(width);
       this.canvas.c.setHeight(height);
-      workspace1.center()
+      workspace.center()
       this.canvas.c.renderAll()
     },
     initWorkspace(){
-      this.canvas.c.setBackgroundColor('#F1F1F1', this.canvas.c.renderAll.bind(this.canvas.c))
-      this.canvas.c.backgroundImage = ''
+
       // const workspace = document.querySelector('#workspace')
-      this.canvas.c.setWidth(this.width);
-      this.canvas.c.setHeight(this.height);
       // const resizeObserver = new ResizeObserver((entries) => {
       //   const { width, height } = entries[0].contentRect
       //   const oldWidth = this.canvas.c.width
@@ -137,32 +131,34 @@ export default {
       // });
       // resizeObserver.observe(workspace);
 
-      const rectBg = new this.fabric.Rect({
+      this.canvas.c.setBackgroundColor('#F1F1F1', this.canvas.c.renderAll.bind(this.canvas.c))
+      this.canvas.c.backgroundImage = ''
+      this.canvas.c.setWidth(this.width);
+      this.canvas.c.setHeight(this.height);
+
+      const workspace = new this.fabric.Rect({
         fill: '#ffffff',
         width: this.width,
         height: this.height,
         id: 'workspace',
       });
-      rectBg.set('selectable',false)
-      rectBg.set('hasControls',false)
-      // rectBg.set('shadow', new fabric.Shadow({
-      //   color: 'rgba(0,0,0,0.53)',
-      //   blur: (this.width * this.height) / 10000 * 2,
-      //   offsetX: 0,
-      //   offsetY: 0,
-      // }))
-      this.canvas.c.add(rectBg)
-      rectBg.center()
-      // this.setViewport()
+
+      workspace.set('selectable',false)
+      workspace.set('hasControls',false)
+      this.canvas.c.add(workspace)
+      workspace.center()
       this.canvas.c.renderAll()
+
+      this.rSet()
     },
     setViewport(){
-      const scale = this.getScale()
-      this.canvas.c.zoomToPoint({
-        x:this.canvas.c.width/2,
-        y:this.canvas.c.height/2
-      },scale - 0.05)
-      this.canvas.c.renderAll()
+
+      // const scale = this.getScale()
+      // this.canvas.c.zoomToPoint({
+      //   x:this.canvas.c.width/2,
+      //   y:this.canvas.c.height/2
+      // },scale - 0.05)
+      // this.canvas.c.renderAll()
     },
     setSizeBy(width, height) {
       const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')

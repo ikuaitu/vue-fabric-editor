@@ -113,6 +113,7 @@ import initAligningGuidelines from '@/core/initAligningGuidelines';
 import initControlsRotate from '@/core/initControlsRotate';
 import initHotkeys from '@/core/initHotKeys';
 import initControls from '@/core/initControls';
+import Editor from '@/core';
 
 
 const event = new EventHandle()
@@ -143,6 +144,9 @@ export default {
       this.show = true
       this.$Spin.hide();
       event.init(canvas.c)
+
+      canvas.editor = new Editor(canvas.c)
+
       initAligningGuidelines(canvas.c)
       initHotkeys(canvas.c)
       initControls(canvas.c)

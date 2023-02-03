@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-04-21 20:20:20
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-31 23:13:43
+ * @LastEditTime: 2023-02-03 23:43:47
  * @Description: file content
 -->
 <template>
@@ -37,51 +37,42 @@ export default {
   },
   methods:{
     rSet(){
-      this.canvas.c.zoomToPoint(
-        new this.fabric.Point(this.canvas.c.getWidth() / 2, this.canvas.c.getHeight() / 2),
-			  0.95,
-      )
-      this.zoom = `${Math.round(95)}%`
+      this.canvas.editor.editorWorkspace.one()
+      // this.canvas.c.zoomToPoint(
+      //   new this.fabric.Point(this.canvas.c.getWidth() / 2, this.canvas.c.getHeight() / 2),
+			//   0.95,
+      // )
+      // this.zoom = `${Math.round(95)}%`
     },
     big(){
-      let zoomRatio = this.canvas.c.getZoom();
-      zoomRatio += 0.05;
-      this.canvas.c.zoomToPoint(
-        new this.fabric.Point(this.canvas.c.getWidth() / 2, this.canvas.c.getHeight() / 2),
-			  zoomRatio,
-      )
-      this.zoom = `${Math.round(zoomRatio * 100)}%`
+      this.canvas.editor.editorWorkspace.big()
+      // let zoomRatio = this.canvas.c.getZoom();
+      // zoomRatio += 0.05;
+      // this.canvas.c.zoomToPoint(
+      //   new this.fabric.Point(this.canvas.c.getWidth() / 2, this.canvas.c.getHeight() / 2),
+			//   zoomRatio,
+      // )
+      // this.zoom = `${Math.round(zoomRatio * 100)}%`
     },
     small(){
-      let zoomRatio = this.canvas.c.getZoom();
-      zoomRatio -= 0.05;
-      this.canvas.c.zoomToPoint(
-        new this.fabric.Point(this.canvas.c.getWidth() / 2, this.canvas.c.getHeight() / 2),
-			  zoomRatio,
-      )
-      this.zoom = `${Math.round(zoomRatio * 100)}%`
+      this.canvas.editor.editorWorkspace.small()
+      // let zoomRatio = this.canvas.c.getZoom();
+      // zoomRatio -= 0.05;
+      // this.canvas.c.zoomToPoint(
+      //   new this.fabric.Point(this.canvas.c.getWidth() / 2, this.canvas.c.getHeight() / 2),
+			//   zoomRatio,
+      // )
+      // this.zoom = `${Math.round(zoomRatio * 100)}%`
     },
     setViewport(){
-      const scale = this.getScale()
-      this.canvas.c.zoomToPoint({
-        x: this.canvas.c.width/2,
-        y: this.canvas.c.height/2
-      },scale - 0.05)
-      this.canvas.c.renderAll()
-    },
-    getScale(){
-        const workspaceEl = document.querySelector('#workspace')
-        const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')
-        // const viewPortWidth = this.canvas.c.width
-        // const viewPortHeight = this.canvas.c.height
-        const viewPortWidth = workspaceEl.offsetWidth
-        const viewPortHeight = workspaceEl.offsetHeight
-        if (viewPortWidth/viewPortHeight < workspace.width/workspace.height) {
-            return viewPortWidth / workspace.width
-        }else{ // 按照宽度缩放
-            return viewPortHeight / workspace.height
-        }
-    },
+      this.canvas.editor.editorWorkspace.auto()
+      // const scale = this.getScale()
+      // this.canvas.c.zoomToPoint({
+      //   x: this.canvas.c.width/2,
+      //   y: this.canvas.c.height/2
+      // },scale - 0.05)
+      // this.canvas.c.renderAll()
+    }
   }
 };
 </script>
