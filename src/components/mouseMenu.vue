@@ -152,6 +152,7 @@ export default ({
   border-radius: 4px;
   visibility: hidden; /* 隐藏菜单 */
   z-index: -100;
+  box-shadow: 0 8px 8px 0 rgba(0,0,0,.08);;
   background: #fff;
   & > li {
     color: #33383e;
