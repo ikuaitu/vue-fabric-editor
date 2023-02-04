@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-05 22:33:57
+ * @LastEditTime: 2023-02-05 00:31:13
  * @Description: 插入图片
 -->
 
@@ -53,7 +53,6 @@ export default {
           left: 100, top: 100,
         });
         // 设置缩放
-        imgInstance.scale(0.2);
         this.canvas.c.add(imgInstance)
         this.canvas.c.setActiveObject(imgInstance);
         this.canvas.c.renderAll()

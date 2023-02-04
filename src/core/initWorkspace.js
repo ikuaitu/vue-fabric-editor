@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 21:50:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-04 22:40:40
+ * @LastEditTime: 2023-02-05 01:12:55
  * @Description: 工作区初始化
  */
 
@@ -60,24 +60,25 @@ class EditorWorkspace {
         this.width = entries[0].contentRect.width
         this.height = entries[0].contentRect.height
         this.canvas.getObjects().forEach((obj) => {
-				if (obj.id !== 'workspace') {
-					const left = obj.left + diffWidth;
-					const top = obj.top + diffHeight;
-					obj.set({
-						left,
-						top,
-					});
-					obj.setCoords();
-				}
-			});
+            if (obj.id !== 'workspace') {
+                const left = obj.left + diffWidth;
+                const top = obj.top + diffHeight;
+                obj.set({
+                    left,
+                    top,
+                });
+                obj.setCoords();
+            }
+        });
         this.canvas.renderAll()
+        this.canvas.requestRenderAll()
       });
 
       resizeObserver.observe(this.workspaceEl);
     }
 
     setSize(width, height) {
-        console.log(workspace === this.workspace, '333')
+        // this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
         this._initBackground()
         this.option.width = width
         this.option.height = height
@@ -86,6 +87,10 @@ class EditorWorkspace {
         this.workspace.set('width', width);
         this.workspace.set('height', height);
         this.canvas.renderAll()
+        this.canvas.requestRenderAll()
+        // this.moveEl()
+        // const scale = this._getScale()
+        // this.setZoomAuto1(scale - 0.08)
         this.auto()
     }
 
@@ -103,6 +108,21 @@ class EditorWorkspace {
         this.canvas.setHeight(height);
         this.canvas.renderAll()
     }
+
+    // setZoomAuto1(scale){
+    //     const { workspaceEl } = this
+    //     let width = workspaceEl.offsetWidth, height = workspaceEl.offsetHeight
+    //     const center = this.canvas.getCenter()
+    //     this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    //     this.canvas.zoomToPoint(
+    //         new fabric.Point(center.left, center.top),
+    //         scale
+    //     )
+    //     this.canvas.centerObject(this.workspace)
+    //     this.canvas.setWidth(width);
+    //     this.canvas.setHeight(height);
+    //     this.canvas.renderAll()
+    // }
 
     _getScale(){
         const viewPortWidth = this.workspaceEl.offsetWidth

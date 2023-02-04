@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-04 22:31:43
+ * @LastEditTime: 2023-02-05 00:34:03
  * @Description: 保存文件
 -->
 
@@ -53,7 +53,7 @@ export default {
     saveImg() {
       const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')
       const { left, top, width, height } = workspace
-      const option = { name: 'New Image', format: 'png', quality: 1, left, top, width, height, enableRetinaScaling: true  }
+      const option = { name: 'New Image', format: 'png', quality: 1, left, top, width, height,  }
       this.canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
       const dataUrl = this.canvas.c.toDataURL(option)
       this.downFile(dataUrl,'png')
