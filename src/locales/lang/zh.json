@@ -34,7 +34,10 @@
     "insert_picture": "插入图片",
     "select_image": "选择图片文件",
     "upload_background": "上传背景",
-
+    "mouseMenu": {
+        "copy": "复制",
+        "delete": "删除"
+    },
     "alert": {
         "loading_fonts": "正在加载字体，您耐心等候...",
         "loading_fonts_failed": "字体加载失败，请重试",

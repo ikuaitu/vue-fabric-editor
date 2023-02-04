@@ -60,6 +60,7 @@
               <div class="inside-shadow"></div>
               <canvas id="canvas"></canvas>
               <zoom></zoom>
+              <mouseMenu></mouseMenu>
             </div>
           </div>
           <!-- 属性区域 -->
@@ -104,6 +105,9 @@ import history from '@/components/history.vue'
 import layer from '@/components/layer.vue'
 import attribute from '@/components/attribute.vue'
 
+// 右键菜单
+import mouseMenu from '@/components/mouseMenu.vue'
+
 // 功能组件
 import EventHandle from '@/utils/eventHandler'
 
@@ -134,21 +138,24 @@ export default {
     };
   },
   components: {
-    setSize,tools,bgBar,lock,layer, align, attribute, dele,importSvg,save,lang,importJSON,clone,flip,importImg, importTmpl, centerAlign, group, zoom,svgEl,history
+    setSize,tools,bgBar,lock,layer, align, attribute, dele,importSvg,save,lang,importJSON,clone,flip,importImg, importTmpl, centerAlign, group, zoom,svgEl,history,mouseMenu
   },
   created(){
      this.$Spin.show();
   },
   mounted() {
-      this.canvas = canvas.c = new fabric.Canvas('canvas');
-      this.show = true
-      this.$Spin.hide();
+      this.canvas = canvas.c = new fabric.Canvas('canvas', {
+        fireRightClick: true, // 启用右键，button的数字为3
+        stopContextMenu: true, // 禁止默认右键菜单
+      });
       event.init(canvas.c)
       canvas.editor = new Editor(canvas.c)
       initAligningGuidelines(canvas.c)
       initHotkeys(canvas.c)
       initControls(canvas.c)
       initControlsRotate(canvas.c)
+      this.show = true
+      this.$Spin.hide();
 
   }
 };

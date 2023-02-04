@@ -34,7 +34,10 @@
     "insert_picture": "Insert picture",
     "select_image": "Select image",
     "upload_background": "Upload background",
-
+    "mouseMenu": {
+        "copy": "Copy",
+        "delete": "Delete"
+    },
     "alert": {
         "loading_fonts": "Loading fonts, please wait...",
         "loading_fonts_failed": "Fonts failed to load, please try again",
