@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-31 22:23:09
+ * @LastEditTime: 2023-02-04 22:30:19
  * @Description: 导入JSON文件
 -->
 
@@ -46,10 +46,12 @@ export default {
       }
       // 加载字体后导入
       downFontByJSON(this.jsonFile).then(() => {
+        console.log(JSON.parse(this.jsonFile), '111')
         this.canvas.c.loadFromJSON(this.jsonFile, this.canvas.c.renderAll.bind(this.canvas.c));
         const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')
         workspace.set('selectable',false)
         workspace.set('hasControls',false)
+        this.canvas.editor.editorWorkspace.setSize(workspace.width,workspace.height)
         this.canvas.c.renderAll()
       })
     },

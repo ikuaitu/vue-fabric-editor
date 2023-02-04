@@ -57,6 +57,7 @@
           <!-- 画布区域 -->
           <div id="workspace" style="width: 100%;position: relative; background:#F1F1F1; ">
             <div class="canvas-box">
+              <div class="inside-shadow"></div>
               <canvas id="canvas"></canvas>
               <zoom></zoom>
             </div>
@@ -140,13 +141,10 @@ export default {
   },
   mounted() {
       this.canvas = canvas.c = new fabric.Canvas('canvas');
-      this.canvas.set('backgroundColor', '#fff')
       this.show = true
       this.$Spin.hide();
       event.init(canvas.c)
-
       canvas.editor = new Editor(canvas.c)
-
       initAligningGuidelines(canvas.c)
       initHotkeys(canvas.c)
       initControls(canvas.c)
@@ -170,6 +168,15 @@ export default {
   position: relative;
 }
 
+.inside-shadow{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow:inset 15px 5px blue;
+  box-shadow: inset 0 0 9px 2px #0000001f;
+  z-index: 2;
+  pointer-events: none;
+}
 #canvas{
   width: 300px;
   height: 300px;
@@ -178,7 +185,7 @@ export default {
   background-size: 30px 30px;
 }
 #workspace{
-  overflow: auto;
+  overflow:hidden;
 }
 .content{
   flex: 1;

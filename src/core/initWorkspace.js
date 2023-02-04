@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 21:50:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-03 23:58:54
+ * @LastEditTime: 2023-02-04 22:40:40
  * @Description: 工作区初始化
  */
 
@@ -16,9 +16,8 @@ class EditorWorkspace {
         this.option = option
         this._initBackground()
         this._initWorkspace()
-
-
-        // this._initResizeObserve()
+        this._initResizeObserve()
+        this._initDring()
     }
     // 初始化背景
     _initBackground(){
@@ -26,6 +25,9 @@ class EditorWorkspace {
         this.canvas.backgroundImage = ''
         this.canvas.setWidth(this.workspaceEl.offsetWidth);
         this.canvas.setHeight(this.workspaceEl.offsetHeight);
+        // 上一次画布大小
+        this.width = this.workspaceEl.offsetWidth
+        this.height = this.workspaceEl.offsetHeight
     }
     // 初始化画布
     _initWorkspace(){
@@ -38,86 +40,60 @@ class EditorWorkspace {
         });
         workspace.set('selectable',false)
         workspace.set('hasControls',false)
-
+        workspace.hoverCursor = 'selection'
         this.canvas.add(workspace)
         this.canvas.centerObject(workspace)
         this.canvas.renderAll()
 
         this.workspace = workspace
-
-        const scale = this.getScale()
-        this.setZoomAuto(scale - 0.08)
+        this.auto()
     }
 
 
     // 初始化监听器
     _initResizeObserve(){
-        // this.workspaceEl
-        // const workspace = document.querySelector('#workspace')
       const resizeObserver = new ResizeObserver((entries) => {
-        // const scale = this.getScale()
-        // this.setZoomAuto(scale)
-        this._initBackground()
         this.auto()
-        // alert(scale)
-        // const { width, height } = entries[0].contentRect
-      //   const oldWidth = this.canvas.c.width
-      //   const oldHeight = this.canvas.c.height
-      //   const diffWidth = width / 2 - oldWidth / 2;
-		  //   const diffHeight = height / 2 - oldHeight / 2;
-      //   this.canvas.c.setWidth(width);
-      //   this.canvas.c.setHeight(height);
-        // const workspaceObj = this.canvas.getObjects().find(item => item.id === 'workspace')
-        // if(workspaceObj){
-        //   workspaceObj.center()
-        //   this.setViewport()
-        // }
-      //   this.canvas.c.getObjects().forEach((obj) => {
-			// 	if (obj.id !== 'workspace') {
-			// 		const left = obj.left + diffWidth;
-			// 		const top = obj.top + diffHeight;
-			// 		obj.set({
-			// 			left,
-			// 			top,
-			// 		});
-			// 		obj.setCoords();
-			// 	}
-			// });
-      //   this.canvas.c.renderAll()
+
+        const diffWidth = entries[0].contentRect.width / 2 - this.width / 2;
+		const diffHeight = entries[0].contentRect.height / 2 - this.height / 2;
+        this.width = entries[0].contentRect.width
+        this.height = entries[0].contentRect.height
+        this.canvas.getObjects().forEach((obj) => {
+				if (obj.id !== 'workspace') {
+					const left = obj.left + diffWidth;
+					const top = obj.top + diffHeight;
+					obj.set({
+						left,
+						top,
+					});
+					obj.setCoords();
+				}
+			});
+        this.canvas.renderAll()
       });
+
       resizeObserver.observe(this.workspaceEl);
     }
 
-    setBgSize(scale) {
-        const { workspaceEl } = this
-        let width = workspaceEl.offsetWidth, height = workspaceEl.offsetHeight
-        const newBgWidth = this.option.width * scale
-        const newBgHeight = this.option.height * scale
-        if(newBgWidth > workspaceEl.offsetWidth){
-            width = newBgWidth
-        }
-        if(newBgHeight > workspaceEl.offsetHeight){
-            height = newBgHeight
-        }
-        console.log(width, height)
-        this.canvas.setWidth(width);
-        this.canvas.setHeight(height);
+    setSize(width, height) {
+        console.log(workspace === this.workspace, '333')
+        this._initBackground()
+        this.option.width = width
+        this.option.height = height
+        // 重新设置workspace
+        this.workspace = this.canvas.getObjects().find(item => item.id === 'workspace')
+        this.workspace.set('width', width);
+        this.workspace.set('height', height);
         this.canvas.renderAll()
+        this.auto()
     }
+
     setZoomAuto(scale){
         const { workspaceEl } = this
         let width = workspaceEl.offsetWidth, height = workspaceEl.offsetHeight
-        const newBgWidth = this.option.width * scale
-        const newBgHeight = this.option.height * scale
-        if(newBgWidth > workspaceEl.offsetWidth){
-            width = newBgWidth
-        }
-
-        if(newBgHeight > workspaceEl.offsetHeight){
-            height = newBgHeight
-        }
         const center = this.canvas.getCenter()
-
+        this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
         this.canvas.zoomToPoint(
             new fabric.Point(center.left, center.top),
             scale
@@ -128,9 +104,10 @@ class EditorWorkspace {
         this.canvas.renderAll()
     }
 
-    getScale(){
+    _getScale(){
         const viewPortWidth = this.workspaceEl.offsetWidth
         const viewPortHeight = this.workspaceEl.offsetHeight
+        // 按照宽度
         if (viewPortWidth/viewPortHeight < this.option.width/this.option.height) {
             return viewPortWidth / this.option.width
         }else{ // 按照宽度缩放
@@ -138,7 +115,7 @@ class EditorWorkspace {
         }
     }
 
-
+    // 放大
     big(){
         let zoomRatio = this.canvas.getZoom();
         zoomRatio += 0.05;
@@ -147,9 +124,8 @@ class EditorWorkspace {
             new fabric.Point(center.left, center.top),
             zoomRatio
         )
-        // this.zoom = `${Math.round(zoomRatio * 100)}%`
     }
-
+    // 缩小
     small(){
         let zoomRatio = this.canvas.getZoom();
         zoomRatio -= 0.05;
@@ -158,36 +134,91 @@ class EditorWorkspace {
             new fabric.Point(center.left, center.top),
             zoomRatio
         )
-        // this.zoom = `${Math.round(zoomRatio * 100)}%`
     }
 
-
+    // 自动缩放
     auto(){
-        const scale = this.getScale()
-        this.setBgSize(scale)
-        // const center = this.canvas.getCenter()
-        // this.canvas.zoomToPoint({
-        //     x: this.canvas.c.width/2,
-        //     y: this.canvas.c.height/2
-        // }, scale - 0.05)
-        // this.canvas.zoomToPoint(
-        //     new fabric.Point(center.left, center.top),
-        //     scale - 0.05
-        // )
-        this.canvas.renderAll()
+        const scale = this._getScale()
+        this.setZoomAuto(scale - 0.08)
     }
 
+    // 1:1 放大
     one(){
-        // const scale = this.getScale()
-        this.setBgSize(1)
-        // const scale = this.getScale()
-        const center = this.canvas.getCenter()
-        this.canvas.zoomToPoint(
-            new fabric.Point(center.left, center.top),
-            1
-        )
-        this.canvas.renderAll()
+        this.setZoomAuto(0.8 - 0.08)
+        this.canvas.requestRenderAll()
     }
+
+    // 拖拽模式
+    _initDring(){
+        const This = this
+        this.canvas.on('mouse:down', function(opt) {
+            var evt = opt.e;
+            if (evt.altKey === true) {
+              this.defaultCursor = 'grab';
+              This._setDring()
+              this.selection = false;
+              this.isDragging = true;
+              this.lastPosX = evt.clientX;
+              this.lastPosY = evt.clientY;
+              this.requestRenderAll();
+            }
+        });
+
+        this.canvas.on('mouse:move', function(opt) {
+            if (this.isDragging) {
+              this.defaultCursor = 'grabbing';
+              var e = opt.e;
+              var vpt = this.viewportTransform;
+              vpt[4] += e.clientX - this.lastPosX;
+              vpt[5] += e.clientY - this.lastPosY;
+              this.lastPosX = e.clientX;
+              this.lastPosY = e.clientY;
+              this.requestRenderAll();
+            }
+        });
+
+        this.canvas.on('mouse:up', function(opt) {
+            this.setViewportTransform(this.viewportTransform);
+            this.isDragging = false;
+            this.selection = true;
+            this.defaultCursor = 'default';
+		    This.workspace.hoverCursor = 'default';
+            this.getObjects().forEach(obj => {
+                if(obj.id !== 'workspace'){
+                    obj.selectable = true;
+                }
+            });
+            this.requestRenderAll();
+        });
+
+
+        this.canvas.on('mouse:wheel', function(opt) {
+            var delta = opt.e.deltaY;
+            var zoom = this.getZoom();
+            zoom *= 0.999 ** delta;
+            if (zoom > 20) zoom = 20;
+            if (zoom < 0.01) zoom = 0.01;
+            const center = this.getCenter()
+            this.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
+            opt.e.preventDefault();
+            opt.e.stopPropagation();
+          });
+
+    }
+
+    _setDring(){
+		this.canvas.selection = false;
+		this.canvas.defaultCursor = 'grab';
+		this.workspace.hoverCursor = 'grab';
+		this.canvas.getObjects().forEach(obj => {
+			obj.selectable = false;
+		});
+		this.canvas.renderAll();
+		this.canvas.requestRenderAll();
+    }
+
+
+
 
 }
 

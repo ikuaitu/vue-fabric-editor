@@ -2,8 +2,8 @@
  * @Author: 秦少卫
  * @Date: 2022-04-21 20:20:20
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-03 23:43:47
- * @Description: file content
+ * @LastEditTime: 2023-02-04 22:32:57
+ * @Description: 缩放元素
 -->
 <template>
 <div class="box">
@@ -38,40 +38,15 @@ export default {
   methods:{
     rSet(){
       this.canvas.editor.editorWorkspace.one()
-      // this.canvas.c.zoomToPoint(
-      //   new this.fabric.Point(this.canvas.c.getWidth() / 2, this.canvas.c.getHeight() / 2),
-			//   0.95,
-      // )
-      // this.zoom = `${Math.round(95)}%`
     },
     big(){
       this.canvas.editor.editorWorkspace.big()
-      // let zoomRatio = this.canvas.c.getZoom();
-      // zoomRatio += 0.05;
-      // this.canvas.c.zoomToPoint(
-      //   new this.fabric.Point(this.canvas.c.getWidth() / 2, this.canvas.c.getHeight() / 2),
-			//   zoomRatio,
-      // )
-      // this.zoom = `${Math.round(zoomRatio * 100)}%`
     },
     small(){
       this.canvas.editor.editorWorkspace.small()
-      // let zoomRatio = this.canvas.c.getZoom();
-      // zoomRatio -= 0.05;
-      // this.canvas.c.zoomToPoint(
-      //   new this.fabric.Point(this.canvas.c.getWidth() / 2, this.canvas.c.getHeight() / 2),
-			//   zoomRatio,
-      // )
-      // this.zoom = `${Math.round(zoomRatio * 100)}%`
     },
     setViewport(){
       this.canvas.editor.editorWorkspace.auto()
-      // const scale = this.getScale()
-      // this.canvas.c.zoomToPoint({
-      //   x: this.canvas.c.width/2,
-      //   y: this.canvas.c.height/2
-      // },scale - 0.05)
-      // this.canvas.c.renderAll()
     }
   }
 };
