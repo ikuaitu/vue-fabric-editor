@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 21:50:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-05 01:12:55
+ * @LastEditTime: 2023-02-05 01:40:53
  * @Description: 工作区初始化
  */
 
@@ -54,7 +54,6 @@ class EditorWorkspace {
     _initResizeObserve(){
       const resizeObserver = new ResizeObserver((entries) => {
         this.auto()
-
         const diffWidth = entries[0].contentRect.width / 2 - this.width / 2;
 		const diffHeight = entries[0].contentRect.height / 2 - this.height / 2;
         this.width = entries[0].contentRect.width
@@ -70,6 +69,7 @@ class EditorWorkspace {
                 obj.setCoords();
             }
         });
+        this.canvas.renderAll.bind(this.canvas)
         this.canvas.renderAll()
         this.canvas.requestRenderAll()
       });
@@ -86,15 +86,31 @@ class EditorWorkspace {
         this.workspace = this.canvas.getObjects().find(item => item.id === 'workspace')
         this.workspace.set('width', width);
         this.workspace.set('height', height);
-        this.canvas.renderAll()
-        this.canvas.requestRenderAll()
-        // this.moveEl()
-        // const scale = this._getScale()
-        // this.setZoomAuto1(scale - 0.08)
+        // 获取偏移
+        const l1 = Number(this.workspace.left)
+        const t1 = Number(this.workspace.top)
+        this.canvas.centerObject(this.workspace)
+        this.moveEl(this.workspace.left - l1, this.workspace.top - t1)
         this.auto()
     }
 
-    setZoomAuto(scale){
+    moveEl(diffWidth, diffHeight){
+        this.canvas.getObjects().forEach((obj) => {
+            if (obj.id !== 'workspace') {
+                const left = obj.left + diffWidth;
+                const top = obj.top + diffHeight;
+                obj.set({
+                    left,
+                    top,
+                });
+                obj.setCoords();
+            }
+        });
+        this.canvas.renderAll()
+        this.canvas.requestRenderAll()
+    }
+
+    setZoomAuto(scale, cb){
         const { workspaceEl } = this
         let width = workspaceEl.offsetWidth, height = workspaceEl.offsetHeight
         const center = this.canvas.getCenter()
@@ -107,6 +123,9 @@ class EditorWorkspace {
         this.canvas.setWidth(width);
         this.canvas.setHeight(height);
         this.canvas.renderAll()
+        cb && cb(this.workspace.left, this.workspace.top)
+        console.log(String(this.workspace.left), 11)
+        console.log(String(this.workspace.top), 11)
     }
 
     // setZoomAuto1(scale){
