@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 21:50:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-05 01:40:53
+ * @LastEditTime: 2023-02-05 12:46:20
  * @Description: 工作区初始化
  */
 
@@ -127,21 +127,6 @@ class EditorWorkspace {
         console.log(String(this.workspace.left), 11)
         console.log(String(this.workspace.top), 11)
     }
-
-    // setZoomAuto1(scale){
-    //     const { workspaceEl } = this
-    //     let width = workspaceEl.offsetWidth, height = workspaceEl.offsetHeight
-    //     const center = this.canvas.getCenter()
-    //     this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
-    //     this.canvas.zoomToPoint(
-    //         new fabric.Point(center.left, center.top),
-    //         scale
-    //     )
-    //     this.canvas.centerObject(this.workspace)
-    //     this.canvas.setWidth(width);
-    //     this.canvas.setHeight(height);
-    //     this.canvas.renderAll()
-    // }
 
     _getScale(){
         const viewPortWidth = this.workspaceEl.offsetWidth
