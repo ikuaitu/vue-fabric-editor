@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-05 10:39:40
+ * @LastEditTime: 2023-02-05 12:41:02
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events'
@@ -63,6 +63,7 @@ class Editor extends EventEmitter {
         var activegroup = activeObj.toGroup();
         var objectsInGroup = activegroup.getObjects();
         activegroup.clone((newgroup) => {
+            newgroup.set('id', uuid())
             this.canvas.remove(activegroup);
             objectsInGroup.forEach((object) => {
                 this.canvas.remove(object);
