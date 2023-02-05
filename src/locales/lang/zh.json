@@ -31,8 +31,9 @@
     "file": "文件",
     "import_files": "导入文件",
     "select_json": "选择JSON文件",
+    "insert": "插入",
     "insert_picture": "插入图片",
-    "select_image": "选择图片文件",
+    "select_image": "插入SVG元素",
     "upload_background": "上传背景",
     "mouseMenu": {
         "copy": "复制",

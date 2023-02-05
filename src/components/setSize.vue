@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-04 21:58:06
+ * @LastEditTime: 2023-02-05 10:53:18
  * @Description: 尺寸设置
 -->
 
@@ -11,10 +11,10 @@
     <Divider plain orientation="left">{{ $t('size') }}</Divider>
     <Form :label-width="40">
       <FormItem :label="$t('width')" prop="name">
-          <InputNumber :max="2000" :min="1" v-model="width" @on-change="setSize" size="small"></InputNumber>
+          <InputNumber :max="2000" :min="1" v-model="width" @on-change="setSize" ></InputNumber>
       </FormItem>
       <FormItem :label="$t('height')" prop="name">
-          <InputNumber :max="2000" :min="1" v-model="height" @on-change="setSize" size="small"></InputNumber>
+          <InputNumber :max="2000" :min="1" v-model="height" @on-change="setSize" ></InputNumber>
       </FormItem>
     </Form>
     <Divider plain orientation="left">{{ $t('default_size') }}</Divider>
@@ -24,9 +24,9 @@
         :key="i + 'presetSize'"
         size="small"
         style="text-align:left"
-        @click="setSizeBy(item.width * item.scale, item.height * item.scale)"
+        @click="setSizeBy(item.width, item.height)"
         >
-        {{ item.label }}:{{ item.width }}x{{ item.height }}*{{ item.scale }}
+        {{ item.label }}:{{ item.width }}x{{ item.height }}
       </Button>
     </ButtonGroup>
   </div>
@@ -46,19 +46,16 @@ export default {
         label: this.$t('red_book_vertical'),
         width: 900,
         height: 1200,
-        scale: 1,
       },
       {
         label: this.$t('red_book_horizontal'),
         width: 1200,
         height: 900,
-        scale: 1,
       },
       {
         label: this.$t('phone_wallpaper'),
         width: 1080,
         height: 1920,
-        scale: 1,
       },
       ]
     };
