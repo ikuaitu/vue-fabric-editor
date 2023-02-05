@@ -138,9 +138,10 @@ export default {
     addText() {
       const text = new this.fabric.IText(this.$t('everything_is_fine'), {
         ...defaultPosition,
-        fontSize: 40, id: uuid(),
+        fontSize: 80, id: uuid(),
       });
       this.canvas.c.add(text)
+      text.center()
       this.canvas.c.setActiveObject(text);
     },
     addImg(e) {
@@ -151,49 +152,54 @@ export default {
         name: '图片default'
       });
       this.canvas.c.add(imgInstance)
+      imgInstance.center()
       this.canvas.c.renderAll()
     },
     addTextBox() {
       const text = new this.fabric.Textbox(this.$t('everything_goes_well'), {
         ...defaultPosition,
-        splitByGrapheme: true, width: 300,
-        fontSize: 40, id: uuid(),
+        splitByGrapheme: true, width: 400,
+        fontSize: 80, id: uuid(),
       });
       this.canvas.c.add(text)
+      text.center()
       this.canvas.c.setActiveObject(text);
     },
     addTriangle() {
       const triangle = new this.fabric.Triangle({
         top: 100,
         left: 100,
-        width: 100,
-        height: 100,
+        width: 400,
+        height: 400,
         fill: '#92706B'
       })
       this.canvas.c.add(triangle)
+      triangle.center()
       this.canvas.c.setActiveObject(triangle);
     },
     addCircle() {
       const circle = new this.fabric.Circle({
         ...defaultPosition,
-        radius: 50,
+        radius: 150,
         fill: '#57606B',
         id: uuid(),
         name: '圆形'
       });
       this.canvas.c.add(circle)
+      circle.center()
       this.canvas.c.setActiveObject(circle);
     },
     addRect() {
       const circle = new this.fabric.Rect({
         ...defaultPosition,
         fill: '#F57274',
-        width: 100,
-        height: 100,
+        width: 400,
+        height: 400,
         id: uuid(),
         name: '矩形'
       });
       this.canvas.c.add(circle)
+      circle.center()
       this.canvas.c.setActiveObject(circle);
     },
     drawingLineModeSwitch(isArrow){
@@ -202,8 +208,10 @@ export default {
       this.drawHandler.setMode(this.isDrawingLineMode)
       this.drawHandler.setArrow(isArrow)
       this.canvas.c.forEachObject(obj => {
-          obj.selectable = !this.isDrawingLineMode;
-          obj.evented = !this.isDrawingLineMode;
+          if(obj.id !== 'workspace'){
+            obj.selectable = !this.isDrawingLineMode;
+            obj.evented = !this.isDrawingLineMode;
+          }
       })
     }
   }

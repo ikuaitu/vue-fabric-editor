@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-31 01:43:49
+ * @LastEditTime: 2023-02-05 10:10:56
  * @Description: 图层面板
 -->
 
@@ -111,7 +111,7 @@ export default {
       this.list = [...this.canvas.c.getObjects()].reverse().map((item) => {
         const { type, id, name, text } = item
         return { type, id, name, text }
-      })
+      }).filter(item => item.id !== 'workspace')
     },
     // 按钮类型
     btnIconType(type) {
@@ -126,29 +126,16 @@ export default {
       return iconType[type]
     },
     up() {
-      // http://www.cppcns.com/wangluo/javascript/380901.html
-      if (this.mSelectMode !== 'one') return
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.bringForward()
-      this.canvas.c.renderAll()
+      this.canvas.editor.up()
     },
     upTop() {
-      if (this.mSelectMode !== 'one') return
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.bringToFront()
-      this.canvas.c.renderAll()
+      this.canvas.editor.upTop()
     },
     down() {
-      if (this.mSelectMode !== 'one') return
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.sendBackwards()
-      this.canvas.c.renderAll()
+      this.canvas.editor.down()
     },
     downTop() {
-      if (this.mSelectMode !== 'one') return
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.sendToBack()
-      this.canvas.c.renderAll()
+      this.canvas.editor.downTop()
     },
   },
 }

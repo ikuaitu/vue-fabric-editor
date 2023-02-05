@@ -31,12 +31,20 @@
     "file": "文件",
     "import_files": "导入文件",
     "select_json": "选择JSON文件",
+    "insert": "插入",
     "insert_picture": "插入图片",
-    "select_image": "选择图片文件",
+    "select_image": "插入SVG元素",
     "upload_background": "上传背景",
     "mouseMenu": {
         "copy": "复制",
-        "delete": "删除"
+        "delete": "删除",
+        "group": "组合",
+        "unGroup": "取消组合",
+        "up": "上移一层",
+        "down": "下移一层",
+        "upTop": "移到顶部",
+        "downTop": "移到底部",
+        "center": "水平垂直居中"
     },
     "alert": {
         "loading_fonts": "正在加载字体，您耐心等候...",

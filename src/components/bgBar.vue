@@ -5,11 +5,11 @@
       <FormItem :label="$t('color')" prop="name">
         <ColorPicker v-model="color" @on-change="setThisColor" size="small" transfer />
       </FormItem>
-      <FormItem :label="$t('picture')" prop="name">
+      <!-- <FormItem :label="$t('picture')" prop="name">
         <Button @click="insert" icon="ios-cloud-upload-outline" size="small"
           >{{ $t('upload_background') }}</Button
         >
-      </FormItem>
+      </FormItem> -->
     </Form>
     <Divider orientation="left" plain>{{ $t('color_macthing') }}</Divider>
     <div class="color-list">
@@ -25,48 +25,6 @@
         </div>
       </template>
     </div>
-    <Divider orientation="left" plain>{{ $t('background_texture') }}</Divider>
-    <div>
-      <img
-        src="@/assets/1.png"
-        @click="(e) => setBgImg(e.target)"
-        class="img"
-      />
-      <img
-        src="@/assets/2.png"
-        @click="(e) => setBgImg(e.target)"
-        class="img"
-        alt=""
-      />
-      <img
-        src="@/assets/3.png"
-        @click="(e) => setBgImg(e.target)"
-        class="img"
-        alt=""
-      />
-      <img
-        src="@/assets/4.png"
-        @click="(e) => setBgImg(e.target)"
-        class="img"
-        alt=""
-      />
-      <img
-        src="@/assets/5.png"
-        @click="(e) => setBgImg(e.target)"
-        class="img"
-        alt=""
-      />
-    </div>
-    <Modal
-      v-model="showModal"
-      :title="$t('alert.select_image')"
-      @on-ok="insertImgFile"
-      @on-cancel="showModal = false"
-    >
-      <Upload :before-upload="handleUpload" action="#">
-        <Button icon="ios-cloud-upload-outline">{{ $t('select_image') }}</Button>
-      </Upload>
-    </Modal>
   </div>
 </template>
 
@@ -109,54 +67,14 @@ export default {
     };
   },
   methods: {
-    // 设置背景图片
-    setBgImg(target) {
-      const imgEl = target.cloneNode(true);
-      imgEl.onload = () => {
-        // 可跨域设置
-        const imgInstance = new this.fabric.Image(imgEl, { crossOrigin: 'anonymous' });
-        // 渲染背景
-        this.canvas.c.setBackgroundImage(imgInstance, this.canvas.c.renderAll.bind(this.canvas.c), {
-          scaleX: this.canvas.c.width / imgInstance.width,
-          scaleY: this.canvas.c.width / imgInstance.width,
-        });
-        this.canvas.c.renderAll()
-        this.canvas.c.requestRenderAll();
-      }
-    },
-    // 清空文件 展示文件框
-    insert() {
-      this.imgFile = ''
-      this.showModal = true
-    },
-    // 确认插入图片
-    insertImgFile() {
-      if (this.imgFile === '') {
-        return this.$Message.error(this.$t('alert.select_file'))
-      }
-      const imgEl = document.createElement('img');
-      imgEl.src = this.imgFile
-      // 插入页面
-      document.body.appendChild(imgEl);
-      imgEl.onload = () => {
-        this.setBgImg(imgEl)
-        imgEl.remove()
-      }
-    },
-    // 文件选择
-    handleUpload(file) {
-      getImgStr(file).then(res => {
-        this.imgFile = res
-      })
-    },
     // 背景颜色设置
     setThisColor() {
       this.setColor(this.color)
     },
     // 背景颜色设置
     setColor(color) {
-      this.canvas.c.setBackgroundColor(color, this.canvas.c.renderAll.bind(this.canvas.c))
-      this.canvas.c.backgroundImage = ''
+      const workspace = this.canvas.c.getObjects().find(item => item.id = 'workspace')
+      workspace.set('fill', color)
       this.canvas.c.renderAll()
     }
   }

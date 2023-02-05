@@ -187,7 +187,7 @@
           </div>
         </div>
       </div>
-
+      <!-- 边框 -->
       <Divider plain orientation="left">{{ $t("attributes.stroke") }}</Divider>
       <div class="flex-view">
         <div class="flex-item">
@@ -213,6 +213,7 @@
         </div>
       </div>
 
+      <!-- 阴影 -->
       <Divider plain orientation="left">{{ $t("attributes.shadow") }}</Divider>
       <div class="flex-view">
         <div class="flex-item">
@@ -359,6 +360,7 @@ export default {
     this.event.on('selectOne', (e) => {
       const activeObject = this.canvas.c.getActiveObjects()[0]
       if (activeObject) {
+        console.log(activeObject)
         // base
         this.baseAttr.opacity = activeObject.get('opacity') * 100
         this.baseAttr.fill = activeObject.get('fill')
@@ -367,6 +369,7 @@ export default {
         this.baseAttr.stroke = activeObject.get('stroke')
         this.baseAttr.strokeWidth = activeObject.get('strokeWidth')
         this.baseAttr.shadow = activeObject.get('shadow') || {}
+        this.baseAttr.angle = activeObject.get('angle') || 0
         if (
           activeObject.type === 'i-text' ||
           activeObject.type === 'text' ||
@@ -441,6 +444,12 @@ export default {
       // 透明度特殊转换
       if (key === 'opacity') {
         activeObject && activeObject.set(key, value / 100)
+        this.canvas.c.renderAll()
+        return
+      }
+      // 旋转角度适配
+      if(key === 'angle'){
+        activeObject.rotate(value);
         this.canvas.c.renderAll()
         return
       }
