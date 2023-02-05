@@ -36,7 +36,14 @@
     "upload_background": "Upload background",
     "mouseMenu": {
         "copy": "Copy",
-        "delete": "Delete"
+        "delete": "Delete",
+        "group": "group",
+        "unGroup": "Split",
+        "up": "up",
+        "down": "down",
+        "upTop": "BringToFront",
+        "downTop": "SendToBack",
+        "center": "Center"
     },
     "alert": {
         "loading_fonts": "Loading fonts, please wait...",

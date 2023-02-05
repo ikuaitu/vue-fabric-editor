@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-12-07 13:34:56
+ * @LastEditTime: 2023-02-05 09:41:58
  * @Description: 组合与拆分组合
 -->
 
@@ -38,26 +38,10 @@ export default {
   methods:{
     // 拆分组
     unGroup(){
-      // 先获取当前选中的对象，然后打散
-      this.canvas.c.getActiveObject().toActiveSelection()
-      this.canvas.c.getActiveObject().getObjects().forEach(item => {
-        item.set('id', uuid())
-      })
-      this.canvas.c.discardActiveObject().renderAll();
+      this.canvas.editor.unGroup()
     },
     group(){
-      // 组合元素
-      var activeObj = this.canvas.c.getActiveObject();
-      var activegroup = activeObj.toGroup();
-      var objectsInGroup = activegroup.getObjects();
-      activegroup.clone((newgroup) => {
-          this.canvas.c.remove(activegroup);
-          objectsInGroup.forEach((object) => {
-              this.canvas.c.remove(object);
-          });
-          this.canvas.c.add(newgroup);
-          this.canvas.c.setActiveObject(newgroup);
-      });
+      this.canvas.editor.group()
     }
   }
 };

@@ -11,18 +11,28 @@
     @click="handleMenu"
   >
     <li data-active="copy">{{ $t('mouseMenu.copy') }}<span>Copy</span></li>
-    <li data-active="delete">{{ $t('mouseMenu.delete') }}<span>Del</span></li>
+    <li data-active="group" v-show="isMultiple">{{ $t('mouseMenu.group') }}<span>Group</span></li>
+    <!-- 对齐 -->
+    <li data-active="center">{{ $t('mouseMenu.center') }}<span>Center</span></li>
+    <!-- 排序 -->
+    <li data-active="up" v-show="mSelectMode === 'one'">{{ $t('mouseMenu.up') }}<span>Up</span></li>
+    <li data-active="down" v-show="mSelectMode === 'one'">{{ $t('mouseMenu.down') }}<span>Down</span></li>
+    <li data-active="upTop" v-show="mSelectMode === 'one'">{{ $t('mouseMenu.upTop') }}<span>BringToFront</span></li>
+    <li data-active="downTop" v-show="mSelectMode === 'one'">{{ $t('mouseMenu.downTop') }}<span>SendToBack</span></li>
+    <!-- 删除 -->
+    <li data-active="delete" class="del">{{ $t('mouseMenu.delete') }}<span>Delete</span></li>
   </ul>
 </template>
 
 <script>
 import { isEmpty, debounce } from 'lodash-es'
-import { v4 as uuid } from 'uuid'
+import select from '@/mixins/select'
 
 const canvasDom = document.getElementById('canvas') || null
 export default ({
   name: 'mouseMenu',
   inject: ['canvas', 'fabric'],
+  mixins: [select],
   data() {
     return {
       show: 'hidden',
@@ -32,7 +42,16 @@ export default ({
       menu: null
     }
   },
-
+  computed: {
+    // 单选且等于组元素
+    isGroup() {
+      return (this.mSelectMode === 'one' && this.mSelectOneType === 'group')
+    },
+    // 是否为多选
+    isMultiple(){
+      return (this.mSelectMode === 'multiple')
+    },
+  },
   mounted() {
     this.$nextTick(() => {
       this.menu = this.$refs.mouseMenuRef
@@ -57,8 +76,9 @@ export default ({
     },
 
     handleMouseUp(opt) {
+      console.log(opt)
       try {
-        if (opt.button === 3 && opt.target) {
+        if (opt.button === 3 && opt.target && opt.target.id !== 'workspace') {
           // 显示菜单，设置右键菜单位置
           // 获取菜单组件的宽高
           const menuWidth = this.menu.offsetWidth
@@ -113,23 +133,33 @@ export default ({
       const activeObject = canvas.getActiveObjects();
       switch (active) {
         case 'copy':
-          if (activeObject.length === 0) return
-          canvas.getActiveObject().clone(copyEl => {
-            canvas.discardActiveObject();
-            copyEl.set({
-              left: copyEl.left + 20,
-              top: copyEl.top + 20,
-              evented: true,
-              id: uuid()
-            });
-            canvas.add(copyEl)
-            canvas.setActiveObject(copyEl)
-          })
+          this.canvas.editor.clone()
           break;
         case 'delete':
           activeObject && activeObject.map(item => canvas.remove(item))
           canvas.requestRenderAll()
           canvas.discardActiveObject()
+          break;
+        case 'center':
+          this.canvas.editor.centerAlign.position('center')
+          break;
+        case 'group':
+          this.canvas.editor.group()
+          break;
+        case 'unGroup':
+          this.canvas.editor.unGroup()
+          break;
+        case 'up':
+          this.canvas.editor.up()
+          break;
+        case 'down':
+          this.canvas.editor.down()
+          break;
+        case 'upTop':
+          this.canvas.editor.upTop()
+          break;
+        case 'downTop':
+          this.canvas.editor.downTop()
           break;
         default:
           break;
@@ -169,6 +199,10 @@ export default ({
     &:last-child {
       border-bottom: none;
     }
+  }
+
+  .del{
+    color: red;
   }
 }
 </style>

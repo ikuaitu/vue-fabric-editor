@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-31 13:30:55
+ * @LastEditTime: 2023-02-05 10:10:56
  * @Description: 图层面板
 -->
 
@@ -126,29 +126,16 @@ export default {
       return iconType[type]
     },
     up() {
-      // http://www.cppcns.com/wangluo/javascript/380901.html
-      if (this.mSelectMode !== 'one') return
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.bringForward()
-      this.canvas.c.renderAll()
+      this.canvas.editor.up()
     },
     upTop() {
-      if (this.mSelectMode !== 'one') return
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.bringToFront()
-      this.canvas.c.renderAll()
+      this.canvas.editor.upTop()
     },
     down() {
-      if (this.mSelectMode !== 'one') return
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.sendBackwards()
-      this.canvas.c.renderAll()
+      this.canvas.editor.down()
     },
     downTop() {
-      if (this.mSelectMode !== 'one') return
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.sendToBack()
-      this.canvas.c.renderAll()
+      this.canvas.editor.downTop()
     },
   },
 }

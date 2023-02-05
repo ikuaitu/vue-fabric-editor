@@ -36,7 +36,14 @@
     "upload_background": "Carregar plano de fundo",
     "mouseMenu": {
         "copy": "Copiar",
-        "delete": "Eliminar"
+        "delete": "Eliminar",
+        "group": "combinación",
+        "unGroup": "divida",
+        "up": "up",
+        "down": "down",
+        "upTop": "Traer al frente",
+        "downTop": "Enviar a volver",
+        "center": "centro"
     },
     "alert": {
         "loading_fonts": "Carregando fontes, aguarde...",

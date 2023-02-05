@@ -66,8 +66,8 @@
           <!-- 属性区域 -->
           <div style="width: 380px; height: 100%; padding:10px; overflow-y: auto; background:#fff">
             <history v-if="show"></history>
-            <layer v-if="show"></layer>
             <attribute v-if="show"></attribute>
+            <layer v-if="show"></layer>
           </div>
         </Content>
     </Layout>
@@ -112,12 +112,6 @@ import mouseMenu from '@/components/mouseMenu.vue'
 import EventHandle from '@/utils/eventHandler'
 
 import { fabric } from 'fabric';
-
-// 对齐辅助线
-import initAligningGuidelines from '@/core/initAligningGuidelines';
-import initControlsRotate from '@/core/initControlsRotate';
-import initHotkeys from '@/core/initHotKeys';
-import initControls from '@/core/initControls';
 import Editor from '@/core';
 
 
@@ -150,10 +144,6 @@ export default {
       });
       event.init(canvas.c)
       canvas.editor = new Editor(canvas.c)
-      initAligningGuidelines(canvas.c)
-      initHotkeys(canvas.c)
-      initControls(canvas.c)
-      initControlsRotate(canvas.c)
       this.show = true
       this.$Spin.hide();
 

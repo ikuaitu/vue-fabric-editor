@@ -138,7 +138,7 @@ export default {
     addText() {
       const text = new this.fabric.IText(this.$t('everything_is_fine'), {
         ...defaultPosition,
-        fontSize: 40, id: uuid(),
+        fontSize: 80, id: uuid(),
       });
       this.canvas.c.add(text)
       text.center()
@@ -158,8 +158,8 @@ export default {
     addTextBox() {
       const text = new this.fabric.Textbox(this.$t('everything_goes_well'), {
         ...defaultPosition,
-        splitByGrapheme: true, width: 300,
-        fontSize: 40, id: uuid(),
+        splitByGrapheme: true, width: 400,
+        fontSize: 80, id: uuid(),
       });
       this.canvas.c.add(text)
       text.center()
@@ -169,8 +169,8 @@ export default {
       const triangle = new this.fabric.Triangle({
         top: 100,
         left: 100,
-        width: 100,
-        height: 100,
+        width: 400,
+        height: 400,
         fill: '#92706B'
       })
       this.canvas.c.add(triangle)
@@ -180,7 +180,7 @@ export default {
     addCircle() {
       const circle = new this.fabric.Circle({
         ...defaultPosition,
-        radius: 50,
+        radius: 150,
         fill: '#57606B',
         id: uuid(),
         name: '圆形'
@@ -193,8 +193,8 @@ export default {
       const circle = new this.fabric.Rect({
         ...defaultPosition,
         fill: '#F57274',
-        width: 100,
-        height: 100,
+        width: 400,
+        height: 400,
         id: uuid(),
         name: '矩形'
       });
