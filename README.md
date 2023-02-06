@@ -107,6 +107,7 @@ export default [...cnList, ...enList]
 - [ ] 渐变配置
 - [ ] 平铺背景、等比例背景
 - [ ] 图片裁剪
+- [ ] 滤镜
 - [ ] 描边 strokeDashArray
 
 
