@@ -4,7 +4,9 @@
 # vue-fabric-editor
 [Demo](https://nihaojob.github.io/vue-fabric-editor/) 基于fabric.js和Vue的图片编辑器，可自定义字体、素材、设计模板。
 
-<p align="center"><img src="./src/assets/demo.png" /></p>
+![image](https://user-images.githubusercontent.com/13534626/217264474-c3b20ca6-cc13-4a25-acb5-7a477b644807.png)
+
+
 
 ## 已有功能
 - 导入JSON文件
@@ -20,8 +22,9 @@
 - 自定义模板素材
 - 快捷键
 - 右键菜单
-- 国际化
 - 辅助线
+- 国际化
+
 
 ## 使用
 ### 启动项目
