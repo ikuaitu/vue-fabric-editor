@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-05 10:10:56
+ * @LastEditTime: 2023-02-08 00:08:11
  * @Description: 图层面板
 -->
 
@@ -45,24 +45,25 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
+import select from '@/mixins/select';
+
 export default {
   name: 'ToolBar',
   mixins: [select],
   data() {
     return {
       list: [],
-    }
+    };
   },
   created() {
-    //当选择画布中的对象时，该对象不出现在顶层。
-    this.canvas.c.preserveObjectStacking = true
-    this.canvas.c.on('after:render', this.getList)
+    // 当选择画布中的对象时，该对象不出现在顶层。
+    this.canvas.c.preserveObjectStacking = true;
+    this.canvas.c.on('after:render', this.getList);
   },
   methods: {
     // 是否选中元素
     isSelect(item) {
-      return item.id === this.mSelectId || this.mSelectIds.includes(item.id)
+      return item.id === this.mSelectId || this.mSelectIds.includes(item.id);
     },
     // 图层类型图标
     iconType(type) {
@@ -80,14 +81,13 @@ export default {
           '<svg t="1650855860236" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="19440" width="16" height="16"><path d="M512 928C282.624 928 96 741.376 96 512S282.624 96 512 96s416 186.624 416 416-186.624 416-416 416z m0-768C317.92 160 160 317.92 160 512s157.92 352 352 352 352-157.92 352-352S706.08 160 512 160z" p-id="19441"></path></svg>',
         triangle:
           '<svg t="1650874633978" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2032" width="16" height="16"><path d="M928.64 896a2.144 2.144 0 0 1-0.64 0H96a32.032 32.032 0 0 1-27.552-48.288l416-704c11.488-19.456 43.552-19.456 55.104 0l413.152 699.2A31.936 31.936 0 0 1 928.64 896zM152.064 832h719.84L512 222.912 152.064 832z" p-id="2033"></path></svg>',
-      }
-      const defaultIcon =
-        '<svg t="1650855578257" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17630" width="16" height="16"><path d="M620.606061 0a62.060606 62.060606 0 0 1 62.060606 62.060606v188.943515C874.945939 273.997576 1024 437.651394 1024 636.121212c0 214.217697-173.661091 387.878788-387.878788 387.878788-198.469818 0-362.123636-149.054061-385.117091-341.333333H62.060606a62.060606 62.060606 0 0 1-62.060606-62.060606V62.060606a62.060606 62.060606 0 0 1 62.060606-62.060606h558.545455z m62.060606 297.937455V620.606061a62.060606 62.060606 0 0 1-62.060606 62.060606H297.937455C320.636121 849.159758 463.39103 977.454545 636.121212 977.454545c188.509091 0 341.333333-152.824242 341.333333-341.333333 0-172.730182-128.294788-315.485091-294.787878-338.183757zM620.606061 46.545455H62.060606a15.515152 15.515152 0 0 0-15.406545 13.699878L46.545455 62.060606v558.545455a15.515152 15.515152 0 0 0 13.699878 15.406545L62.060606 636.121212h186.181818c0-214.217697 173.661091-387.878788 387.878788-387.878788V62.060606a15.515152 15.515152 0 0 0-13.699879-15.406545L620.606061 46.545455z m15.515151 248.242424c-188.509091 0-341.333333 152.824242-341.333333 341.333333h325.818182a15.515152 15.515152 0 0 0 15.406545-13.699879L636.121212 620.606061V294.787879z" p-id="17631"></path></svg>'
-      return iconType[type] || defaultIcon
+      };
+      const defaultIcon = '<svg t="1650855578257" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17630" width="16" height="16"><path d="M620.606061 0a62.060606 62.060606 0 0 1 62.060606 62.060606v188.943515C874.945939 273.997576 1024 437.651394 1024 636.121212c0 214.217697-173.661091 387.878788-387.878788 387.878788-198.469818 0-362.123636-149.054061-385.117091-341.333333H62.060606a62.060606 62.060606 0 0 1-62.060606-62.060606V62.060606a62.060606 62.060606 0 0 1 62.060606-62.060606h558.545455z m62.060606 297.937455V620.606061a62.060606 62.060606 0 0 1-62.060606 62.060606H297.937455C320.636121 849.159758 463.39103 977.454545 636.121212 977.454545c188.509091 0 341.333333-152.824242 341.333333-341.333333 0-172.730182-128.294788-315.485091-294.787878-338.183757zM620.606061 46.545455H62.060606a15.515152 15.515152 0 0 0-15.406545 13.699878L46.545455 62.060606v558.545455a15.515152 15.515152 0 0 0 13.699878 15.406545L62.060606 636.121212h186.181818c0-214.217697 173.661091-387.878788 387.878788-387.878788V62.060606a15.515152 15.515152 0 0 0-13.699879-15.406545L620.606061 46.545455z m15.515151 248.242424c-188.509091 0-341.333333 152.824242-341.333333 341.333333h325.818182a15.515152 15.515152 0 0 0 15.406545-13.699879L636.121212 620.606061V294.787879z" p-id="17631"></path></svg>';
+      return iconType[type] || defaultIcon;
     },
     textType(type, item) {
       if (type.includes('text')) {
-        return item.name || item.text
+        return item.name || item.text;
       }
       const typeText = {
         group: '组合',
@@ -96,22 +96,26 @@ export default {
         circle: '圆形',
         triangle: '三角形',
         path: '路径',
-      }
-      return typeText[type] || '默认元素'
+      };
+      return typeText[type] || '默认元素';
     },
     // 选中元素
     select(id) {
-      const info = this.canvas.c.getObjects().find((item) => item.id === id)
-      this.canvas.c.discardActiveObject()
-      this.canvas.c.setActiveObject(info)
-      this.canvas.c.requestRenderAll()
+      const info = this.canvas.c.getObjects().find((item) => item.id === id);
+      this.canvas.c.discardActiveObject();
+      this.canvas.c.setActiveObject(info);
+      this.canvas.c.requestRenderAll();
     },
     getList(e) {
       // 不改原数组 反转
       this.list = [...this.canvas.c.getObjects()].reverse().map((item) => {
-        const { type, id, name, text } = item
-        return { type, id, name, text }
-      }).filter(item => item.id !== 'workspace')
+        const {
+          type, id, name, text,
+        } = item;
+        return {
+          type, id, name, text,
+        };
+      }).filter((item) => item.id !== 'workspace');
     },
     // 按钮类型
     btnIconType(type) {
@@ -122,23 +126,23 @@ export default {
           '<svg t="1650442106652" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1839" width="11" height="11"><path d="M548.352 219.648a58.88 58.88 0 0 0-16.896-10.752 51.2 51.2 0 0 0-38.912 0 58.88 58.88 0 0 0-16.896 10.752l-256 256a51.2 51.2 0 0 0 72.704 72.704L460.8 379.392V972.8a51.2 51.2 0 0 0 102.4 0V379.392l168.448 168.96a51.2 51.2 0 0 0 72.704-72.704zM972.8 0H51.2a51.2 51.2 0 0 0 0 102.4h921.6a51.2 51.2 0 0 0 0-102.4z" p-id="1840" ></path></svg>',
         downTop:
           '<svg t="1650442146918" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2045" width="11" height="11"><path d="M548.352 804.352a58.88 58.88 0 0 1-16.896 10.752 51.2 51.2 0 0 1-38.912 0 58.88 58.88 0 0 1-16.896-10.752l-256-256a51.2 51.2 0 0 1 72.704-72.704L460.8 644.608V51.2a51.2 51.2 0 0 1 102.4 0v593.408l168.448-168.96a51.2 51.2 0 0 1 72.704 72.704zM972.8 1024H51.2a51.2 51.2 0 0 1 0-102.4h921.6a51.2 51.2 0 0 1 0 102.4z" p-id="2046"></path></svg>',
-      }
-      return iconType[type]
+      };
+      return iconType[type];
     },
     up() {
-      this.canvas.editor.up()
+      this.canvas.editor.up();
     },
     upTop() {
-      this.canvas.editor.upTop()
+      this.canvas.editor.upTop();
     },
     down() {
-      this.canvas.editor.down()
+      this.canvas.editor.down();
     },
     downTop() {
-      this.canvas.editor.downTop()
+      this.canvas.editor.downTop();
     },
   },
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

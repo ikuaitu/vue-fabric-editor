@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-07 02:19:20
+ * @LastEditTime: 2023-02-08 00:05:43
  * @Description: 组合元素对齐
 -->
 
@@ -23,222 +23,217 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
+import select from '@/mixins/select';
 
 export default {
   name: 'ToolBar',
   mixins: [select],
   data() {
     return {
-      id:'',
-      list: []
+      id: '',
+      list: [],
     };
   },
-  methods:{
+  methods: {
     // 非多选时，禁止组合对齐操作
-    notMultiple(){
-      return this.mSelectMode !== 'multiple'
+    notMultiple() {
+      return this.mSelectMode !== 'multiple';
     },
     // 左对齐
-    left(){
+    left() {
       const activeObject = this.canvas.c.getActiveObject();
       if (activeObject && activeObject.type === 'activeSelection') {
-          const activeSelection = activeObject;
-          const activeObjectLeft = -(activeObject.width / 2);
-          activeSelection.forEachObject(item => {
-            item.set({
-                  left: activeObjectLeft,
-              });
-              item.setCoords();
-              this.canvas.c.renderAll();
+        const activeSelection = activeObject;
+        const activeObjectLeft = -(activeObject.width / 2);
+        activeSelection.forEachObject((item) => {
+          item.set({
+            left: activeObjectLeft,
           });
+          item.setCoords();
+          this.canvas.c.renderAll();
+        });
       }
     },
     // 右对齐
-    right(){
+    right() {
       const activeObject = this.canvas.c.getActiveObject();
       if (activeObject && activeObject.type === 'activeSelection') {
-            const activeSelection = activeObject;
-            const activeObjectLeft = (activeObject.width / 2);
-            activeSelection.forEachObject(item => {
-              item.set({
-                    left: activeObjectLeft - (item.width * item.scaleX),
-                });
-                item.setCoords();
-                this.canvas.c.renderAll();
-            });
-        }
+        const activeSelection = activeObject;
+        const activeObjectLeft = (activeObject.width / 2);
+        activeSelection.forEachObject((item) => {
+          item.set({
+            left: activeObjectLeft - (item.width * item.scaleX),
+          });
+          item.setCoords();
+          this.canvas.c.renderAll();
+        });
+      }
     },
     // 水平居中对齐
-    xcenter(){
+    xcenter() {
       const activeObject = this.canvas.c.getActiveObject();
       if (activeObject && activeObject.type === 'activeSelection') {
-            const activeSelection = activeObject;
-            activeSelection.forEachObject(item => {
-                item.set({
-                    left: 0 - ((item.width * item.scaleX) / 2),
-                });
-                item.setCoords();
-                this.canvas.c.renderAll();
-            });
-        }
+        const activeSelection = activeObject;
+        activeSelection.forEachObject((item) => {
+          item.set({
+            left: 0 - ((item.width * item.scaleX) / 2),
+          });
+          item.setCoords();
+          this.canvas.c.renderAll();
+        });
+      }
     },
     // 垂直居中对齐
-    ycenter(){
+    ycenter() {
       const activeObject = this.canvas.c.getActiveObject();
       if (activeObject && activeObject.type === 'activeSelection') {
-            const activeSelection = activeObject;
-            activeSelection.forEachObject(item => {
-                item.set({
-                    top: 0 - ((item.height * item.scaleY) / 2),
-                });
-                item.setCoords();
-                this.canvas.c.renderAll();
-            });
-        }
+        const activeSelection = activeObject;
+        activeSelection.forEachObject((item) => {
+          item.set({
+            top: 0 - ((item.height * item.scaleY) / 2),
+          });
+          item.setCoords();
+          this.canvas.c.renderAll();
+        });
+      }
     },
     // 顶部对齐
-    top(){
+    top() {
       const activeObject = this.canvas.c.getActiveObject();
       if (activeObject && activeObject.type === 'activeSelection') {
-            const activeSelection = activeObject;
-            const activeObjectTop = -(activeObject.height / 2);
-            activeSelection.forEachObject(item => {
-              item.set({
-                    top: activeObjectTop,
-                });
-                item.setCoords();
-                this.canvas.c.renderAll();
-            });
-        }
+        const activeSelection = activeObject;
+        const activeObjectTop = -(activeObject.height / 2);
+        activeSelection.forEachObject((item) => {
+          item.set({
+            top: activeObjectTop,
+          });
+          item.setCoords();
+          this.canvas.c.renderAll();
+        });
+      }
     },
     // 底部对齐
-    bottom(){
+    bottom() {
       const activeObject = this.canvas.c.getActiveObject();
       if (activeObject && activeObject.type === 'activeSelection') {
-            const activeSelection = activeObject;
-            const activeObjectTop = (activeObject.height / 2);
-            activeSelection.forEachObject(item => {
-              item.set({
-                    top: activeObjectTop - (item.height * item.scaleY),
-                });
-                item.setCoords();
-                this.canvas.c.renderAll();
-            });
-        }
+        const activeSelection = activeObject;
+        const activeObjectTop = (activeObject.height / 2);
+        activeSelection.forEachObject((item) => {
+          item.set({
+            top: activeObjectTop - (item.height * item.scaleY),
+          });
+          item.setCoords();
+          this.canvas.c.renderAll();
+        });
+      }
     },
     // 水平平均对齐
-    xequation(){
-        const activeObject = this.canvas.c.getActiveObject();
-        if (activeObject && activeObject.type === 'activeSelection') {
-          const activeSelection = activeObject;
-          // 排序
-          activeSelection._objects.sort((a, b) => {
-            return a.left - b.left;
-          })
-
-          // 平均间距计算
-          const itemSpac = spacWidth()
-          // 组原点高度
-          const yHeight = (activeObject.width/2)
-
-          activeObject.forEachObject((item, i) => {
-            // 获取当前元素之前所有元素的高度
-            const preHeight = getItemLeft(i)
-            // 顶部距离 间距 * 索引 + 之前元素高度 - 原点高度
-            const top = itemSpac * i + preHeight - yHeight
-            item.set('left', top)
-          })
-          this.canvas.c.renderAll();
-        }
-
-        // 获取平均间距
-        function spacWidth(){
-          let count = getAllItemHeight()
-          const allSpac = activeObject.width - count
-          return allSpac / (activeObject._objects.length - 1)
-        }
-
-        // 获取所有元素高度
-        function getAllItemHeight(){
-          let count = 0;
-          activeObject.forEachObject(item => { 
-            count += getItemWidth(item)
-          })
-          return count
-        }
-
-        // width属性不准确，需要坐标换算
-        function getItemWidth(item){
-          return item.aCoords.tr.x - item.aCoords.tl.x
-        }
-        // 获取当前元素之前所有元素的高度
-        function getItemLeft(i){
-          if (i === 0) return 0
-          let width = 0
-          for (let index = 0; index < i; index++) {
-            width += getItemWidth(activeObject._objects[index])
-          }
-          return width
-        }
-    },
-    // 垂直平均对齐
-    yequation(){
-
+    xequation() {
       const activeObject = this.canvas.c.getActiveObject();
       if (activeObject && activeObject.type === 'activeSelection') {
         const activeSelection = activeObject;
         // 排序
-        activeSelection._objects.sort((a, b) => {
-          return a.top - b.top;
-        })
+        activeSelection._objects.sort((a, b) => a.left - b.left);
 
         // 平均间距计算
-        const itemSpac = spacHeight()
+        const itemSpac = spacWidth();
         // 组原点高度
-        const yHeight = (activeObject.height/2)
+        const yHeight = (activeObject.width / 2);
 
         activeObject.forEachObject((item, i) => {
           // 获取当前元素之前所有元素的高度
-          const preHeight = getItemTop(i)
+          const preHeight = getItemLeft(i);
           // 顶部距离 间距 * 索引 + 之前元素高度 - 原点高度
-          const top = itemSpac * i + preHeight - yHeight
-          item.set('top', top)
-        })
+          const top = itemSpac * i + preHeight - yHeight;
+          item.set('left', top);
+        });
         this.canvas.c.renderAll();
       }
 
       // 获取平均间距
-      function spacHeight(){
-        let count = getAllItemHeight()
-        const allSpac = activeObject.height - count
-        return allSpac / (activeObject._objects.length - 1)
+      function spacWidth() {
+        const count = getAllItemHeight();
+        const allSpac = activeObject.width - count;
+        return allSpac / (activeObject._objects.length - 1);
       }
 
       // 获取所有元素高度
-      function getAllItemHeight(){
+      function getAllItemHeight() {
         let count = 0;
-        activeObject.forEachObject(item => { 
-          count += getItemHeight(item)
-        })
-        return count
+        activeObject.forEachObject((item) => {
+          count += getItemWidth(item);
+        });
+        return count;
       }
 
       // width属性不准确，需要坐标换算
-      function getItemHeight(item){
-        return item.aCoords.bl.y - item.aCoords.tl.y
+      function getItemWidth(item) {
+        return item.aCoords.tr.x - item.aCoords.tl.x;
       }
       // 获取当前元素之前所有元素的高度
-      function getItemTop(i){
-        if (i === 0) return 0
-        let height = 0
+      function getItemLeft(i) {
+        if (i === 0) return 0;
+        let width = 0;
         for (let index = 0; index < i; index++) {
-          height += getItemHeight(activeObject._objects[index])
+          width += getItemWidth(activeObject._objects[index]);
         }
-        return height
+        return width;
       }
-    }
-  }
+    },
+    // 垂直平均对齐
+    yequation() {
+      const activeObject = this.canvas.c.getActiveObject();
+      if (activeObject && activeObject.type === 'activeSelection') {
+        const activeSelection = activeObject;
+        // 排序
+        activeSelection._objects.sort((a, b) => a.top - b.top);
+
+        // 平均间距计算
+        const itemSpac = spacHeight();
+        // 组原点高度
+        const yHeight = (activeObject.height / 2);
+
+        activeObject.forEachObject((item, i) => {
+          // 获取当前元素之前所有元素的高度
+          const preHeight = getItemTop(i);
+          // 顶部距离 间距 * 索引 + 之前元素高度 - 原点高度
+          const top = itemSpac * i + preHeight - yHeight;
+          item.set('top', top);
+        });
+        this.canvas.c.renderAll();
+      }
+
+      // 获取平均间距
+      function spacHeight() {
+        const count = getAllItemHeight();
+        const allSpac = activeObject.height - count;
+        return allSpac / (activeObject._objects.length - 1);
+      }
+
+      // 获取所有元素高度
+      function getAllItemHeight() {
+        let count = 0;
+        activeObject.forEachObject((item) => {
+          count += getItemHeight(item);
+        });
+        return count;
+      }
+
+      // width属性不准确，需要坐标换算
+      function getItemHeight(item) {
+        return item.aCoords.bl.y - item.aCoords.tl.y;
+      }
+      // 获取当前元素之前所有元素的高度
+      function getItemTop(i) {
+        if (i === 0) return 0;
+        let height = 0;
+        for (let index = 0; index < i; index++) {
+          height += getItemHeight(activeObject._objects[index]);
+        }
+        return height;
+      }
+    },
+  },
 };
 </script>
 

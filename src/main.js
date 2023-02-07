@@ -1,31 +1,31 @@
 import Vue from 'vue';
 import App from './App.vue';
-import router from './router';
-import axios from 'axios'
+import axios from 'axios';
 import ViewUI from 'view-design';
-import VueClipboard from 'vue-clipboard2'
-import VueLazyload from 'vue-lazyload'
-import svgIcon from '@/components/svgIcon/index.js';
+import VueClipboard from 'vue-clipboard2';
+import VueLazyload from 'vue-lazyload';
+import svgIcon from '@/components/svgIcon/index';
 import 'view-design/dist/styles/iview.css';
 import '@/assets/fonts/font.css';
-import i18n from "./locales/i18n.js";
 
 import enUS from 'view-design/dist/locale/en-US';
 import zhCN from 'view-design/dist/locale/zh-CN';
 import ptBR from 'view-design/dist/locale/pt-BR';
+import i18n from './locales/i18n';
+import router from './router';
 
 const LANGMAP = {
-  'zh': zhCN,
-  'en': enUS,
-  'pt': ptBR,
-}
+  zh: zhCN,
+  en: enUS,
+  pt: ptBR,
+};
 
 Vue.use(ViewUI, { locale: LANGMAP[i18n.locale] || zhCN });
 Vue.use(VueClipboard);
 Vue.use(VueLazyload);
 Vue.use(svgIcon);
 
-Vue.prototype.$http = axios
+Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 
 new Vue({

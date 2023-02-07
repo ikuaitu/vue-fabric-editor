@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
+import select from '@/mixins/select';
 
 export default {
   name: 'ToolBar',
@@ -12,11 +12,11 @@ export default {
     return {
     };
   },
-  methods:{
-    clone(){
-      this.canvas.editor.clone()
+  methods: {
+    clone() {
+      this.canvas.editor.clone();
     },
-  }
+  },
 };
 </script>
 

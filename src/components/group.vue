@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-05 09:41:58
+ * @LastEditTime: 2023-02-08 00:07:43
  * @Description: 组合与拆分组合
 -->
 
@@ -16,8 +16,9 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
+import select from '@/mixins/select';
 import { v4 as uuid } from 'uuid';
+
 export default {
   name: 'ToolBar',
   mixins: [select],
@@ -28,22 +29,22 @@ export default {
   computed: {
     // 单选且等于组元素
     isGroup() {
-      return (this.mSelectMode === 'one' && this.mSelectOneType === 'group')
+      return (this.mSelectMode === 'one' && this.mSelectOneType === 'group');
     },
     // 是否为多选
-    isMultiple(){
-      return (this.mSelectMode === 'multiple')
+    isMultiple() {
+      return (this.mSelectMode === 'multiple');
     },
   },
-  methods:{
+  methods: {
     // 拆分组
-    unGroup(){
-      this.canvas.editor.unGroup()
+    unGroup() {
+      this.canvas.editor.unGroup();
     },
-    group(){
-      this.canvas.editor.group()
-    }
-  }
+    group() {
+      this.canvas.editor.group();
+    },
+  },
 };
 </script>
 <style scoped lang="less">

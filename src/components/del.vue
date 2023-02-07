@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-03 22:35:59
+ * @LastEditTime: 2023-02-08 00:06:50
  * @Description: 删除元素按钮
 -->
 
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
+import select from '@/mixins/select';
 
 export default {
   name: 'ToolBar',
@@ -20,14 +20,16 @@ export default {
     return {
     };
   },
-  methods:{
-    del(){
+  methods: {
+    del() {
       const activeObject = this.canvas.c.getActiveObjects();
-      activeObject && activeObject.map(item => this.canvas.c.remove(item))
-      this.canvas.c.requestRenderAll()
-      this.canvas.c.discardActiveObject()
+      if (activeObject) {
+        activeObject.map((item) => this.canvas.c.remove(item));
+      }
+      this.canvas.c.requestRenderAll();
+      this.canvas.c.discardActiveObject();
     },
-  }
+  },
 };
 </script>
 

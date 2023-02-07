@@ -104,51 +104,50 @@
 <script>
 
 // 导入元素
-import importJSON from '@/components/importJSON.vue'
-import importFile from '@/components/importFile.vue'
+import importJSON from '@/components/importJSON.vue';
+import importFile from '@/components/importFile.vue';
 
 // 顶部组件
-import align from '@/components/align.vue'
-import centerAlign from '@/components/centerAlign.vue'
-import flip from '@/components/flip.vue'
-import save from '@/components/save.vue'
-import lang from '@/components/lang.vue'
-import clone from '@/components/clone.vue'
-import group from '@/components/group.vue'
-import zoom from '@/components/zoom.vue'
-import lock from '@/components/lock.vue'
-import dele from '@/components/del.vue'
+import align from '@/components/align.vue';
+import centerAlign from '@/components/centerAlign.vue';
+import flip from '@/components/flip.vue';
+import save from '@/components/save.vue';
+import lang from '@/components/lang.vue';
+import clone from '@/components/clone.vue';
+import group from '@/components/group.vue';
+import zoom from '@/components/zoom.vue';
+import lock from '@/components/lock.vue';
+import dele from '@/components/del.vue';
 
 // 左侧组件
-import importTmpl from '@/components/importTmpl.vue'
-import tools from '@/components/tools.vue'
-import svgEl from '@/components/svgEl.vue'
-import bgBar from '@/components/bgBar.vue'
-import setSize from '@/components/setSize.vue'
+import importTmpl from '@/components/importTmpl.vue';
+import tools from '@/components/tools.vue';
+import svgEl from '@/components/svgEl.vue';
+import bgBar from '@/components/bgBar.vue';
+import setSize from '@/components/setSize.vue';
 
 // 右侧组件
-import history from '@/components/history.vue'
-import layer from '@/components/layer.vue'
-import attribute from '@/components/attribute.vue'
+import history from '@/components/history.vue';
+import layer from '@/components/layer.vue';
+import attribute from '@/components/attribute.vue';
 
 // 右键菜单
-import mouseMenu from '@/components/mouseMenu.vue'
+import mouseMenu from '@/components/mouseMenu.vue';
 
 // 功能组件
-import EventHandle from '@/utils/eventHandler'
+import EventHandle from '@/utils/eventHandler';
 
 import { fabric } from 'fabric';
 import Editor from '@/core';
 
-
-const event = new EventHandle()
-const canvas = {}
+const event = new EventHandle();
+const canvas = {};
 export default {
   name: 'HomeView',
   provide: {
     canvas,
     fabric,
-    event
+    event,
   },
   data() {
     return {
@@ -158,7 +157,7 @@ export default {
     };
   },
   components: {
-    setSize, tools, bgBar, lock, layer, align, attribute, dele, importFile, save, lang, importJSON, clone, flip, importTmpl, centerAlign, group, zoom, svgEl, history, mouseMenu
+    setSize, tools, bgBar, lock, layer, align, attribute, dele, importFile, save, lang, importJSON, clone, flip, importTmpl, centerAlign, group, zoom, svgEl, history, mouseMenu,
   },
   created() {
     this.$Spin.show();
@@ -168,12 +167,11 @@ export default {
       fireRightClick: true, // 启用右键，button的数字为3
       stopContextMenu: true, // 禁止默认右键菜单
     });
-    event.init(canvas.c)
-    canvas.editor = new Editor(canvas.c)
-    this.show = true
+    event.init(canvas.c);
+    canvas.editor = new Editor(canvas.c);
+    this.show = true;
     this.$Spin.hide();
-
-  }
+  },
 };
 </script>
 <style lang="less" scoped>

@@ -118,51 +118,55 @@
 <script>
 import { v4 as uuid } from 'uuid';
 import initializeLineDrawing from '@/core/initializeLineDrawing';
+
 const defaultPosition = {
-  left: 100, top: 100, shadow: '', fontFamily: 'arial'
-}
+  left: 100, top: 100, shadow: '', fontFamily: 'arial',
+};
 export default {
   name: 'ToolBar',
   inject: ['canvas', 'fabric'],
   data() {
     return {
       isDrawingLineMode: false,
-      isArrow: false
+      isArrow: false,
     };
   },
   created() {
     // 线条绘制
-    this.drawHandler = initializeLineDrawing(this.canvas.c, defaultPosition)
+    this.drawHandler = initializeLineDrawing(this.canvas.c, defaultPosition);
   },
   methods: {
     addText() {
       const text = new this.fabric.IText(this.$t('everything_is_fine'), {
         ...defaultPosition,
-        fontSize: 80, id: uuid(),
+        fontSize: 80,
+        id: uuid(),
       });
-      this.canvas.c.add(text)
-      text.center()
+      this.canvas.c.add(text);
+      text.center();
       this.canvas.c.setActiveObject(text);
     },
     addImg(e) {
-      const imgEl = e.target.cloneNode(true)
+      const imgEl = e.target.cloneNode(true);
       const imgInstance = new fabric.Image(imgEl, {
         ...defaultPosition,
         id: uuid(),
-        name: '图片default'
+        name: '图片default',
       });
-      this.canvas.c.add(imgInstance)
-      imgInstance.center()
-      this.canvas.c.renderAll()
+      this.canvas.c.add(imgInstance);
+      imgInstance.center();
+      this.canvas.c.renderAll();
     },
     addTextBox() {
       const text = new this.fabric.Textbox(this.$t('everything_goes_well'), {
         ...defaultPosition,
-        splitByGrapheme: true, width: 400,
-        fontSize: 80, id: uuid(),
+        splitByGrapheme: true,
+        width: 400,
+        fontSize: 80,
+        id: uuid(),
       });
-      this.canvas.c.add(text)
-      text.center()
+      this.canvas.c.add(text);
+      text.center();
       this.canvas.c.setActiveObject(text);
     },
     addTriangle() {
@@ -171,10 +175,10 @@ export default {
         left: 100,
         width: 400,
         height: 400,
-        fill: '#92706B'
-      })
-      this.canvas.c.add(triangle)
-      triangle.center()
+        fill: '#92706B',
+      });
+      this.canvas.c.add(triangle);
+      triangle.center();
       this.canvas.c.setActiveObject(triangle);
     },
     addCircle() {
@@ -183,10 +187,10 @@ export default {
         radius: 150,
         fill: '#57606B',
         id: uuid(),
-        name: '圆形'
+        name: '圆形',
       });
-      this.canvas.c.add(circle)
-      circle.center()
+      this.canvas.c.add(circle);
+      circle.center();
       this.canvas.c.setActiveObject(circle);
     },
     addRect() {
@@ -196,25 +200,25 @@ export default {
         width: 400,
         height: 400,
         id: uuid(),
-        name: '矩形'
+        name: '矩形',
       });
-      this.canvas.c.add(circle)
-      circle.center()
+      this.canvas.c.add(circle);
+      circle.center();
       this.canvas.c.setActiveObject(circle);
     },
-    drawingLineModeSwitch(isArrow){
-      this.isArrow = isArrow
-      this.isDrawingLineMode = !this.isDrawingLineMode
-      this.drawHandler.setMode(this.isDrawingLineMode)
-      this.drawHandler.setArrow(isArrow)
-      this.canvas.c.forEachObject(obj => {
-          if(obj.id !== 'workspace'){
-            obj.selectable = !this.isDrawingLineMode;
-            obj.evented = !this.isDrawingLineMode;
-          }
-      })
-    }
-  }
+    drawingLineModeSwitch(isArrow) {
+      this.isArrow = isArrow;
+      this.isDrawingLineMode = !this.isDrawingLineMode;
+      this.drawHandler.setMode(this.isDrawingLineMode);
+      this.drawHandler.setArrow(isArrow);
+      this.canvas.c.forEachObject((obj) => {
+        if (obj.id !== 'workspace') {
+          obj.selectable = !this.isDrawingLineMode;
+          obj.evented = !this.isDrawingLineMode;
+        }
+      });
+    },
+  },
 };
 </script>
 
@@ -249,6 +253,5 @@ export default {
 .img {
   width: 20px;
 }
-
 
 </style>

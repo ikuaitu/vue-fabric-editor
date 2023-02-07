@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-05 10:53:18
+ * @LastEditTime: 2023-02-08 00:08:21
  * @Description: 尺寸设置
 -->
 
@@ -35,6 +35,7 @@
 <script>
 
 import EditorWorkspace from '@/core/initWorkspace';
+
 export default {
   name: 'canvasSize',
   inject: ['canvas', 'fabric'],
@@ -57,27 +58,25 @@ export default {
         width: 1080,
         height: 1920,
       },
-      ]
+      ],
     };
   },
   mounted() {
-
     this.canvas.editor.editorWorkspace = new EditorWorkspace(this.canvas.c, {
       width: this.width,
-      height: this.height
-    })
-
+      height: this.height,
+    });
   },
   methods: {
     setSizeBy(width, height) {
-      this.width = width
-      this.height = height
-      this.setSize()
+      this.width = width;
+      this.height = height;
+      this.setSize();
     },
     setSize() {
-      this.canvas.editor.editorWorkspace.setSize(this.width, this.height)
-    }
-  }
+      this.canvas.editor.editorWorkspace.setSize(this.width, this.height);
+    },
+  },
 };
 </script>
 

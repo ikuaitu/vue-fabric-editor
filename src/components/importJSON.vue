@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-05 01:04:52
+ * @LastEditTime: 2023-02-08 00:08:00
  * @Description: 导入JSON文件
 -->
 
@@ -23,8 +23,9 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
-import { downFontByJSON } from '@/utils/utils'
+import select from '@/mixins/select';
+import { downFontByJSON } from '@/utils/utils';
+
 export default {
   name: 'ToolBar',
   mixins: [select],
@@ -36,39 +37,39 @@ export default {
   },
   methods: {
     insert() {
-      this.svg = ''
-      this.showModal = true
+      this.svg = '';
+      this.showModal = true;
     },
     insertSvgFile() {
       if (!this.jsonFile) {
-        this.$Message.error(this.$t('alert.select_file'))
-        return
+        this.$Message.error(this.$t('alert.select_file'));
+        return;
       }
       // 加载字体后导入
       downFontByJSON(this.jsonFile).then(() => {
         this.canvas.c.loadFromJSON(this.jsonFile, () => {
-          this.canvas.c.renderAll.bind(this.canvas.c)
+          this.canvas.c.renderAll.bind(this.canvas.c);
           setTimeout(() => {
-            const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')
-            workspace.set('selectable',false)
-            workspace.set('hasControls',false)
-            this.canvas.c.requestRenderAll()
-            this.canvas.editor.editorWorkspace.setSize(workspace.width,workspace.height)
-            this.canvas.c.renderAll()
-            this.canvas.c.requestRenderAll()
+            const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
+            workspace.set('selectable', false);
+            workspace.set('hasControls', false);
+            this.canvas.c.requestRenderAll();
+            this.canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
+            this.canvas.c.renderAll();
+            this.canvas.c.requestRenderAll();
           }, 100);
         });
-      })
+      });
     },
     handleUpload(file) {
       const reader = new FileReader();
       reader.readAsText(file, 'UTF-8');
       reader.onload = () => {
-        this.jsonFile = reader.result
+        this.jsonFile = reader.result;
       };
       return false;
     },
-  }
+  },
 };
 </script>
 

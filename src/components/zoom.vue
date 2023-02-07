@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-04-21 20:20:20
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-04 22:32:57
+ * @LastEditTime: 2023-02-08 00:08:31
  * @Description: 缩放元素
 -->
 <template>
@@ -17,38 +17,38 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
+import select from '@/mixins/select';
 
 export default {
   name: 'ToolBar',
   mixins: [select],
   data() {
     return {
-      zoom:0
+      zoom: 0,
     };
   },
   computed: {
     unShow() {
-      return (this.mSelectMode === 'one' && this.mSelectOneType === 'group')
+      return (this.mSelectMode === 'one' && this.mSelectOneType === 'group');
     },
-    createShow(){
-      return (this.mSelectMode === 'multiple')
+    createShow() {
+      return (this.mSelectMode === 'multiple');
     },
   },
-  methods:{
-    rSet(){
-      this.canvas.editor.editorWorkspace.one()
+  methods: {
+    rSet() {
+      this.canvas.editor.editorWorkspace.one();
     },
-    big(){
-      this.canvas.editor.editorWorkspace.big()
+    big() {
+      this.canvas.editor.editorWorkspace.big();
     },
-    small(){
-      this.canvas.editor.editorWorkspace.small()
+    small() {
+      this.canvas.editor.editorWorkspace.small();
     },
-    setViewport(){
-      this.canvas.editor.editorWorkspace.auto()
-    }
-  }
+    setViewport() {
+      this.canvas.editor.editorWorkspace.auto();
+    },
+  },
 };
 </script>
 <style scoped lang="less">

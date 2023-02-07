@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:22:16
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-03 19:22:16
+ * @LastEditTime: 2023-02-08 00:04:56
  * @Description: file content
  */
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
   },
   extends: [
     'plugin:vue/essential',
-    // '@vue/airbnb',
+    '@vue/airbnb',
   ],
   parserOptions: {
     parser: '@babel/eslint-parser',

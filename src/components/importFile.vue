@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-05 12:12:14
+ * @LastEditTime: 2023-02-08 00:07:57
  * @Description: 插入SVG元素
 -->
 
@@ -47,14 +47,15 @@
             <Button icon="ios-cloud-upload-outline">{{ $t('select_svg') }}</Button>
         </Upload>
     </Modal>
-  
+
 </div>
 </template>
 
 <script>
-import { getImgStr } from "@/utils/utils";
-import select from '@/mixins/select'
+import { getImgStr } from '@/utils/utils';
+import select from '@/mixins/select';
 import { v4 as uuid } from 'uuid';
+
 export default {
   name: 'ToolBar',
   mixins: [select],
@@ -64,24 +65,24 @@ export default {
       showImgModal: false,
       imgFile: null,
       // 插入SVG
-      insertType: 'string',  // 插入类型 file | string
+      insertType: 'string', // 插入类型 file | string
       showModal: false,
       svgStr: '',
       svgFile: null,
     };
   },
-  methods:{
-    insertTypeHand(type){
-      this[type]()
+  methods: {
+    insertTypeHand(type) {
+      this[type]();
     },
     // 插入图片
-    insertImg(){
-      this.imgFile = ''
-      this.showImgModal = true
+    insertImg() {
+      this.imgFile = '';
+      this.showImgModal = true;
     },
     insertImgFile() {
       const imgEl = document.createElement('img');
-      imgEl.src = this.imgFile
+      imgEl.src = this.imgFile;
       // 插入页面
       document.body.appendChild(imgEl);
       imgEl.onload = () => {
@@ -89,56 +90,57 @@ export default {
         const imgInstance = new this.fabric.Image(imgEl, {
           id: uuid(),
           name: '图片1',
-          left: 100, top: 100,
+          left: 100,
+          top: 100,
         });
         // 设置缩放
-        this.canvas.c.add(imgInstance)
+        this.canvas.c.add(imgInstance);
         this.canvas.c.setActiveObject(imgInstance);
-        this.canvas.c.renderAll()
+        this.canvas.c.renderAll();
         // 删除页面中的图片元素
-        imgEl.remove()
-      }
+        imgEl.remove();
+      };
     },
     handleUploadImg(file) {
-      getImgStr(file).then(res => {
-        this.imgFile = res
-      })
+      getImgStr(file).then((res) => {
+        this.imgFile = res;
+      });
     },
     // 插入SVG
-    insert(){
-      this.svgStr = ''
-      this.svgFile = null
-      this.showModal = true
+    insert() {
+      this.svgStr = '';
+      this.svgFile = null;
+      this.showModal = true;
     },
-    insertSvg(){
-      if(this.insertType === 'string'){
-        this.insertSvgStr()
-      }else{
-        this.insertSvgFile()
+    insertSvg() {
+      if (this.insertType === 'string') {
+        this.insertSvgStr();
+      } else {
+        this.insertSvgFile();
       }
     },
     // 插入字符串元素
-    insertSvgStr(){
-      const This = this
-      this.fabric.loadSVGFromString(this.svgStr, function(objects, options) {
-        const item = This.fabric.util.groupSVGElements(objects, {...options, name: 'defaultSVG', id: uuid()});
+    insertSvgStr() {
+      const This = this;
+      this.fabric.loadSVGFromString(this.svgStr, (objects, options) => {
+        const item = This.fabric.util.groupSVGElements(objects, { ...options, name: 'defaultSVG', id: uuid() });
         This.canvas.c.add(item).centerObject(item).renderAll();
       });
     },
     // 插入文件元素
-    insertSvgFile(){
-      const This = this
-       this.fabric.loadSVGFromURL(this.svgFile, function(objects, options) {
-        const item = This.fabric.util.groupSVGElements(objects, {...options, name: 'defaultSVG', id: uuid()});
+    insertSvgFile() {
+      const This = this;
+      this.fabric.loadSVGFromURL(this.svgFile, (objects, options) => {
+        const item = This.fabric.util.groupSVGElements(objects, { ...options, name: 'defaultSVG', id: uuid() });
         This.canvas.c.add(item).centerObject(item).renderAll();
       });
     },
-    handleUpload (file) {
-      getImgStr(file).then(res => {
-        this.svgFile = res
-      })
+    handleUpload(file) {
+      getImgStr(file).then((res) => {
+        this.svgFile = res;
+      });
     },
-  }
+  },
 };
 </script>
 

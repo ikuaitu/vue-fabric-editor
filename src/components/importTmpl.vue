@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-05 12:33:47
+ * @LastEditTime: 2023-02-08 00:08:05
  * @Description: 导入模板
 -->
 
@@ -17,15 +17,16 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
-import { downFontByJSON } from '@/utils/utils'
+import select from '@/mixins/select';
+import { downFontByJSON } from '@/utils/utils';
+
 export default {
   name: 'ToolBar',
   mixins: [select],
   data() {
     return {
       jsonFile: null,
-      list:[
+      list: [
         {
           label: '海报模板',
           tempUrl: './template/49234261-0187-4fdc-be80-f9dfb14c8bc6.json',
@@ -35,53 +36,48 @@ export default {
           label: '旅游海报',
           tempUrl: './template/6ff9093a-4976-416b-8285-db5496842487.json',
           src: './template/6ff9093a-4976-416b-8285-db5496842487.png',
-        }
+        },
       ],
     };
   },
-  methods:{
+  methods: {
     // 插入文件
-    insertSvgFile(){
+    insertSvgFile() {
       this.$Spin.show({
-          render: (h) => {
-              return h('div', this.$t('alert.loading_fonts'))
-          }
+        render: (h) => h('div', this.$t('alert.loading_fonts')),
       });
-      
+
       downFontByJSON(this.jsonFile).then(() => {
         this.$Spin.hide();
         this.canvas.c.loadFromJSON(this.jsonFile, () => {
-          this.canvas.c.renderAll.bind(this.canvas.c)
+          this.canvas.c.renderAll.bind(this.canvas.c);
           setTimeout(() => {
-            const workspace = this.canvas.c.getObjects().find(item => item.id === 'workspace')
-            workspace.set('selectable',false)
-            workspace.set('hasControls',false)
-            this.canvas.c.requestRenderAll()
-            this.canvas.editor.editorWorkspace.setSize(workspace.width,workspace.height)
-            this.canvas.c.renderAll()
-            this.canvas.c.requestRenderAll()
+            const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
+            workspace.set('selectable', false);
+            workspace.set('hasControls', false);
+            this.canvas.c.requestRenderAll();
+            this.canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
+            this.canvas.c.renderAll();
+            this.canvas.c.requestRenderAll();
           }, 100);
         });
-
       }).catch((e) => {
         this.$Spin.hide();
-        this.$Message.error(this.$t('alert.loading_fonts_failed'))
-      })
+        this.$Message.error(this.$t('alert.loading_fonts_failed'));
+      });
     },
     // 获取模板数据
-    getTempData(tmplUrl){
+    getTempData(tmplUrl) {
       this.$Spin.show({
-          render: (h) => {
-              return h('div',this.$t('alert.loading_data'))
-          }
+        render: (h) => h('div', this.$t('alert.loading_data')),
       });
-      const getTemp = this.$http.get(tmplUrl)
-      getTemp.then(res => {
-        this.jsonFile = JSON.stringify(res.data)
-        this.insertSvgFile()
-      })
-    }
-  }
+      const getTemp = this.$http.get(tmplUrl);
+      getTemp.then((res) => {
+        this.jsonFile = JSON.stringify(res.data);
+        this.insertSvgFile();
+      });
+    },
+  },
 };
 </script>
 
