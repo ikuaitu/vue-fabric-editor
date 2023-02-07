@@ -76,7 +76,6 @@ export default ({
     },
 
     handleMouseUp(opt) {
-      console.log(opt)
       try {
         if (opt.button === 3 && opt.target && opt.target.id !== 'workspace') {
           // 显示菜单，设置右键菜单位置

@@ -360,7 +360,6 @@ export default {
     this.event.on('selectOne', (e) => {
       const activeObject = this.canvas.c.getActiveObjects()[0]
       if (activeObject) {
-        console.log(activeObject)
         // base
         this.baseAttr.opacity = activeObject.get('opacity') * 100
         this.baseAttr.fill = activeObject.get('fill')
