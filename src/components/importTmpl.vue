@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:08:05
+ * @LastEditTime: 2023-02-08 13:15:21
  * @Description: 导入模板
 -->
 
@@ -36,6 +36,11 @@ export default {
           label: '旅游海报',
           tempUrl: './template/6ff9093a-4976-416b-8285-db5496842487.json',
           src: './template/6ff9093a-4976-416b-8285-db5496842487.png',
+        },
+        {
+          label: '邀请海报',
+          tempUrl: './template/b40fee28-de9f-4304-a07e-2f55d36f137e.json',
+          src: './template/b40fee28-de9f-4304-a07e-2f55d36f137e.png',
         },
       ],
     };
