@@ -2,7 +2,7 @@
   <div>
     <Divider plain orientation="left">{{$t('common_elements')}}</Divider>
     <div class="tool-box">
-      <span @click="addText">
+      <span @click="() => addText()" :draggable="true" @dragend="onDragend('text')">
         <svg
           t="1650875455324"
           class="icon"
@@ -19,7 +19,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="addTextBox">
+      <span @click="() => addTextBox()" :draggable="true" @dragend="onDragend('textBox')">
         <svg
           t="1650854954008"
           class="icon"
@@ -36,7 +36,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="addRect">
+      <span @click="() => addRect()" :draggable="true" @dragend="onDragend('rect')">
         <svg
           t="1650855811131"
           class="icon"
@@ -53,7 +53,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="addCircle">
+      <span @click="() => addCircle()" :draggable="true" @dragend="onDragend('circle')">
         <svg
           t="1650855860236"
           class="icon"
@@ -70,7 +70,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="addTriangle">
+      <span @click="() => addTriangle()" :draggable="true" @dragend="onDragend('triangle')">
         <svg
           t="1650874633978"
           class="icon"
@@ -119,8 +119,12 @@
 import { v4 as uuid } from 'uuid';
 import initializeLineDrawing from '@/core/initializeLineDrawing';
 
-const defaultPosition = {
-  left: 100, top: 100, shadow: '', fontFamily: 'arial',
+// 默认属性
+const defaultPosition = { shadow: '', fontFamily: 'arial' };
+// 拖拽属性
+const dragOption = {
+  left: 0,
+  top: 0,
 };
 export default {
   name: 'ToolBar',
@@ -134,16 +138,60 @@ export default {
   created() {
     // 线条绘制
     this.drawHandler = initializeLineDrawing(this.canvas.c, defaultPosition);
+
+    this.canvas.c.on('drop', (opt) => {
+      // 画布元素距离浏览器左侧和顶部的距离
+      const offset = {
+        left: this.canvas.c.getSelectionElement().getBoundingClientRect().left,
+        top: this.canvas.c.getSelectionElement().getBoundingClientRect().top,
+      };
+
+      // 鼠标坐标转换成画布的坐标（未经过缩放和平移的坐标）
+      const point = {
+        x: opt.e.x - offset.left,
+        y: opt.e.y - offset.top,
+      };
+
+      // 转换后的坐标，restorePointerVpt 不受视窗变换的影响
+      const pointerVpt = this.canvas.c.restorePointerVpt(point);
+      dragOption.left = pointerVpt.x;
+      dragOption.top = pointerVpt.y;
+    });
   },
   methods: {
-    addText() {
+    // 拖拽开始时就记录当前打算创建的元素类型
+    onDragend(type) {
+      switch (type) {
+        case 'text':
+          this.addText(dragOption);
+          break;
+        case 'textBox':
+          this.addTextBox(dragOption);
+          break;
+        case 'rect':
+          this.addRect(dragOption);
+          break;
+        case 'circle':
+          this.addCircle(dragOption);
+          break;
+        case 'triangle':
+          this.addTriangle(dragOption);
+          break;
+        default:
+          console.log(null);
+      }
+    },
+    addText(option) {
       const text = new this.fabric.IText(this.$t('everything_is_fine'), {
         ...defaultPosition,
+        ...option,
         fontSize: 80,
         id: uuid(),
       });
       this.canvas.c.add(text);
-      text.center();
+      if (!option) {
+        text.center();
+      }
       this.canvas.c.setActiveObject(text);
     },
     addImg(e) {
@@ -154,57 +202,67 @@ export default {
         name: '图片default',
       });
       this.canvas.c.add(imgInstance);
-      imgInstance.center();
       this.canvas.c.renderAll();
     },
-    addTextBox() {
+    addTextBox(option) {
       const text = new this.fabric.Textbox(this.$t('everything_goes_well'), {
         ...defaultPosition,
+        ...option,
         splitByGrapheme: true,
         width: 400,
         fontSize: 80,
         id: uuid(),
       });
       this.canvas.c.add(text);
-      text.center();
+      console.log(option);
+      if (!option) {
+        text.center();
+      }
       this.canvas.c.setActiveObject(text);
     },
-    addTriangle() {
+    addTriangle(option) {
       const triangle = new this.fabric.Triangle({
-        top: 100,
-        left: 100,
+        ...defaultPosition,
         width: 400,
         height: 400,
         fill: '#92706B',
       });
       this.canvas.c.add(triangle);
-      triangle.center();
+      if (!option) {
+        triangle.center();
+      }
       this.canvas.c.setActiveObject(triangle);
     },
-    addCircle() {
+    addCircle(option) {
       const circle = new this.fabric.Circle({
         ...defaultPosition,
+        ...option,
         radius: 150,
         fill: '#57606B',
         id: uuid(),
         name: '圆形',
       });
       this.canvas.c.add(circle);
-      circle.center();
+      if (!option) {
+        circle.center();
+      }
       this.canvas.c.setActiveObject(circle);
     },
-    addRect() {
-      const circle = new this.fabric.Rect({
+    addRect(option) {
+      const rect = new this.fabric.Rect({
         ...defaultPosition,
+        ...option,
         fill: '#F57274',
         width: 400,
         height: 400,
         id: uuid(),
         name: '矩形',
       });
-      this.canvas.c.add(circle);
-      circle.center();
-      this.canvas.c.setActiveObject(circle);
+      this.canvas.c.add(rect);
+      if (!option) {
+        rect.center();
+      }
+      this.canvas.c.setActiveObject(rect);
     },
     drawingLineModeSwitch(isArrow) {
       this.isArrow = isArrow;
