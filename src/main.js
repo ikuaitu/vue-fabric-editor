@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import App from './App.vue';
 import axios from 'axios';
 import ViewUI from 'view-design';
 import VueClipboard from 'vue-clipboard2';
@@ -13,6 +12,8 @@ import zhCN from 'view-design/dist/locale/zh-CN';
 import ptBR from 'view-design/dist/locale/pt-BR';
 import i18n from './locales/i18n';
 import router from './router';
+
+import App from './App.vue';
 
 const LANGMAP = {
   zh: zhCN,
