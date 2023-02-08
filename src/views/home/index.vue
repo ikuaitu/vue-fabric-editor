@@ -166,6 +166,7 @@ export default {
     this.canvas = canvas.c = new fabric.Canvas('canvas', {
       fireRightClick: true, // 启用右键，button的数字为3
       stopContextMenu: true, // 禁止默认右键菜单
+      controlsAboveOverlay: true, // 超出clipPath后仍然展示控制条
     });
     event.init(canvas.c);
     canvas.editor = new Editor(canvas.c);
@@ -212,7 +213,7 @@ export default {
   width: 300px;
   height: 300px;
   margin: 0 auto;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVQ4jWNgYGAQIYAJglEDhoUBg9+FowbQ2gAARjwKARjtnN8AAAAASUVORK5CYII=");
+  // background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVQ4jWNgYGAQIYAJglEDhoUBg9+FowbQ2gAARjwKARjtnN8AAAAASUVORK5CYII=");
   background-size: 30px 30px;
 }
 #workspace {
