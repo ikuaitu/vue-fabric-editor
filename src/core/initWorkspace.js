@@ -5,7 +5,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 21:50:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:21:25
+ * @LastEditTime: 2023-02-08 13:32:33
  * @Description: 工作区初始化
  */
 
@@ -127,6 +127,13 @@ class EditorWorkspace {
     this.canvas.setWidth(width);
     this.canvas.setHeight(height);
     this.canvas.renderAll();
+
+    // 超出画布不展示
+    // this.workspace.clone((cloned) => {
+    //     this.canvas.clipPath = cloned
+    //     this.canvas.requestRenderAll();
+    // });
+
     if (cb) cb(this.workspace.left, this.workspace.top);
   }
 
