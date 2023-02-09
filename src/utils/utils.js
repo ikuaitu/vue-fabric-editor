@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-05 22:21:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:09:49
+ * @LastEditTime: 2023-02-09 12:59:35
  * @Description: 工具文件
  */
 
@@ -36,6 +36,7 @@ export function downFontByJSON(str) {
   const skipFonts = ['arial', 'Microsoft YaHei'];
   const fontFamilys = JSON.parse(str).objects.filter((item) =>
   // 为text 并且不为包含字体
+    // eslint-disable-next-line implicit-arrow-linebreak
     (item.type.includes('text') && !skipFonts.includes(item.fontFamily))).map((item) => item.fontFamily);
   const fontFamilysAll = fontFamilys.map((fontName) => {
     const font = new FontFaceObserver(fontName);

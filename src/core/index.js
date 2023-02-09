@@ -2,22 +2,22 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:08:44
+ * @LastEditTime: 2023-02-09 13:17:39
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
-import { fabric } from 'fabric';
+// import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
 
 // 对齐辅助线
 import initAligningGuidelines from '@/core/initAligningGuidelines';
 import initControlsRotate from '@/core/initControlsRotate';
-import initCenterAlign from '@/core/initCenterAlign';
+import InitCenterAlign from '@/core/initCenterAlign';
 import initHotkeys from '@/core/initHotKeys';
 import initControls from '@/core/initControls';
 
 class Editor extends EventEmitter {
-  constructor(canvas, option) {
+  constructor(canvas) {
     super();
 
     this.canvas = canvas;
@@ -27,7 +27,7 @@ class Editor extends EventEmitter {
     initHotkeys(canvas);
     initControls(canvas);
     initControlsRotate(canvas);
-    this.centerAlign = new initCenterAlign(canvas);
+    this.centerAlign = new InitCenterAlign(canvas);
   }
 
   clone() {

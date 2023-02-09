@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:05:43
+ * @LastEditTime: 2023-02-09 13:05:33
  * @Description: 组合元素对齐
 -->
 
@@ -130,6 +130,37 @@ export default {
     // 水平平均对齐
     xequation() {
       const activeObject = this.canvas.c.getActiveObject();
+
+      // width属性不准确，需要坐标换算
+      function getItemWidth(item) {
+        return item.aCoords.tr.x - item.aCoords.tl.x;
+      }
+
+      // 获取所有元素高度
+      function getAllItemHeight() {
+        let count = 0;
+        activeObject.forEachObject((item) => {
+          count += getItemWidth(item);
+        });
+        return count;
+      }
+      // 获取平均间距
+      function spacWidth() {
+        const count = getAllItemHeight();
+        const allSpac = activeObject.width - count;
+        return allSpac / (activeObject._objects.length - 1);
+      }
+
+      // 获取当前元素之前所有元素的高度
+      function getItemLeft(i) {
+        if (i === 0) return 0;
+        let width = 0;
+        for (let index = 0; index < i; index++) {
+          width += getItemWidth(activeObject._objects[index]);
+        }
+        return width;
+      }
+
       if (activeObject && activeObject.type === 'activeSelection') {
         const activeSelection = activeObject;
         // 排序
@@ -149,40 +180,39 @@ export default {
         });
         this.canvas.c.renderAll();
       }
-
-      // 获取平均间距
-      function spacWidth() {
-        const count = getAllItemHeight();
-        const allSpac = activeObject.width - count;
-        return allSpac / (activeObject._objects.length - 1);
-      }
-
-      // 获取所有元素高度
-      function getAllItemHeight() {
-        let count = 0;
-        activeObject.forEachObject((item) => {
-          count += getItemWidth(item);
-        });
-        return count;
-      }
-
-      // width属性不准确，需要坐标换算
-      function getItemWidth(item) {
-        return item.aCoords.tr.x - item.aCoords.tl.x;
-      }
-      // 获取当前元素之前所有元素的高度
-      function getItemLeft(i) {
-        if (i === 0) return 0;
-        let width = 0;
-        for (let index = 0; index < i; index++) {
-          width += getItemWidth(activeObject._objects[index]);
-        }
-        return width;
-      }
     },
     // 垂直平均对齐
     yequation() {
       const activeObject = this.canvas.c.getActiveObject();
+      // width属性不准确，需要坐标换算
+      function getItemHeight(item) {
+        return item.aCoords.bl.y - item.aCoords.tl.y;
+      }
+      // 获取所有元素高度
+      function getAllItemHeight() {
+        let count = 0;
+        activeObject.forEachObject((item) => {
+          count += getItemHeight(item);
+        });
+        return count;
+      }
+      // 获取平均间距
+      function spacHeight() {
+        const count = getAllItemHeight();
+        const allSpac = activeObject.height - count;
+        return allSpac / (activeObject._objects.length - 1);
+      }
+
+      // 获取当前元素之前所有元素的高度
+      function getItemTop(i) {
+        if (i === 0) return 0;
+        let height = 0;
+        for (let index = 0; index < i; index++) {
+          height += getItemHeight(activeObject._objects[index]);
+        }
+        return height;
+      }
+
       if (activeObject && activeObject.type === 'activeSelection') {
         const activeSelection = activeObject;
         // 排序
@@ -201,36 +231,6 @@ export default {
           item.set('top', top);
         });
         this.canvas.c.renderAll();
-      }
-
-      // 获取平均间距
-      function spacHeight() {
-        const count = getAllItemHeight();
-        const allSpac = activeObject.height - count;
-        return allSpac / (activeObject._objects.length - 1);
-      }
-
-      // 获取所有元素高度
-      function getAllItemHeight() {
-        let count = 0;
-        activeObject.forEachObject((item) => {
-          count += getItemHeight(item);
-        });
-        return count;
-      }
-
-      // width属性不准确，需要坐标换算
-      function getItemHeight(item) {
-        return item.aCoords.bl.y - item.aCoords.tl.y;
-      }
-      // 获取当前元素之前所有元素的高度
-      function getItemTop(i) {
-        if (i === 0) return 0;
-        let height = 0;
-        for (let index = 0; index < i; index++) {
-          height += getItemHeight(activeObject._objects[index]);
-        }
-        return height;
       }
     },
   },

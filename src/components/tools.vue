@@ -196,7 +196,7 @@ export default {
     },
     addImg(e) {
       const imgEl = e.target.cloneNode(true);
-      const imgInstance = new fabric.Image(imgEl, {
+      const imgInstance = new this.fabric.Image(imgEl, {
         ...defaultPosition,
         id: uuid(),
         name: '图片default',

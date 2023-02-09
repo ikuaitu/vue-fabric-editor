@@ -34,7 +34,7 @@ export default {
      * @description: 保存data数据
      * @param {Object} data 房间详情数据
      */
-    _mixinSelected({ event, selected }) {
+    _mixinSelected({ selected }) {
       if (selected.length === 1) {
         const selectItem = selected[0];
         this.mSelectMode = 'one';
@@ -53,7 +53,7 @@ export default {
      * @description: 保存data数据
      * @param {Object} data 房间详情数据
      */
-    _mixinCancel(data) {
+    _mixinCancel() {
       this.mSelectMode = '';
       this.mSelectId = [];
       this.mSelectActive = [];

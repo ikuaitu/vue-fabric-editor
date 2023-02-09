@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:07:43
+ * @LastEditTime: 2023-02-09 13:16:06
  * @Description: 组合与拆分组合
 -->
 
@@ -17,7 +17,7 @@
 
 <script>
 import select from '@/mixins/select';
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
 
 export default {
   name: 'ToolBar',

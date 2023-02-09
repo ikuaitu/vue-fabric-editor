@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 13:15:21
+ * @LastEditTime: 2023-02-09 13:18:30
  * @Description: 导入模板
 -->
 
@@ -66,7 +66,7 @@ export default {
             this.canvas.c.requestRenderAll();
           }, 100);
         });
-      }).catch((e) => {
+      }).catch(() => {
         this.$Spin.hide();
         this.$Message.error(this.$t('alert.loading_fonts_failed'));
       });

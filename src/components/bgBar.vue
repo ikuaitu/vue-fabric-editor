@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { getImgStr } from '@/utils/utils';
+// import { getImgStr } from '@/utils/utils';
 
 export default {
   name: 'bgBar',
@@ -74,7 +74,7 @@ export default {
     },
     // 背景颜色设置
     setColor(color) {
-      const workspace = this.canvas.c.getObjects().find((item) => item.id = 'workspace');
+      const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
       workspace.set('fill', color);
       this.canvas.c.renderAll();
     },

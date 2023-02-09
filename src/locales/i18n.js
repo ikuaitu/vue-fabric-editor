@@ -27,7 +27,10 @@ function getLocalLang() {
   if (!localLang) {
     let defaultLang = navigator.language;
     if (defaultLang) {
-      defaultLang = localLang = defaultLang.split('-')[0];
+      // eslint-disable-next-line prefer-destructuring
+      defaultLang = defaultLang.split('-')[0];
+      // eslint-disable-next-line prefer-destructuring
+      localLang = defaultLang.split('-')[0];
     }
     setLocal(LANG, defaultLang);
   }

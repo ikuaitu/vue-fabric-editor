@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:08:15
+ * @LastEditTime: 2023-02-09 12:53:31
  * @Description: 锁定元素
 -->
 
@@ -28,6 +28,7 @@ export default {
   created() {
     this.event.on('selectOne', (items) => {
       this.isLock = !items[0].hasControls;
+      // eslint-disable-next-line prefer-destructuring
       this.mSelectActive = items[0];
     });
   },

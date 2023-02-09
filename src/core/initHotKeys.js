@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2022-12-07 23:50:05
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:08:56
+ * @LastEditTime: 2023-02-09 13:19:12
  * @Description: 快捷键功能
  */
 
 import hotkeys from 'hotkeys-js';
-import { cloneDeep } from 'lodash-es';
+// import { cloneDeep } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 import { Message } from 'view-design';
 
@@ -18,6 +18,33 @@ const keyNames = {
   ctrlc: 'ctrl+c',
   ctrlv: 'ctrl+v',
 };
+
+function copyElement(canvas) {
+  let copyEl = null;
+
+  // 复制
+  hotkeys(keyNames.ctrlc, () => {
+    const activeObject = canvas.getActiveObjects();
+    if (activeObject.length === 0) return;
+    canvas.getActiveObject().clone((_copyEl) => {
+      canvas.discardActiveObject();
+      _copyEl.set({
+        left: _copyEl.left + 20,
+        top: _copyEl.top + 20,
+        evented: true,
+        id: uuid(),
+      });
+      copyEl = _copyEl;
+      Message.success('复制成功');
+    });
+  });
+  // 粘贴
+  hotkeys(keyNames.ctrlv, () => {
+    if (!copyEl) return Message.warning('暂无复制内容');
+    canvas.add(copyEl);
+    canvas.setActiveObject(copyEl);
+  });
+}
 
 function initHotkeys(canvas) {
   // 删除快捷键
@@ -55,33 +82,6 @@ function initHotkeys(canvas) {
 
   // 复制粘贴
   copyElement(canvas);
-}
-
-function copyElement(canvas) {
-  let copyEl = null;
-
-  // 复制
-  hotkeys(keyNames.ctrlc, (event, handler) => {
-    const activeObject = canvas.getActiveObjects();
-    if (activeObject.length === 0) return;
-    canvas.getActiveObject().clone((_copyEl) => {
-      canvas.discardActiveObject();
-      _copyEl.set({
-        left: _copyEl.left + 20,
-        top: _copyEl.top + 20,
-        evented: true,
-        id: uuid(),
-      });
-      copyEl = _copyEl;
-      Message.success('复制成功');
-    });
-  });
-  // 粘贴
-  hotkeys(keyNames.ctrlv, (event, handler) => {
-    if (!copyEl) return Message.warning('暂无复制内容');
-    canvas.add(copyEl);
-    canvas.setActiveObject(copyEl);
-  });
 }
 
 export default initHotkeys;

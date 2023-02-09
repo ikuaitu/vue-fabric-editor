@@ -358,7 +358,7 @@ export default {
     };
   },
   created() {
-    this.event.on('selectOne', (e) => {
+    this.event.on('selectOne', () => {
       const activeObject = this.canvas.c.getActiveObjects()[0];
       if (activeObject) {
         // base
@@ -460,7 +460,7 @@ export default {
     changeShadow() {
       const activeObject = this.canvas.c.getActiveObjects()[0];
       activeObject
-        && activeObject.set('shadow', new fabric.Shadow(this.baseAttr.shadow));
+        && activeObject.set('shadow', new this.fabric.Shadow(this.baseAttr.shadow));
       this.canvas.c.renderAll();
     },
     // 加粗

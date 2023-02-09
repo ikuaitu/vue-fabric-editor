@@ -1,8 +1,13 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-multi-assign */
 /**
  * Should objects be aligned by a bounding box?
  * [Bug] Scaled objects sometimes can not be aligned by edges
  * https://github.com/fabricjs/fabric.js/blob/master/lib/aligning_guidelines.js
  */
+
+import { fabric } from 'fabric';
+
 function initAligningGuidelines(canvas) {
   const ctx = canvas.getSelectionContext();
   const aligningLineOffset = 5;
@@ -79,6 +84,7 @@ function initAligningGuidelines(canvas) {
     // but we're not doing it here for perf. reasons -- as this a function that's invoked on every mouse move
 
     for (let i = canvasObjects.length; i--;) {
+      // eslint-disable-next-line no-continue
       if (canvasObjects[i] === activeObject) continue;
 
       const objectCenter = canvasObjects[i].getCenterPoint();
@@ -198,10 +204,10 @@ function initAligningGuidelines(canvas) {
   });
 
   canvas.on('after:render', () => {
-    for (var i = verticalLines.length; i--;) {
+    for (let i = verticalLines.length; i--;) {
       drawVerticalLine(verticalLines[i]);
     }
-    for (var j = horizontalLines.length; j--;) {
+    for (let j = horizontalLines.length; j--;) {
       drawHorizontalLine(horizontalLines[j]);
     }
 

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:08:11
+ * @LastEditTime: 2023-02-09 13:18:41
  * @Description: 图层面板
 -->
 
@@ -106,7 +106,7 @@ export default {
       this.canvas.c.setActiveObject(info);
       this.canvas.c.requestRenderAll();
     },
-    getList(e) {
+    getList() {
       // 不改原数组 反转
       this.list = [...this.canvas.c.getObjects()].reverse().map((item) => {
         const {

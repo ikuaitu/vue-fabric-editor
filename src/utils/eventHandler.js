@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:09:40
+ * @LastEditTime: 2023-02-09 13:17:11
  * @Description: 自定义事件
  */
 
@@ -17,7 +17,7 @@ class EventHandle extends EventEmitter {
   }
 
   // 暴露单选多选事件
-  _selected(e) {
+  _selected() {
     const actives = this.handler.getActiveObjects();
     if (actives && actives.length === 1) {
       this.emit('selectOne', actives);

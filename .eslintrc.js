@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:22:16
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-09 09:13:33
+ * @LastEditTime: 2023-02-09 13:22:52
  * @Description: file content
  */
 module.exports = {
@@ -20,32 +20,14 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-plusplus': 'off',
+    'vuejs-accessibility/form-control-has-label': 'off',
+    'consistent-return': 'off', // 强制统一返回值
+    'no-param-reassign': 'off', // 参数重新分配
+    'no-underscore-dangle': 'off', // 使用下划线命名
     'vuejs-accessibility/click-events-have-key-events': 'off',
     'max-len': 'off',
-    'no-underscore-dangle': 'off',
-    'no-unde': 'off',
-    'no-unused-vars': 'off',
-    'block-scoped-var': 'off',
-    'no-undef': 'off',
-    'no-unused-expressions': 'off',
-    'no-unused-var': 'off',
-    'no-param-reassign': 'off',
-    'no-use-before-defin': 'off',
-    'no-use-before-define': 'off',
-    'vars-on-top': 'off',
-    'no-plusplus': 'off',
-    'no-var': 'off',
-    'no-continue': 'off',
-    'no-multi-assign': 'off',
-    'implicit-arrow-linebreak': 'off',
-    'consistent-return': 'off',
-    'prefer-destructuring': 'off',
-    'consistent-return': 'off',
-    'no-dupe-keys': 'off',
-    'new-cap': 'off',
-    'no-return-assign': 'off',
-    'import/prefer-default-export': 'off',
-    'vuejs-accessibility/form-control-has-label': 'off',
+    'no-unused-expressions': 'off', // 17
   },
   overrides: [
     {

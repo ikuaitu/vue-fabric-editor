@@ -88,11 +88,11 @@ export default ({
 
           // 计算菜单出现的位置
           // 如果鼠标靠近画布右侧，菜单就出现在鼠标指针左侧
-          if (canvas.width - pointX <= menuWidth) {
+          if (this.canvas.width - pointX <= menuWidth) {
             pointX -= menuWidth;
           }
           // 如果鼠标靠近画布底部，菜单就出现在鼠标指针上方
-          if (canvas.height - pointY <= menuHeight) {
+          if (this.canvas.height - pointY <= menuHeight) {
             pointY -= menuHeight;
           }
           this.showMenu(pointX, pointY);
@@ -111,7 +111,7 @@ export default ({
       this.zIndex = 100;
     },
 
-    hideMenu(e) {
+    hideMenu() {
       this.show = 'hidden';
       this.left = 0;
       this.top = 0;
@@ -123,7 +123,6 @@ export default ({
         this.hideMenu();
       }
     },
-
     handleMenu(e) {
       const active = e.target.dataset.active || e.srcElement.dataset.active;
       if (!active) return this.hideMenu();
