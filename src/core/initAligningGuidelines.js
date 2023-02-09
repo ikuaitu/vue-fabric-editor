@@ -193,7 +193,7 @@ function initAligningGuidelines(canvas) {
     try {
       canvas.clearContext(canvas.contextTop);
     } catch (error) {
-
+      console.log(error);
     }
   });
 
@@ -201,8 +201,8 @@ function initAligningGuidelines(canvas) {
     for (var i = verticalLines.length; i--;) {
       drawVerticalLine(verticalLines[i]);
     }
-    for (var i = horizontalLines.length; i--;) {
-      drawHorizontalLine(horizontalLines[i]);
+    for (var j = horizontalLines.length; j--;) {
+      drawHorizontalLine(horizontalLines[j]);
     }
 
     verticalLines.length = horizontalLines.length = 0;

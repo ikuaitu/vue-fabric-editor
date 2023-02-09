@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:22:16
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 17:04:28
+ * @LastEditTime: 2023-02-09 09:13:33
  * @Description: file content
  */
 module.exports = {
@@ -43,11 +43,7 @@ module.exports = {
     'consistent-return': 'off',
     'no-dupe-keys': 'off',
     'new-cap': 'off',
-    'no-empty': 'off',
-    'no-redeclare': 'off',
-    'import/no-unresolved': 'off',
     'no-return-assign': 'off',
-    'prefer-destructuring': 'off',
     'import/prefer-default-export': 'off',
     'vuejs-accessibility/form-control-has-label': 'off',
   },
