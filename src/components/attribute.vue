@@ -1,5 +1,7 @@
 <template>
   <div class="box" v-if="mSelectMode === 'one'">
+    <!-- <newColorPicker :color="color" :onEndChange="changeColor"></newColorPicker> -->
+    <newColorPicker :isGradient="true" :gradient="gradient" :onEndChange="changeColor"></newColorPicker>
     <!-- 字体属性 -->
     <div v-show="textType.includes(mSelectOneType)">
       <Divider plain orientation="left">{{ $t("attributes.font") }}</Divider>
@@ -288,12 +290,45 @@
 import fontList from '@/assets/fonts/font';
 import select from '@/mixins/select';
 import FontFaceObserver from 'fontfaceobserver';
+import { ColorPicker } from 'vue-color-gradient-picker';
 
+// console.log(ColorPicker, 1111);
+// const newColorPicker = ColorPicker;
 export default {
   name: 'ToolBar',
   mixins: [select],
+  components: {
+    // ColorPicker,
+    newColorPicker: { ...ColorPicker },
+  },
   data() {
     return {
+      color: {
+        red: 255,
+        green: 0,
+        blue: 0,
+        alpha: 1,
+      },
+      gradient: {
+        type: 'linear',
+        degree: 0,
+        points: [
+          {
+            left: 0,
+            red: 0,
+            green: 0,
+            blue: 0,
+            alpha: 1,
+          },
+          {
+            left: 100,
+            red: 255,
+            green: 0,
+            blue: 0,
+            alpha: 1,
+          },
+        ],
+      },
       // 通用元素
       baseType: [
         'text',
@@ -400,6 +435,28 @@ export default {
     });
   },
   methods: {
+    changeColor(val) {
+      console.log(val);
+      const activeObject = this.canvas.c.getActiveObjects()[0];
+      if (activeObject) {
+        const gradient = new this.fabric.Gradient({
+          type: 'linear',
+          gradientUnits: 'percentage',
+          coords: {
+            x1: 0, y1: 0, x2: 0, y2: activeObject.height,
+          },
+          colorStops: [
+            { offset: 0, color: '#000' },
+            { offset: 1, color: '#fff' },
+          ],
+        });
+
+        // circle.set('fill', gradient);
+        // activeObject.set('fill', val.style);
+        activeObject.set('fill', gradient);
+        this.canvas.c.renderAll();
+      }
+    },
     // 图片属性
     imgBlur(blur) {
       const activeObject = this.canvas.c.getActiveObjects()[0];
@@ -498,7 +555,9 @@ export default {
   },
 };
 </script>
+
 <style scoped lang="less">
+@import url('vue-color-gradient-picker/dist/index.css');
 /deep/ .ivu-color-picker {
   display: block;
 }
