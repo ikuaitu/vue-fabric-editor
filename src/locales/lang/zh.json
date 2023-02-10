@@ -36,6 +36,7 @@
     "select_image": "插入SVG元素",
     "upload_background": "上传背景",
     "mouseMenu": {
+        "layer": "图层管理",
         "copy": "复制",
         "delete": "删除",
         "group": "组合",

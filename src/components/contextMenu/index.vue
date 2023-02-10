@@ -5,23 +5,14 @@
     top: top,
     zIndex: zIndex,
   }" @click="handleMenu">
-    <li data-active="copy">{{ $t('mouseMenu.copy') }}<span>Copy</span></li>
-    <li data-active="group" v-show="isMultiple">{{ $t('mouseMenu.group') }}<span>Group</span></li>
-    <!-- 对齐 -->
-    <li data-active="center">{{ $t('mouseMenu.center') }}<span>Center</span></li>
-    <!-- 排序 -->
-    <li data-active="up" v-show="mSelectMode === 'one'">{{ $t('mouseMenu.up') }}<span>Up</span></li>
-    <li data-active="down" v-show="mSelectMode === 'one'">{{ $t('mouseMenu.down') }}<span>Down</span></li>
-    <li data-active="upTop" v-show="mSelectMode === 'one'">{{ $t('mouseMenu.upTop') }}<span>BringToFront</span></li>
-    <li data-active="downTop" v-show="mSelectMode === 'one'">{{ $t('mouseMenu.downTop') }}<span>SendToBack</span></li>
-    <!-- 删除 -->
-    <li data-active="delete" class="del">{{ $t('mouseMenu.delete') }}<span>Delete</span></li>
+    <menu-item v-for="menu in menuList" :key="menu.activeName" :nodeInfo="menu" />
   </ul>
 </template>
 
 <script>
 import { isEmpty, debounce } from 'lodash-es';
 import select from '@/mixins/select';
+import menuItem from './menuItem.vue';
 
 const canvasDom = document.getElementById('canvas') || null;
 export default ({
@@ -35,7 +26,71 @@ export default ({
       top: 0,
       zIndex: -100,
       menu: null,
+      menuList: [ // 菜单
+        {
+          type: 'copy',
+          activeName: 'copy',
+          text: this.$t('mouseMenu.copy'),
+          subText: 'Copy',
+        },
+        {
+          type: 'group',
+          activeName: 'group',
+          text: this.$t('mouseMenu.group'),
+          subText: 'Group',
+        },
+        // 对齐
+        {
+          type: 'center',
+          activeName: 'center',
+          text: this.$t('mouseMenu.center'),
+          subText: 'Center',
+        },
+        // 排序
+        {
+          type: 'sort',
+          activeName: '',
+          text: this.$t('mouseMenu.layer'),
+          subText: '',
+          children: [
+            {
+              type: 'sort',
+              activeName: 'up',
+              text: this.$t('mouseMenu.up'),
+              subText: 'Up',
+            },
+            {
+              type: 'sort',
+              activeName: 'down',
+              text: this.$t('mouseMenu.down'),
+              subText: 'Down',
+            },
+            {
+              type: 'sort',
+              activeName: 'upTop',
+              text: this.$t('mouseMenu.upTop'),
+              subText: 'BringToFront',
+            },
+            {
+              type: 'sort',
+              activeName: 'downTop',
+              text: this.$t('mouseMenu.downTop'),
+              subText: 'SendToBack',
+            },
+          ],
+        },
+        // 删除
+        {
+          type: 'delete',
+          activeName: 'delete',
+          text: this.$t('mouseMenu.delete'),
+          subText: 'Delete',
+        },
+      ],
     };
+  },
+  components: {
+    menuItem,
   },
   computed: {
     // 单选且等于组元素
@@ -178,7 +233,6 @@ export default ({
   /* 隐藏菜单 */
   z-index: -100;
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, .08);
-  ;
   background: #fff;
 
   &>li {

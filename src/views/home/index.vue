@@ -120,7 +120,7 @@ import layer from '@/components/layer.vue';
 import attribute from '@/components/attribute.vue';
 
 // 右键菜单
-import mouseMenu from '@/components/mouseMenu.vue';
+import mouseMenu from '@/components/contextMenu/index.vue';
 
 // 功能组件
 import EventHandle from '@/utils/eventHandler';
