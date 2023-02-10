@@ -82,7 +82,7 @@
       <!-- <div style="padding: 5px 0">
         {{$t('attributes.swipe_up')}}
         <i-switch v-model="fontAttr.overline"
-                  
+
                   @on-change="(value) => changeCommon('overline', value)" />
       </div> -->
 
@@ -187,7 +187,7 @@
           </div>
         </div>
       </div>
-
+      <!-- 边框 -->
       <Divider plain orientation="left">{{ $t("attributes.stroke") }}</Divider>
       <div class="flex-view">
         <div class="flex-item">
@@ -213,6 +213,7 @@
         </div>
       </div>
 
+      <!-- 阴影 -->
       <Divider plain orientation="left">{{ $t("attributes.shadow") }}</Divider>
       <div class="flex-view">
         <div class="flex-item">
@@ -284,9 +285,10 @@
 </template>
 
 <script>
-import fontList from '@/assets/fonts/font'
-import select from '@/mixins/select'
-import FontFaceObserver from 'fontfaceobserver'
+import fontList from '@/assets/fonts/font';
+import select from '@/mixins/select';
+import FontFaceObserver from 'fontfaceobserver';
+
 export default {
   name: 'ToolBar',
   mixins: [select],
@@ -353,141 +355,148 @@ export default {
         '<svg t="1650441512015" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3704" width="18" height="18"><path d="M313.6 198.4h398.933333c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-398.933333c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 10.666667-8.533333 19.2-8.533333z m-115.2 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m115.2 170.666666h398.933333c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-398.933333c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 10.666667-8.533333 19.2-8.533334z m-115.2 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z" p-id="3705"></path></svg>',
         '<svg t="1650441519862" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3854" width="18" height="18"><path d="M454.4 283.733333v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h341.333334c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-341.333334c-8.533333 0-14.933333-2.133333-19.2-8.533334-4.266667-4.266667-8.533333-10.666667-8.533333-19.2z m-226.133333 170.666667v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h569.6c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333H256c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-4.266667-8.533333-10.666667-8.533333-19.2z m113.066666 170.666667v-57.6c0-8.533333 2.133333-14.933333 8.533334-19.2 6.4-6.4 12.8-8.533333 19.2-8.533334h454.4c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-454.4c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-4.266667-8.533333-10.666667-8.533334-19.2z m-170.666666 170.666666v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-4.266667-8.533333-10.666667-8.533333-19.2z" p-id="3855"></path></svg>',
       ],
-    }
+    };
   },
   created() {
-    this.event.on('selectOne', (e) => {
-      const activeObject = this.canvas.c.getActiveObjects()[0]
+    this.event.on('selectOne', () => {
+      const activeObject = this.canvas.c.getActiveObjects()[0];
       if (activeObject) {
         // base
-        this.baseAttr.opacity = activeObject.get('opacity') * 100
-        this.baseAttr.fill = activeObject.get('fill')
-        this.baseAttr.left = activeObject.get('left')
-        this.baseAttr.top = activeObject.get('top')
-        this.baseAttr.stroke = activeObject.get('stroke')
-        this.baseAttr.strokeWidth = activeObject.get('strokeWidth')
-        this.baseAttr.shadow = activeObject.get('shadow') || {}
+        this.baseAttr.opacity = activeObject.get('opacity') * 100;
+        this.baseAttr.fill = activeObject.get('fill');
+        this.baseAttr.left = activeObject.get('left');
+        this.baseAttr.top = activeObject.get('top');
+        this.baseAttr.stroke = activeObject.get('stroke');
+        this.baseAttr.strokeWidth = activeObject.get('strokeWidth');
+        this.baseAttr.shadow = activeObject.get('shadow') || {};
+        this.baseAttr.angle = activeObject.get('angle') || 0;
         if (
-          activeObject.type === 'i-text' ||
-          activeObject.type === 'text' ||
-          activeObject.type === 'textbox'
+          activeObject.type === 'i-text'
+          || activeObject.type === 'text'
+          || activeObject.type === 'textbox'
         ) {
-          this.fontAttr.fontSize = activeObject.get('fontSize')
-          this.fontAttr.fontFamily = activeObject.get('fontFamily')
-          this.fontAttr.lineHeight = activeObject.get('lineHeight')
-          this.fontAttr.textAlign = activeObject.get('textAlign')
-          this.fontAttr.underline = activeObject.get('underline')
-          this.fontAttr.linethrough = activeObject.get('linethrough')
-          this.fontAttr.charSpacing = activeObject.get('charSpacing')
-          this.fontAttr.overline = activeObject.get('overline')
-          this.fontAttr.fontStyle = activeObject.get('fontStyle')
+          this.fontAttr.fontSize = activeObject.get('fontSize');
+          this.fontAttr.fontFamily = activeObject.get('fontFamily');
+          this.fontAttr.lineHeight = activeObject.get('lineHeight');
+          this.fontAttr.textAlign = activeObject.get('textAlign');
+          this.fontAttr.underline = activeObject.get('underline');
+          this.fontAttr.linethrough = activeObject.get('linethrough');
+          this.fontAttr.charSpacing = activeObject.get('charSpacing');
+          this.fontAttr.overline = activeObject.get('overline');
+          this.fontAttr.fontStyle = activeObject.get('fontStyle');
           this.fontAttr.textBackgroundColor = activeObject.get(
-            'textBackgroundColor'
-          )
-          this.fontAttr.fontWeight = activeObject.get('fontWeight')
+            'textBackgroundColor',
+          );
+          this.fontAttr.fontWeight = activeObject.get('fontWeight');
         }
 
         // 图片滤镜
         if (activeObject.type === 'image') {
           this.imgAttr.blur = activeObject.filters[0]
             ? activeObject.filters[0].blur
-            : 0
+            : 0;
         }
       }
-    })
+    });
   },
   methods: {
     // 图片属性
     imgBlur(blur) {
-      const activeObject = this.canvas.c.getActiveObjects()[0]
+      const activeObject = this.canvas.c.getActiveObjects()[0];
       if (activeObject) {
-        const filter = new this.fabric.Image.filters.Blur({ blur })
-        activeObject.filters = [filter]
-        activeObject.applyFilters()
-        this.canvas.c.renderAll()
+        const filter = new this.fabric.Image.filters.Blur({ blur });
+        activeObject.filters = [filter];
+        activeObject.applyFilters();
+        this.canvas.c.renderAll();
       }
     },
     // 修改字体
     changeFontFamily(fontName) {
-      if (!fontName) return
+      if (!fontName) return;
 
       // 跳过加载的属性
-      const skipFonts = ['arial', 'Microsoft YaHei']
+      const skipFonts = ['arial', 'Microsoft YaHei'];
       if (skipFonts.includes(fontName)) {
-        const activeObject = this.canvas.c.getActiveObjects()[0]
-        activeObject && activeObject.set('fontFamily', fontName)
-        this.canvas.c.renderAll()
-        return
+        const activeObject = this.canvas.c.getActiveObjects()[0];
+        activeObject && activeObject.set('fontFamily', fontName);
+        this.canvas.c.renderAll();
+        return;
       }
-      this.$Spin.show()
+      this.$Spin.show();
       // 字体加载
-      var font = new FontFaceObserver(fontName)
+      const font = new FontFaceObserver(fontName);
       font
         .load(null, 150000)
         .then(() => {
-          const activeObject = this.canvas.c.getActiveObjects()[0]
-          activeObject && activeObject.set('fontFamily', fontName)
-          this.canvas.c.renderAll()
-          this.$Spin.hide()
+          const activeObject = this.canvas.c.getActiveObjects()[0];
+          activeObject && activeObject.set('fontFamily', fontName);
+          this.canvas.c.renderAll();
+          this.$Spin.hide();
         })
         .catch((err) => {
-          console.log(err)
-          this.$Spin.hide()
-        })
+          console.log(err);
+          this.$Spin.hide();
+        });
     },
     // 通用属性改变
     changeCommon(key, value) {
-      const activeObject = this.canvas.c.getActiveObjects()[0]
+      const activeObject = this.canvas.c.getActiveObjects()[0];
       // 透明度特殊转换
       if (key === 'opacity') {
-        activeObject && activeObject.set(key, value / 100)
-        this.canvas.c.renderAll()
-        return
+        activeObject && activeObject.set(key, value / 100);
+        this.canvas.c.renderAll();
+        return;
       }
-      activeObject && activeObject.set(key, value)
-      this.canvas.c.renderAll()
+      // 旋转角度适配
+      if (key === 'angle') {
+        activeObject.rotate(value);
+        this.canvas.c.renderAll();
+        return;
+      }
+      activeObject && activeObject.set(key, value);
+      this.canvas.c.renderAll();
     },
     // 阴影设置
     changeShadow() {
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject &&
-        activeObject.set('shadow', new fabric.Shadow(this.baseAttr.shadow))
-      this.canvas.c.renderAll()
+      const activeObject = this.canvas.c.getActiveObjects()[0];
+      activeObject
+        && activeObject.set('shadow', new this.fabric.Shadow(this.baseAttr.shadow));
+      this.canvas.c.renderAll();
     },
-    //加粗
+    // 加粗
     changeFontWeight(key, value) {
-      let nValue = value === 'normal' ? 'bold' : 'normal'
-      this.fontAttr.fontWeight = nValue
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.set(key, nValue)
-      this.canvas.c.renderAll()
+      const nValue = value === 'normal' ? 'bold' : 'normal';
+      this.fontAttr.fontWeight = nValue;
+      const activeObject = this.canvas.c.getActiveObjects()[0];
+      activeObject && activeObject.set(key, nValue);
+      this.canvas.c.renderAll();
     },
-    //斜体
+    // 斜体
     changeFontStyle(key, value) {
-      let nValue = value === 'normal' ? 'italic' : 'normal'
-      this.fontAttr.fontStyle = nValue
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.set(key, nValue)
-      this.canvas.c.renderAll()
+      const nValue = value === 'normal' ? 'italic' : 'normal';
+      this.fontAttr.fontStyle = nValue;
+      const activeObject = this.canvas.c.getActiveObjects()[0];
+      activeObject && activeObject.set(key, nValue);
+      this.canvas.c.renderAll();
     },
-    //中划
+    // 中划
     changeLineThrough(key, value) {
-      let nValue = value === false ? true : false
-      this.fontAttr.linethrough = nValue
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.set(key, nValue)
-      this.canvas.c.renderAll()
+      const nValue = value === false;
+      this.fontAttr.linethrough = nValue;
+      const activeObject = this.canvas.c.getActiveObjects()[0];
+      activeObject && activeObject.set(key, nValue);
+      this.canvas.c.renderAll();
     },
-    //下划
+    // 下划
     changeUnderline(key, value) {
-      let nValue = value === false ? true : false
-      this.fontAttr.underline = nValue
-      const activeObject = this.canvas.c.getActiveObjects()[0]
-      activeObject && activeObject.set(key, nValue)
-      this.canvas.c.renderAll()
+      const nValue = value === false;
+      this.fontAttr.underline = nValue;
+      const activeObject = this.canvas.c.getActiveObjects()[0];
+      activeObject && activeObject.set(key, nValue);
+      this.canvas.c.renderAll();
     },
   },
-}
+};
 </script>
 <style scoped lang="less">
 /deep/ .ivu-color-picker {

@@ -12,40 +12,41 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
+import select from '@/mixins/select';
 import { setLocal } from '@/utils/local';
-import { LANG } from '@/config/constants/app'
+import { LANG } from '@/config/constants/app';
+
 const LANGMAP = {
   zh: '简体中文',
   en: 'English',
-  pt: 'Portugal'
-}
+  pt: 'Portugal',
+};
 export default {
   name: 'saveBar',
   mixins: [select],
   data() {
     return {
-      langList: Object.keys(LANGMAP).map(key => ({ langType: key, langName: LANGMAP[key]}))
+      langList: Object.keys(LANGMAP).map((key) => ({ langType: key, langName: LANGMAP[key] })),
     };
   },
   filters: {
     langMap(key) {
-      return LANGMAP[key]
-    }
+      return LANGMAP[key];
+    },
   },
   computed: {
     lang() {
-      return this.$i18n.locale
-    }
+      return this.$i18n.locale;
+    },
   },
   methods: {
     // 设置语言
     setLang(type) {
-      this.$i18n.locale = type
-      setLocal(LANG, type)
-      window.location.reload()
-    }
-  }
+      this.$i18n.locale = type;
+      setLocal(LANG, type);
+      window.location.reload();
+    },
+  },
 };
 </script>
 

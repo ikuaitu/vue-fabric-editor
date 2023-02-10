@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-12-07 13:34:56
+ * @LastEditTime: 2023-02-09 13:16:06
  * @Description: 组合与拆分组合
 -->
 
@@ -16,8 +16,9 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
-import { v4 as uuid } from 'uuid';
+import select from '@/mixins/select';
+// import { v4 as uuid } from 'uuid';
+
 export default {
   name: 'ToolBar',
   mixins: [select],
@@ -28,38 +29,22 @@ export default {
   computed: {
     // 单选且等于组元素
     isGroup() {
-      return (this.mSelectMode === 'one' && this.mSelectOneType === 'group')
+      return (this.mSelectMode === 'one' && this.mSelectOneType === 'group');
     },
     // 是否为多选
-    isMultiple(){
-      return (this.mSelectMode === 'multiple')
+    isMultiple() {
+      return (this.mSelectMode === 'multiple');
     },
   },
-  methods:{
+  methods: {
     // 拆分组
-    unGroup(){
-      // 先获取当前选中的对象，然后打散
-      this.canvas.c.getActiveObject().toActiveSelection()
-      this.canvas.c.getActiveObject().getObjects().forEach(item => {
-        item.set('id', uuid())
-      })
-      this.canvas.c.discardActiveObject().renderAll();
+    unGroup() {
+      this.canvas.editor.unGroup();
     },
-    group(){
-      // 组合元素
-      var activeObj = this.canvas.c.getActiveObject();
-      var activegroup = activeObj.toGroup();
-      var objectsInGroup = activegroup.getObjects();
-      activegroup.clone((newgroup) => {
-          this.canvas.c.remove(activegroup);
-          objectsInGroup.forEach((object) => {
-              this.canvas.c.remove(object);
-          });
-          this.canvas.c.add(newgroup);
-          this.canvas.c.setActiveObject(newgroup);
-      });
-    }
-  }
+    group() {
+      this.canvas.editor.group();
+    },
+  },
 };
 </script>
 <style scoped lang="less">

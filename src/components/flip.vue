@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-12-07 13:28:38
+ * @LastEditTime: 2023-02-08 00:07:39
  * @Description: 元素翻转
 -->
 
@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
+import select from '@/mixins/select';
+
 export default {
   name: 'ToolBar',
   mixins: [select],
@@ -22,17 +23,17 @@ export default {
     return {
     };
   },
-  methods:{
+  methods: {
     // 非单选时，禁止镜像操作
-    notSelectOneMode(){
-      return this.mSelectMode !== 'one'
+    notSelectOneMode() {
+      return this.mSelectMode !== 'one';
     },
-    flip(type){
+    flip(type) {
       const activeObject = this.canvas.c.getActiveObject();
-      activeObject.set('flip' + type, !activeObject['flip' + type]).setCoords()
-      this.canvas.c.requestRenderAll()
-    }
-  }
+      activeObject.set(`flip${type}`, !activeObject[`flip${type}`]).setCoords();
+      this.canvas.c.requestRenderAll();
+    },
+  },
 };
 </script>
 

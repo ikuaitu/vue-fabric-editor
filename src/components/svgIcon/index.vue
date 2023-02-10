@@ -1,6 +1,6 @@
 <template>
   <span>
-    <svg t="1650443094178" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1549" 
+    <svg t="1650443094178" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1549"
       :width="size" :height="size" :fill="color">
       <!--  -->
       <template v-if="name === 'default'">
@@ -18,24 +18,24 @@
 <script>
 export default {
   name: 'svgIcon',
-  props:{
+  props: {
     name: {
       type: String,
-      default: 'default'
+      default: 'default',
     },
     color: {
       type: String,
-      default: '#ea9518'
+      default: '#ea9518',
     },
     size: {
       type: Number,
-      default: 14
-    }
+      default: 14,
+    },
   },
   data() {
     return {};
   },
-  methods:{}
+  methods: {},
 };
 </script>
 

@@ -31,10 +31,21 @@
     "file": "file",
     "import_files": "Import files",
     "select_json": "Select JSON",
+    "insert": "Insert",
     "insert_picture": "Insert picture",
     "select_image": "Select image",
     "upload_background": "Upload background",
-
+    "mouseMenu": {
+        "copy": "Copy",
+        "delete": "Delete",
+        "group": "group",
+        "unGroup": "Split",
+        "up": "up",
+        "down": "down",
+        "upTop": "BringToFront",
+        "downTop": "SendToBack",
+        "center": "Center"
+    },
     "alert": {
         "loading_fonts": "Loading fonts, please wait...",
         "loading_fonts_failed": "Fonts failed to load, please try again",

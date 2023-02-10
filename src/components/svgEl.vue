@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-17 19:45:19
+ * @LastEditTime: 2023-02-08 00:08:24
  * @Description: 素材面板
 -->
 
@@ -92,37 +92,40 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
+
 const defaultPosition = {
-  left: 100, top: 100,  shadow: '', fontFamily: '1-1'
-}
+  left: 100, top: 100, shadow: '', fontFamily: '1-1',
+};
 export default {
   name: 'ToolBar',
   inject: ['canvas', 'fabric'],
   data() {
     return {
-        arr:[]
-    }
+      arr: [],
+    };
   },
-  created(){
+  created() {
   },
   methods: {
-    getIndex(start, end){
-      const arr = Array(end - (start - 1)).fill('')
-      return arr.map((item, i) => (i + start))
+    getIndex(start, end) {
+      const arr = Array(end - (start - 1)).fill('');
+      return arr.map((item, i) => (i + start));
     },
     // 按照类型渲染
     addItem(e) {
-      const url = e.target.src
+      const url = e.target.src;
       this.fabric.loadSVGFromURL(url, (objects, options) => {
-        var item = this.fabric.util.groupSVGElements(objects, {...options, ...defaultPosition,
+        const item = this.fabric.util.groupSVGElements(objects, {
+          ...options,
+          ...defaultPosition,
           id: uuid(),
-          name: 'svg元素'
+          name: 'svg元素',
         });
-        this.canvas.c.add(item)
-        this.canvas.c.renderAll()
+        this.canvas.c.add(item);
+        this.canvas.c.renderAll();
       });
     },
-  }
+  },
 };
 </script>
 

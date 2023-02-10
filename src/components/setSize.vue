@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-04 00:21:58
+ * @LastEditTime: 2023-02-08 00:08:21
  * @Description: 尺寸设置
 -->
 
@@ -11,10 +11,10 @@
     <Divider plain orientation="left">{{ $t('size') }}</Divider>
     <Form :label-width="40">
       <FormItem :label="$t('width')" prop="name">
-          <InputNumber :max="2000" :min="1" v-model="width" @on-change="setSize" size="small"></InputNumber>
+          <InputNumber :max="2000" :min="1" v-model="width" @on-change="setSize" ></InputNumber>
       </FormItem>
       <FormItem :label="$t('height')" prop="name">
-          <InputNumber :max="2000" :min="1" v-model="height" @on-change="setSize" size="small"></InputNumber>
+          <InputNumber :max="2000" :min="1" v-model="height" @on-change="setSize" ></InputNumber>
       </FormItem>
     </Form>
     <Divider plain orientation="left">{{ $t('default_size') }}</Divider>
@@ -24,60 +24,59 @@
         :key="i + 'presetSize'"
         size="small"
         style="text-align:left"
-        @click="setSizeBy(item.width * item.scale, item.height * item.scale)"
+        @click="setSizeBy(item.width, item.height)"
         >
-        {{ item.label }}:{{ item.width }}x{{ item.height }}*{{ item.scale }}
+        {{ item.label }}:{{ item.width }}x{{ item.height }}
       </Button>
     </ButtonGroup>
   </div>
 </template>
 
 <script>
+
+import EditorWorkspace from '@/core/initWorkspace';
+
 export default {
   name: 'canvasSize',
   inject: ['canvas', 'fabric'],
   data() {
     return {
-      width: 900 * 0.5,
-      height: 1200 * 0.5,
+      width: 900,
+      height: 1200,
       presetSize: [{
         label: this.$t('red_book_vertical'),
         width: 900,
         height: 1200,
-        scale: 0.5,
       },
       {
         label: this.$t('red_book_horizontal'),
         width: 1200,
         height: 900,
-        scale: 0.5,
       },
       {
         label: this.$t('phone_wallpaper'),
         width: 1080,
         height: 1920,
-        scale: 0.4,
       },
-      ]
+      ],
     };
   },
-  created() {
-    this.setSize()
+  mounted() {
+    this.canvas.editor.editorWorkspace = new EditorWorkspace(this.canvas.c, {
+      width: this.width,
+      height: this.height,
+    });
   },
   methods: {
     setSizeBy(width, height) {
-      this.canvas.c.setWidth(width);
-      this.canvas.c.setHeight(height);
-      this.canvas.c.renderAll()
-      this.width = width
-      this.height = height
+      this.width = width;
+      this.height = height;
+      this.setSize();
     },
     setSize() {
-      this.canvas.c.setWidth(this.width);
-      this.canvas.c.setHeight(this.height);
-      this.canvas.c.renderAll()
-    }
-  }
+      this.canvas.editor.editorWorkspace.setSize(this.width, this.height);
+    },
+  },
 };
 </script>
 

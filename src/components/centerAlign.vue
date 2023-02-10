@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2022-09-03 23:55:33
+ * @LastEditTime: 2023-02-08 00:06:46
  * @Description: 多元素或单元素对齐方式
 -->
 
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
+import select from '@/mixins/select';
 
 export default {
   name: 'ToolBar',
@@ -27,17 +27,13 @@ export default {
     return {
     };
   },
-  created(){
+  created() {
   },
-  methods:{
-    position(name){
-      const activeObject = this.canvas.c.getActiveObject()
-      if(activeObject){
-        activeObject[name]()
-        this.canvas.c.renderAll()
-      }
-    }
-  }
+  methods: {
+    position(name) {
+      this.canvas.editor.centerAlign.position(name);
+    },
+  },
 };
 </script>
 <style scoped lang="less">

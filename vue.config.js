@@ -7,16 +7,16 @@ module.exports = defineConfig({
   transpileDependencies: true,
   chainWebpack: (config) => {
     config.plugin('html').tap((args) => {
-      args[0].title = '设计编辑器-vue-fabric-editor'
-      return args
-    })
+      args[0].title = '设计编辑器-vue-fabric-editor';
+      return args;
+    });
   },
   pluginOptions: {
     i18n: {
-      locale: "ch",
-      fallbackLocale: "ch",
-      localeDir: "locales",
-      enableInSFC: false
-    }
-  }
+      locale: 'ch',
+      fallbackLocale: 'ch',
+      localeDir: 'locales',
+      enableInSFC: false,
+    },
+  },
 });

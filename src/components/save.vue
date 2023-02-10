@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-01-17 17:34:51
+ * @LastEditTime: 2023-02-08 00:08:18
  * @Description: 保存文件
 -->
 
@@ -22,8 +22,9 @@
 </template>
 
 <script>
-import select from '@/mixins/select'
+import select from '@/mixins/select';
 import { v4 as uuid } from 'uuid';
+
 export default {
   name: 'saveBar',
   mixins: [select],
@@ -33,40 +34,62 @@ export default {
   },
   methods: {
     saveWith(type) {
-      this[type]()
+      this[type]();
     },
     saveJson() {
-      const dataUrl = this.canvas.c.toJSON(['id'])
+      const dataUrl = this.canvas.c.toJSON(['id']);
       const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(dataUrl, null, '\t'))}`;
-      this.downFile(fileStr,'json')
+      this.downFile(fileStr, 'json');
     },
     saveSvg() {
-      const dataUrl = this.canvas.c.toSVG()
+      const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
+      const {
+        left, top, width, height,
+      } = workspace;
+      const dataUrl = this.canvas.c.toSVG({
+        width,
+        height,
+        viewBox: {
+          x: left, y: top, width, height,
+        },
+      });
       const fileStr = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(dataUrl)}`;
-      this.downFile(fileStr,'svg')
+      this.downFile(fileStr, 'svg');
     },
     saveImg() {
-      const option = { name: 'New Image', format: 'png', quality: 1, multiplier: 2 }
-      const dataUrl = this.canvas.c.toDataURL(option)
-      this.downFile(dataUrl,'png')
+      const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
+      const {
+        left, top, width, height,
+      } = workspace;
+      const option = {
+        name: 'New Image', format: 'png', quality: 1, left, top, width, height,
+      };
+      this.canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
+      const dataUrl = this.canvas.c.toDataURL(option);
+      this.downFile(dataUrl, 'png');
     },
-    downFile(fileStr, fileType){
+    downFile(fileStr, fileType) {
       const anchorEl = document.createElement('a');
       anchorEl.href = fileStr;
-      anchorEl.download = uuid() + '.' + fileType;
+      anchorEl.download = `${uuid()}.${fileType}`;
       document.body.appendChild(anchorEl); // required for firefox
       anchorEl.click();
       anchorEl.remove();
     },
     clipboard() {
-      const jsonStr = this.canvas.c.toJSON(['id'])
-      this._mixinClipboard(JSON.stringify(jsonStr, null, '\t'))
+      const jsonStr = this.canvas.c.toJSON(['id']);
+      this._mixinClipboard(JSON.stringify(jsonStr, null, '\t'));
     },
     clear() {
-      this.canvas.c.clear();
-      this.canvas.c.setBackgroundColor('#ffffff', this.canvas.c.renderAll.bind(this.canvas.c))
-    }
-  }
+      this.canvas.c.getObjects().forEach((obj) => {
+        if (obj.id !== 'workspace') {
+          this.canvas.c.remove(obj);
+        }
+      });
+      this.canvas.c.discardActiveObject();
+      this.canvas.c.renderAll();
+    },
+  },
 };
 </script>
 

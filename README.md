@@ -4,7 +4,10 @@
 # vue-fabric-editor
 [Demo](https://nihaojob.github.io/vue-fabric-editor/) 基于fabric.js和Vue的图片编辑器，可自定义字体、素材、设计模板。
 
-<p align="center"><img src="./src/assets/demo.png" /></p>
+![image](https://user-images.githubusercontent.com/13534626/217307204-4e9ca470-33be-4573-b477-9f4de569b0e3.png)
+
+
+
 
 ## 已有功能
 - 导入JSON文件
@@ -18,8 +21,11 @@
 - 外观属性/字体属性/描边/阴影
 - 自定义字体
 - 自定义模板素材
-- 国际化
+- 快捷键
+- 右键菜单
 - 辅助线
+- 国际化
+
 
 ## 使用
 ### 启动项目
@@ -87,19 +93,26 @@ export default [...cnList, ...enList]
 
 
 ### 可能新增功能
-- [ ] svgIcon汇总
-- [ ] 标题样式列表模板
-- [ ] 渐变配置
-- [x] 复制 粘贴 快捷键
-- [ ] 拖动模式，放大缩小
-- [ ] 画布大小保存
-- [ ] 替换图片、加载url图片
+
+第一阶段
 - [x] 缩放
 - [x] 三角形、箭头、线条
-- [ ] 平铺背景、等比例背景
-- [ ] 预览
-- [ ] 描边 strokeDashArray
+- [x] 复制 粘贴 快捷键
+- [x] 拖动模式，放大缩小
+- [x] 画布大小保存
 - [x] 绘制线条
+- [ ] svgIcon汇总
+- [ ] 标题样式列表模板
+- [ ] 预览
+
+
+第二阶段
+- [ ] 替换图片、加载url图片
+- [ ] 渐变配置
+- [ ] 平铺背景、等比例背景
+- [ ] 图片裁剪
+- [ ] 滤镜
+- [ ] 描边 strokeDashArray
 
 
 ## License
