@@ -72,6 +72,9 @@ export default ({
 
     handleMouseUp(opt) {
       try {
+        const canvas = this.canvas.c;
+        const activeObject = canvas.getActiveObjects();
+        if (!activeObject.length) return this.hideMenu();
         if (opt.button === 3 && opt.target && opt.target.id !== 'workspace') {
           // 显示菜单，设置右键菜单位置
           // 获取菜单组件的宽高
@@ -83,11 +86,11 @@ export default ({
 
           // 计算菜单出现的位置
           // 如果鼠标靠近画布右侧，菜单就出现在鼠标指针左侧
-          if (this.canvas.width - pointX <= menuWidth) {
+          if (canvas.width - pointX <= menuWidth) {
             pointX -= menuWidth;
           }
           // 如果鼠标靠近画布底部，菜单就出现在鼠标指针上方
-          if (this.canvas.height - pointY <= menuHeight) {
+          if (canvas.height - pointY <= menuHeight) {
             pointY -= menuHeight;
           }
           this.showMenu(pointX, pointY);

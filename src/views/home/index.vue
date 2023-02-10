@@ -122,9 +122,6 @@ import attribute from '@/components/attribute.vue';
 // 右键菜单
 import mouseMenu from '@/components/mouseMenu.vue';
 
-// 右键菜单
-import mouseMenu from '@/components/mouseMenu.vue'
-
 // 功能组件
 import EventHandle from '@/utils/eventHandler';
 
