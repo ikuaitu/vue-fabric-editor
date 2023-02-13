@@ -82,10 +82,10 @@
             <mouseMenu></mouseMenu>
           </div>
         </div>
-        <!-- 属性区域 -->
+        <!-- 属性区域 380-->
         <div
           style="
-            width: 380px;
+            width: 530px;
             height: 100%;
             padding: 10px;
             overflow-y: auto;
@@ -172,6 +172,8 @@ export default {
     canvas.c = this.canvas;
     event.init(canvas.c);
     canvas.editor = new Editor(canvas.c);
+
+    canvas.c.renderAll();
     this.show = true;
     this.$Spin.hide();
   },

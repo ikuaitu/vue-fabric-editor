@@ -1,7 +1,17 @@
 <template>
   <div class="box" v-if="mSelectMode === 'one'">
-    <!-- <newColorPicker :color="color" :onEndChange="changeColor"></newColorPicker> -->
-    <newColorPicker :isGradient="true" :gradient="gradient" :onEndChange="changeColor"></newColorPicker>
+    <iSwitch v-model="isGradient" />
+
+    <ColorPicker
+      v-if="typeof baseAttr.fill  === 'string' || !isGradient"
+      v-model="baseAttr.fill"
+      @on-change="(value) => changeCommon('fill', value)"
+      alpha
+    />
+    <newColorPicker
+      v-if="typeof baseAttr.fill !== 'string' || isGradient"
+     :isGradient="true" :gradient="gradient" :onEndChange="changeColor"></newColorPicker>
+
     <!-- 字体属性 -->
     <div v-show="textType.includes(mSelectOneType)">
       <Divider plain orientation="left">{{ $t("attributes.font") }}</Divider>
@@ -291,18 +301,63 @@ import fontList from '@/assets/fonts/font';
 import select from '@/mixins/select';
 import FontFaceObserver from 'fontfaceobserver';
 import { ColorPicker } from 'vue-color-gradient-picker';
+import { fabric } from 'fabric';
 
-// console.log(ColorPicker, 1111);
-// const newColorPicker = ColorPicker;
+function generateFabricGradientFromColorStops(handlers, width, height, orientation, angle) {
+  const gradAngleToCoords = (angle1) => {
+    const anglePI = (-parseInt(angle1, 10)) * (Math.PI / 180);
+    const angleCoords = {
+      x1: (Math.round(50 + Math.sin(anglePI) * 50)) / 100,
+      y1: (Math.round(50 + Math.cos(anglePI) * 50)) / 100,
+      x2: (Math.round(50 + Math.sin(anglePI + Math.PI) * 50)) / 100,
+      y2: (Math.round(50 + Math.cos(anglePI + Math.PI) * 50)) / 100,
+    };
+
+    return angleCoords;
+  };
+
+  let bgGradient = {};
+  const colorStops = [...handlers];
+
+  if (orientation === 'linear') {
+    const angleCoords = gradAngleToCoords(angle);
+    bgGradient = new fabric.Gradient({
+      type: 'linear',
+      coords: {
+        x1: angleCoords.x1 * width,
+        y1: angleCoords.y1 * height,
+        x2: angleCoords.x2 * width,
+        y2: angleCoords.y2 * height,
+      },
+      colorStops,
+    });
+  } else if (orientation === 'radial') {
+    bgGradient = new fabric.Gradient({
+      type: 'radial',
+      coords: {
+        x1: width / 2,
+        y1: height / 2,
+        r1: 0,
+        x2: width / 2,
+        y2: height / 2,
+        r2: width / 2,
+      },
+      colorStops,
+    });
+  }
+
+  return bgGradient;
+}
+
 export default {
   name: 'ToolBar',
   mixins: [select],
   components: {
-    // ColorPicker,
     newColorPicker: { ...ColorPicker },
   },
   data() {
     return {
+      isGradient: false,
       color: {
         red: 255,
         green: 0,
@@ -439,20 +494,11 @@ export default {
       console.log(val);
       const activeObject = this.canvas.c.getActiveObjects()[0];
       if (activeObject) {
-        const gradient = new this.fabric.Gradient({
-          type: 'linear',
-          gradientUnits: 'percentage',
-          coords: {
-            x1: 0, y1: 0, x2: 0, y2: activeObject.height,
-          },
-          colorStops: [
-            { offset: 0, color: '#000' },
-            { offset: 1, color: '#fff' },
-          ],
-        });
-
-        // circle.set('fill', gradient);
-        // activeObject.set('fill', val.style);
+        const handlers = val.points.map((item) => ({
+          offset: item.left / 100,
+          color: `rgba(${item.red}, ${item.green}, ${item.blue}, ${item.alpha})`,
+        }));
+        const gradient = generateFabricGradientFromColorStops(handlers, activeObject.width, activeObject.height, val.type, val.degree);
         activeObject.set('fill', gradient);
         this.canvas.c.renderAll();
       }
