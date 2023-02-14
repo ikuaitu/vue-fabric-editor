@@ -5,7 +5,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 21:50:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 18:54:44
+ * @LastEditTime: 2023-02-14 12:25:41
  * @Description: 工作区初始化
  */
 
@@ -216,7 +216,7 @@ class EditorWorkspace {
       this.defaultCursor = 'default';
       This.workspace.hoverCursor = 'default';
       this.getObjects().forEach((obj) => {
-        if (obj.id !== 'workspace') {
+        if (obj.id !== 'workspace' && obj.hasControls) {
           obj.selectable = true;
         }
       });
