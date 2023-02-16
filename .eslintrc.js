@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:22:16
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-16 20:38:11
+ * @LastEditTime: 2023-02-16 22:26:14
  * @Description: file content
  */
 module.exports = {
@@ -15,7 +15,6 @@ module.exports = {
     parser: '@babel/eslint-parser',
   },
   rules: {
-    'prettier/prettier': 'error',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-plusplus': 'off',
