@@ -1,17 +1,6 @@
 <template>
   <div class="box" v-if="mSelectMode === 'one'">
-    <iSwitch v-model="isGradient" />
-
-    <ColorPicker
-      v-if="typeof baseAttr.fill  === 'string' || !isGradient"
-      v-model="baseAttr.fill"
-      @on-change="(value) => changeCommon('fill', value)"
-      alpha
-    />
-    <newColorPicker
-      v-if="typeof baseAttr.fill !== 'string' || isGradient"
-     :isGradient="true" :gradient="gradient" :onEndChange="changeColor"></newColorPicker>
-
+    <Color :color="baseAttr.fill" @change="(value) => changeCommon('fill', value)"></Color>
     <!-- 字体属性 -->
     <div v-show="textType.includes(mSelectOneType)">
       <Divider plain orientation="left">{{ $t("attributes.font") }}</Divider>
@@ -300,90 +289,17 @@
 import fontList from '@/assets/fonts/font';
 import select from '@/mixins/select';
 import FontFaceObserver from 'fontfaceobserver';
-import { ColorPicker } from 'vue-color-gradient-picker';
-import { fabric } from 'fabric';
-
-function generateFabricGradientFromColorStops(handlers, width, height, orientation, angle) {
-  const gradAngleToCoords = (angle1) => {
-    const anglePI = (-parseInt(angle1, 10)) * (Math.PI / 180);
-    const angleCoords = {
-      x1: (Math.round(50 + Math.sin(anglePI) * 50)) / 100,
-      y1: (Math.round(50 + Math.cos(anglePI) * 50)) / 100,
-      x2: (Math.round(50 + Math.sin(anglePI + Math.PI) * 50)) / 100,
-      y2: (Math.round(50 + Math.cos(anglePI + Math.PI) * 50)) / 100,
-    };
-
-    return angleCoords;
-  };
-
-  let bgGradient = {};
-  const colorStops = [...handlers];
-
-  if (orientation === 'linear') {
-    const angleCoords = gradAngleToCoords(angle);
-    bgGradient = new fabric.Gradient({
-      type: 'linear',
-      coords: {
-        x1: angleCoords.x1 * width,
-        y1: angleCoords.y1 * height,
-        x2: angleCoords.x2 * width,
-        y2: angleCoords.y2 * height,
-      },
-      colorStops,
-    });
-  } else if (orientation === 'radial') {
-    bgGradient = new fabric.Gradient({
-      type: 'radial',
-      coords: {
-        x1: width / 2,
-        y1: height / 2,
-        r1: 0,
-        x2: width / 2,
-        y2: height / 2,
-        r2: width / 2,
-      },
-      colorStops,
-    });
-  }
-
-  return bgGradient;
-}
+import Color from './color.vue';
 
 export default {
   name: 'ToolBar',
   mixins: [select],
   components: {
-    newColorPicker: { ...ColorPicker },
+    Color,
+    // newColorPicker: { ...ColorPicker },
   },
   data() {
     return {
-      isGradient: false,
-      color: {
-        red: 255,
-        green: 0,
-        blue: 0,
-        alpha: 1,
-      },
-      gradient: {
-        type: 'linear',
-        degree: 0,
-        points: [
-          {
-            left: 0,
-            red: 0,
-            green: 0,
-            blue: 0,
-            alpha: 1,
-          },
-          {
-            left: 100,
-            red: 255,
-            green: 0,
-            blue: 0,
-            alpha: 1,
-          },
-        ],
-      },
       // 通用元素
       baseType: [
         'text',
@@ -448,6 +364,11 @@ export default {
     };
   },
   created() {
+    this.event.on('selectCancel', () => {
+      this.baseAttr.fill = '';
+      this.$forceUpdate();
+      console.log(2222);
+    });
     this.event.on('selectOne', () => {
       const activeObject = this.canvas.c.getActiveObjects()[0];
       if (activeObject) {
@@ -490,19 +411,6 @@ export default {
     });
   },
   methods: {
-    changeColor(val) {
-      console.log(val);
-      const activeObject = this.canvas.c.getActiveObjects()[0];
-      if (activeObject) {
-        const handlers = val.points.map((item) => ({
-          offset: item.left / 100,
-          color: `rgba(${item.red}, ${item.green}, ${item.blue}, ${item.alpha})`,
-        }));
-        const gradient = generateFabricGradientFromColorStops(handlers, activeObject.width, activeObject.height, val.type, val.degree);
-        activeObject.set('fill', gradient);
-        this.canvas.c.renderAll();
-      }
-    },
     // 图片属性
     imgBlur(blur) {
       const activeObject = this.canvas.c.getActiveObjects()[0];
