@@ -28,10 +28,7 @@
         </div>
       </Header>
       <Content style="display: flex; height: calc(100vh - 64px)">
-        <div
-          v-if="show"
-          style="width: 380px; height: 100%; background: #fff; display: flex"
-        >
+        <div v-if="show" style="width: 380px; height: 100%; background: #fff; display: flex">
           <Menu
             :active-name="menuActive"
             accordion
@@ -71,27 +68,20 @@
           </div>
         </div>
         <!-- 画布区域 -->
-        <div
-          id="workspace"
-          style="width: 100%; position: relative; background: #f1f1f1"
-        >
+        <div id="workspace" style="width: 100%; position: relative; background: #f1f1f1">
           <div class="canvas-box">
             <div class="inside-shadow"></div>
-            <canvas id="canvas"></canvas>
+            <!-- 关于js实现 我是用konvajs 的 fabric 还不熟练 api 不过理论上都是监控 mouse 事件 这个应该不难 麻烦你补全一下 -->
+            <div class="coordinates-bar coordinates-bar-top" style="width: 100%"></div>
+            <div class="coordinates-bar coordinates-bar-left" style="height: 100%"></div>
+            <!-- class design-stage-point 点状  design-stage-grid 棋盘 -->
+            <canvas id="canvas" class="design-stage-grid"></canvas>
             <zoom></zoom>
             <mouseMenu></mouseMenu>
           </div>
         </div>
         <!-- 属性区域 -->
-        <div
-          style="
-            width: 380px;
-            height: 100%;
-            padding: 10px;
-            overflow-y: auto;
-            background: #fff;
-          "
-        >
+        <div style="width: 380px; height: 100%; padding: 10px; overflow-y: auto; background: #fff">
           <history v-if="show"></history>
           <attribute v-if="show"></attribute>
           <layer v-if="show"></layer>
@@ -102,48 +92,47 @@
 </template>
 
 <script>
-
 // 导入元素
-import importJSON from '@/components/importJSON.vue';
-import importFile from '@/components/importFile.vue';
+import importJSON from "@/components/importJSON.vue";
+import importFile from "@/components/importFile.vue";
 
 // 顶部组件
-import align from '@/components/align.vue';
-import centerAlign from '@/components/centerAlign.vue';
-import flip from '@/components/flip.vue';
-import save from '@/components/save.vue';
-import lang from '@/components/lang.vue';
-import clone from '@/components/clone.vue';
-import group from '@/components/group.vue';
-import zoom from '@/components/zoom.vue';
-import lock from '@/components/lock.vue';
-import dele from '@/components/del.vue';
+import align from "@/components/align.vue";
+import centerAlign from "@/components/centerAlign.vue";
+import flip from "@/components/flip.vue";
+import save from "@/components/save.vue";
+import lang from "@/components/lang.vue";
+import clone from "@/components/clone.vue";
+import group from "@/components/group.vue";
+import zoom from "@/components/zoom.vue";
+import lock from "@/components/lock.vue";
+import dele from "@/components/del.vue";
 
 // 左侧组件
-import importTmpl from '@/components/importTmpl.vue';
-import tools from '@/components/tools.vue';
-import svgEl from '@/components/svgEl.vue';
-import bgBar from '@/components/bgBar.vue';
-import setSize from '@/components/setSize.vue';
+import importTmpl from "@/components/importTmpl.vue";
+import tools from "@/components/tools.vue";
+import svgEl from "@/components/svgEl.vue";
+import bgBar from "@/components/bgBar.vue";
+import setSize from "@/components/setSize.vue";
 
 // 右侧组件
-import history from '@/components/history.vue';
-import layer from '@/components/layer.vue';
-import attribute from '@/components/attribute.vue';
+import history from "@/components/history.vue";
+import layer from "@/components/layer.vue";
+import attribute from "@/components/attribute.vue";
 
 // 右键菜单
-import mouseMenu from '@/components/mouseMenu.vue';
+import mouseMenu from "@/components/mouseMenu.vue";
 
 // 功能组件
-import EventHandle from '@/utils/eventHandler';
+import EventHandle from "@/utils/eventHandler";
 
-import { fabric } from 'fabric';
-import Editor from '@/core';
+import { fabric } from "fabric";
+import Editor from "@/core";
 
 const event = new EventHandle();
 const canvas = {};
 export default {
-  name: 'HomeView',
+  name: "HomeView",
   provide: {
     canvas,
     fabric,
@@ -157,13 +146,33 @@ export default {
     };
   },
   components: {
-    setSize, tools, bgBar, lock, layer, align, attribute, dele, importFile, save, lang, importJSON, clone, flip, importTmpl, centerAlign, group, zoom, svgEl, history, mouseMenu,
+    setSize,
+    tools,
+    bgBar,
+    lock,
+    layer,
+    align,
+    attribute,
+    dele,
+    importFile,
+    save,
+    lang,
+    importJSON,
+    clone,
+    flip,
+    importTmpl,
+    centerAlign,
+    group,
+    zoom,
+    svgEl,
+    history,
+    mouseMenu,
   },
   created() {
     this.$Spin.show();
   },
   mounted() {
-    this.canvas = new fabric.Canvas('canvas', {
+    this.canvas = new fabric.Canvas("canvas", {
       fireRightClick: true, // 启用右键，button的数字为3
       stopContextMenu: true, // 禁止默认右键菜单
       controlsAboveOverlay: true, // 超出clipPath后仍然展示控制条
@@ -211,12 +220,13 @@ export default {
   z-index: 2;
   pointer-events: none;
 }
+
 #canvas {
   width: 300px;
   height: 300px;
   margin: 0 auto;
   // background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVQ4jWNgYGAQIYAJglEDhoUBg9+FowbQ2gAARjwKARjtnN8AAAAASUVORK5CYII=");
-  background-size: 30px 30px;
+  // background-size: 30px 30px;
 }
 #workspace {
   overflow: hidden;
@@ -231,5 +241,72 @@ export default {
 }
 .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
   background: none;
+}
+
+.design-stage-point {
+  --offsetX: 0px;
+  --offsetY: 0px;
+  --size: 20px;
+  background-size: var(--size) var(--size);
+  background-image: radial-gradient(circle, #2f3542 1px, rgba(0, 0, 0, 0) 1px);
+  background-position: var(--offsetX) var(--offsetY);
+}
+
+.design-stage-grid {
+  // dom.style.setProperty('--offsetX', `${point.x + e.clientX}px`) 通过修改 偏移量 可实现跟随鼠标效果 --size 则为间距
+  // dom.style.setProperty('--offsetY', `${point.y + e.clientY}px`)
+  --offsetX: 0px;
+  --offsetY: 0px;
+  --size: 20px;
+  --color: #dedcdc;
+  background-image: linear-gradient(
+      45deg,
+      var(--color) 25%,
+      transparent 0,
+      transparent 75%,
+      var(--color) 0
+    ),
+    linear-gradient(45deg, var(--color) 25%, transparent 0, transparent 75%, var(--color) 0);
+  background-position: var(--offsetX) var(--offsetY),
+    calc(var(--size) + var(--offsetX)) calc(var(--size) + var(--offsetY));
+  background-size: calc(var(--size) * 2) calc(var(--size) * 2);
+}
+
+.coordinates-bar {
+  --ruler-size: 23px;
+  --ruler-c: #808080;
+  --rule4-bg-c: #252525;
+  --ruler-bdw: 1px;
+  --ruler-h: 8px;
+  --ruler-space: 5px;
+  --ruler-tall-h: 16px;
+  --ruler-tall-space: 15px;
+  position: absolute;
+  z-index: 2;
+  background-color: var(--rule4-bg-c);
+}
+.coordinates-bar-top {
+  cursor: row-resize;
+  top: 0;
+  left: 0;
+  height: var(--ruler-size);
+  width: 100%;
+  background-image: linear-gradient(90deg, var(--ruler-c) 0 var(--ruler-bdw), transparent 0),
+    linear-gradient(90deg, var(--ruler-c) 0 var(--ruler-bdw), transparent 0);
+  background-repeat: repeat-x;
+  background-size: var(--ruler-space) var(--ruler-h), var(--ruler-tall-space) var(--ruler-tall-h);
+  background-position: bottom;
+}
+.coordinates-bar-left {
+  cursor: col-resize;
+  top: var(--ruler-size);
+  width: var(--ruler-size);
+  height: 100%;
+  left: 0;
+  background-image: linear-gradient(0deg, var(--ruler-c) 0 var(--ruler-bdw), transparent 0),
+    linear-gradient(0deg, var(--ruler-c) 0 var(--ruler-bdw), transparent 0);
+  background-repeat: repeat-y;
+  background-size: var(--ruler-h) var(--ruler-space), var(--ruler-tall-h) var(--ruler-tall-space);
+  background-position: right;
 }
 </style>
