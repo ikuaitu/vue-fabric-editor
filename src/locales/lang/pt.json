@@ -36,6 +36,7 @@
     "select_image": "Selecionar arquivo de imagem",
     "upload_background": "Carregar plano de fundo",
     "mouseMenu": {
+        "layer": "Gestão de camadas",
         "copy": "Copiar",
         "delete": "Eliminar",
         "group": "combinación",
