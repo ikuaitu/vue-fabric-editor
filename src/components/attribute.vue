@@ -1,6 +1,5 @@
 <template>
   <div class="box" v-if="mSelectMode === 'one'">
-    <Color :color="baseAttr.fill" @change="(value) => changeCommon('fill', value)"></Color>
     <!-- 字体属性 -->
     <div v-show="textType.includes(mSelectOneType)">
       <Divider plain orientation="left">{{ $t("attributes.font") }}</Divider>
@@ -130,6 +129,8 @@
       <Divider plain orientation="left">{{
         $t("attributes.exterior")
       }}</Divider>
+      <!-- 颜色 -->
+      <Color :color="baseAttr.fill" @change="(value) => changeCommon('fill', value)"></Color>
       <div class="flex-view">
         <div class="flex-item">
           <span class="label">{{ $t("attributes.left") }}</span>
@@ -155,25 +156,14 @@
         </div>
       </div>
       <div class="flex-view">
-        <div class="flex-item">
-          <span class="label">{{ $t("color") }}</span>
-          <div class="content">
-            <ColorPicker
-              v-model="baseAttr.fill"
-              @on-change="(value) => changeCommon('fill', value)"
-              alpha
-            />
-          </div>
-        </div>
-        <div class="flex-item">
+        <div class="flex-item" >
           <span class="label">{{ $t("attributes.angle") }}</span>
-          <div class="content">
-            <InputNumber
+          <div class="content slider-box">
+            <Slider
               v-model="baseAttr.angle"
               :max="360"
               @on-change="(value) => changeCommon('angle', value)"
-              show-input
-            ></InputNumber>
+            ></Slider>
           </div>
         </div>
       </div>
@@ -296,7 +286,6 @@ export default {
   mixins: [select],
   components: {
     Color,
-    // newColorPicker: { ...ColorPicker },
   },
   data() {
     return {

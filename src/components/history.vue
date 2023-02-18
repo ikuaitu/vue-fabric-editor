@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:07:47
+ * @LastEditTime: 2023-02-18 19:01:21
  * @Description: 回退重做
 -->
 
@@ -47,7 +47,7 @@ export default {
       // 过滤选择元素事件
       const isSelect = event.action === undefined && event.e;
       if (isSelect) return;
-      const data = this.canvas.c.toJSON(['id']);
+      const data = this.canvas.editor.getJson();
       if (this.list.length > maxStep) {
         this.list.shift();
       }

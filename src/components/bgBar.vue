@@ -3,13 +3,8 @@
     <Divider orientation="left" plain>{{ $t('color') }}</Divider>
     <Form :label-width="40">
       <FormItem :label="$t('color')" prop="name">
-        <ColorPicker v-model="color" @on-change="setThisColor" size="small" transfer />
+        <ColorPicker v-model="color" @on-change="setThisColor" alpha size="small" transfer />
       </FormItem>
-      <!-- <FormItem :label="$t('picture')" prop="name">
-        <Button @click="insert" icon="ios-cloud-upload-outline" size="small"
-          >{{ $t('upload_background') }}</Button
-        >
-      </FormItem> -->
     </Form>
     <Divider orientation="left" plain>{{ $t('color_macthing') }}</Divider>
     <div class="color-list">

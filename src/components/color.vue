@@ -2,23 +2,33 @@
  * @Author: 秦少卫
  * @Date: 2023-02-16 22:52:00
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-17 00:24:40
+ * @LastEditTime: 2023-02-18 19:31:12
  * @Description: 颜色选择器
 -->
 <template>
-  <div>
+  <div class="box">
+
     <!-- 颜色开关 -->
-     <iSwitch v-model="isGradient" />
-     <newColorPicker
-        v-if="isGradient"
-        :isGradient="true" :gradient="gradient" :onEndChange="changeColor">
-      </newColorPicker>
-      <ColorPicker
-        v-else
-        v-model="fill"
-        @on-change="changeCommon"
-        alpha
-      />
+    <iSwitch v-model="isGradient" size="large" class="switch">
+      <span slot="open">渐变</span>
+      <span slot="close">纯色</span>
+    </iSwitch>
+
+    <!-- 颜色选择器 -->
+    <ColorPicker v-if="!isGradient" v-model="fill" @on-change="changePureColor" alpha />
+
+    <!-- 渐变选择器 -->
+    <Poptip v-model="visible" style="width: 100%"  v-if="isGradient">
+      <div class="gradient-bar" :style="bgStr"></div>
+      <div slot="content">
+        <newColorPicker
+          :isGradient="true"
+          :gradient="gradient"
+          :onEndChange="changeGradientColor"
+        >
+        </newColorPicker>
+      </div>
+    </Poptip>
   </div>
 </template>
 
@@ -28,24 +38,22 @@ import { ColorPicker } from 'vue-color-gradient-picker';
 import { fabric } from 'fabric';
 
 function generateFabricGradientFromColorStops(handlers, width, height, orientation, angle) {
-  const gradAngleToCoords = (angle1) => {
-    const anglePI = (-parseInt(angle1, 10)) * (Math.PI / 180);
+  // 角度转换坐标
+  const gradAngleToCoords = (paramsAngle) => {
+    const anglePI = -parseInt(paramsAngle, 10) * (Math.PI / 180);
     const angleCoords = {
-      x1: (Math.round(50 + Math.sin(anglePI) * 50)) / 100,
-      y1: (Math.round(50 + Math.cos(anglePI) * 50)) / 100,
-      x2: (Math.round(50 + Math.sin(anglePI + Math.PI) * 50)) / 100,
-      y2: (Math.round(50 + Math.cos(anglePI + Math.PI) * 50)) / 100,
+      x1: Math.round(50 + Math.sin(anglePI) * 50) / 100,
+      y1: Math.round(50 + Math.cos(anglePI) * 50) / 100,
+      x2: Math.round(50 + Math.sin(anglePI + Math.PI) * 50) / 100,
+      y2: Math.round(50 + Math.cos(anglePI + Math.PI) * 50) / 100,
     };
-
     return angleCoords;
   };
 
-  let bgGradient = {};
-  const colorStops = [...handlers];
-
-  if (orientation === 'linear') {
+  // 生成线性渐变
+  function generateLinear(colorStops) {
     const angleCoords = gradAngleToCoords(angle);
-    bgGradient = new fabric.Gradient({
+    return new fabric.Gradient({
       type: 'linear',
       coords: {
         x1: angleCoords.x1 * width,
@@ -55,8 +63,11 @@ function generateFabricGradientFromColorStops(handlers, width, height, orientati
       },
       colorStops,
     });
-  } else if (orientation === 'radial') {
-    bgGradient = new fabric.Gradient({
+  }
+
+  // 生成径向渐变
+  function generateRadial(colorStops) {
+    return new fabric.Gradient({
       type: 'radial',
       coords: {
         x1: width / 2,
@@ -70,68 +81,30 @@ function generateFabricGradientFromColorStops(handlers, width, height, orientati
     });
   }
 
+  let bgGradient = {};
+  const colorStops = [...handlers];
+  if (orientation === 'linear') {
+    bgGradient = generateLinear(colorStops);
+  } else if (orientation === 'radial') {
+    bgGradient = generateRadial(colorStops);
+  }
+
   return bgGradient;
 }
 
-function getAngleByPoint(start, end) {
-  const x = Math.abs(end.x - start.x);
-  const y = Math.abs(end.y - start.y);
-  const z = Math.sqrt(x ** 2 + y ** 2);
-  // 无拖动
-  if (x === 0 && y === 0) { return 0; }
-  const cos = y / z;
-  const radina = Math.acos(cos);// 用反三角函数求弧度
-  let angle = Math.floor(180 / (Math.PI / radina));// 将弧度转换成角度
-  // 鼠标在第一象限
-  if (start.x <= end.x && start.y > end.y) {
-    angle = Math.abs(90 - angle);
-  }
-  // 鼠标在第二象限
-  if (start.x > end.x && start.y >= end.y) {
-    angle += 90;
-  }
-  // 鼠标在第三象限
-  if (start.x >= end.x && start.y < end.y) {
-    angle = 270 - angle;
-  }
-  // 鼠标在第四象限
-  if (start.x < end.x && start.y <= end.y) {
-    angle += 270;
-  }
-  angle = 360 - angle;
-  return angle === 360 ? 0 : angle;
-}
-
-// const getAngle = ({
-//   x1, y1, x2, y2,
-// }) => {
-//   const radian = Math.atan2(y1 - y2, x1 - x2); // 返回来的是弧度
-//   // eslint-disable-next-line no-mixed-operators
-//   const angle = 180 / Math.PI * radian; // 根据弧度计算角度
-//   return angle;
-// };
-
-// const getAngle = ({
-//   x1, y1, x2, y2,
-// }) => {
-//   // eslint-disable-next-line camelcase
-//   const diff_x = x1 - x2;
-//   // eslint-disable-next-line camelcase
-//   const diff_y = y1 - y2;
-//   // 返回角度,不是弧度
-//   // eslint-disable-next-line camelcase, no-mixed-operators
-//   return 360 * Math.atan(diff_y / diff_x) / (2 * Math.PI);
-// };
-
 export default {
-  name: 'ToolBar',
+  name: 'ColorBox',
   mixins: [select],
   components: {
     newColorPicker: { ...ColorPicker },
   },
   props: {
+    angleKey: {
+      type: [String],
+      default: 'gradientAngle',
+    },
     color: {
-      type: [Function, String],
+      type: [Object, String],
       default: '',
     },
   },
@@ -145,8 +118,13 @@ export default {
   },
   data() {
     return {
-      fill: '',
+      // 是否渐变
       isGradient: false,
+      // 纯色
+      fill: '',
+      // 渐变
+      visible: true,
+      bgStr: 'background: linear-gradient(124deg, rgb(28, 27, 27) 0%, rgb(255, 0, 0) 100%);',
       gradient: {
         type: 'linear',
         degree: 0,
@@ -170,42 +148,78 @@ export default {
     };
   },
   methods: {
+    // 回显颜色
     checkColor(val) {
       if (typeof val === 'string') {
         this.isGradient = false;
         this.fill = val;
-      } else { // 渐变
+      } else {
+        // 渐变
         this.isGradient = true;
         const activeObject = this.canvas.c.getActiveObjects()[0];
         if (activeObject) {
-          const width = val.coords.x1 + val.coords.x2;
-          const height = val.coords.y1 + val.coords.y2;
-          Math.atan2(val.coords.y2 - height / 2, val.coords.x2 - width / 2);
-          console.log(getAngleByPoint({
-            x: val.coords.x1,
-            y: val.coords.y1,
-          }, {
-            x: val.coords.x2,
-            y: val.coords.y2,
-          }));
+          // 控件属性设置
+          this.fabricGradientToCss(val, activeObject);
+          // bar背景设置
+          this.fabricGradientToBar(val);
         }
-        // console.log(val, '111');
-        // console.log(getAngle(val.coords));
-        // this.gradient =
       }
     },
-    changeColor(val) {
+    changeGradientColor(val) {
       const activeObject = this.canvas.c.getActiveObjects()[0];
       if (activeObject) {
-        const handlers = val.points.map((item) => ({
-          offset: item.left / 100,
-          color: `rgba(${item.red}, ${item.green}, ${item.blue}, ${item.alpha})`,
-        }));
-        const gradient = generateFabricGradientFromColorStops(handlers, activeObject.width, activeObject.height, val.type, val.degree);
+        const gradient = this.cssToFabricGradient(val, activeObject);
         this.$emit('change', gradient);
+
+        // 保存角度，用于下一次选中展示
+        activeObject.set(this.angleKey, val.degree);
+        this.setGradientBar(val);
       }
     },
-    changeCommon(val) {
+    // 设置渐变颜色条
+    setGradientBar(val) {
+      this.bgStr = `background:${val.style.replace('radial', 'linear')};`;
+    },
+    // Fabric渐变bar背景设置
+    fabricGradientToBar(val) {
+      const str = val.colorStops.map((item) => (`${item.color} ${item.offset * 100}%`));
+      this.bgStr = `background: linear-gradient(124deg, ${str});`;
+    },
+    // Fabric渐变转css
+    fabricGradientToCss(val, activeObject) {
+      // 渐变类型
+      this.gradient.type = val.type;
+      this.gradient.degree = activeObject.get(this.angleKey, val.degree);
+      this.gradient.points = val.colorStops.map((item) => {
+        const [red, green, blue, alpha] = item.color
+          .replace(/^rgba?\(|\s+|\)$/g, '')
+          .split(',');
+        return {
+          left: item.offset * 100,
+          red: Number(red),
+          green: Number(green),
+          blue: Number(blue),
+          alpha: Number(alpha),
+        };
+      });
+    },
+    // css转Fabric渐变
+    cssToFabricGradient(val, activeObject) {
+      const handlers = val.points.map((item) => ({
+        offset: item.left / 100,
+        color: `rgba(${item.red}, ${item.green}, ${item.blue}, ${item.alpha})`,
+      }));
+      const gradient = generateFabricGradientFromColorStops(
+        handlers,
+        activeObject.width,
+        activeObject.height,
+        val.type,
+        val.degree,
+      );
+      return gradient;
+    },
+    // 纯色颜色
+    changePureColor(val) {
       this.$emit('change', val);
     },
   },
@@ -213,10 +227,41 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import url('vue-color-gradient-picker/dist/index.css');
+@import url("vue-color-gradient-picker/dist/index.css");
+.box {
+  padding: 10px 0;
+}
+// 渐变条
+.gradient-bar {
+  width: 100%;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 5px;
+}
 
+.switch {
+  margin-bottom: 10px;
+}
+
+// 提示弹框
 /deep/ .ivu-color-picker {
   display: block;
+}
+/deep/ .ivu-poptip-body{
+  padding: 5px;
+}
+/deep/ .ivu-poptip{
+  width: 100%;
+  .ivu-poptip-rel{
+    width: 100%;
+  }
+}
+
+// 渐变选择器
+/deep/ .ui-color-picker{
+  .picker-area,.gradient-controls,.color-preview-area{
+    padding: 0;
+  }
 }
 
 </style>

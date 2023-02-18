@@ -15,12 +15,6 @@
         <center-align></center-align>
         &nbsp;
         <group></group>
-        &nbsp;
-        <lock></lock>
-        &nbsp;
-        <dele></dele>
-        &nbsp;
-        <clone></clone>
 
         <div style="float: right">
           <save></save>
@@ -49,8 +43,11 @@
             </MenuItem>
             <MenuItem :name="3" class="menu-item">
               <Icon type="md-paper-plane" size="24" />
-
               <div>{{ $t("background") }}</div>
+            </MenuItem>
+            <MenuItem :name="4" class="menu-item">
+              <Icon type="md-reorder" size="24" />
+              <div>{{ $t("layers") }}</div>
             </MenuItem>
           </Menu>
           <div class="content">
@@ -67,6 +64,9 @@
             <div v-show="menuActive === 3" class="left-panel">
               <set-size></set-size>
               <bg-bar></bg-bar>
+            </div>
+            <div v-show="menuActive === 4" class="left-panel">
+              <layer ></layer>
             </div>
           </div>
         </div>
@@ -93,8 +93,14 @@
           "
         >
           <history v-if="show"></history>
+          <div v-if="show" style="padding-top:10px">
+            <lock></lock>
+            &nbsp;
+            <dele></dele>
+            &nbsp;
+            <clone></clone>
+          </div>
           <attribute v-if="show"></attribute>
-          <layer v-if="show"></layer>
         </div>
       </Content>
     </Layout>
