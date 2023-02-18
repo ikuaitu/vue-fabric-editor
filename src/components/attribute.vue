@@ -129,6 +129,8 @@
       <Divider plain orientation="left">{{
         $t("attributes.exterior")
       }}</Divider>
+      <!-- 颜色 -->
+      <Color :color="baseAttr.fill" @change="(value) => changeCommon('fill', value)"></Color>
       <div class="flex-view">
         <div class="flex-item">
           <span class="label">{{ $t("attributes.left") }}</span>
@@ -154,25 +156,14 @@
         </div>
       </div>
       <div class="flex-view">
-        <div class="flex-item">
-          <span class="label">{{ $t("color") }}</span>
-          <div class="content">
-            <ColorPicker
-              v-model="baseAttr.fill"
-              @on-change="(value) => changeCommon('fill', value)"
-              alpha
-            />
-          </div>
-        </div>
-        <div class="flex-item">
+        <div class="flex-item" >
           <span class="label">{{ $t("attributes.angle") }}</span>
-          <div class="content">
-            <InputNumber
+          <div class="content slider-box">
+            <Slider
               v-model="baseAttr.angle"
               :max="360"
               @on-change="(value) => changeCommon('angle', value)"
-              show-input
-            ></InputNumber>
+            ></Slider>
           </div>
         </div>
       </div>
@@ -288,10 +279,14 @@
 import fontList from '@/assets/fonts/font';
 import select from '@/mixins/select';
 import FontFaceObserver from 'fontfaceobserver';
+import Color from './color.vue';
 
 export default {
   name: 'ToolBar',
   mixins: [select],
+  components: {
+    Color,
+  },
   data() {
     return {
       // 通用元素
@@ -358,6 +353,11 @@ export default {
     };
   },
   created() {
+    this.event.on('selectCancel', () => {
+      this.baseAttr.fill = '';
+      this.$forceUpdate();
+      console.log(2222);
+    });
     this.event.on('selectOne', () => {
       const activeObject = this.canvas.c.getActiveObjects()[0];
       if (activeObject) {
@@ -498,7 +498,9 @@ export default {
   },
 };
 </script>
+
 <style scoped lang="less">
+@import url('vue-color-gradient-picker/dist/index.css');
 /deep/ .ivu-color-picker {
   display: block;
 }

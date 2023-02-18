@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-09 13:17:39
+ * @LastEditTime: 2023-02-18 19:00:43
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -122,6 +122,10 @@ class Editor extends EventEmitter {
   _workspaceSendToBack() {
     const workspace = this.getWorkspace();
     workspace && workspace.sendToBack();
+  }
+
+  getJson() {
+    return this.canvas.toJSON(['id', 'gradientAngle']);
   }
 }
 

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:08:18
+ * @LastEditTime: 2023-02-18 19:04:31
  * @Description: 保存文件
 -->
 
@@ -37,7 +37,7 @@ export default {
       this[type]();
     },
     saveJson() {
-      const dataUrl = this.canvas.c.toJSON(['id']);
+      const dataUrl = this.canvas.editor.getJson();
       const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(dataUrl, null, '\t'))}`;
       this.downFile(fileStr, 'json');
     },
@@ -77,7 +77,7 @@ export default {
       anchorEl.remove();
     },
     clipboard() {
-      const jsonStr = this.canvas.c.toJSON(['id']);
+      const jsonStr = this.canvas.editor.getJson();
       this._mixinClipboard(JSON.stringify(jsonStr, null, '\t'));
     },
     clear() {
