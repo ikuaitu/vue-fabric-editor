@@ -1,32 +1,18 @@
 <template>
-  <ul
-    ref="mouseMenuRef"
-    class="menu-wrap"
-    :style="{
-      visibility: show,
-      left: left,
-      top: top,
-      zIndex: zIndex,
-    }"
-    @click="handleMenu"
-  >
-    <li data-active="copy">{{ $t('mouseMenu.copy') }}<span>Copy</span></li>
-    <li data-active="group" v-show="isMultiple">{{ $t('mouseMenu.group') }}<span>Group</span></li>
-    <!-- 对齐 -->
-    <li data-active="center">{{ $t('mouseMenu.center') }}<span>Center</span></li>
-    <!-- 排序 -->
-    <li data-active="up" v-show="mSelectMode === 'one'">{{ $t('mouseMenu.up') }}<span>Up</span></li>
-    <li data-active="down" v-show="mSelectMode === 'one'">{{ $t('mouseMenu.down') }}<span>Down</span></li>
-    <li data-active="upTop" v-show="mSelectMode === 'one'">{{ $t('mouseMenu.upTop') }}<span>BringToFront</span></li>
-    <li data-active="downTop" v-show="mSelectMode === 'one'">{{ $t('mouseMenu.downTop') }}<span>SendToBack</span></li>
-    <!-- 删除 -->
-    <li data-active="delete" class="del">{{ $t('mouseMenu.delete') }}<span>Delete</span></li>
+  <ul ref="mouseMenuRef" class="menu-wrap" :style="{
+    visibility: show,
+    left: left,
+    top: top,
+    zIndex: zIndex,
+  }" @click="handleMenu">
+    <menu-item v-for="menu in menuList" :key="menu.activeName" :nodeInfo="menu" />
   </ul>
 </template>
 
 <script>
 import { isEmpty, debounce } from 'lodash-es';
 import select from '@/mixins/select';
+import menuItem from './menuItem.vue';
 
 const canvasDom = document.getElementById('canvas') || null;
 export default ({
@@ -40,7 +26,71 @@ export default ({
       top: 0,
       zIndex: -100,
       menu: null,
+      menuList: [ // 菜单
+        {
+          type: 'copy',
+          activeName: 'copy',
+          text: this.$t('mouseMenu.copy'),
+          subText: 'Copy',
+        },
+        {
+          type: 'group',
+          activeName: 'group',
+          text: this.$t('mouseMenu.group'),
+          subText: 'Group',
+        },
+        // 对齐
+        {
+          type: 'center',
+          activeName: 'center',
+          text: this.$t('mouseMenu.center'),
+          subText: 'Center',
+        },
+        // 排序
+        {
+          type: 'sort',
+          activeName: '',
+          text: this.$t('mouseMenu.layer'),
+          subText: '',
+          children: [
+            {
+              type: 'sort',
+              activeName: 'up',
+              text: this.$t('mouseMenu.up'),
+              subText: 'Up',
+            },
+            {
+              type: 'sort',
+              activeName: 'down',
+              text: this.$t('mouseMenu.down'),
+              subText: 'Down',
+            },
+            {
+              type: 'sort',
+              activeName: 'upTop',
+              text: this.$t('mouseMenu.upTop'),
+              subText: 'BringToFront',
+            },
+            {
+              type: 'sort',
+              activeName: 'downTop',
+              text: this.$t('mouseMenu.downTop'),
+              subText: 'SendToBack',
+            },
+          ],
+        },
+        // 删除
+        {
+          type: 'delete',
+          activeName: 'delete',
+          text: this.$t('mouseMenu.delete'),
+          subText: 'Delete',
+        },
+      ],
     };
+  },
+  components: {
+    menuItem,
   },
   computed: {
     // 单选且等于组元素
@@ -77,6 +127,9 @@ export default ({
 
     handleMouseUp(opt) {
       try {
+        const canvas = this.canvas.c;
+        const activeObject = canvas.getActiveObjects();
+        if (!activeObject.length) return this.hideMenu();
         if (opt.button === 3 && opt.target && opt.target.id !== 'workspace') {
           // 显示菜单，设置右键菜单位置
           // 获取菜单组件的宽高
@@ -88,11 +141,11 @@ export default ({
 
           // 计算菜单出现的位置
           // 如果鼠标靠近画布右侧，菜单就出现在鼠标指针左侧
-          if (this.canvas.width - pointX <= menuWidth) {
+          if (canvas.width - pointX <= menuWidth) {
             pointX -= menuWidth;
           }
           // 如果鼠标靠近画布底部，菜单就出现在鼠标指针上方
-          if (this.canvas.height - pointY <= menuHeight) {
+          if (canvas.height - pointY <= menuHeight) {
             pointY -= menuHeight;
           }
           this.showMenu(pointX, pointY);
@@ -176,28 +229,34 @@ export default ({
   left: 0;
   top: 0;
   border-radius: 4px;
-  visibility: hidden; /* 隐藏菜单 */
+  visibility: hidden;
+  /* 隐藏菜单 */
   z-index: -100;
-  box-shadow: 0 8px 8px 0 rgba(0,0,0,.08);;
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, .08);
   background: #fff;
-  & > li {
+
+  &>li {
     color: #33383e;
     cursor: pointer;
     padding: 6px 10px;
+
     span {
       float: right;
       color: #bdbdbd;
     }
+
     border-bottom: 1px solid #e8eaec;
+
     &:hover {
       background-color: #f1f3f4;
     }
+
     &:last-child {
       border-bottom: none;
     }
   }
 
-  .del{
+  .del {
     color: red;
   }
 }

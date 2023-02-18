@@ -36,6 +36,7 @@
     "select_image": "Select image",
     "upload_background": "Upload background",
     "mouseMenu": {
+        "layer": "LayerManage",
         "copy": "Copy",
         "delete": "Delete",
         "group": "group",

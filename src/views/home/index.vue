@@ -15,12 +15,6 @@
         <center-align></center-align>
         &nbsp;
         <group></group>
-        &nbsp;
-        <lock></lock>
-        &nbsp;
-        <dele></dele>
-        &nbsp;
-        <clone></clone>
 
         <div style="float: right">
           <save></save>
@@ -29,25 +23,24 @@
       </Header>
       <Content style="display: flex; height: calc(100vh - 64px)">
         <div v-if="show" style="width: 380px; height: 100%; background: #fff; display: flex">
-          <Menu
-            :active-name="menuActive"
-            accordion
-            @on-select="(activeIndex) => (menuActive = activeIndex)"
-            width="65px"
-          >
+          <Menu :active-name="menuActive" accordion @on-select="(activeIndex) => (menuActive = activeIndex)"
+            width="65px">
             <MenuItem :name="1" class="menu-item">
-              <Icon type="md-book" size="24" />
-              <div>{{ $t("templates") }}</div>
+            <Icon type="md-book" size="24" />
+            <div>{{ $t("templates") }}</div>
             </MenuItem>
             <MenuItem :name="2" class="menu-item">
-              <Icon type="md-images" size="24" />
+            <Icon type="md-images" size="24" />
 
-              <div>{{ $t("elements") }}</div>
+            <div>{{ $t("elements") }}</div>
             </MenuItem>
             <MenuItem :name="3" class="menu-item">
               <Icon type="md-paper-plane" size="24" />
-
               <div>{{ $t("background") }}</div>
+            </MenuItem>
+            <MenuItem :name="4" class="menu-item">
+              <Icon type="md-reorder" size="24" />
+              <div>{{ $t("layers") }}</div>
             </MenuItem>
           </Menu>
           <div class="content">
@@ -65,6 +58,9 @@
               <set-size></set-size>
               <bg-bar></bg-bar>
             </div>
+            <div v-show="menuActive === 4" class="left-panel">
+              <layer ></layer>
+            </div>
           </div>
         </div>
         <!-- 画布区域 -->
@@ -80,11 +76,24 @@
             <mouseMenu></mouseMenu>
           </div>
         </div>
-        <!-- 属性区域 -->
-        <div style="width: 380px; height: 100%; padding: 10px; overflow-y: auto; background: #fff">
+        <!-- 属性区域 380-->
+        <div
+          style="
+            width: 530px;
+            height: 100%;
+            padding: 10px;
+            overflow-y: auto;
+            background: #fff;
+          ">
           <history v-if="show"></history>
+          <div v-if="show" style="padding-top:10px">
+            <lock></lock>
+            &nbsp;
+            <dele></dele>
+            &nbsp;
+            <clone></clone>
+          </div>
           <attribute v-if="show"></attribute>
-          <layer v-if="show"></layer>
         </div>
       </Content>
     </Layout>
@@ -121,7 +130,8 @@ import layer from "@/components/layer.vue";
 import attribute from "@/components/attribute.vue";
 
 // 右键菜单
-import mouseMenu from "@/components/mouseMenu.vue";
+import mouseMenu from '@/components/contextMenu/index.vue';
+
 
 // 功能组件
 import EventHandle from "@/utils/eventHandler";
@@ -181,6 +191,8 @@ export default {
     canvas.c = this.canvas;
     event.init(canvas.c);
     canvas.editor = new Editor(canvas.c);
+
+    canvas.c.renderAll();
     this.show = true;
     this.$Spin.hide();
   },
@@ -192,7 +204,8 @@ export default {
   padding: 10px 2px;
   box-sizing: border-box;
   font-size: 12px;
-  & > i {
+
+  &>i {
     margin: 0;
   }
 }
@@ -200,13 +213,16 @@ export default {
 /deep/ .ivu-layout-header {
   padding: 0 10px;
 }
+
 .home,
 .ivu-layout {
   height: 100vh;
 }
+
 .icon {
   display: block;
 }
+
 .canvas-box {
   position: relative;
 }
@@ -228,9 +244,11 @@ export default {
   // background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVQ4jWNgYGAQIYAJglEDhoUBg9+FowbQ2gAARjwKARjtnN8AAAAASUVORK5CYII=");
   // background-size: 30px 30px;
 }
+
 #workspace {
   overflow: hidden;
 }
+
 .content {
   flex: 1;
   width: 220px;
@@ -239,6 +257,7 @@ export default {
   height: 100%;
   overflow-y: auto;
 }
+
 .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
   background: none;
 }
