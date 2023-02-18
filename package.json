@@ -42,7 +42,9 @@
     "@vue/vue2-jest": "^27.0.0-alpha.2",
     "babel-jest": "^27.0.6",
     "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^8.0.3",
     "eslint-plugin-vuejs-accessibility": "^1.1.0",
     "husky": "^8.0.0",
@@ -50,11 +52,13 @@
     "less": "^4.0.0",
     "less-loader": "^8.0.0",
     "lint-staged": "^13.1.1",
+    "prettier": "2.8.4",
     "vue-template-compiler": "^2.6.14"
   },
   "lint-staged": {
     "*.{ts,tsx,js,vue}": [
-      "eslint --fix"
+      "eslint --fix",
+      "prettier --write"
     ]
   }
 }
