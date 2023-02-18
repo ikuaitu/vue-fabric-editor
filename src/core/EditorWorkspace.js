@@ -5,7 +5,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 21:50:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 18:54:44
+ * @LastEditTime: 2023-02-18 20:01:41
  * @Description: 工作区初始化
  */
 
@@ -115,14 +115,11 @@ class EditorWorkspace {
 
   setZoomAuto(scale, cb) {
     const { workspaceEl } = this;
-    const width = workspaceEl.offsetWidth; const
-      height = workspaceEl.offsetHeight;
+    const width = workspaceEl.offsetWidth;
+    const height = workspaceEl.offsetHeight;
     const center = this.canvas.getCenter();
     this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
-    this.canvas.zoomToPoint(
-      new fabric.Point(center.left, center.top),
-      scale,
-    );
+    this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), scale);
     this.canvas.centerObject(this.workspace);
     this.canvas.setWidth(width);
     this.canvas.setHeight(height);
@@ -151,10 +148,7 @@ class EditorWorkspace {
     let zoomRatio = this.canvas.getZoom();
     zoomRatio += 0.05;
     const center = this.canvas.getCenter();
-    this.canvas.zoomToPoint(
-      new fabric.Point(center.left, center.top),
-      zoomRatio,
-    );
+    this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), zoomRatio);
   }
 
   // 缩小
@@ -162,10 +156,7 @@ class EditorWorkspace {
     let zoomRatio = this.canvas.getZoom();
     zoomRatio -= 0.05;
     const center = this.canvas.getCenter();
-    this.canvas.zoomToPoint(
-      new fabric.Point(center.left, center.top),
-      zoomRatio,
-    );
+    this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), zoomRatio);
   }
 
   // 自动缩放
@@ -216,7 +207,7 @@ class EditorWorkspace {
       this.defaultCursor = 'default';
       This.workspace.hoverCursor = 'default';
       this.getObjects().forEach((obj) => {
-        if (obj.id !== 'workspace') {
+        if (obj.id !== 'workspace' && obj.hasControls) {
           obj.selectable = true;
         }
       });

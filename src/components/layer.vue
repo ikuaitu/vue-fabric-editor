@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-09 13:18:41
+ * @LastEditTime: 2023-02-18 19:54:14
  * @Description: 图层面板
 -->
 
@@ -162,8 +162,7 @@ export default {
   width: 100%;
 }
 .layer-box {
-  max-height: 170px;
-  height: auto;
+  height: calc(100vh - 170px);
   overflow-y: auto;
   margin-bottom: 5px;
   .ellipsis {

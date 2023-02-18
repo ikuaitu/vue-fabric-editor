@@ -15,12 +15,6 @@
         <center-align></center-align>
         &nbsp;
         <group></group>
-        &nbsp;
-        <lock></lock>
-        &nbsp;
-        <dele></dele>
-        &nbsp;
-        <clone></clone>
 
         <div style="float: right">
           <save></save>
@@ -41,9 +35,12 @@
             <div>{{ $t("elements") }}</div>
             </MenuItem>
             <MenuItem :name="3" class="menu-item">
-            <Icon type="md-paper-plane" size="24" />
-
-            <div>{{ $t("background") }}</div>
+              <Icon type="md-paper-plane" size="24" />
+              <div>{{ $t("background") }}</div>
+            </MenuItem>
+            <MenuItem :name="4" class="menu-item">
+              <Icon type="md-reorder" size="24" />
+              <div>{{ $t("layers") }}</div>
             </MenuItem>
           </Menu>
           <div class="content">
@@ -61,6 +58,9 @@
               <set-size></set-size>
               <bg-bar></bg-bar>
             </div>
+            <div v-show="menuActive === 4" class="left-panel">
+              <layer ></layer>
+            </div>
           </div>
         </div>
         <!-- 画布区域 -->
@@ -72,17 +72,24 @@
             <mouseMenu></mouseMenu>
           </div>
         </div>
-        <!-- 属性区域 -->
-        <div style="
-            width: 380px;
+        <!-- 属性区域 380-->
+        <div
+          style="
+            width: 530px;
             height: 100%;
             padding: 10px;
             overflow-y: auto;
             background: #fff;
           ">
           <history v-if="show"></history>
+          <div v-if="show" style="padding-top:10px">
+            <lock></lock>
+            &nbsp;
+            <dele></dele>
+            &nbsp;
+            <clone></clone>
+          </div>
           <attribute v-if="show"></attribute>
-          <layer v-if="show"></layer>
         </div>
       </Content>
     </Layout>
@@ -160,6 +167,8 @@ export default {
     canvas.c = this.canvas;
     event.init(canvas.c);
     canvas.editor = new Editor(canvas.c);
+
+    canvas.c.renderAll();
     this.show = true;
     this.$Spin.hide();
   },

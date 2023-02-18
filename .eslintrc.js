@@ -10,10 +10,8 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: [
-    'plugin:vue/essential',
-    '@vue/airbnb',
-  ],
+  // extends: ['plugin:vue/essential', '@vue/airbnb', 'plugin:prettier/recommended'],
+  extends: ['plugin:vue/essential', '@vue/airbnb'],
   parserOptions: {
     parser: '@babel/eslint-parser',
   },
@@ -32,10 +30,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)',
-      ],
+      files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
       env: {
         jest: true,
       },

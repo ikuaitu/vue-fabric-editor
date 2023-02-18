@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:08:21
+ * @LastEditTime: 2023-02-13 22:30:26
  * @Description: 尺寸设置
 -->
 
@@ -34,7 +34,7 @@
 
 <script>
 
-import EditorWorkspace from '@/core/initWorkspace';
+import EditorWorkspace from '@/core/EditorWorkspace';
 
 export default {
   name: 'canvasSize',
