@@ -7,6 +7,11 @@
         &nbsp;
         <import-file></import-file>
         &nbsp;
+        <!-- 颜色开关 -->
+        <iSwitch v-model="ruler" size="large" class="switch">
+          <span slot="open">标尺</span>
+          <span slot="close">标尺</span>
+        </iSwitch>
         <!-- 对齐方式 -->
         <align></align>
         &nbsp;
@@ -23,24 +28,28 @@
       </Header>
       <Content style="display: flex; height: calc(100vh - 64px)">
         <div v-if="show" style="width: 380px; height: 100%; background: #fff; display: flex">
-          <Menu :active-name="menuActive" accordion @on-select="(activeIndex) => (menuActive = activeIndex)"
-            width="65px">
+          <Menu
+            :active-name="menuActive"
+            accordion
+            @on-select="(activeIndex) => (menuActive = activeIndex)"
+            width="65px"
+          >
             <MenuItem :name="1" class="menu-item">
-            <Icon type="md-book" size="24" />
-            <div>{{ $t("templates") }}</div>
+              <Icon type="md-book" size="24" />
+              <div>{{ $t('templates') }}</div>
             </MenuItem>
             <MenuItem :name="2" class="menu-item">
-            <Icon type="md-images" size="24" />
+              <Icon type="md-images" size="24" />
 
-            <div>{{ $t("elements") }}</div>
+              <div>{{ $t('elements') }}</div>
             </MenuItem>
             <MenuItem :name="3" class="menu-item">
               <Icon type="md-paper-plane" size="24" />
-              <div>{{ $t("background") }}</div>
+              <div>{{ $t('background') }}</div>
             </MenuItem>
             <MenuItem :name="4" class="menu-item">
               <Icon type="md-reorder" size="24" />
-              <div>{{ $t("layers") }}</div>
+              <div>{{ $t('layers') }}</div>
             </MenuItem>
           </Menu>
           <div class="content">
@@ -59,7 +68,7 @@
               <bg-bar></bg-bar>
             </div>
             <div v-show="menuActive === 4" class="left-panel">
-              <layer ></layer>
+              <layer></layer>
             </div>
           </div>
         </div>
@@ -68,25 +77,22 @@
           <div class="canvas-box">
             <div class="inside-shadow"></div>
             <!-- 关于js实现 我是用konvajs 的 fabric 还不熟练 api 不过理论上都是监控 mouse 事件 这个应该不难 麻烦你补全一下 -->
-            <div class="coordinates-bar coordinates-bar-top" style="width: 100%"></div>
-            <div class="coordinates-bar coordinates-bar-left" style="height: 100%"></div>
+            <div v-if="ruler" class="coordinates-bar coordinates-bar-top" style="width: 100%"></div>
+            <div
+              v-if="ruler"
+              class="coordinates-bar coordinates-bar-left"
+              style="height: 100%"
+            ></div>
             <!-- class design-stage-point 点状  design-stage-grid 棋盘 -->
-            <canvas id="canvas" class="design-stage-grid"></canvas>
+            <canvas id="canvas" :class="ruler ? 'design-stage-grid' : ''"></canvas>
             <zoom></zoom>
             <mouseMenu></mouseMenu>
           </div>
         </div>
         <!-- 属性区域 380-->
-        <div
-          style="
-            width: 530px;
-            height: 100%;
-            padding: 10px;
-            overflow-y: auto;
-            background: #fff;
-          ">
+        <div style="width: 530px; height: 100%; padding: 10px; overflow-y: auto; background: #fff">
           <history v-if="show"></history>
-          <div v-if="show" style="padding-top:10px">
+          <div v-if="show" style="padding-top: 10px">
             <lock></lock>
             &nbsp;
             <dele></dele>
@@ -102,47 +108,46 @@
 
 <script>
 // 导入元素
-import importJSON from "@/components/importJSON.vue";
-import importFile from "@/components/importFile.vue";
+import importJSON from '@/components/importJSON.vue';
+import importFile from '@/components/importFile.vue';
 
 // 顶部组件
-import align from "@/components/align.vue";
-import centerAlign from "@/components/centerAlign.vue";
-import flip from "@/components/flip.vue";
-import save from "@/components/save.vue";
-import lang from "@/components/lang.vue";
-import clone from "@/components/clone.vue";
-import group from "@/components/group.vue";
-import zoom from "@/components/zoom.vue";
-import lock from "@/components/lock.vue";
-import dele from "@/components/del.vue";
+import align from '@/components/align.vue';
+import centerAlign from '@/components/centerAlign.vue';
+import flip from '@/components/flip.vue';
+import save from '@/components/save.vue';
+import lang from '@/components/lang.vue';
+import clone from '@/components/clone.vue';
+import group from '@/components/group.vue';
+import zoom from '@/components/zoom.vue';
+import lock from '@/components/lock.vue';
+import dele from '@/components/del.vue';
 
 // 左侧组件
-import importTmpl from "@/components/importTmpl.vue";
-import tools from "@/components/tools.vue";
-import svgEl from "@/components/svgEl.vue";
-import bgBar from "@/components/bgBar.vue";
-import setSize from "@/components/setSize.vue";
+import importTmpl from '@/components/importTmpl.vue';
+import tools from '@/components/tools.vue';
+import svgEl from '@/components/svgEl.vue';
+import bgBar from '@/components/bgBar.vue';
+import setSize from '@/components/setSize.vue';
 
 // 右侧组件
-import history from "@/components/history.vue";
-import layer from "@/components/layer.vue";
-import attribute from "@/components/attribute.vue";
+import history from '@/components/history.vue';
+import layer from '@/components/layer.vue';
+import attribute from '@/components/attribute.vue';
 
 // 右键菜单
 import mouseMenu from '@/components/contextMenu/index.vue';
 
-
 // 功能组件
-import EventHandle from "@/utils/eventHandler";
+import EventHandle from '@/utils/eventHandler';
 
-import { fabric } from "fabric";
-import Editor from "@/core";
+import { fabric } from 'fabric';
+import Editor from '@/core';
 
 const event = new EventHandle();
 const canvas = {};
 export default {
-  name: "HomeView",
+  name: 'HomeView',
   provide: {
     canvas,
     fabric,
@@ -153,6 +158,7 @@ export default {
       menuActive: 1,
       show: false,
       select: null,
+      ruler: false,
     };
   },
   components: {
@@ -182,7 +188,7 @@ export default {
     this.$Spin.show();
   },
   mounted() {
-    this.canvas = new fabric.Canvas("canvas", {
+    this.canvas = new fabric.Canvas('canvas', {
       fireRightClick: true, // 启用右键，button的数字为3
       stopContextMenu: true, // 禁止默认右键菜单
       controlsAboveOverlay: true, // 超出clipPath后仍然展示控制条
@@ -193,8 +199,24 @@ export default {
     canvas.editor = new Editor(canvas.c);
 
     canvas.c.renderAll();
+
+    this.bindRuler();
     this.show = true;
     this.$Spin.hide();
+  },
+  methods: {
+    bindRuler() {
+      this.canvas.on('mouse:move', () => {
+        // console.log(el, 111);
+        const dom = document.querySelector('.design-stage-grid');
+        // 通过修改 偏移量 可实现跟随鼠标效果 --size 则为间距
+        if (dom) {
+          // const point = el.pointer;
+          // dom.style.setProperty('--offsetX', `${point.x + e.clientX}px`);
+          // dom.style.setProperty('--offsetY', `${point.y + e.clientY}px`);
+        }
+      });
+    },
   },
 };
 </script>
@@ -205,7 +227,7 @@ export default {
   box-sizing: border-box;
   font-size: 12px;
 
-  &>i {
+  & > i {
     margin: 0;
   }
 }
@@ -276,7 +298,7 @@ export default {
   // dom.style.setProperty('--offsetY', `${point.y + e.clientY}px`)
   --offsetX: 0px;
   --offsetY: 0px;
-  --size: 20px;
+  --size: 16px;
   --color: #dedcdc;
   background-image: linear-gradient(
       45deg,
@@ -292,7 +314,7 @@ export default {
 }
 
 .coordinates-bar {
-  --ruler-size: 23px;
+  --ruler-size: 16px;
   --ruler-c: #808080;
   --rule4-bg-c: #252525;
   --ruler-bdw: 1px;
