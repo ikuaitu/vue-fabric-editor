@@ -355,6 +355,7 @@ export default {
       strokeDashList: [
         {
           value: {
+            strokeUniform: true,
             strokeDashArray: [],
             strokeLineCap: 'butt',
           },
@@ -362,6 +363,7 @@ export default {
         },
         {
           value: {
+            strokeUniform: true,
             strokeDashArray: [1, 10],
             strokeLineCap: 'butt',
           },
@@ -369,6 +371,7 @@ export default {
         },
         {
           value: {
+            strokeUniform: true,
             strokeDashArray: [1, 10],
             strokeLineCap: 'round',
           },
@@ -376,6 +379,7 @@ export default {
         },
         {
           value: {
+            strokeUniform: true,
             strokeDashArray: [15, 15],
             strokeLineCap: 'square',
           },
@@ -383,6 +387,7 @@ export default {
         },
         {
           value: {
+            strokeUniform: true,
             strokeDashArray: [15, 15],
             strokeLineCap: 'round',
           },
@@ -390,6 +395,7 @@ export default {
         },
         {
           value: {
+            strokeUniform: true,
             strokeDashArray: [25, 25],
             strokeLineCap: 'square',
           },
@@ -397,6 +403,7 @@ export default {
         },
         {
           value: {
+            strokeUniform: true,
             strokeDashArray: [25, 25],
             strokeLineCap: 'round',
           },
@@ -404,6 +411,7 @@ export default {
         },
         {
           value: {
+            strokeUniform: true,
             strokeDashArray: [1, 8, 16, 8, 1, 20],
             strokeLineCap: 'square',
           },
@@ -411,6 +419,7 @@ export default {
         },
         {
           value: {
+            strokeUniform: true,
             strokeDashArray: [1, 8, 16, 8, 1, 20],
             strokeLineCap: 'round',
           },
