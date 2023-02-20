@@ -5,6 +5,7 @@
     "size": "Size",
     "width": "Width",
     "height": "Height",
+    "grid": "Grid",
     "common_elements": "Common Elements",
     "draw_elements": "Draw Elements",
     "quick_navigation": "Quick Navigation",
@@ -75,7 +76,6 @@
     "red_book_vertical": "Red Book - V",
     "red_book_horizontal": "Red Book - H",
     "phone_wallpaper": "Phone Wallpaper",
-
     "attributes": {
         "font": "Font",
         "align": "Align",

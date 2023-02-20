@@ -5,6 +5,7 @@
     "size": "尺寸",
     "width": "宽度",
     "height": "高度",
+    "grid": "网格",
     "common_elements": "基础要素",
     "draw_elements": "绘制元素",
     "quick_navigation": "快捷导航",
@@ -75,7 +76,6 @@
     "red_book_vertical": "红书竖版",
     "red_book_horizontal": "红书横版",
     "phone_wallpaper": "手机壁纸",
-
     "attributes": {
         "font": "字体",
         "align": "对齐",
@@ -97,6 +97,4 @@
         "offset_y": "Y轴",
         "picture_filter": "图片滤镜"
     }
-
-
 }
