@@ -445,11 +445,9 @@ export default {
         this.baseAttr.strokeWidth = activeObject.get('strokeWidth');
         this.baseAttr.shadow = activeObject.get('shadow') || {};
         this.baseAttr.angle = activeObject.get('angle') || 0;
-        if (
-          activeObject.type === 'i-text' ||
-          activeObject.type === 'text' ||
-          activeObject.type === 'textbox'
-        ) {
+
+        const textTypes = ['i-text', 'text', 'textbox'];
+        if (textTypes.includes(activeObject.type)) {
           this.fontAttr.fontSize = activeObject.get('fontSize');
           this.fontAttr.fontFamily = activeObject.get('fontFamily');
           this.fontAttr.lineHeight = activeObject.get('lineHeight');
