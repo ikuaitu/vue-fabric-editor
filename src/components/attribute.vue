@@ -186,7 +186,7 @@
           </div>
         </div>
         <div class="flex-item">
-          <span class="label">{{ $t('attributes.stroke') }}</span>
+          <span class="label">{{ $t('width') }}</span>
           <div class="content">
             <InputNumber
               v-model="baseAttr.strokeWidth"
@@ -199,7 +199,7 @@
       </div>
       <div class="flex-view">
         <div class="flex-item">
-          <span class="label">{{ $t('width') }}</span>
+          <span class="label">{{ $t('attributes.stroke') }}</span>
           <div class="content">
             <Select v-model="baseAttr.strokeDashArray" @on-change="borderSet">
               <Option
