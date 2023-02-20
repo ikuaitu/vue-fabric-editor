@@ -2,19 +2,12 @@
   <div class="box" v-if="mSelectMode === 'one'">
     <!-- 字体属性 -->
     <div v-show="textType.includes(mSelectOneType)">
-      <Divider plain orientation="left">{{ $t("attributes.font") }}</Divider>
+      <Divider plain orientation="left">{{ $t('attributes.font') }}</Divider>
       <div class="flex-view">
         <div class="flex-item">
           <div class="left">
-            <Select
-              v-model="fontAttr.fontFamily"
-              @on-change="changeFontFamily"
-            >
-              <Option
-                v-for="item in fontFamilyList"
-                :value="item"
-                :key="'font-' + item"
-              >
+            <Select v-model="fontAttr.fontFamily" @on-change="changeFontFamily">
+              <Option v-for="item in fontFamilyList" :value="item" :key="'font-' + item">
                 {{ item }}
               </Option>
             </Select>
@@ -45,36 +38,39 @@
 
       <div class="flex-view">
         <div class="flex-item">
-          <ButtonGroup >
-            <Button @click="changeFontWeight('fontWeight', fontAttr.fontWeight)"
-              ><svg viewBox="0 0 1024 1024" width="14" height="14">
+          <ButtonGroup>
+            <Button @click="changeFontWeight('fontWeight', fontAttr.fontWeight)">
+              <svg viewBox="0 0 1024 1024" width="14" height="14">
                 <path
                   d="M793.99865 476a244 244 0 0 0 54-130.42C862.75865 192.98 743.01865 64 593.85865 64H195.01865a32 32 0 0 0-32 32v96a32 32 0 0 0 32 32h63.74v576H195.01865a32 32 0 0 0-32 32v96a32 32 0 0 0 32 32h418.64c141.6 0 268.28-103.5 282-244.8 9.48-96.9-32.78-184.12-101.66-239.2zM418.33865 224h175.52a96 96 0 0 1 0 192h-175.52z m175.52 576h-175.52V576h175.52a112 112 0 0 1 0 224z"
                   :fill="fontAttr.fontWeight === 'bold' ? '#305ef4' : '#666'"
-                ></path></svg
-            ></Button>
-            <Button @click="changeFontStyle('fontStyle', fontAttr.fontStyle)"
-              ><svg viewBox="0 0 1024 1024" width="14" height="14">
+                ></path>
+              </svg>
+            </Button>
+            <Button @click="changeFontStyle('fontStyle', fontAttr.fontStyle)">
+              <svg viewBox="0 0 1024 1024" width="14" height="14">
                 <path
                   d="M832 96v64a32 32 0 0 1-32 32h-125.52l-160 640H608a32 32 0 0 1 32 32v64a32 32 0 0 1-32 32H224a32 32 0 0 1-32-32v-64a32 32 0 0 1 32-32h125.52l160-640H416a32 32 0 0 1-32-32V96a32 32 0 0 1 32-32h384a32 32 0 0 1 32 32z"
                   :fill="fontAttr.fontStyle === 'italic' ? '#305ef4' : '#666'"
-                ></path></svg
-            ></Button>
-            <Button
-              @click="changeLineThrough('linethrough', fontAttr.linethrough)"
-              ><svg viewBox="0 0 1024 1024" width="14" height="14">
+                ></path>
+              </svg>
+            </Button>
+            <Button @click="changeLineThrough('linethrough', fontAttr.linethrough)">
+              <svg viewBox="0 0 1024 1024" width="14" height="14">
                 <path
                   d="M893.088 501.792H125.344a32 32 0 0 0 0 64h767.744a32 32 0 0 0 0-64zM448 448h112V208h288V96H160v112h288zM448 640h112v288H448z"
                   :fill="fontAttr.linethrough ? '#305ef4' : '#666'"
-                ></path></svg
-            ></Button>
-            <Button @click="changeUnderline('underline', fontAttr.underline)"
-              ><svg viewBox="0 0 1024 1024" width="14" height="14">
+                ></path>
+              </svg>
+            </Button>
+            <Button @click="changeUnderline('underline', fontAttr.underline)">
+              <svg viewBox="0 0 1024 1024" width="14" height="14">
                 <path
                   d="M703.232 67.008h127.488v413.248c0 158.016-142.656 286.016-318.72 286.016-176 0-318.72-128-318.72-286.016V67.008h127.488v413.248c0 39.872 18.176 78.144 51.136 107.776 36.8 32.96 86.528 51.072 140.096 51.072s103.36-18.112 140.032-51.136c33.024-29.632 51.2-67.968 51.2-107.776V67.008zM193.28 871.616h637.44v85.376H193.28v-85.376z"
                   :fill="fontAttr.underline ? '#305ef4' : '#666'"
-                ></path></svg
-            ></Button>
+                ></path>
+              </svg>
+            </Button>
           </ButtonGroup>
         </div>
       </div>
@@ -88,7 +84,7 @@
 
       <div class="flex-view">
         <div class="flex-item">
-          <span class="label">{{ $t("attributes.line_height") }}</span>
+          <span class="label">{{ $t('attributes.line_height') }}</span>
           <div class="content">
             <InputNumber
               v-model="fontAttr.lineHeight"
@@ -99,7 +95,7 @@
           </div>
         </div>
         <div class="flex-item">
-          <span class="label">{{ $t("attributes.char_spacing") }}</span>
+          <span class="label">{{ $t('attributes.char_spacing') }}</span>
           <div class="content">
             <InputNumber
               v-model="fontAttr.charSpacing"
@@ -112,7 +108,7 @@
 
       <div class="flex-view">
         <div class="flex-item">
-          <span class="label">{{ $t("background") }}</span>
+          <span class="label">{{ $t('background') }}</span>
           <div class="content">
             <ColorPicker
               v-model="fontAttr.textBackgroundColor"
@@ -126,14 +122,12 @@
 
     <!-- 通用属性 -->
     <div v-show="baseType.includes(mSelectOneType)">
-      <Divider plain orientation="left">{{
-        $t("attributes.exterior")
-      }}</Divider>
+      <Divider plain orientation="left">{{ $t('attributes.exterior') }}</Divider>
       <!-- 颜色 -->
       <Color :color="baseAttr.fill" @change="(value) => changeCommon('fill', value)"></Color>
       <div class="flex-view">
         <div class="flex-item">
-          <span class="label">{{ $t("attributes.left") }}</span>
+          <span class="label">{{ $t('attributes.left') }}</span>
           <div class="content">
             <InputNumber
               v-model="baseAttr.left"
@@ -144,7 +138,7 @@
           </div>
         </div>
         <div class="flex-item">
-          <span class="label">{{ $t("attributes.top") }}</span>
+          <span class="label">{{ $t('attributes.top') }}</span>
           <div class="content">
             <InputNumber
               v-model="baseAttr.top"
@@ -156,33 +150,33 @@
         </div>
       </div>
       <div class="flex-view">
-        <div class="flex-item" >
-          <span class="label">{{ $t("attributes.angle") }}</span>
+        <div class="flex-item">
+          <span class="label">{{ $t('attributes.angle') }}</span>
           <div class="content slider-box">
             <Slider
               v-model="baseAttr.angle"
               :max="360"
-              @on-change="(value) => changeCommon('angle', value)"
+              @on-input="(value) => changeCommon('angle', value)"
             ></Slider>
           </div>
         </div>
       </div>
       <div class="flex-view">
-        <div class="flex-item" >
-          <span class="label">{{ $t("attributes.opacity") }}</span>
+        <div class="flex-item">
+          <span class="label">{{ $t('attributes.opacity') }}</span>
           <div class="content slider-box">
             <Slider
               v-model="baseAttr.opacity"
-              @on-change="(value) => changeCommon('opacity', value)"
+              @on-input="(value) => changeCommon('opacity', value)"
             ></Slider>
           </div>
         </div>
       </div>
       <!-- 边框 -->
-      <Divider plain orientation="left">{{ $t("attributes.stroke") }}</Divider>
+      <Divider plain orientation="left">{{ $t('attributes.stroke') }}</Divider>
       <div class="flex-view">
         <div class="flex-item">
-          <span class="label">{{ $t("color") }}</span>
+          <span class="label">{{ $t('color') }}</span>
           <div class="content">
             <ColorPicker
               v-model="baseAttr.stroke"
@@ -192,7 +186,7 @@
           </div>
         </div>
         <div class="flex-item">
-          <span class="label">{{ $t("width") }}</span>
+          <span class="label">{{ $t('attributes.stroke') }}</span>
           <div class="content">
             <InputNumber
               v-model="baseAttr.strokeWidth"
@@ -203,12 +197,28 @@
           </div>
         </div>
       </div>
-
-      <!-- 阴影 -->
-      <Divider plain orientation="left">{{ $t("attributes.shadow") }}</Divider>
       <div class="flex-view">
         <div class="flex-item">
-          <span class="label">{{ $t("color") }}</span>
+          <span class="label">{{ $t('width') }}</span>
+          <div class="content">
+            <Select v-model="baseAttr.strokeDashArray" @on-change="borderSet">
+              <Option
+                v-for="item in strokeDashList"
+                :value="item.label"
+                :key="'stroke-' + item.label"
+              >
+                {{ item.label }}
+              </Option>
+            </Select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 阴影 -->
+      <Divider plain orientation="left">{{ $t('attributes.shadow') }}</Divider>
+      <div class="flex-view">
+        <div class="flex-item">
+          <span class="label">{{ $t('color') }}</span>
           <div class="content">
             <ColorPicker
               v-model="baseAttr.shadow.color"
@@ -218,7 +228,7 @@
           </div>
         </div>
         <div class="flex-item">
-          <span class="label">{{ $t("attributes.blur") }}</span>
+          <span class="label">{{ $t('attributes.blur') }}</span>
           <div class="content">
             <InputNumber
               v-model="baseAttr.shadow.blur"
@@ -230,7 +240,7 @@
       </div>
       <div class="flex-view">
         <div class="flex-item">
-          <span class="label">{{ $t("attributes.offset_x") }}</span>
+          <span class="label">{{ $t('attributes.offset_x') }}</span>
           <div class="content">
             <InputNumber
               v-model="baseAttr.shadow.offsetX"
@@ -240,7 +250,7 @@
           </div>
         </div>
         <div class="flex-item">
-          <span class="label">{{ $t("attributes.offset_y") }}</span>
+          <span class="label">{{ $t('attributes.offset_y') }}</span>
           <div class="content">
             <InputNumber
               v-model="baseAttr.shadow.offsetY"
@@ -254,19 +264,17 @@
 
     <!-- 图片属性 -->
     <div v-show="imgType.includes(mSelectOneType)">
-      <Divider plain orientation="left">{{
-        $t("attributes.picture_filter")
-      }}</Divider>
+      <Divider plain orientation="left">{{ $t('attributes.picture_filter') }}</Divider>
       <div class="flex-view">
-        <div class="flex-item" >
-          <span class="label">{{ $t("attributes.blur") }}</span>
+        <div class="flex-item">
+          <span class="label">{{ $t('attributes.blur') }}</span>
           <div class="content slider-box">
             <Slider
               v-model="imgAttr.blur"
               :max="1"
               :min="0"
               :step="0.1"
-              @on-change="imgBlur"
+              @on-input="imgBlur"
             ></Slider>
           </div>
         </div>
@@ -279,6 +287,7 @@
 import fontList from '@/assets/fonts/font';
 import select from '@/mixins/select';
 import FontFaceObserver from 'fontfaceobserver';
+// import { value } from '_lodash-es@4.17.21@lodash-es';
 import Color from './color.vue';
 
 export default {
@@ -314,6 +323,7 @@ export default {
         left: 0,
         top: 0,
         strokeWidth: 0,
+        strokeDashArray: [],
         stroke: '#fff',
         shadow: {
           color: '#fff',
@@ -342,6 +352,71 @@ export default {
       },
       // 字体下拉列表
       fontFamilyList: fontList.map((item) => item.fontFamily),
+      strokeDashList: [
+        {
+          value: {
+            strokeDashArray: [],
+            strokeLineCap: 'butt',
+          },
+          label: 'Stroke',
+        },
+        {
+          value: {
+            strokeDashArray: [1, 10],
+            strokeLineCap: 'butt',
+          },
+          label: 'Dash-1',
+        },
+        {
+          value: {
+            strokeDashArray: [1, 10],
+            strokeLineCap: 'round',
+          },
+          label: 'Dash-2',
+        },
+        {
+          value: {
+            strokeDashArray: [15, 15],
+            strokeLineCap: 'square',
+          },
+          label: 'Dash-3',
+        },
+        {
+          value: {
+            strokeDashArray: [15, 15],
+            strokeLineCap: 'round',
+          },
+          label: 'Dash-4',
+        },
+        {
+          value: {
+            strokeDashArray: [25, 25],
+            strokeLineCap: 'square',
+          },
+          label: 'Dash-5',
+        },
+        {
+          value: {
+            strokeDashArray: [25, 25],
+            strokeLineCap: 'round',
+          },
+          label: 'Dash-6',
+        },
+        {
+          value: {
+            strokeDashArray: [1, 8, 16, 8, 1, 20],
+            strokeLineCap: 'square',
+          },
+          label: 'Dash-7',
+        },
+        {
+          value: {
+            strokeDashArray: [1, 8, 16, 8, 1, 20],
+            strokeLineCap: 'round',
+          },
+          label: 'Dash-8',
+        },
+      ],
       // 字体对齐方式
       textAlignList: ['left', 'center', 'right'],
       // 对齐图标
@@ -371,9 +446,9 @@ export default {
         this.baseAttr.shadow = activeObject.get('shadow') || {};
         this.baseAttr.angle = activeObject.get('angle') || 0;
         if (
-          activeObject.type === 'i-text'
-          || activeObject.type === 'text'
-          || activeObject.type === 'textbox'
+          activeObject.type === 'i-text' ||
+          activeObject.type === 'text' ||
+          activeObject.type === 'textbox'
         ) {
           this.fontAttr.fontSize = activeObject.get('fontSize');
           this.fontAttr.fontFamily = activeObject.get('fontFamily');
@@ -384,17 +459,13 @@ export default {
           this.fontAttr.charSpacing = activeObject.get('charSpacing');
           this.fontAttr.overline = activeObject.get('overline');
           this.fontAttr.fontStyle = activeObject.get('fontStyle');
-          this.fontAttr.textBackgroundColor = activeObject.get(
-            'textBackgroundColor',
-          );
+          this.fontAttr.textBackgroundColor = activeObject.get('textBackgroundColor');
           this.fontAttr.fontWeight = activeObject.get('fontWeight');
         }
 
         // 图片滤镜
         if (activeObject.type === 'image') {
-          this.imgAttr.blur = activeObject.filters[0]
-            ? activeObject.filters[0].blur
-            : 0;
+          this.imgAttr.blur = activeObject.filters[0] ? activeObject.filters[0].blur : 0;
         }
       }
     });
@@ -456,11 +527,20 @@ export default {
       activeObject && activeObject.set(key, value);
       this.canvas.c.renderAll();
     },
+    // 边框设置
+    borderSet(key) {
+      const activeObject = this.canvas.c.getActiveObjects()[0];
+      console.log(key, activeObject);
+      if (activeObject) {
+        const stroke = this.strokeDashList.find((item) => item.label === key);
+        activeObject.set(stroke.value);
+        this.canvas.c.renderAll();
+      }
+    },
     // 阴影设置
     changeShadow() {
       const activeObject = this.canvas.c.getActiveObjects()[0];
-      activeObject
-        && activeObject.set('shadow', new this.fabric.Shadow(this.baseAttr.shadow));
+      activeObject && activeObject.set('shadow', new this.fabric.Shadow(this.baseAttr.shadow));
       this.canvas.c.renderAll();
     },
     // 加粗
@@ -542,9 +622,9 @@ export default {
   .content {
     width: 60px;
   }
-  .slider-box{
+  .slider-box {
     width: calc(100% - 50px);
-    margin-left:10px;
+    margin-left: 10px;
   }
   .right {
     margin-left: 10px;
@@ -553,14 +633,14 @@ export default {
       width: 100%;
     }
   }
-  /deep/ .ivu-slider-wrap{
+  /deep/ .ivu-slider-wrap {
     margin: 13px 0;
   }
   /deep/ .ivu-radio-group-button .ivu-radio-wrapper {
     width: 48px;
     line-height: 40px;
     text-align: center;
-    svg{
+    svg {
       vertical-align: baseline;
     }
   }

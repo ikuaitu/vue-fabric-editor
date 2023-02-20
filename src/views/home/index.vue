@@ -9,8 +9,8 @@
         &nbsp;
         <!-- 颜色开关 -->
         <iSwitch v-model="ruler" size="large" class="switch">
-          <span slot="open">标尺</span>
-          <span slot="close">标尺</span>
+          <span slot="open">{{ $t('grid') }}</span>
+          <span slot="close">{{ $t('grid') }}</span>
         </iSwitch>
         <!-- 对齐方式 -->
         <align></align>
@@ -200,23 +200,8 @@ export default {
 
     canvas.c.renderAll();
 
-    this.bindRuler();
     this.show = true;
     this.$Spin.hide();
-  },
-  methods: {
-    bindRuler() {
-      this.canvas.on('mouse:move', () => {
-        // console.log(el, 111);
-        const dom = document.querySelector('.design-stage-grid');
-        // 通过修改 偏移量 可实现跟随鼠标效果 --size 则为间距
-        if (dom) {
-          // const point = el.pointer;
-          // dom.style.setProperty('--offsetX', `${point.x + e.clientX}px`);
-          // dom.style.setProperty('--offsetY', `${point.y + e.clientY}px`);
-        }
-      });
-    },
   },
 };
 </script>
@@ -283,7 +268,10 @@ export default {
 .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
   background: none;
 }
-
+// 标尺与网格背景
+.switch {
+  margin-right: 10px;
+}
 .design-stage-point {
   --offsetX: 0px;
   --offsetY: 0px;
