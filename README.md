@@ -108,11 +108,11 @@ export default [...cnList, ...enList]
 
 第二阶段
 - [ ] 替换图片、加载url图片
-- [ ] 渐变配置
+- [x] 渐变配置
 - [ ] 平铺背景、等比例背景
 - [ ] 图片裁剪
 - [ ] 滤镜
-- [ ] 描边 strokeDashArray
+- [x] 描边 strokeDashArray
 
 
 ## License
