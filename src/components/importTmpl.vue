@@ -62,6 +62,7 @@ export default {
   methods: {
     // 插入文件
     insertSvgFile() {
+      if (!this.jsonFile) return;
       this.$Spin.show({
         render: (h) => h('div', this.$t('alert.loading_fonts')),
       });
