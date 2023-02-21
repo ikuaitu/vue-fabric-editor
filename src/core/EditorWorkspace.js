@@ -237,6 +237,23 @@ class EditorWorkspace {
     this.canvas.renderAll();
     this.canvas.requestRenderAll();
   }
+
+  // 加载jsonfile
+  loadJsonFile(jsonFile) {
+    this.canvas.loadFromJSON(jsonFile, () => {
+      let timer = setTimeout(() => {
+        const workspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
+        workspace.set('selectable', false);
+        workspace.set('hasControls', false);
+        // this.canvas.requestRenderAll();
+        this.setSize(workspace.width, workspace.height);
+        this.canvas.renderAll();
+        this.canvas.requestRenderAll();
+        clearTimeout(timer);
+        timer = null;
+      }, 100);
+    });
+  }
 }
 
 export default EditorWorkspace;

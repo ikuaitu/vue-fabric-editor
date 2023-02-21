@@ -47,18 +47,7 @@ export default {
       }
       // 加载字体后导入
       downFontByJSON(this.jsonFile).then(() => {
-        this.canvas.c.loadFromJSON(this.jsonFile, () => {
-          this.canvas.c.renderAll.bind(this.canvas.c);
-          setTimeout(() => {
-            const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
-            workspace.set('selectable', false);
-            workspace.set('hasControls', false);
-            this.canvas.c.requestRenderAll();
-            this.canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
-            this.canvas.c.renderAll();
-            this.canvas.c.requestRenderAll();
-          }, 100);
-        });
+        this.canvas.editor.editorWorkspace.loadJsonFile(this.jsonFile);
       });
     },
     handleUpload(file) {
@@ -73,5 +62,4 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
-</style>
+<style scoped lang="less"></style>

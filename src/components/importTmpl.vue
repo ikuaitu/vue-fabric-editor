@@ -69,20 +69,7 @@ export default {
       downFontByJSON(this.jsonFile)
         .then(() => {
           this.$Spin.hide();
-          this.canvas.c.loadFromJSON(this.jsonFile, () => {
-            this.canvas.c.renderAll.bind(this.canvas.c);
-            let timer = setTimeout(() => {
-              const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
-              workspace.set('selectable', false);
-              workspace.set('hasControls', false);
-              this.canvas.c.requestRenderAll();
-              this.canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
-              this.canvas.c.renderAll();
-              this.canvas.c.requestRenderAll();
-              clearTimeout(timer);
-              timer = null;
-            }, 100);
-          });
+          this.canvas.editor.editorWorkspace.loadJsonFile(this.jsonFile);
         })
         .catch(() => {
           this.$Spin.hide();
