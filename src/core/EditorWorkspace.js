@@ -117,12 +117,12 @@ class EditorWorkspace {
     const { workspaceEl } = this;
     const width = workspaceEl.offsetWidth;
     const height = workspaceEl.offsetHeight;
+    this.canvas.setWidth(width);
+    this.canvas.setHeight(height);
     const center = this.canvas.getCenter();
     this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
     this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), scale);
     this.canvas.centerObject(this.workspace);
-    this.canvas.setWidth(width);
-    this.canvas.setHeight(height);
     this.canvas.renderAll();
 
     // 超出画布不展示
