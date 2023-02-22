@@ -23,6 +23,7 @@ module.exports = {
     'consistent-return': 'off', // 强制统一返回值
     'no-param-reassign': 'off', // 参数重新分配
     'no-underscore-dangle': 'off', // 使用下划线命名
+    'comma-spacing': 'off',
     'vuejs-accessibility/click-events-have-key-events': 'off',
     'max-len': 'off',
     'no-unused-expressions': 'off', // 17
