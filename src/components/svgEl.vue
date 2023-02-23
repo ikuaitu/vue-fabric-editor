@@ -16,7 +16,7 @@
         :key="item"
         v-for="item in getIndex(460, 489)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -28,7 +28,7 @@
         :key="item"
         v-for="item in getIndex(386, 409)"
         @click="addItem"
-        draggable="true"
+        ::draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -40,7 +40,7 @@
         :key="item"
         v-for="item in getIndex(410, 459)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -52,7 +52,7 @@
         :key="item"
         v-for="item in getIndex(40, 49)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -64,7 +64,7 @@
         :key="item"
         v-for="item in getIndex(50, 75)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -76,7 +76,7 @@
         :key="item"
         v-for="item in getIndex(76, 89)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -88,7 +88,7 @@
         :key="item"
         v-for="item in getIndex(89, 136)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -100,7 +100,7 @@
         :key="item"
         v-for="item in getIndex(137, 151)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -112,7 +112,7 @@
         :key="item"
         v-for="item in getIndex(152, 181)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -124,7 +124,7 @@
         :key="item"
         v-for="item in getIndex(182, 201)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -136,7 +136,7 @@
         :key="item"
         v-for="item in getIndex(202, 222)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -148,7 +148,7 @@
         :key="item"
         v-for="item in getIndex(223, 252)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -160,7 +160,7 @@
         :key="item"
         v-for="item in getIndex(253, 261)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -172,7 +172,7 @@
         :key="item"
         v-for="item in getIndex(262, 270)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -184,7 +184,7 @@
         :key="item"
         v-for="item in getIndex(271, 300)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -196,7 +196,7 @@
         :key="item"
         v-for="item in getIndex(301, 350)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -208,7 +208,7 @@
         :key="item"
         v-for="item in getIndex(351, 385)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -221,7 +221,7 @@
         :key="item"
         v-for="item in getIndex(490, 519)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -234,7 +234,7 @@
         :key="item"
         v-for="item in getIndex(0, 39)"
         @click="addItem"
-        draggable="true"
+        :draggable="true"
         @dragend="dragItem(item, $event)"
       />
     </div>
@@ -264,19 +264,29 @@ export default {
       const arr = Array(end - (start - 1)).fill('');
       return arr.map((item, i) => i + start);
     },
+    /* eslint-disable */
     dragItem(item, event) {
       const url = event.target.src;
-      console.log(event, 'event');
+      const { left, top, right, bottom } = this.canvas.c
+        .getSelectionElement()
+        .getBoundingClientRect();
+      if (event.x < left || event.y < top || event.x > right || event.x > bottom) return;
+      const point = {
+        x: event.x - left,
+        y: event.y - top,
+      };
+      const pointerVpt = this.canvas.c.restorePointerVpt(point);
       this.fabric.loadSVGFromURL(url, (objects, options) => {
-        console.log(options, 'options');
-        console.log(objects, 'objects');
-        const svgElement = this.fabric.util.groupSVGElements(objects, {
-          options,
+        const item = this.fabric.util.groupSVGElements(objects, {
+          shadow: '',
+          fontFamily: 'arial',
           id: uuid(),
+          name: 'svg元素',
         });
-        svgElement.top = 0;
-        this.canvas.c.add(svgElement);
-        this.canvas.c.renderAll();
+        item.left = pointerVpt.x - item.width / 2;
+        item.top = pointerVpt.y;
+        this.canvas.c.add(item);
+        this.canvas.c.requestRenderAll();
       });
     },
     // 按照类型渲染
@@ -290,7 +300,7 @@ export default {
           name: 'svg元素',
         });
         this.canvas.c.add(item);
-        this.canvas.c.renderAll();
+        this.canvas.c.requestRenderAll();
       });
     },
   },
