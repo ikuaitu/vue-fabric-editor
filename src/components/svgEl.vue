@@ -270,7 +270,7 @@ export default {
       const { left, top, right, bottom } = this.canvas.c
         .getSelectionElement()
         .getBoundingClientRect();
-      if (event.x < left || event.y < top || event.x > right || event.x > bottom) return;
+      if (event.x < left || event.y < top) return;
       const point = {
         x: event.x - left,
         y: event.y - top,
