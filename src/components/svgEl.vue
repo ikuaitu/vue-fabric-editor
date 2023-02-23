@@ -16,13 +16,8 @@
         :key="item"
         v-for="item in getIndex(460, 489)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
@@ -33,13 +28,8 @@
         :key="item"
         v-for="item in getIndex(386, 409)"
         @click="addItem"
-<<<<<<< HEAD
         ::draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('sports') }}</Divider>
@@ -50,13 +40,8 @@
         :key="item"
         v-for="item in getIndex(410, 459)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('seasons') }}</Divider>
@@ -67,13 +52,8 @@
         :key="item"
         v-for="item in getIndex(40, 49)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('eletronics') }}</Divider>
@@ -84,13 +64,8 @@
         :key="item"
         v-for="item in getIndex(50, 75)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
@@ -101,13 +76,8 @@
         :key="item"
         v-for="item in getIndex(76, 89)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('clothes') }}</Divider>
@@ -118,13 +88,8 @@
         :key="item"
         v-for="item in getIndex(89, 136)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('flags') }}</Divider>
@@ -135,13 +100,8 @@
         :key="item"
         v-for="item in getIndex(137, 151)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('threes') }}</Divider>
@@ -152,13 +112,8 @@
         :key="item"
         v-for="item in getIndex(152, 181)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('food') }}</Divider>
@@ -169,13 +124,8 @@
         :key="item"
         v-for="item in getIndex(182, 201)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('clothes') }}</Divider>
@@ -186,13 +136,8 @@
         :key="item"
         v-for="item in getIndex(202, 222)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('medals') }}</Divider>
@@ -203,13 +148,8 @@
         :key="item"
         v-for="item in getIndex(223, 252)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('business') }}</Divider>
@@ -220,13 +160,8 @@
         :key="item"
         v-for="item in getIndex(253, 261)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('activity') }}</Divider>
@@ -237,13 +172,8 @@
         :key="item"
         v-for="item in getIndex(262, 270)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
@@ -254,13 +184,8 @@
         :key="item"
         v-for="item in getIndex(271, 300)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('vintage') }}</Divider>
@@ -271,13 +196,8 @@
         :key="item"
         v-for="item in getIndex(301, 350)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
     <Divider plain orientation="left">{{ $t('cartoon') }}</Divider>
@@ -288,13 +208,8 @@
         :key="item"
         v-for="item in getIndex(351, 385)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
 
@@ -306,13 +221,8 @@
         :key="item"
         v-for="item in getIndex(490, 519)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
 
@@ -324,13 +234,8 @@
         :key="item"
         v-for="item in getIndex(0, 39)"
         @click="addItem"
-<<<<<<< HEAD
         :draggable="true"
         @dragend="dragItem"
-=======
-        draggable="true"
-        @dragend="dragItem(item, $event)"
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       />
     </div>
   </div>
@@ -359,11 +264,18 @@ export default {
       const arr = Array(end - (start - 1)).fill('');
       return arr.map((item, i) => i + start);
     },
-<<<<<<< HEAD
     dragItem(event) {
       const url = event.target.src;
-      // 会有性能开销 dragAddItem复用更简洁
-      this.fabric.loadSVGFromURL(url, (objects) => {
+      const { left, top, right, bottom } = this.canvas.c
+        .getSelectionElement()
+        .getBoundingClientRect();
+      if (event.x < left || event.y < top) return;
+      const point = {
+        x: event.x - left,
+        y: event.y - top,
+      };
+      const pointerVpt = this.canvas.c.restorePointerVpt(point);
+      this.fabric.loadSVGFromURL(url, (objects, options) => {
         const item = this.fabric.util.groupSVGElements(objects, {
           shadow: '',
           fontFamily: 'arial',
@@ -371,21 +283,6 @@ export default {
           name: 'svg元素',
         });
         this.canvas.editor.dragAddItem(event, item);
-=======
-    dragItem(item, event) {
-      const url = event.target.src;
-      console.log(event, 'event');
-      this.fabric.loadSVGFromURL(url, (objects, options) => {
-        console.log(options, 'options');
-        console.log(objects, 'objects');
-        const svgElement = this.fabric.util.groupSVGElements(objects, {
-          options,
-          id: uuid(),
-        });
-        svgElement.top = 0;
-        this.canvas.c.add(svgElement);
-        this.canvas.c.renderAll();
->>>>>>> 9923b6f (fix(是否在画布区内): 添加元素拖动事件)
       });
     },
     // 按照类型渲染
