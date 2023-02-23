@@ -267,22 +267,24 @@ export default {
     /* eslint-disable */
     dragItem(item, event) {
       const url = event.target.src;
-      const { left, top } = this.canvas.c.getSelectionElement().getBoundingClientRect();
+      const { left, top, right, bottom } = this.canvas.c
+        .getSelectionElement()
+        .getBoundingClientRect();
+      if (event.x < left || event.y < top || event.x > right || event.x > bottom) return;
       const point = {
         x: event.x - left,
         y: event.y - top,
       };
       const pointerVpt = this.canvas.c.restorePointerVpt(point);
-
       this.fabric.loadSVGFromURL(url, (objects, options) => {
         const item = this.fabric.util.groupSVGElements(objects, {
           shadow: '',
           fontFamily: 'arial',
-          left: pointerVpt.x - 300,
-          top: pointerVpt.y,
           id: uuid(),
           name: 'svg元素',
         });
+        item.left = pointerVpt.x - item.width / 2;
+        item.top = pointerVpt.y;
         this.canvas.c.add(item);
         this.canvas.c.requestRenderAll();
       });
