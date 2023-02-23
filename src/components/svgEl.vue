@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:08:24
+ * @LastEditTime: 2023-02-23 23:10:39
  * @Description: 素材面板
 -->
 
@@ -17,7 +17,7 @@
         v-for="item in getIndex(460, 489)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
@@ -29,7 +29,7 @@
         v-for="item in getIndex(386, 409)"
         @click="addItem"
         ::draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('sports') }}</Divider>
@@ -41,7 +41,7 @@
         v-for="item in getIndex(410, 459)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('seasons') }}</Divider>
@@ -53,7 +53,7 @@
         v-for="item in getIndex(40, 49)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('eletronics') }}</Divider>
@@ -65,7 +65,7 @@
         v-for="item in getIndex(50, 75)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
@@ -77,7 +77,7 @@
         v-for="item in getIndex(76, 89)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('clothes') }}</Divider>
@@ -89,7 +89,7 @@
         v-for="item in getIndex(89, 136)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('flags') }}</Divider>
@@ -101,7 +101,7 @@
         v-for="item in getIndex(137, 151)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('threes') }}</Divider>
@@ -113,7 +113,7 @@
         v-for="item in getIndex(152, 181)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('food') }}</Divider>
@@ -125,7 +125,7 @@
         v-for="item in getIndex(182, 201)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('clothes') }}</Divider>
@@ -137,7 +137,7 @@
         v-for="item in getIndex(202, 222)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('medals') }}</Divider>
@@ -149,7 +149,7 @@
         v-for="item in getIndex(223, 252)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('business') }}</Divider>
@@ -161,7 +161,7 @@
         v-for="item in getIndex(253, 261)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('activity') }}</Divider>
@@ -173,7 +173,7 @@
         v-for="item in getIndex(262, 270)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
@@ -185,7 +185,7 @@
         v-for="item in getIndex(271, 300)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('vintage') }}</Divider>
@@ -197,7 +197,7 @@
         v-for="item in getIndex(301, 350)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
     <Divider plain orientation="left">{{ $t('cartoon') }}</Divider>
@@ -209,7 +209,7 @@
         v-for="item in getIndex(351, 385)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
 
@@ -222,7 +222,7 @@
         v-for="item in getIndex(490, 519)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
 
@@ -235,7 +235,7 @@
         v-for="item in getIndex(0, 39)"
         @click="addItem"
         :draggable="true"
-        @dragend="dragItem(item, $event)"
+        @dragend="dragItem"
       />
     </div>
   </div>
@@ -264,29 +264,17 @@ export default {
       const arr = Array(end - (start - 1)).fill('');
       return arr.map((item, i) => i + start);
     },
-    /* eslint-disable */
-    dragItem(item, event) {
+    dragItem(event) {
       const url = event.target.src;
-      const { left, top, right, bottom } = this.canvas.c
-        .getSelectionElement()
-        .getBoundingClientRect();
-      if (event.x < left || event.y < top) return;
-      const point = {
-        x: event.x - left,
-        y: event.y - top,
-      };
-      const pointerVpt = this.canvas.c.restorePointerVpt(point);
-      this.fabric.loadSVGFromURL(url, (objects, options) => {
+      // 会有性能开销 dragAddItem复用更简洁
+      this.fabric.loadSVGFromURL(url, (objects) => {
         const item = this.fabric.util.groupSVGElements(objects, {
           shadow: '',
           fontFamily: 'arial',
           id: uuid(),
           name: 'svg元素',
         });
-        item.left = pointerVpt.x - item.width / 2;
-        item.top = pointerVpt.y;
-        this.canvas.c.add(item);
-        this.canvas.c.requestRenderAll();
+        this.canvas.editor.dragAddItem(event, item);
       });
     },
     // 按照类型渲染
