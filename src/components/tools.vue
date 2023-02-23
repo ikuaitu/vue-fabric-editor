@@ -212,7 +212,6 @@ export default {
           this.addTriangle(dragOption);
           break;
         default:
-          console.log(null);
       }
     },
     addText(option) {
@@ -248,7 +247,6 @@ export default {
         id: uuid(),
       });
       this.canvas.c.add(text);
-      console.log(option);
       if (!option) {
         text.center();
       }

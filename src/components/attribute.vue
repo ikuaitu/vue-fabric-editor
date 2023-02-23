@@ -440,7 +440,6 @@ export default {
     this.event.on('selectCancel', () => {
       this.baseAttr.fill = '';
       this.$forceUpdate();
-      console.log(2222);
     });
     this.event.on('selectOne', () => {
       const activeObject = this.canvas.c.getActiveObjects()[0];

@@ -17,8 +17,7 @@ export default {
   name: 'ToolBar',
   mixins: [select],
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     del() {
@@ -33,5 +32,4 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
-</style>
+<style scoped lang="less"></style>

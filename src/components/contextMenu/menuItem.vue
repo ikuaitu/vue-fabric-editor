@@ -7,13 +7,22 @@
  * @LastEditTime: 2023-02-10 19:00:12
 -->
 <template>
-  <li v-show="show" class="menu-item" :class="{ del: nodeInfo.type === 'delete' }" :data-active="nodeInfo.activeName">{{
-    nodeInfo.text
-  }}
+  <li
+    v-show="show"
+    class="menu-item"
+    :class="{ del: nodeInfo.type === 'delete' }"
+    :data-active="nodeInfo.activeName"
+  >
+    {{ nodeInfo.text }}
     <template v-if="nodeInfo.children && nodeInfo.children.length">
       <span class="icon"></span>
       <ul class="menu-wrap">
-        <menu-item class="childMenu" v-for="child in nodeInfo.children" :key="child.activeName" :nodeInfo="child" />
+        <menu-item
+          class="childMenu"
+          v-for="child in nodeInfo.children"
+          :key="child.activeName"
+          :nodeInfo="child"
+        />
       </ul>
     </template>
     <template v-else>
@@ -92,7 +101,7 @@ export default {
     padding: 8px 0;
     border: 1px solid #e8eaec;
     border-radius: 4px;
-    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, .08);
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.08);
     background: #fff;
   }
 

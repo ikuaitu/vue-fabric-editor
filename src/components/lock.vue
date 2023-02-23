@@ -7,16 +7,22 @@
 -->
 
 <template>
-  <i-switch v-if="mSelectMode === 'one'" v-model="isLock" @on-change="doLock" >
-      <Icon type="md-lock" slot="open"></Icon>
-      <Icon type="md-unlock" slot="close"></Icon>
+  <i-switch v-if="mSelectMode === 'one'" v-model="isLock" @on-change="doLock">
+    <Icon type="md-lock" slot="open"></Icon>
+    <Icon type="md-unlock" slot="close"></Icon>
   </i-switch>
 </template>
 
 <script>
 import select from '@/mixins/select';
 
-const lockAttrs = ['lockMovementX', 'lockMovementY', 'lockRotation', 'lockScalingX', 'lockScalingY'];
+const lockAttrs = [
+  'lockMovementX',
+  'lockMovementY',
+  'lockRotation',
+  'lockScalingX',
+  'lockScalingY',
+];
 export default {
   name: 'ToolBar',
   mixins: [select],

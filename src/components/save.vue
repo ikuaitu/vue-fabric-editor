@@ -10,7 +10,10 @@
   <div class="save-box">
     <Button style="margin-left: 10px" @click="clear">{{ $t('empty') }}</Button>
     <Dropdown style="margin-left: 10px" @on-click="saveWith">
-      <Button type="primary">{{ $t('keep') }} <Icon type="ios-arrow-down"></Icon></Button>
+      <Button type="primary">
+        {{ $t('keep') }}
+        <Icon type="ios-arrow-down"></Icon>
+      </Button>
       <DropdownMenu slot="list">
         <DropdownItem name="clipboard">{{ $t('copy_to_clipboard') }}</DropdownItem>
         <DropdownItem name="saveImg">{{ $t('save_as_picture') }}</DropdownItem>
@@ -29,8 +32,7 @@ export default {
   name: 'saveBar',
   mixins: [select],
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     saveWith(type) {
@@ -38,19 +40,22 @@ export default {
     },
     saveJson() {
       const dataUrl = this.canvas.editor.getJson();
-      const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(dataUrl, null, '\t'))}`;
+      const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
+        JSON.stringify(dataUrl, null, '\t')
+      )}`;
       this.downFile(fileStr, 'json');
     },
     saveSvg() {
       const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
-      const {
-        left, top, width, height,
-      } = workspace;
+      const { left, top, width, height } = workspace;
       const dataUrl = this.canvas.c.toSVG({
         width,
         height,
         viewBox: {
-          x: left, y: top, width, height,
+          x: left,
+          y: top,
+          width,
+          height,
         },
       });
       const fileStr = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(dataUrl)}`;
@@ -58,11 +63,15 @@ export default {
     },
     saveImg() {
       const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
-      const {
-        left, top, width, height,
-      } = workspace;
+      const { left, top, width, height } = workspace;
       const option = {
-        name: 'New Image', format: 'png', quality: 1, left, top, width, height,
+        name: 'New Image',
+        format: 'png',
+        quality: 1,
+        left,
+        top,
+        width,
+        height,
       };
       this.canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
       const dataUrl = this.canvas.c.toDataURL(option);
@@ -94,7 +103,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.save-box{
+.save-box {
   display: inline-block;
   padding-right: 10px;
 }

@@ -7,12 +7,18 @@
 -->
 
 <template>
-    <ButtonGroup size="small" >
-      <!-- 后退 -->
-      <Button @click="undo" :disabled="!list.length"><Icon type="ios-undo" />{{list.length}}</Button>
-      <!-- 重做 -->
-      <Button @click="redo" :disabled="!redoList.length"><Icon type="ios-redo" />{{redoList.length}}</Button>
-    </ButtonGroup>
+  <ButtonGroup size="small">
+    <!-- 后退 -->
+    <Button @click="undo" :disabled="!list.length">
+      <Icon type="ios-undo" />
+      {{ list.length }}
+    </Button>
+    <!-- 重做 -->
+    <Button @click="redo" :disabled="!redoList.length">
+      <Icon type="ios-redo" />
+      {{ redoList.length }}
+    </Button>
+  </ButtonGroup>
 </template>
 
 <script>
@@ -81,8 +87,8 @@ export default {
 
 <style scoped lang="less">
 span.active {
-  svg.icon{
-   fill: #2d8cf0;
+  svg.icon {
+    fill: #2d8cf0;
   }
 }
 </style>
