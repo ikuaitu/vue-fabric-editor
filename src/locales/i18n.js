@@ -6,11 +6,7 @@ import { LANG } from '@/config/constants/app';
 Vue.use(VueI18n);
 
 function loadLocaleMessages() {
-  const locales = require.context(
-    '@/locales/lang/',
-    true,
-    /[A-Za-z0-9-_,\s]+\.json$/i,
-  );
+  const locales = require.context('@/locales/lang/', true, /[A-Za-z0-9-_,\s]+\.json$/i);
   const messages = {};
   locales.keys().forEach((key) => {
     const matched = key.match(/([A-Za-z0-9-_]+)\./i);

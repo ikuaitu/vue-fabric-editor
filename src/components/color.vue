@@ -7,7 +7,6 @@
 -->
 <template>
   <div class="box">
-
     <!-- 颜色开关 -->
     <iSwitch v-model="isGradient" size="large" class="switch">
       <span slot="open">渐变</span>
@@ -18,15 +17,14 @@
     <ColorPicker v-if="!isGradient" v-model="fill" @on-change="changePureColor" alpha />
 
     <!-- 渐变选择器 -->
-    <Poptip v-model="visible" style="width: 100%"  v-if="isGradient">
+    <Poptip v-model="visible" style="width: 100%" v-if="isGradient">
       <div class="gradient-bar" :style="bgStr"></div>
       <div slot="content">
         <newColorPicker
           :isGradient="true"
           :gradient="gradient"
           :onEndChange="changeGradientColor"
-        >
-        </newColorPicker>
+        ></newColorPicker>
       </div>
     </Poptip>
   </div>
@@ -182,7 +180,7 @@ export default {
     },
     // Fabric渐变bar背景设置
     fabricGradientToBar(val) {
-      const str = val.colorStops.map((item) => (`${item.color} ${item.offset * 100}%`));
+      const str = val.colorStops.map((item) => `${item.color} ${item.offset * 100}%`);
       this.bgStr = `background: linear-gradient(124deg, ${str});`;
     },
     // Fabric渐变转css
@@ -191,9 +189,7 @@ export default {
       this.gradient.type = val.type;
       this.gradient.degree = activeObject.get(this.angleKey, val.degree);
       this.gradient.points = val.colorStops.map((item) => {
-        const [red, green, blue, alpha] = item.color
-          .replace(/^rgba?\(|\s+|\)$/g, '')
-          .split(',');
+        const [red, green, blue, alpha] = item.color.replace(/^rgba?\(|\s+|\)$/g, '').split(',');
         return {
           left: item.offset * 100,
           red: Number(red),
@@ -214,7 +210,7 @@ export default {
         activeObject.width,
         activeObject.height,
         val.type,
-        val.degree,
+        val.degree
       );
       return gradient;
     },
@@ -227,7 +223,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import url("vue-color-gradient-picker/dist/index.css");
+@import url('vue-color-gradient-picker/dist/index.css');
 .box {
   padding: 10px 0;
 }
@@ -247,21 +243,22 @@ export default {
 /deep/ .ivu-color-picker {
   display: block;
 }
-/deep/ .ivu-poptip-body{
+/deep/ .ivu-poptip-body {
   padding: 5px;
 }
-/deep/ .ivu-poptip{
+/deep/ .ivu-poptip {
   width: 100%;
-  .ivu-poptip-rel{
+  .ivu-poptip-rel {
     width: 100%;
   }
 }
 
 // 渐变选择器
-/deep/ .ui-color-picker{
-  .picker-area,.gradient-controls,.color-preview-area{
+/deep/ .ui-color-picker {
+  .picker-area,
+  .gradient-controls,
+  .color-preview-area {
     padding: 0;
   }
 }
-
 </style>

@@ -9,8 +9,7 @@ export default {
   name: 'ToolBar',
   mixins: [select],
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     clone() {
@@ -20,5 +19,4 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
-</style>
+<style scoped lang="less"></style>

@@ -7,48 +7,60 @@
 -->
 
 <template>
-<div style="display:inline-block">
-  <Dropdown transfer-class-name="fix" @on-click="insertTypeHand">
+  <div style="display: inline-block">
+    <Dropdown transfer-class-name="fix" @on-click="insertTypeHand">
       <Button size="small">
-        {{ $t('insert') }}<Icon type="ios-arrow-down"></Icon>
+        {{ $t('insert') }}
+        <Icon type="ios-arrow-down"></Icon>
       </Button>
-        <template #list>
-            <DropdownMenu >
-                <DropdownItem name="insertImg">{{ $t('insert_picture') }}</DropdownItem>
-                <DropdownItem name="insert">{{  $t('select_image') }}</DropdownItem>
-            </DropdownMenu>
-        </template>
+      <template #list>
+        <DropdownMenu>
+          <DropdownItem name="insertImg">{{ $t('insert_picture') }}</DropdownItem>
+          <DropdownItem name="insert">{{ $t('select_image') }}</DropdownItem>
+        </DropdownMenu>
+      </template>
     </Dropdown>
     <!-- 插入图片 -->
-  <Modal
+    <Modal
       v-model="showImgModal"
       :title="$t('please_choose')"
       @on-ok="insertImgFile"
-      @on-cancel="showImgModal = false,imgFile = null "
+      @on-cancel="(showImgModal = false), (imgFile = null)"
     >
       <Upload :before-upload="handleUploadImg" action="#">
-        <Button icon="ios-cloud-upload-outline">{{  $t('insert_picture') }}</Button>
+        <Button icon="ios-cloud-upload-outline">{{ $t('insert_picture') }}</Button>
       </Upload>
     </Modal>
-  <!--  插入SVG -->
-  <Modal
-        v-model="showModal"
-        :title="$t('please_choose')"
-        @on-ok="insertSvg"
-        @on-cancel="showModal = false">
-        <RadioGroup v-model="insertType" type="button" button-style="solid" style="padding-bottom:  10px">
-            <Radio label="string">{{ $t('string') }}</Radio>
-            <Radio label="file">{{ $t('file') }}</Radio>
-        </RadioGroup>
-        <!-- 字符串 -->
-        <Input v-if="insertType === 'string'" v-model="svgStr" show-word-limit type="textarea" placeholder="请输入SVG字符" />
-        <!-- 文件 -->
-        <Upload v-if="insertType === 'file'" :before-upload="handleUpload" action="#">
-            <Button icon="ios-cloud-upload-outline">{{ $t('select_svg') }}</Button>
-        </Upload>
+    <!--  插入SVG -->
+    <Modal
+      v-model="showModal"
+      :title="$t('please_choose')"
+      @on-ok="insertSvg"
+      @on-cancel="showModal = false"
+    >
+      <RadioGroup
+        v-model="insertType"
+        type="button"
+        button-style="solid"
+        style="padding-bottom: 10px"
+      >
+        <Radio label="string">{{ $t('string') }}</Radio>
+        <Radio label="file">{{ $t('file') }}</Radio>
+      </RadioGroup>
+      <!-- 字符串 -->
+      <Input
+        v-if="insertType === 'string'"
+        v-model="svgStr"
+        show-word-limit
+        type="textarea"
+        placeholder="请输入SVG字符"
+      />
+      <!-- 文件 -->
+      <Upload v-if="insertType === 'file'" :before-upload="handleUpload" action="#">
+        <Button icon="ios-cloud-upload-outline">{{ $t('select_svg') }}</Button>
+      </Upload>
     </Modal>
-
-</div>
+  </div>
 </template>
 
 <script>
@@ -123,7 +135,11 @@ export default {
     insertSvgStr() {
       const This = this;
       this.fabric.loadSVGFromString(this.svgStr, (objects, options) => {
-        const item = This.fabric.util.groupSVGElements(objects, { ...options, name: 'defaultSVG', id: uuid() });
+        const item = This.fabric.util.groupSVGElements(objects, {
+          ...options,
+          name: 'defaultSVG',
+          id: uuid(),
+        });
         This.canvas.c.add(item).centerObject(item).renderAll();
       });
     },
@@ -131,7 +147,11 @@ export default {
     insertSvgFile() {
       const This = this;
       this.fabric.loadSVGFromURL(this.svgFile, (objects, options) => {
-        const item = This.fabric.util.groupSVGElements(objects, { ...options, name: 'defaultSVG', id: uuid() });
+        const item = This.fabric.util.groupSVGElements(objects, {
+          ...options,
+          name: 'defaultSVG',
+          id: uuid(),
+        });
         This.canvas.c.add(item).centerObject(item).renderAll();
       });
     },
@@ -145,7 +165,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-/deep/ .ivu-select-dropdown{
+/deep/ .ivu-select-dropdown {
   z-index: 999;
 }
 </style>
