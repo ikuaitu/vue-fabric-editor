@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:06:46
+ * @LastEditTime: 2023-02-25 06:25:20
  * @Description: 多元素或单元素对齐方式
 -->
 
 <template>
-  <ButtonGroup size="small">
+  <ButtonGroup size="small" v-if="mSelectMode">
     <!-- 水平集中 -->
     <Button :disabled="!mSelectMode" @click="position('centerH')">
       <svg
@@ -80,7 +80,6 @@ export default {
   data() {
     return {};
   },
-  created() {},
   methods: {
     position(name) {
       this.canvas.editor.centerAlign.position(name);

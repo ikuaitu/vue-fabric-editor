@@ -200,7 +200,7 @@
       <div class="flex-view">
         <div class="flex-item">
           <span class="label">{{ $t('attributes.stroke') }}</span>
-          <div class="content">
+          <div style="flex: 1">
             <Select v-model="baseAttr.strokeDashArray" @on-change="borderSet">
               <Option
                 v-for="item in strokeDashList"

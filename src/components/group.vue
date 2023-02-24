@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-09 13:16:06
+ * @LastEditTime: 2023-02-25 06:40:25
  * @Description: 组合与拆分组合
 -->
 
 <template>
-  <ButtonGroup size="small">
+  <ButtonGroup size="small" v-if="isMultiple || isGroup">
     <!-- 组合按钮 多选时不可用 -->
     <Button :disabled="!isMultiple" @click="group">
       <svg

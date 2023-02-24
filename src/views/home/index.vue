@@ -12,14 +12,6 @@
           <span slot="open">{{ $t('grid') }}</span>
           <span slot="close">{{ $t('grid') }}</span>
         </iSwitch>
-        <!-- 对齐方式 -->
-        <align></align>
-        &nbsp;
-        <flip></flip>
-        &nbsp;
-        <center-align></center-align>
-        &nbsp;
-        <group></group>
 
         <div style="float: right">
           <save></save>
@@ -93,11 +85,22 @@
         <div style="width: 530px; height: 100%; padding: 10px; overflow-y: auto; background: #fff">
           <history v-if="show"></history>
           <div v-if="show" style="padding-top: 10px">
-            <lock></lock>
-            &nbsp;
-            <dele></dele>
-            &nbsp;
-            <clone></clone>
+            <div style="padding-bottom: 10px">
+              <dele></dele>
+              &nbsp;
+              <lock></lock>
+              &nbsp;
+              <clone></clone>
+            </div>
+            <!-- 对齐方式 -->
+            <align></align>
+            <div>
+              <center-align></center-align>
+              &nbsp;
+              <flip></flip>
+              &nbsp;
+              <group></group>
+            </div>
           </div>
           <attribute v-if="show"></attribute>
         </div>

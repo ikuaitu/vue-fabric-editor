@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:07:39
+ * @LastEditTime: 2023-02-25 06:25:02
  * @Description: 元素翻转
 -->
 
 <template>
-  <ButtonGroup size="small">
+  <ButtonGroup size="small" v-if="mSelectMode === 'one'">
     <Button :disabled="notSelectOneMode()" @click="flip('X')">
       <svg
         t="1650443094178"
