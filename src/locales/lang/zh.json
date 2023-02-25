@@ -32,9 +32,18 @@
   "file": "文件",
   "import_files": "导入文件",
   "select_json": "选择JSON文件",
-  "insert": "插入",
-  "insert_picture": "插入图片",
-  "select_image": "插入SVG元素",
+  "insertFile": {
+    "insert": "插入",
+    "insert_picture": "插入图片",
+    "insert_SVG": "插入SVG元素",
+    "insert_SVGStr": "插入SVG字符",
+    "insert_SVGStr_placeholder": "请输入SVG字符串",
+    "modal_tittle": "请输入"
+  },
+  "history": {
+    "revocation": "撤销",
+    "redo": "重做"
+  },
   "upload_background": "上传背景",
   "mouseMenu": {
     "layer": "图层管理",
@@ -82,7 +91,7 @@
     "bold": "加粗:",
     "italic": "斜体:",
     "underline": "下划:",
-    "stroke": "边框:",
+    "stroke": "边框",
     "swipe_up": "上划:",
     "line_height": "行高",
     "char_spacing": "间距",

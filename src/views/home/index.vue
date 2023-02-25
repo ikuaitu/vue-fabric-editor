@@ -2,16 +2,22 @@
   <div class="home">
     <Layout>
       <Header v-if="show">
+        <!-- logo -->
+        <span class="logo">
+          <Icon type="ios-color-wand" :size="30" color="#a3a3a3" />
+        </span>
+
         <!-- 导入 -->
         <import-JSON></import-JSON>
-        &nbsp;
+        <Divider type="vertical" />
         <import-file></import-file>
-        &nbsp;
+        <Divider type="vertical" />
         <!-- 颜色开关 -->
-        <iSwitch v-model="ruler" size="large" class="switch">
-          <span slot="open">{{ $t('grid') }}</span>
-          <span slot="close">{{ $t('grid') }}</span>
-        </iSwitch>
+        <Tooltip :content="$t('grid')">
+          <iSwitch v-model="ruler" size="small" class="switch"></iSwitch>
+        </Tooltip>
+        <Divider type="vertical" />
+        <history></history>
 
         <div style="float: right">
           <save></save>
@@ -35,11 +41,11 @@
 
               <div>{{ $t('elements') }}</div>
             </MenuItem>
-            <MenuItem :name="3" class="menu-item">
+            <!-- <MenuItem :name="3" class="menu-item">
               <Icon type="md-paper-plane" size="24" />
               <div>{{ $t('background') }}</div>
-            </MenuItem>
-            <MenuItem :name="4" class="menu-item">
+            </MenuItem> -->
+            <MenuItem :name="3" class="menu-item">
               <Icon type="md-reorder" size="24" />
               <div>{{ $t('layers') }}</div>
             </MenuItem>
@@ -56,10 +62,6 @@
             </div>
             <!-- 背景设置 -->
             <div v-show="menuActive === 3" class="left-panel">
-              <set-size></set-size>
-              <bg-bar></bg-bar>
-            </div>
-            <div v-show="menuActive === 4" class="left-panel">
               <layer></layer>
             </div>
           </div>
@@ -83,8 +85,9 @@
         </div>
         <!-- 属性区域 380-->
         <div style="width: 530px; height: 100%; padding: 10px; overflow-y: auto; background: #fff">
-          <history v-if="show"></history>
           <div v-if="show" style="padding-top: 10px">
+            <set-size></set-size>
+            <bg-bar></bg-bar>
             <div style="padding-bottom: 10px">
               <dele></dele>
               &nbsp;
@@ -209,6 +212,18 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.logo {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  background: #eff0f2;
+  margin-right: 10px;
+  text-align: center;
+  vertical-align: middle;
+  .ivu-icon {
+    vertical-align: super;
+  }
+}
 .ivu-menu-vertical .menu-item {
   text-align: center;
   padding: 10px 2px;
@@ -221,7 +236,12 @@ export default {
 }
 
 /deep/ .ivu-layout-header {
+  --height: 45px;
   padding: 0 10px;
+  border-bottom: 1px solid #eef2f8;
+  background: #fff;
+  height: var(--height);
+  line-height: var(--height);
 }
 
 .home,

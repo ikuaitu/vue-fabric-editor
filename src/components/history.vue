@@ -2,23 +2,26 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-18 19:01:21
+ * @LastEditTime: 2023-02-25 22:21:54
  * @Description: 回退重做
 -->
 
 <template>
-  <ButtonGroup size="small">
+  <div style="display: inline-block">
     <!-- 后退 -->
-    <Button @click="undo" :disabled="!list.length">
-      <Icon type="ios-undo" />
-      {{ list.length }}
-    </Button>
+    <Tooltip :content="$t('history.revocation') + `(${list.length})`">
+      <Button @click="undo" type="text" size="small" :disabled="!list.length">
+        <Icon type="ios-undo" size="20" />
+      </Button>
+    </Tooltip>
+
     <!-- 重做 -->
-    <Button @click="redo" :disabled="!redoList.length">
-      <Icon type="ios-redo" />
-      {{ redoList.length }}
-    </Button>
-  </ButtonGroup>
+    <Tooltip :content="$t('history.redo') + `(${redoList.length})`">
+      <Button @click="redo" type="text" size="small" :disabled="!redoList.length">
+        <Icon type="ios-redo" size="20" />
+      </Button>
+    </Tooltip>
+  </div>
 </template>
 
 <script>

@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-13 22:30:26
+ * @LastEditTime: 2023-02-25 22:32:18
  * @Description: 尺寸设置
 -->
 
 <template>
-  <div>
+  <div v-if="!mSelectMode">
     <Divider plain orientation="left">{{ $t('size') }}</Divider>
     <Form :label-width="40">
       <FormItem :label="$t('width')" prop="name">
@@ -33,10 +33,12 @@
 </template>
 
 <script>
+import select from '@/mixins/select';
 import EditorWorkspace from '@/core/EditorWorkspace';
 
 export default {
   name: 'canvasSize',
+  mixins: [select],
   inject: ['canvas', 'fabric'],
   data() {
     return {

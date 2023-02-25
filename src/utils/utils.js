@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-05 22:21:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-09 12:59:35
+ * @LastEditTime: 2023-02-25 06:52:11
  * @Description: 工具文件
  */
 
@@ -47,4 +47,31 @@ export function downFontByJSON(str) {
     return font.load(null, 150000);
   });
   return Promise.all(fontFamilysAll);
+}
+
+/**
+ * @description: 选择文件
+ * @param {Object} options accept = '', capture = false, multiple = false
+ * @return {Promise}
+ */
+export function selectFiles(options) {
+  const createInputFile = ({ accept = '', capture = false, multiple = false }) => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = accept;
+    input.capture = capture;
+    input.multiple = multiple;
+    return input;
+  };
+
+  return new Promise((resolve) => {
+    const input = createInputFile(options);
+
+    input.addEventListener('change', () => resolve(input.files || null));
+
+    setTimeout(() => {
+      const event = new MouseEvent('click');
+      input.dispatchEvent(event);
+    }, 0);
+  });
 }

@@ -2,13 +2,15 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-18 19:04:31
+ * @LastEditTime: 2023-02-25 22:09:19
  * @Description: 保存文件
 -->
 
 <template>
   <div class="save-box">
-    <Button style="margin-left: 10px" @click="clear">{{ $t('empty') }}</Button>
+    <Button style="margin-left: 10px" type="text" @click="clear">
+      {{ $t('empty') }}
+    </Button>
     <Dropdown style="margin-left: 10px" @on-click="saveWith">
       <Button type="primary">
         {{ $t('keep') }}
