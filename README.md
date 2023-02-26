@@ -4,7 +4,8 @@
 
 [Demo](https://nihaojob.github.io/vue-fabric-editor/) 基于 fabric.js 和 Vue 的图片编辑器，可自定义字体、素材、设计模板。
 
-![image](https://user-images.githubusercontent.com/13534626/217307204-4e9ca470-33be-4573-b477-9f4de569b0e3.png)
+![image](https://user-images.githubusercontent.com/13534626/221415964-25c1b605-4bf4-4972-b6bc-5487d85f99cc.png)
+
 
 ## 已有功能
 
