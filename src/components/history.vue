@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-25 22:21:54
+ * @LastEditTime: 2023-02-26 19:58:01
  * @Description: 回退重做
 -->
 
@@ -21,6 +21,10 @@
         <Icon type="ios-redo" size="20" />
       </Button>
     </Tooltip>
+
+    <span class="time">
+      {{ time }}
+    </span>
   </div>
 </template>
 
@@ -38,6 +42,7 @@ export default {
       index: 0,
       redoList: [],
       list: [],
+      time: '',
     };
   },
   created() {
@@ -61,6 +66,13 @@ export default {
         this.list.shift();
       }
       this.list.push(data);
+      this.getTime();
+    },
+    getTime() {
+      const myDate = new Date();
+      const str = myDate.toTimeString();
+      const timeStr = str.substring(0, 8);
+      this.time = timeStr;
     },
     // 后退
     undo() {
@@ -93,5 +105,8 @@ span.active {
   svg.icon {
     fill: #2d8cf0;
   }
+}
+.time {
+  color: #c1c1c1;
 }
 </style>
