@@ -40,13 +40,8 @@
             </MenuItem>
             <MenuItem :name="2" class="menu-item">
               <Icon type="md-images" size="24" />
-
               <div>{{ $t('elements') }}</div>
             </MenuItem>
-            <!-- <MenuItem :name="3" class="menu-item">
-              <Icon type="md-paper-plane" size="24" />
-              <div>{{ $t('background') }}</div>
-            </MenuItem> -->
             <MenuItem :name="3" class="menu-item">
               <Icon type="md-reorder" size="24" />
               <div>{{ $t('layers') }}</div>
@@ -90,22 +85,18 @@
           <div v-if="show" style="padding-top: 10px">
             <set-size></set-size>
             <bg-bar></bg-bar>
-            <div style="padding-bottom: 10px">
-              <dele></dele>
-              &nbsp;
+            <group></group>
+            <div class="attr-item">
               <lock></lock>
-              &nbsp;
+              <dele></dele>
               <clone></clone>
             </div>
-            <!-- 对齐方式 -->
+            <!-- 组对齐方式 -->
             <align></align>
-            <div>
-              <center-align></center-align>
-              &nbsp;
-              <flip></flip>
-              &nbsp;
-              <group></group>
-            </div>
+            <!-- 居中对齐 -->
+            <center-align></center-align>
+            <!-- 翻转 -->
+            <flip></flip>
           </div>
           <attribute v-if="show"></attribute>
         </div>
@@ -225,6 +216,24 @@ export default {
     vertical-align: super;
   }
 }
+
+// 属性面板样式
+/deep/ .attr-item {
+  position: relative;
+  margin-bottom: 12px;
+  height: 40px;
+  padding: 0 10px;
+  background: #f6f7f9;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  .ivu-tooltip {
+    text-align: center;
+    flex: 1;
+  }
+}
+
 .ivu-menu-vertical .menu-item {
   text-align: center;
   padding: 10px 2px;

@@ -2,15 +2,15 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-25 06:20:32
+ * @LastEditTime: 2023-02-26 21:06:14
  * @Description: 组合元素对齐
 -->
 
 <template>
-  <div v-if="this.mSelectMode === 'multiple'" class="box">
-    <ButtonGroup size="small">
-      <!-- 水平对齐 -->
-      <Button :disabled="notMultiple()" @click="left">
+  <div v-if="this.mSelectMode === 'multiple'" class="box attr-item">
+    <!-- 水平对齐 -->
+    <Tooltip :content="$t('group_align.left')">
+      <Button :disabled="notMultiple()" @click="left" size="small" type="text">
         <svg
           t="1650442284704"
           class="icon"
@@ -24,7 +24,9 @@
           <path d="M80 24h64v976H80zM198 227h448v190H198zM198 607h746v190H198z" p-id="2346"></path>
         </svg>
       </Button>
-      <Button :disabled="notMultiple()" @click="xcenter">
+    </Tooltip>
+    <Tooltip :content="$t('group_align.centerX')">
+      <Button :disabled="notMultiple()" @click="xcenter" size="small" type="text">
         <svg
           t="1650442754876"
           class="icon"
@@ -42,7 +44,9 @@
           ></path>
         </svg>
       </Button>
-      <Button :disabled="notMultiple()" @click="right">
+    </Tooltip>
+    <Tooltip :content="$t('group_align.right')">
+      <Button :disabled="notMultiple()" @click="right" size="small" type="text">
         <svg
           t="1650442299564"
           class="icon"
@@ -59,8 +63,10 @@
           ></path>
         </svg>
       </Button>
-      <!-- 垂直对齐 -->
-      <Button :disabled="notMultiple()" @click="top">
+    </Tooltip>
+    <!-- 垂直对齐 -->
+    <Tooltip :content="$t('group_align.top')">
+      <Button :disabled="notMultiple()" @click="top" size="small" type="text">
         <svg
           t="1650442692910"
           class="icon"
@@ -78,7 +84,9 @@
           ></path>
         </svg>
       </Button>
-      <Button :disabled="notMultiple()" @click="ycenter">
+    </Tooltip>
+    <Tooltip :content="$t('group_align.centerY')">
+      <Button :disabled="notMultiple()" @click="ycenter" size="small" type="text">
         <svg
           t="1650442732396"
           class="icon"
@@ -96,7 +104,9 @@
           ></path>
         </svg>
       </Button>
-      <Button :disabled="notMultiple()" @click="bottom">
+    </Tooltip>
+    <Tooltip :content="$t('group_align.bottom')">
+      <Button :disabled="notMultiple()" @click="bottom" size="small" type="text">
         <svg
           t="1650442674784"
           class="icon"
@@ -114,8 +124,10 @@
           ></path>
         </svg>
       </Button>
-      <!-- 平均对齐 -->
-      <Button :disabled="notMultiple()" @click="xequation">
+    </Tooltip>
+    <!-- 平均对齐 -->
+    <Tooltip :content="$t('group_align.averageX')">
+      <Button :disabled="notMultiple()" @click="xequation" size="small" type="text">
         <svg
           t="1650442800956"
           class="icon"
@@ -133,7 +145,9 @@
           ></path>
         </svg>
       </Button>
-      <Button :disabled="notMultiple()" @click="yequation">
+    </Tooltip>
+    <Tooltip :content="$t('group_align.averageY')">
+      <Button :disabled="notMultiple()" @click="yequation" size="small" type="text">
         <svg
           t="1650442784286"
           class="icon"
@@ -151,7 +165,7 @@
           ></path>
         </svg>
       </Button>
-    </ButtonGroup>
+    </Tooltip>
   </div>
 </template>
 
@@ -372,7 +386,12 @@ export default {
 
 <style scoped lang="less">
 .box {
-  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  .ivu-tooltip {
+    text-align: center;
+    flex: 1;
+  }
 }
 /deep/ .ivu-btn[disabled] {
   svg {

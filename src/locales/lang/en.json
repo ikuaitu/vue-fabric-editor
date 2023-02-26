@@ -32,6 +32,25 @@
   "file": "file",
   "import_files": "Import files",
   "select_json": "Select JSON",
+  "flip": {
+    "x": "flip x",
+    "y": "flip y"
+  },
+  "center_align": {
+    "centerX": "centerX",
+    "center": "center",
+    "centerY": "centerY"
+  },
+  "group_align": {
+    "left": "left",
+    "centerX": "centerX",
+    "right": "right",
+    "top": "top",
+    "bottom": "bottom",
+    "centerY": "centerY",
+    "averageX": "averageX",
+    "averageY": "averageY"
+  },
   "insert": "Insert",
   "insertFile": {
     "insert": "insert",
