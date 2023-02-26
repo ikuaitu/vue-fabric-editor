@@ -4,7 +4,9 @@
       <Header v-if="show">
         <!-- logo -->
         <span class="logo">
-          <Icon type="ios-color-wand" :size="30" color="#a3a3a3" />
+          <a href="https://github.com/nihaojob/vue-fabric-editor" target="_blank">
+            <Icon type="logo-github" :size="30" />
+          </a>
         </span>
 
         <!-- 导入 -->
@@ -216,7 +218,6 @@ export default {
   width: 30px;
   height: 30px;
   display: inline-block;
-  background: #eff0f2;
   margin-right: 10px;
   text-align: center;
   vertical-align: middle;
