@@ -8,8 +8,8 @@
     </Form>
     <Divider orientation="left" plain>{{ $t('color_macthing') }}</Divider>
     <div class="color-list">
-      <template v-for="(item, i) in colorList">
-        <div :key="item.label + i" class="item">
+      <template v-for="(item, i) in colorList" :key="item.label + i">
+        <div class="item">
           {{ item.label }}:
           <span
             v-for="color in item.color"

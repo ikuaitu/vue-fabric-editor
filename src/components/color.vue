@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-16 22:52:00
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-18 19:31:12
+ * @LastEditTime: 2023-03-07 00:16:59
  * @Description: 颜色选择器
 -->
 <template>
@@ -20,11 +20,12 @@
     <Poptip v-model="visible" style="width: 100%" v-if="isGradient">
       <div class="gradient-bar" :style="bgStr"></div>
       <div slot="content">
-        <newColorPicker
+        <!-- 颜色插件 -->
+        <!-- <newColorPicker
           :isGradient="true"
           :gradient="gradient"
           :onEndChange="changeGradientColor"
-        ></newColorPicker>
+        ></newColorPicker> -->
       </div>
     </Poptip>
   </div>
@@ -32,7 +33,7 @@
 
 <script>
 import select from '@/mixins/select';
-import { ColorPicker } from 'vue-color-gradient-picker';
+// import { ColorPicker } from 'vue-color-gradient-picker';
 import { fabric } from 'fabric';
 
 function generateFabricGradientFromColorStops(handlers, width, height, orientation, angle) {
@@ -94,7 +95,7 @@ export default {
   name: 'ColorBox',
   mixins: [select],
   components: {
-    newColorPicker: { ...ColorPicker },
+    // newColorPicker: { ...ColorPicker },
   },
   props: {
     angleKey: {
@@ -223,7 +224,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import url('vue-color-gradient-picker/dist/index.css');
+// @import url('vue-color-gradient-picker/dist/index.css');
 .box {
   padding: 10px 0;
 }

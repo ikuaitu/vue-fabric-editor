@@ -14,6 +14,14 @@
     "preview:staging": "npm run build:staging && vite preview --mode=staging"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "events": "^3.3.0",
+    "fabric": "^5.2.1",
+    "fontfaceobserver": "^2.1.0",
+    "hotkeys-js": "^3.8.8",
+    "lodash-es": "^4.17.21",
+    "lodash.get": "^4.4.2",
+    "uuid": "^8.3.2",
     "view-ui-plus": "^1.3.1",
     "vue": "^3.2.25",
     "vue-router": "^4.0.16"

@@ -30,6 +30,9 @@ export default {
     });
   },
   methods: {
+    $t() {
+      return '';
+    },
     /**
      * @description: 保存data数据
      * @param {Object} data 房间详情数据
