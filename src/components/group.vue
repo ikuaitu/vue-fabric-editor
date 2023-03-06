@@ -2,14 +2,15 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-09 13:16:06
+ * @LastEditTime: 2023-02-26 21:13:28
  * @Description: 组合与拆分组合
 -->
 
 <template>
-  <ButtonGroup size="small">
+  <div class="attr-item box" v-if="isMultiple || isGroup">
+    <!-- <ButtonGroup size="small" v-if="isMultiple || isGroup"> -->
     <!-- 组合按钮 多选时不可用 -->
-    <Button :disabled="!isMultiple" @click="group">
+    <Button v-if="isMultiple" :disabled="!isMultiple" @click="group" type="text">
       <svg
         t="1650848913991"
         class="icon"
@@ -25,9 +26,10 @@
           p-id="17132"
         ></path>
       </svg>
+      组合
     </Button>
     <!-- 拆分组合按钮，为单选且组元素时可用 -->
-    <Button :disabled="!isGroup" @click="unGroup">
+    <Button v-if="isGroup" :disabled="!isGroup" @click="unGroup" type="text">
       <svg
         t="1650848938557"
         class="icon"
@@ -43,8 +45,10 @@
           p-id="17282"
         ></path>
       </svg>
+      拆分组合
     </Button>
-  </ButtonGroup>
+    <!-- </ButtonGroup> -->
+  </div>
 </template>
 
 <script>
@@ -79,6 +83,15 @@ export default {
 };
 </script>
 <style scoped lang="less">
+.box {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  .ivu-btn {
+    text-align: center;
+    flex: 1;
+  }
+}
 /deep/ .ivu-btn[disabled] {
   svg {
     opacity: 0.2;

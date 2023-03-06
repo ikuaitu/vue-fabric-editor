@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:22:16
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-23 23:25:01
+ * @LastEditTime: 2023-02-26 20:32:50
  * @Description: file content
  */
 module.exports = {
@@ -28,6 +28,7 @@ module.exports = {
     ecmaVersion: 'off',
     'no-unused-expressions': 'off', // 17
     'linebreak-style': 'off',
+    'vuejs-accessibility/anchor-has-content': 'off',
   },
   overrides: [
     {

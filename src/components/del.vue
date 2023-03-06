@@ -2,12 +2,14 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:06:50
+ * @LastEditTime: 2023-02-26 21:39:45
  * @Description: 删除元素按钮
 -->
 
 <template>
-  <Button v-if="mSelectMode" @click="del" icon="ios-trash" size="small"></Button>
+  <Tooltip v-if="mSelectMode" :content="$t('quick.del')">
+    <Button @click="del" icon="ios-trash" type="text"></Button>
+  </Tooltip>
 </template>
 
 <script>

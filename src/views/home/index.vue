@@ -2,24 +2,24 @@
   <div class="home">
     <Layout>
       <Header v-if="show">
+        <!-- logo -->
+        <span class="logo">
+          <a href="https://github.com/nihaojob/vue-fabric-editor" target="_blank">
+            <Icon type="logo-github" :size="30" />
+          </a>
+        </span>
+
         <!-- 导入 -->
         <import-JSON></import-JSON>
-        &nbsp;
+        <Divider type="vertical" />
         <import-file></import-file>
-        &nbsp;
+        <Divider type="vertical" />
         <!-- 颜色开关 -->
-        <iSwitch v-model="ruler" size="large" class="switch">
-          <span slot="open">{{ $t('grid') }}</span>
-          <span slot="close">{{ $t('grid') }}</span>
-        </iSwitch>
-        <!-- 对齐方式 -->
-        <align></align>
-        &nbsp;
-        <flip></flip>
-        &nbsp;
-        <center-align></center-align>
-        &nbsp;
-        <group></group>
+        <Tooltip :content="$t('grid')">
+          <iSwitch v-model="ruler" size="small" class="switch"></iSwitch>
+        </Tooltip>
+        <Divider type="vertical" />
+        <history></history>
 
         <div style="float: right">
           <save></save>
@@ -40,14 +40,9 @@
             </MenuItem>
             <MenuItem :name="2" class="menu-item">
               <Icon type="md-images" size="24" />
-
               <div>{{ $t('elements') }}</div>
             </MenuItem>
             <MenuItem :name="3" class="menu-item">
-              <Icon type="md-paper-plane" size="24" />
-              <div>{{ $t('background') }}</div>
-            </MenuItem>
-            <MenuItem :name="4" class="menu-item">
               <Icon type="md-reorder" size="24" />
               <div>{{ $t('layers') }}</div>
             </MenuItem>
@@ -64,10 +59,6 @@
             </div>
             <!-- 背景设置 -->
             <div v-show="menuActive === 3" class="left-panel">
-              <set-size></set-size>
-              <bg-bar></bg-bar>
-            </div>
-            <div v-show="menuActive === 4" class="left-panel">
               <layer></layer>
             </div>
           </div>
@@ -91,13 +82,21 @@
         </div>
         <!-- 属性区域 380-->
         <div style="width: 530px; height: 100%; padding: 10px; overflow-y: auto; background: #fff">
-          <history v-if="show"></history>
           <div v-if="show" style="padding-top: 10px">
-            <lock></lock>
-            &nbsp;
-            <dele></dele>
-            &nbsp;
-            <clone></clone>
+            <set-size></set-size>
+            <bg-bar></bg-bar>
+            <group></group>
+            <div class="attr-item">
+              <lock></lock>
+              <dele></dele>
+              <clone></clone>
+            </div>
+            <!-- 组对齐方式 -->
+            <align></align>
+            <!-- 居中对齐 -->
+            <center-align></center-align>
+            <!-- 翻转 -->
+            <flip></flip>
           </div>
           <attribute v-if="show"></attribute>
         </div>
@@ -206,6 +205,35 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.logo {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  margin-right: 10px;
+  text-align: center;
+  vertical-align: middle;
+  .ivu-icon {
+    vertical-align: super;
+  }
+}
+
+// 属性面板样式
+/deep/ .attr-item {
+  position: relative;
+  margin-bottom: 12px;
+  height: 40px;
+  padding: 0 10px;
+  background: #f6f7f9;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  .ivu-tooltip {
+    text-align: center;
+    flex: 1;
+  }
+}
+
 .ivu-menu-vertical .menu-item {
   text-align: center;
   padding: 10px 2px;
@@ -218,7 +246,12 @@ export default {
 }
 
 /deep/ .ivu-layout-header {
+  --height: 45px;
   padding: 0 10px;
+  border-bottom: 1px solid #eef2f8;
+  background: #fff;
+  height: var(--height);
+  line-height: var(--height);
 }
 
 .home,

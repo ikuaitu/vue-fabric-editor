@@ -35,6 +35,15 @@
   "insert": "Inserir",
   "insert_picture": "Inserir imagem",
   "select_image": "Selecionar arquivo de imagem",
+  "insertFile": {
+    "remarks": "插入文件",
+    "insert": "insert",
+    "insert_picture": "Insert picture",
+    "insert_SVG": "Insert SVG",
+    "insert_SVGStr": "Insert SVG String",
+    "insert_SVGStr_placeholder": "Please enter SVG String",
+    "modal_tittle": "Please enter"
+  },
   "upload_background": "Carregar plano de fundo",
   "mouseMenu": {
     "layer": "Gestão de camadas",

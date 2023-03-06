@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-23 23:10:39
+ * @LastEditTime: 2023-02-26 21:53:54
  * @Description: 素材面板
 -->
 
@@ -258,7 +258,6 @@ export default {
       arr: [],
     };
   },
-  created() {},
   methods: {
     getIndex(start, end) {
       const arr = Array(end - (start - 1)).fill('');

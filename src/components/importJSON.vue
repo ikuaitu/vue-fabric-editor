@@ -2,52 +2,38 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:08:00
+ * @LastEditTime: 2023-02-26 20:10:36
  * @Description: 导入JSON文件
 -->
 
 <template>
   <div style="display: inline-block">
-    <Button @click="insert" size="small">{{ $t('import_files') }}</Button>
-    <Modal
-      v-model="showModal"
-      :title="$t('please_choose')"
-      @on-ok="insertSvgFile"
-      @on-cancel="(showModal = false), (jsonFile = null)"
-    >
-      <Upload :before-upload="handleUpload" action="#">
-        <Button icon="ios-cloud-upload-outline">{{ $t('select_json') }}</Button>
-      </Upload>
-    </Modal>
+    <Button @click="insert" type="text" size="small">{{ $t('import_files') }}</Button>
   </div>
 </template>
 
 <script>
 import select from '@/mixins/select';
-import { downFontByJSON } from '@/utils/utils';
+import { selectFiles, downFontByJSON } from '@/utils/utils';
 
 export default {
   name: 'ToolBar',
   mixins: [select],
-  data() {
-    return {
-      showModal: false,
-      jsonFile: null,
-    };
-  },
   methods: {
     insert() {
-      this.svg = '';
-      this.showModal = true;
+      selectFiles({ accept: '.json' }).then((files) => {
+        const [file] = files;
+        const reader = new FileReader();
+        reader.readAsText(file, 'UTF-8');
+        reader.onload = () => {
+          this.insertSvgFile(reader.result);
+        };
+      });
     },
-    insertSvgFile() {
-      if (!this.jsonFile) {
-        this.$Message.error(this.$t('alert.select_file'));
-        return;
-      }
+    insertSvgFile(jsonFile) {
       // 加载字体后导入
-      downFontByJSON(this.jsonFile).then(() => {
-        this.canvas.c.loadFromJSON(this.jsonFile, () => {
+      downFontByJSON(jsonFile).then(() => {
+        this.canvas.c.loadFromJSON(jsonFile, () => {
           this.canvas.c.renderAll.bind(this.canvas.c);
           setTimeout(() => {
             const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
@@ -60,14 +46,6 @@ export default {
           }, 100);
         });
       });
-    },
-    handleUpload(file) {
-      const reader = new FileReader();
-      reader.readAsText(file, 'UTF-8');
-      reader.onload = () => {
-        this.jsonFile = reader.result;
-      };
-      return false;
     },
   },
 };

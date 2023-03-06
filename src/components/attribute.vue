@@ -25,6 +25,7 @@
       <div class="flex-view">
         <div class="flex-item">
           <RadioGroup
+            class="button-group"
             v-model="fontAttr.textAlign"
             @on-change="(value) => changeCommon('textAlign', value)"
             type="button"
@@ -38,7 +39,7 @@
 
       <div class="flex-view">
         <div class="flex-item">
-          <ButtonGroup>
+          <ButtonGroup class="button-group">
             <Button @click="changeFontWeight('fontWeight', fontAttr.fontWeight)">
               <svg viewBox="0 0 1024 1024" width="14" height="14">
                 <path
@@ -200,7 +201,7 @@
       <div class="flex-view">
         <div class="flex-item">
           <span class="label">{{ $t('attributes.stroke') }}</span>
-          <div class="content">
+          <div style="flex: 1">
             <Select v-model="baseAttr.strokeDashArray" @on-change="borderSet">
               <Option
                 v-for="item in strokeDashList"
@@ -603,6 +604,15 @@ export default {
 }
 .box {
   width: 100%;
+}
+
+.button-group {
+  display: flex;
+  width: 100%;
+  .ivu-btn,
+  .ivu-radio-wrapper {
+    flex: 1;
+  }
 }
 
 .flex-view {

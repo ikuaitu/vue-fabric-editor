@@ -1,5 +1,7 @@
 <template>
-  <Button v-if="mSelectMode === 'one'" @click="clone" icon="ios-copy" size="small"></Button>
+  <Tooltip v-if="mSelectMode === 'one'" :content="$t('quick.copy')">
+    <Button @click="clone" icon="ios-copy" type="text"></Button>
+  </Tooltip>
 </template>
 
 <script>

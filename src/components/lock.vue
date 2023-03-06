@@ -2,15 +2,15 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-09 12:53:31
+ * @LastEditTime: 2023-02-26 21:38:23
  * @Description: 锁定元素
 -->
 
 <template>
-  <i-switch v-if="mSelectMode === 'one'" v-model="isLock" @on-change="doLock">
-    <Icon type="md-lock" slot="open"></Icon>
-    <Icon type="md-unlock" slot="close"></Icon>
-  </i-switch>
+  <Tooltip :content="$t('quick.lock')" v-if="mSelectMode === 'one'">
+    <Button v-if="isLock" @click="doLock(false)" icon="md-lock" type="text"></Button>
+    <Button v-else @click="doLock(true)" icon="md-unlock" type="text"></Button>
+  </Tooltip>
 </template>
 
 <script>

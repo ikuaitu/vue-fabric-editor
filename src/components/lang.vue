@@ -1,6 +1,6 @@
 <template>
   <Dropdown @on-click="setLang">
-    <Button>
+    <Button type="text">
       {{ lang | langMap }}
       <Icon type="ios-arrow-down"></Icon>
     </Button>
@@ -18,8 +18,8 @@ import { setLocal } from '@/utils/local';
 import { LANG } from '@/config/constants/app';
 
 const LANGMAP = {
-  zh: '简体中文',
-  en: 'English',
+  zh: '中文',
+  en: 'En',
   pt: 'Portugal',
 };
 export default {

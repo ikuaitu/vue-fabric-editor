@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-09 13:18:30
+ * @LastEditTime: 2023-02-26 21:53:40
  * @Description: 导入模板
 -->
 
@@ -15,9 +15,13 @@
       :key="i + '-bai1-button'"
       placement="top"
     >
-      <img class="tmpl-img" :alt="item.label" :src="item.src" @click="getTempData(item.tempUrl)" />
+      <img
+        class="tmpl-img"
+        :alt="item.label"
+        v-lazy="item.src"
+        @click="getTempData(item.tempUrl)"
+      />
     </Tooltip>
-    <!-- <Divider plain orientation="left">形状模板</Divider> -->
   </div>
 </template>
 

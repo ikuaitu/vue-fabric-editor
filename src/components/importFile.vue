@@ -2,69 +2,47 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:07:57
+ * @LastEditTime: 2023-02-25 21:53:19
  * @Description: 插入SVG元素
 -->
 
 <template>
   <div style="display: inline-block">
     <Dropdown transfer-class-name="fix" @on-click="insertTypeHand">
-      <Button size="small">
-        {{ $t('insert') }}
+      <a href="javascript:void(0)">
+        {{ $t('insertFile.insert') }}
         <Icon type="ios-arrow-down"></Icon>
-      </Button>
+      </a>
       <template #list>
         <DropdownMenu>
-          <DropdownItem name="insertImg">{{ $t('insert_picture') }}</DropdownItem>
-          <DropdownItem name="insert">{{ $t('select_image') }}</DropdownItem>
+          <!-- 图片 -->
+          <DropdownItem name="insertImg">{{ $t('insertFile.insert_picture') }}</DropdownItem>
+          <!-- SVG -->
+          <DropdownItem name="insertSvg">{{ $t('insertFile.insert_SVG') }}</DropdownItem>
+          <!-- SVG 字符串 -->
+          <DropdownItem name="insertSvgStrModal">{{ $t('insertFile.insert_SVGStr') }}</DropdownItem>
         </DropdownMenu>
       </template>
     </Dropdown>
-    <!-- 插入图片 -->
-    <Modal
-      v-model="showImgModal"
-      :title="$t('please_choose')"
-      @on-ok="insertImgFile"
-      @on-cancel="(showImgModal = false), (imgFile = null)"
-    >
-      <Upload :before-upload="handleUploadImg" action="#">
-        <Button icon="ios-cloud-upload-outline">{{ $t('insert_picture') }}</Button>
-      </Upload>
-    </Modal>
-    <!--  插入SVG -->
+    <!-- 插入字符串svg元素 -->
     <Modal
       v-model="showModal"
-      :title="$t('please_choose')"
-      @on-ok="insertSvg"
+      :title="$t('insertFile.modal_tittle')"
+      @on-ok="insertSvgStr"
       @on-cancel="showModal = false"
     >
-      <RadioGroup
-        v-model="insertType"
-        type="button"
-        button-style="solid"
-        style="padding-bottom: 10px"
-      >
-        <Radio label="string">{{ $t('string') }}</Radio>
-        <Radio label="file">{{ $t('file') }}</Radio>
-      </RadioGroup>
-      <!-- 字符串 -->
       <Input
-        v-if="insertType === 'string'"
         v-model="svgStr"
         show-word-limit
         type="textarea"
-        placeholder="请输入SVG字符"
+        :placeholder="$t('insertFile.insert_SVGStr_placeholder')"
       />
-      <!-- 文件 -->
-      <Upload v-if="insertType === 'file'" :before-upload="handleUpload" action="#">
-        <Button icon="ios-cloud-upload-outline">{{ $t('select_svg') }}</Button>
-      </Upload>
     </Modal>
   </div>
 </template>
 
 <script>
-import { getImgStr } from '@/utils/utils';
+import { getImgStr, selectFiles } from '@/utils/utils';
 import select from '@/mixins/select';
 import { v4 as uuid } from 'uuid';
 
@@ -73,14 +51,8 @@ export default {
   mixins: [select],
   data() {
     return {
-      // 插入图片
-      showImgModal: false,
-      imgFile: null,
-      // 插入SVG
-      insertType: 'string', // 插入类型 file | string
       showModal: false,
       svgStr: '',
-      svgFile: null,
     };
   },
   methods: {
@@ -89,12 +61,33 @@ export default {
     },
     // 插入图片
     insertImg() {
-      this.imgFile = '';
-      this.showImgModal = true;
+      selectFiles({ accept: 'image/*', multiple: true }).then((fileList) => {
+        Array.from(fileList).forEach((item) => {
+          getImgStr(item).then((file) => {
+            this.insertImgFile(file);
+          });
+        });
+      });
     },
-    insertImgFile() {
+    // 插入Svg
+    insertSvg() {
+      selectFiles({ accept: '.svg', multiple: true }).then((fileList) => {
+        Array.from(fileList).forEach((item) => {
+          getImgStr(item).then((file) => {
+            this.insertSvgFile(file);
+          });
+        });
+      });
+    },
+    // 插入SVG元素
+    insertSvgStrModal() {
+      this.svgStr = '';
+      this.showModal = true;
+    },
+    // 插入图片文件
+    insertImgFile(file) {
       const imgEl = document.createElement('img');
-      imgEl.src = this.imgFile;
+      imgEl.src = file || this.imgFile;
       // 插入页面
       document.body.appendChild(imgEl);
       imgEl.onload = () => {
@@ -113,23 +106,17 @@ export default {
         imgEl.remove();
       };
     },
-    handleUploadImg(file) {
-      getImgStr(file).then((res) => {
-        this.imgFile = res;
+    // 插入文件元素
+    insertSvgFile(svgFile) {
+      const This = this;
+      this.fabric.loadSVGFromURL(svgFile || this.svgFile, (objects, options) => {
+        const item = This.fabric.util.groupSVGElements(objects, {
+          ...options,
+          name: 'defaultSVG',
+          id: uuid(),
+        });
+        This.canvas.c.add(item).centerObject(item).renderAll();
       });
-    },
-    // 插入SVG
-    insert() {
-      this.svgStr = '';
-      this.svgFile = null;
-      this.showModal = true;
-    },
-    insertSvg() {
-      if (this.insertType === 'string') {
-        this.insertSvgStr();
-      } else {
-        this.insertSvgFile();
-      }
     },
     // 插入字符串元素
     insertSvgStr() {
@@ -141,23 +128,6 @@ export default {
           id: uuid(),
         });
         This.canvas.c.add(item).centerObject(item).renderAll();
-      });
-    },
-    // 插入文件元素
-    insertSvgFile() {
-      const This = this;
-      this.fabric.loadSVGFromURL(this.svgFile, (objects, options) => {
-        const item = This.fabric.util.groupSVGElements(objects, {
-          ...options,
-          name: 'defaultSVG',
-          id: uuid(),
-        });
-        This.canvas.c.add(item).centerObject(item).renderAll();
-      });
-    },
-    handleUpload(file) {
-      getImgStr(file).then((res) => {
-        this.svgFile = res;
       });
     },
   },

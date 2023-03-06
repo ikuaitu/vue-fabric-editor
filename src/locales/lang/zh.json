@@ -32,9 +32,42 @@
   "file": "文件",
   "import_files": "导入文件",
   "select_json": "选择JSON文件",
-  "insert": "插入",
-  "insert_picture": "插入图片",
-  "select_image": "插入SVG元素",
+  "quick": {
+    "del": "删除",
+    "copy": "复制",
+    "lock": "锁定"
+  },
+  "flip": {
+    "x": "水平翻转",
+    "y": "垂直翻转"
+  },
+  "center_align": {
+    "centerX": "水平居中",
+    "center": "水平垂直居中",
+    "centerY": "垂直居中"
+  },
+  "group_align": {
+    "left": "左对齐",
+    "centerX": "水平居中对齐",
+    "right": "右对齐",
+    "top": "上对齐",
+    "bottom": "下对齐",
+    "centerY": "垂直居中对齐",
+    "averageX": "水平分布",
+    "averageY": "垂直分布"
+  },
+  "insertFile": {
+    "insert": "插入",
+    "insert_picture": "插入图片",
+    "insert_SVG": "插入SVG元素",
+    "insert_SVGStr": "插入SVG字符",
+    "insert_SVGStr_placeholder": "请输入SVG字符串",
+    "modal_tittle": "请输入"
+  },
+  "history": {
+    "revocation": "撤销",
+    "redo": "重做"
+  },
   "upload_background": "上传背景",
   "mouseMenu": {
     "layer": "图层管理",
@@ -82,7 +115,7 @@
     "bold": "加粗:",
     "italic": "斜体:",
     "underline": "下划:",
-    "stroke": "边框:",
+    "stroke": "边框",
     "swipe_up": "上划:",
     "line_height": "行高",
     "char_spacing": "间距",

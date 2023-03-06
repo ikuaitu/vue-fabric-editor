@@ -32,8 +32,38 @@
   "file": "file",
   "import_files": "Import files",
   "select_json": "Select JSON",
+  "flip": {
+    "x": "flip x",
+    "y": "flip y"
+  },
+  "center_align": {
+    "centerX": "centerX",
+    "center": "center",
+    "centerY": "centerY"
+  },
+  "group_align": {
+    "left": "left",
+    "centerX": "centerX",
+    "right": "right",
+    "top": "top",
+    "bottom": "bottom",
+    "centerY": "centerY",
+    "averageX": "averageX",
+    "averageY": "averageY"
+  },
   "insert": "Insert",
-  "insert_picture": "Insert picture",
+  "insertFile": {
+    "insert": "insert",
+    "insert_picture": "Insert picture",
+    "insert_SVG": "Insert SVG",
+    "insert_SVGStr": "Insert SVG String",
+    "insert_SVGStr_placeholder": "Please enter SVG String",
+    "modal_tittle": "Please enter"
+  },
+  "history": {
+    "revocation": "revocation",
+    "redo": "redo"
+  },
   "select_image": "Select image",
   "upload_background": "Upload background",
   "mouseMenu": {
