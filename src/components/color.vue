@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-16 22:52:00
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-03-07 00:16:59
+ * @LastEditTime: 2023-03-07 22:56:33
  * @Description: 颜色选择器
 -->
 <template>
@@ -33,6 +33,7 @@
 
 <script>
 import select from '@/mixins/select';
+// import { ColorPicker } from '@/lib/index.js';
 // import { ColorPicker } from 'vue-color-gradient-picker';
 import { fabric } from 'fabric';
 

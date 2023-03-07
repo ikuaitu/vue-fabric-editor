@@ -23,7 +23,7 @@
 
         <div style="float: right">
           <save></save>
-          <!-- <lang></lang> -->
+          <lang></lang>
         </div>
       </Header>
       <Content style="display: flex; height: calc(100vh - 64px)">
@@ -115,7 +115,7 @@ import align from '@/components/align.vue';
 import centerAlign from '@/components/centerAlign.vue';
 import flip from '@/components/flip.vue';
 import save from '@/components/save.vue';
-// import lang from '@/components/lang.vue';
+import lang from '@/components/lang.vue';
 import clone from '@/components/clone.vue';
 import group from '@/components/group.vue';
 import zoom from '@/components/zoom.vue';
@@ -171,7 +171,7 @@ export default {
     dele,
     importFile,
     save,
-    // lang,
+    lang,
     importJSON,
     clone,
     flip,
