@@ -42,6 +42,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.9.0",
     "@vue/eslint-config-airbnb": "^6.0.0",
+    "eslint-plugin-vuejs-accessibility": "^1.1.0",
     "husky": "^8.0.0",
     "less": "^4.0.0",
     "less-loader": "^10.2.0",

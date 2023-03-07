@@ -13,4 +13,4 @@ import i18n from './language/index';
 const app = createApp(App);
 // app.config.globalProperties.$http = axios;
 
-app.use(router).use(i18n).use(VueLazyLoad).use(ViewUiPlus).mount('#app');
+app.use(router).use(i18n).use(VueLazyLoad, {}).use(ViewUiPlus).mount('#app');
