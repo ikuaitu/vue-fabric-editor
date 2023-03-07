@@ -15,7 +15,7 @@
 </template>
 
 <script>
-// import { isEmpty, debounce } from 'lodash-es';
+import { isEmpty, debounce } from 'lodash-es';
 import select from '@/mixins/select';
 import menuItem from './menuItem.vue';
 
@@ -115,7 +115,7 @@ export default {
       this.init();
     });
     // 监听点击 隐藏(右键点击外部和fabric右键有冲突，因为点击非canvas只有点击左键才可以隐藏)
-    // window.addEventListener('click', debounce(this.clickHide, 200));
+    window.addEventListener('click', debounce(this.clickHide, 200));
   },
 
   beforeMount() {
@@ -124,11 +124,11 @@ export default {
 
   methods: {
     init() {
-      // if (!isEmpty(this.canvas) && !isEmpty(this.canvas.c)) {
-      //   this.canvas.c.on('mouse:down', this.handleMouseUp);
-      // } else {
-      //   this.hideMenu();
-      // }
+      if (!isEmpty(this.canvas) && !isEmpty(this.canvas.c)) {
+        this.canvas.c.on('mouse:down', this.handleMouseUp);
+      } else {
+        this.hideMenu();
+      }
     },
 
     handleMouseUp(opt) {
@@ -236,6 +236,7 @@ export default {
   top: 0;
   border-radius: 4px;
   visibility: hidden;
+  list-style: none;
   /* 隐藏菜单 */
   z-index: -100;
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.08);
