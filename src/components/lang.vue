@@ -1,14 +1,15 @@
 <template>
-    <Dropdown @on-click="setLang">
-      <Button>{{ lang | langMap }} <Icon type="ios-arrow-down"></Icon></Button>
-      <DropdownMenu slot="list">
-        <DropdownItem
-          v-for="lang in langList"
-          :key="lang.langType"
-          :name="lang.langType"
-        >{{ lang.langName }}</DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+  <Dropdown @on-click="setLang">
+    <Button type="text">
+      {{ lang | langMap }}
+      <Icon type="ios-arrow-down"></Icon>
+    </Button>
+    <DropdownMenu slot="list">
+      <DropdownItem v-for="lang in langList" :key="lang.langType" :name="lang.langType">
+        {{ lang.langName }}
+      </DropdownItem>
+    </DropdownMenu>
+  </Dropdown>
 </template>
 
 <script>
@@ -17,8 +18,8 @@ import { setLocal } from '@/utils/local';
 import { LANG } from '@/config/constants/app';
 
 const LANGMAP = {
-  zh: '简体中文',
-  en: 'English',
+  zh: '中文',
+  en: 'En',
   pt: 'Portugal',
 };
 export default {
@@ -50,5 +51,4 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
-</style>
+<style scoped lang="less"></style>

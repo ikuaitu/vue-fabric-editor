@@ -2,19 +2,19 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-13 22:30:26
+ * @LastEditTime: 2023-02-25 22:32:18
  * @Description: 尺寸设置
 -->
 
 <template>
-  <div>
+  <div v-if="!mSelectMode">
     <Divider plain orientation="left">{{ $t('size') }}</Divider>
     <Form :label-width="40">
       <FormItem :label="$t('width')" prop="name">
-          <InputNumber :max="2000" :min="1" v-model="width" @on-change="setSize" ></InputNumber>
+        <InputNumber :max="2000" :min="1" v-model="width" @on-change="setSize"></InputNumber>
       </FormItem>
       <FormItem :label="$t('height')" prop="name">
-          <InputNumber :max="2000" :min="1" v-model="height" @on-change="setSize" ></InputNumber>
+        <InputNumber :max="2000" :min="1" v-model="height" @on-change="setSize"></InputNumber>
       </FormItem>
     </Form>
     <Divider plain orientation="left">{{ $t('default_size') }}</Divider>
@@ -23,9 +23,9 @@
         v-for="(item, i) in presetSize"
         :key="i + 'presetSize'"
         size="small"
-        style="text-align:left"
+        style="text-align: left"
         @click="setSizeBy(item.width, item.height)"
-        >
+      >
         {{ item.label }}:{{ item.width }}x{{ item.height }}
       </Button>
     </ButtonGroup>
@@ -33,31 +33,33 @@
 </template>
 
 <script>
-
+import select from '@/mixins/select';
 import EditorWorkspace from '@/core/EditorWorkspace';
 
 export default {
   name: 'canvasSize',
+  mixins: [select],
   inject: ['canvas', 'fabric'],
   data() {
     return {
       width: 900,
       height: 1200,
-      presetSize: [{
-        label: this.$t('red_book_vertical'),
-        width: 900,
-        height: 1200,
-      },
-      {
-        label: this.$t('red_book_horizontal'),
-        width: 1200,
-        height: 900,
-      },
-      {
-        label: this.$t('phone_wallpaper'),
-        width: 1080,
-        height: 1920,
-      },
+      presetSize: [
+        {
+          label: this.$t('red_book_vertical'),
+          width: 900,
+          height: 1200,
+        },
+        {
+          label: this.$t('red_book_horizontal'),
+          width: 1200,
+          height: 900,
+        },
+        {
+          label: this.$t('phone_wallpaper'),
+          width: 1080,
+          height: 1920,
+        },
       ],
     };
   },
@@ -82,9 +84,9 @@ export default {
 
 <style scoped lang="less">
 /deep/ .ivu-form-item {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
-/deep/ .ivu-divider-plain.ivu-divider-with-text-left{
+/deep/ .ivu-divider-plain.ivu-divider-with-text-left {
   margin: 10px 0;
   font-weight: bold;
 }

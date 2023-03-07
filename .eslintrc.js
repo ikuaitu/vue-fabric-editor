@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:22:16
- * @LastEditors: June
- * @LastEditTime: 2023-02-10 16:33:35
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-02-26 20:32:50
  * @Description: file content
  */
 module.exports = {
@@ -10,8 +10,7 @@ module.exports = {
   env: {
     node: true,
   },
-  // extends: ['plugin:vue/essential', '@vue/airbnb', 'plugin:prettier/recommended'],
-  extends: ['plugin:vue/essential', '@vue/airbnb'],
+  extends: ['plugin:vue/essential', '@vue/airbnb', 'plugin:prettier/recommended'],
   parserOptions: {
     parser: '@babel/eslint-parser',
   },
@@ -23,10 +22,12 @@ module.exports = {
     'consistent-return': 'off', // 强制统一返回值
     'no-param-reassign': 'off', // 参数重新分配
     'no-underscore-dangle': 'off', // 使用下划线命名
+    'comma-spacing': 'off',
     'vuejs-accessibility/click-events-have-key-events': 'off',
     'max-len': 'off',
     'no-unused-expressions': 'off', // 17
     'linebreak-style': 'off',
+    'vuejs-accessibility/anchor-has-content': 'off',
   },
   overrides: [
     {

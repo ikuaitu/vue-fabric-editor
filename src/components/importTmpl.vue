@@ -2,18 +2,27 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-09 13:18:30
+ * @LastEditTime: 2023-02-26 21:53:40
  * @Description: 导入模板
 -->
 
 <template>
-<div style="display:inline-block">
-  <Divider plain orientation="left">{{ $t('title_template') }}</Divider>
-   <Tooltip :content="item.label"  v-for="(item, i) in  list" :key="i + '-bai1-button'" placement="top">
-     <img class="tmpl-img" :alt="item.label" :src="item.src" @click="getTempData(item.tempUrl)">
-  </Tooltip>
-  <!-- <Divider plain orientation="left">形状模板</Divider> -->
-</div>
+  <div style="display: inline-block">
+    <Divider plain orientation="left">{{ $t('title_template') }}</Divider>
+    <Tooltip
+      :content="item.label"
+      v-for="(item, i) in list"
+      :key="i + '-bai1-button'"
+      placement="top"
+    >
+      <img
+        class="tmpl-img"
+        :alt="item.label"
+        v-lazy="item.src"
+        @click="getTempData(item.tempUrl)"
+      />
+    </Tooltip>
+  </div>
 </template>
 
 <script>
@@ -52,24 +61,26 @@ export default {
         render: (h) => h('div', this.$t('alert.loading_fonts')),
       });
 
-      downFontByJSON(this.jsonFile).then(() => {
-        this.$Spin.hide();
-        this.canvas.c.loadFromJSON(this.jsonFile, () => {
-          this.canvas.c.renderAll.bind(this.canvas.c);
-          setTimeout(() => {
-            const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
-            workspace.set('selectable', false);
-            workspace.set('hasControls', false);
-            this.canvas.c.requestRenderAll();
-            this.canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
-            this.canvas.c.renderAll();
-            this.canvas.c.requestRenderAll();
-          }, 100);
+      downFontByJSON(this.jsonFile)
+        .then(() => {
+          this.$Spin.hide();
+          this.canvas.c.loadFromJSON(this.jsonFile, () => {
+            this.canvas.c.renderAll.bind(this.canvas.c);
+            setTimeout(() => {
+              const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
+              workspace.set('selectable', false);
+              workspace.set('hasControls', false);
+              this.canvas.c.requestRenderAll();
+              this.canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
+              this.canvas.c.renderAll();
+              this.canvas.c.requestRenderAll();
+            }, 100);
+          });
+        })
+        .catch(() => {
+          this.$Spin.hide();
+          this.$Message.error(this.$t('alert.loading_fonts_failed'));
         });
-      }).catch(() => {
-        this.$Spin.hide();
-        this.$Message.error(this.$t('alert.loading_fonts_failed'));
-      });
     },
     // 获取模板数据
     getTempData(tmplUrl) {
@@ -87,7 +98,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.tmpl-img{
+.tmpl-img {
   width: 94px;
   cursor: pointer;
   margin-right: 5px;

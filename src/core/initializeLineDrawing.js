@@ -13,9 +13,12 @@ import { fabric } from 'fabric';
 import Arrow from '@/core/objects/Arrow';
 
 function initializeLineDrawing(canvas, defaultPosition) {
-  let isDrawingLine = false; let isDrawingLineMode = false; let isArrow = false;
-  let lineToDraw; let pointer; let
-    pointerPoints;
+  let isDrawingLine = false;
+  let isDrawingLineMode = false;
+  let isArrow = false;
+  let lineToDraw;
+  let pointer;
+  let pointerPoints;
   canvas.on('mouse:down', (o) => {
     if (!isDrawingLineMode) return;
 
@@ -49,11 +52,11 @@ function initializeLineDrawing(canvas, defaultPosition) {
       const x2 = pointer.x - startX;
       const y2 = pointer.y - startY;
       const r = Math.sqrt(x2 * x2 + y2 * y2);
-      let angle = (Math.atan2(y2, x2) / Math.PI * 180);
+      let angle = (Math.atan2(y2, x2) / Math.PI) * 180;
       angle = parseInt(((angle + 7.5) % 360) / 15) * 15;
 
-      const cosx = r * Math.cos(angle * Math.PI / 180);
-      const sinx = r * Math.sin(angle * Math.PI / 180);
+      const cosx = r * Math.cos((angle * Math.PI) / 180);
+      const sinx = r * Math.sin((angle * Math.PI) / 180);
 
       lineToDraw.set({
         x2: cosx + startX,

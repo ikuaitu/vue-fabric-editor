@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-18 19:00:43
+ * @LastEditTime: 2023-02-23 23:08:29
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -52,9 +52,12 @@ class Editor extends EventEmitter {
   unGroup() {
     // 先获取当前选中的对象，然后打散
     this.canvas.getActiveObject().toActiveSelection();
-    this.canvas.getActiveObject().getObjects().forEach((item) => {
-      item.set('id', uuid());
-    });
+    this.canvas
+      .getActiveObject()
+      .getObjects()
+      .forEach((item) => {
+        item.set('id', uuid());
+      });
     this.canvas.discardActiveObject().renderAll();
   }
 
@@ -125,7 +128,27 @@ class Editor extends EventEmitter {
   }
 
   getJson() {
-    return this.canvas.toJSON(['id', 'gradientAngle']);
+    return this.canvas.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls']);
+  }
+
+  /**
+   * @description: 拖拽添加到画布
+   * @param {Event} event
+   * @param {Object} item
+   */
+  dragAddItem(event, item) {
+    const { left, top } = this.canvas.getSelectionElement().getBoundingClientRect();
+    if (event.x < left || event.y < top) return;
+
+    const point = {
+      x: event.x - left,
+      y: event.y - top,
+    };
+    const pointerVpt = this.canvas.restorePointerVpt(point);
+    item.left = pointerVpt.x - item.width / 2;
+    item.top = pointerVpt.y;
+    this.canvas.add(item);
+    this.canvas.requestRenderAll();
   }
 }
 

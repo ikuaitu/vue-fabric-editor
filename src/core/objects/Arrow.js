@@ -12,9 +12,7 @@ const Arrow = fabric.util.createClass(fabric.Line, {
   superType: 'drawing',
   initialize(points, options) {
     if (!points) {
-      const {
-        x1, x2, y1, y2,
-      } = options;
+      const { x1, x2, y1, y2 } = options;
       points = [x1, y1, x2, y2];
     }
     options = options || {};
@@ -41,9 +39,7 @@ const Arrow = fabric.util.createClass(fabric.Line, {
 });
 
 Arrow.fromObject = (options, callback) => {
-  const {
-    x1, x2, y1, y2,
-  } = options;
+  const { x1, x2, y1, y2 } = options;
   return callback(new Arrow([x1, y1, x2, y2], options));
 };
 

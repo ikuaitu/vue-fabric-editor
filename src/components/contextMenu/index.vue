@@ -1,10 +1,15 @@
 <template>
-  <ul ref="mouseMenuRef" class="menu-wrap" :style="{
-    visibility: show,
-    left: left,
-    top: top,
-    zIndex: zIndex,
-  }" @click="handleMenu">
+  <ul
+    ref="mouseMenuRef"
+    class="menu-wrap"
+    :style="{
+      visibility: show,
+      left: left,
+      top: top,
+      zIndex: zIndex,
+    }"
+    @click="handleMenu"
+  >
     <menu-item v-for="menu in menuList" :key="menu.activeName" :nodeInfo="menu" />
   </ul>
 </template>
@@ -15,7 +20,7 @@ import select from '@/mixins/select';
 import menuItem from './menuItem.vue';
 
 const canvasDom = document.getElementById('canvas') || null;
-export default ({
+export default {
   name: 'mouseMenu',
   inject: ['canvas', 'fabric'],
   mixins: [select],
@@ -26,7 +31,8 @@ export default ({
       top: 0,
       zIndex: -100,
       menu: null,
-      menuList: [ // 菜单
+      menuList: [
+        // 菜单
         {
           type: 'copy',
           activeName: 'copy',
@@ -95,11 +101,11 @@ export default ({
   computed: {
     // 单选且等于组元素
     isGroup() {
-      return (this.mSelectMode === 'one' && this.mSelectOneType === 'group');
+      return this.mSelectMode === 'one' && this.mSelectOneType === 'group';
     },
     // 是否为多选
     isMultiple() {
-      return (this.mSelectMode === 'multiple');
+      return this.mSelectMode === 'multiple';
     },
   },
   mounted() {
@@ -172,7 +178,7 @@ export default ({
     },
 
     clickHide(e) {
-      if ((e.target !== canvasDom) && (this.show === 'visible')) {
+      if (e.target !== canvasDom && this.show === 'visible') {
         this.hideMenu();
       }
     },
@@ -217,10 +223,10 @@ export default ({
       this.hideMenu();
     },
   },
-});
+};
 </script>
 
-<style lang='less' scoped>
+<style lang="less" scoped>
 .menu-wrap {
   width: 196px;
   padding: 8px 0;
@@ -232,10 +238,10 @@ export default ({
   visibility: hidden;
   /* 隐藏菜单 */
   z-index: -100;
-  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, .08);
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.08);
   background: #fff;
 
-  &>li {
+  & > li {
     color: #33383e;
     cursor: pointer;
     padding: 6px 10px;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!mSelectMode">
     <Divider orientation="left" plain>{{ $t('color') }}</Divider>
     <Form :label-width="40">
       <FormItem :label="$t('color')" prop="name">
@@ -25,10 +25,12 @@
 
 <script>
 // import { getImgStr } from '@/utils/utils';
+import select from '@/mixins/select';
 
 export default {
   name: 'bgBar',
   inject: ['canvas', 'fabric'],
+  mixins: [select],
   data() {
     return {
       showModal: false,

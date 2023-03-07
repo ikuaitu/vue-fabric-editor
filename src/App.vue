@@ -5,7 +5,8 @@
 </template>
 
 <style lang="less">
-ul, li {
+ul,
+li {
   list-style: none;
 }
 svg {
