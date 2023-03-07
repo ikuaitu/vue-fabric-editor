@@ -4,6 +4,7 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 const autoprefixer = require('autoprefixer');
 const path = require('path');
+import eslintPlugin from 'vite-plugin-eslint'; //导入包
 
 const config = ({ mode }) => {
   const isProd = mode === 'production';
@@ -13,6 +14,10 @@ const config = ({ mode }) => {
     base: isProd ? '/vue-fabric-editor/' : '/',
     plugins: [
       vue(),
+      // 增加下面的配置项,这样在运行时就能检查eslint规范
+      eslintPlugin({
+        include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
+      }),
       vueJsx({
         // options are passed on to @vue/babel-plugin-jsx
       }),
