@@ -15,9 +15,9 @@ const config = ({ mode }) => {
     plugins: [
       vue(),
       // 增加下面的配置项,这样在运行时就能检查eslint规范
-      eslintPlugin({
-        include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
-      }),
+      // eslintPlugin({
+      //   include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
+      // }),
       vueJsx({
         // options are passed on to @vue/babel-plugin-jsx
       }),
