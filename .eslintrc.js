@@ -1,27 +1,28 @@
-/*
- * @Author: 秦少卫
- * @Date: 2022-09-03 19:22:16
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-03-08 00:07:26
- * @Description: file content
- */
 module.exports = {
-  root: true,
   env: {
     browser: true,
+    es2021: true,
     node: true,
   },
-  extends: ['plugin:vue/essential', '@vue/airbnb', 'plugin:prettier/recommended'],
-  // extends: ['plugin:prettier/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/vue3-essential',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    parser: '@babel/eslint-parser',
+    ecmaVersion: 'latest',
+    parser: '@typescript-eslint/parser',
     sourceType: 'module',
-    ecmaVersion: 2015,
   },
+  plugins: ['vue', '@typescript-eslint'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-plusplus': 'off',
+    '@typescript-eslint/no-this-alias': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
     'import/no-unresolved': 'off',
     'vuejs-accessibility/form-control-has-label': 'off',
     'consistent-return': 'off', // 强制统一返回值

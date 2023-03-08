@@ -204,7 +204,6 @@ export default {
   },
 };
 </script>
-
 <style lang="less" scoped>
 .logo {
   width: 30px;

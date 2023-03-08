@@ -27,11 +27,10 @@
     "vue": "^3.2.25",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.0.16",
+    "vue3-clipboard": "^1.0.0",
     "vue3-lazyload": "^0.3.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
     "@types/fabric": "^4.5.15",
@@ -42,8 +41,8 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.9.0",
-    "@vue/eslint-config-airbnb": "^6.0.0",
-    "eslint-plugin-vuejs-accessibility": "^1.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
     "husky": "^8.0.0",
     "less": "^4.0.0",
     "less-loader": "^10.2.0",

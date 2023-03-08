@@ -2,15 +2,19 @@
  * @Author: 秦少卫
  * @Date: 2023-02-16 22:52:00
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-03-07 22:56:33
+ * @LastEditTime: 2023-03-08 23:57:50
  * @Description: 颜色选择器
 -->
 <template>
   <div class="box">
     <!-- 颜色开关 -->
     <iSwitch v-model="isGradient" size="large" class="switch">
-      <span slot="open">渐变</span>
-      <span slot="close">纯色</span>
+      <template #open>
+        <span>渐变</span>
+      </template>
+      <template #close>
+        <span>纯色</span>
+      </template>
     </iSwitch>
 
     <!-- 颜色选择器 -->
@@ -19,14 +23,14 @@
     <!-- 渐变选择器 -->
     <Poptip v-model="visible" style="width: 100%" v-if="isGradient">
       <div class="gradient-bar" :style="bgStr"></div>
-      <div slot="content">
+      <template #content>
         <!-- 颜色插件 -->
         <!-- <newColorPicker
           :isGradient="true"
           :gradient="gradient"
           :onEndChange="changeGradientColor"
         ></newColorPicker> -->
-      </div>
+      </template>
     </Poptip>
   </div>
 </template>
