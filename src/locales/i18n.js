@@ -2,20 +2,38 @@ import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import { getLocal, setLocal } from '@/utils/local';
 import { LANG } from '@/config/constants/app';
+import { langList, messageCollection } from '@/locales/lang';
+import { reduce } from 'lodash-es';
 
 Vue.use(VueI18n);
 
 function loadLocaleMessages() {
-  const locales = require.context('@/locales/lang/', true, /[A-Za-z0-9-_,\s]+\.json$/i);
-  const messages = {};
-  locales.keys().forEach((key) => {
-    const matched = key.match(/([A-Za-z0-9-_]+)\./i);
-    if (matched && matched.length > 1) {
-      const locale = matched[1];
-      messages[locale] = locales(key);
-    }
+  const res = {};
+
+  /**
+   * 寻找语言合集中，对应的语言
+   * @param name 语言名字
+   * @param target
+   * @return {*}
+   */
+  function findLang(name, target) {
+    const collector = (acc, value, key) => {
+      const groupItem = value && value[name];
+      // 是语言对象
+      if (groupItem) {
+        acc[key] = groupItem;
+      } else if (typeof value === 'object') {
+        acc[key] = findLang(name, value);
+      }
+      return acc;
+    };
+    return reduce(target, collector, {});
+  }
+
+  langList.forEach((langName) => {
+    res[langName] = findLang(langName, messageCollection);
   });
-  return messages;
+  return res;
 }
 
 function getLocalLang() {
@@ -32,8 +50,9 @@ function getLocalLang() {
   }
   return localLang;
 }
+
 const lang = getLocalLang();
-console.log(lang);
+console.log(`language: ${lang}`);
 export default new VueI18n({
   locale: lang,
   fallbackLocale: lang,
