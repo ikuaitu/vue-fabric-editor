@@ -118,6 +118,10 @@ export default [...cnList, ...enList];
 - [ ] 滤镜
 - [x] 描边 strokeDashArray
 
+## 致谢
+
+- [color-gradient-picker-vue3](https://github.com/Qiu-Jun/color-gradient-picker-vue3) 一个 vue3 版本的渐变组件。
+
 ## License
 
 Licensed under the MIT License.
