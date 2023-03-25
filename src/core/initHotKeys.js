@@ -1,15 +1,15 @@
 /*
  * @Author: 秦少卫
  * @Date: 2022-12-07 23:50:05
- * @LastEditors: June
- * @LastEditTime: 2023-02-10 16:37:36
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-03-07 00:17:37
  * @Description: 快捷键功能
  */
 
 import hotkeys from 'hotkeys-js';
 // import { cloneDeep } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
-import { Message } from 'view-design';
+// import { Message } from 'view-design';
 
 const keyNames = {
   lrdu: 'left,right,down,up', // 左右上下
@@ -35,12 +35,12 @@ function copyElement(canvas) {
         id: uuid(),
       });
       copyEl = _copyEl;
-      Message.success('复制成功');
+      // Message.success('复制成功');
     });
   });
   // 粘贴
   hotkeys(keyNames.ctrlv, () => {
-    if (!copyEl) return Message.warning('暂无复制内容');
+    // if (!copyEl) return Message.warning('暂无复制内容');
     canvas.add(copyEl);
     canvas.setActiveObject(copyEl);
   });

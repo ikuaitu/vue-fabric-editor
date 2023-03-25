@@ -6,7 +6,6 @@
 
 ![image](https://user-images.githubusercontent.com/13534626/221415964-25c1b605-4bf4-4972-b6bc-5487d85f99cc.png)
 
-
 ## 已有功能
 
 - 导入 JSON 文件
@@ -90,9 +89,9 @@ export default [...cnList, ...enList];
 
 注：如果遇到技术问题，期望使用 issue 讨论，它更加开放与透明，足够多的信息会让解决问题变得更高效，参考[提问的智慧](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md#%E6%8F%90%E9%97%AE%E7%9A%84%E6%99%BA%E6%85%A7)。
 
-这是我发表在掘金社区的一篇技术笔记，会有更多的细节，[使用 fabric.js 快速开发一个图片编辑器](https://juejin.cn/post/7155040639497797645)。
+这是我发表在掘金社区的一篇技术笔记，会有更多的细节，[使用 fabric.js 快速开发一个图片编辑器](https://juejin.cn/post/7155040639497797645)，在[讨论区](https://github.com/nihaojob/vue-fabric-editor/discussions)里有更多的编辑器选型、入门内容、常见问题、微信群内的有效讨论记录等内容。
 
-目前有很多需要做的工作，比如英文文档的搭建、渐变的配置功能等，欢迎与我联系，我愿意与你进行任何问题的交流，微信：13146890191。期待你的 issue 和 PR。
+目前有很多需要做的工作，比如英文文档的搭建、渐变的配置功能等，欢迎与我联系，我愿意与你进行任何问题的交流，微信：13146890191。期待你的 issue 和 PR 。
 
 ## 规划
 
@@ -118,6 +117,11 @@ export default [...cnList, ...enList];
 - [ ] 图片裁剪
 - [ ] 滤镜
 - [x] 描边 strokeDashArray
+
+## 致谢
+
+- [color-gradient-picker-vue3](https://github.com/Qiu-Jun/color-gradient-picker-vue3) 一个 vue3 版本的渐变组件，作者[Qiu-Jun
+  ](https://github.com/Qiu-Jun)。
 
 ## License
 

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-26 21:53:40
+ * @LastEditTime: 2023-03-07 00:58:42
  * @Description: 导入模板
 -->
 
@@ -28,6 +28,7 @@
 <script>
 import select from '@/mixins/select';
 import { downFontByJSON } from '@/utils/utils';
+import axios from 'axios';
 
 export default {
   name: 'ToolBar',
@@ -87,7 +88,7 @@ export default {
       this.$Spin.show({
         render: (h) => h('div', this.$t('alert.loading_data')),
       });
-      const getTemp = this.$http.get(tmplUrl);
+      const getTemp = axios.get(tmplUrl);
       getTemp.then((res) => {
         this.jsonFile = JSON.stringify(res.data);
         this.insertSvgFile();

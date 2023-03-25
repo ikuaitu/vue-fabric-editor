@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-01-31 12:06:00
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:11:29
+ * @LastEditTime: 2023-03-08 23:52:42
  * @Description: 旋转
  */
 
@@ -23,7 +23,7 @@ function initControlsRotate(canvas) {
     rotate: 20,
     actionName: 'rotate',
     actionHandler: fabric.controlsUtils.rotationWithSnapping,
-    render: () => {},
+    render: () => '',
   });
   // ↖左上
   fabric.Object.prototype.controls.mtr2 = new fabric.Control({
@@ -34,7 +34,7 @@ function initControlsRotate(canvas) {
     rotate: 20,
     actionName: 'rotate',
     actionHandler: fabric.controlsUtils.rotationWithSnapping,
-    render: () => {},
+    render: () => '',
   }); // ↗右上
   fabric.Object.prototype.controls.mtr3 = new fabric.Control({
     x: 0.5,
@@ -44,7 +44,7 @@ function initControlsRotate(canvas) {
     rotate: 20,
     actionName: 'rotate',
     actionHandler: fabric.controlsUtils.rotationWithSnapping,
-    render: () => {},
+    render: () => '',
   }); // ↘右下
   fabric.Object.prototype.controls.mtr4 = new fabric.Control({
     x: -0.5,
@@ -54,7 +54,7 @@ function initControlsRotate(canvas) {
     rotate: 20,
     actionName: 'rotate',
     actionHandler: fabric.controlsUtils.rotationWithSnapping,
-    render: () => {},
+    render: () => '',
   }); // ↙左下
 
   // 渲染时，执行

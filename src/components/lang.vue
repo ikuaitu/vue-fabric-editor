@@ -1,14 +1,16 @@
 <template>
   <Dropdown @on-click="setLang">
     <Button type="text">
-      {{ lang | langMap }}
+      {{ lang }}
       <Icon type="ios-arrow-down"></Icon>
     </Button>
-    <DropdownMenu slot="list">
-      <DropdownItem v-for="lang in langList" :key="lang.langType" :name="lang.langType">
-        {{ lang.langName }}
-      </DropdownItem>
-    </DropdownMenu>
+    <template #list>
+      <DropdownMenu>
+        <DropdownItem v-for="lang in langList" :key="lang.langType" :name="lang.langType">
+          {{ lang.langName }}
+        </DropdownItem>
+      </DropdownMenu>
+    </template>
   </Dropdown>
 </template>
 
@@ -20,7 +22,6 @@ import { LANG } from '@/config/constants/app';
 const LANGMAP = {
   zh: '中文',
   en: 'En',
-  pt: 'Portugal',
 };
 export default {
   name: 'saveBar',
@@ -30,14 +31,9 @@ export default {
       langList: Object.keys(LANGMAP).map((key) => ({ langType: key, langName: LANGMAP[key] })),
     };
   },
-  filters: {
-    langMap(key) {
-      return LANGMAP[key];
-    },
-  },
   computed: {
     lang() {
-      return this.$i18n.locale;
+      return LANGMAP[this.$i18n.locale];
     },
   },
   methods: {

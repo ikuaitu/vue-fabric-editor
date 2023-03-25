@@ -7,7 +7,7 @@
  */
 import { fabric } from 'fabric';
 
-const Arrow = fabric.util.createClass(fabric.Line, {
+fabric.Arrow = fabric.util.createClass(fabric.Line, {
   type: 'arrow',
   superType: 'drawing',
   initialize(points, options) {
@@ -38,9 +38,9 @@ const Arrow = fabric.util.createClass(fabric.Line, {
   },
 });
 
-Arrow.fromObject = (options, callback) => {
+fabric.Arrow.fromObject = (options, callback) => {
   const { x1, x2, y1, y2 } = options;
-  return callback(new Arrow([x1, y1, x2, y2], options));
+  return callback(new fabric.Arrow([x1, y1, x2, y2], options));
 };
 
-export default Arrow;
+export default fabric.Arrow;
