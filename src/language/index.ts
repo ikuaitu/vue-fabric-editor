@@ -1,22 +1,15 @@
-import Vue from 'vue';
-import VueI18n from 'vue-i18n';
+import { createI18n } from 'vue-i18n';
+import zh from 'view-ui-plus/dist/locale/zh-CN';
+import en from 'view-ui-plus/dist/locale/en-US'; //新版本把'iview'改成'view-design'
+import US from './en.json';
+import CN from './zh.json';
 import { getLocal, setLocal } from '@/utils/local';
 import { LANG } from '@/config/constants/app';
 
-Vue.use(VueI18n);
-
-function loadLocaleMessages() {
-  const locales = require.context('@/locales/lang/', true, /[A-Za-z0-9-_,\s]+\.json$/i);
-  const messages = {};
-  locales.keys().forEach((key) => {
-    const matched = key.match(/([A-Za-z0-9-_]+)\./i);
-    if (matched && matched.length > 1) {
-      const locale = matched[1];
-      messages[locale] = locales(key);
-    }
-  });
-  return messages;
-}
+const messages = {
+  en: Object.assign(US, en), //将自己的英文包和iview提供的结合
+  zh: Object.assign(CN, zh), //将自己的中文包和iview提供的结合
+};
 
 function getLocalLang() {
   let localLang = getLocal(LANG);
@@ -33,9 +26,13 @@ function getLocalLang() {
   return localLang;
 }
 const lang = getLocalLang();
-console.log(lang);
-export default new VueI18n({
+
+const i18n = createI18n({
+  allowComposition: true,
+  globalInjection: true,
+  legacy: false,
   locale: lang,
-  fallbackLocale: lang,
-  messages: loadLocaleMessages(),
+  messages: messages,
 });
+
+export default i18n;

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-05 22:21:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-25 06:52:11
+ * @LastEditTime: 2023-03-07 01:01:13
  * @Description: 工具文件
  */
 
@@ -42,6 +42,7 @@ export function downFontByJSON(str) {
         item.type.includes('text') && !skipFonts.includes(item.fontFamily)
     )
     .map((item) => item.fontFamily);
+  console.log(fontFamilys, '22');
   const fontFamilysAll = fontFamilys.map((fontName) => {
     const font = new FontFaceObserver(fontName);
     return font.load(null, 150000);

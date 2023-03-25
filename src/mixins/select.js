@@ -64,14 +64,13 @@ export default {
      * @param {String} clipboardText 复制内容
      */
     _mixinClipboard(clipboardText) {
-      this.$copyText(clipboardText).then(
-        () => {
-          this.$Message.success('复制成功');
-        },
-        () => {
+      this.$copyText(clipboardText, undefined, (error) => {
+        if (error) {
           this.$Message.error('复制失败');
+        } else {
+          this.$Message.success('复制成功');
         }
-      );
+      });
     },
   },
 };

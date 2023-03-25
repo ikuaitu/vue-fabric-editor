@@ -5,5 +5,6 @@
     },
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.configPath": ".prettierrc.js",
     "prettier.requireConfig": true // 需要Prettier的配置文件
 }

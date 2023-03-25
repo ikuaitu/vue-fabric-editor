@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-25 22:09:19
+ * @LastEditTime: 2023-03-07 22:01:24
  * @Description: 保存文件
 -->
 
@@ -16,12 +16,14 @@
         {{ $t('keep') }}
         <Icon type="ios-arrow-down"></Icon>
       </Button>
-      <DropdownMenu slot="list">
-        <DropdownItem name="clipboard">{{ $t('copy_to_clipboard') }}</DropdownItem>
-        <DropdownItem name="saveImg">{{ $t('save_as_picture') }}</DropdownItem>
-        <DropdownItem name="saveSvg">{{ $t('save_as_svg') }}</DropdownItem>
-        <DropdownItem name="saveJson" divided>{{ $t('save_as_json') }}</DropdownItem>
-      </DropdownMenu>
+      <template #list>
+        <DropdownMenu>
+          <DropdownItem name="clipboard">{{ $t('copy_to_clipboard') }}</DropdownItem>
+          <DropdownItem name="saveImg">{{ $t('save_as_picture') }}</DropdownItem>
+          <DropdownItem name="saveSvg">{{ $t('save_as_svg') }}</DropdownItem>
+          <DropdownItem name="saveJson" divided>{{ $t('save_as_json') }}</DropdownItem>
+        </DropdownMenu>
+      </template>
     </Dropdown>
   </div>
 </template>

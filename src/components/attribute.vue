@@ -587,7 +587,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import url('vue-color-gradient-picker/dist/index.css');
+// @import url('vue-color-gradient-picker/dist/index.css');
 /deep/ .ivu-color-picker {
   display: block;
 }
