@@ -31,7 +31,7 @@ const config = ({ mode }) => {
       }),
     ],
     build: {
-      target: 'es2015',
+      // target: 'es2015',
       outDir: path.resolve(__dirname, 'dist'),
       assetsDir: 'assets',
       assetsInlineLimit: 8192,
