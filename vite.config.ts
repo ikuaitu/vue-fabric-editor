@@ -11,7 +11,7 @@ const config = ({ mode }) => {
   const envPrefix = 'APP_';
   const { APP_TITLE = '' } = loadEnv(mode, process.cwd(), envPrefix);
   return {
-    base: './',
+    base: isProd ? '/vue-fabric-editor/' : '/',
     plugins: [
       vue(),
       // 增加下面的配置项,这样在运行时就能检查eslint规范
@@ -31,11 +31,11 @@ const config = ({ mode }) => {
       }),
     ],
     build: {
-      // target: 'es2015',
+      target: 'es2015',
       outDir: path.resolve(__dirname, 'dist'),
       assetsDir: 'assets',
       assetsInlineLimit: 8192,
-      sourcemap: !isProd,
+      // sourcemap: !isProd,
       emptyOutDir: true,
       rollupOptions: {
         input: path.resolve(__dirname, 'index.html'),
