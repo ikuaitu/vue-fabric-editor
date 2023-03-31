@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-03-07 00:58:42
+ * @LastEditTime: 2023-03-31 13:07:58
  * @Description: 导入模板
 -->
 
@@ -29,7 +29,7 @@
 import select from '@/mixins/select';
 import { downFontByJSON } from '@/utils/utils';
 import axios from 'axios';
-
+const repoSrc = import.meta.env.APP_REPO;
 export default {
   name: 'ToolBar',
   mixins: [select],
@@ -39,18 +39,18 @@ export default {
       list: [
         {
           label: '海报模板',
-          tempUrl: './template/49234261-0187-4fdc-be80-f9dfb14c8bc6.json',
-          src: './template/49234261-0187-4fdc-be80-f9dfb14c8bc6.png',
+          tempUrl: repoSrc + 'template/49234261-0187-4fdc-be80-f9dfb14c8bc6.json',
+          src: repoSrc + 'template/49234261-0187-4fdc-be80-f9dfb14c8bc6.png',
         },
         {
           label: '旅游海报',
-          tempUrl: './template/6ff9093a-4976-416b-8285-db5496842487.json',
-          src: './template/6ff9093a-4976-416b-8285-db5496842487.png',
+          tempUrl: repoSrc + 'template/6ff9093a-4976-416b-8285-db5496842487.json',
+          src: repoSrc + 'template/6ff9093a-4976-416b-8285-db5496842487.png',
         },
         {
           label: '邀请海报',
-          tempUrl: './template/b40fee28-de9f-4304-a07e-2f55d36f137e.json',
-          src: './template/b40fee28-de9f-4304-a07e-2f55d36f137e.png',
+          tempUrl: repoSrc + 'template/b40fee28-de9f-4304-a07e-2f55d36f137e.json',
+          src: repoSrc + 'template/b40fee28-de9f-4304-a07e-2f55d36f137e.png',
         },
       ],
     };

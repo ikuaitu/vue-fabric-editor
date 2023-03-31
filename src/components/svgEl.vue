@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-03-07 00:46:08
+ * @LastEditTime: 2023-03-31 13:09:32
  * @Description: 素材面板
 -->
 
@@ -11,7 +11,7 @@
     <Divider plain orientation="left">{{ $t('cartoon') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(460, 489)"
@@ -23,7 +23,7 @@
     <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(386, 409)"
@@ -35,7 +35,7 @@
     <Divider plain orientation="left">{{ $t('sports') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(410, 459)"
@@ -47,7 +47,7 @@
     <Divider plain orientation="left">{{ $t('seasons') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(40, 49)"
@@ -59,7 +59,7 @@
     <Divider plain orientation="left">{{ $t('eletronics') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(50, 75)"
@@ -71,7 +71,7 @@
     <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(76, 89)"
@@ -83,7 +83,7 @@
     <Divider plain orientation="left">{{ $t('clothes') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(89, 136)"
@@ -95,7 +95,7 @@
     <Divider plain orientation="left">{{ $t('flags') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(137, 151)"
@@ -107,7 +107,7 @@
     <Divider plain orientation="left">{{ $t('threes') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(152, 181)"
@@ -119,7 +119,7 @@
     <Divider plain orientation="left">{{ $t('food') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(182, 201)"
@@ -131,7 +131,7 @@
     <Divider plain orientation="left">{{ $t('clothes') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(202, 222)"
@@ -143,7 +143,7 @@
     <Divider plain orientation="left">{{ $t('medals') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(223, 252)"
@@ -155,7 +155,7 @@
     <Divider plain orientation="left">{{ $t('business') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(253, 261)"
@@ -167,7 +167,7 @@
     <Divider plain orientation="left">{{ $t('activity') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(262, 270)"
@@ -179,7 +179,7 @@
     <Divider plain orientation="left">{{ $t('fruits') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(271, 300)"
@@ -191,7 +191,7 @@
     <Divider plain orientation="left">{{ $t('vintage') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(301, 350)"
@@ -203,7 +203,7 @@
     <Divider plain orientation="left">{{ $t('cartoon') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(351, 385)"
@@ -216,7 +216,7 @@
     <Divider plain orientation="left">{{ $t('animals') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(490, 519)"
@@ -229,7 +229,7 @@
     <Divider plain orientation="left">{{ $t('hand_painted') }}</Divider>
     <div class="box">
       <img
-        v-lazy="`./svg/${item}.svg`"
+        v-lazy="`${repoSrc}svg/${item}.svg`"
         alt=""
         :key="item"
         v-for="item in getIndex(0, 39)"
@@ -243,7 +243,6 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
-
 const defaultPosition = {
   left: 100,
   top: 100,
@@ -255,6 +254,7 @@ export default {
   inject: ['canvas', 'fabric'],
   data() {
     return {
+      repoSrc: import.meta.env.APP_REPO,
       arr: [],
     };
   },
