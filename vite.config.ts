@@ -66,6 +66,13 @@ const config = ({ mode }) => {
     },
     server: {
       open: true,
+      // proxy: {
+      //   '/fontList': {
+      //     target: 'https://github.com/',
+      //     changeOrigin: true,
+      //     rewrite: (path) => path.replace(/^\/api/, ''),
+      //   },
+      // },
     },
     preview: {
       port: 5000,

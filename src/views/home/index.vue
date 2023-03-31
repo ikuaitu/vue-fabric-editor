@@ -184,7 +184,7 @@ export default {
     mouseMenu,
   },
   created() {
-    this.$Spin.show();
+    // this.$Spin.show();
   },
   mounted() {
     this.canvas = new fabric.Canvas('canvas', {
