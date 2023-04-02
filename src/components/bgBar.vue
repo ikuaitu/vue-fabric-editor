@@ -81,7 +81,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-/deep/ .ivu-form-item {
+:deep(.ivu-form-item) {
   margin-bottom: 0;
 }
 .img {
@@ -111,8 +111,10 @@ export default {
   }
 }
 
-/deep/ .ivu-divider-plain.ivu-divider-with-text-left {
-  margin: 10px 0;
-  font-weight: bold;
+:deep(.ivu-divider-plain) {
+  &.ivu-divider-with-text-left {
+    margin: 10px 0;
+    font-weight: bold;
+  }
 }
 </style>
