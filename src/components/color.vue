@@ -39,7 +39,7 @@
 import select from '@/mixins/select';
 // import { ColorPicker } from '@/lib/index.js';
 // import { ColorPicker } from 'vue-color-gradient-picker';
-import { ColorPicker } from 'color-gradient-picker-vue3';
+import ColorPicker from 'color-gradient-picker-vue3';
 import 'color-gradient-picker-vue3/dist/style.css';
 
 import { fabric } from 'fabric';
