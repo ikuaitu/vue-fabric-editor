@@ -12,6 +12,7 @@
 - 保存为 PNG、SVG、JSON 文件
 - 插入 SVG、图片文件
 - 多元素水平、垂直对齐方式
+- 字体模板
 - 组合/拆分组合
 - 图层及顺序调整
 - 撤销/重做
@@ -33,43 +34,8 @@ yarn install
 yarn serve
 ```
 
-### 自定义字体
-
-字体相关的文件在`src/assets/fonts`中，将字体文件放目录下，并将新添加的字体名称更新到`font.css`和`font.js`文件中。
-
-```js
-// font.js
-const cnList = [
-  {
-    name: '汉体',
-    fontFamily: '汉体',
-  },
-  {
-    name: '华康金刚黑',
-    fontFamily: '华康金刚黑',
-  },
-];
-
-const enList = [];
-export default [...cnList, ...enList];
-```
-
-```css
-/* font.css */
-@font-face {
-  font-family: '汉体';
-  src: url('./cn/汉体.ttf');
-}
-
-@font-face {
-  font-family: '华康金刚黑';
-  src: url('./cn/华康金刚黑.ttf');
-}
-```
-
-### 自定义模板
-
-自定义模板的入口在`src/components/importTmpl.vue`组件中，可将模板图片与 JSON 文件放在`public/template`文件中，将数据拼在组件中即可展示。
+### 自定义素材
+可自定义字体、设计模板、标题模板等，所有自定义字体在https://github.com/nihaojob/vue-fabric-editor-static 项目中保存。
 
 ## 贡献指南
 
