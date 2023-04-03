@@ -290,6 +290,8 @@ import select from '@/mixins/select';
 import FontFaceObserver from 'fontfaceobserver';
 // import { value } from '_lodash-es@4.17.21@lodash-es';
 import Color from './color.vue';
+import axios from 'axios';
+const repoSrc = import.meta.env.APP_REPO;
 
 export default {
   name: 'ToolBar',
@@ -438,6 +440,9 @@ export default {
     };
   },
   created() {
+    // 获取字体数据
+    this.getFreeFontList();
+
     this.event.on('selectCancel', () => {
       this.baseAttr.fill = '';
       this.$forceUpdate();
@@ -515,6 +520,14 @@ export default {
           console.log(err);
           this.$Spin.hide();
         });
+    },
+    getFreeFontList() {
+      axios.get(repoSrc + '/font/free-font.json').then((res) => {
+        Object.keys(res.data).forEach((key) => {
+          const fontName = res.data[key].name;
+          this.fontFamilyList.push(fontName);
+        });
+      });
     },
     // 通用属性改变
     changeCommon(key, value) {

@@ -65,7 +65,15 @@ const config = ({ mode }) => {
       },
     },
     server: {
+      port: 3000,
       open: true,
+      proxy: {
+        '/fontFile': {
+          target: 'https://github.com/',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/fontFile/, ''),
+        },
+      },
     },
     preview: {
       port: 5000,
