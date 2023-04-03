@@ -106,7 +106,7 @@ export default [...cnList, ...enList];
 - [x] 画布大小保存
 - [x] 绘制线条
 - [ ] svgIcon 汇总
-- [ ] 标题样式列表模板
+- [x] 标题样式列表模板
 - [ ] 预览
 
 第二阶段
