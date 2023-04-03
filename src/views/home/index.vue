@@ -14,7 +14,7 @@
         <Divider type="vertical" />
         <import-file></import-file>
         <Divider type="vertical" />
-        <!-- 颜色开关 -->
+        <!-- 标尺开关 -->
         <Tooltip :content="$t('grid')">
           <iSwitch v-model="ruler" size="small" class="switch"></iSwitch>
         </Tooltip>
@@ -68,14 +68,6 @@
         <div id="workspace" style="width: 100%; position: relative; background: #f1f1f1">
           <div class="canvas-box">
             <div class="inside-shadow"></div>
-            <!-- 关于js实现 我是用konvajs 的 fabric 还不熟练 api 不过理论上都是监控 mouse 事件 这个应该不难 麻烦你补全一下 -->
-            <!-- <div v-if="ruler" class="coordinates-bar coordinates-bar-top" style="width: 100%"></div>
-            <div
-              v-if="ruler"
-              class="coordinates-bar coordinates-bar-left"
-              style="height: 100%"
-            ></div> -->
-            <!-- class design-stage-point 点状  design-stage-grid 棋盘 -->
             <canvas id="canvas" :class="ruler ? 'design-stage-grid' : ''"></canvas>
             <zoom></zoom>
             <mouseMenu></mouseMenu>
@@ -299,12 +291,11 @@ export default {
 .canvas-box {
   position: relative;
 }
-
+// 画布内阴影
 .inside-shadow {
   position: absolute;
   width: 100%;
   height: 100%;
-  box-shadow: inset 15px 5px blue;
   box-shadow: inset 0 0 9px 2px #0000001f;
   z-index: 2;
   pointer-events: none;
@@ -314,8 +305,6 @@ export default {
   width: 300px;
   height: 300px;
   margin: 0 auto;
-  // background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVQ4jWNgYGAQIYAJglEDhoUBg9+FowbQ2gAARjwKARjtnN8AAAAASUVORK5CYII=");
-  // background-size: 30px 30px;
 }
 
 #workspace {
@@ -334,22 +323,12 @@ export default {
 .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
   background: none;
 }
-// 标尺与网格背景
+// 标尺
 .switch {
   margin-right: 10px;
 }
-.design-stage-point {
-  --offsetX: 0px;
-  --offsetY: 0px;
-  --size: 20px;
-  background-size: var(--size) var(--size);
-  background-image: radial-gradient(circle, #2f3542 1px, rgba(0, 0, 0, 0) 1px);
-  background-position: var(--offsetX) var(--offsetY);
-}
-
+// 网格背景
 .design-stage-grid {
-  // dom.style.setProperty('--offsetX', `${point.x + e.clientX}px`) 通过修改 偏移量 可实现跟随鼠标效果 --size 则为间距
-  // dom.style.setProperty('--offsetY', `${point.y + e.clientY}px`)
   --offsetX: 0px;
   --offsetY: 0px;
   --size: 16px;
@@ -366,42 +345,4 @@ export default {
     calc(var(--size) + var(--offsetX)) calc(var(--size) + var(--offsetY));
   background-size: calc(var(--size) * 2) calc(var(--size) * 2);
 }
-
-// .coordinates-bar {
-//   --ruler-size: 16px;
-//   --ruler-c: #808080;
-//   --rule4-bg-c: #252525;
-//   --ruler-bdw: 1px;
-//   --ruler-h: 8px;
-//   --ruler-space: 5px;
-//   --ruler-tall-h: 16px;
-//   --ruler-tall-space: 15px;
-//   position: absolute;
-//   z-index: 2;
-//   background-color: var(--rule4-bg-c);
-// }
-// .coordinates-bar-top {
-//   cursor: row-resize;
-//   top: 0;
-//   left: 0;
-//   height: var(--ruler-size);
-//   width: 100%;
-//   background-image: linear-gradient(90deg, var(--ruler-c) 0 var(--ruler-bdw), transparent 0),
-//     linear-gradient(90deg, var(--ruler-c) 0 var(--ruler-bdw), transparent 0);
-//   background-repeat: repeat-x;
-//   background-size: var(--ruler-space) var(--ruler-h), var(--ruler-tall-space) var(--ruler-tall-h);
-//   background-position: bottom;
-// }
-// .coordinates-bar-left {
-//   cursor: col-resize;
-//   top: var(--ruler-size);
-//   width: var(--ruler-size);
-//   height: 100%;
-//   left: 0;
-//   background-image: linear-gradient(0deg, var(--ruler-c) 0 var(--ruler-bdw), transparent 0),
-//     linear-gradient(0deg, var(--ruler-c) 0 var(--ruler-bdw), transparent 0);
-//   background-repeat: repeat-y;
-//   background-size: var(--ruler-h) var(--ruler-space), var(--ruler-tall-h) var(--ruler-tall-space);
-//   background-position: right;
-// }
 </style>
