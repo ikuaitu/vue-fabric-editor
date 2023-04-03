@@ -601,19 +601,21 @@ export default {
 
 <style scoped lang="less">
 // @import url('vue-color-gradient-picker/dist/index.css');
-/deep/ .ivu-color-picker {
+:deep(.ivu-color-picker) {
   display: block;
 }
-/deep/ .ivu-input-number {
+:deep(.ivu-input-number) {
   display: block;
   width: 100%;
 }
 
-/deep/ .ivu-divider-plain.ivu-divider-with-text-left {
-  margin: 10px 0;
-  font-weight: bold;
-  font-size: 16px;
-  color: #000000;
+:deep(.ivu-divider-plain) {
+  &.ivu-divider-with-text-left {
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 16px;
+    color: #000000;
+  }
 }
 .box {
   width: 100%;
@@ -657,29 +659,35 @@ export default {
   }
   .right {
     margin-left: 10px;
-    /deep/ .ivu-input-number {
+    :deep(.ivu-input-number) {
       display: block;
       width: 100%;
     }
   }
-  /deep/ .ivu-slider-wrap {
+  :deep(.ivu-slider-wrap) {
     margin: 13px 0;
   }
-  /deep/ .ivu-radio-group-button .ivu-radio-wrapper {
-    width: 48px;
-    line-height: 40px;
-    text-align: center;
-    svg {
-      vertical-align: baseline;
+  :deep(.ivu-radio-group-button) {
+    & .ivu-radio-wrapper {
+      width: 48px;
+      line-height: 40px;
+      text-align: center;
+      svg {
+        vertical-align: baseline;
+      }
     }
   }
 
-  /deep/ .ivu-btn-group-large > .ivu-btn {
-    font-size: 24px;
+  :deep(.ivu-btn-group-large) {
+    & > .ivu-btn {
+      font-size: 24px;
+    }
   }
 
-  /deep/ .ivu-radio-group-button.ivu-radio-group-large .ivu-radio-wrapper {
-    font-size: 24px;
+  :deep(.ivu-radio-group-button) {
+    &.ivu-radio-group-large .ivu-radio-wrapper {
+      font-size: 24px;
+    }
   }
 }
 </style>

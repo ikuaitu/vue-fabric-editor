@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-25 22:32:18
+ * @LastEditors: June
+ * @LastEditTime: 2023-04-02 23:51:49
  * @Description: 尺寸设置
 -->
 
@@ -83,11 +83,13 @@ export default {
 </script>
 
 <style scoped lang="less">
-/deep/ .ivu-form-item {
+:deep(.ivu-form-item) {
   margin-bottom: 0;
 }
-/deep/ .ivu-divider-plain.ivu-divider-with-text-left {
-  margin: 10px 0;
-  font-weight: bold;
+:deep(.ivu-divider-plain) {
+  &.ivu-divider-with-text-left {
+    margin: 10px 0;
+    font-weight: bold;
+  }
 }
 </style>

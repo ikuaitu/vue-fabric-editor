@@ -218,7 +218,7 @@ export default {
 }
 
 // 属性面板样式
-/deep/ .attr-item {
+:deep(.attr-item) {
   position: relative;
   margin-bottom: 12px;
   height: 40px;
@@ -245,7 +245,7 @@ export default {
   }
 }
 
-/deep/ .ivu-layout-header {
+:deep(.ivu-layout-header) {
   --height: 45px;
   padding: 0 10px;
   border-bottom: 1px solid #eef2f8;

@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2023-02-16 22:52:00
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-03-25 19:26:27
+ * @LastEditors: June
+ * @LastEditTime: 2023-04-02 23:49:00
  * @Description: 颜色选择器
 -->
 <template>
@@ -39,7 +39,7 @@
 import select from '@/mixins/select';
 // import { ColorPicker } from '@/lib/index.js';
 // import { ColorPicker } from 'vue-color-gradient-picker';
-import { ColorPicker } from 'color-gradient-picker-vue3';
+import ColorPicker from 'color-gradient-picker-vue3';
 import 'color-gradient-picker-vue3/dist/style.css';
 
 import { fabric } from 'fabric';
@@ -248,13 +248,13 @@ export default {
 }
 
 // 提示弹框
-/deep/ .ivu-color-picker {
+:deep(.ivu-color-picker) {
   display: block;
 }
-/deep/ .ivu-poptip-body {
+:deep(.ivu-poptip-body) {
   padding: 5px;
 }
-/deep/ .ivu-poptip {
+:deep(.ivu-poptip) {
   width: 100%;
   .ivu-poptip-rel {
     width: 100%;
@@ -262,7 +262,7 @@ export default {
 }
 
 // 渐变选择器
-/deep/ .ui-color-picker {
+:deep(.ui-color-picker) {
   .picker-area,
   .gradient-controls,
   .color-preview-area {
