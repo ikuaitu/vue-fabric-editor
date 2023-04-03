@@ -55,6 +55,7 @@
             <!-- 常用元素 -->
             <div v-show="menuActive === 2" class="left-panel">
               <tools></tools>
+              <fontTmpl></fontTmpl>
               <svgEl></svgEl>
             </div>
             <!-- 背景设置 -->
@@ -83,6 +84,8 @@
         <!-- 属性区域 380-->
         <div style="width: 530px; height: 100%; padding: 10px; overflow-y: auto; background: #fff">
           <div v-if="show" style="padding-top: 10px">
+            <!-- 新增字体样式使用 -->
+            <!-- <Button @click="getFontJson" size="small">获取字体数据</Button> -->
             <set-size></set-size>
             <bg-bar></bg-bar>
             <group></group>
@@ -109,6 +112,7 @@
 // 导入元素
 import importJSON from '@/components/importJSON.vue';
 import importFile from '@/components/importFile.vue';
+import fontTmpl from '@/components/fontTmpl.vue';
 
 // 顶部组件
 import align from '@/components/align.vue';
@@ -139,7 +143,7 @@ import mouseMenu from '@/components/contextMenu/index.vue';
 
 // 功能组件
 import EventHandle from '@/utils/eventHandler';
-
+import { downFile } from '@/utils/utils';
 import { fabric } from 'fabric';
 import Editor from '@/core';
 
@@ -182,6 +186,7 @@ export default {
     svgEl,
     history,
     mouseMenu,
+    fontTmpl,
   },
   created() {
     // this.$Spin.show();
@@ -201,6 +206,22 @@ export default {
 
     this.show = true;
     this.$Spin.hide();
+  },
+  methods: {
+    // 获取字体数据 新增字体样式使用
+    getFontJson() {
+      const activeObject = this.canvas.getActiveObject();
+      if (activeObject) {
+        const json = activeObject.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls']);
+        console.log(json);
+        const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
+          JSON.stringify(json, null, '\t')
+        )}`;
+        downFile(fileStr, 'font.json');
+        const dataUrl = activeObject.toDataURL();
+        downFile(dataUrl, 'font.png');
+      }
+    },
   },
 };
 </script>
