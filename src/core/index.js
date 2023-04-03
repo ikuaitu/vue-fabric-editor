@@ -15,6 +15,7 @@ import initControlsRotate from '@/core/initControlsRotate';
 import InitCenterAlign from '@/core/initCenterAlign';
 import initHotkeys from '@/core/initHotKeys';
 import initControls from '@/core/initControls';
+import initRuler from '@/core/ruler';
 
 class Editor extends EventEmitter {
   constructor(canvas) {
@@ -28,6 +29,7 @@ class Editor extends EventEmitter {
     initControls(canvas);
     initControlsRotate(canvas);
     this.centerAlign = new InitCenterAlign(canvas);
+    initRuler(canvas);
   }
 
   clone() {
