@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-18 19:54:14
+ * @LastEditors: June
+ * @LastEditTime: 2023-04-02 23:50:59
  * @Description: 图层面板
 -->
 
@@ -144,15 +144,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-/deep/ .ivu-tooltip-inner {
+:deep(.ivu-tooltip-inner) {
   white-space: normal;
 }
 
-/deep/ .ivu-tooltip {
+:deep(.ivu-tooltip) {
   display: block;
 }
 
-/deep/ .ivu-tooltip-rel {
+:deep(.ivu-tooltip-rel) {
   display: block;
 }
 .box {
@@ -197,11 +197,13 @@ export default {
 svg {
   vertical-align: text-top;
 }
-/deep/ .ivu-divider-plain.ivu-divider-with-text-left {
-  margin: 10px 0;
-  font-size: 16px;
-  font-weight: bold;
-  color: #000000;
+:deep(.ivu-divider-plain) {
+  &.ivu-divider-with-text-left {
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+  }
 }
 </style>
 

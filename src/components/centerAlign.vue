@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-26 21:19:28
+ * @LastEditors: June
+ * @LastEditTime: 2023-04-02 23:47:42
  * @Description: 多元素或单元素对齐方式
 -->
 
@@ -102,9 +102,11 @@ export default {
     flex: 1;
   }
 }
-/deep/ .ivu-btn[disabled] {
-  svg {
-    opacity: 0.2;
+:deep(.ivu-btn) {
+  &[disabled] {
+    svg {
+      opacity: 0.2;
+    }
   }
 }
 svg {
