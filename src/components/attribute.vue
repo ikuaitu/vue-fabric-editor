@@ -124,6 +124,21 @@
     <!-- 通用属性 -->
     <div v-show="baseType.includes(mSelectOneType)">
       <Divider plain orientation="left">{{ $t('attributes.exterior') }}</Divider>
+      <!-- 多边形边数 -->
+      <div class="flex-view" v-if="mSelectOneType === 'polygon'">
+        <div class="flex-item">
+          <span class="label">边数</span>
+          <div class="content">
+            <InputNumber
+              v-model="baseAttr.points.length"
+              :min="3"
+              :max="60"
+              @on-change="changeEdge"
+              show-input
+            ></InputNumber>
+          </div>
+        </div>
+      </div>
       <!-- 颜色 -->
       <Color :color="baseAttr.fill" @change="(value) => changeCommon('fill', value)"></Color>
       <div class="flex-view">
@@ -291,6 +306,8 @@ import FontFaceObserver from 'fontfaceobserver';
 // import { value } from '_lodash-es@4.17.21@lodash-es';
 import Color from './color.vue';
 import axios from 'axios';
+import { getPolygonVertices } from '@/utils/math';
+
 const repoSrc = import.meta.env.APP_REPO;
 
 export default {
@@ -309,6 +326,7 @@ export default {
         'rect',
         'circle',
         'triangle',
+        'polygon',
         'image',
         'group',
         'line',
@@ -334,6 +352,7 @@ export default {
           offsetX: 0,
           offsetY: 0,
         },
+        points: {},
       },
       // 字体属性
       fontAttr: {
@@ -459,6 +478,7 @@ export default {
         this.baseAttr.strokeWidth = activeObject.get('strokeWidth');
         this.baseAttr.shadow = activeObject.get('shadow') || {};
         this.baseAttr.angle = activeObject.get('angle') || 0;
+        this.baseAttr.points = activeObject.get('points') || {};
 
         const textTypes = ['i-text', 'text', 'textbox'];
         if (textTypes.includes(activeObject.type)) {
@@ -594,6 +614,16 @@ export default {
       const activeObject = this.canvas.c.getActiveObjects()[0];
       activeObject && activeObject.set(key, nValue);
       this.canvas.c.renderAll();
+    },
+    // 修改边数
+    changeEdge(value) {
+      const activeObjects = this.canvas.c.getActiveObjects();
+      if (!activeObjects || !activeObjects.length) return;
+      activeObjects[0].set(
+        'points',
+        getPolygonVertices(value, Math.min(activeObjects[0].width, activeObjects[0].height) / 2)
+      );
+      this.canvas.c.requestRenderAll();
     },
   },
 };
