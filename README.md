@@ -36,7 +36,7 @@ yarn serve
 ```
 
 ### 自定义素材
-可自定义字体、设计模板、标题模板等，所有自定义字体在https://github.com/nihaojob/vue-fabric-editor-static 项目中保存。
+可自定义字体、设计模板、标题模板等，所有自定义素材在https://github.com/nihaojob/vue-fabric-editor-static 项目中保存。
 
 ## 贡献指南
 
