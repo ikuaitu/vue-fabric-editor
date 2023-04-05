@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import App from './App';
 import router from './router';
 import ViewUiPlus from 'view-ui-plus';
+import 'view-ui-plus/dist/styles/viewuiplus.css';
 import './styles/index.less';
 import VueLazyLoad from 'vue3-lazyload';
 import VueClipboard from 'vue3-clipboard';
