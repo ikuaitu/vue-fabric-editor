@@ -87,6 +87,24 @@
           ></path>
         </svg>
       </span>
+      <!-- 多边形按钮 -->
+      <span @click="() => addPolygon()" :draggable="true" @dragend="onDragend('polygon')">
+        <svg
+          t="1650874633978"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="2032"
+          width="26"
+          height="26"
+        >
+          <path
+            d="M161.152 398.016l134.016 412.416h433.664l134.016-412.416L512 143.104 161.152 398.08zM512 64l426.048 309.568-162.752 500.864H248.704L85.952 373.568 512 64z"
+            p-id="2033"
+          ></path>
+        </svg>
+      </span>
     </div>
     <Divider plain orientation="left">{{ $t('draw_elements') }}</Divider>
     <div class="tool-box">
@@ -151,6 +169,7 @@
 <script>
 import { v4 as uuid } from 'uuid';
 import initializeLineDrawing from '@/core/initializeLineDrawing';
+import { getPolygonVertices } from '@/utils/math';
 
 // 默认属性
 const defaultPosition = { shadow: '', fontFamily: 'arial' };
@@ -211,6 +230,9 @@ export default {
         case 'triangle':
           this.addTriangle(dragOption);
           break;
+        case 'polygon':
+          this.addPolygon(dragOption);
+          break;
         default:
       }
     },
@@ -264,6 +286,29 @@ export default {
         triangle.center();
       }
       this.canvas.c.setActiveObject(triangle);
+    },
+    addPolygon(option) {
+      const polygon = new this.fabric.Polygon(getPolygonVertices(5, 200), {
+        ...defaultPosition,
+        ...option,
+        fill: '#ccc',
+        id: uuid(),
+        name: '多边形',
+      });
+      // 创建完设置宽高，不然宽高会变成自动的值
+      polygon.width = 400;
+      polygon.height = 400;
+      // 关闭偏移
+      polygon.pathOffset = {
+        x: 0,
+        y: 0,
+      };
+      this.canvas.c.add(polygon);
+      if (!option) {
+        polygon.center();
+      }
+      console.log(polygon);
+      this.canvas.c.setActiveObject(polygon);
     },
     addCircle(option) {
       const circle = new this.fabric.Circle({
