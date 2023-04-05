@@ -1,0 +1,6 @@
+// viewUi中buttonGroup下几个button的focus状态下样式存在问题，后边的会覆盖前边的box-shadow,这里给focus元素添加z-index.
+.ivu-btn:focus {
+    z-index: 2;
+    -webkit-box-shadow: 0 0 0 2px rgba(45,140,240,.2);
+    box-shadow: 0 0 0 2px rgba(45,140,240,.2);
+}
