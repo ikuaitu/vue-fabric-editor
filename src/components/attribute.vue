@@ -303,7 +303,6 @@
 import fontList from '@/assets/fonts/font';
 import select from '@/mixins/select';
 import FontFaceObserver from 'fontfaceobserver';
-// import { value } from '_lodash-es@4.17.21@lodash-es';
 import Color from './color.vue';
 import axios from 'axios';
 import { getPolygonVertices } from '@/utils/math';
