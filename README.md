@@ -36,6 +36,8 @@ yarn install
 yarn serve
 ```
 
+为非web前端开发人员准备了[付费的部署教程](https://mbd.pub/o/bread/ZJeXlptw)。
+
 ### 自定义素材
 可自定义字体、设计模板、标题模板等，所有自定义素材在https://github.com/nihaojob/vue-fabric-editor-static 项目中保存。
 
