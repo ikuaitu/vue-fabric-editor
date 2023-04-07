@@ -81,6 +81,7 @@ export default {
     },
     // 获取模板数据
     getTempData(tmplUrl) {
+      this.$emit('changeLineMode');
       this.$Spin.show({
         render: (h) => h('div', this.$t('alert.loading_data')),
       });

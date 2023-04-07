@@ -211,8 +211,23 @@ export default {
     });
   },
   methods: {
+    changeLineMode(isLineMode) {
+      this.isDrawingLineMode = isLineMode;
+      this.drawHandler.setMode(isLineMode);
+      this.canvas.c.forEachObject((obj) => {
+        if (obj.id !== 'workspace') {
+          obj.selectable = !isLineMode;
+          obj.evented = !isLineMode;
+        }
+      });
+    },
     // 拖拽开始时就记录当前打算创建的元素类型
     onDragend(type) {
+      //修改划线模式。
+      if (this.isDrawingLineMode) {
+        this.changeLineMode(false);
+      }
+
       // todo 拖拽优化 this.canvas.editor.dragAddItem(event, item);
       switch (type) {
         case 'text':
@@ -237,6 +252,10 @@ export default {
       }
     },
     addText(option) {
+      //修改划线模式。
+      if (this.isDrawingLineMode) {
+        this.changeLineMode(false);
+      }
       const text = new this.fabric.IText(this.$t('everything_is_fine'), {
         ...defaultPosition,
         ...option,
@@ -250,6 +269,10 @@ export default {
       this.canvas.c.setActiveObject(text);
     },
     addImg(e) {
+      //修改划线模式。
+      if (this.isDrawingLineMode) {
+        this.changeLineMode(false);
+      }
       const imgEl = e.target.cloneNode(true);
       const imgInstance = new this.fabric.Image(imgEl, {
         ...defaultPosition,
@@ -260,6 +283,10 @@ export default {
       this.canvas.c.renderAll();
     },
     addTextBox(option) {
+      //修改划线模式。
+      if (this.isDrawingLineMode) {
+        this.changeLineMode(false);
+      }
       const text = new this.fabric.Textbox(this.$t('everything_goes_well'), {
         ...defaultPosition,
         ...option,
@@ -275,6 +302,10 @@ export default {
       this.canvas.c.setActiveObject(text);
     },
     addTriangle(option) {
+      //修改划线模式。
+      if (this.isDrawingLineMode) {
+        this.changeLineMode(false);
+      }
       const triangle = new this.fabric.Triangle({
         ...defaultPosition,
         width: 400,
@@ -288,6 +319,10 @@ export default {
       this.canvas.c.setActiveObject(triangle);
     },
     addPolygon(option) {
+      //修改划线模式。
+      if (this.isDrawingLineMode) {
+        this.changeLineMode(false);
+      }
       const polygon = new this.fabric.Polygon(getPolygonVertices(5, 200), {
         ...defaultPosition,
         ...option,
@@ -311,6 +346,10 @@ export default {
       this.canvas.c.setActiveObject(polygon);
     },
     addCircle(option) {
+      //修改划线模式。
+      if (this.isDrawingLineMode) {
+        this.changeLineMode(false);
+      }
       const circle = new this.fabric.Circle({
         ...defaultPosition,
         ...option,
@@ -326,6 +365,10 @@ export default {
       this.canvas.c.setActiveObject(circle);
     },
     addRect(option) {
+      //修改划线模式。
+      if (this.isDrawingLineMode) {
+        this.changeLineMode(false);
+      }
       const rect = new this.fabric.Rect({
         ...defaultPosition,
         ...option,
@@ -343,15 +386,8 @@ export default {
     },
     drawingLineModeSwitch(isArrow) {
       this.isArrow = isArrow;
-      this.isDrawingLineMode = !this.isDrawingLineMode;
-      this.drawHandler.setMode(this.isDrawingLineMode);
+      this.changeLineMode(!this.isDrawingLineMode);
       this.drawHandler.setArrow(isArrow);
-      this.canvas.c.forEachObject((obj) => {
-        if (obj.id !== 'workspace') {
-          obj.selectable = !this.isDrawingLineMode;
-          obj.evented = !this.isDrawingLineMode;
-        }
-      });
     },
   },
 };

@@ -21,7 +21,12 @@ function initializeLineDrawing(canvas, defaultPosition) {
   let pointerPoints;
   canvas.on('mouse:down', (o) => {
     if (!isDrawingLineMode) return;
-
+    canvas.forEachObject((obj) => {
+      if (obj.id !== 'workspace') {
+        obj.set('selectable', false);
+        obj.set('evented', false);
+      }
+    });
     isDrawingLine = true;
     pointer = canvas.getPointer(o.e);
     pointerPoints = [pointer.x, pointer.y, pointer.x, pointer.y];

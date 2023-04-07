@@ -54,9 +54,9 @@
             </div>
             <!-- 常用元素 -->
             <div v-show="menuActive === 2" class="left-panel">
-              <tools></tools>
-              <fontTmpl></fontTmpl>
-              <svgEl></svgEl>
+              <tools ref="tools"></tools>
+              <fontTmpl @changeLineMode="changeLineMode"></fontTmpl>
+              <svgEl @changeLineMode="changeLineMode"></svgEl>
             </div>
             <!-- 背景设置 -->
             <div v-show="menuActive === 3" class="left-panel">
@@ -215,6 +215,10 @@ export default {
     this.$Spin.hide();
   },
   methods: {
+    //修改子组件中 tool 下的划线模式。
+    changeLineMode() {
+      this.$refs.tools && this.$refs.tools.changeLineMode(false);
+    },
     // 获取字体数据 新增字体样式使用
     getFontJson() {
       const activeObject = this.canvas.getActiveObject();

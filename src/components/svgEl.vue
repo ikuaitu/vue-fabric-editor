@@ -264,6 +264,7 @@ export default {
       return arr.map((item, i) => i + start);
     },
     dragItem(event) {
+      this.$emit('changeLineMode');
       const url = event.target.src;
       // 会有性能开销 dragAddItem复用更简洁
       this.fabric.loadSVGFromURL(url, (objects) => {
@@ -278,6 +279,7 @@ export default {
     },
     // 按照类型渲染
     addItem(e) {
+      this.$emit('changeLineMode');
       const url = e.target.src;
       this.fabric.loadSVGFromURL(url, (objects, options) => {
         const item = this.fabric.util.groupSVGElements(objects, {
