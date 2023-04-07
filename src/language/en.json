@@ -107,6 +107,7 @@
   "red_book_horizontal": "Red Book - H",
   "phone_wallpaper": "Phone Wallpaper",
   "attributes": {
+    "id": "ID",
     "font": "Font",
     "align": "Align",
     "bold": "Bold:",

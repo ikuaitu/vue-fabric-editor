@@ -296,6 +296,19 @@
         </div>
       </div>
     </div>
+
+    <!-- ID属性 -->
+    <div>
+      <Divider plain orientation="left">{{ $t('attributes.id') }}</Divider>
+      <div class="flex-view">
+        <div class="flex-item">
+          <span class="label">{{ $t('attributes.id') }}</span>
+          <div class="content slider-box">
+            <Input v-model="baseAttr.id" @on-change="changeCommon('id', baseAttr.id)"></Input>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -338,6 +351,7 @@ export default {
       imgType: ['image'],
       // 通用属性
       baseAttr: {
+        id: '',
         opacity: 0,
         angle: 0,
         fill: '#fff',
@@ -470,6 +484,7 @@ export default {
       const activeObject = this.canvas.c.getActiveObjects()[0];
       if (activeObject) {
         // base
+        this.baseAttr.id = activeObject.get('id');
         this.baseAttr.opacity = activeObject.get('opacity') * 100;
         this.baseAttr.fill = activeObject.get('fill');
         this.baseAttr.left = activeObject.get('left');

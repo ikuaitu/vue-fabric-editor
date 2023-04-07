@@ -110,6 +110,7 @@
   "red_book_horizontal": "红书横版",
   "phone_wallpaper": "手机壁纸",
   "attributes": {
+    "id": "标识",
     "font": "字体",
     "align": "对齐",
     "bold": "加粗:",
