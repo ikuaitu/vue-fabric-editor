@@ -385,8 +385,18 @@ export default {
       this.canvas.c.setActiveObject(rect);
     },
     drawingLineModeSwitch(isArrow) {
+      //重复点击绘制，就去掉绘制模式
+      if (this.isDrawingLineMode && isArrow === this.isArrow) {
+        this.isArrow = false;
+        this.changeLineMode(false);
+        return;
+      }
+      //第一次点击绘制模式或者切换箭头和直线
       this.isArrow = isArrow;
-      this.changeLineMode(!this.isDrawingLineMode);
+      if (!this.isDrawingLineMode) {
+        this.changeLineMode(true);
+      }
+
       this.drawHandler.setArrow(isArrow);
     },
   },
