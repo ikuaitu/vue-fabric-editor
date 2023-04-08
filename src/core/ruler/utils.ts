@@ -1,4 +1,5 @@
 import type { Rect } from './ruler';
+import { fabric } from 'fabric';
 
 /**
  * 计算尺子长度
@@ -71,13 +72,15 @@ const darwLine = (
     lineWidth?: number;
   }
 ) => {
+  ctx.save();
   const { left, top, width, height, stroke, lineWidth } = options;
   ctx.beginPath();
   stroke && (ctx.strokeStyle = stroke);
   ctx.lineWidth = lineWidth ?? 1;
   ctx.moveTo(left, top);
-  ctx.lineTo(width, height);
+  ctx.lineTo(left + width, top + height);
   ctx.stroke();
+  ctx.restore();
 };
 
 const darwText = (
@@ -92,21 +95,21 @@ const darwText = (
     fontSize?: number;
   }
 ) => {
+  ctx.save();
   const { left, top, text, fill, align, angle, fontSize } = options;
   fill && (ctx.fillStyle = fill);
   ctx.textAlign = align ?? 'left';
   ctx.textBaseline = 'top';
   ctx.font = `${fontSize ?? 10}px sans-serif`;
   if (angle) {
-    ctx.save();
     ctx.translate(left, top);
     ctx.rotate((Math.PI / 180) * angle);
     ctx.translate(-left, -top);
     ctx.fillText(text, left, top);
-    ctx.restore();
   } else {
     ctx.fillText(text, left, top);
   }
+  ctx.restore();
 };
 
 const darwRect = (
@@ -121,6 +124,7 @@ const darwRect = (
     strokeWidth?: number;
   }
 ) => {
+  ctx.save();
   const { left, top, width, height, fill, stroke, strokeWidth } = options;
   ctx.beginPath();
   fill && (ctx.fillStyle = fill);
@@ -131,6 +135,40 @@ const darwRect = (
     ctx.lineWidth = strokeWidth ?? 1;
     ctx.stroke();
   }
+  ctx.restore();
 };
 
-export { getLength, mergeLines, darwRect, darwText, darwLine };
+const drawMask = (
+  ctx: CanvasRenderingContext2D,
+  options: {
+    isHorizontal: boolean;
+    left: number;
+    top: number;
+    width: number;
+    height: number;
+    backgroundColor: string;
+  }
+) => {
+  ctx.save();
+  const { isHorizontal, left, top, width, height, backgroundColor } = options;
+  // 创建一个线性渐变对象
+  const gradient = isHorizontal
+    ? ctx.createLinearGradient(left, height / 2, left + width, height / 2)
+    : ctx.createLinearGradient(width / 2, top, width / 2, height + top);
+  const transparentColor = new fabric.Color(backgroundColor);
+  transparentColor.setAlpha(0);
+  gradient.addColorStop(0, transparentColor.toRgba());
+  gradient.addColorStop(0.33, backgroundColor);
+  gradient.addColorStop(0.67, backgroundColor);
+  gradient.addColorStop(1, transparentColor.toRgba());
+  darwRect(ctx, {
+    left,
+    top,
+    width,
+    height,
+    fill: gradient,
+  });
+  ctx.restore();
+};
+
+export { getLength, mergeLines, darwRect, darwText, darwLine, drawMask };
