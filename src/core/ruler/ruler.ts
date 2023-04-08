@@ -4,6 +4,7 @@ import { fabric } from 'fabric';
 import { getLength, mergeLines, darwRect, darwText, darwLine, drawMask } from './utils';
 import { throttle } from 'lodash-es';
 import { setupGuideLine } from './guideline';
+import { PropType } from 'vue';
 
 /**
  * 配置
@@ -491,7 +492,7 @@ class CanvasRuler {
   }
 
   private canvasMouseDown(e: IEvent<MouseEvent>) {
-    if (!e.pointer) return;
+    if (!e.pointer || !e.absolutePointer) return;
     const hoveredRuler = this.isPointOnRuler(e.pointer);
     if (hoveredRuler && this.activeOn === 'up') {
       // 备份属性
@@ -499,10 +500,13 @@ class CanvasRuler {
       this.options.canvas.selection = false;
       this.activeOn = 'down';
 
-      this.tempGuidelLine = new fabric.GuideLine(0, {
-        axis: hoveredRuler,
-        visible: false,
-      });
+      this.tempGuidelLine = new fabric.GuideLine(
+        hoveredRuler === 'horizontal' ? e.absolutePointer.y : e.absolutePointer.x,
+        {
+          axis: hoveredRuler,
+          visible: false,
+        }
+      );
 
       this.options.canvas.add(this.tempGuidelLine);
       this.options.canvas.setActiveObject(this.tempGuidelLine);
@@ -530,16 +534,14 @@ class CanvasRuler {
     if (!e.pointer) return;
 
     if (this.tempGuidelLine && e.absolutePointer) {
-      const pos: {
-        left?: number;
-        top?: number;
-      } = {};
+      const pos: Partial<fabric.IGuideLineOptions> = {};
       if (this.tempGuidelLine.axis === 'horizontal') {
         pos.top = e.absolutePointer.y;
       } else {
         pos.left = e.absolutePointer.x;
       }
       this.tempGuidelLine.set({ ...pos, visible: true });
+
       this.options.canvas.requestRenderAll();
 
       const event = this.getCommonEventInfo(e);
