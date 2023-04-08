@@ -20,7 +20,7 @@
     <!-- 颜色选择器 -->
     <ColorPicker v-if="!isGradient" v-model="fill" @on-change="changePureColor" alpha />
 
-    <!-- 渐变选择器 ,下边颜色插件使用v-if，v-show控制显隐，会导致组件不可用，目前使用css定位，控制弹框显隐-->
+    <!-- 渐变选择器 ,下边颜色插件使用v-if，v-show控制显隐，会导致组件不可用，使用css定位，控制弹框显隐，也存在问题，目前只有修改透明度，隐藏弹框。-->
     <Poptip
       :popper-class="!isGradientPickerVisible && 'gradient-picker-none'"
       v-model="visible"
@@ -249,10 +249,9 @@ export default {
 </script>
 
 <style scoped lang="less">
-//修改渐变色组件里面的位置，定位到看不到的地方。
+//修改渐变色弹框的透明度，隐藏弹框。
 :deep(.gradient-picker-none) {
-  position: fixed !important;
-  left: -9999px !important;
+  opacity: 0 !important;
 }
 
 .box {
