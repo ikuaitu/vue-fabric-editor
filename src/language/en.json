@@ -32,6 +32,7 @@
   "file": "file",
   "import_files": "Import files",
   "select_json": "Select JSON",
+  "repleaceImg": "repleace Image",
   "filters": {
     "simple": "Simple Filter",
     "complex": "Complex Filter",

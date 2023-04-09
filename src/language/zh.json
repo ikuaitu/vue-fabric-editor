@@ -32,6 +32,7 @@
   "file": "文件",
   "import_files": "导入文件",
   "select_json": "选择JSON文件",
+  "repleaceImg": "替换图片",
   "filters": {
     "simple": "简单滤镜",
     "complex": "复杂滤镜",
