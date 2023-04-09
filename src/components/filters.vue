@@ -2,101 +2,83 @@
  * @Author: 秦少卫
  * @Date: 2023-04-06 23:04:38
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-09 18:08:05
+ * @LastEditTime: 2023-04-09 23:27:49
  * @Description: 图片滤镜
 -->
 
 <template>
-  <div v-if="mSelectMode === 'one' && type === 'image'">
-    <!-- 无参数滤镜 -->
-    <div class="box" v-for="(value, key) in noParamsFilters" :key="key">
-      <span class="label">{{ key }}</span>
-      <Switch v-model="noParamsFilters[key]" @on-change="(val) => changeFilters(key, val)" />
-    </div>
-    <!-- 有参数滤镜 -->
-    <div class="box" v-for="item in paramsFilters" :key="item.type">
-      <span class="label">{{ item.type }}</span>
-      <Switch v-model="item.status" @on-change="changeFiltersByParams(item.type)" />
-      <div v-if="item.status" style="display: block">
-        <div class="content slider-box" v-for="info in item.params" :key="info">
-          <div v-if="info.uiType === 'select'">
-            <RadioGroup v-model="info.value" @on-change="changeFiltersByParams(item.type)">
-              <Radio :label="listItem" v-for="listItem in info.list" :key="listItem">
-                <span>{{ listItem }}</span>
-              </Radio>
-            </RadioGroup>
+  <div v-if="mSelectMode === 'one' && type === 'image'" class="box">
+    <Collapse>
+      <Panel name="1">
+        {{ $t('filters.simple') }}
+        <template #content>
+          <div class="filter-box">
+            <!-- 无参数滤镜 -->
+            <div class="filter-item" v-for="(value, key) in noParamsFilters" :key="key">
+              <img
+                :src="getImageUrl(key)"
+                alt=""
+                @click="
+                  (noParamsFilters[key] = !noParamsFilters[key]),
+                    changeFilters(key, noParamsFilters[key])
+                "
+              />
+              <Checkbox
+                v-model="noParamsFilters[key]"
+                @on-change="(val) => changeFilters(key, val)"
+              >
+                {{ $t('filters.' + key) }}
+              </Checkbox>
+            </div>
           </div>
-          <div v-if="info.uiType === 'number'">
-            <Slider
-              v-model="info.value"
-              :max="info.max"
-              :min="info.min"
-              :step="info.step"
-              @on-input="changeFiltersByParams(item.type)"
-            ></Slider>
+        </template>
+      </Panel>
+      <Panel name="2">
+        {{ $t('filters.complex') }}
+        <template #content>
+          <!-- 有参数滤镜与组合参数滤镜 -->
+          <div>
+            <div
+              class="filter-item has-params"
+              v-for="item in [...paramsFilters, ...combinationFilters]"
+              :key="item.type"
+            >
+              <Checkbox v-model="item.status" @on-change="changeFiltersByParams(item.type)">
+                {{ $t('filters.' + item.type) }}
+              </Checkbox>
+              <div v-if="item.status" class="content">
+                <div class="content slider-box" v-for="info in item.params" :key="info">
+                  <div v-if="info.uiType === uiType.SELECT">
+                    <RadioGroup v-model="info.value" @on-change="changeFiltersByParams(item.type)">
+                      <Radio :label="listItem" v-for="listItem in info.list" :key="listItem">
+                        {{ $t('filters.' + item.type + 'List.' + listItem) }}
+                      </Radio>
+                    </RadioGroup>
+                  </div>
+                  <div v-if="info.uiType === uiType.NUMBER">
+                    <Slider
+                      v-model="info.value"
+                      :max="info.max"
+                      :min="info.min"
+                      :step="info.step"
+                      @on-input="changeFiltersByParams(item.type)"
+                    ></Slider>
+                  </div>
+                  <div v-if="info.uiType === uiType.COLOR">
+                    <ColorPicker
+                      v-model="info.value"
+                      alpha
+                      size="small"
+                      @on-change="changeFiltersByParams(item.type)"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div v-if="info.uiType === 'color'">
-            <ColorPicker v-model="info.value" alpha @on-change="changeFiltersByParams(item.type)" />
-          </div>
-        </div>
-      </div>
-
-      <div></div>
-    </div>
-
-    <div class="flex-view">
-      <div class="flex-item">
-        <span class="label">灰度模式</span>
-        <div class="content slider-box">
-          <Switch v-model="grayscale" @on-change="change('Grayscale', 'grayscale')" />
-          <RadioGroup
-            v-model="grayscaleMode"
-            @on-change="change('Grayscale', 'grayscale', 'mode', 'grayscaleMode')"
-            v-if="grayscale"
-          >
-            <Radio label="average">
-              <span>average</span>
-            </Radio>
-            <Radio label="lightness">
-              <span>lightness</span>
-            </Radio>
-            <Radio label="luminosity">
-              <span>luminosity</span>
-            </Radio>
-          </RadioGroup>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex-view">
-      <div class="flex-item">
-        <span class="label">色相</span>
-        <div class="content slider-box">
-          <Switch v-model="gamma" @on-change="change('Gamma', 'gamma')" />
-          <Slider
-            v-model="gammaRed"
-            :max="2.2"
-            :min="0.01"
-            :step="0.01"
-            @on-input="change('Gamma', 'gamma', 'gamma')"
-          ></Slider>
-          <Slider
-            v-model="gammaGreen"
-            :max="2.2"
-            :min="0.01"
-            :step="0.01"
-            @on-input="change('Gamma', 'gamma', 'gamma')"
-          ></Slider>
-          <Slider
-            v-model="gammaBlue"
-            :max="2.2"
-            :min="0.01"
-            :step="0.01"
-            @on-input="change('Gamma', 'gamma', 'gamma')"
-          ></Slider>
-        </div>
-      </div>
-    </div>
+        </template>
+      </Panel>
+    </Collapse>
   </div>
 </template>
 
@@ -105,54 +87,24 @@ import select from '@/mixins/select';
 
 // 无参数滤镜
 const noParamsFilters = {
-  Invert: false,
-  Sepia: false,
   BlackWhite: false,
   Brownie: false,
   Vintage: false,
   Kodachrome: false,
   technicolor: false,
   Polaroid: false,
+  Invert: false,
+  Sepia: false,
 };
 
-// const uiType = {
-//   select: '',
-//   color: '',
-//   number: '',
-// };
-
+// UI类型
+const uiType = {
+  SELECT: 'select',
+  COLOR: 'color',
+  NUMBER: 'number',
+};
+// 有参数滤镜
 const paramsFilters = [
-  {
-    type: 'Grayscale',
-    status: false,
-    params: [
-      {
-        key: 'mode',
-        value: 'average',
-        uiType: 'select',
-        list: ['average', 'lightness', 'luminosity'],
-      },
-    ],
-  },
-  {
-    type: 'RemoveColor',
-    status: false,
-    params: [
-      {
-        key: 'color',
-        value: '',
-        uiType: 'color',
-      },
-      {
-        key: 'distance',
-        value: 0,
-        uiType: 'number',
-        min: 0,
-        max: 1,
-        step: 0.1,
-      },
-    ],
-  },
   {
     type: 'Brightness',
     status: false,
@@ -160,10 +112,10 @@ const paramsFilters = [
       {
         key: 'brightness',
         value: 0,
-        uiType: 'number',
+        uiType: uiType.NUMBER,
         min: -1,
         max: 1,
-        step: 0.1,
+        step: 0.01,
       },
     ],
   },
@@ -174,10 +126,10 @@ const paramsFilters = [
       {
         key: 'contrast',
         value: 0,
-        uiType: 'number',
+        uiType: uiType.NUMBER,
         min: -1,
         max: 1,
-        step: 0.1,
+        step: 0.01,
       },
     ],
   },
@@ -188,10 +140,10 @@ const paramsFilters = [
       {
         key: 'saturation',
         value: 0,
-        uiType: 'number',
+        uiType: uiType.NUMBER,
         min: -1,
         max: 1,
-        step: 0.1,
+        step: 0.01,
       },
     ],
   },
@@ -202,10 +154,10 @@ const paramsFilters = [
       {
         key: 'vibrance',
         value: 0,
-        uiType: 'number',
+        uiType: uiType.NUMBER,
         min: -1,
         max: 1,
-        step: 0.1,
+        step: 0.01,
       },
     ],
   },
@@ -216,10 +168,10 @@ const paramsFilters = [
       {
         key: 'rotation',
         value: 0,
-        uiType: 'number',
+        uiType: uiType.NUMBER,
         min: -1,
         max: 1,
-        step: 0.1,
+        step: 0.01,
       },
     ],
   },
@@ -230,7 +182,7 @@ const paramsFilters = [
       {
         key: 'noise',
         value: 0,
-        uiType: 'number',
+        uiType: uiType.NUMBER,
         min: -1,
         max: 1000,
         step: 0.1,
@@ -243,11 +195,11 @@ const paramsFilters = [
     params: [
       {
         key: 'blocksize',
-        value: 0,
-        uiType: 'number',
-        min: 0,
-        max: 1000,
-        step: 0.1,
+        value: 0.01,
+        uiType: uiType.NUMBER,
+        min: 0.01,
+        max: 100,
+        step: 0.01,
       },
     ],
   },
@@ -258,20 +210,82 @@ const paramsFilters = [
       {
         key: 'blur',
         value: 0,
-        uiType: 'number',
+        uiType: uiType.NUMBER,
         min: 0,
         max: 1,
-        step: 0.1,
+        step: 0.01,
       },
     ],
   },
-  // {
-  //   // todo
-  //   type: 'Gamma',
-  //   params: {
-  //     brightness: 0,
-  //   },
-  // },
+  {
+    type: 'Grayscale',
+    status: false,
+    params: [
+      {
+        key: 'mode',
+        value: 'average',
+        uiType: uiType.SELECT,
+        list: ['average', 'lightness', 'luminosity'],
+      },
+    ],
+  },
+  {
+    type: 'RemoveColor',
+    status: false,
+    params: [
+      {
+        key: 'color',
+        value: '',
+        uiType: uiType.COLOR,
+      },
+      {
+        key: 'distance',
+        value: 0,
+        uiType: uiType.NUMBER,
+        min: 0,
+        max: 1,
+        step: 0.01,
+      },
+    ],
+  },
+];
+// 组合式参数滤镜
+const combinationFilters = [
+  {
+    type: 'Gamma',
+    status: false,
+    params: [
+      {
+        key: 'red',
+        value: 0,
+        uiType: uiType.NUMBER,
+        min: 0.01,
+        max: 2.2,
+        step: 0.01,
+      },
+      {
+        key: 'green',
+        value: 0,
+        uiType: uiType.NUMBER,
+        min: 0.01,
+        max: 2.2,
+        step: 0.01,
+      },
+      {
+        key: 'blue',
+        value: 0,
+        uiType: uiType.NUMBER,
+        min: 0.01,
+        max: 2.2,
+        step: 0.01,
+      },
+    ],
+    handler: function (red, green, blue) {
+      return {
+        gamma: [red, green, blue],
+      };
+    },
+  },
 ];
 export default {
   name: 'replaceImg',
@@ -279,15 +293,10 @@ export default {
   inject: ['canvas', 'fabric'],
   data() {
     return {
+      uiType: uiType,
       noParamsFilters: noParamsFilters,
       paramsFilters: [...paramsFilters],
-      // 色相
-      gamma: false,
-      gammaRed: 1,
-      gammaGreen: 1,
-      gammaBlue: 1,
-
-      model: 'none',
+      combinationFilters: [...combinationFilters],
     };
   },
   created() {
@@ -296,33 +305,40 @@ export default {
       if (activeObject) {
         this.type = activeObject.type;
         if (this.type === 'image') {
-          // todo 无参数滤镜回显
-          // todo 有参数滤镜回显
-          // 回显类型
-          // const imgFilter = activeObject.filters.find((item) => filters.includes(item.type));
-          // if (imgFilter) {
-          //   this.model = imgFilter.type;
-          // } else {
-          //   this.model = 'none';
-          // }
-          // 灰度
-          // this.grayscale = !!this._getFilter(activeObject, 'Grayscale');
-          // this.grayscaleMode = this._getFilter(activeObject, 'Grayscale')
-          //   ? this._getFilter(activeObject, 'Grayscale').mode
-          //   : '';
-          // this.sepia = !!this._getFilter(activeObject, 'Sepia');
-          // this.blackWhite = !!this._getFilter(activeObject, 'BlackWhite');
-          // this.brownie = !!this._getFilter(activeObject, 'Brownie');
-          // this.vintage = !!this._getFilter(activeObject, 'Vintage');
-          // this.kodachrome = !!this._getFilter(activeObject, 'Kodachrome');
-          // this.technicolor = !!this._getFilter(activeObject, 'Technicolor');
-          // this.polaroid = !!this._getFilter(activeObject, 'Polaroid');
+          // 无参数滤镜回显
+          Object.keys(noParamsFilters).forEach((type) => {
+            this.noParamsFilters[type] = !!this._getFilter(activeObject, type);
+            this.$forceUpdate();
+          });
+          // 有参数滤镜回显
+          paramsFilters.forEach((filterItem) => {
+            const moduleInfo = this.paramsFilters.find((item) => item.type === filterItem.type);
+            const filterInfo = this._getFilter(activeObject, filterItem.type);
+            moduleInfo.status = !!filterInfo;
+            moduleInfo.params.forEach((paramsItem) => {
+              paramsItem.value = filterInfo ? filterInfo[paramsItem.key] : paramsItem.value;
+            });
+          });
+
+          // 组合滤镜回显
+          combinationFilters.forEach((filterItem) => {
+            const moduleInfo = this.combinationFilters.find(
+              (item) => item.type === filterItem.type
+            );
+            const filterInfo = this._getFilter(activeObject, filterItem.type);
+            moduleInfo.status = !!filterInfo;
+            // 不回显具体参数
+          });
         }
         this.$forceUpdate();
       }
     });
   },
   methods: {
+    // 图片地址拼接
+    getImageUrl(name) {
+      return new URL(`../assets/filters/${name}.png`, import.meta.url).href;
+    },
     // 无参数滤镜修改状态
     changeFilters(type, value) {
       const activeObject = this.canvas.c.getActiveObjects()[0];
@@ -335,20 +351,27 @@ export default {
         this._removeFilter(activeObject, type);
       }
     },
-    // 有参数滤镜修改
+    // 有参数与组合滤镜修改
     changeFiltersByParams(type) {
       const activeObject = this.canvas.c.getActiveObjects()[0];
-      const moduleInfo = this.paramsFilters.find((item) => item.type === type);
+      const filtersAll = [...this.paramsFilters, ...this.combinationFilters];
+      const moduleInfo = filtersAll.find((item) => item.type === type);
       if (moduleInfo.status) {
-        moduleInfo.params.forEach((paramsItem) => {
-          this.changeAttr(type, paramsItem.key, paramsItem.value);
-        });
+        // 组合参数滤镜修改
+        if (moduleInfo.handler) {
+          this._changeAttrByHandler(moduleInfo);
+        } else {
+          // 有参数滤镜修改
+          moduleInfo.params.forEach((paramsItem) => {
+            this._changeAttr(type, paramsItem.key, paramsItem.value);
+          });
+        }
       } else {
         this._removeFilter(activeObject, type);
       }
     },
     // 设置滤镜值
-    changeAttr(type, key, value) {
+    _changeAttr(type, key, value) {
       const activeObject = this.canvas.c.getActiveObjects()[0];
       const itemFilter = this._getFilter(activeObject, type);
       if (itemFilter) {
@@ -359,6 +382,14 @@ export default {
       }
       activeObject.applyFilters();
       this.canvas.c.renderAll();
+    },
+    _changeAttrByHandler(moduleInfo) {
+      const activeObject = this.canvas.c.getActiveObjects()[0];
+      // 删除
+      this._removeFilter(activeObject, moduleInfo.type);
+      // 创建
+      const params = moduleInfo.params.map((item) => item.value);
+      this._createFilter(activeObject, moduleInfo.type, moduleInfo.handler(...params));
     },
     /**
      * Create filter instance
@@ -435,4 +466,30 @@ export default {
 };
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.filter-box {
+  overflow: hidden;
+  .filter-item {
+    float: left;
+    cursor: pointer;
+    width: 50%;
+    margin-bottom: 10px;
+    img {
+      width: 90%;
+      height: auto;
+    }
+  }
+}
+.has-params {
+  display: inline-block;
+  margin-bottom: 10px;
+  width: 50%;
+  .content {
+    width: 90%;
+  }
+  cursor: none;
+}
+.box {
+  margin-bottom: 12px;
+}
+</style>

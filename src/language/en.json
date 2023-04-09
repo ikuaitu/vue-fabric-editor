@@ -32,6 +32,34 @@
   "file": "file",
   "import_files": "Import files",
   "select_json": "Select JSON",
+  "filters": {
+    "simple": "Simple Filter",
+    "complex": "Complex Filter",
+    "Invert": "Invert",
+    "Sepia": "Sepia",
+    "BlackWhite": "BlackWhite",
+    "Brownie": "Brownie",
+    "Vintage": "Vintage",
+    "Kodachrome": "Kodachrome",
+    "technicolor": "technicolor",
+    "Polaroid": "Polaroid",
+    "Grayscale": "Grayscale",
+    "GrayscaleList": {
+      "average": "average",
+      "lightness": "lightness",
+      "luminosity": "luminosity"
+    },
+    "RemoveColor": "RemoveColor",
+    "Brightness": "Brightness",
+    "Contrast": "Contrast",
+    "Saturation": "Saturation",
+    "Vibrance": "Vibrance",
+    "HueRotation": "HueRotation",
+    "Noise": "Noise",
+    "Pixelate": "Pixelate",
+    "Blur": "Blur",
+    "Gamma": "Gamma"
+  },
   "flip": {
     "x": "flip x",
     "y": "flip y"
@@ -124,7 +152,6 @@
     "shadow": "Shadow",
     "blur": "Blur",
     "offset_x": "X",
-    "offset_y": "Y",
-    "picture_filter": "Filter"
+    "offset_y": "Y"
   }
 }
