@@ -20,9 +20,16 @@
     <!-- 颜色选择器 -->
     <ColorPicker v-if="!isGradient" v-model="fill" @on-change="changePureColor" alpha />
 
-    <!-- 渐变选择器 -->
-    <Poptip v-model="visible" style="width: 100%" v-if="isGradient">
-      <div class="gradient-bar" :style="bgStr"></div>
+    <!-- 渐变选择器 ,下边颜色插件使用v-if，v-show控制显隐，会导致组件不可用，使用css定位，控制弹框显隐，也存在问题，目前只有修改透明度，隐藏弹框。-->
+    <Poptip
+      :popper-class="!isGradientPickerVisible && 'gradient-picker-none'"
+      v-model="visible"
+      style="width: 100%"
+      @on-popper-hide="onGradientHide"
+      v-if="isGradient"
+    >
+      <div class="gradient-bar" :style="bgStr" @click="onClickGradientBar"></div>
+
       <template #content>
         <!-- 颜色插件 -->
         <newColorPicker
@@ -125,6 +132,8 @@ export default {
   },
   data() {
     return {
+      //是否弹出渐变色弹框
+      isGradientPickerVisible: false,
       // 是否渐变
       isGradient: false,
       // 纯色
@@ -155,6 +164,14 @@ export default {
     };
   },
   methods: {
+    //点击渐变色的启动bar
+    onClickGradientBar() {
+      this.isGradientPickerVisible = !this.isGradientPickerVisible;
+    },
+    //渐变弹框显示
+    onGradientHide() {
+      this.isGradientPickerVisible = false;
+    },
     // 回显颜色
     checkColor(val) {
       if (typeof val === 'string') {
@@ -232,6 +249,11 @@ export default {
 </script>
 
 <style scoped lang="less">
+//修改渐变色弹框的透明度，隐藏弹框。
+:deep(.gradient-picker-none) {
+  opacity: 0 !important;
+}
+
 .box {
   padding: 10px 0;
 }
