@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-06 23:04:38
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-09 18:06:29
+ * @LastEditTime: 2023-04-09 18:08:05
  * @Description: 图片滤镜
 -->
 
@@ -281,40 +281,12 @@ export default {
     return {
       noParamsFilters: noParamsFilters,
       paramsFilters: [...paramsFilters],
-      id: '',
-      // 背景移除
-      removeColor: false,
-      removeColorColor: '',
-      removeColorDistance: 0,
-      // 亮度
-      brightness: false,
-      brightnessBrightness: 0,
       // 色相
       gamma: false,
       gammaRed: 1,
       gammaGreen: 1,
       gammaBlue: 1,
-      //
-      contrast: false,
-      contrastValue: 0,
-      //
-      saturation: false,
-      saturationValue: 0,
-      // 震动
-      vibrance: false,
-      vibranceValue: 0,
-      // 选装
-      hueRotation: false,
-      hueRotationRotation: 0,
-      // 噪音
-      noise: false,
-      noiseValue: 0,
-      // 像素画
-      pixelate: false,
-      pixelateBlocksize: 0,
-      // 模糊
-      blur: false,
-      blurValue: 0,
+
       model: 'none',
     };
   },
@@ -324,8 +296,8 @@ export default {
       if (activeObject) {
         this.type = activeObject.type;
         if (this.type === 'image') {
-          // 无参数滤镜回显
-          // 有参数滤镜回显
+          // todo 无参数滤镜回显
+          // todo 有参数滤镜回显
           // 回显类型
           // const imgFilter = activeObject.filters.find((item) => filters.includes(item.type));
           // if (imgFilter) {
@@ -363,6 +335,7 @@ export default {
         this._removeFilter(activeObject, type);
       }
     },
+    // 有参数滤镜修改
     changeFiltersByParams(type) {
       const activeObject = this.canvas.c.getActiveObjects()[0];
       const moduleInfo = this.paramsFilters.find((item) => item.type === type);
@@ -374,6 +347,7 @@ export default {
         this._removeFilter(activeObject, type);
       }
     },
+    // 设置滤镜值
     changeAttr(type, key, value) {
       const activeObject = this.canvas.c.getActiveObjects()[0];
       const itemFilter = this._getFilter(activeObject, type);
