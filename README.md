@@ -2,7 +2,7 @@
 
 # vue-fabric-editor
 
-[Demo](https://nihaojob.github.io/vue-fabric-editor/) 基于 fabric.js 和 Vue 的图片编辑器，可自定义字体、素材、设计模板。
+[Demo](https://nihaojob.github.io/vue-fabric-editor/) 基于 fabric.js 和 Vue 开发的图片编辑器，可自定义字体、素材、设计模板。
 
 ![image](https://user-images.githubusercontent.com/13534626/221415964-25c1b605-4bf4-4972-b6bc-5487d85f99cc.png)
 
@@ -24,16 +24,20 @@
 - 右键菜单
 - 辅助线
 - 标尺
+- 图片替换
 - 国际化
 
 ## 使用
 
 ### 启动项目
+请先安装node.js v16，然后执行以下命令：
 
 ```
 yarn install
 yarn serve
 ```
+
+为非web前端开发人员准备了[付费的部署教程](https://mbd.pub/o/bread/ZJeXlptw)，快速解决你的部署需求。
 
 ### 自定义素材
 可自定义字体、设计模板、标题模板等，所有自定义素材在https://github.com/nihaojob/vue-fabric-editor-static 项目中保存。
@@ -78,7 +82,7 @@ yarn serve
 
 第二阶段
 
-- [ ] 替换图片、加载 url 图片
+- [x] 图片替换
 - [x] 渐变配置
 - [ ] 平铺背景、等比例背景
 - [ ] 图片裁剪
@@ -89,6 +93,84 @@ yarn serve
 
 - [color-gradient-picker-vue3](https://github.com/Qiu-Jun/color-gradient-picker-vue3) 一个 vue3 版本的渐变组件，作者[Qiu-Jun
   ](https://github.com/Qiu-Jun)。
+  
+## 贡献者
+<!-- readme: collaborators,contributors -start -->
+<table>
+<tr>
+    <td align="center">
+        <a href="https://github.com/nihaojob">
+            <img src="https://avatars.githubusercontent.com/u/13534626?v=4" width="80;" alt="nihaojob"/>
+            <br />
+            <sub><b>秦少卫  </b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Qiu-Jun">
+            <img src="https://avatars.githubusercontent.com/u/24954362?v=4" width="80;" alt="Qiu-Jun"/>
+            <br />
+            <sub><b>June</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/hudenghui">
+            <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
+            <br />
+            <sub><b>David</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/liumingye">
+            <img src="https://avatars.githubusercontent.com/u/8676207?v=4" width="80;" alt="liumingye"/>
+            <br />
+            <sub><b>刘明野</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/icleitoncosta">
+            <img src="https://avatars.githubusercontent.com/u/3260480?v=4" width="80;" alt="icleitoncosta"/>
+            <br />
+            <sub><b>Cleiton Carvalho</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/bigFace2019">
+            <img src="https://avatars.githubusercontent.com/u/55651401?v=4" width="80;" alt="bigFace2019"/>
+            <br />
+            <sub><b>Null</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/macheteHot">
+            <img src="https://avatars.githubusercontent.com/u/26652329?v=4" width="80;" alt="macheteHot"/>
+            <br />
+            <sub><b>Machete</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/slarkerino">
+            <img src="https://avatars.githubusercontent.com/u/7014849?v=4" width="80;" alt="slarkerino"/>
+            <br />
+            <sub><b>Null</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/vvbear">
+            <img src="https://avatars.githubusercontent.com/u/32010827?v=4" width="80;" alt="vvbear"/>
+            <br />
+            <sub><b>Null</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/xiaozeo">
+            <img src="https://avatars.githubusercontent.com/u/13568242?v=4" width="80;" alt="xiaozeo"/>
+            <br />
+            <sub><b>Null</b></sub>
+        </a>
+    </td></tr>
+</table>
+<!-- readme: collaborators,contributors -end -->
 
 ## License
 
