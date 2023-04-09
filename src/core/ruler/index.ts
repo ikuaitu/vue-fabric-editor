@@ -86,6 +86,7 @@ function initRuler(canvas: Canvas, options?: RulerOptions) {
     const { target } = e;
     if (isRectOut(workspace, target)) {
       canvas.remove(target);
+      canvas.setCursor(canvas.defaultCursor ?? '');
     }
   });
 }

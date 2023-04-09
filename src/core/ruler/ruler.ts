@@ -4,7 +4,6 @@ import { fabric } from 'fabric';
 import { getLength, mergeLines, darwRect, darwText, darwLine, drawMask } from './utils';
 import { throttle } from 'lodash-es';
 import { setupGuideLine } from './guideline';
-import { PropType } from 'vue';
 
 /**
  * 配置
@@ -147,6 +146,36 @@ class CanvasRuler {
     this.disable();
   }
 
+  /**
+   * 移除全部辅助线
+   */
+  public clearGuideline() {
+    this.options.canvas.remove(...this.options.canvas.getObjects(fabric.GuideLine.prototype.type));
+  }
+
+  /**
+   * 显示全部辅助线
+   */
+  public showGuideline() {
+    this.options.canvas.getObjects(fabric.GuideLine.prototype.type).forEach((guideLine) => {
+      guideLine.set('visible', true);
+    });
+    this.options.canvas.renderAll();
+  }
+
+  /**
+   * 隐藏全部辅助线
+   */
+  public hideGuideline() {
+    this.options.canvas.getObjects(fabric.GuideLine.prototype.type).forEach((guideLine) => {
+      guideLine.set('visible', false);
+    });
+    this.options.canvas.renderAll();
+  }
+
+  /**
+   * 启用
+   */
   public enable() {
     this.options.enabled = true;
 
@@ -159,15 +188,15 @@ class CanvasRuler {
     this.options.canvas.on('selection:cleared', this.eventHandler.clearStatus);
 
     // 显示辅助线
-    this.options.canvas.getObjects('GuideLine').forEach((guideLine) => {
-      guideLine.set('visible', true);
-    });
-    this.options.canvas.requestRenderAll();
+    this.showGuideline();
 
     // 绘制一次
     this.render();
   }
 
+  /**
+   * 禁用
+   */
   public disable() {
     // 解除事件
     this.options.canvas.off('after:render', this.eventHandler.calcObjectRect);
@@ -178,14 +207,14 @@ class CanvasRuler {
     this.options.canvas.off('selection:cleared', this.eventHandler.clearStatus);
 
     // 隐藏辅助线
-    this.options.canvas.getObjects('GuideLine').forEach((guideLine) => {
-      guideLine.set('visible', false);
-    });
-    this.options.canvas.renderAll();
+    this.hideGuideline();
 
     this.options.enabled = false;
   }
 
+  /**
+   * 绘制
+   */
   public render() {
     // if (!this.options.enabled) return;
     const vpt = this.options.canvas.viewportTransform;
@@ -240,12 +269,10 @@ class CanvasRuler {
     const { isHorizontal, rulerLength, startCalibration } = opt;
     const zoom = this.getZoom();
 
-    const zoomRatio = getLength(zoom);
+    const gap = getLength(zoom);
     const unitLength = rulerLength / zoom;
-    let startOffset = -startCalibration;
-    const startValue =
-      Math[startCalibration > 0 ? 'floor' : 'ceil'](startCalibration / zoomRatio) * zoomRatio;
-    startOffset += startValue;
+    const startValue = Math[startCalibration > 0 ? 'floor' : 'ceil'](startCalibration / gap) * gap;
+    const startOffset = startValue - startCalibration;
 
     // 标尺背景
     const canvasSize = this.getSize();
@@ -256,13 +283,12 @@ class CanvasRuler {
       height: isHorizontal ? this.options.ruleSize : canvasSize.height,
       fill: this.options.backgroundColor,
       stroke: this.options.borderColor,
-      strokeWidth: 1,
     });
 
     // 颜色
     const textColor = new fabric.Color(this.options.textColor);
     // 标尺文字显示
-    for (let i = 0; i + startOffset <= Math.ceil(unitLength); ) {
+    for (let i = 0; i + startOffset <= Math.ceil(unitLength); i += gap) {
       const position = (startOffset + i) * zoom;
       const textValue = startValue + i + '';
       const textLength = (10 * textValue.length) / 4;
@@ -279,11 +305,10 @@ class CanvasRuler {
         fill: textColor.toRgb(),
         angle: isHorizontal ? 0 : -90,
       });
-      i += zoomRatio;
     }
 
     // 标尺刻度线显示
-    for (let j = 0; j + startOffset <= Math.ceil(unitLength); ) {
+    for (let j = 0; j + startOffset <= Math.ceil(unitLength); j += gap) {
       const position = Math.round((startOffset + j) * zoom);
       const left = isHorizontal ? position : this.options.ruleSize - 8;
       const top = isHorizontal ? this.options.ruleSize - 8 : position;
@@ -296,7 +321,6 @@ class CanvasRuler {
         height,
         stroke: textColor.toRgb(),
       });
-      j += zoomRatio;
     }
 
     // 标尺蓝色遮罩
@@ -308,24 +332,36 @@ class CanvasRuler {
           return;
         }
 
+        // 获取数字的值
+        const pad = this.options.ruleSize / 2 - this.options.fontSize / 2 - 4;
+        let leftTextVal = (isHorizontal ? rect.left : rect.top) / zoom + startCalibration;
+        let rightTextVal =
+          (isHorizontal ? rect.left + rect.width : rect.top + rect.height) / zoom +
+          startCalibration;
+        leftTextVal = Math[leftTextVal > 0 ? 'floor' : 'ceil'](leftTextVal);
+        rightTextVal = Math[rightTextVal > 0 ? 'floor' : 'ceil'](rightTextVal);
+
+        const isSameText = leftTextVal === rightTextVal;
+
         // 背景遮罩
-        drawMask(this.ctx, {
+        const maskOpt = {
           isHorizontal,
+          width: isHorizontal ? 160 : this.options.ruleSize - 8,
+          height: isHorizontal ? this.options.ruleSize - 8 : 160,
+          backgroundColor: this.options.backgroundColor,
+        };
+        drawMask(this.ctx, {
+          ...maskOpt,
           left: isHorizontal ? rect.left - 80 : 0,
           top: isHorizontal ? 0 : rect.top - 80,
-          width: isHorizontal ? 160 : this.options.ruleSize - 8,
-          height: isHorizontal ? this.options.ruleSize - 8 : 160,
-          backgroundColor: this.options.backgroundColor,
         });
-
-        drawMask(this.ctx, {
-          isHorizontal,
-          left: isHorizontal ? rect.width + rect.left - 80 : 0,
-          top: isHorizontal ? 0 : rect.height + rect.top - 80,
-          width: isHorizontal ? 160 : this.options.ruleSize - 8,
-          height: isHorizontal ? this.options.ruleSize - 8 : 160,
-          backgroundColor: this.options.backgroundColor,
-        });
+        if (!isSameText) {
+          drawMask(this.ctx, {
+            ...maskOpt,
+            left: isHorizontal ? rect.width + rect.left - 80 : 0,
+            top: isHorizontal ? 0 : rect.height + rect.top - 80,
+          });
+        }
 
         // 颜色
         const highlightColor = new fabric.Color(this.options.highlightColor);
@@ -341,29 +377,18 @@ class CanvasRuler {
         });
 
         // 两边的数字
-        const pad = this.options.ruleSize / 2 - this.options.fontSize / 2 - 4;
-        const leftTextVal =
-          Math.round((isHorizontal ? rect.left : rect.top) / zoom + startCalibration) + '';
-        const rightTextVal =
-          Math.round(
-            (isHorizontal ? rect.left + rect.width : rect.top + rect.height) / zoom +
-              startCalibration
-          ) + '';
-
-        const sameText = leftTextVal === rightTextVal;
-
         darwText(this.ctx, {
-          text: leftTextVal,
+          text: leftTextVal + '',
           left: isHorizontal ? rect.left - 2 : pad,
           top: isHorizontal ? pad : rect.top - 2,
           fill: highlightColor.toRgba(),
           angle: isHorizontal ? 0 : -90,
-          align: sameText ? 'center' : isHorizontal ? 'right' : 'left',
+          align: isSameText ? 'center' : isHorizontal ? 'right' : 'left',
         });
 
-        if (!sameText) {
+        if (!isSameText) {
           darwText(this.ctx, {
-            text: rightTextVal,
+            text: rightTextVal + '',
             left: isHorizontal ? rect.left + rect.width + 2 : pad,
             top: isHorizontal ? pad : rect.top + rect.height + 2,
             fill: highlightColor.toRgba(),
@@ -373,7 +398,7 @@ class CanvasRuler {
         }
 
         // 两边的线
-        const lineSize = sameText ? 8 : 14;
+        const lineSize = isSameText ? 8 : 14;
         const lineWidth = isHorizontal ? 0 : lineSize;
         const lineHeight = isHorizontal ? lineSize : 0;
 
@@ -387,7 +412,7 @@ class CanvasRuler {
           stroke: highlightColor.toRgba(),
         });
 
-        if (!sameText) {
+        if (!isSameText) {
           darwLine(this.ctx, {
             left: isHorizontal ? rect.left + rect.width : this.options.ruleSize - lineSize,
             top: isHorizontal ? this.options.ruleSize - lineSize : rect.top + rect.height,
@@ -422,25 +447,24 @@ class CanvasRuler {
       const rect: HighlightRect = obj.getBoundingRect(false, true);
       // 如果是分组单独计算坐标
       if (obj.group) {
-        const { group } = obj;
-        // 默认值
-        group.top = group.top ?? 0;
-        group.left = group.left ?? 0;
-        group.width = group.width ?? 0;
-        group.height = group.height ?? 0;
-        group.scaleX = group.scaleX ?? 1;
-        group.scaleY = group.scaleY ?? 1;
-        obj.top = obj.top ?? 0;
-        obj.left = obj.left ?? 0;
+        const group = {
+          top: 0,
+          left: 0,
+          width: 0,
+          height: 0,
+          scaleX: 1,
+          scaleY: 1,
+          ...obj.group,
+        };
         // 计算矩形坐标
         rect.width *= group.scaleX;
         rect.height *= group.scaleY;
         const groupCenterX = group.width / 2 + group.left;
-        const objectOffsetFromGroupCenterX = (group.width / 2 + obj.left) * (1 - group.scaleX);
-        rect.left += (groupCenterX - objectOffsetFromGroupCenterX) * this.getZoom();
+        const objectOffsetFromCenterX = (group.width / 2 + (obj.left ?? 0)) * (1 - group.scaleX);
+        rect.left += (groupCenterX - objectOffsetFromCenterX) * this.getZoom();
         const groupCenterY = group.height / 2 + group.top;
-        const objectOffsetFromGroupCenterY = (obj.top + group.height / 2) * (1 - group.scaleY);
-        rect.top += (groupCenterY - objectOffsetFromGroupCenterY) * this.getZoom();
+        const objectOffsetFromCenterY = (group.height / 2 + (obj.top ?? 0)) * (1 - group.scaleY);
+        rect.top += (groupCenterY - objectOffsetFromCenterY) * this.getZoom();
       }
       if (obj instanceof fabric.GuideLine) {
         rect.skip = obj.isHorizontal() ? 'x' : 'y';

@@ -2,32 +2,32 @@ import type { Rect } from './ruler';
 import { fabric } from 'fabric';
 
 /**
- * 计算尺子长度
- * @param numMarkings 尺子上刻度的数量
- * @returns 返回计算出的尺子长度
+ * 计算尺子间距
+ * @param zoom 缩放比例
+ * @returns 返回计算出的尺子间距
  */
-const getLength = (numMarkings: number) => {
-  const markings = [0, 0.02, 0.03, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20];
-  const lengths = [5000, 5000, 2500, 1000, 500, 250, 100, 50, 25, 10, 5, 2];
-  let length = 50;
-  markings.some(function (value, index) {
-    if (markings[index + 1]) {
-      if (value <= numMarkings && markings[index + 1] >= numMarkings) {
-        if (markings[index] == numMarkings) {
-          length = lengths[index];
-        } else if (markings[index + 1] == numMarkings) {
-          length = lengths[index + 1];
+const getGap = (zoom: number) => {
+  const zooms = [0, 0.02, 0.03, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20];
+  const gaps = [5000, 5000, 2500, 1000, 500, 250, 100, 50, 25, 10, 5, 2];
+  let gap = 50;
+  zooms.some(function (value, index) {
+    if (zooms[index + 1]) {
+      if (value <= zoom && zooms[index + 1] >= zoom) {
+        if (zooms[index] == zoom) {
+          gap = gaps[index];
+        } else if (zooms[index + 1] == zoom) {
+          gap = gaps[index + 1];
         } else {
-          length = lengths[index];
+          gap = gaps[index];
         }
         return true;
       }
     } else {
-      length = lengths[index];
+      gap = gaps[index];
       return true;
     }
   });
-  return length;
+  return gap;
 };
 
 /**
@@ -171,4 +171,4 @@ const drawMask = (
   ctx.restore();
 };
 
-export { getLength, mergeLines, darwRect, darwText, darwLine, drawMask };
+export { getGap as getLength, mergeLines, darwRect, darwText, darwLine, drawMask };

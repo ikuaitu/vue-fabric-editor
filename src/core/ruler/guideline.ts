@@ -108,7 +108,7 @@ export function setupGuideLine() {
     options.xy = isHorizontal ? options.y1 : options.x1;
     options.axis = isHorizontal ? 'horizontal' : 'vertical';
 
-    fabric.Object._fromObject('GuideLine', options, _callback, 'xy');
+    fabric.Object._fromObject(options.type, options, _callback, 'xy');
   };
 }
 
