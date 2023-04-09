@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Canvas, Point, IEvent } from 'fabric/fabric-impl';
 import { fabric } from 'fabric';
-import { getLength, mergeLines, darwRect, darwText, darwLine, drawMask } from './utils';
+import { getGap, mergeLines, darwRect, darwText, darwLine, drawMask } from './utils';
 import { throttle } from 'lodash-es';
 import { setupGuideLine } from './guideline';
 
@@ -269,7 +269,7 @@ class CanvasRuler {
     const { isHorizontal, rulerLength, startCalibration } = opt;
     const zoom = this.getZoom();
 
-    const gap = getLength(zoom);
+    const gap = getGap(zoom);
     const unitLength = rulerLength / zoom;
     const startValue = Math[startCalibration > 0 ? 'floor' : 'ceil'](startCalibration / gap) * gap;
     const startOffset = startValue - startCalibration;
@@ -333,13 +333,11 @@ class CanvasRuler {
         }
 
         // 获取数字的值
-        const pad = this.options.ruleSize / 2 - this.options.fontSize / 2 - 4;
-        let leftTextVal = (isHorizontal ? rect.left : rect.top) / zoom + startCalibration;
-        let rightTextVal =
-          (isHorizontal ? rect.left + rect.width : rect.top + rect.height) / zoom +
-          startCalibration;
-        leftTextVal = Math[leftTextVal > 0 ? 'floor' : 'ceil'](leftTextVal);
-        rightTextVal = Math[rightTextVal > 0 ? 'floor' : 'ceil'](rightTextVal);
+        const roundFactor = (x: number) => Math.round(x / zoom + startCalibration) + '';
+        const leftTextVal = roundFactor(isHorizontal ? rect.left : rect.top);
+        const rightTextVal = roundFactor(
+          isHorizontal ? rect.left + rect.width : rect.top + rect.height
+        );
 
         const isSameText = leftTextVal === rightTextVal;
 
@@ -377,48 +375,53 @@ class CanvasRuler {
         });
 
         // 两边的数字
-        darwText(this.ctx, {
-          text: leftTextVal + '',
-          left: isHorizontal ? rect.left - 2 : pad,
-          top: isHorizontal ? pad : rect.top - 2,
+        const pad = this.options.ruleSize / 2 - this.options.fontSize / 2 - 4;
+
+        const textOpt = {
           fill: highlightColor.toRgba(),
           angle: isHorizontal ? 0 : -90,
+        };
+
+        darwText(this.ctx, {
+          ...textOpt,
+          text: leftTextVal,
+          left: isHorizontal ? rect.left - 2 : pad,
+          top: isHorizontal ? pad : rect.top - 2,
           align: isSameText ? 'center' : isHorizontal ? 'right' : 'left',
         });
 
         if (!isSameText) {
           darwText(this.ctx, {
-            text: rightTextVal + '',
+            ...textOpt,
+            text: rightTextVal,
             left: isHorizontal ? rect.left + rect.width + 2 : pad,
             top: isHorizontal ? pad : rect.top + rect.height + 2,
-            fill: highlightColor.toRgba(),
-            angle: isHorizontal ? 0 : -90,
             align: isHorizontal ? 'left' : 'right',
           });
         }
 
         // 两边的线
         const lineSize = isSameText ? 8 : 14;
-        const lineWidth = isHorizontal ? 0 : lineSize;
-        const lineHeight = isHorizontal ? lineSize : 0;
 
         highlightColor.setAlpha(1);
 
+        const lineOpt = {
+          width: isHorizontal ? 0 : lineSize,
+          height: isHorizontal ? lineSize : 0,
+          stroke: highlightColor.toRgba(),
+        };
+
         darwLine(this.ctx, {
+          ...lineOpt,
           left: isHorizontal ? rect.left : this.options.ruleSize - lineSize,
           top: isHorizontal ? this.options.ruleSize - lineSize : rect.top,
-          width: lineWidth,
-          height: lineHeight,
-          stroke: highlightColor.toRgba(),
         });
 
         if (!isSameText) {
           darwLine(this.ctx, {
+            ...lineOpt,
             left: isHorizontal ? rect.left + rect.width : this.options.ruleSize - lineSize,
             top: isHorizontal ? this.options.ruleSize - lineSize : rect.top + rect.height,
-            width: lineWidth,
-            height: lineHeight,
-            stroke: highlightColor.toRgba(),
           });
         }
       });

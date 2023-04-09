@@ -18,8 +18,6 @@ declare module 'fabric/fabric-impl' {
   }
 
   export interface IGuideLineClassOptions extends IGuideLineOptions {
-    axis: 'horizontal' | 'vertical';
-    controls: { [key: string]: Control };
     canvas: {
       setActiveObject(
         object: fabric.Object | IGuideLineClassOptions,
@@ -29,17 +27,8 @@ declare module 'fabric/fabric-impl' {
     } & Canvas;
     activeOn: 'down' | 'up';
     initialize(xy: number, objObjects: IGuideLineOptions): void;
-    set(key: string, value: unknown): void;
     callSuper(methodName: string, ...args: unknown[]): any;
     getBoundingRect(absolute?: boolean, calculate?: boolean): Rect;
-    _render(ctx: CanvasRenderingContext2D): void;
-    _renderControls(ctx: CanvasRenderingContext2D, styleOverride: any): void;
-    calcLinePoints(): {
-      x1: number;
-      x2: number;
-      y1: number;
-      y2: number;
-    };
     on(eventName: EventName, handler: (e: IEvent<MouseEvent>) => void): T;
     fire<T>(eventName: string, options?: any): T;
     isPointOnRuler(e: MouseEvent): 'horizontal' | 'vertical' | false;

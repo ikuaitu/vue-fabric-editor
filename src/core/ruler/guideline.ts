@@ -18,6 +18,7 @@ export function setupGuideLine() {
     padding: 4, // 填充，让辅助线选择范围更大，方便选中
     globalCompositeOperation: 'difference',
     axis: 'horizontal',
+    // excludeFromExport: true,
 
     initialize: function (points, options) {
       const isHorizontal = options.axis === 'horizontal';

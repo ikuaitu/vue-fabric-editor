@@ -171,4 +171,4 @@ const drawMask = (
   ctx.restore();
 };
 
-export { getGap as getLength, mergeLines, darwRect, darwText, darwLine, drawMask };
+export { getGap, mergeLines, darwRect, darwText, darwLine, drawMask };
