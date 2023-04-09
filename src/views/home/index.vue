@@ -82,6 +82,7 @@
             <bg-bar></bg-bar>
             <group></group>
             <replaceImg></replaceImg>
+            <filters></filters>
             <div class="attr-item">
               <lock></lock>
               <dele></dele>
@@ -126,6 +127,7 @@ import svgEl from '@/components/svgEl.vue';
 import bgBar from '@/components/bgBar.vue';
 import setSize from '@/components/setSize.vue';
 import replaceImg from '@/components/replaceImg.vue';
+import filters from '@/components/filters.vue';
 
 // 右侧组件
 import history from '@/components/history.vue';
@@ -182,6 +184,7 @@ export default {
     mouseMenu,
     fontTmpl,
     replaceImg,
+    filters,
   },
   created() {
     // this.$Spin.show();
