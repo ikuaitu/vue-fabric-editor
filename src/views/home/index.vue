@@ -23,7 +23,7 @@
 
         <div style="float: right">
           <!-- 预览 -->
-          <PreviewCurrent />
+          <previewCurrent />
           <save></save>
           <lang></lang>
         </div>
@@ -114,7 +114,7 @@ import fontTmpl from '@/components/fontTmpl.vue';
 import align from '@/components/align.vue';
 import centerAlign from '@/components/centerAlign.vue';
 import flip from '@/components/flip.vue';
-import PreviewCurrent from '@/components/previewCurrent';
+import previewCurrent from '@/components/previewCurrent';
 import save from '@/components/save.vue';
 import lang from '@/components/lang.vue';
 import clone from '@/components/clone.vue';
@@ -173,7 +173,7 @@ export default {
     attribute,
     dele,
     importFile,
-    PreviewCurrent,
+    previewCurrent,
     save,
     lang,
     importJSON,
