@@ -121,6 +121,13 @@ yarn serve
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/bigFace2019">
+            <img src="https://avatars.githubusercontent.com/u/55651401?v=4" width="80;" alt="bigFace2019"/>
+            <br />
+            <sub><b>Null</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/liumingye">
             <img src="https://avatars.githubusercontent.com/u/8676207?v=4" width="80;" alt="liumingye"/>
             <br />
@@ -132,13 +139,6 @@ yarn serve
             <img src="https://avatars.githubusercontent.com/u/3260480?v=4" width="80;" alt="icleitoncosta"/>
             <br />
             <sub><b>Cleiton Carvalho</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/bigFace2019">
-            <img src="https://avatars.githubusercontent.com/u/55651401?v=4" width="80;" alt="bigFace2019"/>
-            <br />
-            <sub><b>Null</b></sub>
         </a>
     </td></tr>
 <tr>
