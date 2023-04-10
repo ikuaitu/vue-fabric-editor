@@ -3,21 +3,10 @@ import { fabric } from 'fabric';
 import CanvasRuler, { RulerOptions } from './ruler';
 
 function initRuler(canvas: Canvas, options?: RulerOptions) {
-  new CanvasRuler({
+  const ruler = new CanvasRuler({
     canvas,
     ...options,
   });
-
-  // test GuideLine
-  // setTimeout(() => {
-  //   const guideLine = new fabric.GuideLine(100, {
-  //     axis: 'horizontal',
-  //   });
-  //   const guideLine2 = new fabric.GuideLine(300, {
-  //     axis: 'vertical',
-  //   });
-  //   canvas.add(guideLine, guideLine2);
-  // }, 1000);
 
   // 辅助线移动到画板外删除
   let workspace: fabric.Object | undefined = undefined;
@@ -89,6 +78,7 @@ function initRuler(canvas: Canvas, options?: RulerOptions) {
       canvas.setCursor(canvas.defaultCursor ?? '');
     }
   });
+  return ruler;
 }
 
 export default initRuler;
