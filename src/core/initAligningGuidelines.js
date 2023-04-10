@@ -87,6 +87,14 @@ function initAligningGuidelines(canvas) {
       // eslint-disable-next-line no-continue
       if (canvasObjects[i] === activeObject) continue;
 
+      // 排除辅助线
+      if (
+        activeObject instanceof fabric.GuideLine &&
+        canvasObjects[i] instanceof fabric.GuideLine
+      ) {
+        continue;
+      }
+
       const objectCenter = canvasObjects[i].getCenterPoint();
       const objectLeft = objectCenter.x;
       const objectTop = objectCenter.y;

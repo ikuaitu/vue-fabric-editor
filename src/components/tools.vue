@@ -295,19 +295,20 @@ export default {
         id: uuid(),
         name: '多边形',
       });
-      // 创建完设置宽高，不然宽高会变成自动的值
-      polygon.width = 400;
-      polygon.height = 400;
-      // 关闭偏移
-      polygon.pathOffset = {
-        x: 0,
-        y: 0,
-      };
+      polygon.set({
+        // 创建完设置宽高，不然宽高会变成自动的值
+        width: 400,
+        height: 400,
+        // 关闭偏移
+        pathOffset: {
+          x: 0,
+          y: 0,
+        },
+      });
       this.canvas.c.add(polygon);
       if (!option) {
         polygon.center();
       }
-      console.log(polygon);
       this.canvas.c.setActiveObject(polygon);
     },
     addCircle(option) {

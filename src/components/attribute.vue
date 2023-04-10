@@ -76,13 +76,6 @@
         </div>
       </div>
 
-      <!-- <div style="padding: 5px 0">
-        {{$t('attributes.swipe_up')}}
-        <i-switch v-model="fontAttr.overline"
-
-                  @on-change="(value) => changeCommon('overline', value)" />
-      </div> -->
-
       <div class="flex-view">
         <div class="flex-item">
           <span class="label">{{ $t('attributes.line_height') }}</span>
@@ -278,25 +271,6 @@
       </div>
     </div>
 
-    <!-- 图片属性 -->
-    <div v-show="imgType.includes(mSelectOneType)">
-      <Divider plain orientation="left">{{ $t('attributes.picture_filter') }}</Divider>
-      <div class="flex-view">
-        <div class="flex-item">
-          <span class="label">{{ $t('attributes.blur') }}</span>
-          <div class="content slider-box">
-            <Slider
-              v-model="imgAttr.blur"
-              :max="1"
-              :min="0"
-              :step="0.1"
-              @on-input="imgBlur"
-            ></Slider>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- ID属性 -->
     <div>
       <Divider plain orientation="left">{{ $t('attributes.id') }}</Divider>
@@ -316,7 +290,6 @@
 import fontList from '@/assets/fonts/font';
 import select from '@/mixins/select';
 import FontFaceObserver from 'fontfaceobserver';
-// import { value } from '_lodash-es@4.17.21@lodash-es';
 import Color from './color.vue';
 import axios from 'axios';
 import { getPolygonVertices } from '@/utils/math';
@@ -324,7 +297,7 @@ import { getPolygonVertices } from '@/utils/math';
 const repoSrc = import.meta.env.APP_REPO;
 
 export default {
-  name: 'ToolBar',
+  name: 'AttrBute',
   mixins: [select],
   components: {
     Color,
@@ -347,8 +320,6 @@ export default {
       ],
       // 文字元素
       textType: ['i-text', 'textbox', 'text'],
-      // 图片元素
-      imgType: ['image'],
       // 通用属性
       baseAttr: {
         id: '',
@@ -381,10 +352,6 @@ export default {
         underline: false,
         linethrough: false,
         overline: false,
-      },
-      // 图片属性
-      imgAttr: {
-        blur: 0,
       },
       // 字体下拉列表
       fontFamilyList: fontList.map((item) => item.fontFamily),
@@ -509,25 +476,10 @@ export default {
           this.fontAttr.textBackgroundColor = activeObject.get('textBackgroundColor');
           this.fontAttr.fontWeight = activeObject.get('fontWeight');
         }
-
-        // 图片滤镜
-        if (activeObject.type === 'image') {
-          this.imgAttr.blur = activeObject.filters[0] ? activeObject.filters[0].blur : 0;
-        }
       }
     });
   },
   methods: {
-    // 图片属性
-    imgBlur(blur) {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
-      if (activeObject) {
-        const filter = new this.fabric.Image.filters.Blur({ blur });
-        activeObject.filters = [filter];
-        activeObject.applyFilters();
-        this.canvas.c.renderAll();
-      }
-    },
     // 修改字体
     changeFontFamily(fontName) {
       if (!fontName) return;
