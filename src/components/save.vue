@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: bigFace2019 599069310@qq.com
- * @LastEditTime: 2023-04-10 19:48:00
+ * @LastEditTime: 2023-04-10 20:28:20
  * @LastEditors: 秦少卫
  * @LastEditTime: 2023-04-10 14:33:18
 
@@ -11,8 +11,6 @@
 
 <template>
   <div class="save-box">
-    <!-- 预览 -->
-    <PreviewCurrent />
     <Button style="margin-left: 10px" type="text" @click="clear">
       {{ $t('empty') }}
     </Button>
@@ -34,13 +32,11 @@
 </template>
 
 <script>
-import PreviewCurrent from './previewCurrent';
 import select from '@/mixins/select';
 import { v4 as uuid } from 'uuid';
 
 export default {
   name: 'saveBar',
-  components: { PreviewCurrent },
   mixins: [select],
   data() {
     return {};
