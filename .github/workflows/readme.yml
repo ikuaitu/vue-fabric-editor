@@ -12,5 +12,6 @@ jobs:
               uses: akhilmhdh/contributors-readme-action@master
               with:
                   image_size: 80
+                  use_username: true
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
