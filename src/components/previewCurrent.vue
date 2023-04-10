@@ -2,7 +2,7 @@
  * @Author: bigFace2019 599069310@qq.com
  * @Date: 2023-04-09 11:19:07
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-10 23:33:08
+ * @LastEditTime: 2023-04-10 23:53:22
  * @FilePath: \vue-fabric-editor\src\components\preview.vue
  * @Description: 预览组件
 -->
@@ -22,6 +22,9 @@ interface CanvasType {
     ruler: {
       hideGuideline: FunctionConstructor;
     };
+    editorWorkspace: {
+      auto: FunctionConstructor;
+    };
   };
   c: fabric.Canvas;
 }
@@ -40,7 +43,9 @@ const getImgUrl = () => {
     top,
   };
   canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
+  canvas.c.renderAll();
   const dataUrl = canvas.c.toDataURL(option);
+  canvas.editor.editorWorkspace.auto();
   return dataUrl;
 };
 const preview = () => {
