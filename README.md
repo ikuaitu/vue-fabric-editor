@@ -4,7 +4,7 @@
 
 [Demo](https://nihaojob.github.io/vue-fabric-editor/) 基于 fabric.js 和 Vue 开发的图片编辑器，可自定义字体、素材、设计模板。
 
-![image](https://user-images.githubusercontent.com/13534626/221415964-25c1b605-4bf4-4972-b6bc-5487d85f99cc.png)
+![image](https://user-images.githubusercontent.com/13534626/230828335-0adee0ae-b951-4171-b6ba-d2b9cd44dd6a.png)
 
 ## 已有功能
 
@@ -79,7 +79,7 @@ yarn serve
 - [x] 绘制线条
 - [ ] svgIcon 汇总
 - [x] 标题样式列表模板
-- [ ] 预览
+- [x] 预览
 
 第二阶段
 
@@ -103,42 +103,42 @@ yarn serve
         <a href="https://github.com/nihaojob">
             <img src="https://avatars.githubusercontent.com/u/13534626?v=4" width="80;" alt="nihaojob"/>
             <br />
-            <sub><b>秦少卫  </b></sub>
+            <sub><b>nihaojob</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/Qiu-Jun">
             <img src="https://avatars.githubusercontent.com/u/24954362?v=4" width="80;" alt="Qiu-Jun"/>
             <br />
-            <sub><b>June</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/hudenghui">
-            <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
-            <br />
-            <sub><b>David</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/liumingye">
-            <img src="https://avatars.githubusercontent.com/u/8676207?v=4" width="80;" alt="liumingye"/>
-            <br />
-            <sub><b>刘明野</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/icleitoncosta">
-            <img src="https://avatars.githubusercontent.com/u/3260480?v=4" width="80;" alt="icleitoncosta"/>
-            <br />
-            <sub><b>Cleiton Carvalho</b></sub>
+            <sub><b>Qiu-Jun</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/bigFace2019">
             <img src="https://avatars.githubusercontent.com/u/55651401?v=4" width="80;" alt="bigFace2019"/>
             <br />
-            <sub><b>Null</b></sub>
+            <sub><b>bigFace2019</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/hudenghui">
+            <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
+            <br />
+            <sub><b>hudenghui</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/liumingye">
+            <img src="https://avatars.githubusercontent.com/u/8676207?v=4" width="80;" alt="liumingye"/>
+            <br />
+            <sub><b>liumingye</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/icleitoncosta">
+            <img src="https://avatars.githubusercontent.com/u/3260480?v=4" width="80;" alt="icleitoncosta"/>
+            <br />
+            <sub><b>icleitoncosta</b></sub>
         </a>
     </td></tr>
 <tr>
@@ -146,28 +146,35 @@ yarn serve
         <a href="https://github.com/macheteHot">
             <img src="https://avatars.githubusercontent.com/u/26652329?v=4" width="80;" alt="macheteHot"/>
             <br />
-            <sub><b>Machete</b></sub>
+            <sub><b>macheteHot</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/slarkerino">
             <img src="https://avatars.githubusercontent.com/u/7014849?v=4" width="80;" alt="slarkerino"/>
             <br />
-            <sub><b>Null</b></sub>
+            <sub><b>slarkerino</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/vvbear">
             <img src="https://avatars.githubusercontent.com/u/32010827?v=4" width="80;" alt="vvbear"/>
             <br />
-            <sub><b>Null</b></sub>
+            <sub><b>vvbear</b></sub>
         </a>
     </td>
     <td align="center">
         <a href="https://github.com/xiaozeo">
             <img src="https://avatars.githubusercontent.com/u/13568242?v=4" width="80;" alt="xiaozeo"/>
             <br />
-            <sub><b>Null</b></sub>
+            <sub><b>xiaozeo</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/luke358">
+            <img src="https://avatars.githubusercontent.com/u/48149577?v=4" width="80;" alt="luke358"/>
+            <br />
+            <sub><b>luke358</b></sub>
         </a>
     </td></tr>
 </table>
