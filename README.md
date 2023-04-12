@@ -65,6 +65,10 @@ yarn serve
 
 目前有很多需要做的工作，比如英文文档的搭建、渐变的配置功能等，欢迎与我联系，我愿意与你进行任何问题的交流，微信：13146890191。期待你的 issue 和 PR 。
 
+<!-- <img src="https://user-images.githubusercontent.com/13534626/231202488-f35be6bc-617a-412e-831e-b3764466d833.jpeg" width="20%"> -->
+<img src="https://user-images.githubusercontent.com/13534626/231202037-18fe913f-81ab-4cd6-aa87-ada471e27586.png" width="30%" >
+
+
 ## 规划
 
 ### 可能新增功能
