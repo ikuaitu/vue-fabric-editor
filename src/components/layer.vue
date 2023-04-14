@@ -42,6 +42,7 @@ import select from '@/mixins/select';
 export default {
   name: 'ToolBar',
   mixins: [select],
+  inject: ['fabric'],
   data() {
     return {
       list: [],
@@ -104,7 +105,15 @@ export default {
     },
     getList() {
       // 不改原数组 反转
-      this.list = [...this.canvas.c.getObjects()]
+      this.list = [
+        ...this.canvas.c.getObjects().filter((item) => {
+          // 过滤掉辅助线
+          if (item instanceof this.fabric.GuideLine || item.id === 'workspace') {
+            return false;
+          }
+          return true;
+        }),
+      ]
         .reverse()
         .map((item) => {
           const { type, id, name, text } = item;
@@ -114,8 +123,7 @@ export default {
             name,
             text,
           };
-        })
-        .filter((item) => item.id !== 'workspace');
+        });
     },
     // 按钮类型
     btnIconType(type) {

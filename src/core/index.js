@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-03-08 22:55:29
+ * @LastEditTime: 2023-04-10 14:27:43
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -29,7 +29,7 @@ class Editor extends EventEmitter {
     initControls(canvas);
     initControlsRotate(canvas);
     this.centerAlign = new InitCenterAlign(canvas);
-    initRuler(canvas);
+    this.ruler = initRuler(canvas);
   }
 
   clone() {

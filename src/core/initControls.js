@@ -142,7 +142,8 @@ function deleteControl(canvas) {
   }
 
   // 删除选中元素
-  function deleteObject() {
+  function deleteObject(mouseEvent, target) {
+    if (target.action === 'rotate') return;
     const activeObject = canvas.getActiveObjects();
     if (activeObject) {
       activeObject.map((item) => canvas.remove(item));

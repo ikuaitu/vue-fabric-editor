@@ -1,8 +1,11 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
+ * @LastEditors: bigFace2019 599069310@qq.com
+ * @LastEditTime: 2023-04-10 20:28:20
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-03-07 22:01:24
+ * @LastEditTime: 2023-04-10 14:33:18
+
  * @Description: 保存文件
 -->
 
@@ -67,6 +70,7 @@ export default {
     },
     saveImg() {
       const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
+      this.canvas.editor.ruler.hideGuideline();
       const { left, top, width, height } = workspace;
       const option = {
         name: 'New Image',
@@ -80,6 +84,7 @@ export default {
       this.canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
       const dataUrl = this.canvas.c.toDataURL(option);
       this.downFile(dataUrl, 'png');
+      this.canvas.editor.ruler.showGuideline();
     },
     downFile(fileStr, fileType) {
       const anchorEl = document.createElement('a');

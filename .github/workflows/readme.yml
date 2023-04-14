@@ -9,8 +9,9 @@ jobs:
         name: A job to automate contrib in readme
         steps:
             - name: Contribute List
-              uses: akhilmhdh/contributors-readme-action@v2.3.6
+              uses: akhilmhdh/contributors-readme-action@master
               with:
                   image_size: 80
+                  use_username: true
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

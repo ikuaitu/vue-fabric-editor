@@ -8,12 +8,17 @@
 
 import FontFaceObserver from 'fontfaceobserver';
 
+interface Font {
+  type: string;
+  fontFamily: string;
+}
+
 /**
  * @description: 图片文件转字符串
  * @param {Blob|File} file 文件
  * @return {String}
  */
-export function getImgStr(file) {
+export function getImgStr(file: File | Blob): Promise<FileReader['result']> {
   return new Promise((resolve, reject) => {
     try {
       const reader = new FileReader();
@@ -32,30 +37,34 @@ export function getImgStr(file) {
  * @param {String} str
  * @return {Promise}
  */
-export function downFontByJSON(str) {
+export function downFontByJSON(str: string) {
   const skipFonts = ['arial', 'Microsoft YaHei'];
-  const fontFamilys = JSON.parse(str)
+  const fontFamilies: string[] = JSON.parse(str)
     .objects.filter(
-      (item) =>
+      (item: Font) =>
         // 为text 并且不为包含字体
         // eslint-disable-next-line implicit-arrow-linebreak
         item.type.includes('text') && !skipFonts.includes(item.fontFamily)
     )
-    .map((item) => item.fontFamily);
-  const fontFamilysAll = fontFamilys.map((fontName) => {
+    .map((item: Font) => item.fontFamily);
+  const fontFamiliesAll = fontFamilies.map((fontName) => {
     const font = new FontFaceObserver(fontName);
     return font.load(null, 150000);
   });
-  return Promise.all(fontFamilysAll);
+  return Promise.all(fontFamiliesAll);
 }
 
 /**
  * @description: 选择文件
- * @param {Object} options accept = '', capture = false, multiple = false
+ * @param {Object} options accept = '', capture = '', multiple = false
  * @return {Promise}
  */
-export function selectFiles(options) {
-  const createInputFile = ({ accept = '', capture = false, multiple = false }) => {
+export function selectFiles(options: {
+  accept?: string;
+  capture?: string;
+  multiple?: boolean;
+}): Promise<FileList | null> {
+  const createInputFile = ({ accept = '', capture = '', multiple = false }) => {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = accept;
@@ -63,6 +72,7 @@ export function selectFiles(options) {
     input.multiple = multiple;
     return input;
   };
+
   return new Promise((resolve) => {
     const input = createInputFile(options);
 
@@ -78,9 +88,9 @@ export function selectFiles(options) {
 /**
  * @description: 前端下载文件
  * @param {String} fileStr
- * @param {String} fileType
+ * @param fileName
  */
-export function downFile(fileStr, fileName) {
+export function downFile(fileStr: string, fileName: string) {
   const anchorEl = document.createElement('a');
   anchorEl.href = fileStr;
   anchorEl.download = fileName;
@@ -94,7 +104,7 @@ export function downFile(fileStr, fileName) {
  * @param {String} str 图片地址或者base64图片
  * @return {Promise} element 图片元素
  */
-export function insertImgFile(str) {
+export function insertImgFile(str: string) {
   return new Promise((resolve) => {
     const imgEl = document.createElement('img');
     imgEl.src = str;

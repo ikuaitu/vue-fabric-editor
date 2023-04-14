@@ -17,6 +17,7 @@
   "everything_goes_well": "诸事顺遂",
   "cartoon": "卡通",
   "default_size": "预设尺寸",
+  "preview":"预览",
   "empty": "清空",
   "keep": "保存",
   "copy_to_clipboard": "复制到剪切板",
@@ -32,6 +33,35 @@
   "file": "文件",
   "import_files": "导入文件",
   "select_json": "选择JSON文件",
+  "repleaceImg": "替换图片",
+  "filters": {
+    "simple": "简单滤镜",
+    "complex": "复杂滤镜",
+    "Invert": "反向",
+    "Sepia": "乌黑",
+    "BlackWhite": "黑白",
+    "Brownie": "巧克力",
+    "Vintage": "复古",
+    "Kodachrome": "胶片",
+    "technicolor": "鲜艳",
+    "Polaroid": "高光",
+    "Grayscale": "灰度",
+    "GrayscaleList": {
+      "average": "一般",
+      "lightness": "中度",
+      "luminosity": "明亮"
+    },
+    "RemoveColor": "去除颜色",
+    "Brightness": "亮度",
+    "Contrast": "对比度",
+    "Saturation": "饱和度",
+    "Vibrance": "振动",
+    "HueRotation": "色调",
+    "Noise": "噪音",
+    "Pixelate": "像素化",
+    "Blur": "模糊",
+    "Gamma": "调整"
+  },
   "quick": {
     "del": "删除",
     "copy": "复制",
@@ -128,7 +158,6 @@
     "shadow": "阴影",
     "blur": "模糊",
     "offset_x": "X轴",
-    "offset_y": "Y轴",
-    "picture_filter": "图片滤镜"
+    "offset_y": "Y轴"
   }
 }
