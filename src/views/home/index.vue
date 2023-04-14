@@ -141,12 +141,12 @@ import attribute from '@/components/attribute.vue';
 import mouseMenu from '@/components/contextMenu/index.vue';
 
 // 功能组件
-import EventHandle from '@/utils/eventHandler';
+import CanvasEventEmitter from '@/utils/eventHandler';
 import { downFile } from '@/utils/utils';
 import { fabric } from 'fabric';
 import Editor from '@/core';
 
-const event = new EventHandle();
+const event = new CanvasEventEmitter();
 const canvas = {};
 export default {
   name: 'HomeView',
