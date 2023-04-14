@@ -11,7 +11,7 @@
 
 <template>
   <div class="save-box">
-    <Button style="margin-left: 10px" type="text" @click="clear">
+    <Button style="margin-left: 10px" type="text" @click="beforeClear">
       {{ $t('empty') }}
     </Button>
     <Dropdown style="margin-left: 10px" @on-click="saveWith">
@@ -106,6 +106,15 @@ export default {
       });
       this.canvas.c.discardActiveObject();
       this.canvas.c.renderAll();
+    },
+    beforeClear() {
+      this.$Modal.confirm({
+        title: this.$t('tip'),
+        content: `<p>${this.$t('clearTip')}</p>`,
+        okText: this.$t('ok'),
+        cancelText: this.$t('cancel'),
+        onOk: () => this.clear(),
+      });
     },
   },
 };
