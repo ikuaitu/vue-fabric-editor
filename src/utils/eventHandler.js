@@ -7,6 +7,7 @@
  */
 
 import EventEmitter from 'events';
+import { fabric } from 'fabric';
 
 class EventHandle extends EventEmitter {
   init(handler) {
@@ -18,7 +19,13 @@ class EventHandle extends EventEmitter {
 
   // 暴露单选多选事件
   _selected() {
-    const actives = this.handler.getActiveObjects();
+    const actives = this.handler.getActiveObjects().filter((item) => {
+      // 过滤掉辅助线
+      if (item instanceof fabric.GuideLine) {
+        return false;
+      }
+      return true;
+    });
     if (actives && actives.length === 1) {
       this.emit('selectOne', actives);
     } else if (actives && actives.length > 1) {

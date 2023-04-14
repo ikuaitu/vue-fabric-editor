@@ -22,6 +22,8 @@
         <history></history>
 
         <div style="float: right">
+          <!-- 预览 -->
+          <previewCurrent />
           <save></save>
           <lang></lang>
         </div>
@@ -82,6 +84,7 @@
             <bg-bar></bg-bar>
             <group></group>
             <replaceImg></replaceImg>
+            <filters></filters>
             <div class="attr-item">
               <lock></lock>
               <dele></dele>
@@ -111,6 +114,7 @@ import fontTmpl from '@/components/fontTmpl.vue';
 import align from '@/components/align.vue';
 import centerAlign from '@/components/centerAlign.vue';
 import flip from '@/components/flip.vue';
+import previewCurrent from '@/components/previewCurrent';
 import save from '@/components/save.vue';
 import lang from '@/components/lang.vue';
 import clone from '@/components/clone.vue';
@@ -126,6 +130,7 @@ import svgEl from '@/components/svgEl.vue';
 import bgBar from '@/components/bgBar.vue';
 import setSize from '@/components/setSize.vue';
 import replaceImg from '@/components/replaceImg.vue';
+import filters from '@/components/filters.vue';
 
 // 右侧组件
 import history from '@/components/history.vue';
@@ -168,6 +173,7 @@ export default {
     attribute,
     dele,
     importFile,
+    previewCurrent,
     save,
     lang,
     importJSON,
@@ -182,6 +188,7 @@ export default {
     mouseMenu,
     fontTmpl,
     replaceImg,
+    filters,
   },
   created() {
     // this.$Spin.show();
