@@ -1,0 +1,22 @@
+{
+  "name": "@vfe/ruler",
+  "version": "0.0.1",
+  "type": "module",
+  "author": "June",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/ruler.umd.js",
+  "module": "./dist/ruler.es.js",
+  "exports": {
+    ".": {
+      "require": "./dist/ruler.umd.js",
+      "import": "./dist/ruler.es.js"
+    }
+  },
+  "scripts": {
+    "build": "vue-tsc --noEmit --skipLibCheck && vite build"
+  },
+  "keywords": [],
+  "license": "MIT"
+}

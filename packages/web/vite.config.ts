@@ -1,4 +1,12 @@
+/*
+ * @Author: June
+ * @Description:
+ * @Date: 2023-04-12 23:19:35
+ * @LastEditors: June
+ * @LastEditTime: 2023-04-15 13:53:15
+ */
 import { defineConfig, loadEnv } from 'vite';
+import type { ConfigEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import vueJsx from '@vitejs/plugin-vue-jsx';
@@ -6,7 +14,7 @@ const autoprefixer = require('autoprefixer');
 const path = require('path');
 import eslintPlugin from 'vite-plugin-eslint'; //导入包
 
-const config = ({ mode }) => {
+const config = ({ mode }: ConfigEnv) => {
   const isProd = mode === 'production';
   const envPrefix = 'APP_';
   const { APP_TITLE = '' } = loadEnv(mode, process.cwd(), envPrefix);
@@ -71,7 +79,7 @@ const config = ({ mode }) => {
         '/fontFile': {
           target: 'https://github.com/',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/fontFile/, ''),
+          rewrite: (path: string) => path.replace(/^\/fontFile/, ''),
         },
       },
     },

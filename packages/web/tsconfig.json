@@ -1,0 +1,9 @@
+{
+    "extends": "../../tsconfig.json",
+    "path": {
+        "@/*": ["./src/*"]
+    },
+    "exclude": ["**/dist/**"],
+    "include": ["**/*.ts", "**/*.d.ts", "**/*.vue", "**/*.tsx", "index.d.ts"],
+    "references": [{ "path": "./tsconfig.node.json" }]
+}
