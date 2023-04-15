@@ -7,14 +7,9 @@
  */
 
 import EventEmitter from 'events';
-import { Canvas, GuideLine } from 'fabric/fabric-impl';
-
-// 自定义事件
-export enum CustomEvent {
-  SELECT_ONE = 'selectOne',
-  SELECT_MULTI = 'selectMultiple',
-  SELECT_CANCEL = 'selectCancel',
-}
+import { fabric } from 'fabric';
+import { Canvas } from 'fabric/fabric-impl';
+import { SelectEvent } from '@/utils/event/types';
 
 /**
  * 发布订阅器
@@ -41,14 +36,16 @@ class CanvasEventEmitter extends EventEmitter {
       throw TypeError('还未初始化');
     }
 
-    const actives = this.handler.getActiveObjects().filter((item) => !(item instanceof GuideLine)); // 过滤掉辅助线
+    const actives = this.handler
+      .getActiveObjects()
+      .filter((item) => !(item instanceof fabric.GuideLine)); // 过滤掉辅助线
     if (actives && actives.length === 1) {
-      this.emit(CustomEvent.SELECT_ONE, actives);
+      this.emit(SelectEvent.ONE, actives);
     } else if (actives && actives.length > 1) {
       this.mSelectMode = 'multiple';
-      this.emit(CustomEvent.SELECT_MULTI, actives);
+      this.emit(SelectEvent.MULTI, actives);
     } else {
-      this.emit(CustomEvent.SELECT_CANCEL);
+      this.emit(SelectEvent.CANCEL);
     }
   }
 }

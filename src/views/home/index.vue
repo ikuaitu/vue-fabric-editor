@@ -141,7 +141,7 @@ import attribute from '@/components/attribute.vue';
 import mouseMenu from '@/components/contextMenu/index.vue';
 
 // 功能组件
-import CanvasEventEmitter from '@/utils/eventHandler';
+import CanvasEventEmitter from '@/utils/event/notifier';
 import { downFile } from '@/utils/utils';
 import { fabric } from 'fabric';
 import Editor from '@/core';
