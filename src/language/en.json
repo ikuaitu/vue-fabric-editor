@@ -17,7 +17,7 @@
   "everything_goes_well": "Everything goes well",
   "cartoon": "Cartoon",
   "default_size": "Default Size",
-  "preview":"Preview",
+  "preview": "Preview",
   "empty": "Empty",
   "keep": "Save",
   "copy_to_clipboard": "Copy to clipboard",
@@ -156,5 +156,9 @@
     "blur": "Blur",
     "offset_x": "X",
     "offset_y": "Y"
-  }
+  },
+  "tip": "tip",
+  "clearTip": "Are you sure you want to clear it?",
+  "ok": "ok",
+  "cancel": "cancel"
 }
