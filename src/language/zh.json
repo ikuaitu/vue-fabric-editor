@@ -17,7 +17,7 @@
   "everything_goes_well": "诸事顺遂",
   "cartoon": "卡通",
   "default_size": "预设尺寸",
-  "preview":"预览",
+  "preview": "预览",
   "empty": "清空",
   "keep": "保存",
   "copy_to_clipboard": "复制到剪切板",
@@ -159,5 +159,9 @@
     "blur": "模糊",
     "offset_x": "X轴",
     "offset_y": "Y轴"
-  }
+  },
+  "tip": "提示",
+  "clearTip": "确定要清空吗？",
+  "ok": "确认",
+  "cancel": "取消"
 }
