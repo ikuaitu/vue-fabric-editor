@@ -37,7 +37,7 @@ export function setupGuideLine() {
       this.on('mousedown:before', (e) => {
         if (this.activeOn === 'down') {
           // 设置selectable:false后激活对象才能进行移动
-          this.canvas.setActiveObject(this, e);
+          this.canvas.setActiveObject(this, e.e);
         }
       });
 
@@ -49,7 +49,7 @@ export function setupGuideLine() {
         }
         this.canvas.fire('guideline:moving', {
           target: this,
-          e,
+          e: e.e,
         });
       });
 
@@ -63,8 +63,15 @@ export function setupGuideLine() {
         this.moveCursor = this.isHorizontal() ? 'ns-resize' : 'ew-resize';
         this.canvas.fire('guideline:mouseup', {
           target: this,
-          e,
+          e: e.e,
         });
+      });
+
+      this.on('removed', () => {
+        this.off('removed');
+        this.off('mousedown:before');
+        this.off('moving');
+        this.off('mouseup');
       });
     },
 

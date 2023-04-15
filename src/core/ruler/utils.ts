@@ -7,27 +7,15 @@ import { fabric } from 'fabric';
  * @returns 返回计算出的尺子间距
  */
 const getGap = (zoom: number) => {
-  const zooms = [0, 0.02, 0.03, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20];
-  const gaps = [5000, 5000, 2500, 1000, 500, 250, 100, 50, 25, 10, 5, 2];
-  let gap = 50;
-  zooms.some(function (value, index) {
-    if (zooms[index + 1]) {
-      if (value <= zoom && zooms[index + 1] >= zoom) {
-        if (zooms[index] == zoom) {
-          gap = gaps[index];
-        } else if (zooms[index + 1] == zoom) {
-          gap = gaps[index + 1];
-        } else {
-          gap = gaps[index];
-        }
-        return true;
-      }
-    } else {
-      gap = gaps[index];
-      return true;
-    }
-  });
-  return gap;
+  const zooms = [0.02, 0.03, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 18];
+  const gaps = [5000, 2500, 1000, 500, 250, 100, 50, 25, 10, 5, 2];
+
+  let i = 0;
+  while (i < zooms.length && zooms[i] < zoom) {
+    i++;
+  }
+
+  return gaps[i - 1] || 5000;
 };
 
 /**
