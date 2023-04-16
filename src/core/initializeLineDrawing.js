@@ -4,7 +4,7 @@
  * @Author: 秦少卫
  * @Date: 2023-01-06 23:40:09
  * @LastEditors: bigFace2019 599069310@qq.com
- * @LastEditTime: 2023-04-16 10:49:01
+ * @LastEditTime: 2023-04-16 11:24:16
  * @Description: 线条绘制
  */
 
@@ -13,7 +13,8 @@ import { fabric } from 'fabric';
 import Arrow from '@/core/objects/Arrow';
 
 function initializeLineDrawing(canvas, defaultPosition, canvasObj) {
-  //一次划线的状态，鼠标下，可以绘制，鼠标起，一次绘制结束。canvasObj.isDrawingLineMode是全局是否处于绘制模式。
+  //入参中的canvasObj.isDrawingLineMode是全局判断是否处于绘制模式。
+  //下边的isDrawingLine一次划线的状态，鼠标下，可以绘制，鼠标起，一次绘制结束。
   let isDrawingLine = false;
   let isArrow = false;
   let lineToDraw;
@@ -92,9 +93,10 @@ function initializeLineDrawing(canvas, defaultPosition, canvasObj) {
     setArrow(params) {
       isArrow = params;
     },
-    setMode(params) {
-      this.isDrawingLine = params;
-    },
+
+    /*   setMode(params) {
+      isDrawingLineMode = params;
+    }, */
   };
 }
 
