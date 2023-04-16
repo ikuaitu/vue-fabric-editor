@@ -2,6 +2,8 @@
 import type CanvasRuler, { Rect } from './ruler';
 
 declare module 'fabric/fabric-impl' {
+  type EventNameExt = 'removed' | EventName;
+
   export interface Canvas {
     _setupCurrentTransform(e: Event, target: fabric.Object, alreadySelected: boolean): void;
   }
@@ -9,7 +11,7 @@ declare module 'fabric/fabric-impl' {
   export interface IObservable<T> {
     on(
       eventName: 'guideline:moving' | 'guideline:mouseup',
-      handler: (event: { target: GuideLine; e: IEvent<WheelEvent> }) => void
+      handler: (event: { e: Event; target: fabric.GuideLine }) => void
     ): T;
   }
 
@@ -19,18 +21,16 @@ declare module 'fabric/fabric-impl' {
 
   export interface IGuideLineClassOptions extends IGuideLineOptions {
     canvas: {
-      setActiveObject(
-        object: fabric.Object | IGuideLineClassOptions,
-        e?: Event | IEvent<MouseEvent>
-      ): Canvas;
-      remove<T>(...object: (fabric.Object | IGuideLineClassOptions)[]): T;
+      setActiveObject(object: fabric.Object | fabric.GuideLine, e?: Event): Canvas;
+      remove<T>(...object: (fabric.Object | fabric.GuideLine)[]): T;
     } & Canvas;
     activeOn: 'down' | 'up';
     initialize(xy: number, objObjects: IGuideLineOptions): void;
     callSuper(methodName: string, ...args: unknown[]): any;
     getBoundingRect(absolute?: boolean, calculate?: boolean): Rect;
-    on(eventName: EventName, handler: (e: IEvent<MouseEvent>) => void): T;
-    fire<T>(eventName: string, options?: any): T;
+    on(eventName: EventNameExt, handler: (e: IEvent<MouseEvent>) => void): void;
+    off(eventName: EventNameExt, handler?: (e: IEvent<MouseEvent>) => void): void;
+    fire<T>(eventName: EventNameExt, options?: any): T;
     isPointOnRuler(e: MouseEvent): 'horizontal' | 'vertical' | false;
     bringToFront(): fabric.Object;
     isHorizontal(): boolean;
