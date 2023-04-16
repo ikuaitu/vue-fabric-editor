@@ -216,7 +216,6 @@ export default {
     changeIsDrawingLineMode(isLineMode) {
       // 取消画布所有元素的选中状态
       this.canvas.isDrawingLineMode = isLineMode;
-      this.drawHandler.setMode(isLineMode);
       //从非绘制模式切换为绘制模式，就去掉激活状态
       isLineMode && this.canvas.c.discardActiveObject();
       //非绘制-->绘制，要去掉所有元素可选事件。反之要还原。
