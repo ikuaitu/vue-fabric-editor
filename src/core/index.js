@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-10 14:27:43
+ * @LastEditors: bigFace2019 599069310@qq.com
+ * @LastEditTime: 2023-04-16 10:25:42
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -22,6 +22,8 @@ class Editor extends EventEmitter {
     super();
 
     this.canvas = canvas;
+    //添加元素方法，在原生基础上，加一层判断，如果是处于绘制模式，加入元素需要将元素不可选。
+    this.canvas.$add = this.add.bind(this);
     this.editorWorkspace = null;
 
     initAligningGuidelines(canvas);
@@ -31,7 +33,20 @@ class Editor extends EventEmitter {
     this.centerAlign = new InitCenterAlign(canvas);
     this.ruler = initRuler(canvas);
   }
-
+  //添加canvas元素，如果是绘制模式，要去掉当前所选，禁止选中其他元素。
+  add(item, isDrawingLineMode = false) {
+    this.canvas.add(item);
+    if (isDrawingLineMode) {
+      this.canvas.discardActiveObject();
+      item.set({
+        selectable: false,
+        evented: false,
+      });
+      this.canvas.renderAll();
+    } else {
+      this.canvas.setActiveObject(item);
+    }
+  }
   clone() {
     const activeObject = this.canvas.getActiveObject();
     if (activeObject.length === 0) return;
@@ -138,7 +153,7 @@ class Editor extends EventEmitter {
    * @param {Event} event
    * @param {Object} item
    */
-  dragAddItem(event, item) {
+  dragAddItem(event, item, isDrawingLineMode) {
     const { left, top } = this.canvas.getSelectionElement().getBoundingClientRect();
     if (event.x < left || event.y < top) return;
 
@@ -149,7 +164,7 @@ class Editor extends EventEmitter {
     const pointerVpt = this.canvas.restorePointerVpt(point);
     item.left = pointerVpt.x - item.width / 2;
     item.top = pointerVpt.y;
-    this.canvas.add(item);
+    this.canvas.$add(item, isDrawingLineMode);
     this.canvas.requestRenderAll();
   }
 }

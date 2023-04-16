@@ -57,8 +57,8 @@
             <!-- 常用元素 -->
             <div v-show="menuActive === 2" class="left-panel">
               <tools ref="tools"></tools>
-              <fontTmpl @changeLineMode="changeLineMode"></fontTmpl>
-              <svgEl @changeLineMode="changeLineMode"></svgEl>
+              <fontTmpl></fontTmpl>
+              <svgEl></svgEl>
             </div>
             <!-- 背景设置 -->
             <div v-show="menuActive === 3" class="left-panel">
@@ -211,7 +211,8 @@ export default {
       stopContextMenu: true, // 禁止默认右键菜单
       controlsAboveOverlay: true, // 超出clipPath后仍然展示控制条
     });
-
+    //是否处于绘制模式，当前上下文中，这里类似全局。
+    canvas.isDrawingLineMode = false;
     canvas.c = this.canvas;
     event.init(canvas.c);
     canvas.editor = new Editor(canvas.c);
@@ -222,10 +223,6 @@ export default {
     this.$Spin.hide();
   },
   methods: {
-    //修改子组件中 tool 下的划线模式。
-    changeLineMode() {
-      this.$refs.tools && this.$refs.tools.changeLineMode(false);
-    },
     // 获取字体数据 新增字体样式使用
     getFontJson() {
       const activeObject = this.canvas.getActiveObject();

@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2023-04-03 23:01:21
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-03 23:27:57
+ * @LastEditors: bigFace2019 599069310@qq.com
+ * @LastEditTime: 2023-04-16 10:15:35
  * @Description: 字体文件
 -->
 
@@ -74,14 +74,13 @@ export default {
       });
       const obj = JSON.parse(str);
       new this.fabric.Textbox.fromObject(obj, (e) => {
-        this.canvas.c.add(e);
+        this.canvas.c.$add(e, this.canvas.isDrawingLineMode);
         e.center();
         this.$Spin.hide();
       });
     },
     // 获取模板数据
     getTempData(tmplUrl) {
-      this.$emit('changeLineMode');
       this.$Spin.show({
         render: (h) => h('div', this.$t('alert.loading_data')),
       });

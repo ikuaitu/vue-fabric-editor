@@ -183,13 +183,14 @@ export default {
   inject: ['canvas', 'fabric'],
   data() {
     return {
+      //只是用来判断和切换是否选中划线模式的样式
       isDrawingLineMode: false,
       isArrow: false,
     };
   },
   created() {
-    // 线条绘制
-    this.drawHandler = initializeLineDrawing(this.canvas.c, defaultPosition);
+    // 线条绘制， 传入this.canvas，主要是要使用功能其中的this.canvas.isDrawingLineMode,判断是否处于绘制模式（当前全局环境this.canvas）
+    this.drawHandler = initializeLineDrawing(this.canvas.c, defaultPosition, this.canvas);
 
     this.canvas.c.on('drop', (opt) => {
       // 画布元素距离浏览器左侧和顶部的距离
@@ -211,23 +212,24 @@ export default {
     });
   },
   methods: {
-    changeLineMode(isLineMode) {
-      this.isDrawingLineMode = isLineMode;
+    //修改当前环境中，是否处于绘制模式。
+    changeIsDrawingLineMode(isLineMode) {
+      // 取消画布所有元素的选中状态
+      this.canvas.isDrawingLineMode = isLineMode;
       this.drawHandler.setMode(isLineMode);
+      //从非绘制模式切换为绘制模式，就去掉激活状态
+      isLineMode && this.canvas.c.discardActiveObject();
+      //非绘制-->绘制，要去掉所有元素可选事件。反之要还原。
       this.canvas.c.forEachObject((obj) => {
         if (obj.id !== 'workspace') {
           obj.selectable = !isLineMode;
           obj.evented = !isLineMode;
         }
       });
+      this.canvas.c.renderAll();
     },
     // 拖拽开始时就记录当前打算创建的元素类型
     onDragend(type) {
-      //修改划线模式。
-      if (this.isDrawingLineMode) {
-        this.changeLineMode(false);
-      }
-
       // todo 拖拽优化 this.canvas.editor.dragAddItem(event, item);
       switch (type) {
         case 'text':
@@ -252,41 +254,28 @@ export default {
       }
     },
     addText(option) {
-      //修改划线模式。
-      if (this.isDrawingLineMode) {
-        this.changeLineMode(false);
-      }
       const text = new this.fabric.IText(this.$t('everything_is_fine'), {
         ...defaultPosition,
         ...option,
         fontSize: 80,
         id: uuid(),
       });
-      this.canvas.c.add(text);
+      this.canvas.c.$add(text, this.canvas.isDrawingLineMode);
       if (!option) {
         text.center();
       }
-      this.canvas.c.setActiveObject(text);
     },
     addImg(e) {
-      //修改划线模式。
-      if (this.isDrawingLineMode) {
-        this.changeLineMode(false);
-      }
       const imgEl = e.target.cloneNode(true);
       const imgInstance = new this.fabric.Image(imgEl, {
         ...defaultPosition,
         id: uuid(),
         name: '图片default',
       });
-      this.canvas.c.add(imgInstance);
+      this.canvas.c.$add(imgInstance, this.canvas.isDrawingLineMode);
       this.canvas.c.renderAll();
     },
     addTextBox(option) {
-      //修改划线模式。
-      if (this.isDrawingLineMode) {
-        this.changeLineMode(false);
-      }
       const text = new this.fabric.Textbox(this.$t('everything_goes_well'), {
         ...defaultPosition,
         ...option,
@@ -295,34 +284,24 @@ export default {
         fontSize: 80,
         id: uuid(),
       });
-      this.canvas.c.add(text);
+      this.canvas.c.$add(text, this.canvas.isDrawingLineMode);
       if (!option) {
         text.center();
       }
-      this.canvas.c.setActiveObject(text);
     },
     addTriangle(option) {
-      //修改划线模式。
-      if (this.isDrawingLineMode) {
-        this.changeLineMode(false);
-      }
       const triangle = new this.fabric.Triangle({
         ...defaultPosition,
         width: 400,
         height: 400,
         fill: '#92706B',
       });
-      this.canvas.c.add(triangle);
+      this.canvas.c.$add(triangle, this.canvas.isDrawingLineMode);
       if (!option) {
         triangle.center();
       }
-      this.canvas.c.setActiveObject(triangle);
     },
     addPolygon(option) {
-      //修改划线模式。
-      if (this.isDrawingLineMode) {
-        this.changeLineMode(false);
-      }
       const polygon = new this.fabric.Polygon(getPolygonVertices(5, 200), {
         ...defaultPosition,
         ...option,
@@ -340,17 +319,12 @@ export default {
           y: 0,
         },
       });
-      this.canvas.c.add(polygon);
+      this.canvas.c.$add(polygon, this.canvas.isDrawingLineMode);
       if (!option) {
         polygon.center();
       }
-      this.canvas.c.setActiveObject(polygon);
     },
     addCircle(option) {
-      //修改划线模式。
-      if (this.isDrawingLineMode) {
-        this.changeLineMode(false);
-      }
       const circle = new this.fabric.Circle({
         ...defaultPosition,
         ...option,
@@ -359,17 +333,13 @@ export default {
         id: uuid(),
         name: '圆形',
       });
-      this.canvas.c.add(circle);
+      this.canvas.c.$add(circle, this.canvas.isDrawingLineMode);
       if (!option) {
         circle.center();
       }
-      this.canvas.c.setActiveObject(circle);
     },
     addRect(option) {
       //修改划线模式。
-      if (this.isDrawingLineMode) {
-        this.changeLineMode(false);
-      }
       const rect = new this.fabric.Rect({
         ...defaultPosition,
         ...option,
@@ -379,23 +349,24 @@ export default {
         id: uuid(),
         name: '矩形',
       });
-      this.canvas.c.add(rect);
+      this.canvas.c.$add(rect, this.canvas.isDrawingLineMode);
       if (!option) {
         rect.center();
       }
-      this.canvas.c.setActiveObject(rect);
     },
     drawingLineModeSwitch(isArrow) {
       //重复点击绘制，就去掉绘制模式
-      if (this.isDrawingLineMode && isArrow === this.isArrow) {
+      if (this.canvas.isDrawingLineMode && isArrow === this.isArrow) {
+        this.isDrawingLineMode = false;
         this.isArrow = false;
-        this.changeLineMode(false);
+        this.changeIsDrawingLineMode(false);
         return;
       }
       //第一次点击绘制模式或者切换箭头和直线
+      this.isDrawingLineMode = true;
       this.isArrow = isArrow;
-      if (!this.isDrawingLineMode) {
-        this.changeLineMode(true);
+      if (!this.canvas.isDrawingLineMode) {
+        this.changeIsDrawingLineMode(true);
       }
 
       this.drawHandler.setArrow(isArrow);

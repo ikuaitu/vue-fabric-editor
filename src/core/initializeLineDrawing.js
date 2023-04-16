@@ -3,8 +3,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2023-01-06 23:40:09
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:16:19
+ * @LastEditors: bigFace2019 599069310@qq.com
+ * @LastEditTime: 2023-04-16 10:49:01
  * @Description: 线条绘制
  */
 
@@ -12,21 +12,26 @@ import { v4 as uuid } from 'uuid';
 import { fabric } from 'fabric';
 import Arrow from '@/core/objects/Arrow';
 
-function initializeLineDrawing(canvas, defaultPosition) {
+function initializeLineDrawing(canvas, defaultPosition, canvasObj) {
+  //一次划线的状态，鼠标下，可以绘制，鼠标起，一次绘制结束。canvasObj.isDrawingLineMode是全局是否处于绘制模式。
   let isDrawingLine = false;
-  let isDrawingLineMode = false;
   let isArrow = false;
   let lineToDraw;
   let pointer;
   let pointerPoints;
   canvas.on('mouse:down', (o) => {
-    if (!isDrawingLineMode) return;
+    if (!canvasObj.isDrawingLineMode) return;
+    // 取消画布所有元素的选中状态
+    canvas.discardActiveObject();
     canvas.forEachObject((obj) => {
       if (obj.id !== 'workspace') {
-        obj.set('selectable', false);
-        obj.set('evented', false);
+        obj.set({
+          selectable: false,
+          evented: false,
+        });
       }
     });
+    canvas.renderAll();
     isDrawingLine = true;
     pointer = canvas.getPointer(o.e);
     pointerPoints = [pointer.x, pointer.y, pointer.x, pointer.y];
@@ -88,7 +93,7 @@ function initializeLineDrawing(canvas, defaultPosition) {
       isArrow = params;
     },
     setMode(params) {
-      isDrawingLineMode = params;
+      this.isDrawingLine = params;
     },
   };
 }

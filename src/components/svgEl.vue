@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-03-31 13:09:32
+ * @LastEditors: bigFace2019 599069310@qq.com
+ * @LastEditTime: 2023-04-16 10:23:24
  * @Description: 素材面板
 -->
 
@@ -264,7 +264,6 @@ export default {
       return arr.map((item, i) => i + start);
     },
     dragItem(event) {
-      this.$emit('changeLineMode');
       const url = event.target.src;
       // 会有性能开销 dragAddItem复用更简洁
       this.fabric.loadSVGFromURL(url, (objects) => {
@@ -274,12 +273,11 @@ export default {
           id: uuid(),
           name: 'svg元素',
         });
-        this.canvas.editor.dragAddItem(event, item);
+        this.canvas.editor.dragAddItem(event, item, this.canvas.isDrawingLineMode);
       });
     },
     // 按照类型渲染
     addItem(e) {
-      this.$emit('changeLineMode');
       const url = e.target.src;
       this.fabric.loadSVGFromURL(url, (objects, options) => {
         const item = this.fabric.util.groupSVGElements(objects, {
@@ -288,7 +286,7 @@ export default {
           id: uuid(),
           name: 'svg元素',
         });
-        this.canvas.c.add(item);
+        this.canvas.c.$add(item, this.canvas.isDrawingLineMode);
         this.canvas.c.requestRenderAll();
       });
     },
