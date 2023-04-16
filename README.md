@@ -66,7 +66,7 @@ yarn serve
 目前有很多需要做的工作，比如英文文档的搭建、渐变的配置功能等，欢迎与我联系，我愿意与你进行任何问题的交流，微信：13146890191。期待你的 issue 和 PR 。
 
 <!-- <img src="https://user-images.githubusercontent.com/13534626/231202488-f35be6bc-617a-412e-831e-b3764466d833.jpeg" width="20%"> -->
-<img src="https://user-images.githubusercontent.com/13534626/231202037-18fe913f-81ab-4cd6-aa87-ada471e27586.png" width="30%" >
+<img src="https://user-images.githubusercontent.com/13534626/231202037-18fe913f-81ab-4cd6-aa87-ada471e27586.png" width="50%" >
 
 
 ## 规划
@@ -125,17 +125,17 @@ yarn serve
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/hudenghui">
-            <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
-            <br />
-            <sub><b>hudenghui</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/liumingye">
             <img src="https://avatars.githubusercontent.com/u/8676207?v=4" width="80;" alt="liumingye"/>
             <br />
             <sub><b>liumingye</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/hudenghui">
+            <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
+            <br />
+            <sub><b>hudenghui</b></sub>
         </a>
     </td>
     <td align="center">
@@ -151,6 +151,13 @@ yarn serve
             <img src="https://avatars.githubusercontent.com/u/26652329?v=4" width="80;" alt="macheteHot"/>
             <br />
             <sub><b>macheteHot</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/makeng">
+            <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
+            <br />
+            <sub><b>makeng</b></sub>
         </a>
     </td>
     <td align="center">
@@ -179,6 +186,14 @@ yarn serve
             <img src="https://avatars.githubusercontent.com/u/48149577?v=4" width="80;" alt="luke358"/>
             <br />
             <sub><b>luke358</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/yehan68">
+            <img src="https://avatars.githubusercontent.com/u/40497166?v=4" width="80;" alt="yehan68"/>
+            <br />
+            <sub><b>yehan68</b></sub>
         </a>
     </td></tr>
 </table>
