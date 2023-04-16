@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vite serve",
-    "build": "vite build",
+    "dev": "node  ../../scripts/buildLib.js && vite serve",
+    "build": "node ../../scripts/buildLib.js && vite build",
     "dev:staging": "vite serve --mode=staging",
     "dev:prod": "vite serve --mode=production",
     "build:staging": "vite build --mode=staging",
