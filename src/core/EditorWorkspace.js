@@ -10,6 +10,7 @@
  */
 
 import { fabric } from 'fabric';
+import { throttle } from 'lodash-es';
 
 class EditorWorkspace {
   constructor(canvas, option) {
@@ -47,37 +48,33 @@ class EditorWorkspace {
     workspace.set('hasControls', false);
     workspace.hoverCursor = 'selection';
     this.canvas.add(workspace);
-    this.canvas.centerObject(workspace);
     this.canvas.renderAll();
 
     this.workspace = workspace;
     this.auto();
   }
 
+  /**
+   * 设置画布中心到指定对象中心点上
+   * @param {Object} obj 指定的对象
+   */
+  setCenterFromObject(obj) {
+    const { canvas } = this;
+    const objCenter = obj.getCenterPoint();
+    const viewportTransform = canvas.viewportTransform;
+    viewportTransform[4] = canvas.width / 2 - objCenter.x * viewportTransform[0];
+    viewportTransform[5] = canvas.height / 2 - objCenter.y * viewportTransform[3];
+    canvas.setViewportTransform(viewportTransform);
+    canvas.renderAll();
+  }
+
   // 初始化监听器
   _initResizeObserve() {
-    const resizeObserver = new ResizeObserver((entries) => {
-      this.auto();
-      const diffWidth = entries[0].contentRect.width / 2 - this.width / 2;
-      const diffHeight = entries[0].contentRect.height / 2 - this.height / 2;
-      this.width = entries[0].contentRect.width;
-      this.height = entries[0].contentRect.height;
-      this.canvas.getObjects().forEach((obj) => {
-        if (obj.id !== 'workspace') {
-          const left = obj.left + diffWidth;
-          const top = obj.top + diffHeight;
-          obj.set({
-            left,
-            top,
-          });
-          obj.setCoords();
-        }
-      });
-      this.canvas.renderAll.bind(this.canvas);
-      this.canvas.renderAll();
-      this.canvas.requestRenderAll();
-    });
-
+    const resizeObserver = new ResizeObserver(
+      throttle(() => {
+        this.auto();
+      }, 50)
+    );
     resizeObserver.observe(this.workspaceEl);
   }
 
@@ -89,28 +86,7 @@ class EditorWorkspace {
     this.workspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
     this.workspace.set('width', width);
     this.workspace.set('height', height);
-    // 获取偏移
-    const l1 = Number(this.workspace.left);
-    const t1 = Number(this.workspace.top);
-    this.canvas.centerObject(this.workspace);
-    this.moveEl(this.workspace.left - l1, this.workspace.top - t1);
     this.auto();
-  }
-
-  moveEl(diffWidth, diffHeight) {
-    this.canvas.getObjects().forEach((obj) => {
-      if (obj.id !== 'workspace') {
-        const left = obj.left + diffWidth;
-        const top = obj.top + diffHeight;
-        obj.set({
-          left,
-          top,
-        });
-        obj.setCoords();
-      }
-    });
-    this.canvas.renderAll();
-    this.canvas.requestRenderAll();
   }
 
   setZoomAuto(scale, cb) {
@@ -122,8 +98,7 @@ class EditorWorkspace {
     const center = this.canvas.getCenter();
     this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
     this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), scale);
-    this.canvas.centerObject(this.workspace);
-    this.canvas.renderAll();
+    this.setCenterFromObject(this.workspace);
 
     // 超出画布不展示
     this.workspace.clone((cloned) => {
