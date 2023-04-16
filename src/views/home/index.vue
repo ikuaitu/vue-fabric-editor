@@ -56,7 +56,7 @@
             </div>
             <!-- 常用元素 -->
             <div v-show="menuActive === 2" class="left-panel">
-              <tools ref="tools"></tools>
+              <tools></tools>
               <fontTmpl></fontTmpl>
               <svgEl></svgEl>
             </div>
