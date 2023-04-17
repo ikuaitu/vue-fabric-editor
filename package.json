@@ -5,8 +5,8 @@
   "description": "a template project for vue3, ViewUIPlus, TypeScript and Vite.",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev": "pnpm -C packages/web run dev",
-    "build": "pnpm -C packages/web run build",
+    "dev": "pnpm -C app/web run dev",
+    "build": "pnpm -C app/web run build",
     "prepare": "husky install"
   },
   "dependencies": {

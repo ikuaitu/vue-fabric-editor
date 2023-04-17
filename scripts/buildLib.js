@@ -11,21 +11,20 @@ const fs = require('fs');
 const path = require('path');
 const CWD = process.cwd();
 
-const LIST = ['../lib/ruler'];
+const LIST = ['../packages/Ruler'];
 
 // 检查是否有打包的dist, 没有的话就打包一个
 async function buildLib() {
-  const oraManage = ora().start('lib处理中。。。');
+  const oraManage = ora().start('包处理中。。。');
   oraManage.color = 'green';
   try {
-    for await (let url of LIST) {
+    for (let url of LIST) {
       const locationUrl = path.join(__dirname, url);
       if (fs.existsSync(`${locationUrl}/dist`)) {
-        oraManage.succeed('lib无需处理');
+        oraManage.succeed('包无需处理');
       } else {
         await execa('pnpm', ['build'], { cwd: path.resolve(CWD, `${locationUrl}`) });
-        console.log(2);
-        oraManage.succeed('lib处理完成');
+        oraManage.succeed('包处理完成');
       }
     }
   } catch (error) {

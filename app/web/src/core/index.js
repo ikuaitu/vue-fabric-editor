@@ -15,7 +15,7 @@ import initControlsRotate from '@/core/initControlsRotate';
 import InitCenterAlign from '@/core/initCenterAlign';
 import initHotkeys from '@/core/initHotKeys';
 import initControls from '@/core/initControls';
-import initRuler from '@vfe/ruler';
+import initRuler from '@fabric-editor/ruler';
 
 class Editor extends EventEmitter {
   constructor(canvas) {
