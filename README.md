@@ -137,17 +137,17 @@ yarn serve
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/bigFace2019">
-            <img src="https://avatars.githubusercontent.com/u/55651401?v=4" width="80;" alt="bigFace2019"/>
-            <br />
-            <sub><b>bigFace2019</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/liumingye">
             <img src="https://avatars.githubusercontent.com/u/8676207?v=4" width="80;" alt="liumingye"/>
             <br />
             <sub><b>liumingye</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/bigFace2019">
+            <img src="https://avatars.githubusercontent.com/u/55651401?v=4" width="80;" alt="bigFace2019"/>
+            <br />
+            <sub><b>bigFace2019</b></sub>
         </a>
     </td>
     <td align="center">
