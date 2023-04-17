@@ -7,7 +7,7 @@
 ![image](https://user-images.githubusercontent.com/13534626/230828335-0adee0ae-b951-4171-b6ba-d2b9cd44dd6a.png)
 
 ## 已有功能
-
+[功能介绍文章](https://juejin.cn/post/7222141882515128375) 文字 + 动图。
 - 导入 JSON 文件
 - 保存为 PNG、SVG、JSON 文件
 - 插入 SVG、图片文件
@@ -38,10 +38,15 @@ yarn install
 yarn serve
 ```
 
-为非web前端开发人员准备了[付费的部署教程](https://mbd.pub/o/bread/ZJeXlptw)，快速解决你的部署需求。
+为非web前端开发人员准备了[部署教程](https://t.zsxq.com/0drqSuyjY)，快速解决你的部署需求。
 
 ### 自定义素材
 可自定义字体、设计模板、标题模板等，所有自定义素材在https://github.com/nihaojob/vue-fabric-editor-static 项目中保存。
+
+相关二次开发问题欢迎加入星球咨询：
+
+<img src="https://user-images.githubusercontent.com/13534626/231202037-18fe913f-81ab-4cd6-aa87-ada471e27586.png" width="50%" >
+
 
 ## 贡献指南
 
@@ -66,7 +71,6 @@ yarn serve
 目前有很多需要做的工作，比如英文文档的搭建、渐变的配置功能等，欢迎与我联系，我愿意与你进行任何问题的交流，微信：13146890191。期待你的 issue 和 PR 。
 
 <!-- <img src="https://user-images.githubusercontent.com/13534626/231202488-f35be6bc-617a-412e-831e-b3764466d833.jpeg" width="20%"> -->
-<img src="https://user-images.githubusercontent.com/13534626/231202037-18fe913f-81ab-4cd6-aa87-ada471e27586.png" width="50%" >
 
 
 ## 规划
