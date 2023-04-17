@@ -98,6 +98,21 @@ yarn serve
 - [x] 滤镜
 - [x] 描边 strokeDashArray
 
+
+第二阶段
+- [ ] monorepo升级 进行中
+- [ ] 标尺插件
+- [ ] 截图插件
+- [ ] 滤镜插件
+- [ ] 画布插件
+- [ ] 其他工具函数
+- [ ] @fabricEditor SDK封装
+- [ ] 基于插件开发移动端
+- [ ] 基于插件开发其他图片应用
+- [ ] 文档建设(中英文)
+
+
+
 ## 致谢
 
 - [color-gradient-picker-vue3](https://github.com/Qiu-Jun/color-gradient-picker-vue3) 一个 vue3 版本的渐变组件，作者[Qiu-Jun
