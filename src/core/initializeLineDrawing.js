@@ -4,7 +4,7 @@
  * @Author: 秦少卫
  * @Date: 2023-01-06 23:40:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-18 08:01:30
+ * @LastEditTime: 2023-04-18 09:17:58
  * @Description: 线条绘制
  */
 
@@ -22,6 +22,12 @@ function initializeLineDrawing(canvas, defaultPosition) {
 
   canvas.on('mouse:down', (o) => {
     if (!isDrawingLineMode) return;
+    canvas.discardActiveObject();
+    canvas.getObjects().forEach((obj) => {
+      obj.selectable = false;
+      obj.hasControls = false;
+    });
+    canvas.requestRenderAll();
     isDrawingLine = true;
     pointer = canvas.getPointer(o.e);
     pointerPoints = [pointer.x, pointer.y, pointer.x, pointer.y];
@@ -42,7 +48,9 @@ function initializeLineDrawing(canvas, defaultPosition) {
 
   canvas.on('mouse:move', (o) => {
     if (!isDrawingLine) return;
-
+    canvas.discardActiveObject();
+    const activeObject = canvas.getActiveObject();
+    if (activeObject) return;
     pointer = canvas.getPointer(o.e);
 
     if (o.e.shiftKey) {
@@ -79,12 +87,24 @@ function initializeLineDrawing(canvas, defaultPosition) {
     canvas.discardActiveObject();
   });
 
+  function endRest() {
+    canvas.getObjects().forEach((obj) => {
+      if (obj.id !== 'workspace') {
+        obj.selectable = true;
+        obj.hasControls = true;
+      }
+    });
+  }
+
   return {
     setArrow(params) {
       isArrow = params;
     },
     setMode(params) {
       isDrawingLineMode = params;
+      if (!isDrawingLineMode) {
+        endRest();
+      }
     },
   };
 }
