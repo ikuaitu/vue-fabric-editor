@@ -5,7 +5,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 21:50:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-18 20:01:41
+ * @LastEditTime: 2023-04-18 09:02:06
  * @Description: 工作区初始化
  */
 
@@ -96,7 +96,7 @@ class EditorWorkspace {
     this.canvas.setWidth(width);
     this.canvas.setHeight(height);
     const center = this.canvas.getCenter();
-    this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    this.canvas.setViewportTransform(fabric.iMatrix.concat());
     this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), scale);
     this.setCenterFromObject(this.workspace);
 
@@ -146,13 +146,23 @@ class EditorWorkspace {
     this.canvas.requestRenderAll();
   }
 
+  // 开始拖拽
+  startDring() {
+    this.dragMode = true;
+    this.canvas.defaultCursor = 'grab';
+  }
+  endDring() {
+    this.dragMode = false;
+    this.canvas.defaultCursor = 'grab';
+  }
+
   // 拖拽模式
   _initDring() {
     const This = this;
     this.canvas.on('mouse:down', function (opt) {
       const evt = opt.e;
-      if (evt.altKey === true) {
-        this.defaultCursor = 'grab';
+      if (evt.altKey === true || This.dragMode) {
+        This.canvas.discardActiveObject();
         This._setDring();
         this.selection = false;
         this.isDragging = true;
@@ -164,7 +174,8 @@ class EditorWorkspace {
 
     this.canvas.on('mouse:move', function (opt) {
       if (this.isDragging) {
-        this.defaultCursor = 'grabbing';
+        This.canvas.discardActiveObject();
+        This.canvas.defaultCursor = 'grabbing';
         const { e } = opt;
         const vpt = this.viewportTransform;
         vpt[4] += e.clientX - this.lastPosX;
@@ -179,8 +190,7 @@ class EditorWorkspace {
       this.setViewportTransform(this.viewportTransform);
       this.isDragging = false;
       this.selection = true;
-      this.defaultCursor = 'default';
-      This.workspace.hoverCursor = 'default';
+      This.canvas.defaultCursor = 'default';
       this.getObjects().forEach((obj) => {
         if (obj.id !== 'workspace' && obj.hasControls) {
           obj.selectable = true;
@@ -205,7 +215,6 @@ class EditorWorkspace {
   _setDring() {
     this.canvas.selection = false;
     this.canvas.defaultCursor = 'grab';
-    this.workspace.hoverCursor = 'grab';
     this.canvas.getObjects().forEach((obj) => {
       obj.selectable = false;
     });

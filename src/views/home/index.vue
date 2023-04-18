@@ -71,6 +71,7 @@
           <div class="canvas-box">
             <div class="inside-shadow"></div>
             <canvas id="canvas" :class="ruler ? 'design-stage-grid' : ''"></canvas>
+            <dragMode></dragMode>
             <zoom></zoom>
             <mouseMenu></mouseMenu>
           </div>
@@ -120,6 +121,7 @@ import lang from '@/components/lang.vue';
 import clone from '@/components/clone.vue';
 import group from '@/components/group.vue';
 import zoom from '@/components/zoom.vue';
+import dragMode from '@/components/dragMode.vue';
 import lock from '@/components/lock.vue';
 import dele from '@/components/del.vue';
 
@@ -173,6 +175,7 @@ export default {
     attribute,
     dele,
     importFile,
+    dragMode,
     previewCurrent,
     save,
     lang,
