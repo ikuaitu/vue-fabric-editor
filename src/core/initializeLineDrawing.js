@@ -4,7 +4,7 @@
  * @Author: 秦少卫
  * @Date: 2023-01-06 23:40:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:16:19
+ * @LastEditTime: 2023-04-18 08:01:30
  * @Description: 线条绘制
  */
 
@@ -19,9 +19,9 @@ function initializeLineDrawing(canvas, defaultPosition) {
   let lineToDraw;
   let pointer;
   let pointerPoints;
+
   canvas.on('mouse:down', (o) => {
     if (!isDrawingLineMode) return;
-
     isDrawingLine = true;
     pointer = canvas.getPointer(o.e);
     pointerPoints = [pointer.x, pointer.y, pointer.x, pointer.y];
@@ -76,6 +76,7 @@ function initializeLineDrawing(canvas, defaultPosition) {
     if (!isDrawingLine) return;
     lineToDraw.setCoords();
     isDrawingLine = false;
+    canvas.discardActiveObject();
   });
 
   return {
