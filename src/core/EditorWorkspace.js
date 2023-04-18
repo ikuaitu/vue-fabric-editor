@@ -5,7 +5,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 21:50:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-18 09:02:06
+ * @LastEditTime: 2023-04-18 22:24:22
  * @Description: 工作区初始化
  */
 
@@ -153,7 +153,7 @@ class EditorWorkspace {
   }
   endDring() {
     this.dragMode = false;
-    this.canvas.defaultCursor = 'grab';
+    this.canvas.defaultCursor = 'default';
   }
 
   // 拖拽模式
@@ -162,6 +162,7 @@ class EditorWorkspace {
     this.canvas.on('mouse:down', function (opt) {
       const evt = opt.e;
       if (evt.altKey === true || This.dragMode) {
+        This.canvas.defaultCursor = 'grabbing';
         This.canvas.discardActiveObject();
         This._setDring();
         this.selection = false;
@@ -190,13 +191,13 @@ class EditorWorkspace {
       this.setViewportTransform(this.viewportTransform);
       this.isDragging = false;
       this.selection = true;
-      This.canvas.defaultCursor = 'default';
       this.getObjects().forEach((obj) => {
         if (obj.id !== 'workspace' && obj.hasControls) {
           obj.selectable = true;
         }
       });
       this.requestRenderAll();
+      This.canvas.defaultCursor = 'default';
     });
 
     this.canvas.on('mouse:wheel', function (opt) {
