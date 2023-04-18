@@ -15,9 +15,7 @@ function initRuler(canvas: Canvas, options?: RulerOptions) {
    * 获取workspace
    */
   const getWorkspace = () => {
-    workspace = canvas
-      .getObjects()
-      .find((item) => (item as fabric.Object & { id: string }).id === 'workspace');
+    workspace = canvas.getObjects().find((item) => item.id === 'workspace');
   };
 
   /**

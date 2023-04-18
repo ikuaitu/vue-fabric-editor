@@ -6,18 +6,38 @@
  * @Description: 居中方式
  */
 
-// import { fabric } from 'fabric';
+import { fabric } from 'fabric';
 
 class CenterAlign {
   constructor(canvas) {
     this.canvas = canvas;
   }
 
+  centerH(workspace, object) {
+    return this.canvas._centerObject(
+      object,
+      new fabric.Point(workspace.getCenterPoint().x, object.getCenterPoint().y)
+    );
+  }
+
+  center(workspace, object) {
+    var center = workspace.getCenterPoint();
+    return this.canvas._centerObject(object, center);
+  }
+
+  centerV(workspace, object) {
+    return this.canvas._centerObject(
+      object,
+      new fabric.Point(object.getCenterPoint().x, workspace.getCenterPoint().y)
+    );
+  }
+
   position(name) {
     const anignType = ['centerH', 'center', 'centerV'];
     const activeObject = this.canvas.getActiveObject();
     if (anignType.includes(name) && activeObject) {
-      activeObject[name]();
+      const defaultWorkspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
+      this[name](defaultWorkspace, activeObject);
       this.canvas.renderAll();
     }
   }
