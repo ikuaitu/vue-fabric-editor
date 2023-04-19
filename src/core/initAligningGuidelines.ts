@@ -8,16 +8,27 @@
 
 import { fabric } from 'fabric';
 
-function initAligningGuidelines(canvas) {
+declare interface VerticalLine {
+  x: number;
+  y1: number;
+  y2: number;
+}
+declare interface HorizontalLine {
+  x1: number;
+  x2: number;
+  y: number;
+}
+
+function initAligningGuidelines(canvas: fabric.Canvas) {
   const ctx = canvas.getSelectionContext();
   const aligningLineOffset = 5;
   const aligningLineMargin = 4;
   const aligningLineWidth = 1;
   const aligningLineColor = 'rgb(0,255,0)';
-  let viewportTransform;
+  let viewportTransform: number[] | undefined;
   let zoom = 1;
 
-  function drawVerticalLine(coords) {
+  function drawVerticalLine(coords: VerticalLine) {
     drawLine(
       coords.x + 0.5,
       coords.y1 > coords.y2 ? coords.y2 : coords.y1,
@@ -26,7 +37,7 @@ function initAligningGuidelines(canvas) {
     );
   }
 
-  function drawHorizontalLine(coords) {
+  function drawHorizontalLine(coords: HorizontalLine) {
     drawLine(
       coords.x1 > coords.x2 ? coords.x2 : coords.x1,
       coords.y + 0.5,
@@ -35,7 +46,9 @@ function initAligningGuidelines(canvas) {
     );
   }
 
-  function drawLine(x1, y1, x2, y2) {
+  function drawLine(x1: number, y1: number, x2: number, y2: number) {
+    if (viewportTransform == null) return;
+
     ctx.save();
     ctx.lineWidth = aligningLineWidth;
     ctx.strokeStyle = aligningLineColor;
@@ -46,7 +59,7 @@ function initAligningGuidelines(canvas) {
     ctx.restore();
   }
 
-  function isInRange(value1, value2) {
+  function isInRange(value1: number, value2: number) {
     value1 = Math.round(value1);
     value2 = Math.round(value2);
     for (let i = value1 - aligningLineMargin, len = value1 + aligningLineMargin; i <= len; i++) {
@@ -57,8 +70,8 @@ function initAligningGuidelines(canvas) {
     return false;
   }
 
-  const verticalLines = [];
-  const horizontalLines = [];
+  const verticalLines: VerticalLine[] = [];
+  const horizontalLines: HorizontalLine[] = [];
 
   canvas.on('mouse:down', () => {
     viewportTransform = canvas.viewportTransform;
@@ -66,6 +79,8 @@ function initAligningGuidelines(canvas) {
   });
 
   canvas.on('object:moving', (e) => {
+    if (viewportTransform === undefined || e.target === undefined) return;
+
     const activeObject = e.target;
     const canvasObjects = canvas.getObjects();
     const activeObjectCenter = activeObject.getCenterPoint();
