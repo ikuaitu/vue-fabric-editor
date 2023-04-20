@@ -487,7 +487,7 @@ export default {
   .content {
     width: 90%;
   }
-  cursor: none;
+  cursor: default;
 }
 .box {
   margin-bottom: 12px;
