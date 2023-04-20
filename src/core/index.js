@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-10 14:27:43
+ * @LastEditTime: 2023-04-20 13:07:22
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -16,6 +16,7 @@ import InitCenterAlign from '@/core/initCenterAlign';
 import initHotkeys from '@/core/initHotKeys';
 import initControls from '@/core/initControls';
 import initRuler from '@/core/ruler';
+import EditorGroupText from '@/core/EditorGroupText';
 
 class Editor extends EventEmitter {
   constructor(canvas) {
@@ -28,6 +29,7 @@ class Editor extends EventEmitter {
     initHotkeys(canvas);
     initControls(canvas);
     initControlsRotate(canvas);
+    new EditorGroupText(canvas);
     this.centerAlign = new InitCenterAlign(canvas);
     this.ruler = initRuler(canvas);
   }
