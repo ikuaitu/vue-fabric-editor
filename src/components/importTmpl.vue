@@ -78,6 +78,7 @@ export default {
               this.canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
               this.canvas.c.renderAll();
               this.canvas.c.requestRenderAll();
+              this.event.emit('resize', { width: workspace.width, height: workspace.height });
             }, 100);
           });
         })
