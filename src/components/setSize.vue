@@ -68,18 +68,18 @@ export default {
       width: this.width,
       height: this.height,
     });
-    this.event.on('resize', ({ width, height }) => {
-      this.width = width;
-      this.height = height;
-    });
+    this.event.on('resize', this.resize);
   },
   beforeUnmount() {
-    this.event.off('resize');
+    this.event.off('resize', this.resize);
   },
   methods: {
-    setSizeBy(width, height) {
+    resize({ width, height }) {
       this.width = width;
       this.height = height;
+    },
+    setSizeBy(width, height) {
+      this.resize({ width, height });
       this.setSize();
     },
     setSize() {
