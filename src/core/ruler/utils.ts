@@ -93,10 +93,8 @@ const darwText = (
     ctx.translate(left, top);
     ctx.rotate((Math.PI / 180) * angle);
     ctx.translate(-left, -top);
-    ctx.fillText(text, left, top);
-  } else {
-    ctx.fillText(text, left, top);
   }
+  ctx.fillText(text, left, top);
   ctx.restore();
 };
 
