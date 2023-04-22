@@ -43,6 +43,22 @@ export default {
         this.canvas.editor.editorWorkspace.endDring();
       }
     },
+    handleKeyDown() {
+      this.status = true;
+      this.canvas.editor.editorWorkspace.startDring();
+    },
+    handleKeyUp() {
+      this.status = false;
+      this.canvas.editor.editorWorkspace.endDring();
+    },
+  },
+  mounted() {
+    window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener('keyup', this.handleKeyUp);
+  },
+  beforeUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('keyup', this.handleKeyUp);
   },
 };
 </script>
