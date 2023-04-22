@@ -11,7 +11,9 @@ import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
 
 class EditorGroupText {
-  constructor(canvas) {
+  canvas: fabric.Canvas;
+  isDown: boolean;
+  constructor(canvas: fabric.Canvas) {
     this.canvas = canvas;
     this._init();
     this.isDown = false;
@@ -22,7 +24,7 @@ class EditorGroupText {
     this.canvas.on('mouse:down', (opt) => {
       this.isDown = true;
       if (opt.target && opt.target.type === 'group') {
-        const textObject = this._getGroupTextObj(opt);
+        const textObject = this._getGroupTextObj(opt) as fabric.IText;
         if (textObject) {
           this._bedingEditingEvent(textObject, opt);
           this.canvas.setActiveObject(textObject);
@@ -48,9 +50,9 @@ class EditorGroupText {
   }
 
   // 获取点击区域内的组内文字元素
-  _getGroupTextObj(opt) {
+  _getGroupTextObj(opt: fabric.IEvent<MouseEvent>) {
     const pointer = this.canvas.getPointer(opt.e, true);
-    const clickObj = this.canvas._searchPossibleTargets(opt.target._objects, pointer);
+    const clickObj = this.canvas._searchPossibleTargets(opt.target?._objects, pointer);
     if (clickObj && this.isText(clickObj)) {
       return clickObj;
     }
@@ -58,14 +60,15 @@ class EditorGroupText {
   }
 
   // 绑定编辑取消事件
-  _bedingEditingEvent(textObject, opt) {
+  _bedingEditingEvent(textObject: fabric.IText, opt: fabric.IEvent<MouseEvent>) {
+    if (!opt.target) return;
     const left = opt.target.left;
     const top = opt.target.top;
-    const ids = this._unGroup();
+    const ids = this._unGroup() || [];
 
     const resetGroup = () => {
       console.log(0);
-      const groupArr = this.canvas.getObjects().filter((item) => ids.includes(item.id));
+      const groupArr = this.canvas.getObjects().filter((item) => item.id && ids.includes(item.id));
       // 删除元素
       groupArr.forEach((item) => this.canvas.remove(item));
 
@@ -85,21 +88,20 @@ class EditorGroupText {
 
   // 拆分组合并返回ID
   _unGroup() {
-    const ids = [];
-    this.canvas.getActiveObject().toActiveSelection();
-    this.canvas
-      .getActiveObject()
-      .getObjects()
-      .forEach((item) => {
-        const id = uuid();
-        ids.push(id);
-        item.set('id', id);
-      });
+    const ids: string[] = [];
+    const activeObj = this.canvas.getActiveObject() as fabric.Group;
+    if (!activeObj) return;
+    activeObj.toActiveSelection();
+    activeObj.getObjects().forEach((item) => {
+      const id = uuid();
+      ids.push(id);
+      item.set('id', id);
+    });
     return ids;
   }
 
-  isText(obj) {
-    return ['i-text', 'text', 'textbox'].includes(obj.type);
+  isText(obj: fabric.Object) {
+    return obj.type && ['i-text', 'text', 'textbox'].includes(obj.type);
   }
 }
 
