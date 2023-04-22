@@ -16,7 +16,8 @@
             <InputNumber
               v-model="fontAttr.fontSize"
               @on-change="(value) => changeCommon('fontSize', value)"
-              show-input
+              append="字号"
+              :min="1"
             ></InputNumber>
           </div>
         </div>
@@ -76,29 +77,23 @@
         </div>
       </div>
 
-      <div class="flex-view">
-        <div class="flex-item">
-          <span class="label">{{ $t('attributes.line_height') }}</span>
-          <div class="content">
-            <InputNumber
-              v-model="fontAttr.lineHeight"
-              @on-change="(value) => changeCommon('lineHeight', value)"
-              show-input
-              :step="0.1"
-            ></InputNumber>
-          </div>
-        </div>
-        <div class="flex-item">
-          <span class="label">{{ $t('attributes.char_spacing') }}</span>
-          <div class="content">
-            <InputNumber
-              v-model="fontAttr.charSpacing"
-              @on-change="(value) => changeCommon('charSpacing', value)"
-              show-input
-            ></InputNumber>
-          </div>
-        </div>
-      </div>
+      <Row :gutter="12">
+        <Col flex="1">
+          <InputNumber
+            v-model="fontAttr.lineHeight"
+            @on-change="(value) => changeCommon('lineHeight', value)"
+            :step="0.1"
+            :append="$t('attributes.line_height')"
+          ></InputNumber>
+        </Col>
+        <Col flex="1">
+          <InputNumber
+            v-model="fontAttr.charSpacing"
+            @on-change="(value) => changeCommon('charSpacing', value)"
+            :append="$t('attributes.char_spacing')"
+          ></InputNumber>
+        </Col>
+      </Row>
 
       <div class="flex-view">
         <div class="flex-item">
@@ -118,46 +113,35 @@
     <div v-show="baseType.includes(mSelectOneType)">
       <Divider plain orientation="left">{{ $t('attributes.exterior') }}</Divider>
       <!-- 多边形边数 -->
-      <div class="flex-view" v-if="mSelectOneType === 'polygon'">
-        <div class="flex-item">
-          <span class="label">边数</span>
-          <div class="content">
-            <InputNumber
-              v-model="baseAttr.points.length"
-              :min="3"
-              :max="60"
-              @on-change="changeEdge"
-              show-input
-            ></InputNumber>
-          </div>
-        </div>
-      </div>
+      <Row v-if="mSelectOneType === 'polygon'" :gutter="12">
+        <Col flex="0.5">
+          <InputNumber
+            v-model="baseAttr.points.length"
+            :min="3"
+            :max="30"
+            @on-change="changeEdge"
+            append="边数"
+          ></InputNumber>
+        </Col>
+      </Row>
       <!-- 颜色 -->
       <Color :color="baseAttr.fill" @change="(value) => changeCommon('fill', value)"></Color>
-      <div class="flex-view">
-        <div class="flex-item">
-          <span class="label">{{ $t('attributes.left') }}</span>
-          <div class="content">
-            <InputNumber
-              v-model="baseAttr.left"
-              :max="360"
-              @on-change="(value) => changeCommon('left', value)"
-              show-input
-            ></InputNumber>
-          </div>
-        </div>
-        <div class="flex-item">
-          <span class="label">{{ $t('attributes.top') }}</span>
-          <div class="content">
-            <InputNumber
-              v-model="baseAttr.top"
-              :max="360"
-              @on-change="(value) => changeCommon('top', value)"
-              show-input
-            ></InputNumber>
-          </div>
-        </div>
-      </div>
+      <Row :gutter="12">
+        <Col flex="1">
+          <InputNumber
+            v-model="baseAttr.left"
+            @on-change="(value) => changeCommon('left', value)"
+            :append="$t('attributes.left')"
+          ></InputNumber>
+        </Col>
+        <Col flex="1">
+          <InputNumber
+            v-model="baseAttr.top"
+            @on-change="(value) => changeCommon('top', value)"
+            :append="$t('attributes.top')"
+          ></InputNumber>
+        </Col>
+      </Row>
       <div class="flex-view">
         <div class="flex-item">
           <span class="label">{{ $t('attributes.angle') }}</span>
@@ -183,92 +167,94 @@
       </div>
       <!-- 边框 -->
       <Divider plain orientation="left">{{ $t('attributes.stroke') }}</Divider>
-      <div class="flex-view">
-        <div class="flex-item">
-          <span class="label">{{ $t('color') }}</span>
-          <div class="content">
-            <ColorPicker
-              v-model="baseAttr.stroke"
-              @on-change="(value) => changeCommon('stroke', value)"
-              alpha
-            />
+
+      <Row :gutter="12">
+        <Col flex="1">
+          <div class="ivu-col__box">
+            <span class="label">{{ $t('color') }}</span>
+            <div class="content">
+              <ColorPicker
+                v-model="baseAttr.stroke"
+                @on-change="(value) => changeCommon('stroke', value)"
+                alpha
+              />
+            </div>
           </div>
-        </div>
-        <div class="flex-item">
-          <span class="label">{{ $t('width') }}</span>
-          <div class="content">
-            <InputNumber
-              v-model="baseAttr.strokeWidth"
-              :max="360"
-              @on-change="(value) => changeCommon('strokeWidth', value)"
-              show-input
-            ></InputNumber>
+        </Col>
+        <Col flex="1">
+          <InputNumber
+            v-model="baseAttr.strokeWidth"
+            @on-change="(value) => changeCommon('strokeWidth', value)"
+            :append="$t('width')"
+            :min="0"
+          ></InputNumber>
+        </Col>
+      </Row>
+
+      <Row :gutter="12">
+        <Col flex="1">
+          <div class="ivu-col__box">
+            <span class="label">{{ $t('attributes.stroke') }}</span>
+            <div class="content">
+              <Select v-model="baseAttr.strokeDashArray" @on-change="borderSet">
+                <Option
+                  v-for="item in strokeDashList"
+                  :value="item.label"
+                  :key="'stroke-' + item.label"
+                >
+                  {{ item.label }}
+                </Option>
+              </Select>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="flex-view">
-        <div class="flex-item">
-          <span class="label">{{ $t('attributes.stroke') }}</span>
-          <div style="flex: 1">
-            <Select v-model="baseAttr.strokeDashArray" @on-change="borderSet">
-              <Option
-                v-for="item in strokeDashList"
-                :value="item.label"
-                :key="'stroke-' + item.label"
-              >
-                {{ item.label }}
-              </Option>
-            </Select>
-          </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
 
       <!-- 阴影 -->
       <Divider plain orientation="left">{{ $t('attributes.shadow') }}</Divider>
-      <div class="flex-view">
-        <div class="flex-item">
-          <span class="label">{{ $t('color') }}</span>
-          <div class="content">
-            <ColorPicker
-              v-model="baseAttr.shadow.color"
-              @on-change="(value) => changeCommon('color', value)"
-              alpha
-            />
+
+      <Row :gutter="12">
+        <Col flex="1">
+          <div class="ivu-col__box">
+            <span class="label">{{ $t('color') }}</span>
+            <div class="content">
+              <ColorPicker
+                v-model="baseAttr.shadow.color"
+                @on-change="(value) => changeCommon('color', value)"
+                alpha
+              />
+            </div>
           </div>
-        </div>
-        <div class="flex-item">
-          <span class="label">{{ $t('attributes.blur') }}</span>
-          <div class="content">
-            <InputNumber
-              v-model="baseAttr.shadow.blur"
-              :max="360"
-              @on-change="(value) => changeShadow('blur', value)"
-            ></InputNumber>
-          </div>
-        </div>
-      </div>
-      <div class="flex-view">
-        <div class="flex-item">
-          <span class="label">{{ $t('attributes.offset_x') }}</span>
-          <div class="content">
-            <InputNumber
-              v-model="baseAttr.shadow.offsetX"
-              :max="360"
-              @on-change="(value) => changeShadow('offsetX', value)"
-            ></InputNumber>
-          </div>
-        </div>
-        <div class="flex-item">
-          <span class="label">{{ $t('attributes.offset_y') }}</span>
-          <div class="content">
-            <InputNumber
-              v-model="baseAttr.shadow.offsetY"
-              :max="360"
-              @on-change="(value) => changeShadow('offsetY', value)"
-            ></InputNumber>
-          </div>
-        </div>
-      </div>
+        </Col>
+        <Col flex="1">
+          <InputNumber
+            v-model="baseAttr.shadow.blur"
+            :defaultValue="0"
+            @on-change="(value) => changeShadow('blur', value)"
+            :append="$t('attributes.blur')"
+            :min="0"
+          ></InputNumber>
+        </Col>
+      </Row>
+
+      <Row :gutter="12">
+        <Col flex="1">
+          <InputNumber
+            v-model="baseAttr.shadow.offsetX"
+            :defaultValue="0"
+            @on-change="(value) => changeShadow('offsetX', value)"
+            :append="$t('attributes.offset_x')"
+          ></InputNumber>
+        </Col>
+        <Col flex="1">
+          <InputNumber
+            v-model="baseAttr.shadow.offsetY"
+            :defaultValue="0"
+            @on-change="(value) => changeShadow('offsetY', value)"
+            :append="$t('attributes.offset_y')"
+          ></InputNumber>
+        </Col>
+      </Row>
     </div>
 
     <!-- ID属性 -->
@@ -293,6 +279,7 @@ import FontFaceObserver from 'fontfaceobserver';
 import Color from './color.vue';
 import axios from 'axios';
 import { getPolygonVertices } from '@/utils/math';
+import InputNumber from '@/components/inputNumber';
 
 const repoSrc = import.meta.env.APP_REPO;
 
@@ -301,6 +288,7 @@ export default {
   mixins: [select],
   components: {
     Color,
+    InputNumber,
   },
   data() {
     return {
@@ -448,7 +436,19 @@ export default {
       this.$forceUpdate();
     });
     this.event.on('selectOne', () => {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      this.getObjectAttr();
+    });
+
+    this.canvas.c.on('object:modified', this.getObjectAttr);
+  },
+  beforeUnmount() {
+    this.canvas.c.off('object:modified', this.getObjectAttr);
+  },
+  methods: {
+    getObjectAttr(e) {
+      const activeObject = this.canvas.c.getActiveObject();
+      // 不是当前obj，跳过
+      if (e && e.target && e.target !== activeObject) return;
       if (activeObject) {
         // base
         this.baseAttr.id = activeObject.get('id');
@@ -477,9 +477,7 @@ export default {
           this.fontAttr.fontWeight = activeObject.get('fontWeight');
         }
       }
-    });
-  },
-  methods: {
+    },
     // 修改字体
     changeFontFamily(fontName) {
       if (!fontName) return;
@@ -533,6 +531,9 @@ export default {
       }
       activeObject && activeObject.set(key, value);
       this.canvas.c.renderAll();
+
+      // 更新属性
+      this.getObjectAttr();
     },
     // 边框设置
     borderSet(key) {
@@ -645,7 +646,7 @@ export default {
     line-height: 32px;
     display: inline-block;
     font-size: 14px;
-    color: #333333;
+    // color: #333333;
   }
   .content {
     width: 60px;
@@ -654,7 +655,11 @@ export default {
     width: calc(100% - 50px);
     margin-left: 10px;
   }
+  .left {
+    flex: 1;
+  }
   .right {
+    flex: 1;
     margin-left: 10px;
     :deep(.ivu-input-number) {
       display: block;
@@ -684,6 +689,35 @@ export default {
   :deep(.ivu-radio-group-button) {
     &.ivu-radio-group-large .ivu-radio-wrapper {
       font-size: 24px;
+    }
+  }
+}
+
+.ivu-row {
+  margin-bottom: 8px;
+
+  .ivu-col {
+    &__box {
+      display: flex;
+      align-items: center;
+      background: #f8f8f8;
+      border-radius: 4px;
+      gap: 8px;
+    }
+  }
+
+  .label {
+    padding-left: 8px;
+  }
+
+  .content {
+    flex: 1;
+
+    :deep(.ivu-input),
+    :deep(.ivu-select-selection) {
+      background-color: transparent;
+      border: none !important;
+      box-shadow: none !important;
     }
   }
 }
