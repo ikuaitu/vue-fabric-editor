@@ -221,6 +221,13 @@ yarn serve
             <br />
             <sub><b>yehan68</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/xiaozhuclassmate">
+            <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="xiaozhuclassmate"/>
+            <br />
+            <sub><b>xiaozhuclassmate</b></sub>
+        </a>
     </td></tr>
 </table>
 <!-- readme: collaborators,contributors -end -->
