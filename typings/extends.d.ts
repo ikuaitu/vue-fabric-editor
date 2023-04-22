@@ -3,6 +3,7 @@ declare namespace fabric {
     contextTop: CanvasRenderingContext2D;
     lowerCanvasEl: HTMLElement;
     _currentTransform: unknown;
+    _centerObject: (obj: fabric.Object, center: fabric.Point) => fabric.Canvas;
   }
 
   export interface Control {
