@@ -697,6 +697,7 @@ export default {
   margin-bottom: 8px;
 
   .ivu-col {
+    position: inherit;
     &__box {
       display: flex;
       align-items: center;
@@ -713,7 +714,7 @@ export default {
   .content {
     flex: 1;
 
-    :deep(.ivu-input),
+    :deep(.--input),
     :deep(.ivu-select-selection) {
       background-color: transparent;
       border: none !important;
