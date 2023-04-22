@@ -347,7 +347,7 @@ const useSwipe = (target: MaybeRefOrGetter<HTMLElement | null | undefined>) => {
     },
     onSwipe: (e: PointerEvent) => {
       if (!isNumber(startValue.value)) return;
-      const newValue = startValue.value + NP.round(posEnd.x - posStart.x, 0);
+      const newValue = startValue.value + NP.round(posEnd.x - posStart.x, 0) * props.step;
       _value.value = getStringValue(newValue);
       props.modelEvent === 'input' ? handleInput(e) : handleChange(e);
     },
