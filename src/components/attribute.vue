@@ -5,10 +5,10 @@
       <Divider plain orientation="left">{{ $t('attributes.font') }}</Divider>
       <div class="flex-view">
         <div class="flex-item">
-          <div class="left">
+          <div class="left font-selector">
             <Select v-model="fontAttr.fontFamily" @on-change="changeFontFamily">
-              <Option v-for="item in fontFamilyList" :value="item" :key="'font-' + item">
-                {{ item }}
+              <Option v-for="item in fontFamilyList" :value="item.name" :key="'font-' + item.name">
+                <div class="font-item" :style="`background-image:url('${item.preview}');`"></div>
               </Option>
             </Select>
           </div>
@@ -508,10 +508,7 @@ export default {
     },
     getFreeFontList() {
       axios.get(repoSrc + '/font/free-font.json').then((res) => {
-        Object.keys(res.data).forEach((key) => {
-          const fontName = res.data[key].name;
-          this.fontFamilyList.push(fontName);
-        });
+        this.fontFamilyList = Object.entries(res.data).map(([, value]) => value);
       });
     },
     // 通用属性改变
@@ -720,6 +717,19 @@ export default {
       border: none !important;
       box-shadow: none !important;
     }
+  }
+}
+
+.font-selector {
+  :deep(.ivu-select-item) {
+    padding: 1px 4px;
+  }
+
+  .font-item {
+    background-color: #000;
+    background-size: cover;
+    background-position: center center;
+    height: 40px;
   }
 }
 </style>
