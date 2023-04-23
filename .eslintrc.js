@@ -34,6 +34,8 @@ module.exports = {
     'no-unused-expressions': 'off', // 17
     'linebreak-style': 'off',
     'vuejs-accessibility/anchor-has-content': 'off',
+    'vue/multi-word-component-names': 'off', // 开启组件需要多单词
+    '@typescript-eslint/no-explicit-any': 'off', // 部分any没有太多时间去处理
   },
   overrides: [
     {
