@@ -730,6 +730,8 @@ export default {
     background-size: cover;
     background-position: center center;
     height: 40px;
+    width: 200px;
+    filter: invert(100%);
   }
 }
 </style>
