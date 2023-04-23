@@ -8,7 +8,9 @@
           <div class="left font-selector">
             <Select v-model="fontAttr.fontFamily" @on-change="changeFontFamily">
               <Option v-for="item in fontFamilyList" :value="item.name" :key="'font-' + item.name">
-                <div class="font-item" :style="`background-image:url('${item.preview}');`"></div>
+                <div class="font-item" :style="`background-image:url('${item.preview}');`">
+                  {{ !item.preview ? item : '' }}
+                </div>
               </Option>
             </Select>
           </div>
@@ -508,7 +510,10 @@ export default {
     },
     getFreeFontList() {
       axios.get(repoSrc + '/font/free-font.json').then((res) => {
-        this.fontFamilyList = Object.entries(res.data).map(([, value]) => value);
+        this.fontFamilyList = [
+          ...this.fontFamilyList,
+          ...Object.entries(res.data).map(([, value]) => value),
+        ];
       });
     },
     // 通用属性改变
@@ -731,6 +736,9 @@ export default {
     background-position: center center;
     height: 40px;
     width: 200px;
+    color: #fff;
+    font-size: 27px;
+    text-align: center;
     filter: invert(100%);
   }
 }
