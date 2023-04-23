@@ -508,10 +508,6 @@ export default {
     },
     getFreeFontList() {
       axios.get(repoSrc + '/font/free-font.json').then((res) => {
-        // Object.keys(res.data).forEach((key) => {
-        //   const fontName = res.data[key].name;
-        //   this.fontFamilyList.push(fontName);
-        // });
         this.fontFamilyList = Object.entries(res.data).map(([, value]) => value);
       });
     },
