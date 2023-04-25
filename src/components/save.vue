@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: June
- * @LastEditTime: 2023-04-24 01:07:19
+ * @LastEditTime: 2023-04-25 11:39:17
  * @LastEditors: 秦少卫
  * @LastEditTime: 2023-04-10 14:33:18
 
@@ -31,19 +31,18 @@
   </div>
 </template>
 
-<script lang="ts" setup name="save-bar">
+<script setup name="save-bar">
 import { Modal, Message } from 'view-ui-plus';
 import useSelect from '@/hooks/select';
 import { v4 as uuid } from 'uuid';
 import { copyText } from 'vue3-clipboard';
 import { debounce } from 'lodash-es';
 
-const { injects, $t } = useSelect();
-
-const cbMap: any = {
+const { $this, $t } = useSelect();
+const cbMap = {
   clipboard: function () {
-    const jsonStr = injects.canvas.editor.getJson();
-    copyText(JSON.stringify(jsonStr, null, '\t'), undefined, (err: any) => {
+    const jsonStr = this.canvas.editor.getJson();
+    copyText(JSON.stringify(jsonStr, null, '\t'), undefined, (err) => {
       if (err) {
         Message.error('复制失败');
       } else {
@@ -53,7 +52,7 @@ const cbMap: any = {
   },
 
   saveJson: function () {
-    const dataUrl = injects.canvas.editor.getJson();
+    const dataUrl = this.canvas.editor.getJson();
     const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
       JSON.stringify(dataUrl, null, '\t')
     )}`;
@@ -61,9 +60,9 @@ const cbMap: any = {
   },
 
   saveSvg: function () {
-    const workspace = injects.canvas.c.getObjects().find((item: any) => item.id === 'workspace');
+    const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
     const { left, top, width, height } = workspace;
-    const dataUrl = injects.canvas.c.toSVG({
+    const dataUrl = this.canvas.c.toSVG({
       width,
       height,
       viewBox: {
@@ -78,8 +77,8 @@ const cbMap: any = {
   },
 
   saveImg: function () {
-    const workspace = injects.canvas.c.getObjects().find((item: any) => item.id === 'workspace');
-    injects.canvas.editor.ruler.hideGuideline();
+    const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
+    this.canvas.editor.ruler.hideGuideline();
     const { left, top, width, height } = workspace;
     const option = {
       name: 'New Image',
@@ -90,28 +89,28 @@ const cbMap: any = {
       width,
       height,
     };
-    injects.canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
-    const dataUrl = injects.canvas.c.toDataURL(option);
+    this.canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    const dataUrl = this.canvas.c.toDataURL(option);
     downFile(dataUrl, 'png');
-    injects.canvas.editor.ruler.showGuideline();
+    this.canvas.editor.ruler.showGuideline();
   },
 };
 
-const saveWith = debounce(function (type: string) {
-  cbMap[type] && typeof cbMap[type] === 'function' && cbMap[type]();
+const saveWith = debounce(function (type) {
+  cbMap[type] && typeof cbMap[type] === 'function' && cbMap[type].call($this);
 }, 300);
 
 /**
  * @desc clear canvas 清空画布
  */
 const clear = () => {
-  injects.canvas.c.getObjects().forEach((obj: any) => {
+  $this.canvas.c.getObjects().forEach((obj) => {
     if (obj.id !== 'workspace') {
-      injects.canvas.c.remove(obj);
+      $this.canvas.c.remove(obj);
     }
   });
-  injects.canvas.c.discardActiveObject();
-  injects.canvas.c.renderAll();
+  $this.canvas.c.discardActiveObject();
+  $this.canvas.c.renderAll();
 };
 
 const beforeClear = () => {
@@ -124,7 +123,7 @@ const beforeClear = () => {
   });
 };
 
-function downFile(fileStr: string, fileType: string) {
+function downFile(fileStr, fileType) {
   const anchorEl = document.createElement('a');
   anchorEl.href = fileStr;
   anchorEl.download = `${uuid()}.${fileType}`;
