@@ -3,7 +3,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-20 02:15:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-20 14:01:44
+ * @LastEditTime: 2023-04-27 23:07:25
  * @Description: 编辑组内文字
  */
 
@@ -67,7 +67,6 @@ class EditorGroupText {
     const ids = this._unGroup() || [];
 
     const resetGroup = () => {
-      console.log(0);
       const groupArr = this.canvas.getObjects().filter((item) => item.id && ids.includes(item.id));
       // 删除元素
       groupArr.forEach((item) => this.canvas.remove(item));
@@ -80,7 +79,6 @@ class EditorGroupText {
       textObject.off('editing:exited', resetGroup);
       this.canvas.add(group);
       this.canvas.discardActiveObject().renderAll();
-      console.log(111);
     };
     // 绑定取消事件
     textObject.on('editing:exited', resetGroup);

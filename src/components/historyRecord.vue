@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: June
- * @LastEditTime: 2023-04-25 11:24:07
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-04-27 23:13:21
  * @Description: 回退重做
 -->
 
@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script setup name="ToolBar">
+<script setup>
 import { reactive, onMounted } from 'vue';
 import { keyNames, hotkeys } from '@/core/initHotKeys';
 import useSelect from '@/hooks/select';

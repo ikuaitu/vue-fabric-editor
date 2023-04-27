@@ -3,8 +3,8 @@
  * @version:
  * @Author: June
  * @Date: 2023-04-23 21:10:05
- * @LastEditors: June
- * @LastEditTime: 2023-04-25 11:22:17
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-04-27 23:11:27
  */
 
 import { inject, reactive, onMounted } from 'vue';
@@ -67,6 +67,7 @@ export default function useSelect() {
       event,
       ...state,
     },
+    ...state,
     $t: t,
   };
 }
