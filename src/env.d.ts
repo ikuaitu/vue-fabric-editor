@@ -17,3 +17,12 @@ declare global {
     }
   }
 }
+
+declare module 'vfe' {
+  export as namespace vfe;
+
+  export interface ICanvas extends fabric.Canvas {
+    c: fabric.Canvas;
+    editor: Editor;
+  }
+}

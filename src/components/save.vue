@@ -34,6 +34,7 @@
 <script>
 import select from '@/mixins/select';
 import { v4 as uuid } from 'uuid';
+import { clipboardText } from '@/utils/utils.ts';
 
 export default {
   name: 'saveBar',
@@ -96,7 +97,7 @@ export default {
     },
     clipboard() {
       const jsonStr = this.canvas.editor.getJson();
-      this._mixinClipboard(JSON.stringify(jsonStr, null, '\t'));
+      clipboardText(JSON.stringify(jsonStr, null, '\t'));
     },
     clear() {
       this.canvas.c.getObjects().forEach((obj) => {
