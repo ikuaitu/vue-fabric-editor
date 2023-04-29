@@ -7,7 +7,7 @@
         <div class="flex-item">
           <div class="left font-selector">
             <Select v-model="fontAttr.fontFamily" @on-change="changeFontFamily">
-              <Option v-for="item in fontFamilyList" :value="item.name" :key="'font-' + item.name">
+              <Option v-for="item in fontFamilyList" :value="item.name" :key="`font-${item.name}`">
                 <div class="font-item" :style="`background-image:url('${item.preview}');`">
                   {{ !item.preview ? item : '' }}
                 </div>
@@ -202,7 +202,7 @@
                 <Option
                   v-for="item in strokeDashList"
                   :value="item.label"
-                  :key="'stroke-' + item.label"
+                  :key="`stroke-${item.label}`"
                 >
                   {{ item.label }}
                 </Option>
@@ -509,7 +509,7 @@ export default {
         });
     },
     getFreeFontList() {
-      axios.get(repoSrc + '/font/free-font.json').then((res) => {
+      axios.get(`${repoSrc}/font/free-font.json`).then((res) => {
         this.fontFamilyList = [
           ...this.fontFamilyList,
           ...Object.entries(res.data).map(([, value]) => value),

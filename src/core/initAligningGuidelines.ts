@@ -1,5 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-multi-assign */
+// noinspection NestedAssignmentJS
+
 /**
  * Should objects be aligned by a bounding box?
  * [Bug] Scaled objects sometimes can not be aligned by edges
@@ -13,6 +15,7 @@ declare interface VerticalLine {
   y1: number;
   y2: number;
 }
+
 declare interface HorizontalLine {
   x1: number;
   x2: number;
@@ -270,12 +273,16 @@ function initAligningGuidelines(canvas: fabric.Canvas) {
       drawHorizontalLine(horizontalLines[j]);
     }
 
-    verticalLines.length = horizontalLines.length = 0;
+    // noinspection NestedAssignmentJS
+    verticalLines.length = 0;
+    horizontalLines.length = 0;
   });
 
   canvas.on('mouse:up', () => {
-    verticalLines.length = horizontalLines.length = 0;
+    verticalLines.length = 0;
+    horizontalLines.length = 0;
     canvas.renderAll();
   });
 }
+
 export default initAligningGuidelines;

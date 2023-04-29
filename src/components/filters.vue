@@ -280,7 +280,7 @@ const combinationFilters = [
         step: 0.01,
       },
     ],
-    handler: function (red, green, blue) {
+    handler(red, green, blue) {
       return {
         gamma: [red, green, blue],
       };
@@ -293,8 +293,8 @@ export default {
   inject: ['canvas', 'fabric'],
   data() {
     return {
-      uiType: uiType,
-      noParamsFilters: noParamsFilters,
+      uiType,
+      noParamsFilters,
       paramsFilters: [...paramsFilters],
       combinationFilters: [...combinationFilters],
     };

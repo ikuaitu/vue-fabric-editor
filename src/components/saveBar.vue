@@ -40,7 +40,7 @@ import { debounce } from 'lodash-es';
 
 const { $this, $t } = useSelect();
 const cbMap = {
-  clipboard: function () {
+  clipboard() {
     const jsonStr = this.canvas.editor.getJson();
     copyText(JSON.stringify(jsonStr, null, '\t'), undefined, (err) => {
       if (err) {
@@ -51,7 +51,7 @@ const cbMap = {
     });
   },
 
-  saveJson: function () {
+  saveJson() {
     const dataUrl = this.canvas.editor.getJson();
     const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
       JSON.stringify(dataUrl, null, '\t')
@@ -59,7 +59,7 @@ const cbMap = {
     downFile(fileStr, 'json');
   },
 
-  saveSvg: function () {
+  saveSvg() {
     const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
     const { left, top, width, height } = workspace;
     const dataUrl = this.canvas.c.toSVG({
@@ -76,7 +76,7 @@ const cbMap = {
     downFile(fileStr, 'svg');
   },
 
-  saveImg: function () {
+  saveImg() {
     const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
     this.canvas.editor.ruler.hideGuideline();
     const { left, top, width, height } = workspace;

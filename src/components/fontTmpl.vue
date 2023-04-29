@@ -12,7 +12,7 @@
     <Tooltip
       :content="item.label"
       v-for="(item, i) in list"
-      :key="i + '-bai1-button'"
+      :key="`${i}-bai1-button`"
       placement="top"
     >
       <img
@@ -40,28 +40,28 @@ export default {
       list: [
         {
           label: '字体',
-          tempUrl: repoSrc + 'font-tmpl/1.json',
-          src: repoSrc + 'font-tmpl/1.png',
+          tempUrl: `${repoSrc}font-tmpl/1.json`,
+          src: `${repoSrc}font-tmpl/1.png`,
         },
         {
           label: '字体',
-          tempUrl: repoSrc + 'font-tmpl/2.json',
-          src: repoSrc + 'font-tmpl/2.png',
+          tempUrl: `${repoSrc}font-tmpl/2.json`,
+          src: `${repoSrc}font-tmpl/2.png`,
         },
         {
           label: '字体',
-          tempUrl: repoSrc + 'font-tmpl/3.json',
-          src: repoSrc + 'font-tmpl/3.png',
+          tempUrl: `${repoSrc}font-tmpl/3.json`,
+          src: `${repoSrc}font-tmpl/3.png`,
         },
         {
           label: '字体',
-          tempUrl: repoSrc + 'font-tmpl/4.json',
-          src: repoSrc + 'font-tmpl/4.png',
+          tempUrl: `${repoSrc}font-tmpl/4.json`,
+          src: `${repoSrc}font-tmpl/4.png`,
         },
         {
           label: '字体',
-          tempUrl: repoSrc + 'font-tmpl/5.json',
-          src: repoSrc + 'font-tmpl/5.png',
+          tempUrl: `${repoSrc}font-tmpl/5.json`,
+          src: `${repoSrc}font-tmpl/5.png`,
         },
       ],
     };

@@ -184,7 +184,7 @@ class EditorWorkspace {
     const This = this;
     this.canvas.on('mouse:down', function (this: ExtCanvas, opt) {
       const evt = opt.e;
-      if (evt.altKey === true || This.dragMode) {
+      if (evt.altKey || This.dragMode) {
         This.canvas.defaultCursor = 'grabbing';
         This.canvas.discardActiveObject();
         This._setDring();

@@ -20,7 +20,7 @@ export function setupGuideLine() {
     axis: 'horizontal',
     // excludeFromExport: true,
 
-    initialize: function (points, options) {
+    initialize(points, options) {
       const isHorizontal = options.axis === 'horizontal';
       // 指针
       this.hoverCursor = isHorizontal ? 'ns-resize' : 'ew-resize';
@@ -75,7 +75,7 @@ export function setupGuideLine() {
       });
     },
 
-    getBoundingRect: function (absolute, calculate) {
+    getBoundingRect(absolute, calculate) {
       this.bringToFront();
 
       const isHorizontal = this.isHorizontal();
@@ -85,7 +85,7 @@ export function setupGuideLine() {
       return rect;
     },
 
-    isPointOnRuler: function (e) {
+    isPointOnRuler(e) {
       const isHorizontal = this.isHorizontal();
       const hoveredRuler = this.canvas.ruler.isPointOnRuler(new fabric.Point(e.offsetX, e.offsetY));
       if (
@@ -97,7 +97,7 @@ export function setupGuideLine() {
       return false;
     },
 
-    isHorizontal: function () {
+    isHorizontal() {
       return this.height === 0;
     },
   } as fabric.IGuideLineClassOptions);

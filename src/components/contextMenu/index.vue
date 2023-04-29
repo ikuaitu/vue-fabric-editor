@@ -4,9 +4,9 @@
     class="menu-wrap"
     :style="{
       visibility: show,
-      left: left,
-      top: top,
-      zIndex: zIndex,
+      left,
+      top,
+      zIndex,
     }"
     @click="handleMenu"
   >

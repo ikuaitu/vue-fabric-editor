@@ -29,9 +29,10 @@
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue';
-import { keyNames, hotkeys } from '@/core/initHotKeys';
+import { onMounted, reactive } from 'vue';
+import { hotkeys, keyNames } from '@/core/initHotKeys';
 import useSelect from '@/hooks/select';
+
 const { $this, $t } = useSelect();
 const maxStep = 10;
 const state = reactive({
@@ -43,8 +44,7 @@ const state = reactive({
 const getTime = () => {
   const myDate = new Date();
   const str = myDate.toTimeString();
-  const timeStr = str.substring(0, 8);
-  state.time = timeStr;
+  state.time = str.substring(0, 8);
 };
 const save = (event) => {
   // 过滤选择元素事件

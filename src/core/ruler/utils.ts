@@ -31,8 +31,8 @@ const mergeLines = (rect: Rect[], isHorizontal: boolean) => {
   rect.sort((a, b) => a[axis] - b[axis]);
   const mergedLines = [];
   let currentLine = Object.assign({}, rect[0]);
-  for (let i = 1; i < rect.length; i++) {
-    const line = Object.assign({}, rect[i]);
+  for (const item of rect) {
+    const line = Object.assign({}, item);
     if (currentLine[axis] + currentLine[length] >= line[axis]) {
       // 当前线段和下一个线段相交，合并宽度
       currentLine[length] =
