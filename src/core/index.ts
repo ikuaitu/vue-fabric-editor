@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-10 14:27:43
+ * @LastEditTime: 2023-04-20 13:07:22
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -16,9 +16,18 @@ import InitCenterAlign from '@/core/initCenterAlign';
 import initHotkeys from '@/core/initHotKeys';
 import initControls from '@/core/initControls';
 import initRuler from '@/core/ruler';
+import EditorGroupText from '@/core/EditorGroupText';
+import type CanvasRuler from '@/core/ruler/ruler';
+import type EditorWorkspace from '@/core/EditorWorkspace';
+
+import type { fabric } from 'fabric';
 
 class Editor extends EventEmitter {
-  constructor(canvas) {
+  canvas: fabric.Canvas;
+  editorWorkspace: EditorWorkspace | null;
+  centerAlign: InitCenterAlign;
+  ruler: CanvasRuler;
+  constructor(canvas: fabric.Canvas) {
     super();
 
     this.canvas = canvas;
@@ -28,15 +37,16 @@ class Editor extends EventEmitter {
     initHotkeys(canvas);
     initControls(canvas);
     initControlsRotate(canvas);
+    new EditorGroupText(canvas);
     this.centerAlign = new InitCenterAlign(canvas);
     this.ruler = initRuler(canvas);
   }
 
   clone() {
     const activeObject = this.canvas.getActiveObject();
-    if (activeObject.length === 0) return;
-    activeObject.clone((cloned) => {
+    activeObject?.clone((cloned: fabric.Object) => {
       this.canvas.discardActiveObject();
+      if (cloned.left === undefined || cloned.top === undefined) return;
       // 间距设置
       const grid = 10;
       cloned.set({
@@ -52,23 +62,23 @@ class Editor extends EventEmitter {
 
   // 拆分组
   unGroup() {
+    const activeObject = this.canvas.getActiveObject() as fabric.Group;
+    if (!activeObject) return;
     // 先获取当前选中的对象，然后打散
-    this.canvas.getActiveObject().toActiveSelection();
-    this.canvas
-      .getActiveObject()
-      .getObjects()
-      .forEach((item) => {
-        item.set('id', uuid());
-      });
+    activeObject.toActiveSelection();
+    activeObject.getObjects().forEach((item: fabric.Object) => {
+      item.set('id', uuid());
+    });
     this.canvas.discardActiveObject().renderAll();
   }
 
   group() {
     // 组合元素
-    const activeObj = this.canvas.getActiveObject();
+    const activeObj = this.canvas.getActiveObject() as fabric.ActiveSelection;
+    if (!activeObj) return;
     const activegroup = activeObj.toGroup();
     const objectsInGroup = activegroup.getObjects();
-    activegroup.clone((newgroup) => {
+    activegroup.clone((newgroup: fabric.Group) => {
       newgroup.set('id', uuid());
       this.canvas.remove(activegroup);
       objectsInGroup.forEach((object) => {
@@ -138,9 +148,9 @@ class Editor extends EventEmitter {
    * @param {Event} event
    * @param {Object} item
    */
-  dragAddItem(event, item) {
+  dragAddItem(event: DragEvent, item: fabric.Object) {
     const { left, top } = this.canvas.getSelectionElement().getBoundingClientRect();
-    if (event.x < left || event.y < top) return;
+    if (event.x < left || event.y < top || item.width === undefined) return;
 
     const point = {
       x: event.x - left,

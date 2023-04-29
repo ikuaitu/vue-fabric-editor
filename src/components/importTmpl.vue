@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-11 23:31:30
+ * @LastEditTime: 2023-04-27 23:07:22
  * @Description: 导入模板
 -->
 
@@ -94,7 +94,6 @@ export default {
       const getTemp = axios.get(repoSrc + 'template/index.json');
       getTemp
         .then((res) => {
-          console.log(res, '111');
           this.list = res.data.data.map((item) => {
             item.tempUrl = repoSrc + item.tempUrl;
             item.src = repoSrc + item.src;

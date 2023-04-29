@@ -7,7 +7,7 @@
 ![image](https://user-images.githubusercontent.com/13534626/230828335-0adee0ae-b951-4171-b6ba-d2b9cd44dd6a.png)
 
 ## 已有功能
-
+[功能介绍文章](https://juejin.cn/post/7222141882515128375) 文字 + 动图。
 - 导入 JSON 文件
 - 保存为 PNG、SVG、JSON 文件
 - 插入 SVG、图片文件
@@ -38,35 +38,38 @@ yarn install
 yarn serve
 ```
 
-为非web前端开发人员准备了[付费的部署教程](https://mbd.pub/o/bread/ZJeXlptw)，快速解决你的部署需求。
+为非web前端开发人员准备了[部署教程](https://t.zsxq.com/0drqSuyjY)，快速解决你的部署需求。
 
 ### 自定义素材
 可自定义字体、设计模板、标题模板等，所有自定义素材在https://github.com/nihaojob/vue-fabric-editor-static 项目中保存。
 
+我们通过有偿的方式积累高质量的常见问题、最佳实践文档，欢迎加入星球：
+
+<img src="https://user-images.githubusercontent.com/13534626/231202037-18fe913f-81ab-4cd6-aa87-ada471e27586.png" width="50%" >
+
+
 ## 贡献指南
+项目致力于打造一个开箱即用的web图片编辑器应用，同时沉淀一个介于web图片编辑器应用与fabric.js之间的封装层，期望封装层面向开发者设计，提供更简单的接口，让开发者可以轻松的实现图片应用开发。
 
-项目目标是构建一个可便捷扩展、定制的设计编辑器。基于目标的拆解大致可以分为 3 个方面：
+我们离目标还有很长的距离，如果你对这件事情感兴趣，真诚的邀请你加入，我们一起沉淀fabric.js的最佳实践，你会得到包括不限于以下列表的收获，你只要会简单的Git和Javascript语法就可以。
 
-1. 功能完善：具备设计编辑器的主要能力，如图形、元素模板、保存、修改、快捷键等。
-2. 架构简洁：在 fabric.js 的基础能力之上，封装出与工程、UI 组件无关的 Core 中间层。
-3. UI 精致：基于 Core 中间层的能力，结合 UI 组件，让 UI 尽可能的精致好用。
+- 熟悉开源协作方式，成为项目贡献者。
+- Vue3 + TS实践，边学边开发。
+- fabric.js开发，边学边开发。
+- 入门单元测试，边学边开发。
+- 众多的fabric.js开发者交流。
+- 图形编辑器架构经验。
 
-项目初期更多的工作还是对基础功能积累和架构的建设，只有保证每个功能模块封闭独立、Core 中间层轻量简洁，才能达成可便捷扩展与定制的需求。
+目前有很多需要做的工作，比如英文文档的搭建、SDK拆分等，欢迎与我联系，我愿意与你进行任何问题的交流，微信：13146890191。期待你的 issue 和 PR 。
 
-项目目前处于初期阶段，还在积累功能、架构演进中，如果恰好你有类似的需求或者对这件事情很感兴趣，欢迎你参与进来，可能比观望更有趣，你可能会获得包括但不限于以下列表的收获：
-
-1. 基于 fabric.js 与 Vue 的编辑器架构。
-2. fabric.js 库的中高阶用法。
-3. 开源项目的维护经验。
+这是我发表在掘金社区关于编辑器的技术笔记，会有更多的细节：
+1. [使用 fabric.js 快速开发一个图片编辑器](https://juejin.cn/post/7155040639497797645)，
+2. [fabric.js开发图片编辑器的细节实现](https://juejin.cn/post/7199849226745430076)
 
 注：如果遇到技术问题，期望使用 issue 讨论，它更加开放与透明，足够多的信息会让解决问题变得更高效，参考[提问的智慧](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md#%E6%8F%90%E9%97%AE%E7%9A%84%E6%99%BA%E6%85%A7)。
 
-这是我发表在掘金社区的一篇技术笔记，会有更多的细节，[使用 fabric.js 快速开发一个图片编辑器](https://juejin.cn/post/7155040639497797645)，在[讨论区](https://github.com/nihaojob/vue-fabric-editor/discussions)里有更多的编辑器选型、入门内容、常见问题、微信群内的有效讨论记录等内容。
-
-目前有很多需要做的工作，比如英文文档的搭建、渐变的配置功能等，欢迎与我联系，我愿意与你进行任何问题的交流，微信：13146890191。期待你的 issue 和 PR 。
 
 <!-- <img src="https://user-images.githubusercontent.com/13534626/231202488-f35be6bc-617a-412e-831e-b3764466d833.jpeg" width="20%"> -->
-<img src="https://user-images.githubusercontent.com/13534626/231202037-18fe913f-81ab-4cd6-aa87-ada471e27586.png" width="30%" >
 
 
 ## 规划
@@ -94,6 +97,22 @@ yarn serve
 - [x] 滤镜
 - [x] 描边 strokeDashArray
 
+
+第三阶段
+
+- [ ] monorepo升级 进行中
+- [ ] 标尺插件
+- [ ] 截图插件
+- [ ] 滤镜插件
+- [ ] 画布插件
+- [ ] 其他工具函数
+- [ ] @fabricEditor SDK封装
+- [ ] 基于插件开发移动端
+- [ ] 基于插件开发其他图片应用
+- [ ] 文档建设(中英文)
+
+
+
 ## 致谢
 
 - [color-gradient-picker-vue3](https://github.com/Qiu-Jun/color-gradient-picker-vue3) 一个 vue3 版本的渐变组件，作者[Qiu-Jun
@@ -118,6 +137,13 @@ yarn serve
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/liumingye">
+            <img src="https://avatars.githubusercontent.com/u/8676207?v=4" width="80;" alt="liumingye"/>
+            <br />
+            <sub><b>liumingye</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/bigFace2019">
             <img src="https://avatars.githubusercontent.com/u/55651401?v=4" width="80;" alt="bigFace2019"/>
             <br />
@@ -132,10 +158,18 @@ yarn serve
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/liumingye">
-            <img src="https://avatars.githubusercontent.com/u/8676207?v=4" width="80;" alt="liumingye"/>
+        <a href="https://github.com/xiaozhuclassmate">
+            <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="xiaozhuclassmate"/>
             <br />
-            <sub><b>liumingye</b></sub>
+            <sub><b>xiaozhuclassmate</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/liucity">
+            <img src="https://avatars.githubusercontent.com/u/12006542?v=4" width="80;" alt="liucity"/>
+            <br />
+            <sub><b>liucity</b></sub>
         </a>
     </td>
     <td align="center">
@@ -144,13 +178,19 @@ yarn serve
             <br />
             <sub><b>icleitoncosta</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/macheteHot">
             <img src="https://avatars.githubusercontent.com/u/26652329?v=4" width="80;" alt="macheteHot"/>
             <br />
             <sub><b>macheteHot</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/makeng">
+            <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
+            <br />
+            <sub><b>makeng</b></sub>
         </a>
     </td>
     <td align="center">
@@ -166,7 +206,8 @@ yarn serve
             <br />
             <sub><b>vvbear</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/xiaozeo">
             <img src="https://avatars.githubusercontent.com/u/13568242?v=4" width="80;" alt="xiaozeo"/>

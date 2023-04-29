@@ -24,7 +24,7 @@
         <div style="float: right">
           <!-- 预览 -->
           <previewCurrent />
-          <save></save>
+          <saveBar></saveBar>
           <lang></lang>
         </div>
       </Header>
@@ -71,6 +71,7 @@
           <div class="canvas-box">
             <div class="inside-shadow"></div>
             <canvas id="canvas" :class="ruler ? 'design-stage-grid' : ''"></canvas>
+            <dragMode></dragMode>
             <zoom></zoom>
             <mouseMenu></mouseMenu>
           </div>
@@ -115,11 +116,12 @@ import align from '@/components/align.vue';
 import centerAlign from '@/components/centerAlign.vue';
 import flip from '@/components/flip.vue';
 import previewCurrent from '@/components/previewCurrent';
-import save from '@/components/save.vue';
+import saveBar from '@/components/saveBar.vue';
 import lang from '@/components/lang.vue';
 import clone from '@/components/clone.vue';
 import group from '@/components/group.vue';
 import zoom from '@/components/zoom.vue';
+import dragMode from '@/components/dragMode.vue';
 import lock from '@/components/lock.vue';
 import dele from '@/components/del.vue';
 
@@ -133,7 +135,7 @@ import replaceImg from '@/components/replaceImg.vue';
 import filters from '@/components/filters.vue';
 
 // 右侧组件
-import history from '@/components/history.vue';
+import history from '@/components/historyRecord.vue';
 import layer from '@/components/layer.vue';
 import attribute from '@/components/attribute.vue';
 
@@ -173,8 +175,9 @@ export default {
     attribute,
     dele,
     importFile,
+    dragMode,
     previewCurrent,
-    save,
+    saveBar,
     lang,
     importJSON,
     clone,
