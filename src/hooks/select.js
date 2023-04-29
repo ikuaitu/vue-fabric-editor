@@ -1,5 +1,5 @@
 /*
- * @Descripttion: useSelect(原mixin)  类型待优化
+ * @Description: useSelect(原mixin)  类型待优化
  * @version:
  * @Author: June
  * @Date: 2023-04-23 21:10:05
