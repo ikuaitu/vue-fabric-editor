@@ -280,6 +280,8 @@ export default {
         width: 400,
         height: 400,
         fill: '#92706B',
+        id: uuid(),
+        name: '三角形',
       });
       this.canvas.c.add(triangle);
       if (!option) {
