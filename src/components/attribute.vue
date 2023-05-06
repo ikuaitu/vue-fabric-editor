@@ -510,10 +510,10 @@ export default {
     },
     getFreeFontList() {
       axios.get(repoSrc + '/font/free-font.json').then((res) => {
-        this.fontFamilyList = [
+        this.fontFamilyList = {
           ...this.fontFamilyList,
           ...Object.entries(res.data).map(([, value]) => value),
-        ];
+        };
       });
     },
     // 通用属性改变
