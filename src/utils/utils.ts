@@ -7,6 +7,8 @@
  */
 
 import FontFaceObserver from 'fontfaceobserver';
+import { useClipboard, useFileDialog, useBase64 } from '@vueuse/core';
+import { Message } from 'view-ui-plus';
 
 interface Font {
   type: string;
@@ -19,17 +21,7 @@ interface Font {
  * @return {String}
  */
 export function getImgStr(file: File | Blob): Promise<FileReader['result']> {
-  return new Promise((resolve, reject) => {
-    try {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-    } catch (error) {
-      reject(error);
-    }
-  });
+  return useBase64(file).promise.value;
 }
 
 /**
@@ -64,24 +56,12 @@ export function selectFiles(options: {
   capture?: string;
   multiple?: boolean;
 }): Promise<FileList | null> {
-  const createInputFile = ({ accept = '', capture = '', multiple = false }) => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = accept;
-    input.capture = capture;
-    input.multiple = multiple;
-    return input;
-  };
-
   return new Promise((resolve) => {
-    const input = createInputFile(options);
-
-    input.addEventListener('change', () => resolve(input.files || null));
-
-    setTimeout(() => {
-      const event = new MouseEvent('click');
-      input.dispatchEvent(event);
-    }, 0);
+    const { onChange, open } = useFileDialog(options);
+    onChange((files) => {
+      resolve(files);
+    });
+    open();
   });
 }
 
@@ -115,3 +95,22 @@ export function insertImgFile(str: string) {
     };
   });
 }
+
+/**
+ * Copying text to the clipboard
+ * @param source Copy source
+ * @param options Copy options
+ * @returns Promise that resolves when the text is copied successfully, or rejects when the copy fails.
+ */
+export const clipboardText = async (
+  source: string,
+  options?: Parameters<typeof useClipboard>[0]
+) => {
+  try {
+    await useClipboard({ source, ...options }).copy();
+    Message.success('复制成功');
+  } catch (error) {
+    Message.error('复制失败');
+    throw error;
+  }
+};
