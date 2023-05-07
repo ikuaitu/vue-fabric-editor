@@ -540,7 +540,6 @@ export default {
     // 边框设置
     borderSet(key) {
       const activeObject = this.canvas.c.getActiveObjects()[0];
-      console.log(key, activeObject);
       if (activeObject) {
         const stroke = this.strokeDashList.find((item) => item.label === key);
         activeObject.set(stroke.value);

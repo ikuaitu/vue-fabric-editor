@@ -16,7 +16,7 @@
 import { fabric } from 'fabric';
 import { inject } from 'vue';
 import { ImagePreview } from 'view-ui-plus';
-import * as vfe from 'vfe';
+import vfe from 'vfe';
 
 const canvas = inject('canvas') as vfe.ICanvas;
 const getImgUrl = () => {
