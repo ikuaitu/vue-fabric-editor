@@ -108,10 +108,7 @@ export default {
       this.list = [
         ...this.canvas.c.getObjects().filter((item) => {
           // 过滤掉辅助线
-          if (item instanceof this.fabric.GuideLine || item.id === 'workspace') {
-            return false;
-          }
-          return true;
+          return !(item instanceof this.fabric.GuideLine || item.id === 'workspace');
         }),
       ]
         .reverse()

@@ -1,10 +1,10 @@
 /*
- * @Descripttion:
+ * @Description:
  * @version:
  * @Author: June
  * @Date: 2023-04-24 00:25:39
- * @LastEditors: June
- * @LastEditTime: 2023-04-24 01:02:17
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-05-07 13:12:38
  */
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';

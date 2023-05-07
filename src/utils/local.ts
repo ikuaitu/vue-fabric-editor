@@ -11,9 +11,9 @@ export function getLocal(key: string) {
 /**
  * set localStorage 设置本地存储
  * @param { String } key
- * @param { Any } value
+ * @param value
  */
-export function setLocal(key: string, value: any) {
+export function setLocal(key: string, value: unknown) {
   if (!key) throw new Error('key is empty');
   if (!value) return;
   return localStorage.setItem(key, JSON.stringify(value));

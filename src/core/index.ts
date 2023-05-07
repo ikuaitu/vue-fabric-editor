@@ -130,8 +130,7 @@ class Editor extends EventEmitter {
   }
 
   getWorkspace() {
-    const workspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
-    return workspace;
+    return this.canvas.getObjects().find((item) => item.id === 'workspace');
   }
 
   _workspaceSendToBack() {

@@ -32,7 +32,7 @@ const i18n = createI18n({
   globalInjection: true,
   legacy: false,
   locale: lang,
-  messages: messages,
+  messages,
 });
 
 export default i18n;

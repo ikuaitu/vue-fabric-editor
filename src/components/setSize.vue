@@ -21,7 +21,7 @@
     <ButtonGroup vertical>
       <Button
         v-for="(item, i) in presetSize"
-        :key="i + 'presetSize'"
+        :key="`${i}presetSize`"
         size="small"
         style="text-align: left"
         @click="setSizeBy(item.width, item.height)"

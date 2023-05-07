@@ -49,13 +49,12 @@ function generateFabricGradientFromColorStops(handlers, width, height, orientati
   // 角度转换坐标
   const gradAngleToCoords = (paramsAngle) => {
     const anglePI = -parseInt(paramsAngle, 10) * (Math.PI / 180);
-    const angleCoords = {
+    return {
       x1: Math.round(50 + Math.sin(anglePI) * 50) / 100,
       y1: Math.round(50 + Math.cos(anglePI) * 50) / 100,
       x2: Math.round(50 + Math.sin(anglePI + Math.PI) * 50) / 100,
       y2: Math.round(50 + Math.cos(anglePI + Math.PI) * 50) / 100,
     };
-    return angleCoords;
   };
 
   // 生成线性渐变
@@ -215,14 +214,13 @@ export default {
         offset: item.left / 100,
         color: `rgba(${item.red}, ${item.green}, ${item.blue}, ${item.alpha})`,
       }));
-      const gradient = generateFabricGradientFromColorStops(
+      return generateFabricGradientFromColorStops(
         handlers,
         activeObject.width,
         activeObject.height,
         val.type,
         val.degree
       );
-      return gradient;
     },
     // 纯色颜色
     changePureColor(val) {
