@@ -13,14 +13,12 @@ const getPolygonVertices = (edges: number, radius: number) => {
   }
   for (let i = 0; i < edges; i++) {
     // 画圆取顶点坐标
-    // const number = (2 * Math.PI * i) / edges - (Math.PI / 180) * 90;
     const rad = i * interiorAngle + rotationAdjustment;
     vertices.push({
       x: Math.cos(rad) * radius,
       y: Math.sin(rad) * radius,
     });
   }
-  // console.log(vertices);
   return vertices;
 };
 

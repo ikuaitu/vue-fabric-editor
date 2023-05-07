@@ -29,7 +29,6 @@
     "vue": "^3.2.25",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.0.16",
-    "vue3-clipboard": "^1.0.0",
     "vue3-lazyload": "^0.3.6"
   },
   "devDependencies": {
@@ -58,6 +57,7 @@
     "vite": "^4.2.1",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-html": "^3.2.0",
+    "vite-plugin-vue-setup-extend-plus": "^0.1.0",
     "vue-tsc": "^0.34.7"
   },
   "lint-staged": {

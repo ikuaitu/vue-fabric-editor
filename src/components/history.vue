@@ -9,95 +9,107 @@
 <template>
   <div style="display: inline-block">
     <!-- 后退 -->
-    <Tooltip :content="$t('history.revocation') + `(${list.length})`">
-      <Button @click="undo" type="text" size="small" :disabled="!list.length">
+    <Tooltip :content="$t('history.revocation') + `(${undoStack.length})`">
+      <Button @click="undo" type="text" size="small" :disabled="!canUndo">
         <Icon type="ios-undo" size="20" />
       </Button>
     </Tooltip>
 
     <!-- 重做 -->
-    <Tooltip :content="$t('history.redo') + `(${redoList.length})`">
-      <Button @click="redo" type="text" size="small" :disabled="!redoList.length">
+    <Tooltip :content="$t('history.redo') + `(${redoStack.length})`">
+      <Button @click="redo" type="text" size="small" :disabled="!canRedo">
         <Icon type="ios-redo" size="20" />
       </Button>
     </Tooltip>
 
-    <span class="time">
-      {{ time }}
+    <span class="time" v-if="history.length">
+      {{ useDateFormat(history[0].timestamp, 'HH:mm:ss').value }}
     </span>
   </div>
 </template>
 
-<script>
-import select from '@/mixins/select';
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted, inject } from 'vue';
+import { useRefHistory, useDateFormat } from '@vueuse/core';
 import { keyNames, hotkeys } from '@/core/initHotKeys';
+import type { fabric } from 'fabric';
+import * as vfe from 'vfe';
 
-const maxStep = 10;
+const canvas = inject<vfe.ICanvas>('canvas');
 
-export default {
-  name: 'ToolBar',
-  mixins: [select],
-  data() {
-    return {
-      index: 0,
-      redoList: [],
-      list: [],
-      time: '',
-    };
-  },
-  created() {
-    // 有更新时记录进度
-    this.canvas.c.on({
-      'object:modified': this.save,
-      'selection:updated': this.save,
-    });
+const {
+  undo: _undo,
+  redo: _redo,
+  canRedo,
+  canUndo,
+  commit,
+  pause,
+  resume,
+  clear,
+  history,
+  source,
+  redoStack,
+  undoStack,
+  isTracking,
+} = useRefHistory(ref(), {
+  capacity: 50,
+});
 
-    hotkeys(keyNames.ctrlz, this.undo);
-  },
+const save = (event: fabric.IEvent) => {
+  // 过滤选择元素事件
+  const isSelect = event.action === undefined && event.e;
+  if (isSelect || !canvas) return;
 
-  methods: {
-    // 保存记录
-    save(event) {
-      // 过滤选择元素事件
-      const isSelect = event.action === undefined && event.e;
-      if (isSelect) return;
-      const data = this.canvas.editor.getJson();
-      if (this.list.length > maxStep) {
-        this.list.shift();
-      }
-      this.list.push(data);
-      this.getTime();
-    },
-    getTime() {
-      const myDate = new Date();
-      const str = myDate.toTimeString();
-      const timeStr = str.substring(0, 8);
-      this.time = timeStr;
-    },
-    // 后退
-    undo() {
-      if (this.list.length) {
-        const item = this.list.pop();
-        this.redoList.push(item);
-        this.renderCanvas(item);
-      }
-    },
-    // 重做
-    redo() {
-      if (this.redoList.length) {
-        const item = this.redoList.pop();
-        this.list.push(item);
-        this.renderCanvas(item);
-      }
-    },
-    // 根据数据渲染
-    renderCanvas(data) {
-      this.canvas.c.clear();
-      this.canvas.c.loadFromJSON(data, this.canvas.c.renderAll.bind(this.canvas.c));
-      this.canvas.c.requestRenderAll();
-    },
-  },
+  // 丢弃workspace创建前的记录
+  if (!canvas.editor.editorWorkspace) {
+    source.value = canvas.editor.getJson();
+    commit();
+    clear();
+    return;
+  }
+
+  if (isTracking.value) {
+    source.value = canvas.editor.getJson();
+  }
 };
+
+// 后退
+const undo = () => {
+  _undo();
+  renderCanvas();
+};
+// 重做
+const redo = () => {
+  _redo();
+  renderCanvas();
+};
+
+const renderCanvas = () => {
+  if (!canvas) return;
+  pause();
+  canvas.c.clear();
+  canvas.c.loadFromJSON(source.value, () => {
+    canvas.c.renderAll();
+    resume();
+  });
+};
+
+onMounted(() => {
+  canvas?.c.on({
+    'object:added': save,
+    'object:modified': save,
+    'selection:updated': save,
+  });
+  hotkeys(keyNames.ctrlz, undo);
+});
+
+onUnmounted(() => {
+  canvas?.c.off({
+    'object:added': save,
+    'object:modified': save,
+    'selection:updated': save,
+  });
+});
 </script>
 
 <style scoped lang="less">
@@ -110,3 +122,9 @@ span.active {
   color: #c1c1c1;
 }
 </style>
+
+<script lang="ts">
+export default {
+  name: 'ToolBar',
+};
+</script>

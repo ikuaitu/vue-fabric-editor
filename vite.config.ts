@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: June
+ * @Date: 2023-04-24 00:25:39
+ * @LastEditors: June
+ * @LastEditTime: 2023-04-24 01:02:17
+ */
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { createHtmlPlugin } from 'vite-plugin-html';
@@ -5,6 +13,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 import eslintPlugin from 'vite-plugin-eslint'; //导入包
+import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus';
 
 const config = ({ mode }) => {
   const isProd = mode === 'production';
@@ -14,6 +23,7 @@ const config = ({ mode }) => {
     base: isProd ? '/vue-fabric-editor/' : '/',
     plugins: [
       vue(),
+      vueSetupExtend(),
       // 增加下面的配置项,这样在运行时就能检查eslint规范
       eslintPlugin({
         include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
