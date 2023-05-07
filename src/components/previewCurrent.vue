@@ -16,19 +16,9 @@
 import { fabric } from 'fabric';
 import { inject } from 'vue';
 import { ImagePreview } from 'view-ui-plus';
+import vfe from 'vfe';
 
-interface CanvasType {
-  editor: {
-    ruler: {
-      hideGuideline: FunctionConstructor;
-    };
-    editorWorkspace: {
-      auto: FunctionConstructor;
-    };
-  };
-  c: fabric.Canvas;
-}
-const canvas = inject('canvas') as CanvasType;
+const canvas = inject('canvas') as vfe.ICanvas;
 const getImgUrl = () => {
   canvas.editor.ruler.hideGuideline();
   const workspace = canvas.c.getObjects().find((item: fabric.Object) => item.id === 'workspace');
