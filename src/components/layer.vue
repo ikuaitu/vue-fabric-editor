@@ -2,37 +2,42 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: June
- * @LastEditTime: 2023-04-02 23:50:59
+ * @LastEditTime: 2023-05-08 18:04:49
  * @Description: 图层面板
 -->
 
 <template>
   <div class="box">
-    <Divider plain orientation="left" v-if="list.length">{{ $t('layers') }}</Divider>
-    <div class="layer-box">
-      <div
-        v-for="item in list"
-        @click="select(item.id)"
-        :key="item.id"
-        :class="isSelect(item) && 'active'"
-      >
-        <Tooltip :content="item.name || item.text || item.type" placement="left">
-          <div class="ellipsis">
-            <span :class="isSelect(item) && 'active'" v-html="iconType(item.type)"></span>
-            | {{ textType(item.type, item) }}
-          </div>
-        </Tooltip>
+    <template v-if="list.length">
+      <Divider plain orientation="left">{{ $t('layers') }}</Divider>
+      <div class="layer-box">
+        <div
+          v-for="item in list"
+          @click="select(item.id)"
+          :key="item.id"
+          :class="isSelect(item) && 'active'"
+        >
+          <Tooltip :content="item.name || item.text || item.type" placement="left">
+            <div class="ellipsis">
+              <span :class="isSelect(item) && 'active'" v-html="iconType(item.type)"></span>
+              | {{ textType(item.type, item) }}
+            </div>
+          </Tooltip>
+        </div>
       </div>
-    </div>
-    <!-- 层级调整按钮 -->
-    <div class="btn-box">
-      <ButtonGroup v-show="mSelectMode === 'one'" size="small">
-        <Button @click="up"><span v-html="btnIconType('up')"></span></Button>
-        <Button @click="down"><span v-html="btnIconType('down')"></span></Button>
-        <Button @click="upTop"><span v-html="btnIconType('upTop')"></span></Button>
-        <Button @click="downTop"><span v-html="btnIconType('downTop')"></span></Button>
-      </ButtonGroup>
-    </div>
+      <!-- 层级调整按钮 -->
+      <div class="btn-box">
+        <ButtonGroup v-show="mSelectMode === 'one'" size="small">
+          <Button @click="up"><span v-html="btnIconType('up')"></span></Button>
+          <Button @click="down"><span v-html="btnIconType('down')"></span></Button>
+          <Button @click="upTop"><span v-html="btnIconType('upTop')"></span></Button>
+          <Button @click="downTop"><span v-html="btnIconType('downTop')"></span></Button>
+        </ButtonGroup>
+      </div>
+    </template>
+    <template v-else>
+      <p class="empty-text">暂无图层</p>
+    </template>
   </div>
 </template>
 
@@ -212,6 +217,11 @@ svg {
     font-weight: bold;
     color: #000000;
   }
+}
+.empty-text {
+  text-align: center;
+  color: #999;
+  padding-top: 10px;
 }
 </style>
 
