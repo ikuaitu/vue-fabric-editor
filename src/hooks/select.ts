@@ -7,21 +7,22 @@
  * @LastEditTime: 2023-05-07 09:35:08
  */
 
-import { inject, reactive, onMounted } from 'vue';
-import { SelectEvent, SelectMode } from '@/utils/event/types';
-// todo
-// interface Data {
-//   mSelectMode: SelectMode | '';
-//   mSelectOneType: SelectOneType | '';
-//   mSelectId: string[] | '';
-//   mSelectIds: string[];
-//   mSelectActive: any;
-// }
+import { inject, onMounted, reactive } from 'vue';
+import { SelectEvent, SelectMode, SelectOneType } from '@/utils/event/types';
+import CanvasEventEmitter from '@/utils/event/notifier';
+
+interface Data {
+  mSelectMode: SelectMode;
+  mSelectOneType: SelectOneType;
+  mSelectId: string[] | '';
+  mSelectIds: string[];
+  mSelectActive: unknown[];
+}
 
 export default function useSelect() {
-  const state = reactive({
-    mSelectMode: '',
-    mSelectOneType: '',
+  const state = reactive<Data>({
+    mSelectMode: SelectMode.EMPTY,
+    mSelectOneType: SelectOneType.EMPTY,
     mSelectId: '', // 选择id
     mSelectIds: [], // 选择id
     mSelectActive: [],
@@ -29,27 +30,27 @@ export default function useSelect() {
 
   const fabric = inject('fabric');
   const canvas = inject('canvas');
-  const event = inject('event');
+  const event = inject<CanvasEventEmitter>('event');
 
   onMounted(() => {
-    event.on(SelectEvent.ONE, (e) => {
+    event?.on(SelectEvent.ONE, (e) => {
       state.mSelectMode = SelectMode.ONE;
       state.mSelectId = e[0].id;
       state.mSelectOneType = e[0].type;
       state.mSelectIds = e.map((item) => item.id);
     });
 
-    event.on(SelectEvent.MULTI, (e) => {
+    event?.on(SelectEvent.MULTI, (e) => {
       state.mSelectMode = SelectMode.MULTI;
       state.mSelectId = '';
       state.mSelectIds = e.map((item) => item.id);
     });
 
-    event.on(SelectEvent.CANCEL, () => {
+    event?.on(SelectEvent.CANCEL, () => {
       state.mSelectId = '';
       state.mSelectIds = [];
-      state.mSelectMode = '';
-      state.mSelectOneType = '';
+      state.mSelectMode = SelectMode.EMPTY;
+      state.mSelectOneType = SelectOneType.EMPTY;
     });
   });
 

@@ -115,7 +115,7 @@
     <div v-show="baseType.includes(mSelectOneType)">
       <Divider plain orientation="left">{{ $t('attributes.exterior') }}</Divider>
       <!-- 多边形边数 -->
-      <Row v-if="mSelectOneType === 'polygon'" :gutter="12">
+      <Row v-if="mSelectOneType === SelectOneType.POLYGON" :gutter="12">
         <Col flex="0.5">
           <InputNumber
             v-model="baseAttr.points.length"
@@ -282,11 +282,17 @@ import Color from './color.vue';
 import axios from 'axios';
 import { getPolygonVertices } from '@/utils/math';
 import InputNumber from '@/components/inputNumber';
+import { SelectOneType } from '@/utils/event/types';
 
 const repoSrc = import.meta.env.APP_REPO;
 
 export default {
-  name: 'AttrBute',
+  name: 'Attribute',
+  computed: {
+    SelectOneType() {
+      return SelectOneType;
+    },
+  },
   mixins: [select],
   components: {
     Color,

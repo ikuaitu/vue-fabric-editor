@@ -43,7 +43,7 @@ class EditorGroupText {
       if (this.isDown && opt.target && opt.target.type === 'group') {
         const textObject = this._getGroupTextObj(opt);
         if (textObject) {
-          // todo bug 文字编辑结束后，点击组内其他元素可单独拖动
+          // TODO: bug 文字编辑结束后，点击组内其他元素可单独拖动
         }
       }
     });

@@ -9,14 +9,14 @@
 import EventEmitter from 'events';
 import { fabric } from 'fabric';
 import { Canvas } from 'fabric/fabric-impl';
-import { SelectEvent } from '@/utils/event/types';
+import { SelectEvent, SelectMode } from '@/utils/event/types';
 
 /**
  * 发布订阅器
  */
 class CanvasEventEmitter extends EventEmitter {
   handler: Canvas | undefined;
-  mSelectMode = '';
+  mSelectMode = SelectMode.EMPTY;
 
   init(handler: CanvasEventEmitter['handler']) {
     this.handler = handler;
@@ -42,7 +42,7 @@ class CanvasEventEmitter extends EventEmitter {
     if (actives && actives.length === 1) {
       this.emit(SelectEvent.ONE, actives);
     } else if (actives && actives.length > 1) {
-      this.mSelectMode = 'multiple';
+      this.mSelectMode = SelectMode.MULTI;
       this.emit(SelectEvent.MULTI, actives);
     } else {
       this.emit(SelectEvent.CANCEL);
