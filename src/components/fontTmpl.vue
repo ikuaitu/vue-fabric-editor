@@ -29,11 +29,12 @@
 import select from '@/mixins/select';
 // import { downFontByJSON } from '@/utils/utils';
 import axios from 'axios';
+import { InjectionKeys } from '@/utils/keys';
 const repoSrc = import.meta.env.APP_REPO;
 export default {
   name: 'ToolBar',
   mixins: [select],
-  inject: ['canvas', 'fabric'],
+  inject: [InjectionKeys.CANVAS, InjectionKeys.FABRIC],
   data() {
     return {
       jsonFile: null,

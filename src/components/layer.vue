@@ -38,11 +38,12 @@
 
 <script>
 import select from '@/mixins/select';
+import { InjectionKeys } from '@/utils/keys';
 
 export default {
   name: 'ToolBar',
   mixins: [select],
-  inject: ['fabric'],
+  inject: [InjectionKeys.FABRIC],
   data() {
     return {
       list: [],

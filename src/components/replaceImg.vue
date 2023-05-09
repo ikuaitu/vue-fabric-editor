@@ -15,11 +15,12 @@
 <script>
 import select from '@/mixins/select';
 import { getImgStr, selectFiles, insertImgFile } from '@/utils/utils';
+import { InjectionKeys } from '@/utils/keys';
 
 export default {
   name: 'replaceImg',
   mixins: [select],
-  inject: ['canvas', 'fabric'],
+  inject: [InjectionKeys.CANVAS, InjectionKeys.FABRIC],
   data() {
     return {
       id: '',

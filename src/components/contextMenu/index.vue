@@ -18,11 +18,12 @@
 import { isEmpty, debounce } from 'lodash-es';
 import select from '@/mixins/select';
 import menuItem from './menuItem.vue';
+import { InjectionKeys } from '@/utils/keys';
 
 const canvasDom = document.getElementById('canvas') || null;
 export default {
   name: 'mouseMenu',
-  inject: ['canvas', 'fabric'],
+  inject: [InjectionKeys.CANVAS, InjectionKeys.FABRIC],
   mixins: [select],
   data() {
     return {

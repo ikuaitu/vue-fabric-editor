@@ -170,6 +170,7 @@
 import { v4 as uuid } from 'uuid';
 import initializeLineDrawing from '@/core/initializeLineDrawing';
 import { getPolygonVertices } from '@/utils/math';
+import { InjectionKeys } from '@/utils/keys';
 
 // 默认属性
 const defaultPosition = { shadow: '', fontFamily: 'arial' };
@@ -180,7 +181,7 @@ const dragOption = {
 };
 export default {
   name: 'ToolBar',
-  inject: ['canvas', 'fabric'],
+  inject: [InjectionKeys.CANVAS, InjectionKeys.FABRIC],
   data() {
     return {
       isDrawingLineMode: false,

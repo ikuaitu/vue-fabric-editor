@@ -1,5 +1,5 @@
 /*
- * @Descripttion: useSelect(原mixin)  类型待优化
+ * @Description: useSelect(原mixin)  类型待优化
  * @version:
  * @Author: June
  * @Date: 2023-04-23 21:10:05
@@ -10,6 +10,8 @@
 import { inject, onMounted, reactive } from 'vue';
 import { SelectEvent, SelectMode, SelectOneType } from '@/utils/event/types';
 import CanvasEventEmitter from '@/utils/event/notifier';
+import { Canvas } from 'fabric/fabric-impl';
+import { InjectionKeys } from '@/utils/keys';
 
 interface Data {
   mSelectMode: SelectMode;
@@ -28,9 +30,9 @@ export default function useSelect() {
     mSelectActive: [],
   });
 
-  const fabric = inject('fabric');
-  const canvas = inject('canvas');
-  const event = inject<CanvasEventEmitter>('event');
+  const fabric = inject(InjectionKeys.FABRIC);
+  const canvas = inject<Canvas>(InjectionKeys.CANVAS);
+  const event = inject<CanvasEventEmitter>(InjectionKeys.EVENT);
 
   onMounted(() => {
     event?.on(SelectEvent.ONE, (e) => {

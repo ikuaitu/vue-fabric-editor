@@ -1,4 +1,5 @@
 import { SelectEvent, SelectMode, SelectOneType } from '@/utils/event/types';
+import { InjectionKeys } from '@/utils/keys';
 
 interface Data {
   mSelectMode: SelectMode;
@@ -8,7 +9,7 @@ interface Data {
 }
 
 export default {
-  inject: ['canvas', 'fabric', 'event'],
+  inject: Object.values(InjectionKeys), // all
   data(): Data {
     return {
       mSelectMode: SelectMode.EMPTY,

@@ -17,8 +17,9 @@ import { fabric } from 'fabric';
 import { inject } from 'vue';
 import { ImagePreview } from 'view-ui-plus';
 import vfe from 'vfe';
+import { InjectionKeys } from '@/utils/keys';
 
-const canvas = inject('canvas') as vfe.ICanvas;
+const canvas = inject(InjectionKeys.CANVAS) as vfe.ICanvas;
 const getImgUrl = () => {
   canvas.editor.ruler.hideGuideline();
   const workspace = canvas.c.getObjects().find((item: fabric.Object) => item.id === 'workspace');

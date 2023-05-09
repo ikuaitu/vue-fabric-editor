@@ -243,6 +243,7 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
+import { InjectionKeys } from '@/utils/keys';
 const defaultPosition = {
   left: 100,
   top: 100,
@@ -251,7 +252,7 @@ const defaultPosition = {
 };
 export default {
   name: 'ToolBar',
-  inject: ['canvas', 'fabric'],
+  inject: [InjectionKeys.CANVAS, InjectionKeys.FABRIC],
   data() {
     return {
       repoSrc: import.meta.env.APP_REPO,

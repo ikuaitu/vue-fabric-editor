@@ -84,6 +84,7 @@
 
 <script>
 import select from '@/mixins/select';
+import { InjectionKeys } from '@/utils/keys';
 
 // 无参数滤镜
 const noParamsFilters = {
@@ -290,7 +291,7 @@ const combinationFilters = [
 export default {
   name: 'replaceImg',
   mixins: [select],
-  inject: ['canvas', 'fabric'],
+  inject: [InjectionKeys.CANVAS, InjectionKeys.FABRIC],
   data() {
     return {
       uiType,

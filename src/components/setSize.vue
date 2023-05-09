@@ -35,11 +35,12 @@
 <script>
 import select from '@/mixins/select';
 import EditorWorkspace from '@/core/EditorWorkspace';
+import { InjectionKeys } from '@/utils/keys';
 
 export default {
   name: 'canvasSize',
   mixins: [select],
-  inject: ['canvas', 'fabric'],
+  inject: [InjectionKeys.CANVAS, InjectionKeys.FABRIC],
   data() {
     return {
       width: 900,

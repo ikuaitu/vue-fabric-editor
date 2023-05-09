@@ -26,10 +26,11 @@
 <script>
 // import { getImgStr } from '@/utils/utils';
 import select from '@/mixins/select';
+import { InjectionKeys } from '@/utils/keys';
 
 export default {
   name: 'bgBar',
-  inject: ['canvas', 'fabric'],
+  inject: [InjectionKeys.CANVAS, InjectionKeys.FABRIC],
   mixins: [select],
   data() {
     return {
