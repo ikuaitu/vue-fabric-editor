@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: June
- * @LastEditTime: 2023-04-02 23:51:49
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-05-13 23:29:22
  * @Description: 尺寸设置
 -->
 
@@ -34,7 +34,6 @@
 
 <script>
 import select from '@/mixins/select';
-import EditorWorkspace from '@/core/EditorWorkspace';
 
 export default {
   name: 'canvasSize',
@@ -64,10 +63,7 @@ export default {
     };
   },
   mounted() {
-    this.canvas.editor.editorWorkspace = new EditorWorkspace(this.canvas.c, {
-      width: this.width,
-      height: this.height,
-    });
+    this.setSize();
   },
   methods: {
     setSizeBy(width, height) {

@@ -2,13 +2,14 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-20 13:07:22
+ * @LastEditTime: 2023-05-13 23:29:55
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
 // import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
-
+import EditorCore from './core';
+import TextPlugin from './plugin';
 // 对齐辅助线
 import initAligningGuidelines from '@/core/initAligningGuidelines';
 import initControlsRotate from '@/core/initControlsRotate';
@@ -18,7 +19,7 @@ import initControls from '@/core/initControls';
 import initRuler from '@/core/ruler';
 import EditorGroupText from '@/core/EditorGroupText';
 import type CanvasRuler from '@/core/ruler/ruler';
-import type EditorWorkspace from '@/core/EditorWorkspace';
+import EditorWorkspace from '@/core/EditorWorkspace';
 
 import type { fabric } from 'fabric';
 
@@ -27,11 +28,20 @@ class Editor extends EventEmitter {
   editorWorkspace: EditorWorkspace | null;
   centerAlign: InitCenterAlign;
   ruler: CanvasRuler;
+  pluginEditor: any;
   constructor(canvas: fabric.Canvas) {
     super();
 
     this.canvas = canvas;
     this.editorWorkspace = null;
+
+    // EditorCore
+    this.pluginEditor = new EditorCore(canvas);
+    this.pluginEditor.use(TextPlugin, { color1: 'asdfadf' });
+    this.editorWorkspace = new EditorWorkspace(canvas, {
+      width: 100,
+      height: 100,
+    });
 
     initAligningGuidelines(canvas);
     initHotkeys(canvas);
