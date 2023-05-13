@@ -158,13 +158,20 @@ yarn serve
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/makeng">
+            <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
+            <br />
+            <sub><b>makeng</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
         <a href="https://github.com/xiaozhuclassmate">
             <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="xiaozhuclassmate"/>
             <br />
             <sub><b>xiaozhuclassmate</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/liucity">
             <img src="https://avatars.githubusercontent.com/u/12006542?v=4" width="80;" alt="liucity"/>
@@ -191,13 +198,6 @@ yarn serve
             <img src="https://avatars.githubusercontent.com/u/26652329?v=4" width="80;" alt="macheteHot"/>
             <br />
             <sub><b>macheteHot</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/makeng">
-            <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
-            <br />
-            <sub><b>makeng</b></sub>
         </a>
     </td>
     <td align="center">
