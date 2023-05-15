@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: June
- * @LastEditTime: 2023-04-02 23:50:05
+ * @LastEditors: bigFace2019 599069310@qq.com
+ * @LastEditTime: 2023-05-14 18:28:23
  * @Description: 组合与拆分组合
 -->
 
@@ -47,39 +47,27 @@
       </svg>
       拆分组合
     </Button>
-    <!-- </ButtonGroup> -->
   </div>
 </template>
 
-<script>
-import select from '@/mixins/select';
-// import { v4 as uuid } from 'uuid';
+<script setup name="ToolBar">
+import useSelect from '@/hooks/select';
+import { computed } from 'vue';
 
-export default {
-  name: 'ToolBar',
-  mixins: [select],
-  data() {
-    return {};
-  },
-  computed: {
-    // 单选且等于组元素
-    isGroup() {
-      return this.mSelectMode === 'one' && this.mSelectOneType === 'group';
-    },
-    // 是否为多选
-    isMultiple() {
-      return this.mSelectMode === 'multiple';
-    },
-  },
-  methods: {
-    // 拆分组
-    unGroup() {
-      this.canvas.editor.unGroup();
-    },
-    group() {
-      this.canvas.editor.group();
-    },
-  },
+const { canvas, mixinState } = useSelect();
+
+// 单选且等于组元素
+let isGroup = computed(
+  () => mixinState.mSelectMode === 'one' && mixinState.mSelectOneType === 'group'
+);
+// 是否为多选
+let isMultiple = computed(() => mixinState.mSelectMode === 'multiple');
+// 拆分组
+const unGroup = () => {
+  canvas.editor.unGroup();
+};
+const group = () => {
+  canvas.editor.group();
 };
 </script>
 <style scoped lang="less">
