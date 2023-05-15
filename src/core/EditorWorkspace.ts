@@ -154,7 +154,10 @@ class EditorWorkspace {
     let zoomRatio = this.canvas.getZoom();
     zoomRatio -= 0.05;
     const center = this.canvas.getCenter();
-    this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), zoomRatio);
+    this.canvas.zoomToPoint(
+      new fabric.Point(center.left, center.top),
+      zoomRatio < 0 ? 0.01 : zoomRatio
+    );
   }
 
   // 自动缩放
