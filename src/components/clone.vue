@@ -1,24 +1,15 @@
 <template>
-  <Tooltip v-if="mSelectMode === 'one'" :content="$t('quick.copy')">
+  <Tooltip v-if="mixinState.mSelectMode === 'one'" :content="$t('quick.copy')">
     <Button @click="clone" icon="ios-copy" type="text"></Button>
   </Tooltip>
 </template>
 
-<script>
-import select from '@/mixins/select';
+<script setup name="Clone">
+import useSelect from '@/hooks/select';
+import { debounce } from 'lodash-es';
 
-export default {
-  name: 'ToolBar',
-  mixins: [select],
-  data() {
-    return {};
-  },
-  methods: {
-    clone() {
-      this.canvas.editor.clone();
-    },
-  },
-};
+const { canvas, mixinState } = useSelect();
+const clone = debounce(function () {
+  canvas.editor.clone();
+}, 300);
 </script>
-
-<style scoped lang="less"></style>
