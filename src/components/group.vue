@@ -52,7 +52,6 @@
 
 <script setup name="ToolBar">
 import useSelect from '@/hooks/select';
-import { computed } from 'vue';
 
 const { canvas, mixinState } = useSelect();
 

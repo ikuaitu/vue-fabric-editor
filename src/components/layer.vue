@@ -42,7 +42,6 @@
 </template>
 
 <script setup name="Layer">
-import { ref, onMounted } from 'vue';
 import useSelect from '@/hooks/select';
 const { canvas, fabric, mixinState } = useSelect();
 
