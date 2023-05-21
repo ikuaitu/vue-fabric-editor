@@ -5,7 +5,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 21:50:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-18 22:24:22
+ * @LastEditTime: 2023-05-19 08:34:58
  * @Description: 工作区初始化
  */
 
@@ -40,7 +40,7 @@ class EditorWorkspace {
     this._initBackground();
     this._initWorkspace();
     this._initResizeObserve();
-    this._initDring();
+    // this._initDring();
   }
 
   // 初始化背景
@@ -169,84 +169,84 @@ class EditorWorkspace {
     this.canvas.requestRenderAll();
   }
 
-  // 开始拖拽
-  startDring() {
-    this.dragMode = true;
-    this.canvas.defaultCursor = 'grab';
-  }
-  endDring() {
-    this.dragMode = false;
-    this.canvas.defaultCursor = 'default';
-  }
+  // // 开始拖拽
+  // startDring() {
+  //   this.dragMode = true;
+  //   this.canvas.defaultCursor = 'grab';
+  // }
+  // endDring() {
+  //   this.dragMode = false;
+  //   this.canvas.defaultCursor = 'default';
+  // }
 
   // 拖拽模式
-  _initDring() {
-    const This = this;
-    this.canvas.on('mouse:down', function (this: ExtCanvas, opt) {
-      const evt = opt.e;
-      if (evt.altKey || This.dragMode) {
-        This.canvas.defaultCursor = 'grabbing';
-        This.canvas.discardActiveObject();
-        This._setDring();
-        this.selection = false;
-        this.isDragging = true;
-        this.lastPosX = evt.clientX;
-        this.lastPosY = evt.clientY;
-        this.requestRenderAll();
-      }
-    });
+  // _initDring() {
+  //   const This = this;
+  //   this.canvas.on('mouse:down', function (this: ExtCanvas, opt) {
+  //     const evt = opt.e;
+  //     if (evt.altKey || This.dragMode) {
+  //       This.canvas.defaultCursor = 'grabbing';
+  //       This.canvas.discardActiveObject();
+  //       This._setDring();
+  //       this.selection = false;
+  //       this.isDragging = true;
+  //       this.lastPosX = evt.clientX;
+  //       this.lastPosY = evt.clientY;
+  //       this.requestRenderAll();
+  //     }
+  //   });
 
-    this.canvas.on('mouse:move', function (this: ExtCanvas, opt) {
-      if (this.isDragging) {
-        This.canvas.discardActiveObject();
-        This.canvas.defaultCursor = 'grabbing';
-        const { e } = opt;
-        if (!this.viewportTransform) return;
-        const vpt = this.viewportTransform;
-        vpt[4] += e.clientX - this.lastPosX;
-        vpt[5] += e.clientY - this.lastPosY;
-        this.lastPosX = e.clientX;
-        this.lastPosY = e.clientY;
-        this.requestRenderAll();
-      }
-    });
+  //   this.canvas.on('mouse:move', function (this: ExtCanvas, opt) {
+  //     if (this.isDragging) {
+  //       This.canvas.discardActiveObject();
+  //       This.canvas.defaultCursor = 'grabbing';
+  //       const { e } = opt;
+  //       if (!this.viewportTransform) return;
+  //       const vpt = this.viewportTransform;
+  //       vpt[4] += e.clientX - this.lastPosX;
+  //       vpt[5] += e.clientY - this.lastPosY;
+  //       this.lastPosX = e.clientX;
+  //       this.lastPosY = e.clientY;
+  //       this.requestRenderAll();
+  //     }
+  //   });
 
-    this.canvas.on('mouse:up', function (this: ExtCanvas) {
-      if (!this.viewportTransform) return;
-      this.setViewportTransform(this.viewportTransform);
-      this.isDragging = false;
-      this.selection = true;
-      this.getObjects().forEach((obj) => {
-        if (obj.id !== 'workspace' && obj.hasControls) {
-          obj.selectable = true;
-        }
-      });
-      this.requestRenderAll();
-      This.canvas.defaultCursor = 'default';
-    });
+  //   this.canvas.on('mouse:up', function (this: ExtCanvas) {
+  //     if (!this.viewportTransform) return;
+  //     this.setViewportTransform(this.viewportTransform);
+  //     this.isDragging = false;
+  //     this.selection = true;
+  //     this.getObjects().forEach((obj) => {
+  //       if (obj.id !== 'workspace' && obj.hasControls) {
+  //         obj.selectable = true;
+  //       }
+  //     });
+  //     this.requestRenderAll();
+  //     This.canvas.defaultCursor = 'default';
+  //   });
 
-    this.canvas.on('mouse:wheel', function (this: fabric.Canvas, opt) {
-      const delta = opt.e.deltaY;
-      let zoom = this.getZoom();
-      zoom *= 0.999 ** delta;
-      if (zoom > 20) zoom = 20;
-      if (zoom < 0.01) zoom = 0.01;
-      const center = this.getCenter();
-      this.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
-      opt.e.preventDefault();
-      opt.e.stopPropagation();
-    });
-  }
+  //   this.canvas.on('mouse:wheel', function (this: fabric.Canvas, opt) {
+  //     const delta = opt.e.deltaY;
+  //     let zoom = this.getZoom();
+  //     zoom *= 0.999 ** delta;
+  //     if (zoom > 20) zoom = 20;
+  //     if (zoom < 0.01) zoom = 0.01;
+  //     const center = this.getCenter();
+  //     this.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
+  //     opt.e.preventDefault();
+  //     opt.e.stopPropagation();
+  //   });
+  // }
 
-  _setDring() {
-    this.canvas.selection = false;
-    this.canvas.defaultCursor = 'grab';
-    this.canvas.getObjects().forEach((obj) => {
-      obj.selectable = false;
-    });
-    this.canvas.renderAll();
-    this.canvas.requestRenderAll();
-  }
+  // _setDring() {
+  //   this.canvas.selection = false;
+  //   this.canvas.defaultCursor = 'grab';
+  //   this.canvas.getObjects().forEach((obj) => {
+  //     obj.selectable = false;
+  //   });
+  //   this.canvas.renderAll();
+  //   this.canvas.requestRenderAll();
+  // }
 }
 
 export default EditorWorkspace;

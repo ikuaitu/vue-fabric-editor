@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-18 08:06:56
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-22 22:55:59
+ * @LastEditTime: 2023-05-21 08:50:55
  * @Description: 拖拽模式
 -->
 
@@ -27,43 +27,23 @@ export default {
       status: false,
     };
   },
-  computed: {
-    unShow() {
-      return this.mSelectMode === 'one' && this.mSelectOneType === 'group';
-    },
-    createShow() {
-      return this.mSelectMode === 'multiple';
-    },
-  },
   methods: {
     switchMode(val) {
       if (val) {
-        this.canvas.editor.editorWorkspace.startDring();
+        this.canvas.editor.pluginEditor.startDring();
       } else {
-        this.canvas.editor.editorWorkspace.endDring();
-      }
-    },
-    handleKeyDown(e) {
-      if (this.status) return;
-      if (e.code === 'Space') {
-        this.status = true;
-        this.canvas.editor.editorWorkspace.startDring();
-      }
-    },
-    handleKeyUp(e) {
-      if (e.code === 'Space') {
-        this.status = false;
-        this.canvas.editor.editorWorkspace.endDring();
+        this.canvas.editor.pluginEditor.endDring();
       }
     },
   },
   mounted() {
-    window.addEventListener('keydown', this.handleKeyDown);
-    window.addEventListener('keyup', this.handleKeyUp);
+    console.log(this.canvas.editor);
+    this.canvas.editor.pluginEditor.on('startDring', () => (this.status = true));
+    this.canvas.editor.pluginEditor.on('endDring', () => (this.status = false));
   },
   beforeUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-    window.removeEventListener('keyup', this.handleKeyUp);
+    this.canvas.editor.pluginEditor.off('startDring');
+    this.canvas.editor.pluginEditor.off('endDring');
   },
 };
 </script>

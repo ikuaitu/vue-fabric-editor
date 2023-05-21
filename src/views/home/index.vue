@@ -71,7 +71,7 @@
           <div class="canvas-box">
             <div class="inside-shadow"></div>
             <canvas id="canvas" :class="ruler ? 'design-stage-grid' : ''"></canvas>
-            <dragMode></dragMode>
+            <dragMode v-if="show"></dragMode>
             <zoom></zoom>
             <mouseMenu></mouseMenu>
           </div>

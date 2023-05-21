@@ -22,7 +22,7 @@ class Editor extends EventEmitter {
   use(plugin: IPluginClass, options: IPluginOption) {
     if (this._checkPlugin(plugin)) {
       this._saveCustomAttr(plugin);
-      const pluginRunTime = new plugin(this.canvas, this.canvas, options);
+      const pluginRunTime = new plugin(this.canvas, this, options);
       this.pluginMap[plugin.pluginName] = pluginRunTime;
       this._bindingHooks(pluginRunTime);
       this._bindingHotkeys(pluginRunTime);
@@ -70,7 +70,8 @@ class Editor extends EventEmitter {
   // 绑定快捷键
   private _bindingHotkeys(plugin: IPluginTempl) {
     plugin.hotkeys.forEach((keyName: string) => {
-      hotkeys(keyName, (e) => plugin.hotkeyEvent(keyName, e));
+      // 支持 keyup
+      hotkeys(keyName, { keyup: true }, (e) => plugin.hotkeyEvent(keyName, e));
     });
   }
 
@@ -87,7 +88,8 @@ class Editor extends EventEmitter {
       if (opt.button === 3) {
         const menu: IPluginMenu[] = [];
         Object.keys(this.pluginMap).forEach((pluginName) => {
-          const pluginMenu = this.pluginMap[pluginName].contextMenu();
+          const pluginRunTime = this.pluginMap[pluginName];
+          const pluginMenu = pluginRunTime.contextMenu && pluginRunTime.contextMenu();
           if (pluginMenu) {
             menu.push(pluginMenu);
           }
