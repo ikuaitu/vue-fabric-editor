@@ -166,10 +166,10 @@ yarn serve
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/xiaozhuclassmate">
-            <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="xiaozhuclassmate"/>
+        <a href="https://github.com/briver0825">
+            <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="briver0825"/>
             <br />
-            <sub><b>xiaozhuclassmate</b></sub>
+            <sub><b>briver0825</b></sub>
         </a>
     </td>
     <td align="center">
