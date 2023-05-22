@@ -173,6 +173,13 @@ yarn serve
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/z09176141">
+            <img src="https://avatars.githubusercontent.com/u/49260613?v=4" width="80;" alt="z09176141"/>
+            <br />
+            <sub><b>z09176141</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/liucity">
             <img src="https://avatars.githubusercontent.com/u/12006542?v=4" width="80;" alt="liucity"/>
             <br />
@@ -199,15 +206,15 @@ yarn serve
             <br />
             <sub><b>macheteHot</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/slarkerino">
             <img src="https://avatars.githubusercontent.com/u/7014849?v=4" width="80;" alt="slarkerino"/>
             <br />
             <sub><b>slarkerino</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/vvbear">
             <img src="https://avatars.githubusercontent.com/u/32010827?v=4" width="80;" alt="vvbear"/>
@@ -227,13 +234,6 @@ yarn serve
             <img src="https://avatars.githubusercontent.com/u/13568242?v=4" width="80;" alt="xiaozeo"/>
             <br />
             <sub><b>xiaozeo</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/z09176141">
-            <img src="https://avatars.githubusercontent.com/u/49260613?v=4" width="80;" alt="z09176141"/>
-            <br />
-            <sub><b>z09176141</b></sub>
         </a>
     </td>
     <td align="center">
