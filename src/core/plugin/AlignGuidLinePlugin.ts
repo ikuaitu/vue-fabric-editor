@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-05-21 08:55:25
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-05-21 09:52:56
+ * @LastEditTime: 2023-05-22 23:35:54
  * @Description: 辅助线功能
  */
 
@@ -33,7 +33,7 @@ class AlignGuidLinePlugin {
   static pluginName = 'AlignGuidLinePlugin';
   static events = ['', ''];
   static apis = [];
-  public hotkeys: string[] = ['space'];
+  public hotkeys: string[] = [''];
   dragMode = false;
   constructor(canvas: fabric.Canvas, editor: IEditor) {
     this.canvas = canvas;
