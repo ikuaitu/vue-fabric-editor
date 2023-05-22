@@ -117,6 +117,7 @@ yarn serve
 
 - [color-gradient-picker-vue3](https://github.com/Qiu-Jun/color-gradient-picker-vue3) 一个 vue3 版本的渐变组件，作者[Qiu-Jun
   ](https://github.com/Qiu-Jun)。
+- 标尺功能作者[刘明野](https://github.com/liumingye)。
   
 ## 贡献者
 <!-- readme: collaborators,contributors -start -->
