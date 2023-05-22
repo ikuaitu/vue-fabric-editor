@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-05-13 23:29:22
+ * @LastEditTime: 2023-05-22 23:29:00
  * @Description: 尺寸设置
 -->
 
 <template>
-  <div v-if="!mSelectMode">
+  <div v-if="!mixinState.mSelectMode">
     <Divider plain orientation="left">{{ $t('size') }}</Divider>
     <Form :label-width="40">
       <FormItem :label="$t('width')" prop="name">
@@ -32,49 +32,50 @@
   </div>
 </template>
 
-<script>
-import select from '@/mixins/select';
+<script setup name="CanvasSize">
+import useSelect from '@/hooks/select';
+import useI18n from '@/hooks/useI18n';
+import { ref, onMounted, reactive } from 'vue';
 
-export default {
-  name: 'canvasSize',
-  mixins: [select],
-  inject: ['canvas', 'fabric'],
-  data() {
-    return {
-      width: 900,
-      height: 1200,
-      presetSize: [
-        {
-          label: this.$t('red_book_vertical'),
-          width: 900,
-          height: 1200,
-        },
-        {
-          label: this.$t('red_book_horizontal'),
-          width: 1200,
-          height: 900,
-        },
-        {
-          label: this.$t('phone_wallpaper'),
-          width: 1080,
-          height: 1920,
-        },
-      ],
-    };
+import EditorWorkspace from '@/core/EditorWorkspace';
+
+const { canvas, mixinState } = useSelect();
+const $t = useI18n();
+
+let width = ref(900);
+let height = ref(1200);
+let presetSize = reactive([
+  {
+    label: $t('red_book_vertical'),
+    width: 900,
+    height: 1200,
   },
-  mounted() {
-    this.setSize();
+  {
+    label: $t('red_book_horizontal'),
+    width: 1200,
+    height: 900,
   },
-  methods: {
-    setSizeBy(width, height) {
-      this.width = width;
-      this.height = height;
-      this.setSize();
-    },
-    setSize() {
-      this.canvas.editor.editorWorkspace.setSize(this.width, this.height);
-    },
+  {
+    label: $t('phone_wallpaper'),
+    width: 1080,
+    height: 1920,
   },
+]);
+
+onMounted(() => {
+  canvas.editor.editorWorkspace = new EditorWorkspace(canvas.c, {
+    width: width.value,
+    height: height.value,
+  });
+});
+
+const setSizeBy = (w, h) => {
+  width.value = w;
+  height.value = h;
+  setSize();
+};
+const setSize = () => {
+  canvas.editor.editorWorkspace.setSize(width.value, height.value);
 };
 </script>
 
