@@ -4,7 +4,7 @@
  * @Author: June
  * @Date: 2023-04-24 00:25:39
  * @LastEditors: June
- * @LastEditTime: 2023-05-20 22:51:26
+ * @LastEditTime: 2023-05-22 23:44:10
  */
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -26,6 +26,11 @@ const config = ({ mode }) => {
       vue(),
       autoImports({
         imports: ['vue'],
+        eslintrc: {
+          enabled: true,
+          filepath: './.eslintrc-auto-import.json',
+          globalsPropValue: true,
+        },
       }),
       vueSetupExtend(),
       // 增加下面的配置项,这样在运行时就能检查eslint规范
