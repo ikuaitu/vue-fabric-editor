@@ -28,8 +28,6 @@ const config = ({ mode }) => {
         imports: ['vue'],
         eslintrc: {
           enabled: true,
-          filepath: './.eslintrc-auto-import.json',
-          globalsPropValue: true,
         },
       }),
       vueSetupExtend(),
