@@ -183,41 +183,6 @@ export default {
       }
     },
 
-    pasteObj(cloned) {
-      const canvas = this.canvas.c;
-      // 再次进行克隆，处理选择多个对象的情况
-      cloned.clone((clonedObj) => {
-        canvas.discardActiveObject();
-        // 设置位置信息
-        clonedObj.set({
-          left: clonedObj.left + 10,
-          top: clonedObj.top + 10,
-          evented: true,
-        });
-        if (clonedObj.type === 'activeSelection') {
-          // 将克隆的画布重新赋值
-          clonedObj.canvas = canvas;
-          clonedObj.forEachObject((obj) => {
-            canvas.add(obj);
-          });
-          // 解决不可选择问题
-          clonedObj.setCoords();
-        } else {
-          canvas.add(clonedObj);
-        }
-        cloned.top += 10;
-        cloned.left += 10;
-        canvas.setActiveObject(clonedObj);
-        canvas.requestRenderAll();
-      });
-    },
-    copyObj() {
-      // 对选中的对象进行克隆
-      this.canvas.c.getActiveObject().clone((cloned) => {
-        // 粘帖克隆的对象到画布
-        this.pasteObj(cloned);
-      });
-    },
     handleMenu(e) {
       const active = e.target.dataset.active || e.srcElement.dataset.active;
       if (!active) return this.hideMenu();
@@ -225,7 +190,7 @@ export default {
       const activeObject = canvas.getActiveObjects();
       switch (active) {
         case 'copy':
-          this.copyObj();
+          this.canvas.editor.clone();
           break;
         case 'delete':
           activeObject && activeObject.map((item) => canvas.remove(item));
