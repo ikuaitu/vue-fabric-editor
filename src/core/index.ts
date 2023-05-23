@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 白召策
- * @LastEditTime: 2023-05-23 10:50:28
+ * @LastEditTime: 2023-05-23 11:16:04
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -41,7 +41,6 @@ class Editor extends EventEmitter {
     this.centerAlign = new InitCenterAlign(canvas);
     this.ruler = initRuler(canvas);
   }
-
 
   pasteObj(cloned: fabric.Object) {
     const canvas = this.canvas;
