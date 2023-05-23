@@ -117,6 +117,7 @@ yarn serve
 
 - [color-gradient-picker-vue3](https://github.com/Qiu-Jun/color-gradient-picker-vue3) 一个 vue3 版本的渐变组件，作者[Qiu-Jun
   ](https://github.com/Qiu-Jun)。
+- 标尺功能作者[刘明野](https://github.com/liumingye)。
   
 ## 贡献者
 <!-- readme: collaborators,contributors -start -->
@@ -166,10 +167,17 @@ yarn serve
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/xiaozhuclassmate">
-            <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="xiaozhuclassmate"/>
+        <a href="https://github.com/briver0825">
+            <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="briver0825"/>
             <br />
-            <sub><b>xiaozhuclassmate</b></sub>
+            <sub><b>briver0825</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/z09176141">
+            <img src="https://avatars.githubusercontent.com/u/49260613?v=4" width="80;" alt="z09176141"/>
+            <br />
+            <sub><b>z09176141</b></sub>
         </a>
     </td>
     <td align="center">
@@ -199,15 +207,15 @@ yarn serve
             <br />
             <sub><b>macheteHot</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/slarkerino">
             <img src="https://avatars.githubusercontent.com/u/7014849?v=4" width="80;" alt="slarkerino"/>
             <br />
             <sub><b>slarkerino</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/vvbear">
             <img src="https://avatars.githubusercontent.com/u/32010827?v=4" width="80;" alt="vvbear"/>
