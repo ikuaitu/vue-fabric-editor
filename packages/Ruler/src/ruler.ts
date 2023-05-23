@@ -492,7 +492,7 @@ class CanvasRuler {
 
   /**
     判断鼠标是否在标尺上
-   * @param point 
+   * @param point
    * @returns "vertical" | "horizontal" | false
    */
   public isPointOnRuler(point: Point) {

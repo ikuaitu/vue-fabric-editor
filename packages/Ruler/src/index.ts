@@ -1,8 +1,16 @@
+/*
+ * @Author: June
+ * @Description:
+ * @Date: 2023-04-17 13:50:21
+ * @LastEditors: June
+ * @LastEditTime: 2023-05-23 23:16:38
+ */
 import type { Canvas } from 'fabric/fabric-impl';
 import { fabric } from 'fabric';
 import CanvasRuler, { RulerOptions } from './ruler';
 
 function initRuler(canvas: Canvas, options?: RulerOptions) {
+  console.log('修改了12');
   const ruler = new CanvasRuler({
     canvas,
     ...options,

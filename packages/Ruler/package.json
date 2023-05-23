@@ -15,6 +15,7 @@
     }
   },
   "scripts": {
+    "dev": "nodemon --watch src -x pnpm build",
     "build": "vue-tsc --noEmit --skipLibCheck && vite build"
   },
   "keywords": [],
