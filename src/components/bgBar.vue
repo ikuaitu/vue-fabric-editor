@@ -26,34 +26,34 @@
 <script setup name="BgBar">
 import { ref } from 'vue';
 import useSelect from '@/hooks/select';
-import useI18n from '@/hooks/useI18n';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const { canvas, mixinState } = useSelect();
-const $t = useI18n();
 
 const colorList = [
   {
-    label: $t('scenary_x', { number: 1 }),
+    label: t('scenary_x', { number: 1 }),
     color: ['#5F2B63', '#B23554', '#F27E56', '#FCE766'],
   },
   {
-    label: $t('scenary_x', { number: 2 }),
+    label: t('scenary_x', { number: 2 }),
     color: ['#86DCCD', '#E7FDCB', '#FFDC84', '#F57677'],
   },
   {
-    label: $t('scenary_x', { number: 3 }),
+    label: t('scenary_x', { number: 3 }),
     color: ['#5FC2C7', '#98DFE5', '#C2EFF3', '#DDFDFD'],
   },
   {
-    label: $t('scenary_x', { number: 4 }),
+    label: t('scenary_x', { number: 4 }),
     color: ['#9EE9D3', '#2FC6C8', '#2D7A9D', '#48466d'],
   },
   {
-    label: $t('scenary_x', { number: 5 }),
+    label: t('scenary_x', { number: 5 }),
     color: ['#61c0bf', '#bbded6', '#fae3d9', '#ffb6b9'],
   },
   {
-    label: $t('scenary_x', { number: 6 }),
+    label: t('scenary_x', { number: 6 }),
     color: ['#ffaaa5', '#ffd3b6', '#dcedc1', '#a8e6cf'],
   },
 ];
