@@ -6,7 +6,9 @@
  * @FilePath: \vue-fabric-editor\src\hooks\useI18n.js
  * @Description: 封装国际化为hook
  */
-import { getCurrentInstance } from 'vue';
+import { ComponentInternalInstance, getCurrentInstance } from 'vue';
+
 export default function useI18n() {
-  return getCurrentInstance().appContext.config.globalProperties.$t;
+  const instance = getCurrentInstance() as ComponentInternalInstance;
+  return instance.appContext.config.globalProperties.$t;
 }
