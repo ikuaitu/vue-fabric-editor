@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion:
+ * @version:
+ * @Author: June
+ * @Date: 2023-05-20 09:18:28
+ * @LastEditors: June
+ * @LastEditTime: 2023-05-20 22:53:50
+-->
 <template>
   <Dropdown @on-click="setLang">
     <Button type="text">
@@ -17,8 +25,6 @@
 <script setup name="saveBar">
 import { setLocal } from '@/utils/local';
 import { LANG } from '@/config/constants/app';
-import { reactive, computed } from 'vue';
-import { getCurrentInstance } from 'vue';
 
 const $i18n = getCurrentInstance().appContext.config.globalProperties.$i18n;
 const LANGMAP = {

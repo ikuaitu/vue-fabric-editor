@@ -35,7 +35,6 @@
 <script setup name="CanvasSize">
 import useSelect from '@/hooks/select';
 import useI18n from '@/hooks/useI18n';
-import { ref, onMounted, reactive } from 'vue';
 
 import EditorWorkspace from '@/core/EditorWorkspace';
 

@@ -1,8 +1,6 @@
 <script setup lang="ts">
 // https://github.com/view-design/ViewUIPlus/blob/master/src/components/input-number/input-number.vue
 // https://github.com/arco-design/arco-design-vue/blob/main/packages/web-vue/components/input-number/input-number.tsx
-
-import { ref, computed, watch, nextTick, onMounted } from 'vue';
 import { usePointerSwipe, type MaybeRefOrGetter } from '@vueuse/core';
 import { isNumber, isUndefined } from 'lodash-es';
 import NP from 'number-precision';
