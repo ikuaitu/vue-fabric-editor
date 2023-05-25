@@ -2,14 +2,14 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-05-21 08:59:33
+ * @LastEditTime: 2023-05-25 22:51:32
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
 // import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
 import EditorCore from './core';
-// import TextPlugin from './plugin';
+import TextPlugin from './plugin';
 import DringPlugin from './plugin/DringPlugin';
 import AlignGuidLinePlugin from './plugin/AlignGuidLinePlugin';
 
@@ -42,6 +42,7 @@ class Editor extends EventEmitter {
     // EditorCore
     this.pluginEditor = new EditorCore(canvas);
     this.pluginEditor.use(DringPlugin);
+    this.pluginEditor.use(TextPlugin);
     this.pluginEditor.use(AlignGuidLinePlugin);
 
     this.editorWorkspace = new EditorWorkspace(canvas, {

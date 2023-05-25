@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-05-19 08:31:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-05-21 08:53:31
+ * @LastEditTime: 2023-05-25 23:13:26
  * @Description: 拖拽插件
  */
 
@@ -36,6 +36,7 @@ class DringPlugin {
 
   startDring() {
     this.dragMode = true;
+    this.canvas.isDragging = true;
     this.canvas.defaultCursor = 'grab';
     this.editor.emit('startDring');
     this.canvas.renderAll();

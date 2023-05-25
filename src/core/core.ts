@@ -1,8 +1,11 @@
 import EventEmitter from 'events';
 import hotkeys from 'hotkeys-js';
+import ContextMenu from './ContextMenu.js';
 
 class Editor extends EventEmitter {
   canvas: fabric.Canvas;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  contextMenu: any;
   private pluginMap: {
     [propName: string]: IPluginTempl;
   } = {};
@@ -15,6 +18,7 @@ class Editor extends EventEmitter {
   constructor(canvas: fabric.Canvas) {
     super();
     this.canvas = canvas;
+    this._initContextMenu();
     this._bindContextMenu();
   }
 
@@ -86,12 +90,12 @@ class Editor extends EventEmitter {
   private _bindContextMenu() {
     this.canvas.on('mouse:down', (opt) => {
       if (opt.button === 3) {
-        const menu: IPluginMenu[] = [];
+        let menu: IPluginMenu[] = [];
         Object.keys(this.pluginMap).forEach((pluginName) => {
           const pluginRunTime = this.pluginMap[pluginName];
           const pluginMenu = pluginRunTime.contextMenu && pluginRunTime.contextMenu();
           if (pluginMenu) {
-            menu.push(pluginMenu);
+            menu = menu.concat(pluginMenu);
           }
         });
         this._renderMenu(opt, menu);
@@ -101,7 +105,16 @@ class Editor extends EventEmitter {
 
   // 渲染右键菜单
   private _renderMenu(opt: fabric.IEvent, menu: IPluginMenu[]) {
-    console.log(opt, menu);
+    if (menu.length !== 0) {
+      this.contextMenu.hideAll();
+      this.contextMenu.setData(menu);
+      this.contextMenu.show(opt.e.clientX, opt.e.clientY);
+    }
+  }
+
+  _initContextMenu() {
+    this.contextMenu = new ContextMenu(this.canvas.wrapperEl, []);
+    this.contextMenu.install();
   }
 }
 
