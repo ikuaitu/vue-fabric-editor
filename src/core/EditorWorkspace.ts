@@ -5,7 +5,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 21:50:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-18 22:24:22
+ * @LastEditTime: 2023-05-21 19:07:05
  * @Description: 工作区初始化
  */
 
@@ -49,9 +49,6 @@ class EditorWorkspace {
     this.canvas.backgroundImage = '';
     this.canvas.setWidth(this.workspaceEl.offsetWidth);
     this.canvas.setHeight(this.workspaceEl.offsetHeight);
-    // 上一次画布大小，没搜到引用，注释ing
-    // this.width = this.workspaceEl.offsetWidth;
-    // this.height = this.workspaceEl.offsetHeight;
   }
 
   // 初始化画布
@@ -65,7 +62,7 @@ class EditorWorkspace {
     });
     workspace.set('selectable', false);
     workspace.set('hasControls', false);
-    workspace.hoverCursor = 'selection';
+    workspace.hoverCursor = 'default';
     this.canvas.add(workspace);
     this.canvas.renderAll();
 
@@ -154,7 +151,10 @@ class EditorWorkspace {
     let zoomRatio = this.canvas.getZoom();
     zoomRatio -= 0.05;
     const center = this.canvas.getCenter();
-    this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), zoomRatio < 0 ? 0.01 : zoomRatio);
+    this.canvas.zoomToPoint(
+      new fabric.Point(center.left, center.top),
+      zoomRatio < 0 ? 0.01 : zoomRatio
+    );
   }
 
   // 自动缩放
