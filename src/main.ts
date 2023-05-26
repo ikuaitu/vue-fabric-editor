@@ -12,6 +12,9 @@ import '@/assets/fonts/font.css';
 
 import i18n from './language/index';
 
+import { useRegisterSW } from 'virtual:pwa-register/vue';
+useRegisterSW();
+
 const app = createApp(App);
 // app.config.globalProperties.$http = axios;
 

@@ -15,6 +15,7 @@ const path = require('path');
 import eslintPlugin from 'vite-plugin-eslint'; //导入包
 import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus';
 import autoImports from 'unplugin-auto-import/vite';
+import { VitePWA } from 'vite-plugin-pwa';
 
 const config = ({ mode }) => {
   const isProd = mode === 'production';
@@ -44,6 +45,67 @@ const config = ({ mode }) => {
           data: {
             title: APP_TITLE,
           },
+        },
+      }),
+      VitePWA({
+        registerType: 'autoUpdate',
+        workbox: {
+          cacheId: `${APP_TITLE}-cache`,
+          runtimeCaching: [
+            {
+              urlPattern: /.*/i,
+              handler: 'NetworkFirst', // 接口网络优先
+              options: {
+                cacheName: 'interface-cache',
+              },
+            },
+            {
+              urlPattern: /(.*?)\.(js|css|ts)/, // js /css /ts静态资源缓存
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'js-css-cache',
+              },
+            },
+            {
+              urlPattern: /(.*?)\.(png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/, // 图片缓存
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'image-cache',
+              },
+            },
+          ],
+        },
+        manifest: {
+          name: APP_TITLE,
+          short_name: APP_TITLE,
+          theme_color: '#d14424',
+          icons: [
+            {
+              src: '/favicon.ico',
+              sizes: '192x192',
+              type: 'image/png',
+            },
+            {
+              src: '/favicon.ico',
+              sizes: '512x512',
+              type: 'image/png',
+            },
+            {
+              src: '/favicon.ico',
+              sizes: '192x192',
+              type: 'image/png',
+              purpose: 'maskable',
+            },
+            {
+              src: '/favicon.ico',
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'maskable',
+            },
+          ],
+          start_url: '.',
+          display: 'standalone',
+          background_color: '#000000',
         },
       }),
     ],

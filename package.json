@@ -58,6 +58,7 @@
     "vite": "^4.2.1",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-html": "^3.2.0",
+    "vite-plugin-pwa": "^0.15.1",
     "vite-plugin-vue-setup-extend-plus": "^0.1.0",
     "vue-tsc": "^0.34.7"
   },
