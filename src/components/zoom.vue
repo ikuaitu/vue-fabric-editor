@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-04-21 20:20:20
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:08:31
+ * @LastEditors: June
+ * @LastEditTime: 2023-05-29 17:02:46
  * @Description: 缩放元素
 -->
 <template>
@@ -60,39 +60,22 @@
   </div>
 </template>
 
-<script>
-import select from '@/mixins/select';
+<script setup name="zoom">
+import useSelect from '@/hooks/select';
 
-export default {
-  name: 'ToolBar',
-  mixins: [select],
-  data() {
-    return {
-      zoom: 0,
-    };
-  },
-  computed: {
-    unShow() {
-      return this.mSelectMode === 'one' && this.mSelectOneType === 'group';
-    },
-    createShow() {
-      return this.mSelectMode === 'multiple';
-    },
-  },
-  methods: {
-    rSet() {
-      this.canvas.editor.editorWorkspace.one();
-    },
-    big() {
-      this.canvas.editor.editorWorkspace.big();
-    },
-    small() {
-      this.canvas.editor.editorWorkspace.small();
-    },
-    setViewport() {
-      this.canvas.editor.editorWorkspace.auto();
-    },
-  },
+const { canvas } = useSelect();
+
+const rSet = () => {
+  canvas.editor.editorWorkspace.one();
+};
+const big = () => {
+  canvas.editor.editorWorkspace.big();
+};
+const small = () => {
+  canvas.editor.editorWorkspace.small();
+};
+const setViewport = () => {
+  canvas.editor.editorWorkspace.auto();
 };
 </script>
 <style scoped lang="less">
