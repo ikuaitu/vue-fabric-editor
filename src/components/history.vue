@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-26 19:58:01
+ * @LastEditors: June
+ * @LastEditTime: 2023-05-20 22:54:13
  * @Description: 回退重做
 -->
 
@@ -29,7 +29,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, inject } from 'vue';
 import { useRefHistory, useDateFormat } from '@vueuse/core';
 import { keyNames, hotkeys } from '@/core/initHotKeys';
 import type { fabric } from 'fabric';
