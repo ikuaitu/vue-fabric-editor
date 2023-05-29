@@ -1,13 +1,13 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: June
- * @LastEditTime: 2023-04-02 23:49:35
+ * @LastEditors: bigFace2019 599069310@qq.com
+ * @LastEditTime: 2023-05-14 18:48:56
  * @Description: 元素翻转
 -->
 
 <template>
-  <div v-if="mSelectMode === 'one'" class="box attr-item">
+  <div v-if="mixinState.mSelectMode === 'one'" class="box attr-item">
     <!-- <ButtonGroup size="small" v-if="mSelectMode === 'one'"> -->
     <Tooltip :content="$t('flip.x')">
       <Button :disabled="notSelectOneMode()" @click="flip('X')" type="text">
@@ -63,30 +63,22 @@
         </svg>
       </Button>
     </Tooltip>
-    <!-- </ButtonGroup> -->
   </div>
 </template>
 
-<script>
-import select from '@/mixins/select';
+<script setup name="Flip">
+import useSelect from '@/hooks/select';
 
-export default {
-  name: 'ToolBar',
-  mixins: [select],
-  data() {
-    return {};
-  },
-  methods: {
-    // 非单选时，禁止镜像操作
-    notSelectOneMode() {
-      return this.mSelectMode !== 'one';
-    },
-    flip(type) {
-      const activeObject = this.canvas.c.getActiveObject();
-      activeObject.set(`flip${type}`, !activeObject[`flip${type}`]).setCoords();
-      this.canvas.c.requestRenderAll();
-    },
-  },
+const { canvas, mixinState } = useSelect();
+
+// 非单选时，禁止镜像操作
+const notSelectOneMode = () => {
+  return mixinState.mSelectMode !== 'one';
+};
+const flip = (type) => {
+  const activeObject = canvas.c.getActiveObject();
+  activeObject.set(`flip${type}`, !activeObject[`flip${type}`]).setCoords();
+  canvas.c.requestRenderAll();
 };
 </script>
 

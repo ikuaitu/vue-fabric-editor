@@ -7,7 +7,6 @@
  * @LastEditTime: 2023-05-08 18:20:21
  */
 
-import { inject, reactive, onMounted, onBeforeMount } from 'vue';
 import { SelectEvent, SelectMode } from '@/utils/event/types';
 // todo
 // interface Data {
