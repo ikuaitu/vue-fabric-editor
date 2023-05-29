@@ -127,7 +127,10 @@
         </Col>
       </Row>
       <!-- 颜色 -->
-      <Color :color="baseAttr.fill" @change="(value) => changeCommon('fill', value)"></Color>
+      <colorSelector
+        :color="baseAttr.fill"
+        @change="(value) => changeCommon('fill', value)"
+      ></colorSelector>
       <Row :gutter="12">
         <Col flex="1">
           <InputNumber
@@ -278,7 +281,7 @@
 import fontList from '@/assets/fonts/font';
 import select from '@/mixins/select';
 import FontFaceObserver from 'fontfaceobserver';
-import Color from './color.vue';
+import colorSelector from '@/components/colorSelector.vue';
 import axios from 'axios';
 import { getPolygonVertices } from '@/utils/math';
 import InputNumber from '@/components/inputNumber';
@@ -289,7 +292,7 @@ export default {
   name: 'AttrBute',
   mixins: [select],
   components: {
-    Color,
+    colorSelector,
     InputNumber,
   },
   data() {
