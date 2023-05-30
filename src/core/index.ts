@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 白召策
- * @LastEditTime: 2023-05-23 11:16:04
+ * @LastEditTime: 2023-05-30 17:54:39
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -62,6 +62,7 @@ class Editor extends EventEmitter {
         clonedObj.canvas = canvas;
         // eslint-disable-next-line
         clonedObj.forEachObject((obj: fabric.Object) => {
+          obj.id = uuid();
           canvas.add(obj);
         });
         // 解决不可选择问题
@@ -72,6 +73,7 @@ class Editor extends EventEmitter {
       if (cloned.left === undefined || cloned.top === undefined) return;
       cloned.top += grid;
       cloned.left += grid;
+      cloned.id = uuid();
       canvas.setActiveObject(clonedObj);
       canvas.requestRenderAll();
     });
