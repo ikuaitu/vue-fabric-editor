@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-01-09 22:49:02
  * @LastEditors: 白召策
- * @LastEditTime: 2023-05-23 11:40:12
+ * @LastEditTime: 2023-05-30 18:23:56
  * @Description: 控制条样式
  */
 
@@ -236,6 +236,8 @@ function initControls(canvas: fabric.Canvas) {
     cornerStrokeColor: '#0E98FC',
     borderOpacityWhenMoving: 1,
   });
+  // textbox保持一致
+  fabric.Textbox.prototype.controls = fabric.Object.prototype.controls;
 }
 
 export default initControls;
