@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 白召策
- * @LastEditTime: 2023-05-30 17:54:39
+ * @LastEditTime: 2023-05-31 11:37:38
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -16,7 +16,8 @@ import InitCenterAlign from '@/core/initCenterAlign';
 import initHotkeys from '@/core/initHotKeys';
 import initControls from '@/core/initControls';
 import initRuler from '@/core/ruler';
-import EditorGroupText from '@/core/EditorGroupText';
+// import EditorGroupText from '@/core/EditorGroupText';
+import EditorGroup from '@/core/EditorGroup';
 import type CanvasRuler from '@/core/ruler/ruler';
 import type EditorWorkspace from '@/core/EditorWorkspace';
 
@@ -37,7 +38,8 @@ class Editor extends EventEmitter {
     initHotkeys(canvas);
     initControls(canvas);
     initControlsRotate(canvas);
-    new EditorGroupText(canvas);
+    // new EditorGroupText(canvas);
+    new EditorGroup(canvas);
     this.centerAlign = new InitCenterAlign(canvas);
     this.ruler = initRuler(canvas);
   }
