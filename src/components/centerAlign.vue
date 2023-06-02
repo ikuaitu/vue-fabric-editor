@@ -2,15 +2,15 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: June
- * @LastEditTime: 2023-04-02 23:47:42
+ * @LastEditTime: 2023-06-02 11:33:48
  * @Description: 多元素或单元素对齐方式
 -->
 
 <template>
-  <div v-if="mSelectMode" class="box attr-item">
+  <div v-if="mixinState.mSelectMode" class="box attr-item">
     <!-- 水平集中 -->
     <Tooltip :content="$t('center_align.centerX')">
-      <Button :disabled="!mSelectMode" @click="position('centerH')" type="text">
+      <Button :disabled="!mixinState.mSelectMode" @click="position('centerH')" type="text">
         <svg
           t="1650442559691"
           class="icon"
@@ -30,7 +30,7 @@
     </Tooltip>
     <!-- 水平垂直居中 -->
     <Tooltip :content="$t('center_align.center')">
-      <Button :disabled="!mSelectMode" @click="position('center')" type="text">
+      <Button :disabled="!mixinState.mSelectMode" @click="position('center')" type="text">
         <svg
           t="1650852784867"
           class="icon"
@@ -56,7 +56,7 @@
     </Tooltip>
     <!-- 垂直居中 -->
     <Tooltip :content="$t('center_align.centerY')">
-      <Button :disabled="!mSelectMode" @click="position('centerV')" type="text">
+      <Button :disabled="!mixinState.mSelectMode" @click="position('centerV')" type="text">
         <svg
           t="1650442510967"
           class="icon"
@@ -77,20 +77,12 @@
   </div>
 </template>
 
-<script>
-import select from '@/mixins/select';
+<script setup name="CenterAlign">
+import useSelect from '@/hooks/select';
+const { canvas, mixinState } = useSelect();
 
-export default {
-  name: 'ToolBar',
-  mixins: [select],
-  data() {
-    return {};
-  },
-  methods: {
-    position(name) {
-      this.canvas.editor.centerAlign.position(name);
-    },
-  },
+const position = (name) => {
+  canvas.editor.centerAlign.position(name);
 };
 </script>
 <style scoped lang="less">
