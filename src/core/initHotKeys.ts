@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2022-12-07 23:50:05
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-03-07 00:17:37
+ * @LastEditors: bamzc
+ * @LastEditTime: 2023-06-02 16:56:50
  * @Description: 快捷键功能
  */
 
@@ -21,37 +21,27 @@ const keyNames = {
   ctrlv: 'ctrl+v',
 };
 
-function copyElement(canvas: fabric.Canvas) {
+function copyElement(editor: any, canvas: fabric.Canvas) {
   let copyEl: fabric.Object | null = null;
 
   // 复制
   hotkeys(keyNames.ctrlc, () => {
     const activeObject = canvas.getActiveObjects();
     if (activeObject.length === 0) return;
-    canvas.getActiveObject()?.clone((_copyEl: fabric.Object) => {
-      canvas.discardActiveObject();
-      if (_copyEl.left === undefined || _copyEl.top === undefined) return;
-      _copyEl.set({
-        left: _copyEl.left + 20,
-        top: _copyEl.top + 20,
-        evented: true,
-        id: uuid(),
-      });
+    editor.copyObj((_copyEl: fabric.Object) => {
       copyEl = _copyEl;
-      // Message.success('复制成功');
     });
   });
   // 粘贴
   hotkeys(keyNames.ctrlv, () => {
     // if (!copyEl) return Message.warning('暂无复制内容');
     if (copyEl) {
-      canvas.add(copyEl);
-      canvas.setActiveObject(copyEl);
+      editor.pasteObj(copyEl);
     }
   });
 }
 
-function initHotkeys(canvas: fabric.Canvas) {
+function initHotkeys(editor: any, canvas: fabric.Canvas) {
   // 删除快捷键
   hotkeys(keyNames.backspace, () => {
     const activeObject = canvas.getActiveObjects();
@@ -89,7 +79,7 @@ function initHotkeys(canvas: fabric.Canvas) {
   });
 
   // 复制粘贴
-  copyElement(canvas);
+  copyElement(editor, canvas);
 }
 
 export default initHotkeys;

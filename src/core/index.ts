@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
- * @LastEditors: 白召策
- * @LastEditTime: 2023-05-30 17:54:39
+ * @LastEditors: bamzc
+ * @LastEditTime: 2023-06-02 16:55:29
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -34,7 +34,7 @@ class Editor extends EventEmitter {
     this.editorWorkspace = null;
 
     initAligningGuidelines(canvas);
-    initHotkeys(canvas);
+    initHotkeys(this, canvas);
     initControls(canvas);
     initControlsRotate(canvas);
     new EditorGroupText(canvas);
@@ -79,9 +79,15 @@ class Editor extends EventEmitter {
     });
   }
 
-  clone() {
+  copyObj(copy: (c: fabric.Object) => void) {
     const activeObject = this.canvas.getActiveObject();
     activeObject?.clone((cloned: fabric.Object) => {
+      copy(cloned);
+    });
+  }
+
+  clone() {
+    this.copyObj((cloned: fabric.Object) => {
       this.pasteObj(cloned);
     });
   }
