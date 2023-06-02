@@ -10,6 +10,8 @@
               <Option v-for="item in fontFamilyList" :value="item.name" :key="`font-${item.name}`">
                 <div class="font-item" :style="`background-image:url('${item.preview}');`">
                   {{ !item.preview ? item : '' }}
+                  <!-- 解决无法选中问题 -->
+                  <span style="display: none">{{ item.name }}</span>
                 </div>
               </Option>
             </Select>
@@ -483,8 +485,7 @@ export default {
     // 修改字体
     changeFontFamily(fontName) {
       if (!fontName) return;
-
-      // 跳过加载的属性
+      // 跳过加载的属性;
       const skipFonts = ['arial', 'Microsoft YaHei'];
       if (skipFonts.includes(fontName)) {
         const activeObject = this.canvas.c.getActiveObjects()[0];
@@ -510,10 +511,10 @@ export default {
     },
     getFreeFontList() {
       axios.get(`${repoSrc}/font/free-font.json`).then((res) => {
-        this.fontFamilyList = {
+        this.fontFamilyList = [
           ...this.fontFamilyList,
           ...Object.entries(res.data).map(([, value]) => value),
-        };
+        ];
       });
     },
     // 通用属性改变
