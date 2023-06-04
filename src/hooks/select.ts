@@ -6,21 +6,21 @@
  * @LastEditors: June
  * @LastEditTime: 2023-05-08 18:20:21
  */
+import { inject, onBeforeMount, onMounted, reactive } from 'vue';
+import { SelectEvent, SelectMode, SelectOneType } from '@/utils/event/types';
 
-import { SelectEvent, SelectMode } from '@/utils/event/types';
-// todo
-// interface Data {
-//   mSelectMode: SelectMode | '';
-//   mSelectOneType: SelectOneType | '';
-//   mSelectId: string[] | '';
-//   mSelectIds: string[];
-//   mSelectActive: any;
-// }
+interface Selector {
+  mSelectMode: SelectMode;
+  mSelectOneType: SelectOneType;
+  mSelectId: string[] | '';
+  mSelectIds: string[];
+  mSelectActive: unknown[];
+}
 
 export default function useSelect() {
-  const state = reactive({
-    mSelectMode: '',
-    mSelectOneType: '',
+  const state = reactive<Selector>({
+    mSelectMode: SelectMode.EMPTY,
+    mSelectOneType: SelectOneType.EMPTY,
     mSelectId: '', // 选择id
     mSelectIds: [], // 选择id
     mSelectActive: [],
@@ -46,8 +46,8 @@ export default function useSelect() {
   const selectCancel = () => {
     state.mSelectId = '';
     state.mSelectIds = [];
-    state.mSelectMode = '';
-    state.mSelectOneType = '';
+    state.mSelectMode = SelectMode.EMPTY;
+    state.mSelectOneType = SelectOneType.EMPTY;
   };
 
   onMounted(() => {
