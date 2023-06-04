@@ -18,7 +18,7 @@
     </iSwitch>
 
     <!-- 颜色选择器 -->
-    <ColorPicker v-if="!isGradient" :color="fill" @on-change="changePureColor" alpha />
+    <ColorPicker v-if="!isGradient" v-model="fill" @on-change="changePureColor" alpha />
 
     <!-- 渐变选择器 -->
     <Poptip @created="onPoptipCreated" style="width: 100%" v-if="isGradient">
