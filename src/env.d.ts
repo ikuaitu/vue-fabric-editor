@@ -24,7 +24,6 @@ export as namespace vfe;
 declare module 'vfe' {
   export as namespace vfe;
   export interface ICanvas extends fabric.Canvas {
-    private _copyObject(item: fabric.Object): unknown;
     c: fabric.Canvas;
     editor: Editor;
   }
