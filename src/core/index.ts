@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
- * @LastEditors: bamzc
- * @LastEditTime: 2023-06-02 16:55:29
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-06-04 10:02:44
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -42,54 +42,66 @@ class Editor extends EventEmitter {
     this.ruler = initRuler(canvas);
   }
 
-  pasteObj(cloned: fabric.Object) {
-    const canvas = this.canvas;
+  // 多选对象复制
+  _copyActiveSelection(activeObject: fabric.Object) {
     // 间距设置
     const grid = 10;
-    // 再次进行克隆，处理选择多个对象的情况
-    cloned.clone((clonedObj: fabric.Object) => {
-      canvas.discardActiveObject();
-      if (clonedObj.left === undefined || clonedObj.top === undefined) return;
-      // 设置位置信息
-      clonedObj.set({
-        left: clonedObj.left + grid,
-        top: clonedObj.top + grid,
-        evented: true,
-        id: uuid(),
-      });
-      if (clonedObj.type === 'activeSelection') {
+    const canvas = this.canvas;
+    activeObject?.clone((cloned: fabric.Object) => {
+      // 再次进行克隆，处理选择多个对象的情况
+      cloned.clone((clonedObj: fabric.ActiveSelection) => {
+        canvas.discardActiveObject();
+        if (clonedObj.left === undefined || clonedObj.top === undefined) return;
         // 将克隆的画布重新赋值
         clonedObj.canvas = canvas;
-        // eslint-disable-next-line
+        // 设置位置信息
+        clonedObj.set({
+          left: clonedObj.left + grid,
+          top: clonedObj.top + grid,
+          evented: true,
+          id: uuid(),
+        });
         clonedObj.forEachObject((obj: fabric.Object) => {
           obj.id = uuid();
           canvas.add(obj);
         });
         // 解决不可选择问题
         clonedObj.setCoords();
-      } else {
-        canvas.add(clonedObj);
-      }
+        canvas.setActiveObject(clonedObj);
+        canvas.requestRenderAll();
+      });
+    });
+  }
+
+  // 单个对象复制
+  _copyObject(activeObject: fabric.Object) {
+    // 间距设置
+    const grid = 10;
+    const canvas = this.canvas;
+    activeObject?.clone((cloned: fabric.Object) => {
       if (cloned.left === undefined || cloned.top === undefined) return;
-      cloned.top += grid;
-      cloned.left += grid;
-      cloned.id = uuid();
-      canvas.setActiveObject(clonedObj);
+      canvas.discardActiveObject();
+      // 设置位置信息
+      cloned.set({
+        left: cloned.left + grid,
+        top: cloned.top + grid,
+        evented: true,
+        id: uuid(),
+      });
+      canvas.add(cloned);
+      canvas.setActiveObject(cloned);
       canvas.requestRenderAll();
     });
   }
-
-  copyObj(copy: (c: fabric.Object) => void) {
-    const activeObject = this.canvas.getActiveObject();
-    activeObject?.clone((cloned: fabric.Object) => {
-      copy(cloned);
-    });
-  }
-
+  // 复制元素
   clone() {
-    this.copyObj((cloned: fabric.Object) => {
-      this.pasteObj(cloned);
-    });
+    const activeObject = this.canvas.getActiveObject();
+    if (!activeObject) return;
+    if (activeObject?.type === 'activeSelection') {
+      this._copyActiveSelection(activeObject);
+    } else {
+      this._copyObject(activeObject);
+    }
   }
 
   // 拆分组
