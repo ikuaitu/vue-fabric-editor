@@ -181,6 +181,13 @@ yarn serve
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/a847244052">
+            <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
+            <br />
+            <sub><b>a847244052</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/liucity">
             <img src="https://avatars.githubusercontent.com/u/12006542?v=4" width="80;" alt="liucity"/>
             <br />
@@ -192,13 +199,6 @@ yarn serve
             <img src="https://avatars.githubusercontent.com/u/3260480?v=4" width="80;" alt="icleitoncosta"/>
             <br />
             <sub><b>icleitoncosta</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/a847244052">
-            <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
-            <br />
-            <sub><b>a847244052</b></sub>
         </a>
     </td>
     <td align="center">
