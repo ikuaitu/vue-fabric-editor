@@ -2,15 +2,15 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: June
- * @LastEditTime: 2023-04-02 23:46:34
+ * @LastEditTime: 2023-06-02 11:27:34
  * @Description: 组合元素对齐
 -->
 
 <template>
-  <div v-if="this.mSelectMode === 'multiple'" class="box attr-item">
+  <div v-if="mixinState.mSelectMode === 'multiple'" class="box attr-item">
     <!-- 水平对齐 -->
     <Tooltip :content="$t('group_align.left')">
-      <Button :disabled="notMultiple()" @click="left" size="small" type="text">
+      <Button :disabled="notMultiple" @click="left" size="small" type="text">
         <svg
           t="1650442284704"
           class="icon"
@@ -26,7 +26,7 @@
       </Button>
     </Tooltip>
     <Tooltip :content="$t('group_align.centerX')">
-      <Button :disabled="notMultiple()" @click="xcenter" size="small" type="text">
+      <Button :disabled="notMultiple" @click="xcenter" size="small" type="text">
         <svg
           t="1650442754876"
           class="icon"
@@ -46,7 +46,7 @@
       </Button>
     </Tooltip>
     <Tooltip :content="$t('group_align.right')">
-      <Button :disabled="notMultiple()" @click="right" size="small" type="text">
+      <Button :disabled="notMultiple" @click="right" size="small" type="text">
         <svg
           t="1650442299564"
           class="icon"
@@ -66,7 +66,7 @@
     </Tooltip>
     <!-- 垂直对齐 -->
     <Tooltip :content="$t('group_align.top')">
-      <Button :disabled="notMultiple()" @click="top" size="small" type="text">
+      <Button :disabled="notMultiple" @click="top" size="small" type="text">
         <svg
           t="1650442692910"
           class="icon"
@@ -86,7 +86,7 @@
       </Button>
     </Tooltip>
     <Tooltip :content="$t('group_align.centerY')">
-      <Button :disabled="notMultiple()" @click="ycenter" size="small" type="text">
+      <Button :disabled="notMultiple" @click="ycenter" size="small" type="text">
         <svg
           t="1650442732396"
           class="icon"
@@ -106,7 +106,7 @@
       </Button>
     </Tooltip>
     <Tooltip :content="$t('group_align.bottom')">
-      <Button :disabled="notMultiple()" @click="bottom" size="small" type="text">
+      <Button :disabled="notMultiple" @click="bottom" size="small" type="text">
         <svg
           t="1650442674784"
           class="icon"
@@ -127,7 +127,7 @@
     </Tooltip>
     <!-- 平均对齐 -->
     <Tooltip :content="$t('group_align.averageX')">
-      <Button :disabled="notMultiple()" @click="xequation" size="small" type="text">
+      <Button :disabled="notMultiple" @click="xequation" size="small" type="text">
         <svg
           t="1650442800956"
           class="icon"
@@ -147,7 +147,7 @@
       </Button>
     </Tooltip>
     <Tooltip :content="$t('group_align.averageY')">
-      <Button :disabled="notMultiple()" @click="yequation" size="small" type="text">
+      <Button :disabled="notMultiple" @click="yequation" size="small" type="text">
         <svg
           t="1650442784286"
           class="icon"
@@ -169,218 +169,206 @@
   </div>
 </template>
 
-<script>
-import select from '@/mixins/select';
+<script setup name="Align">
+import useSelect from '@/hooks/select';
 
-export default {
-  name: 'ToolBar',
-  mixins: [select],
-  data() {
-    return {
-      id: '',
-      list: [],
-    };
-  },
-  methods: {
-    // 非多选时，禁止组合对齐操作
-    notMultiple() {
-      return this.mSelectMode !== 'multiple';
-    },
-    // 左对齐
-    left() {
-      const activeObject = this.canvas.c.getActiveObject();
-      if (activeObject && activeObject.type === 'activeSelection') {
-        const activeSelection = activeObject;
-        const activeObjectLeft = -(activeObject.width / 2);
-        activeSelection.forEachObject((item) => {
-          item.set({
-            left: activeObjectLeft,
-          });
-          item.setCoords();
-          this.canvas.c.renderAll();
-        });
-      }
-    },
-    // 右对齐
-    right() {
-      const activeObject = this.canvas.c.getActiveObject();
-      if (activeObject && activeObject.type === 'activeSelection') {
-        const activeSelection = activeObject;
-        const activeObjectLeft = activeObject.width / 2;
-        activeSelection.forEachObject((item) => {
-          item.set({
-            left: activeObjectLeft - item.width * item.scaleX,
-          });
-          item.setCoords();
-          this.canvas.c.renderAll();
-        });
-      }
-    },
-    // 水平居中对齐
-    xcenter() {
-      const activeObject = this.canvas.c.getActiveObject();
-      if (activeObject && activeObject.type === 'activeSelection') {
-        const activeSelection = activeObject;
-        activeSelection.forEachObject((item) => {
-          item.set({
-            left: 0 - (item.width * item.scaleX) / 2,
-          });
-          item.setCoords();
-          this.canvas.c.renderAll();
-        });
-      }
-    },
-    // 垂直居中对齐
-    ycenter() {
-      const activeObject = this.canvas.c.getActiveObject();
-      if (activeObject && activeObject.type === 'activeSelection') {
-        const activeSelection = activeObject;
-        activeSelection.forEachObject((item) => {
-          item.set({
-            top: 0 - (item.height * item.scaleY) / 2,
-          });
-          item.setCoords();
-          this.canvas.c.renderAll();
-        });
-      }
-    },
-    // 顶部对齐
-    top() {
-      const activeObject = this.canvas.c.getActiveObject();
-      if (activeObject && activeObject.type === 'activeSelection') {
-        const activeSelection = activeObject;
-        const activeObjectTop = -(activeObject.height / 2);
-        activeSelection.forEachObject((item) => {
-          item.set({
-            top: activeObjectTop,
-          });
-          item.setCoords();
-          this.canvas.c.renderAll();
-        });
-      }
-    },
-    // 底部对齐
-    bottom() {
-      const activeObject = this.canvas.c.getActiveObject();
-      if (activeObject && activeObject.type === 'activeSelection') {
-        const activeSelection = activeObject;
-        const activeObjectTop = activeObject.height / 2;
-        activeSelection.forEachObject((item) => {
-          item.set({
-            top: activeObjectTop - item.height * item.scaleY,
-          });
-          item.setCoords();
-          this.canvas.c.renderAll();
-        });
-      }
-    },
-    // 水平平均对齐
-    xequation() {
-      const activeObject = this.canvas.c.getActiveObject();
+const { canvas, mixinState } = useSelect();
+// 非多选时，禁止组合对齐操作
+const notMultiple = computed(() => mixinState.mSelectMode !== 'multiple');
 
-      // width属性不准确，需要坐标换算
-      function getItemWidth(item) {
-        return item.aCoords.tr.x - item.aCoords.tl.x;
-      }
+// 左对齐
+const left = () => {
+  const activeObject = canvas.c.getActiveObject();
+  if (activeObject && activeObject.type === 'activeSelection') {
+    const activeSelection = activeObject;
+    const activeObjectLeft = -(activeObject.width / 2);
+    activeSelection.forEachObject((item) => {
+      item.set({
+        left: activeObjectLeft,
+      });
+      item.setCoords();
+      canvas.c.renderAll();
+    });
+  }
+};
+// 右对齐
+const right = () => {
+  const activeObject = canvas.c.getActiveObject();
+  if (activeObject && activeObject.type === 'activeSelection') {
+    const activeSelection = activeObject;
+    const activeObjectLeft = activeObject.width / 2;
+    activeSelection.forEachObject((item) => {
+      item.set({
+        left: activeObjectLeft - item.width * item.scaleX,
+      });
+      item.setCoords();
+      canvas.c.renderAll();
+    });
+  }
+};
+// 水平居中对齐
+const xcenter = () => {
+  const activeObject = canvas.c.getActiveObject();
+  if (activeObject && activeObject.type === 'activeSelection') {
+    const activeSelection = activeObject;
+    activeSelection.forEachObject((item) => {
+      item.set({
+        left: 0 - (item.width * item.scaleX) / 2,
+      });
+      item.setCoords();
+      canvas.c.renderAll();
+    });
+  }
+};
+// 垂直居中对齐
+const ycenter = () => {
+  const activeObject = canvas.c.getActiveObject();
+  if (activeObject && activeObject.type === 'activeSelection') {
+    const activeSelection = activeObject;
+    activeSelection.forEachObject((item) => {
+      item.set({
+        top: 0 - (item.height * item.scaleY) / 2,
+      });
+      item.setCoords();
+      canvas.c.renderAll();
+    });
+  }
+};
+// 顶部对齐
+const top = () => {
+  const activeObject = canvas.c.getActiveObject();
+  if (activeObject && activeObject.type === 'activeSelection') {
+    const activeSelection = activeObject;
+    const activeObjectTop = -(activeObject.height / 2);
+    activeSelection.forEachObject((item) => {
+      item.set({
+        top: activeObjectTop,
+      });
+      item.setCoords();
+      canvas.c.renderAll();
+    });
+  }
+};
+// 底部对齐
+const bottom = () => {
+  const activeObject = canvas.c.getActiveObject();
+  if (activeObject && activeObject.type === 'activeSelection') {
+    const activeSelection = activeObject;
+    const activeObjectTop = activeObject.height / 2;
+    activeSelection.forEachObject((item) => {
+      item.set({
+        top: activeObjectTop - item.height * item.scaleY,
+      });
+      item.setCoords();
+      canvas.c.renderAll();
+    });
+  }
+};
+// 水平平均对齐
+const xequation = () => {
+  const activeObject = canvas.c.getActiveObject();
 
-      // 获取所有元素高度
-      function getAllItemHeight() {
-        let count = 0;
-        activeObject.forEachObject((item) => {
-          count += getItemWidth(item);
-        });
-        return count;
-      }
-      // 获取平均间距
-      function spacWidth() {
-        const count = getAllItemHeight();
-        const allSpac = activeObject.width - count;
-        return allSpac / (activeObject._objects.length - 1);
-      }
+  // width属性不准确，需要坐标换算
+  function getItemWidth(item) {
+    return item.aCoords.tr.x - item.aCoords.tl.x;
+  }
 
+  // 获取所有元素高度
+  function getAllItemHeight() {
+    let count = 0;
+    activeObject.forEachObject((item) => {
+      count += getItemWidth(item);
+    });
+    return count;
+  }
+  // 获取平均间距
+  function spacWidth() {
+    const count = getAllItemHeight();
+    const allSpac = activeObject.width - count;
+    return allSpac / (activeObject._objects.length - 1);
+  }
+
+  // 获取当前元素之前所有元素的高度
+  function getItemLeft(i) {
+    if (i === 0) return 0;
+    let width = 0;
+    for (let index = 0; index < i; index++) {
+      width += getItemWidth(activeObject._objects[index]);
+    }
+    return width;
+  }
+
+  if (activeObject && activeObject.type === 'activeSelection') {
+    const activeSelection = activeObject;
+    // 排序
+    activeSelection._objects.sort((a, b) => a.left - b.left);
+
+    // 平均间距计算
+    const itemSpac = spacWidth();
+    // 组原点高度
+    const yHeight = activeObject.width / 2;
+
+    activeObject.forEachObject((item, i) => {
       // 获取当前元素之前所有元素的高度
-      function getItemLeft(i) {
-        if (i === 0) return 0;
-        let width = 0;
-        for (let index = 0; index < i; index++) {
-          width += getItemWidth(activeObject._objects[index]);
-        }
-        return width;
-      }
+      const preHeight = getItemLeft(i);
+      // 顶部距离 间距 * 索引 + 之前元素高度 - 原点高度
+      const top = itemSpac * i + preHeight - yHeight;
+      item.set('left', top);
+    });
+    canvas.c.renderAll();
+  }
+};
+// 垂直平均对齐
+const yequation = () => {
+  const activeObject = canvas.c.getActiveObject();
+  // width属性不准确，需要坐标换算
+  function getItemHeight(item) {
+    return item.aCoords.bl.y - item.aCoords.tl.y;
+  }
+  // 获取所有元素高度
+  function getAllItemHeight() {
+    let count = 0;
+    activeObject.forEachObject((item) => {
+      count += getItemHeight(item);
+    });
+    return count;
+  }
+  // 获取平均间距
+  function spacHeight() {
+    const count = getAllItemHeight();
+    const allSpac = activeObject.height - count;
+    return allSpac / (activeObject._objects.length - 1);
+  }
 
-      if (activeObject && activeObject.type === 'activeSelection') {
-        const activeSelection = activeObject;
-        // 排序
-        activeSelection._objects.sort((a, b) => a.left - b.left);
+  // 获取当前元素之前所有元素的高度
+  function getItemTop(i) {
+    if (i === 0) return 0;
+    let height = 0;
+    for (let index = 0; index < i; index++) {
+      height += getItemHeight(activeObject._objects[index]);
+    }
+    return height;
+  }
 
-        // 平均间距计算
-        const itemSpac = spacWidth();
-        // 组原点高度
-        const yHeight = activeObject.width / 2;
+  if (activeObject && activeObject.type === 'activeSelection') {
+    const activeSelection = activeObject;
+    // 排序
+    activeSelection._objects.sort((a, b) => a.top - b.top);
 
-        activeObject.forEachObject((item, i) => {
-          // 获取当前元素之前所有元素的高度
-          const preHeight = getItemLeft(i);
-          // 顶部距离 间距 * 索引 + 之前元素高度 - 原点高度
-          const top = itemSpac * i + preHeight - yHeight;
-          item.set('left', top);
-        });
-        this.canvas.c.renderAll();
-      }
-    },
-    // 垂直平均对齐
-    yequation() {
-      const activeObject = this.canvas.c.getActiveObject();
-      // width属性不准确，需要坐标换算
-      function getItemHeight(item) {
-        return item.aCoords.bl.y - item.aCoords.tl.y;
-      }
-      // 获取所有元素高度
-      function getAllItemHeight() {
-        let count = 0;
-        activeObject.forEachObject((item) => {
-          count += getItemHeight(item);
-        });
-        return count;
-      }
-      // 获取平均间距
-      function spacHeight() {
-        const count = getAllItemHeight();
-        const allSpac = activeObject.height - count;
-        return allSpac / (activeObject._objects.length - 1);
-      }
+    // 平均间距计算
+    const itemSpac = spacHeight();
+    // 组原点高度
+    const yHeight = activeObject.height / 2;
 
+    activeObject.forEachObject((item, i) => {
       // 获取当前元素之前所有元素的高度
-      function getItemTop(i) {
-        if (i === 0) return 0;
-        let height = 0;
-        for (let index = 0; index < i; index++) {
-          height += getItemHeight(activeObject._objects[index]);
-        }
-        return height;
-      }
-
-      if (activeObject && activeObject.type === 'activeSelection') {
-        const activeSelection = activeObject;
-        // 排序
-        activeSelection._objects.sort((a, b) => a.top - b.top);
-
-        // 平均间距计算
-        const itemSpac = spacHeight();
-        // 组原点高度
-        const yHeight = activeObject.height / 2;
-
-        activeObject.forEachObject((item, i) => {
-          // 获取当前元素之前所有元素的高度
-          const preHeight = getItemTop(i);
-          // 顶部距离 间距 * 索引 + 之前元素高度 - 原点高度
-          const top = itemSpac * i + preHeight - yHeight;
-          item.set('top', top);
-        });
-        this.canvas.c.renderAll();
-      }
-    },
-  },
+      const preHeight = getItemTop(i);
+      // 顶部距离 间距 * 索引 + 之前元素高度 - 原点高度
+      const top = itemSpac * i + preHeight - yHeight;
+      item.set('top', top);
+    });
+    canvas.c.renderAll();
+  }
 };
 </script>
 
