@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-04 10:02:44
+ * @LastEditTime: 2023-06-04 10:41:47
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -34,7 +34,7 @@ class Editor extends EventEmitter {
     this.editorWorkspace = null;
 
     initAligningGuidelines(canvas);
-    initHotkeys(this, canvas);
+    initHotkeys(canvas, this);
     initControls(canvas);
     initControlsRotate(canvas);
     new EditorGroupText(canvas);
@@ -93,9 +93,10 @@ class Editor extends EventEmitter {
       canvas.requestRenderAll();
     });
   }
+
   // 复制元素
-  clone() {
-    const activeObject = this.canvas.getActiveObject();
+  clone(paramsActiveObeject: fabric.ActiveSelection | fabric.Object) {
+    const activeObject = paramsActiveObeject || this.canvas.getActiveObject();
     if (!activeObject) return;
     if (activeObject?.type === 'activeSelection') {
       this._copyActiveSelection(activeObject);

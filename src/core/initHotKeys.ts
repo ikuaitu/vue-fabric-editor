@@ -1,16 +1,16 @@
 /*
  * @Author: 秦少卫
  * @Date: 2022-12-07 23:50:05
- * @LastEditors: bamzc
- * @LastEditTime: 2023-06-02 16:56:50
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-06-04 10:42:02
  * @Description: 快捷键功能
  */
 
 import hotkeys from 'hotkeys-js';
 // import { cloneDeep } from 'lodash-es';
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
 // import { Message } from 'view-design';
-
+import vfe from 'vfe';
 import type { fabric } from 'fabric';
 
 const keyNames = {
@@ -21,27 +21,23 @@ const keyNames = {
   ctrlv: 'ctrl+v',
 };
 
-function copyElement(editor: any, canvas: fabric.Canvas) {
-  let copyEl: fabric.Object | null = null;
+function copyElement(editor: vfe.ICanvas, canvas: fabric.Canvas) {
+  let copyEl: fabric.ActiveSelection | fabric.Object | null;
 
   // 复制
   hotkeys(keyNames.ctrlc, () => {
-    const activeObject = canvas.getActiveObjects();
-    if (activeObject.length === 0) return;
-    editor.copyObj((_copyEl: fabric.Object) => {
-      copyEl = _copyEl;
-    });
+    const activeObject = canvas.getActiveObject();
+    copyEl = activeObject;
   });
   // 粘贴
   hotkeys(keyNames.ctrlv, () => {
-    // if (!copyEl) return Message.warning('暂无复制内容');
     if (copyEl) {
-      editor.pasteObj(copyEl);
+      editor.clone(copyEl);
     }
   });
 }
 
-function initHotkeys(editor: any, canvas: fabric.Canvas) {
+function initHotkeys(canvas: fabric.Canvas, editor: vfe.ICanvas) {
   // 删除快捷键
   hotkeys(keyNames.backspace, () => {
     const activeObject = canvas.getActiveObjects();
