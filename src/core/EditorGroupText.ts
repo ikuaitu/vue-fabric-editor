@@ -3,7 +3,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-20 02:15:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-27 23:07:25
+ * @LastEditTime: 2023-06-04 11:28:25
  * @Description: 编辑组内文字
  */
 
@@ -89,12 +89,12 @@ class EditorGroupText {
     const ids: string[] = [];
     const activeObj = this.canvas.getActiveObject() as fabric.Group;
     if (!activeObj) return;
-    activeObj.toActiveSelection();
     activeObj.getObjects().forEach((item) => {
       const id = uuid();
       ids.push(id);
       item.set('id', id);
     });
+    activeObj.toActiveSelection();
     return ids;
   }
 
