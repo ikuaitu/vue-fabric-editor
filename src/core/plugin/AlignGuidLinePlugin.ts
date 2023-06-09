@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-05-21 08:55:25
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-05-22 23:35:54
+ * @LastEditTime: 2023-06-09 13:17:27
  * @Description: 辅助线功能
  */
 
@@ -28,7 +28,7 @@ class AlignGuidLinePlugin {
   public editor: IEditor;
   public defautOption = {
     color: 'rgba(255,95,95,1)',
-    width: 30,
+    width: 1,
   };
   static pluginName = 'AlignGuidLinePlugin';
   static events = ['', ''];
