@@ -34,28 +34,27 @@
 
 <script setup name="CanvasSize">
 import useSelect from '@/hooks/select';
-import useI18n from '@/hooks/useI18n';
-
+import { useI18n } from 'vue-i18n';
 import EditorWorkspace from '@/core/EditorWorkspace';
 
 const { canvas, mixinState } = useSelect();
-const $t = useI18n();
+const { t } = useI18n();
 
 let width = ref(900);
 let height = ref(1200);
 let presetSize = reactive([
   {
-    label: $t('red_book_vertical'),
+    label: t('red_book_vertical'),
     width: 900,
     height: 1200,
   },
   {
-    label: $t('red_book_horizontal'),
+    label: t('red_book_horizontal'),
     width: 1200,
     height: 900,
   },
   {
-    label: $t('phone_wallpaper'),
+    label: t('phone_wallpaper'),
     width: 1080,
     height: 1920,
   },

@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 
+// import { Object } from 'fabric/fabric-impl';
+
 declare module '*.vue' {
   import type { DefineComponent } from 'vue';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
@@ -18,9 +20,9 @@ declare global {
   }
 }
 
+export as namespace vfe;
 declare module 'vfe' {
   export as namespace vfe;
-
   export interface ICanvas extends fabric.Canvas {
     c: fabric.Canvas;
     editor: Editor;

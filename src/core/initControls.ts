@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2023-01-09 22:49:02
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-08 00:20:26
+ * @LastEditors: bamzc
+ * @LastEditTime: 2023-06-02 17:04:16
  * @Description: 控制条样式
  */
 
@@ -11,6 +11,12 @@ import verticalImg from '@/assets/editor/middlecontrol.svg';
 import horizontalImg from '@/assets/editor/middlecontrolhoz.svg';
 import edgeImg from '@/assets/editor/edgecontrol.svg';
 import rotateImg from '@/assets/editor/rotateicon.svg';
+
+/**
+ * 实际场景: 在进行某个对象缩放的时候，由于fabricjs默认精度使用的是toFixed(2)。
+ * 此处为了缩放的精度更准确一些，因此将NUM_FRACTION_DIGITS默认值改为4，即toFixed(4).
+ */
+fabric.Object.NUM_FRACTION_DIGITS = 4;
 
 function drawImg(
   ctx: CanvasRenderingContext2D,
@@ -230,8 +236,8 @@ function initControls(canvas: fabric.Canvas) {
     cornerStrokeColor: '#0E98FC',
     borderOpacityWhenMoving: 1,
   });
-// textbox保持一致
-fabric.Textbox.prototype.controls = fabric.Object.prototype.controls;
+  // textbox保持一致
+  // fabric.Textbox.prototype.controls = fabric.Object.prototype.controls;
 }
 
 export default initControls;

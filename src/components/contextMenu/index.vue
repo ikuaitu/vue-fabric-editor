@@ -182,6 +182,7 @@ export default {
         this.hideMenu();
       }
     },
+
     handleMenu(e) {
       const active = e.target.dataset.active || e.srcElement.dataset.active;
       if (!active) return this.hideMenu();

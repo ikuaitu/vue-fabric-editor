@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-03 23:01:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-03 23:27:57
+ * @LastEditTime: 2023-06-04 15:31:50
  * @Description: 字体文件
 -->
 
@@ -28,6 +28,7 @@
 <script>
 import select from '@/mixins/select';
 // import { downFontByJSON } from '@/utils/utils';
+import { v4 as uuid } from 'uuid';
 import axios from 'axios';
 const repoSrc = import.meta.env.APP_REPO;
 export default {
@@ -73,9 +74,11 @@ export default {
         render: (h) => h('div', this.$t('alert.loading_fonts')),
       });
       const obj = JSON.parse(str);
+      obj.id = uuid();
       new this.fabric.Textbox.fromObject(obj, (e) => {
         this.canvas.c.add(e);
         e.center();
+        this.canvas.c.setActiveObject(e);
         this.$Spin.hide();
       });
     },

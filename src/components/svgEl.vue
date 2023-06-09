@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-03-31 13:09:32
+ * @LastEditTime: 2023-06-04 15:32:17
  * @Description: 素材面板
 -->
 
@@ -287,6 +287,7 @@ export default {
           name: 'svg元素',
         });
         this.canvas.c.add(item);
+        this.canvas.c.setActiveObject(item);
         this.canvas.c.requestRenderAll();
       });
     },

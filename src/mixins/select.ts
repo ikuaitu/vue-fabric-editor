@@ -1,8 +1,8 @@
 import { SelectEvent, SelectMode, SelectOneType } from '@/utils/event/types';
 
 interface Data {
-  mSelectMode: SelectMode | undefined;
-  mSelectOneType: SelectOneType | undefined;
+  mSelectMode: SelectMode;
+  mSelectOneType: SelectOneType;
   mSelectId: string;
   mSelectIds: string[];
 }
@@ -34,8 +34,8 @@ export default {
     this.event.on(SelectEvent.CANCEL, () => {
       this.mSelectId = '';
       this.mSelectIds = [];
-      this.mSelectMode = '';
-      this.mSelectOneType = '';
+      this.mSelectMode = SelectMode.EMPTY;
+      this.mSelectOneType = SelectOneType.EMPTY;
     });
   },
   methods: {
@@ -62,10 +62,10 @@ export default {
      * @description: 保存data数据
      */
     _mixinCancel() {
-      this.mSelectMode = '';
+      this.mSelectMode = SelectMode.EMPTY;
       this.mSelectId = [];
       this.mSelectActive = [];
-      this.mSelectOneType = '';
+      this.mSelectOneType = SelectOneType.EMPTY;
     },
   },
 };
