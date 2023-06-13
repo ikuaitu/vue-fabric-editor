@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-09 13:09:11
+ * @LastEditTime: 2023-06-13 22:58:31
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -45,10 +45,10 @@ class Editor extends EventEmitter {
     this.pluginEditor.use(TextPlugin);
     this.pluginEditor.use(AlignGuidLinePlugin);
 
-    this.editorWorkspace = new EditorWorkspace(canvas, {
-      width: 100,
-      height: 100,
-    });
+    // this.editorWorkspace = new EditorWorkspace(canvas, {
+    //   width: 100,
+    //   height: 100,
+    // });
 
     // initAligningGuidelines(canvas);
     initHotkeys(canvas, this);
