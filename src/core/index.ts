@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-13 22:58:31
+ * @LastEditTime: 2023-06-13 23:11:45
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -12,13 +12,15 @@ import EditorCore from './core';
 import TextPlugin from './plugin';
 import DringPlugin from './plugin/DringPlugin';
 import AlignGuidLinePlugin from './plugin/AlignGuidLinePlugin';
+import ControlsPlugin from './plugin/ControlsPlugin';
+import ControlsRotatePlugin from './plugin/ControlsRotatePlugin';
 
 // 对齐辅助线
 // import initAligningGuidelines from '@/core/initAligningGuidelines';
-import initControlsRotate from '@/core/initControlsRotate';
+// import initControlsRotate from '@/core/initControlsRotate';
 import InitCenterAlign from '@/core/initCenterAlign';
 import initHotkeys from '@/core/initHotKeys';
-import initControls from '@/core/initControls';
+// import initControls from '@/core/initControls';
 import initRuler from '@/core/ruler';
 import EditorGroupText from '@/core/EditorGroupText';
 import type CanvasRuler from '@/core/ruler/ruler';
@@ -44,6 +46,8 @@ class Editor extends EventEmitter {
     this.pluginEditor.use(DringPlugin);
     this.pluginEditor.use(TextPlugin);
     this.pluginEditor.use(AlignGuidLinePlugin);
+    this.pluginEditor.use(ControlsPlugin);
+    this.pluginEditor.use(ControlsRotatePlugin);
 
     // this.editorWorkspace = new EditorWorkspace(canvas, {
     //   width: 100,
@@ -52,8 +56,8 @@ class Editor extends EventEmitter {
 
     // initAligningGuidelines(canvas);
     initHotkeys(canvas, this);
-    initControls(canvas);
-    initControlsRotate(canvas);
+    // initControls(canvas);
+    // initControlsRotate(canvas);
     new EditorGroupText(canvas);
     this.centerAlign = new InitCenterAlign(canvas);
     this.ruler = initRuler(canvas);

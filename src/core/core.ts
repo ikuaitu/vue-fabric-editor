@@ -73,7 +73,7 @@ class Editor extends EventEmitter {
 
   // 绑定快捷键
   private _bindingHotkeys(plugin: IPluginTempl) {
-    plugin.hotkeys.forEach((keyName: string) => {
+    plugin?.hotkeys?.forEach((keyName: string) => {
       // 支持 keyup
       hotkeys(keyName, { keyup: true }, (e) => plugin.hotkeyEvent(keyName, e));
     });
