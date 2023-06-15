@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-18 08:06:56
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-09 13:25:03
+ * @LastEditTime: 2023-06-15 22:45:53
  * @Description: 拖拽模式
 -->
 
@@ -29,11 +29,10 @@ export default {
   },
   methods: {
     switchMode(val) {
-      console.log(val, 111);
       if (val) {
-        this.canvas.editor.pluginEditor.getPlugin('DringPlugin').startDring();
+        this.canvas.editor.pluginEditor.startDring();
       } else {
-        this.canvas.editor.pluginEditor.getPlugin('DringPlugin').endDring();
+        this.canvas.editor.pluginEditor.endDring();
       }
     },
   },

@@ -30,6 +30,7 @@ class Editor extends EventEmitter {
       this.pluginMap[plugin.pluginName] = pluginRunTime;
       this._bindingHooks(pluginRunTime);
       this._bindingHotkeys(pluginRunTime);
+      this._bindingApis(pluginRunTime);
     }
   }
 
@@ -84,6 +85,13 @@ class Editor extends EventEmitter {
     const { events = [], apis = [] } = plugin;
     this.customApis = this.customApis.concat(apis);
     this.customEvents = this.customEvents.concat(events);
+  }
+  // 代理API事件
+  private _bindingApis(pluginRunTime: IPluginTempl) {
+    const { apis = [] } = pluginRunTime;
+    apis.forEach((apiName) => {
+      this[apiName] = pluginRunTime[apiName];
+    });
   }
 
   // 右键菜单
