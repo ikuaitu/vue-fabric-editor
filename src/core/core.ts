@@ -90,7 +90,10 @@ class Editor extends EventEmitter {
   private _bindingApis(pluginRunTime: IPluginTempl) {
     const { apis = [] } = pluginRunTime.constructor;
     apis.forEach((apiName) => {
-      this[apiName] = () => pluginRunTime[apiName]();
+      this[apiName] = function () {
+        // eslint-disable-next-line prefer-rest-params
+        pluginRunTime[apiName](...arguments);
+      };
     });
   }
 
