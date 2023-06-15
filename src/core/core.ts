@@ -88,9 +88,9 @@ class Editor extends EventEmitter {
   }
   // 代理API事件
   private _bindingApis(pluginRunTime: IPluginTempl) {
-    const { apis = [] } = pluginRunTime;
+    const { apis = [] } = pluginRunTime.constructor;
     apis.forEach((apiName) => {
-      this[apiName] = pluginRunTime[apiName];
+      this[apiName] = () => pluginRunTime[apiName]();
     });
   }
 

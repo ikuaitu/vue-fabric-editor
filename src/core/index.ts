@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-13 23:11:45
+ * @LastEditTime: 2023-06-15 23:42:57
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -14,11 +14,13 @@ import DringPlugin from './plugin/DringPlugin';
 import AlignGuidLinePlugin from './plugin/AlignGuidLinePlugin';
 import ControlsPlugin from './plugin/ControlsPlugin';
 import ControlsRotatePlugin from './plugin/ControlsRotatePlugin';
+import CenterAlignPlugin from './plugin/CenterAlignPlugin';
+import LayerPlugin from './plugin/LayerPlugin';
 
 // 对齐辅助线
 // import initAligningGuidelines from '@/core/initAligningGuidelines';
 // import initControlsRotate from '@/core/initControlsRotate';
-import InitCenterAlign from '@/core/initCenterAlign';
+// import InitCenterAlign from '@/core/initCenterAlign';
 import initHotkeys from '@/core/initHotKeys';
 // import initControls from '@/core/initControls';
 import initRuler from '@/core/ruler';
@@ -31,7 +33,7 @@ import type { fabric } from 'fabric';
 class Editor extends EventEmitter {
   canvas: fabric.Canvas;
   editorWorkspace: EditorWorkspace | null;
-  centerAlign: InitCenterAlign;
+  // centerAlign: InitCenterAlign;
   ruler: CanvasRuler;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pluginEditor: any;
@@ -48,18 +50,16 @@ class Editor extends EventEmitter {
     this.pluginEditor.use(AlignGuidLinePlugin);
     this.pluginEditor.use(ControlsPlugin);
     this.pluginEditor.use(ControlsRotatePlugin);
+    this.pluginEditor.use(CenterAlignPlugin);
+    this.pluginEditor.use(LayerPlugin);
 
     // this.editorWorkspace = new EditorWorkspace(canvas, {
     //   width: 100,
     //   height: 100,
     // });
 
-    // initAligningGuidelines(canvas);
     initHotkeys(canvas, this);
-    // initControls(canvas);
-    // initControlsRotate(canvas);
     new EditorGroupText(canvas);
-    this.centerAlign = new InitCenterAlign(canvas);
     this.ruler = initRuler(canvas);
   }
 
@@ -155,54 +155,9 @@ class Editor extends EventEmitter {
     });
   }
 
-  up() {
-    const actives = this.canvas.getActiveObjects();
-    if (actives && actives.length === 1) {
-      const activeObject = this.canvas.getActiveObjects()[0];
-      activeObject && activeObject.bringForward();
-      this.canvas.renderAll();
-      this._workspaceSendToBack();
-    }
-  }
-
-  upTop() {
-    const actives = this.canvas.getActiveObjects();
-    if (actives && actives.length === 1) {
-      const activeObject = this.canvas.getActiveObjects()[0];
-      activeObject && activeObject.bringToFront();
-      this.canvas.renderAll();
-      this._workspaceSendToBack();
-    }
-  }
-
-  down() {
-    const actives = this.canvas.getActiveObjects();
-    if (actives && actives.length === 1) {
-      const activeObject = this.canvas.getActiveObjects()[0];
-      activeObject && activeObject.sendBackwards();
-      this.canvas.renderAll();
-      this._workspaceSendToBack();
-    }
-  }
-
-  downTop() {
-    const actives = this.canvas.getActiveObjects();
-    if (actives && actives.length === 1) {
-      const activeObject = this.canvas.getActiveObjects()[0];
-      activeObject && activeObject.sendToBack();
-      this.canvas.renderAll();
-      this._workspaceSendToBack();
-    }
-  }
-
-  getWorkspace() {
-    return this.canvas.getObjects().find((item) => item.id === 'workspace');
-  }
-
-  _workspaceSendToBack() {
-    const workspace = this.getWorkspace();
-    workspace && workspace.sendToBack();
-  }
+  // getWorkspace() {
+  //   return this.canvas.getObjects().find((item) => item.id === 'workspace');
+  // }
 
   getJson() {
     return this.canvas.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls']);

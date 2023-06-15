@@ -198,7 +198,7 @@ export default {
           canvas.discardActiveObject();
           break;
         case 'center':
-          this.canvas.editor.centerAlign.position('center');
+          this.canvas.editor.pluginEditor.position('center');
           break;
         case 'group':
           this.canvas.editor.group();
@@ -207,16 +207,16 @@ export default {
           this.canvas.editor.unGroup();
           break;
         case 'up':
-          this.canvas.editor.up();
+          this.canvas.editor.pluginEditor.up();
           break;
         case 'down':
-          this.canvas.editor.down();
+          this.canvas.editor.pluginEditor.down();
           break;
         case 'upTop':
-          this.canvas.editor.upTop();
+          this.canvas.editor.pluginEditor.upTop();
           break;
         case 'downTop':
-          this.canvas.editor.downTop();
+          this.canvas.editor.pluginEditor.downTop();
           break;
         default:
           break;

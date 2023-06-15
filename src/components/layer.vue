@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: June
- * @LastEditTime: 2023-05-08 18:20:27
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-06-15 23:28:09
  * @Description: 图层面板
 -->
 
@@ -111,16 +111,16 @@ const btnIconType = (type) => {
   return iconType[type];
 };
 const up = () => {
-  canvas.editor.up();
+  canvas.editor.pluginEditor.up();
 };
 const upTop = () => {
-  canvas.editor.upTop();
+  canvas.editor.pluginEditor.upTop();
 };
 const down = () => {
-  canvas.editor.down();
+  canvas.editor.pluginEditor.down();
 };
 const downTop = () => {
-  canvas.editor.downTop();
+  canvas.editor.pluginEditor.downTop();
 };
 
 const getList = () => {
