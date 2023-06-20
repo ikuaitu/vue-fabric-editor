@@ -10,6 +10,7 @@ import { debounce } from 'lodash-es';
 
 const { canvas, mixinState } = useSelect();
 const clone = debounce(function () {
-  canvas.editor.clone();
+  // canvas.editor.clone();
+  canvas.editor.pluginEditor.clone();
 }, 300);
 </script>

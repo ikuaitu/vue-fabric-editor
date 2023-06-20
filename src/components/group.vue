@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: bigFace2019 599069310@qq.com
- * @LastEditTime: 2023-05-14 18:28:23
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-06-20 13:27:08
  * @Description: 组合与拆分组合
 -->
 
@@ -63,10 +63,10 @@ let isGroup = computed(
 let isMultiple = computed(() => mixinState.mSelectMode === 'multiple');
 // 拆分组
 const unGroup = () => {
-  canvas.editor.unGroup();
+  canvas.editor.pluginEditor.unGroup();
 };
 const group = () => {
-  canvas.editor.group();
+  canvas.editor.pluginEditor.group();
 };
 </script>
 <style scoped lang="less">

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-15 23:42:57
+ * @LastEditTime: 2023-06-20 13:23:00
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -16,6 +16,10 @@ import ControlsPlugin from './plugin/ControlsPlugin';
 import ControlsRotatePlugin from './plugin/ControlsRotatePlugin';
 import CenterAlignPlugin from './plugin/CenterAlignPlugin';
 import LayerPlugin from './plugin/LayerPlugin';
+import CopyPlugin from './plugin/CopyPlugin';
+import MoveHotKeyPlugin from './plugin/MoveHotKeyPlugin';
+import DeleteHotKeyPlugin from './plugin/DeleteHotKeyPlugin';
+import GroupPlugin from './plugin/GroupPlugin';
 
 // 对齐辅助线
 // import initAligningGuidelines from '@/core/initAligningGuidelines';
@@ -52,107 +56,19 @@ class Editor extends EventEmitter {
     this.pluginEditor.use(ControlsRotatePlugin);
     this.pluginEditor.use(CenterAlignPlugin);
     this.pluginEditor.use(LayerPlugin);
+    this.pluginEditor.use(CopyPlugin);
+    this.pluginEditor.use(MoveHotKeyPlugin);
+    this.pluginEditor.use(DeleteHotKeyPlugin);
+    this.pluginEditor.use(GroupPlugin);
 
     // this.editorWorkspace = new EditorWorkspace(canvas, {
     //   width: 100,
     //   height: 100,
     // });
 
-    initHotkeys(canvas, this);
+    // initHotkeys(canvas, this);
     new EditorGroupText(canvas);
     this.ruler = initRuler(canvas);
-  }
-
-  // 多选对象复制
-  _copyActiveSelection(activeObject: fabric.Object) {
-    // 间距设置
-    const grid = 10;
-    const canvas = this.canvas;
-    activeObject?.clone((cloned: fabric.Object) => {
-      // 再次进行克隆，处理选择多个对象的情况
-      cloned.clone((clonedObj: fabric.ActiveSelection) => {
-        canvas.discardActiveObject();
-        if (clonedObj.left === undefined || clonedObj.top === undefined) return;
-        // 将克隆的画布重新赋值
-        clonedObj.canvas = canvas;
-        // 设置位置信息
-        clonedObj.set({
-          left: clonedObj.left + grid,
-          top: clonedObj.top + grid,
-          evented: true,
-          id: uuid(),
-        });
-        clonedObj.forEachObject((obj: fabric.Object) => {
-          obj.id = uuid();
-          canvas.add(obj);
-        });
-        // 解决不可选择问题
-        clonedObj.setCoords();
-        canvas.setActiveObject(clonedObj);
-        canvas.requestRenderAll();
-      });
-    });
-  }
-
-  // 单个对象复制
-  _copyObject(activeObject: fabric.Object) {
-    // 间距设置
-    const grid = 10;
-    const canvas = this.canvas;
-    activeObject?.clone((cloned: fabric.Object) => {
-      if (cloned.left === undefined || cloned.top === undefined) return;
-      canvas.discardActiveObject();
-      // 设置位置信息
-      cloned.set({
-        left: cloned.left + grid,
-        top: cloned.top + grid,
-        evented: true,
-        id: uuid(),
-      });
-      canvas.add(cloned);
-      canvas.setActiveObject(cloned);
-      canvas.requestRenderAll();
-    });
-  }
-
-  // 复制元素
-  clone(paramsActiveObeject: fabric.ActiveSelection | fabric.Object) {
-    const activeObject = paramsActiveObeject || this.canvas.getActiveObject();
-    if (!activeObject) return;
-    if (activeObject?.type === 'activeSelection') {
-      this._copyActiveSelection(activeObject);
-    } else {
-      this._copyObject(activeObject);
-    }
-  }
-
-  // 拆分组
-  unGroup() {
-    const activeObject = this.canvas.getActiveObject() as fabric.Group;
-    if (!activeObject) return;
-    // 先获取当前选中的对象，然后打散
-    activeObject.toActiveSelection();
-    activeObject.getObjects().forEach((item: fabric.Object) => {
-      item.set('id', uuid());
-    });
-    this.canvas.discardActiveObject().renderAll();
-  }
-
-  group() {
-    // 组合元素
-    const activeObj = this.canvas.getActiveObject() as fabric.ActiveSelection;
-    if (!activeObj) return;
-    const activegroup = activeObj.toGroup();
-    const objectsInGroup = activegroup.getObjects();
-    activegroup.clone((newgroup: fabric.Group) => {
-      newgroup.set('id', uuid());
-      this.canvas.remove(activegroup);
-      objectsInGroup.forEach((object) => {
-        this.canvas.remove(object);
-      });
-      this.canvas.add(newgroup);
-      this.canvas.setActiveObject(newgroup);
-    });
   }
 
   // getWorkspace() {
