@@ -2,14 +2,14 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-20 13:23:00
+ * @LastEditTime: 2023-06-20 13:32:42
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
 // import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
 import EditorCore from './core';
-import TextPlugin from './plugin';
+import TestPlugin from './plugin';
 import DringPlugin from './plugin/DringPlugin';
 import AlignGuidLinePlugin from './plugin/AlignGuidLinePlugin';
 import ControlsPlugin from './plugin/ControlsPlugin';
@@ -50,7 +50,6 @@ class Editor extends EventEmitter {
     // EditorCore
     this.pluginEditor = new EditorCore(canvas);
     this.pluginEditor.use(DringPlugin);
-    this.pluginEditor.use(TextPlugin);
     this.pluginEditor.use(AlignGuidLinePlugin);
     this.pluginEditor.use(ControlsPlugin);
     this.pluginEditor.use(ControlsRotatePlugin);
@@ -60,6 +59,7 @@ class Editor extends EventEmitter {
     this.pluginEditor.use(MoveHotKeyPlugin);
     this.pluginEditor.use(DeleteHotKeyPlugin);
     this.pluginEditor.use(GroupPlugin);
+    // this.pluginEditor.use(TestPlugin);
 
     // this.editorWorkspace = new EditorWorkspace(canvas, {
     //   width: 100,

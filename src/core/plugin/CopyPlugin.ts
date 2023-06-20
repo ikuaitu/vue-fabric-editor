@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:38:37
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-20 12:50:42
+ * @LastEditTime: 2023-06-20 13:34:21
  * @Description: 复制插件
  */
 
@@ -97,6 +97,13 @@ class CopyPlugin {
       if (this.cache) {
         this.clone(this.cache);
       }
+    }
+  }
+
+  contextMenu() {
+    const activeObject = this.canvas.getActiveObject();
+    if (activeObject) {
+      return [{ text: '复制', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.clone() }];
     }
   }
 

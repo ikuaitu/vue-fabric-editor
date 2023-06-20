@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:57:35
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-20 13:26:03
+ * @LastEditTime: 2023-06-20 13:35:24
  * @Description: 删除快捷键
  */
 
@@ -36,6 +36,13 @@ class DeleteHotKeyPlugin {
       activeObject.map((item) => canvas.remove(item));
       canvas.requestRenderAll();
       canvas.discardActiveObject();
+    }
+  }
+
+  contextMenu() {
+    const activeObject = this.canvas.getActiveObject();
+    if (activeObject) {
+      return [{ text: '删除', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.del() }];
     }
   }
 
