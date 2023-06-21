@@ -16,56 +16,41 @@
   </div>
 </template>
 
-<script>
-import select from '@/mixins/select';
+<script setup ame="Drag">
+import useSelect from '@/hooks/select';
+const status = ref(false);
+const { canvas } = useSelect();
 
-export default {
-  name: 'ToolBar',
-  mixins: [select],
-  data() {
-    return {
-      status: false,
-    };
-  },
-  computed: {
-    unShow() {
-      return this.mSelectMode === 'one' && this.mSelectOneType === 'group';
-    },
-    createShow() {
-      return this.mSelectMode === 'multiple';
-    },
-  },
-  methods: {
-    switchMode(val) {
-      if (val) {
-        this.canvas.editor.editorWorkspace.startDring();
-      } else {
-        this.canvas.editor.editorWorkspace.endDring();
-      }
-    },
-    handleKeyDown(e) {
-      if (this.status) return;
-      if (e.code === 'Space') {
-        this.status = true;
-        this.canvas.editor.editorWorkspace.startDring();
-      }
-    },
-    handleKeyUp(e) {
-      if (e.code === 'Space') {
-        this.status = false;
-        this.canvas.editor.editorWorkspace.endDring();
-      }
-    },
-  },
-  mounted() {
-    window.addEventListener('keydown', this.handleKeyDown);
-    window.addEventListener('keyup', this.handleKeyUp);
-  },
-  beforeUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-    window.removeEventListener('keyup', this.handleKeyUp);
-  },
+const switchMode = (val) => {
+  if (val) {
+    canvas.editor.editorWorkspace.startDring();
+  } else {
+    canvas.editor.editorWorkspace.endDring();
+  }
 };
+const handleKeyDown = (e) => {
+  if (status.value) return;
+  if (e.code === 'Space') {
+    status.value = true;
+    canvas.editor.editorWorkspace.startDring();
+  }
+};
+const handleKeyUp = (e) => {
+  if (e.code === 'Space') {
+    status.value = false;
+    canvas.editor.editorWorkspace.endDring();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown);
+  window.addEventListener('keyup', handleKeyUp);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeyDown);
+  window.removeEventListener('keyup', handleKeyUp);
+});
 </script>
 <style scoped lang="less">
 .box {

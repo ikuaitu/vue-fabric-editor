@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="History">
 import { useRefHistory, useDateFormat } from '@vueuse/core';
 import { keyNames, hotkeys } from '@/core/initHotKeys';
 import type { fabric } from 'fabric';

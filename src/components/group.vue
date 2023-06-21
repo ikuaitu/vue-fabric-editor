@@ -50,7 +50,7 @@
   </div>
 </template>
 
-<script setup name="ToolBar">
+<script setup name="Group">
 import useSelect from '@/hooks/select';
 
 const { canvas, mixinState } = useSelect();
