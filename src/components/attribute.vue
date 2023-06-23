@@ -471,14 +471,16 @@ const getObjectAttr = (e) => {
   }
 };
 
+const selectCancel = () => {
+  baseAttr.fill = '';
+  update?.proxy?.$forceUpdate();
+};
+
 const init = () => {
   // 获取字体数据
   getFreeFontList();
 
-  event.on('selectCancel', () => {
-    baseAttr.fill = '';
-    update?.proxy?.$forceUpdate();
-  });
+  event.on('selectCancel', selectCancel);
   event.on('selectOne', getObjectAttr);
   canvas.c.on('object:modified', getObjectAttr);
 };
@@ -601,7 +603,7 @@ const changeEdge = (value) => {
 onMounted(init);
 
 onBeforeUnmount(() => {
-  event.off('selectCancel');
+  event.off('selectCancel', selectCancel);
   event.off('selectOne', getObjectAttr);
   canvas.c.off('object:modified', getObjectAttr);
 });

@@ -12,43 +12,37 @@
   </div>
 </template>
 
-<script>
-import select from '@/mixins/select';
+<script name="ImportJson" setup>
+import useSelect from '@/hooks/select';
 import { selectFiles, downFontByJSON } from '@/utils/utils';
 
-export default {
-  name: 'ToolBar',
-  mixins: [select],
-  methods: {
-    insert() {
-      selectFiles({ accept: '.json' }).then((files) => {
-        const [file] = files;
-        const reader = new FileReader();
-        reader.readAsText(file, 'UTF-8');
-        reader.onload = () => {
-          this.insertSvgFile(reader.result);
-        };
-      });
-    },
-    insertSvgFile(jsonFile) {
-      // 加载字体后导入
-      downFontByJSON(jsonFile).then(() => {
-        this.canvas.c.loadFromJSON(jsonFile, () => {
-          this.canvas.c.renderAll.bind(this.canvas.c);
-          setTimeout(() => {
-            const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
-            workspace.set('selectable', false);
-            workspace.set('hasControls', false);
-            this.canvas.c.requestRenderAll();
-            this.canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
-            this.canvas.c.renderAll();
-            this.canvas.c.requestRenderAll();
-          }, 100);
-        });
-      });
-    },
-  },
+const { canvas } = useSelect();
+const insert = () => {
+  selectFiles({ accept: '.json' }).then((files) => {
+    const [file] = files;
+    const reader = new FileReader();
+    reader.readAsText(file, 'UTF-8');
+    reader.onload = () => {
+      insertSvgFile(reader.result);
+    };
+  });
 };
-</script>
 
-<style scoped lang="less"></style>
+function insertSvgFile(jsonFile) {
+  // 加载字体后导入
+  downFontByJSON(jsonFile).then(() => {
+    canvas.c.loadFromJSON(jsonFile, () => {
+      canvas.c.renderAll.bind(canvas.c);
+      setTimeout(() => {
+        const workspace = canvas.c.getObjects().find((item) => item.id === 'workspace');
+        workspace.set('selectable', false);
+        workspace.set('hasControls', false);
+        canvas.c.requestRenderAll();
+        canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
+        canvas.c.renderAll();
+        canvas.c.requestRenderAll();
+      }, 100);
+    });
+  });
+}
+</script>
