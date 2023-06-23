@@ -62,12 +62,12 @@ const config = ({ mode }) => {
             getCache({
               // js /css /ts静态资源缓存
               name: 'js-css-cache',
-              pattern: /(.*?)\.(png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/,
+              pattern: /(.*?)\.(js|css|ts)/,
             }),
             getCache({
               // 图片缓存
               name: 'image-cache',
-              pattern: /(.*?)\.(png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/,
+              pattern: /(.*?)\.(png|jpe?g|svg|gif|json|bmp|psd|tiff|tga|eps)/,
             }),
           ],
         },
