@@ -67,7 +67,7 @@ const config = ({ mode }) => {
             getCache({
               // 图片缓存
               name: 'image-cache',
-              pattern: /(.*?)\.(png|jpe?g|svg|gif|json|bmp|psd|tiff|tga|eps)/,
+              pattern: /(.*?)\.(png|jpe?g|svg|gif|json|psd|ttf)/,
             }),
           ],
         },
