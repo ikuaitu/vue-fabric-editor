@@ -38,6 +38,8 @@ import useSelect from '@/hooks/select';
 import { v4 as uuid } from 'uuid';
 import { debounce } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
+import { downloadFile } from '@/utils/utils';
+
 const { t } = useI18n();
 
 const { canvas } = useSelect();
@@ -52,7 +54,11 @@ const cbMap = {
     const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
       JSON.stringify(dataUrl, null, '\t')
     )}`;
-    downFile(fileStr, 'json');
+    downloadFile({
+      file: fileStr,
+      fileName: uuid(),
+      fileExt: 'json',
+    });
   },
 
   saveSvg() {
@@ -69,7 +75,11 @@ const cbMap = {
       },
     });
     const fileStr = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(dataUrl)}`;
-    downFile(fileStr, 'svg');
+    downloadFile({
+      file: fileStr,
+      fileName: uuid(),
+      fileExt: 'svg',
+    });
   },
 
   saveImg() {
@@ -87,7 +97,11 @@ const cbMap = {
     };
     canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
     const dataUrl = canvas.c.toDataURL(option);
-    downFile(dataUrl, 'png');
+    downloadFile({
+      file: dataUrl,
+      fileName: uuid(),
+      fileExt: 'png',
+    });
     canvas.editor.ruler.showGuideline();
   },
 };
@@ -118,15 +132,6 @@ const beforeClear = () => {
     onOk: () => clear(),
   });
 };
-
-function downFile(fileStr, fileType) {
-  const anchorEl = document.createElement('a');
-  anchorEl.href = fileStr;
-  anchorEl.download = `${uuid()}.${fileType}`;
-  document.body.appendChild(anchorEl); // required for firefox
-  anchorEl.click();
-  anchorEl.remove();
-}
 </script>
 
 <style scoped lang="less">
