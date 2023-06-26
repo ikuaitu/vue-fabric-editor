@@ -36,6 +36,7 @@
 import useSelect from '@/hooks/select';
 import { useI18n } from 'vue-i18n';
 import EditorWorkspace from '@/core/EditorWorkspace';
+import { EventName } from '@/core/enums';
 
 const { canvas, mixinState } = useSelect();
 const { t } = useI18n();
@@ -64,6 +65,11 @@ onMounted(() => {
   canvas.editor.editorWorkspace = new EditorWorkspace(canvas.c, {
     width: width.value,
     height: height.value,
+  });
+
+  canvas.editor.on(EventName.SizeChanged, (size) => {
+    width.value = size.width;
+    height.value = size.height;
   });
 });
 

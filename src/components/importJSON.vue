@@ -15,6 +15,7 @@
 <script name="ImportJson" setup>
 import useSelect from '@/hooks/select';
 import { selectFiles, downFontByJSON } from '@/utils/utils';
+import { EventName } from '@/core/enums';
 
 const { canvas } = useSelect();
 const insert = () => {
@@ -39,6 +40,7 @@ function insertSvgFile(jsonFile) {
         workspace.set('hasControls', false);
         canvas.c.requestRenderAll();
         canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
+        canvas.editor.emit(EventName.SizeChanged, workspace);
         canvas.c.renderAll();
         canvas.c.requestRenderAll();
       }, 100);
