@@ -168,7 +168,7 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
-import initializeLineDrawing from '@/core/initializeLineDrawing';
+// import initializeLineDrawing from '@/core/remove/initializeLineDrawing';
 import { getPolygonVertices } from '@/utils/math';
 
 // 默认属性
@@ -188,9 +188,6 @@ export default {
     };
   },
   created() {
-    // 线条绘制
-    this.drawHandler = initializeLineDrawing(this.canvas.c, defaultPosition);
-
     this.canvas.c.on('drop', (opt) => {
       // 画布元素距离浏览器左侧和顶部的距离
       const offset = {
@@ -347,8 +344,9 @@ export default {
     drawingLineModeSwitch(isArrow) {
       this.isArrow = isArrow;
       this.isDrawingLineMode = !this.isDrawingLineMode;
-      this.drawHandler.setMode(this.isDrawingLineMode);
-      this.drawHandler.setArrow(isArrow);
+
+      this.canvas.editor.pluginEditor.setMode(this.isDrawingLineMode);
+      this.canvas.editor.pluginEditor.setArrow(isArrow);
       this.canvas.c.forEachObject((obj) => {
         if (obj.id !== 'workspace') {
           obj.selectable = !this.isDrawingLineMode;

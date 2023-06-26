@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-20 13:32:42
+ * @LastEditTime: 2023-06-22 16:22:16
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -20,15 +20,18 @@ import CopyPlugin from './plugin/CopyPlugin';
 import MoveHotKeyPlugin from './plugin/MoveHotKeyPlugin';
 import DeleteHotKeyPlugin from './plugin/DeleteHotKeyPlugin';
 import GroupPlugin from './plugin/GroupPlugin';
+import DrawLinePlugin from './plugin/DrawLinePlugin';
+import GroupTextEditorPlugin from './plugin/GroupTextEditorPlugin';
+import GroupAlignPlugin from './plugin/GroupAlignPlugin';
 
 // 对齐辅助线
 // import initAligningGuidelines from '@/core/initAligningGuidelines';
 // import initControlsRotate from '@/core/initControlsRotate';
 // import InitCenterAlign from '@/core/initCenterAlign';
-import initHotkeys from '@/core/initHotKeys';
+// import initHotkeys from '@/core/initHotKeys';
 // import initControls from '@/core/initControls';
 import initRuler from '@/core/ruler';
-import EditorGroupText from '@/core/EditorGroupText';
+// import EditorGroupText from '@/core/EditorGroupText';
 import type CanvasRuler from '@/core/ruler/ruler';
 import EditorWorkspace from '@/core/EditorWorkspace';
 
@@ -59,15 +62,10 @@ class Editor extends EventEmitter {
     this.pluginEditor.use(MoveHotKeyPlugin);
     this.pluginEditor.use(DeleteHotKeyPlugin);
     this.pluginEditor.use(GroupPlugin);
-    // this.pluginEditor.use(TestPlugin);
+    this.pluginEditor.use(DrawLinePlugin);
+    this.pluginEditor.use(GroupTextEditorPlugin);
+    this.pluginEditor.use(GroupAlignPlugin);
 
-    // this.editorWorkspace = new EditorWorkspace(canvas, {
-    //   width: 100,
-    //   height: 100,
-    // });
-
-    // initHotkeys(canvas, this);
-    new EditorGroupText(canvas);
     this.ruler = initRuler(canvas);
   }
 
