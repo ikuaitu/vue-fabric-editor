@@ -73,7 +73,7 @@
             <canvas id="canvas" :class="ruler ? 'design-stage-grid' : ''"></canvas>
             <dragMode v-if="show"></dragMode>
             <zoom></zoom>
-            <mouseMenu></mouseMenu>
+            <!-- <mouseMenu></mouseMenu> -->
           </div>
         </div>
         <!-- 属性区域 380-->
@@ -188,7 +188,7 @@ export default {
     zoom,
     svgEl,
     history,
-    mouseMenu,
+    // mouseMenu,
     fontTmpl,
     replaceImg,
     filters,
