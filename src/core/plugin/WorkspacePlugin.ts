@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-27 23:21:04
+ * @LastEditTime: 2023-06-28 00:03:44
  * @Description: 画布区域插件
  */
 
@@ -15,7 +15,7 @@ class WorkspacePlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
   static pluginName = 'WorkspacePlugin';
-
+  static events = ['sizeChange'];
   static apis = ['big', 'small', 'auto', 'one', 'setSize'];
   workspaceEl: HTMLElement;
   workspace: null | fabric.Rect;
@@ -56,6 +56,7 @@ class WorkspacePlugin {
         workspace.set('selectable', false);
         workspace.set('hasControls', false);
         this.setSize(workspace.width, workspace.height);
+        this.editor.emit('sizeChange', workspace.width, workspace.height);
       }
       resolve();
     });
