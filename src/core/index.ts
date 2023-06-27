@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-22 16:22:16
+ * @LastEditTime: 2023-06-27 12:37:30
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -23,6 +23,7 @@ import GroupPlugin from './plugin/GroupPlugin';
 import DrawLinePlugin from './plugin/DrawLinePlugin';
 import GroupTextEditorPlugin from './plugin/GroupTextEditorPlugin';
 import GroupAlignPlugin from './plugin/GroupAlignPlugin';
+import WorkspacePlugin from './plugin/WorkspacePlugin';
 
 // 对齐辅助线
 // import initAligningGuidelines from '@/core/initAligningGuidelines';
@@ -65,6 +66,7 @@ class Editor extends EventEmitter {
     this.pluginEditor.use(DrawLinePlugin);
     this.pluginEditor.use(GroupTextEditorPlugin);
     this.pluginEditor.use(GroupAlignPlugin);
+    this.pluginEditor.use(WorkspacePlugin);
 
     this.ruler = initRuler(canvas);
   }

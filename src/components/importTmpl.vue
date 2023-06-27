@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-27 23:07:22
+ * @LastEditTime: 2023-06-27 13:33:47
  * @Description: 导入模板
 -->
 
@@ -27,7 +27,7 @@
 
 <script>
 import select from '@/mixins/select';
-import { downFontByJSON } from '@/utils/utils';
+// import { downFontByJSON } from '@/utils/utils';
 import axios from 'axios';
 const repoSrc = import.meta.env.APP_REPO;
 export default {
@@ -61,30 +61,32 @@ export default {
   methods: {
     // 插入文件
     insertSvgFile() {
-      this.$Spin.show({
-        render: (h) => h('div', this.$t('alert.loading_fonts')),
-      });
+      // this.$Spin.show({
+      //   render: (h) => h('div', this.$t('alert.loading_fonts')),
+      // });
 
-      downFontByJSON(this.jsonFile)
-        .then(() => {
-          this.$Spin.hide();
-          this.canvas.c.loadFromJSON(this.jsonFile, () => {
-            this.canvas.c.renderAll.bind(this.canvas.c);
-            setTimeout(() => {
-              const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
-              workspace.set('selectable', false);
-              workspace.set('hasControls', false);
-              this.canvas.c.requestRenderAll();
-              this.canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
-              this.canvas.c.renderAll();
-              this.canvas.c.requestRenderAll();
-            }, 100);
-          });
-        })
-        .catch(() => {
-          this.$Spin.hide();
-          this.$Message.error(this.$t('alert.loading_fonts_failed'));
-        });
+      this.canvas.editor.pluginEditor.insertSvgFile(this.jsonFile);
+
+      // downFontByJSON(this.jsonFile)
+      //   .then(() => {
+      //     this.$Spin.hide();
+      //     this.canvas.c.loadFromJSON(this.jsonFile, () => {
+      //       this.canvas.c.renderAll.bind(this.canvas.c);
+      //       setTimeout(() => {
+      //         const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
+      //         workspace.set('selectable', false);
+      //         workspace.set('hasControls', false);
+      //         this.canvas.c.requestRenderAll();
+      //         this.canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
+      //         this.canvas.c.renderAll();
+      //         this.canvas.c.requestRenderAll();
+      //       }, 100);
+      //     });
+      //   })
+      //   .catch(() => {
+      //     this.$Spin.hide();
+      //     this.$Message.error(this.$t('alert.loading_fonts_failed'));
+      //   });
     },
     // 获取模板列表数据
     getTempList() {
@@ -111,6 +113,7 @@ export default {
       const getTemp = axios.get(tmplUrl);
       getTemp.then((res) => {
         this.jsonFile = JSON.stringify(res.data);
+        this.$Spin.hide();
         this.insertSvgFile();
       });
     },

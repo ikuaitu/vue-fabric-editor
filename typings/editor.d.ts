@@ -3,7 +3,7 @@
  * @Author: 秦少卫
  * @Date: 2023-05-13 18:53:44
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-05-13 23:25:15
+ * @LastEditTime: 2023-06-27 13:11:52
  * @Description: file content
  */
 
@@ -12,7 +12,7 @@ declare interface IPluginOption {
 }
 
 // 生命周期事件类型
-declare type IEditorHooksType = 'hookSaveBefore' | 'hookSaveAfter';
+declare type IEditorHooksType = 'hookImportBefore' | 'hookSaveBefore' | 'hookSaveAfter';
 
 // 插件class
 declare interface IPluginClass extends IPluginTempl {

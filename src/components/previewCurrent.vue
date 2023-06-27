@@ -1,8 +1,8 @@
 <!--
  * @Author: bigFace2019 599069310@qq.com
  * @Date: 2023-04-09 11:19:07
- * @LastEditors: June
- * @LastEditTime: 2023-05-20 22:55:16
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-06-27 12:41:06
  * @FilePath: \vue-fabric-editor\src\components\preview.vue
  * @Description: 预览组件
 -->
@@ -34,7 +34,8 @@ const getImgUrl = () => {
   canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
   canvas.c.renderAll();
   const dataUrl = canvas.c.toDataURL(option);
-  canvas.editor.editorWorkspace.auto();
+  // canvas.editor.editorWorkspace.auto();
+  canvas.editor.pluginEditor.auto();
   return dataUrl;
 };
 const preview = () => {

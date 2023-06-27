@@ -1,6 +1,8 @@
 import EventEmitter from 'events';
 import hotkeys from 'hotkeys-js';
 import ContextMenu from './ContextMenu.js';
+import ServersPlugin from './ServersPlugin';
+import { AsyncSeriesHook } from 'tapable';
 
 class Editor extends EventEmitter {
   canvas: fabric.Canvas;
@@ -14,12 +16,22 @@ class Editor extends EventEmitter {
   // 自定义API
   private customApis: string[] = [];
   // 生命周期函数名
-  private hooks: IEditorHooksType[] = ['hookSaveBefore', 'hookSaveAfter'];
+  private hooks: IEditorHooksType[] = [
+    'hookImportBefore',
+    'hookImportAfter',
+    'hookSaveBefore',
+    'hookSaveAfter',
+  ];
+  private hooksEntity: {
+    [propName: string]: AsyncSeriesHook;
+  } = {};
   constructor(canvas: fabric.Canvas) {
     super();
     this.canvas = canvas;
     this._initContextMenu();
     this._bindContextMenu();
+    this._initActionHooks();
+    this._initServersPlugin();
   }
 
   // 引入组件
@@ -67,7 +79,8 @@ class Editor extends EventEmitter {
     this.hooks.forEach((hookName) => {
       const hook = plugin[hookName];
       if (hook) {
-        this.on(hookName, hook);
+        this.hooksEntity[hookName].tapPromise(plugin.pluginName + hookName, hook);
+        // this.on(hookName, hook);
       }
     });
   }
@@ -123,9 +136,20 @@ class Editor extends EventEmitter {
     }
   }
 
+  // 生命周期事件
+  _initActionHooks() {
+    this.hooks.forEach((hookName) => {
+      this.hooksEntity[hookName] = new AsyncSeriesHook(['data']);
+    });
+  }
+
   _initContextMenu() {
     this.contextMenu = new ContextMenu(this.canvas.wrapperEl, []);
     this.contextMenu.install();
+  }
+
+  _initServersPlugin() {
+    this.use(ServersPlugin, {});
   }
 }
 

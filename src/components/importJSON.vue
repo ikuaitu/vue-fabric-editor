@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-26 20:10:36
+ * @LastEditTime: 2023-06-27 13:29:43
  * @Description: 导入JSON文件
 -->
 
@@ -21,14 +21,16 @@ export default {
   mixins: [select],
   methods: {
     insert() {
-      selectFiles({ accept: '.json' }).then((files) => {
-        const [file] = files;
-        const reader = new FileReader();
-        reader.readAsText(file, 'UTF-8');
-        reader.onload = () => {
-          this.insertSvgFile(reader.result);
-        };
-      });
+      // insert
+      this.canvas.editor.pluginEditor.insert();
+      // selectFiles({ accept: '.json' }).then((files) => {
+      //   const [file] = files;
+      //   const reader = new FileReader();
+      //   reader.readAsText(file, 'UTF-8');
+      //   reader.onload = () => {
+      //     this.insertSvgFile(reader.result);
+      //   };
+      // });
     },
     insertSvgFile(jsonFile) {
       // 加载字体后导入
