@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-27 23:14:12
+ * @LastEditTime: 2023-06-27 23:21:04
  * @Description: 画布区域插件
  */
 
@@ -40,6 +40,7 @@ class WorkspacePlugin {
     this._initBackground();
     this._initWorkspace();
     this._initResizeObserve();
+    this._bindWheel();
   }
 
   // hookImportBefore() {
@@ -183,6 +184,20 @@ class WorkspacePlugin {
   one() {
     this.setZoomAuto(0.8 - 0.08);
     this.canvas.requestRenderAll();
+  }
+
+  _bindWheel() {
+    this.canvas.on('mouse:wheel', function (this: fabric.Canvas, opt) {
+      const delta = opt.e.deltaY;
+      let zoom = this.getZoom();
+      zoom *= 0.999 ** delta;
+      if (zoom > 20) zoom = 20;
+      if (zoom < 0.01) zoom = 0.01;
+      const center = this.getCenter();
+      this.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
+      opt.e.preventDefault();
+      opt.e.stopPropagation();
+    });
   }
 
   destroy() {

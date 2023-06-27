@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-27 13:33:47
+ * @LastEditTime: 2023-06-27 23:23:33
  * @Description: 导入模板
 -->
 
@@ -61,32 +61,7 @@ export default {
   methods: {
     // 插入文件
     insertSvgFile() {
-      // this.$Spin.show({
-      //   render: (h) => h('div', this.$t('alert.loading_fonts')),
-      // });
-
       this.canvas.editor.pluginEditor.insertSvgFile(this.jsonFile);
-
-      // downFontByJSON(this.jsonFile)
-      //   .then(() => {
-      //     this.$Spin.hide();
-      //     this.canvas.c.loadFromJSON(this.jsonFile, () => {
-      //       this.canvas.c.renderAll.bind(this.canvas.c);
-      //       setTimeout(() => {
-      //         const workspace = this.canvas.c.getObjects().find((item) => item.id === 'workspace');
-      //         workspace.set('selectable', false);
-      //         workspace.set('hasControls', false);
-      //         this.canvas.c.requestRenderAll();
-      //         this.canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
-      //         this.canvas.c.renderAll();
-      //         this.canvas.c.requestRenderAll();
-      //       }, 100);
-      //     });
-      //   })
-      //   .catch(() => {
-      //     this.$Spin.hide();
-      //     this.$Message.error(this.$t('alert.loading_fonts_failed'));
-      //   });
     },
     // 获取模板列表数据
     getTempList() {

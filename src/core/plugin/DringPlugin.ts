@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-05-19 08:31:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-09 13:27:25
+ * @LastEditTime: 2023-06-27 23:20:25
  * @Description: 拖拽插件
  */
 
@@ -93,18 +93,6 @@ class DringPlugin {
       This.canvas.defaultCursor = 'default';
       this.requestRenderAll();
     });
-
-    // this.canvas.on('mouse:wheel', function (this: fabric.Canvas, opt) {
-    //   const delta = opt.e.deltaY;
-    //   let zoom = this.getZoom();
-    //   zoom *= 0.999 ** delta;
-    //   if (zoom > 20) zoom = 20;
-    //   if (zoom < 0.01) zoom = 0.01;
-    //   const center = this.getCenter();
-    //   this.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
-    //   opt.e.preventDefault();
-    //   opt.e.stopPropagation();
-    // });
   }
 
   _setDring() {
