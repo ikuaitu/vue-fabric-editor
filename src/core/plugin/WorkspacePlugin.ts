@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-27 13:42:25
+ * @LastEditTime: 2023-06-27 23:14:12
  * @Description: 画布区域插件
  */
 
@@ -42,25 +42,21 @@ class WorkspacePlugin {
     this._initResizeObserve();
   }
 
-  hookImportBefore() {
-    console.log(1111);
-    return new Promise((resolve, reject) => {
-      console.log('1111');
-      resolve(true);
-    });
-  }
+  // hookImportBefore() {
+  //   return new Promise((resolve, reject) => {
+  //     resolve();
+  //   });
+  // }
 
   hookImportAfter() {
-    console.log(3333);
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const workspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
       if (workspace) {
         workspace.set('selectable', false);
         workspace.set('hasControls', false);
         this.setSize(workspace.width, workspace.height);
       }
-      console.log(4444);
-      resolve(true);
+      resolve();
     });
   }
 

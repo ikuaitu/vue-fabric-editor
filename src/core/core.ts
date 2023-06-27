@@ -79,8 +79,10 @@ class Editor extends EventEmitter {
     this.hooks.forEach((hookName) => {
       const hook = plugin[hookName];
       if (hook) {
-        this.hooksEntity[hookName].tapPromise(plugin.pluginName + hookName, hook);
-        // this.on(hookName, hook);
+        this.hooksEntity[hookName].tapPromise(plugin.pluginName + hookName, function () {
+          // eslint-disable-next-line prefer-rest-params
+          return hook.apply(plugin, [...arguments]);
+        });
       }
     });
   }

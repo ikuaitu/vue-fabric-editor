@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-15 23:23:18
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-21 22:06:25
+ * @LastEditTime: 2023-06-27 23:07:57
  * @Description: 图层调整插件
  */
 
@@ -67,6 +67,41 @@ class LayerPlugin {
       activeObject && activeObject.sendToBack();
       this.canvas.renderAll();
       this._workspaceSendToBack();
+    }
+  }
+
+  contextMenu() {
+    const activeObject = this.canvas.getActiveObject();
+    if (activeObject) {
+      return [
+        {
+          text: '图层管理',
+          hotkey: '❯',
+          subitems: [
+            {
+              text: '上一个',
+              hotkey: 'key',
+              onclick: () => this.up(),
+            },
+            {
+              text: '下一个',
+              hotkey: 'key',
+              onclick: () => this.down(),
+            },
+            {
+              text: '置顶',
+              hotkey: 'key',
+              onclick: () => this.upTop(),
+            },
+            {
+              text: '置底',
+              hotkey: 'key',
+              onclick: () => this.downTop(),
+            },
+          ],
+        },
+      ];
+      // return [{ text: '复制', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.clone() }];
     }
   }
 

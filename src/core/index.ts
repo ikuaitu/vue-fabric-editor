@@ -2,14 +2,14 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-27 12:37:30
+ * @LastEditTime: 2023-06-27 23:13:45
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
 // import { fabric } from 'fabric';
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
 import EditorCore from './core';
-import TestPlugin from './plugin';
+// import TestPlugin from './plugin';
 import DringPlugin from './plugin/DringPlugin';
 import AlignGuidLinePlugin from './plugin/AlignGuidLinePlugin';
 import ControlsPlugin from './plugin/ControlsPlugin';
@@ -24,6 +24,7 @@ import DrawLinePlugin from './plugin/DrawLinePlugin';
 import GroupTextEditorPlugin from './plugin/GroupTextEditorPlugin';
 import GroupAlignPlugin from './plugin/GroupAlignPlugin';
 import WorkspacePlugin from './plugin/WorkspacePlugin';
+import DownFontPlugin from './plugin/DownFontPlugin';
 
 // 对齐辅助线
 // import initAligningGuidelines from '@/core/initAligningGuidelines';
@@ -67,6 +68,7 @@ class Editor extends EventEmitter {
     this.pluginEditor.use(GroupTextEditorPlugin);
     this.pluginEditor.use(GroupAlignPlugin);
     this.pluginEditor.use(WorkspacePlugin);
+    this.pluginEditor.use(DownFontPlugin);
 
     this.ruler = initRuler(canvas);
   }
