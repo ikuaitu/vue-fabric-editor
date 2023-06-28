@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-27 23:13:45
+ * @LastEditTime: 2023-06-28 12:29:13
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -71,34 +71,6 @@ class Editor extends EventEmitter {
     this.pluginEditor.use(DownFontPlugin);
 
     this.ruler = initRuler(canvas);
-  }
-
-  // getWorkspace() {
-  //   return this.canvas.getObjects().find((item) => item.id === 'workspace');
-  // }
-
-  getJson() {
-    return this.canvas.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls']);
-  }
-
-  /**
-   * @description: 拖拽添加到画布
-   * @param {Event} event
-   * @param {Object} item
-   */
-  dragAddItem(event: DragEvent, item: fabric.Object) {
-    const { left, top } = this.canvas.getSelectionElement().getBoundingClientRect();
-    if (event.x < left || event.y < top || item.width === undefined) return;
-
-    const point = {
-      x: event.x - left,
-      y: event.y - top,
-    };
-    const pointerVpt = this.canvas.restorePointerVpt(point);
-    item.left = pointerVpt.x - item.width / 2;
-    item.top = pointerVpt.y;
-    this.canvas.add(item);
-    this.canvas.requestRenderAll();
   }
 }
 

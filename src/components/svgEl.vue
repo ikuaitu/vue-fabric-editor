@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-04 15:32:17
+ * @LastEditTime: 2023-06-28 12:25:44
  * @Description: 素材面板
 -->
 
@@ -273,7 +273,8 @@ export default {
           id: uuid(),
           name: 'svg元素',
         });
-        this.canvas.editor.dragAddItem(event, item);
+
+        this.canvas.editor.pluginEditor.dragAddItem(event, item);
       });
     },
     // 按照类型渲染

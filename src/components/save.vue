@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-05-07 09:34:18
+ * @LastEditTime: 2023-06-28 12:24:44
  * @LastEditors: 秦少卫
  * @LastEditTime: 2023-04-10 14:33:18
 
@@ -43,12 +43,14 @@ const { t } = useI18n();
 const { canvas } = useSelect();
 const cbMap = {
   clipboard() {
-    const jsonStr = canvas.editor.getJson();
+    // const jsonStr = canvas.editor.getJson();
+    const jsonStr = canvas.editor.pluginEditor.getJson();
     clipboardText(JSON.stringify(jsonStr, null, '\t'));
   },
 
   saveJson() {
-    const dataUrl = canvas.editor.getJson();
+    // const dataUrl = canvas.editor.getJson();
+    const dataUrl = canvas.editor.pluginEditor.getJson();
     const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
       JSON.stringify(dataUrl, null, '\t')
     )}`;

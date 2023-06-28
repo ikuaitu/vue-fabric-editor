@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: June
- * @LastEditTime: 2023-05-20 22:54:13
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-06-28 12:24:01
  * @Description: 回退重做
 -->
 
@@ -61,14 +61,16 @@ const save = (event: fabric.IEvent) => {
 
   // 丢弃workspace创建前的记录
   if (!canvas.editor.editorWorkspace) {
-    source.value = canvas.editor.getJson();
+    // source.value = canvas.editor.getJson();
+    source.value = canvas.editor.pluginEditor.getJson();
     commit();
     clear();
     return;
   }
 
   if (isTracking.value) {
-    source.value = canvas.editor.getJson();
+    // source.value = canvas.editor.getJson();
+    source.value = canvas.editor.pluginEditor.getJson();
   }
 };
 
