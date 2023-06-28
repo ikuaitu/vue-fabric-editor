@@ -107,7 +107,7 @@ class Editor extends EventEmitter {
     apis.forEach((apiName) => {
       this[apiName] = function () {
         // eslint-disable-next-line prefer-rest-params
-        pluginRunTime[apiName](...arguments);
+        return pluginRunTime[apiName].apply(pluginRunTime, [...arguments]);
       };
     });
   }
