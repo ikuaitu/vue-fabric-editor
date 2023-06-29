@@ -160,6 +160,7 @@
     "offset_x": "X轴",
     "offset_y": "Y轴"
   },
+  "setSizeTip": "调整画布尺寸",
   "tip": "提示",
   "clearTip": "确定要清空吗？",
   "ok": "确认",

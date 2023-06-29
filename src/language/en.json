@@ -157,6 +157,7 @@
     "offset_x": "X",
     "offset_y": "Y"
   },
+  "setSizeTip": "Resize canvas",
   "tip": "tip",
   "clearTip": "Are you sure you want to clear it?",
   "ok": "ok",
