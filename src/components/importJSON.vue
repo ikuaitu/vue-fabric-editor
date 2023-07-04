@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-27 23:23:03
+ * @LastEditTime: 2023-07-04 23:21:01
  * @Description: 导入JSON文件
 -->
 
@@ -14,7 +14,6 @@
 
 <script>
 import select from '@/mixins/select';
-import { selectFiles, downFontByJSON } from '@/utils/utils';
 
 export default {
   name: 'ToolBar',
