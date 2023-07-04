@@ -26,6 +26,7 @@ import GroupAlignPlugin from './plugin/GroupAlignPlugin';
 import WorkspacePlugin from './plugin/WorkspacePlugin';
 import DownFontPlugin from './plugin/DownFontPlugin';
 import HistoryPlugin from './plugin/HistoryPlugin';
+import FlipPlugin from './plugin/FlipPlugin';
 
 // 对齐辅助线
 // import initAligningGuidelines from '@/core/initAligningGuidelines';
@@ -71,6 +72,7 @@ class Editor extends EventEmitter {
     this.pluginEditor.use(WorkspacePlugin);
     this.pluginEditor.use(DownFontPlugin);
     this.pluginEditor.use(HistoryPlugin);
+    this.pluginEditor.use(FlipPlugin);
 
     this.ruler = initRuler(canvas);
   }
