@@ -211,13 +211,13 @@ export default {
   },
   mounted() {
     // 初始化fabric
-    this.canvas = new fabric.Canvas('canvas', {
+    const canvas = new fabric.Canvas('canvas', {
       fireRightClick: true, // 启用右键，button的数字为3
       stopContextMenu: true, // 禁止默认右键菜单
       controlsAboveOverlay: true, // 超出clipPath后仍然展示控制条
     });
     // 初始化编辑器
-    canvasEditor.init(this.canvas);
+    canvasEditor.init(canvas);
     canvasEditor.use(DringPlugin);
     canvasEditor.use(AlignGuidLinePlugin);
     canvasEditor.use(ControlsPlugin);
@@ -237,7 +237,8 @@ export default {
     canvasEditor.use(FlipPlugin);
     canvasEditor.use(RulerPlugin);
 
-    event.init(this.canvas);
+    event.init(canvas);
+    this.canvas = canvas;
 
     this.show = true;
     this.$Spin.hide();
