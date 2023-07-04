@@ -16,7 +16,7 @@
         <Divider type="vertical" />
         <!-- 标尺开关 -->
         <Tooltip :content="$t('grid')">
-          <iSwitch v-model="ruler" size="small" class="switch"></iSwitch>
+          <iSwitch v-model="ruler" @on-change="rulerSwitch" size="small" class="switch"></iSwitch>
         </Tooltip>
         <Divider type="vertical" />
         <history></history>
@@ -195,18 +195,6 @@ export default {
   created() {
     // this.$Spin.show();
   },
-  watch: {
-    ruler: {
-      handler(value) {
-        if (!this.canvas.ruler) return;
-        if (value) {
-          this.canvas.ruler.enable();
-        } else {
-          this.canvas.ruler.disable();
-        }
-      },
-    },
-  },
   mounted() {
     this.canvas = new fabric.Canvas('canvas', {
       fireRightClick: true, // 启用右键，button的数字为3
@@ -224,6 +212,13 @@ export default {
     this.$Spin.hide();
   },
   methods: {
+    rulerSwitch(val) {
+      if (val) {
+        canvas.editor.pluginEditor.rulerEnable();
+      } else {
+        canvas.editor.pluginEditor.rulerDisable();
+      }
+    },
     // 获取字体数据 新增字体样式使用
     getFontJson() {
       const activeObject = this.canvas.getActiveObject();

@@ -2,22 +2,42 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-28 12:30:14
+ * @LastEditTime: 2023-07-05 00:10:07
  * @Description: 内部插件
  */
-
-import { selectFiles } from '@/utils/utils';
-
+import { v4 as uuid } from 'uuid';
+import { selectFiles, clipboardText } from '@/utils/utils';
+// import { clipboardText } from '@/utils/utils.ts';
 import { fabric } from 'fabric';
 import Editor from '../core';
 type IEditor = Editor;
 // import { v4 as uuid } from 'uuid';
 
+function downFile(fileStr, fileType) {
+  const anchorEl = document.createElement('a');
+  anchorEl.href = fileStr;
+  anchorEl.download = `${uuid()}.${fileType}`;
+  document.body.appendChild(anchorEl); // required for firefox
+  anchorEl.click();
+  anchorEl.remove();
+}
+
 class ServersPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
   static pluginName = 'ServersPlugin';
-  static apis = ['insert', 'insertSvgFile', 'getJson', 'dragAddItem'];
+  static apis = [
+    'insert',
+    'insertSvgFile',
+    'getJson',
+    'dragAddItem',
+    'clipboard',
+    'saveJson',
+    'saveSvg',
+    'saveImg',
+    'clear',
+    'preview',
+  ];
   // public hotkeys: string[] = ['left', 'right', 'down', 'up'];
   constructor(canvas: fabric.Canvas, editor: IEditor) {
     this.canvas = canvas;
@@ -68,6 +88,88 @@ class ServersPlugin {
     item.top = pointerVpt.y;
     this.canvas.add(item);
     this.canvas.requestRenderAll();
+  }
+
+  clipboard() {
+    const jsonStr = this.getJson();
+    clipboardText(JSON.stringify(jsonStr, null, '\t'));
+  }
+
+  saveJson() {
+    // const dataUrl = canvas.editor.getJson();
+    const dataUrl = this.getJson();
+    const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
+      JSON.stringify(dataUrl, null, '\t')
+    )}`;
+    downFile(fileStr, 'json');
+  }
+
+  saveSvg() {
+    const workspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
+    const { left, top, width, height } = workspace;
+    const dataUrl = this.canvas.toSVG({
+      width,
+      height,
+      viewBox: {
+        x: left,
+        y: top,
+        width,
+        height,
+      },
+    });
+    const fileStr = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(dataUrl)}`;
+    downFile(fileStr, 'svg');
+  }
+
+  saveImg() {
+    const workspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
+    this.editor.hideGuideline();
+    const { left, top, width, height } = workspace;
+    const option = {
+      name: 'New Image',
+      format: 'png',
+      quality: 1,
+      left,
+      top,
+      width,
+      height,
+    };
+    this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    const dataUrl = this.canvas.toDataURL(option);
+    downFile(dataUrl, 'png');
+    this.editor.showGuideline();
+  }
+
+  clear() {
+    this.canvas.getObjects().forEach((obj) => {
+      if (obj.id !== 'workspace') {
+        this.canvas.remove(obj);
+      }
+    });
+    this.canvas.discardActiveObject();
+    this.canvas.renderAll();
+  }
+
+  preview() {
+    this.editor.hideGuideline();
+    const workspace = this.canvas
+      .getObjects()
+      .find((item: fabric.Object) => item.id === 'workspace');
+    const { left, top, width, height } = workspace as fabric.Object;
+    const option = {
+      name: 'New Image',
+      format: 'png',
+      quality: 1,
+      width,
+      height,
+      left,
+      top,
+    };
+    this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    this.canvas.renderAll();
+    const dataUrl = this.canvas.toDataURL(option);
+    this.editor.auto();
+    return dataUrl;
   }
 
   destroy() {

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-28 12:24:44
+ * @LastEditTime: 2023-07-05 00:09:24
  * @LastEditors: 秦少卫
  * @LastEditTime: 2023-04-10 14:33:18
 
@@ -33,9 +33,8 @@
 
 <script setup name="save-bar">
 import { Modal } from 'view-ui-plus';
-import { clipboardText } from '@/utils/utils.ts';
 import useSelect from '@/hooks/select';
-import { v4 as uuid } from 'uuid';
+
 import { debounce } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -43,54 +42,19 @@ const { t } = useI18n();
 const { canvas } = useSelect();
 const cbMap = {
   clipboard() {
-    // const jsonStr = canvas.editor.getJson();
-    const jsonStr = canvas.editor.pluginEditor.getJson();
-    clipboardText(JSON.stringify(jsonStr, null, '\t'));
+    canvas.editor.pluginEditor.clipboard();
   },
 
   saveJson() {
-    // const dataUrl = canvas.editor.getJson();
-    const dataUrl = canvas.editor.pluginEditor.getJson();
-    const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
-      JSON.stringify(dataUrl, null, '\t')
-    )}`;
-    downFile(fileStr, 'json');
+    canvas.editor.pluginEditor.saveJson();
   },
 
   saveSvg() {
-    const workspace = canvas.c.getObjects().find((item) => item.id === 'workspace');
-    const { left, top, width, height } = workspace;
-    const dataUrl = canvas.c.toSVG({
-      width,
-      height,
-      viewBox: {
-        x: left,
-        y: top,
-        width,
-        height,
-      },
-    });
-    const fileStr = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(dataUrl)}`;
-    downFile(fileStr, 'svg');
+    canvas.editor.pluginEditor.saveSvg();
   },
 
   saveImg() {
-    const workspace = canvas.c.getObjects().find((item) => item.id === 'workspace');
-    canvas.editor.ruler.hideGuideline();
-    const { left, top, width, height } = workspace;
-    const option = {
-      name: 'New Image',
-      format: 'png',
-      quality: 1,
-      left,
-      top,
-      width,
-      height,
-    };
-    canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
-    const dataUrl = canvas.c.toDataURL(option);
-    downFile(dataUrl, 'png');
-    canvas.editor.ruler.showGuideline();
+    canvas.editor.pluginEditor.saveImg();
   },
 };
 
@@ -102,13 +66,7 @@ const saveWith = debounce(function (type) {
  * @desc clear canvas 清空画布
  */
 const clear = () => {
-  canvas.c.getObjects().forEach((obj) => {
-    if (obj.id !== 'workspace') {
-      canvas.c.remove(obj);
-    }
-  });
-  canvas.c.discardActiveObject();
-  canvas.c.renderAll();
+  canvas.editor.pluginEditor.clear();
 };
 
 const beforeClear = () => {
@@ -120,15 +78,6 @@ const beforeClear = () => {
     onOk: () => clear(),
   });
 };
-
-function downFile(fileStr, fileType) {
-  const anchorEl = document.createElement('a');
-  anchorEl.href = fileStr;
-  anchorEl.download = `${uuid()}.${fileType}`;
-  document.body.appendChild(anchorEl); // required for firefox
-  anchorEl.click();
-  anchorEl.remove();
-}
 </script>
 
 <style scoped lang="less">

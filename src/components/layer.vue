@@ -127,8 +127,9 @@ const getList = () => {
   // 不改原数组 反转
   list.value = [
     ...canvas.c.getObjects().filter((item) => {
+      return item;
       // 过滤掉辅助线
-      return !(item instanceof fabric.GuideLine || item.id === 'workspace');
+      // return !(item instanceof fabric.GuideLine || item.id === 'workspace');
     }),
   ]
     .reverse()

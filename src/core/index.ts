@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-28 12:44:07
+ * @LastEditTime: 2023-07-04 23:55:08
  * @Description: 核心入口文件
  */
 import EventEmitter from 'events';
@@ -27,6 +27,7 @@ import WorkspacePlugin from './plugin/WorkspacePlugin';
 import DownFontPlugin from './plugin/DownFontPlugin';
 import HistoryPlugin from './plugin/HistoryPlugin';
 import FlipPlugin from './plugin/FlipPlugin';
+import RulerPlugin from './plugin/RulerPlugin';
 
 // 对齐辅助线
 // import initAligningGuidelines from '@/core/initAligningGuidelines';
@@ -34,9 +35,9 @@ import FlipPlugin from './plugin/FlipPlugin';
 // import InitCenterAlign from '@/core/initCenterAlign';
 // import initHotkeys from '@/core/initHotKeys';
 // import initControls from '@/core/initControls';
-import initRuler from '@/core/ruler';
+// import initRuler from '@/core/ruler';
 // import EditorGroupText from '@/core/EditorGroupText';
-import type CanvasRuler from '@/core/ruler/ruler';
+// import type CanvasRuler from '@/core/ruler/ruler';
 import EditorWorkspace from '@/core/EditorWorkspace';
 
 import type { fabric } from 'fabric';
@@ -45,7 +46,7 @@ class Editor extends EventEmitter {
   canvas: fabric.Canvas;
   editorWorkspace: EditorWorkspace | null;
   // centerAlign: InitCenterAlign;
-  ruler: CanvasRuler;
+  // ruler: CanvasRuler;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pluginEditor: any;
   constructor(canvas: fabric.Canvas) {
@@ -73,8 +74,9 @@ class Editor extends EventEmitter {
     this.pluginEditor.use(DownFontPlugin);
     this.pluginEditor.use(HistoryPlugin);
     this.pluginEditor.use(FlipPlugin);
+    this.pluginEditor.use(RulerPlugin);
 
-    this.ruler = initRuler(canvas);
+    // this.ruler = initRuler(canvas);
   }
 }
 
