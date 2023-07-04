@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 00:10:07
+ * @LastEditTime: 2023-07-05 00:36:42
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -96,7 +96,6 @@ class ServersPlugin {
   }
 
   saveJson() {
-    // const dataUrl = canvas.editor.getJson();
     const dataUrl = this.getJson();
     const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
       JSON.stringify(dataUrl, null, '\t')
@@ -105,9 +104,45 @@ class ServersPlugin {
   }
 
   saveSvg() {
+    this.editor.hooksEntity.hookSaveBefore.callAsync('', () => {
+      const option = this._getSaveSvgOption();
+      const dataUrl = this.canvas.toSVG(option);
+      const fileStr = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(dataUrl)}`;
+      this.editor.hooksEntity.hookSaveAfter.callAsync(fileStr, () => {
+        downFile(fileStr, 'svg');
+      });
+    });
+  }
+
+  saveImg() {
+    this.editor.hooksEntity.hookSaveBefore.callAsync('', () => {
+      const option = this._getSaveOption();
+      this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+      const dataUrl = this.canvas.toDataURL(option);
+      this.editor.hooksEntity.hookSaveAfter.callAsync(dataUrl, () => {
+        downFile(dataUrl, 'png');
+      });
+    });
+  }
+
+  preview() {
+    return new Promise((resolve, reject) => {
+      this.editor.hooksEntity.hookSaveBefore.callAsync('', () => {
+        const option = this._getSaveOption();
+        this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+        this.canvas.renderAll();
+        const dataUrl = this.canvas.toDataURL(option);
+        this.editor.hooksEntity.hookSaveAfter.callAsync(dataUrl, () => {
+          resolve(dataUrl);
+        });
+      });
+    });
+  }
+
+  _getSaveSvgOption() {
     const workspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
     const { left, top, width, height } = workspace;
-    const dataUrl = this.canvas.toSVG({
+    return {
       width,
       height,
       viewBox: {
@@ -116,42 +151,10 @@ class ServersPlugin {
         width,
         height,
       },
-    });
-    const fileStr = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(dataUrl)}`;
-    downFile(fileStr, 'svg');
-  }
-
-  saveImg() {
-    const workspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
-    this.editor.hideGuideline();
-    const { left, top, width, height } = workspace;
-    const option = {
-      name: 'New Image',
-      format: 'png',
-      quality: 1,
-      left,
-      top,
-      width,
-      height,
     };
-    this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
-    const dataUrl = this.canvas.toDataURL(option);
-    downFile(dataUrl, 'png');
-    this.editor.showGuideline();
   }
 
-  clear() {
-    this.canvas.getObjects().forEach((obj) => {
-      if (obj.id !== 'workspace') {
-        this.canvas.remove(obj);
-      }
-    });
-    this.canvas.discardActiveObject();
-    this.canvas.renderAll();
-  }
-
-  preview() {
-    this.editor.hideGuideline();
+  _getSaveOption() {
     const workspace = this.canvas
       .getObjects()
       .find((item: fabric.Object) => item.id === 'workspace');
@@ -165,11 +168,17 @@ class ServersPlugin {
       left,
       top,
     };
-    this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    return option;
+  }
+
+  clear() {
+    this.canvas.getObjects().forEach((obj) => {
+      if (obj.id !== 'workspace') {
+        this.canvas.remove(obj);
+      }
+    });
+    this.canvas.discardActiveObject();
     this.canvas.renderAll();
-    const dataUrl = this.canvas.toDataURL(option);
-    this.editor.auto();
-    return dataUrl;
   }
 
   destroy() {

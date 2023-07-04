@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-28 00:03:44
+ * @LastEditTime: 2023-07-05 00:34:38
  * @Description: 画布区域插件
  */
 
@@ -59,6 +59,13 @@ class WorkspacePlugin {
         this.editor.emit('sizeChange', workspace.width, workspace.height);
       }
       resolve();
+    });
+  }
+
+  hookSaveAfter() {
+    return new Promise((resolve) => {
+      this.auto();
+      resolve(true);
     });
   }
 
