@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-20 13:26:20
+ * @LastEditTime: 2023-07-05 01:05:25
  * @Description: 删除元素按钮
 -->
 
@@ -16,15 +16,9 @@
 import useSelect from '@/hooks/select';
 import { debounce } from 'lodash-es';
 
-const { canvas, mixinState } = useSelect();
+const { canvas, mixinState, canvasEditor } = useSelect();
 
 const del = debounce(function () {
-  canvas.editor.pluginEditor.del();
-  // const activeObject = canvas.c.getActiveObjects();
-  // if (activeObject) {
-  //   activeObject.map((item) => canvas.c.remove(item));
-  // }
-  // canvas.c.requestRenderAll();
-  // canvas.c.discardActiveObject();
+  canvasEditor.del();
 }, 300);
 </script>

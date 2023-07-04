@@ -124,8 +124,8 @@ export default {
 
   methods: {
     init() {
-      if (!isEmpty(this.canvas) && !isEmpty(this.canvas.c)) {
-        this.canvas.c.on('mouse:down', this.handleMouseUp);
+      if (!isEmpty(this.canvas) && !isEmpty(this.canvasEditor.canvas)) {
+        this.canvasEditor.canvas.on('mouse:down', this.handleMouseUp);
       } else {
         this.hideMenu();
       }
@@ -133,7 +133,7 @@ export default {
 
     handleMouseUp(opt) {
       try {
-        const canvas = this.canvas.c;
+        const canvas = this.canvasEditor.canvas;
         const activeObject = canvas.getActiveObjects();
         if (!activeObject.length) return this.hideMenu();
         if (opt.button === 3 && opt.target && opt.target.id !== 'workspace') {
@@ -186,7 +186,7 @@ export default {
     handleMenu(e) {
       const active = e.target.dataset.active || e.srcElement.dataset.active;
       if (!active) return this.hideMenu();
-      const canvas = this.canvas.c;
+      const canvas = this.canvasEditor.canvas;
       const activeObject = canvas.getActiveObjects();
       switch (active) {
         case 'copy':

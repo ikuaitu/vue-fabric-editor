@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-22 16:29:19
+ * @LastEditTime: 2023-07-05 00:56:57
  * @Description: 组合元素对齐
 -->
 
@@ -172,41 +172,41 @@
 <script setup name="Align">
 import useSelect from '@/hooks/select';
 
-const { canvas, mixinState } = useSelect();
+const { canvas, mixinState, canvasEditor } = useSelect();
 // 非多选时，禁止组合对齐操作
 const notMultiple = computed(() => mixinState.mSelectMode !== 'multiple');
 
 // 左对齐
 const left = () => {
-  canvas.editor.pluginEditor.left();
+  canvasEditor.left();
 };
 // 右对齐
 const right = () => {
-  canvas.editor.pluginEditor.right();
+  canvasEditor.right();
 };
 // 水平居中对齐
 const xcenter = () => {
-  canvas.editor.pluginEditor.xcenter();
+  canvasEditor.xcenter();
 };
 // 垂直居中对齐
 const ycenter = () => {
-  canvas.editor.pluginEditor.ycenter();
+  canvasEditor.ycenter();
 };
 // 顶部对齐
 const top = () => {
-  canvas.editor.pluginEditor.top();
+  canvasEditor.top();
 };
 // 底部对齐
 const bottom = () => {
-  canvas.editor.pluginEditor.bottom();
+  canvasEditor.bottom();
 };
 // 水平平均对齐
 const xequation = () => {
-  canvas.editor.pluginEditor.xequation();
+  canvasEditor.xequation();
 };
 // 垂直平均对齐
 const yequation = () => {
-  canvas.editor.pluginEditor.yequation();
+  canvasEditor.yequation();
 };
 </script>
 

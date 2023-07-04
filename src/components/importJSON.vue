@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-04 23:21:01
+ * @LastEditTime: 2023-07-05 00:57:48
  * @Description: 导入JSON文件
 -->
 
@@ -20,7 +20,7 @@ export default {
   mixins: [select],
   methods: {
     insert() {
-      this.canvas.editor.pluginEditor.insert();
+      this.canvasEditor.insert();
     },
   },
 };

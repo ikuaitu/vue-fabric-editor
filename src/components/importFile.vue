@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-25 21:53:19
+ * @LastEditTime: 2023-07-05 01:04:04
  * @Description: 插入SVG元素
 -->
 
@@ -99,9 +99,9 @@ export default {
           top: 100,
         });
         // 设置缩放
-        this.canvas.c.add(imgInstance);
-        this.canvas.c.setActiveObject(imgInstance);
-        this.canvas.c.renderAll();
+        this.canvasEditor.canvas.add(imgInstance);
+        this.canvasEditor.canvas.setActiveObject(imgInstance);
+        this.canvasEditor.canvas.renderAll();
         // 删除页面中的图片元素
         imgEl.remove();
       };
@@ -115,7 +115,7 @@ export default {
           name: 'defaultSVG',
           id: uuid(),
         });
-        This.canvas.c.add(item).centerObject(item).renderAll();
+        this.canvasEditor.canvas.add(item).centerObject(item).renderAll();
       });
     },
     // 插入字符串元素
@@ -127,7 +127,7 @@ export default {
           name: 'defaultSVG',
           id: uuid(),
         });
-        This.canvas.c.add(item).centerObject(item).renderAll();
+        this.canvasEditor.canvas.add(item).centerObject(item).renderAll();
       });
     },
   },

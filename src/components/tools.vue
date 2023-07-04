@@ -180,7 +180,7 @@ const dragOption = {
 };
 export default {
   name: 'ToolBar',
-  inject: ['canvas', 'fabric'],
+  inject: ['canvasEditor', 'fabric'],
   data() {
     return {
       isDrawingLineMode: false,
@@ -188,11 +188,11 @@ export default {
     };
   },
   created() {
-    this.canvas.c.on('drop', (opt) => {
+    this.canvasEditor.canvas.on('drop', (opt) => {
       // 画布元素距离浏览器左侧和顶部的距离
       const offset = {
-        left: this.canvas.c.getSelectionElement().getBoundingClientRect().left,
-        top: this.canvas.c.getSelectionElement().getBoundingClientRect().top,
+        left: this.canvasEditor.canvas.getSelectionElement().getBoundingClientRect().left,
+        top: this.canvasEditor.canvas.getSelectionElement().getBoundingClientRect().top,
       };
 
       // 鼠标坐标转换成画布的坐标（未经过缩放和平移的坐标）
@@ -202,7 +202,7 @@ export default {
       };
 
       // 转换后的坐标，restorePointerVpt 不受视窗变换的影响
-      const pointerVpt = this.canvas.c.restorePointerVpt(point);
+      const pointerVpt = this.canvasEditor.canvas.restorePointerVpt(point);
       dragOption.left = pointerVpt.x;
       dragOption.top = pointerVpt.y;
     });
@@ -240,11 +240,11 @@ export default {
         fontSize: 80,
         id: uuid(),
       });
-      this.canvas.c.add(text);
+      this.canvasEditor.canvas.add(text);
       if (!option) {
         text.center();
       }
-      this.canvas.c.setActiveObject(text);
+      this.canvasEditor.canvas.setActiveObject(text);
     },
     addImg(e) {
       const imgEl = e.target.cloneNode(true);
@@ -253,8 +253,8 @@ export default {
         id: uuid(),
         name: '图片default',
       });
-      this.canvas.c.add(imgInstance);
-      this.canvas.c.renderAll();
+      this.canvasEditor.canvas.add(imgInstance);
+      this.canvasEditor.canvas.renderAll();
     },
     addTextBox(option) {
       const text = new this.fabric.Textbox(this.$t('everything_goes_well'), {
@@ -265,11 +265,11 @@ export default {
         fontSize: 80,
         id: uuid(),
       });
-      this.canvas.c.add(text);
+      this.canvasEditor.canvas.add(text);
       if (!option) {
         text.center();
       }
-      this.canvas.c.setActiveObject(text);
+      this.canvasEditor.canvas.setActiveObject(text);
     },
     addTriangle(option) {
       const triangle = new this.fabric.Triangle({
@@ -280,11 +280,11 @@ export default {
         id: uuid(),
         name: '三角形',
       });
-      this.canvas.c.add(triangle);
+      this.canvasEditor.canvas.add(triangle);
       if (!option) {
         triangle.center();
       }
-      this.canvas.c.setActiveObject(triangle);
+      this.canvasEditor.canvas.setActiveObject(triangle);
     },
     addPolygon(option) {
       const polygon = new this.fabric.Polygon(getPolygonVertices(5, 200), {
@@ -304,11 +304,11 @@ export default {
           y: 0,
         },
       });
-      this.canvas.c.add(polygon);
+      this.canvasEditor.canvas.add(polygon);
       if (!option) {
         polygon.center();
       }
-      this.canvas.c.setActiveObject(polygon);
+      this.canvasEditor.canvas.setActiveObject(polygon);
     },
     addCircle(option) {
       const circle = new this.fabric.Circle({
@@ -319,11 +319,11 @@ export default {
         id: uuid(),
         name: '圆形',
       });
-      this.canvas.c.add(circle);
+      this.canvasEditor.canvas.add(circle);
       if (!option) {
         circle.center();
       }
-      this.canvas.c.setActiveObject(circle);
+      this.canvasEditor.canvas.setActiveObject(circle);
     },
     addRect(option) {
       const rect = new this.fabric.Rect({
@@ -335,19 +335,19 @@ export default {
         id: uuid(),
         name: '矩形',
       });
-      this.canvas.c.add(rect);
+      this.canvasEditor.canvas.add(rect);
       if (!option) {
         rect.center();
       }
-      this.canvas.c.setActiveObject(rect);
+      this.canvasEditor.canvas.setActiveObject(rect);
     },
     drawingLineModeSwitch(isArrow) {
       this.isArrow = isArrow;
       this.isDrawingLineMode = !this.isDrawingLineMode;
 
-      this.canvas.editor.pluginEditor.setMode(this.isDrawingLineMode);
-      this.canvas.editor.pluginEditor.setArrow(isArrow);
-      this.canvas.c.forEachObject((obj) => {
+      this.canvasEditor.setMode(this.isDrawingLineMode);
+      this.canvasEditor.setArrow(isArrow);
+      this.canvasEditor.canvas.forEachObject((obj) => {
         if (obj.id !== 'workspace') {
           obj.selectable = !this.isDrawingLineMode;
           obj.evented = !this.isDrawingLineMode;

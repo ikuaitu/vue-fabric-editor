@@ -446,14 +446,14 @@ export default {
       this.getObjectAttr();
     });
 
-    this.canvas.c.on('object:modified', this.getObjectAttr);
+    this.canvasEditor.canvas.on('object:modified', this.getObjectAttr);
   },
   beforeUnmount() {
-    this.canvas.c.off('object:modified', this.getObjectAttr);
+    this.canvasEditor.canvas.off('object:modified', this.getObjectAttr);
   },
   methods: {
     getObjectAttr(e) {
-      const activeObject = this.canvas.c.getActiveObject();
+      const activeObject = this.canvasEditor.canvas.getActiveObject();
       // 不是当前obj，跳过
       if (e && e.target && e.target !== activeObject) return;
       if (activeObject) {
@@ -491,9 +491,9 @@ export default {
       // 跳过加载的属性;
       const skipFonts = ['arial', 'Microsoft YaHei'];
       if (skipFonts.includes(fontName)) {
-        const activeObject = this.canvas.c.getActiveObjects()[0];
+        const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
         activeObject && activeObject.set('fontFamily', fontName);
-        this.canvas.c.renderAll();
+        this.canvasEditor.canvas.renderAll();
         return;
       }
       this.$Spin.show();
@@ -502,9 +502,9 @@ export default {
       font
         .load(null, 150000)
         .then(() => {
-          const activeObject = this.canvas.c.getActiveObjects()[0];
+          const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
           activeObject && activeObject.set('fontFamily', fontName);
-          this.canvas.c.renderAll();
+          this.canvasEditor.canvas.renderAll();
           this.$Spin.hide();
         })
         .catch((err) => {
@@ -522,81 +522,81 @@ export default {
     },
     // 通用属性改变
     changeCommon(key, value) {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       // 透明度特殊转换
       if (key === 'opacity') {
         activeObject && activeObject.set(key, value / 100);
-        this.canvas.c.renderAll();
+        this.canvasEditor.canvas.renderAll();
         return;
       }
       // 旋转角度适配
       if (key === 'angle') {
         activeObject.rotate(value);
-        this.canvas.c.renderAll();
+        this.canvasEditor.canvas.renderAll();
         return;
       }
       activeObject && activeObject.set(key, value);
-      this.canvas.c.renderAll();
+      this.canvasEditor.canvas.renderAll();
 
       // 更新属性
       this.getObjectAttr();
     },
     // 边框设置
     borderSet(key) {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       if (activeObject) {
         const stroke = this.strokeDashList.find((item) => item.label === key);
         activeObject.set(stroke.value);
-        this.canvas.c.renderAll();
+        this.canvasEditor.canvas.renderAll();
       }
     },
     // 阴影设置
     changeShadow() {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       activeObject && activeObject.set('shadow', new this.fabric.Shadow(this.baseAttr.shadow));
-      this.canvas.c.renderAll();
+      this.canvasEditor.canvas.renderAll();
     },
     // 加粗
     changeFontWeight(key, value) {
       const nValue = value === 'normal' ? 'bold' : 'normal';
       this.fontAttr.fontWeight = nValue;
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       activeObject && activeObject.set(key, nValue);
-      this.canvas.c.renderAll();
+      this.canvasEditor.canvas.renderAll();
     },
     // 斜体
     changeFontStyle(key, value) {
       const nValue = value === 'normal' ? 'italic' : 'normal';
       this.fontAttr.fontStyle = nValue;
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       activeObject && activeObject.set(key, nValue);
-      this.canvas.c.renderAll();
+      this.canvasEditor.canvas.renderAll();
     },
     // 中划
     changeLineThrough(key, value) {
       const nValue = value === false;
       this.fontAttr.linethrough = nValue;
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       activeObject && activeObject.set(key, nValue);
-      this.canvas.c.renderAll();
+      this.canvasEditor.canvas.renderAll();
     },
     // 下划
     changeUnderline(key, value) {
       const nValue = value === false;
       this.fontAttr.underline = nValue;
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       activeObject && activeObject.set(key, nValue);
-      this.canvas.c.renderAll();
+      this.canvasEditor.canvas.renderAll();
     },
     // 修改边数
     changeEdge(value) {
-      const activeObjects = this.canvas.c.getActiveObjects();
+      const activeObjects = this.canvasEditor.canvas.getActiveObjects();
       if (!activeObjects || !activeObjects.length) return;
       activeObjects[0].set(
         'points',
         getPolygonVertices(value, Math.min(activeObjects[0].width, activeObjects[0].height) / 2)
       );
-      this.canvas.c.requestRenderAll();
+      this.canvasEditor.canvas.requestRenderAll();
     },
   },
 };

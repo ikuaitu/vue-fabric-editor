@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-27 23:23:33
+ * @LastEditTime: 2023-07-05 00:54:54
  * @Description: 导入模板
 -->
 
@@ -61,7 +61,7 @@ export default {
   methods: {
     // 插入文件
     insertSvgFile() {
-      this.canvas.editor.pluginEditor.insertSvgFile(this.jsonFile);
+      this.canvasEditor.insertSvgFile(this.jsonFile);
     },
     // 获取模板列表数据
     getTempList() {

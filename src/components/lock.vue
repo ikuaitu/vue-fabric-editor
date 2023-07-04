@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-26 21:38:23
+ * @LastEditTime: 2023-07-05 01:04:15
  * @Description: 锁定元素
 -->
 
@@ -53,7 +53,7 @@ export default {
       this.mSelectActive.selectable = false;
 
       this.isLock = true;
-      this.canvas.c.renderAll();
+      this.canvasEditor.canvas.renderAll();
     },
     unLock() {
       // 修改自定义属性
@@ -65,7 +65,7 @@ export default {
       this.mSelectActive.selectable = true;
 
       this.isLock = false;
-      this.canvas.c.renderAll();
+      this.canvasEditor.canvas.renderAll();
     },
   },
 };

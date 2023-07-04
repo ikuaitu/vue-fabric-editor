@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-28 00:06:12
+ * @LastEditTime: 2023-07-05 00:52:59
  * @Description: 尺寸设置
 -->
 
@@ -37,7 +37,7 @@ import useSelect from '@/hooks/select';
 import { useI18n } from 'vue-i18n';
 // import EditorWorkspace from '@/core/EditorWorkspace';
 
-const { canvas, mixinState } = useSelect();
+const { canvas, mixinState, canvasEditor } = useSelect();
 const { t } = useI18n();
 
 let width = ref(900);
@@ -61,8 +61,8 @@ let presetSize = reactive([
 ]);
 
 onMounted(() => {
-  canvas.editor.pluginEditor.setSize(width.value, height.value);
-  canvas.editor.pluginEditor.on('sizeChange', (width, height) => {
+  canvasEditor.setSize(width.value, height.value);
+  canvasEditor.on('sizeChange', (width, height) => {
     width.value = width;
     height.value = height;
   });
@@ -80,7 +80,7 @@ const setSizeBy = (w, h) => {
   setSize();
 };
 const setSize = () => {
-  canvas.editor.pluginEditor.setSize(width.value, height.value);
+  canvasEditor.setSize(width.value, height.value);
   // canvas.editor.editorWorkspace.setSize(width.value, height.value);
 };
 </script>

@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2023-02-16 22:52:00
- * @LastEditors: June
- * @LastEditTime: 2023-04-02 23:49:00
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-07-05 01:06:24
  * @Description: 颜色选择器
 -->
 <template>
@@ -41,7 +41,7 @@ import 'color-gradient-picker-vue3/dist/style.css';
 import gradientColorPicker from 'color-gradient-picker-vue3';
 import { fabric } from 'fabric';
 import useSelect from '@/hooks/select';
-const { canvas } = useSelect();
+const { canvas, canvasEditor } = useSelect();
 const generateFabricGradientFromColorStops = (handlers, width, height, orientation, angle) => {
   // 角度转换坐标
   const gradAngleToCoords = (paramsAngle) => {
@@ -144,7 +144,7 @@ const checkColor = (val) => {
   } else {
     // 渐变
     isGradient.value = true;
-    const activeObject = canvas.c.getActiveObjects()[0];
+    const activeObject = canvasEditor.canvas.getActiveObjects()[0];
     if (activeObject) {
       // 控件属性设置
       fabricGradientToCss(val, activeObject);
@@ -154,7 +154,7 @@ const checkColor = (val) => {
   }
 };
 const changeGradientColor = (val) => {
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject) {
     const currentGradient = cssToFabricGradient(val, activeObject);
     // TODO:

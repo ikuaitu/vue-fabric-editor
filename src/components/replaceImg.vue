@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-06 22:26:57
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-09 23:37:03
+ * @LastEditTime: 2023-07-05 01:04:30
  * @Description: 图片替换
 -->
 
@@ -27,7 +27,7 @@ export default {
   },
   created() {
     this.event.on('selectOne', () => {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       if (activeObject) {
         this.type = activeObject.type;
         this.$forceUpdate();
@@ -37,7 +37,7 @@ export default {
   methods: {
     // 替换图片
     async repleace() {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       if (activeObject && activeObject.type === 'image') {
         // 图片
         const [file] = await selectFiles({ accept: 'image/*', multiple: false });
@@ -52,7 +52,7 @@ export default {
         activeObject.setSrc(imgEl.src, () => {
           activeObject.set('scaleX', (width * scaleX) / imgEl.width);
           activeObject.set('scaleY', (height * scaleY) / imgEl.height);
-          this.canvas.c.renderAll();
+          this.canvasEditor.canvas.renderAll();
         });
         imgEl.remove();
       }

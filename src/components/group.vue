@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-20 13:27:08
+ * @LastEditTime: 2023-07-05 00:57:35
  * @Description: 组合与拆分组合
 -->
 
@@ -53,7 +53,7 @@
 <script setup name="ToolBar">
 import useSelect from '@/hooks/select';
 
-const { canvas, mixinState } = useSelect();
+const { canvas, mixinState, canvasEditor } = useSelect();
 
 // 单选且等于组元素
 let isGroup = computed(
@@ -63,10 +63,10 @@ let isGroup = computed(
 let isMultiple = computed(() => mixinState.mSelectMode === 'multiple');
 // 拆分组
 const unGroup = () => {
-  canvas.editor.pluginEditor.unGroup();
+  canvasEditor.unGroup();
 };
 const group = () => {
-  canvas.editor.pluginEditor.group();
+  canvasEditor.group();
 };
 </script>
 <style scoped lang="less">

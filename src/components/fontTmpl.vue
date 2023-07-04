@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-03 23:01:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-04 15:31:50
+ * @LastEditTime: 2023-07-05 01:03:48
  * @Description: 字体文件
 -->
 
@@ -76,9 +76,9 @@ export default {
       const obj = JSON.parse(str);
       obj.id = uuid();
       new this.fabric.Textbox.fromObject(obj, (e) => {
-        this.canvas.c.add(e);
+        this.canvasEditor.canvas.add(e);
         e.center();
-        this.canvas.c.setActiveObject(e);
+        this.canvasEditor.canvas.setActiveObject(e);
         this.$Spin.hide();
       });
     },

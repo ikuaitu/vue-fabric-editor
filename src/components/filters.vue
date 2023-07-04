@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-06 23:04:38
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-09 23:27:49
+ * @LastEditTime: 2023-07-05 01:03:31
  * @Description: 图片滤镜
 -->
 
@@ -301,7 +301,7 @@ export default {
   },
   created() {
     this.event.on('selectOne', () => {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       if (activeObject) {
         this.type = activeObject.type;
         if (this.type === 'image') {
@@ -341,7 +341,7 @@ export default {
     },
     // 无参数滤镜修改状态
     changeFilters(type, value) {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       if (value) {
         const itemFilter = this._getFilter(activeObject, type);
         if (!itemFilter) {
@@ -353,7 +353,7 @@ export default {
     },
     // 有参数与组合滤镜修改
     changeFiltersByParams(type) {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       const filtersAll = [...this.paramsFilters, ...this.combinationFilters];
       const moduleInfo = filtersAll.find((item) => item.type === type);
       if (moduleInfo.status) {
@@ -372,7 +372,7 @@ export default {
     },
     // 设置滤镜值
     _changeAttr(type, key, value) {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       const itemFilter = this._getFilter(activeObject, type);
       if (itemFilter) {
         itemFilter[key] = value;
@@ -381,10 +381,10 @@ export default {
         imgFilter[key] = value;
       }
       activeObject.applyFilters();
-      this.canvas.c.renderAll();
+      this.canvasEditor.canvas.renderAll();
     },
     _changeAttrByHandler(moduleInfo) {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
+      const activeObject = this.canvasEditor.canvas.getActiveObjects()[0];
       // 删除
       this._removeFilter(activeObject, moduleInfo.type);
       // 创建
@@ -410,7 +410,7 @@ export default {
         sourceImg.filters.push(filterObj);
       }
       sourceImg.applyFilters();
-      this.canvas.c.renderAll();
+      this.canvasEditor.canvas.renderAll();
       return filterObj;
     },
     /**
@@ -449,7 +449,7 @@ export default {
       const fabricType = this._getFabricFilterType(type);
       sourceImg.filters = sourceImg.filters.filter((value) => value.type !== fabricType);
       sourceImg.applyFilters();
-      this.canvas.c.renderAll();
+      this.canvasEditor.canvas.renderAll();
     },
 
     /**

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-28 12:25:44
+ * @LastEditTime: 2023-07-05 01:04:40
  * @Description: 素材面板
 -->
 
@@ -274,7 +274,7 @@ export default {
           name: 'svg元素',
         });
 
-        this.canvas.editor.pluginEditor.dragAddItem(event, item);
+        this.canvasEditor.dragAddItem(event, item);
       });
     },
     // 按照类型渲染
@@ -287,9 +287,9 @@ export default {
           id: uuid(),
           name: 'svg元素',
         });
-        this.canvas.c.add(item);
-        this.canvas.c.setActiveObject(item);
-        this.canvas.c.requestRenderAll();
+        this.canvasEditor.canvas.add(item);
+        this.canvasEditor.canvas.setActiveObject(item);
+        this.canvasEditor.canvas.requestRenderAll();
       });
     },
   },

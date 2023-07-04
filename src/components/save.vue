@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 00:13:41
+ * @LastEditTime: 2023-07-05 00:58:17
  * @LastEditors: 秦少卫
  * @LastEditTime: 2023-04-10 14:33:18
  * @Description: 保存文件
@@ -38,22 +38,22 @@ import { debounce } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
-const { canvas } = useSelect();
+const { canvas, canvasEditor } = useSelect();
 const cbMap = {
   clipboard() {
-    canvas.editor.pluginEditor.clipboard();
+    canvasEditor.clipboard();
   },
 
   saveJson() {
-    canvas.editor.pluginEditor.saveJson();
+    canvasEditor.saveJson();
   },
 
   saveSvg() {
-    canvas.editor.pluginEditor.saveSvg();
+    canvasEditor.saveSvg();
   },
 
   saveImg() {
-    canvas.editor.pluginEditor.saveImg();
+    canvasEditor.saveImg();
   },
 };
 
@@ -65,7 +65,7 @@ const saveWith = debounce(function (type) {
  * @desc clear canvas 清空画布
  */
 const clear = () => {
-  canvas.editor.pluginEditor.clear();
+  canvasEditor.clear();
 };
 
 const beforeClear = () => {

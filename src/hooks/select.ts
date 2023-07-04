@@ -3,8 +3,8 @@
  * @version:
  * @Author: June
  * @Date: 2023-04-23 21:10:05
- * @LastEditors: June
- * @LastEditTime: 2023-05-08 18:20:21
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-07-05 00:47:52
  */
 import { inject, onBeforeMount, onMounted, reactive } from 'vue';
 import { SelectEvent, SelectMode, SelectOneType } from '@/utils/event/types';
@@ -28,6 +28,7 @@ export default function useSelect() {
 
   const fabric = inject('fabric');
   const canvas = inject('canvas');
+  const canvasEditor = inject('canvasEditor');
   const event = inject('event');
 
   const selectOne = (e) => {
@@ -65,6 +66,7 @@ export default function useSelect() {
   return {
     fabric,
     canvas,
+    canvasEditor,
     mixinState: state,
   };
 }

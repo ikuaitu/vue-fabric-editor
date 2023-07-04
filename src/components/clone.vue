@@ -8,9 +8,9 @@
 import useSelect from '@/hooks/select';
 import { debounce } from 'lodash-es';
 
-const { canvas, mixinState } = useSelect();
+const { canvas, mixinState, canvasEditor } = useSelect();
 const clone = debounce(function () {
   // canvas.editor.clone();
-  canvas.editor.pluginEditor.clone();
+  canvasEditor.clone();
 }, 300);
 </script>
