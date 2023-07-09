@@ -220,6 +220,13 @@ yarn serve
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/rolitter">
+            <img src="https://avatars.githubusercontent.com/u/27326998?v=4" width="80;" alt="rolitter"/>
+            <br />
+            <sub><b>rolitter</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/slarkerino">
             <img src="https://avatars.githubusercontent.com/u/7014849?v=4" width="80;" alt="slarkerino"/>
             <br />
@@ -246,15 +253,15 @@ yarn serve
             <br />
             <sub><b>xiaozeo</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/luke358">
             <img src="https://avatars.githubusercontent.com/u/48149577?v=4" width="80;" alt="luke358"/>
             <br />
             <sub><b>luke358</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/yehan68">
             <img src="https://avatars.githubusercontent.com/u/40497166?v=4" width="80;" alt="yehan68"/>
