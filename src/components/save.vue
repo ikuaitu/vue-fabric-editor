@@ -54,11 +54,7 @@ const cbMap = {
     const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
       JSON.stringify(dataUrl, null, '\t')
     )}`;
-    downloadFile({
-      file: fileStr,
-      fileName: uuid(),
-      fileExt: 'json',
-    });
+    downFile(fileStr, 'json');
   },
 
   saveSvg() {
@@ -75,11 +71,7 @@ const cbMap = {
       },
     });
     const fileStr = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(dataUrl)}`;
-    downloadFile({
-      file: fileStr,
-      fileName: uuid(),
-      fileExt: 'svg',
-    });
+    downFile(fileStr, 'svg');
   },
 
   saveImg() {
@@ -97,11 +89,7 @@ const cbMap = {
     };
     canvas.c.setViewportTransform([1, 0, 0, 1, 0, 0]);
     const dataUrl = canvas.c.toDataURL(option);
-    downloadFile({
-      file: dataUrl,
-      fileName: uuid(),
-      fileExt: 'png',
-    });
+    downFile(dataUrl, 'png');
     canvas.editor.ruler.showGuideline();
   },
 };
@@ -132,6 +120,15 @@ const beforeClear = () => {
     onOk: () => clear(),
   });
 };
+
+function downFile(fileStr, fileType) {
+  const anchorEl = document.createElement('a');
+  anchorEl.href = fileStr;
+  anchorEl.download = `${uuid()}.${fileType}`;
+  document.body.appendChild(anchorEl); // required for firefox
+  anchorEl.click();
+  anchorEl.remove();
+}
 </script>
 
 <style scoped lang="less">
