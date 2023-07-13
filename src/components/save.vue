@@ -38,6 +38,8 @@ import useSelect from '@/hooks/select';
 import { v4 as uuid } from 'uuid';
 import { debounce } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
+import { downloadFile } from '@/utils/utils';
+
 const { t } = useI18n();
 
 const { canvas } = useSelect();

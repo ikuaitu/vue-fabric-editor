@@ -60,7 +60,7 @@
   </div>
 </template>
 
-<script setup name="zoom">
+<script setup name="Zoom">
 import useSelect from '@/hooks/select';
 
 const { canvas } = useSelect();

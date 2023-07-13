@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Layout>
-      <Header v-if="show">
+      <Header v-if="state.show">
         <!-- logo -->
         <span class="logo">
           <a href="https://github.com/nihaojob/vue-fabric-editor" target="_blank">
@@ -16,7 +16,7 @@
         <Divider type="vertical" />
         <!-- 标尺开关 -->
         <Tooltip :content="$t('grid')">
-          <iSwitch v-model="ruler" size="small" class="switch"></iSwitch>
+          <iSwitch v-model="state.ruler" size="small" class="switch"></iSwitch>
         </Tooltip>
         <Divider type="vertical" />
         <history></history>
@@ -29,11 +29,11 @@
         </div>
       </Header>
       <Content style="display: flex; height: calc(100vh - 64px)">
-        <div v-if="show" style="width: 380px; height: 100%; background: #fff; display: flex">
+        <div v-if="state.show" style="width: 380px; height: 100%; background: #fff; display: flex">
           <Menu
-            :active-name="menuActive"
+            :active-name="state.menuActive"
             accordion
-            @on-select="(activeIndex) => (menuActive = activeIndex)"
+            @on-select="(activeIndex) => (state.menuActive = activeIndex)"
             width="65px"
           >
             <MenuItem :name="1" class="menu-item">
@@ -51,17 +51,17 @@
           </Menu>
           <div class="content">
             <!-- 生成模板 -->
-            <div v-show="menuActive === 1" class="left-panel">
+            <div v-show="state.menuActive === 1" class="left-panel">
               <import-tmpl></import-tmpl>
             </div>
             <!-- 常用元素 -->
-            <div v-show="menuActive === 2" class="left-panel">
+            <div v-show="state.menuActive === 2" class="left-panel">
               <tools></tools>
               <fontTmpl></fontTmpl>
               <svgEl></svgEl>
             </div>
             <!-- 背景设置 -->
-            <div v-show="menuActive === 3" class="left-panel">
+            <div v-show="state.menuActive === 3" class="left-panel">
               <layer></layer>
             </div>
           </div>
@@ -70,7 +70,7 @@
         <div id="workspace" style="width: 100%; position: relative; background: #f1f1f1">
           <div class="canvas-box">
             <div class="inside-shadow"></div>
-            <canvas id="canvas" :class="ruler ? 'design-stage-grid' : ''"></canvas>
+            <canvas id="canvas" :class="state.ruler ? 'design-stage-grid' : ''"></canvas>
             <dragMode></dragMode>
             <zoom></zoom>
             <mouseMenu></mouseMenu>
@@ -78,7 +78,7 @@
         </div>
         <!-- 属性区域 380-->
         <div style="width: 530px; height: 100%; padding: 10px; overflow-y: auto; background: #fff">
-          <div v-if="show" style="padding-top: 10px">
+          <div v-if="state.show" style="padding-top: 10px">
             <!-- 新增字体样式使用 -->
             <!-- <Button @click="getFontJson" size="small">获取字体数据</Button> -->
             <set-size></set-size>
@@ -98,14 +98,14 @@
             <!-- 翻转 -->
             <flip></flip>
           </div>
-          <attribute v-if="show"></attribute>
+          <attribute v-if="state.show"></attribute>
         </div>
       </Content>
     </Layout>
   </div>
 </template>
 
-<script>
+<script name="Home" setup>
 // 导入元素
 import importJSON from '@/components/importJSON.vue';
 import importFile from '@/components/importFile.vue';
@@ -144,103 +144,64 @@ import mouseMenu from '@/components/contextMenu/index.vue';
 
 // 功能组件
 import CanvasEventEmitter from '@/utils/event/notifier';
-import { downFile } from '@/utils/utils';
+// import { downFile } from '@/utils/utils';
 import { fabric } from 'fabric';
 import Editor from '@/core';
 
 const event = new CanvasEventEmitter();
 const canvas = {};
-export default {
-  name: 'HomeView',
-  provide: {
-    canvas,
-    fabric,
-    event,
-  },
-  data() {
-    return {
-      menuActive: 1,
-      show: false,
-      select: null,
-      ruler: false,
-    };
-  },
-  components: {
-    setSize,
-    tools,
-    bgBar,
-    lock,
-    layer,
-    align,
-    attribute,
-    dele,
-    importFile,
-    dragMode,
-    previewCurrent,
-    save,
-    lang,
-    importJSON,
-    clone,
-    flip,
-    importTmpl,
-    centerAlign,
-    group,
-    zoom,
-    svgEl,
-    history,
-    mouseMenu,
-    fontTmpl,
-    replaceImg,
-    filters,
-  },
-  created() {
-    // this.$Spin.show();
-  },
-  watch: {
-    ruler: {
-      handler(value) {
-        if (!this.canvas.ruler) return;
-        if (value) {
-          this.canvas.ruler.enable();
-        } else {
-          this.canvas.ruler.disable();
-        }
-      },
-    },
-  },
-  mounted() {
-    this.canvas = new fabric.Canvas('canvas', {
-      fireRightClick: true, // 启用右键，button的数字为3
-      stopContextMenu: true, // 禁止默认右键菜单
-      controlsAboveOverlay: true, // 超出clipPath后仍然展示控制条
-    });
 
-    canvas.c = this.canvas;
-    event.init(canvas.c);
-    canvas.editor = new Editor(canvas.c);
+const state = reactive({
+  menuActive: 1,
+  show: false,
+  select: null,
+  ruler: false,
+});
 
-    canvas.c.renderAll();
+onMounted(() => {
+  const _canvas = new fabric.Canvas('canvas', {
+    fireRightClick: true, // 启用右键，button的数字为3
+    stopContextMenu: true, // 禁止默认右键菜单
+    controlsAboveOverlay: true, // 超出clipPath后仍然展示控制条
+  });
 
-    this.show = true;
-    this.$Spin.hide();
-  },
-  methods: {
-    // 获取字体数据 新增字体样式使用
-    getFontJson() {
-      const activeObject = this.canvas.getActiveObject();
-      if (activeObject) {
-        const json = activeObject.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls']);
-        console.log(json);
-        const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
-          JSON.stringify(json, null, '\t')
-        )}`;
-        downFile(fileStr, 'font.json');
-        const dataUrl = activeObject.toDataURL();
-        downFile(dataUrl, 'font.png');
-      }
-    },
-  },
-};
+  canvas.c = _canvas;
+  event.init(canvas.c);
+  canvas.editor = new Editor(canvas.c);
+
+  canvas.c.renderAll();
+
+  state.show = true;
+});
+
+watch(
+  () => state.ruler,
+  (value) => {
+    if (!canvas.c.ruler) return;
+    if (value) {
+      canvas.c.ruler.enable();
+    } else {
+      canvas.c.ruler.disable();
+    }
+  }
+);
+// 获取字体数据 新增字体样式使用
+// getFontJson() {
+//   const activeObject = this.canvas.getActiveObject();
+//   if (activeObject) {
+//     const json = activeObject.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls']);
+//     console.log(json);
+//     const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
+//       JSON.stringify(json, null, '\t')
+//     )}`;
+//     downFile(fileStr, 'font.json');
+//     const dataUrl = activeObject.toDataURL();
+//     downFile(dataUrl, 'font.png');
+//   }
+// },
+provide('fabric', fabric);
+provide('event', event);
+provide('canvas', canvas);
 </script>
 <style lang="less" scoped>
 .logo {

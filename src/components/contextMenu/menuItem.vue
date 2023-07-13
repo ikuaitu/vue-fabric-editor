@@ -31,34 +31,30 @@
   </li>
 </template>
 
-<script>
-import select from '@/mixins/select';
+<script name="menuItem" setup>
+import useSelect from '@/hooks/select';
 
-export default {
-  name: 'menuItem',
-  mixins: [select],
-  props: {
-    nodeInfo: {
-      type: Object,
-      requred: true,
-    },
+const props = defineProps({
+  nodeInfo: {
+    type: Object,
+    requred: true,
   },
+});
 
-  computed: {
-    show() {
-      const { nodeInfo } = this;
-      let bol = false;
-      if (nodeInfo.type === 'group') {
-        bol = this.mSelectMode === 'multiple';
-      } else if (nodeInfo.type && nodeInfo === 'sort') {
-        bol = this.mSelectMode === 'one';
-      } else {
-        bol = true;
-      }
-      return bol;
-    },
-  },
-};
+const { mixinState } = useSelect();
+
+const show = computed(() => {
+  let bol = false;
+  const nodeInfo = props.nodeInfo;
+  if (nodeInfo.type === 'group') {
+    bol = mixinState.mSelectMode === 'multiple';
+  } else if (nodeInfo.type && nodeInfo.type === 'sort') {
+    bol = mixinState.mSelectMode === 'one';
+  } else {
+    bol = true;
+  }
+  return bol;
+});
 </script>
 
 <style lang="less" scoped>

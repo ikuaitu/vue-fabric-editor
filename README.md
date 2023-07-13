@@ -1,8 +1,10 @@
-[文档说明](https://nihaojob.gitbook.io/editor/) | [English](https://github.com/nihaojob/vue-fabric-editor/blob/main/README-en.md) | 中文 
+[文档](https://nihaojob.gitbook.io/editor/) | [English](https://github.com/nihaojob/vue-fabric-editor/blob/main/README-en.md) | 中文 
 
 # vue-fabric-editor
 
-[Demo](https://nihaojob.github.io/vue-fabric-editor/) 基于 fabric.js 和 Vue 开发的图片编辑器，可自定义字体、素材、设计模板。
+基于 fabric.js 和 Vue 开发的图片编辑器，可自定义字体、素材、设计模板。
+- [预览](https://nihaojob.github.io/vue-fabric-editor/) 
+- [Gitee预览](https://nihaojob.gitee.io/vue-fabric-editor/#/)
 
 ![image](https://user-images.githubusercontent.com/13534626/230828335-0adee0ae-b951-4171-b6ba-d2b9cd44dd6a.png)
 
@@ -101,11 +103,12 @@ yarn serve
 第三阶段
 
 - [ ] monorepo升级 进行中
-- [ ] 标尺插件
+- [x] 插件化 
+- [x] 标尺插件
 - [ ] 截图插件
 - [ ] 滤镜插件
-- [ ] 画布插件
-- [ ] 其他工具函数
+- [x] 画布插件
+- [x] 其他工具函数
 - [ ] @fabricEditor SDK封装
 - [ ] 基于插件开发移动端
 - [ ] 基于插件开发其他图片应用
@@ -152,21 +155,6 @@ yarn serve
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/z09176141">
-            <img src="https://avatars.githubusercontent.com/u/49260613?v=4" width="80;" alt="z09176141"/>
-            <br />
-            <sub><b>z09176141</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/hudenghui">
-            <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
-            <br />
-            <sub><b>hudenghui</b></sub>
-        </a>
-    </td></tr>
-<tr>
-    <td align="center">
         <a href="https://github.com/makeng">
             <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
             <br />
@@ -174,10 +162,32 @@ yarn serve
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/z09176141">
+            <img src="https://avatars.githubusercontent.com/u/49260613?v=4" width="80;" alt="z09176141"/>
+            <br />
+            <sub><b>z09176141</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/hudenghui">
+            <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
+            <br />
+            <sub><b>hudenghui</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/briver0825">
             <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="briver0825"/>
             <br />
             <sub><b>briver0825</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/a847244052">
+            <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
+            <br />
+            <sub><b>a847244052</b></sub>
         </a>
     </td>
     <td align="center">
@@ -195,20 +205,27 @@ yarn serve
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/a847244052">
-            <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
+        <a href="https://github.com/Bamzc">
+            <img src="https://avatars.githubusercontent.com/u/10151046?v=4" width="80;" alt="Bamzc"/>
             <br />
-            <sub><b>a847244052</b></sub>
+            <sub><b>Bamzc</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/macheteHot">
             <img src="https://avatars.githubusercontent.com/u/26652329?v=4" width="80;" alt="macheteHot"/>
             <br />
             <sub><b>macheteHot</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
+    <td align="center">
+        <a href="https://github.com/rolitter">
+            <img src="https://avatars.githubusercontent.com/u/27326998?v=4" width="80;" alt="rolitter"/>
+            <br />
+            <sub><b>rolitter</b></sub>
+        </a>
+    </td>
     <td align="center">
         <a href="https://github.com/slarkerino">
             <img src="https://avatars.githubusercontent.com/u/7014849?v=4" width="80;" alt="slarkerino"/>
@@ -236,7 +253,8 @@ yarn serve
             <br />
             <sub><b>xiaozeo</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/luke358">
             <img src="https://avatars.githubusercontent.com/u/48149577?v=4" width="80;" alt="luke358"/>

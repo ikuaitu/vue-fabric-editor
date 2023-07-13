@@ -5,7 +5,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 21:50:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-05-21 19:07:05
+ * @LastEditTime: 2023-06-04 15:50:49
  * @Description: 工作区初始化
  */
 
@@ -45,7 +45,6 @@ class EditorWorkspace {
 
   // 初始化背景
   _initBackground() {
-    this.canvas.setBackgroundColor('#F1F1F1', this.canvas.renderAll.bind(this.canvas));
     this.canvas.backgroundImage = '';
     this.canvas.setWidth(this.workspaceEl.offsetWidth);
     this.canvas.setHeight(this.workspaceEl.offsetHeight);
@@ -55,7 +54,7 @@ class EditorWorkspace {
   _initWorkspace() {
     const { width, height } = this.option;
     const workspace = new fabric.Rect({
-      fill: '#ffffff',
+      fill: 'rgba(255,255,255,1)',
       width,
       height,
       id: 'workspace',

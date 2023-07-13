@@ -10,11 +10,40 @@ import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-const autoprefixer = require('autoprefixer');
-const path = require('path');
 import eslintPlugin from 'vite-plugin-eslint'; //导入包
 import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus';
 import autoImports from 'unplugin-auto-import/vite';
+import { VitePWA } from 'vite-plugin-pwa';
+
+type CacheStrategy =
+  | 'CacheFirst'
+  | 'CacheOnly'
+  | 'NetworkFirst'
+  | 'NetworkOnly'
+  | 'StaleWhileRevalidate';
+interface IgetCache {
+  name: string;
+  pattern: RegExp | string;
+  cacheDay?: number;
+  cacheType?: CacheStrategy;
+}
+
+const autoprefixer = require('autoprefixer');
+const path = require('path');
+const getCache = ({ name, pattern, cacheDay = 7, cacheType }: IgetCache) => ({
+  urlPattern: pattern,
+  handler: cacheType || 'CacheFirst',
+  options: {
+    cacheName: name,
+    expiration: {
+      maxEntries: 500,
+      maxAgeSeconds: 60 * 60 * 24 * cacheDay,
+    },
+    cacheableResponse: {
+      statuses: [200],
+    },
+  },
+});
 
 const config = ({ mode }) => {
   const isProd = mode === 'production';
@@ -24,6 +53,25 @@ const config = ({ mode }) => {
     base: isProd ? '/vue-fabric-editor/' : '/',
     plugins: [
       vue(),
+      VitePWA({
+        manifest: false,
+        registerType: 'autoUpdate',
+        workbox: {
+          cacheId: APP_TITLE,
+          runtimeCaching: [
+            getCache({
+              // js /css /ts静态资源缓存
+              name: 'js-css-cache',
+              pattern: /(.*?)\.(js|css|ts)/,
+            }),
+            getCache({
+              // 图片缓存
+              name: 'image-cache',
+              pattern: /(.*?)\.(png|jpe?g|svg|gif|json|psd|ttf)/,
+            }),
+          ],
+        },
+      }),
       autoImports({
         imports: ['vue'],
         eslintrc: {
@@ -67,6 +115,7 @@ const config = ({ mode }) => {
       alias: [
         { find: /^@\//, replacement: path.resolve(__dirname, 'src') + '/' },
         { find: /^~/, replacement: '' },
+        { find: /^vue-i18n/, replacement: 'vue-i18n/dist/vue-i18n.cjs.js' },
       ],
       extensions: ['.ts', '.tsx', '.js', '.mjs', '.vue', '.json', '.less', '.css'],
     },
