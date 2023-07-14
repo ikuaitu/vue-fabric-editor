@@ -21,18 +21,18 @@
     <ColorPicker v-if="!isGradient" v-model="fill" @on-change="changePureColor" alpha />
 
     <!-- 渐变选择器 -->
-    <Poptip @created="onPoptipCreated" style="width: 100%" v-if="isGradient">
-      <div class="gradient-bar" :style="bgStr"></div>
-      <template #content>
-        <!-- 颜色插件 -->
-        <gradientColorPicker
-          v-if="poptipCreated"
-          :is-gradient="true"
-          :gradient="currentGradient"
-          :on-end-change="changeGradientColor"
-        />
-      </template>
-    </Poptip>
+    <!-- <Poptip @created="onPoptipCreated" style="width: 100%" v-if="isGradient"> -->
+    <div class="gradient-bar" :style="bgStr"></div>
+    <!-- <template #content> -->
+    <!-- 颜色插件 -->
+    <gradientColorPicker
+      v-if="isGradient"
+      :is-gradient="true"
+      :gradient="currentGradient"
+      :on-end-change="changeGradientColor"
+    />
+    <!-- </template>
+    </Poptip> -->
   </div>
 </template>
 
@@ -106,7 +106,7 @@ const props = defineProps({
   },
 });
 const emitChange = defineEmits(['change']);
-const poptipCreated = ref(false);
+// const poptipCreated = ref(false);
 // 是否渐变
 const isGradient = ref(false);
 // 纯色
@@ -133,9 +133,9 @@ const currentGradient = reactive({
     },
   ],
 });
-const onPoptipCreated = () => {
-  poptipCreated.value = true;
-};
+// const onPoptipCreated = () => {
+//   poptipCreated.value = true;
+// };
 // 回显颜色
 const checkColor = (val) => {
   if (typeof val === 'string') {
