@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-16 22:52:00
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 01:06:24
+ * @LastEditTime: 2023-07-16 14:51:41
  * @Description: 颜色选择器
 -->
 <template>
@@ -16,23 +16,28 @@
         <span>纯色</span>
       </template>
     </iSwitch>
-
-    <!-- 颜色选择器 -->
-    <ColorPicker v-if="!isGradient" v-model="fill" @on-change="changePureColor" alpha />
-
-    <!-- 渐变选择器 -->
-    <Poptip @created="onPoptipCreated" style="width: 100%" v-if="isGradient">
+    <!-- 渐变 -->
+    <div v-if="isGradient">
       <div class="gradient-bar" :style="bgStr"></div>
-      <template #content>
-        <!-- 颜色插件 -->
+      <!-- 颜色插件 -->
+      <div class="ivu-poptip-inner">
         <gradientColorPicker
-          v-if="poptipCreated"
           :is-gradient="true"
           :gradient="currentGradient"
           :on-end-change="changeGradientColor"
         />
-      </template>
-    </Poptip>
+      </div>
+    </div>
+
+    <!-- <div class="ivu-poptip-popper ivu-poptip-inner">
+      <gradientColorPicker
+        :is-gradient="true"
+        :gradient="currentGradient"
+        :on-end-change="changeGradientColor"
+      />
+    </div> -->
+    <!-- 纯色选择器 -->
+    <ColorPicker v-show="!isGradient" v-model="fill" @on-change="changePureColor" alpha />
   </div>
 </template>
 
@@ -41,7 +46,7 @@ import 'color-gradient-picker-vue3/dist/style.css';
 import gradientColorPicker from 'color-gradient-picker-vue3';
 import { fabric } from 'fabric';
 import useSelect from '@/hooks/select';
-const { canvas, canvasEditor } = useSelect();
+const { canvasEditor } = useSelect();
 const generateFabricGradientFromColorStops = (handlers, width, height, orientation, angle) => {
   // 角度转换坐标
   const gradAngleToCoords = (paramsAngle) => {
@@ -133,9 +138,9 @@ const currentGradient = reactive({
     },
   ],
 });
-const onPoptipCreated = () => {
-  poptipCreated.value = true;
-};
+// const onPoptipCreated = () => {
+// poptipCreated.value = true;
+// };
 // 回显颜色
 const checkColor = (val) => {
   if (typeof val === 'string') {
@@ -260,5 +265,10 @@ onMounted(() => {
   .color-preview-area {
     padding: 0;
   }
+  border-radius: 10px;
+  padding: 8px;
+  margin: 0;
+  margin-top: 10px;
+  width: 100%;
 }
 </style>

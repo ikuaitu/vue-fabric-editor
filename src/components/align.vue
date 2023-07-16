@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 00:56:57
+ * @LastEditTime: 2023-07-16 12:15:26
  * @Description: 组合元素对齐
 -->
 
@@ -170,9 +170,10 @@
 </template>
 
 <script setup name="Align">
+// import { fabric } from 'fabric';
 import useSelect from '@/hooks/select';
 
-const { canvas, mixinState, canvasEditor } = useSelect();
+const { mixinState, canvasEditor } = useSelect();
 // 非多选时，禁止组合对齐操作
 const notMultiple = computed(() => mixinState.mSelectMode !== 'multiple');
 

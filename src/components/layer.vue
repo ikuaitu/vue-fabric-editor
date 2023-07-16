@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 01:07:00
+ * @LastEditTime: 2023-07-16 14:05:12
  * @Description: 图层面板
 -->
 
@@ -127,9 +127,9 @@ const getList = () => {
   // 不改原数组 反转
   list.value = [
     ...canvasEditor.canvas.getObjects().filter((item) => {
-      return item;
+      // return item;
       // 过滤掉辅助线
-      // return !(item instanceof fabric.GuideLine || item.id === 'workspace');
+      return !(item instanceof fabric.GuideLine || item.id === 'workspace');
     }),
   ]
     .reverse()

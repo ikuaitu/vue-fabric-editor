@@ -9,6 +9,7 @@
 import FontFaceObserver from 'fontfaceobserver';
 import { useClipboard, useFileDialog, useBase64 } from '@vueuse/core';
 import { Message } from 'view-ui-plus';
+import downloadjs from 'downloadjs';
 
 interface Font {
   type: string;
@@ -67,16 +68,28 @@ export function selectFiles(options: {
 
 /**
  * @description: 前端下载文件
- * @param {String} fileStr
- * @param fileName
+ * @param { String } file 文件：网络地址/base64/blod
+ * @param { String } fileName 文件名字
+ * @param { String } fileExt 文件后缀名
+ * @param { String } strMimeType MIME content-type
  */
-export function downFile(fileStr: string, fileName: string) {
-  const anchorEl = document.createElement('a');
-  anchorEl.href = fileStr;
-  anchorEl.download = fileName;
-  document.body.appendChild(anchorEl); // required for firefox
-  anchorEl.click();
-  anchorEl.remove();
+interface IDownLoadFile {
+  file: string;
+  fileName?: string | undefined;
+  fileExt?: string | undefined;
+  strMimeType?: string | undefined;
+}
+export function downloadFile({ file, fileName, fileExt, strMimeType }: IDownLoadFile) {
+  if (!file) throw new Error('file is undefined');
+  const reg = /(http|https):\/\/([\w.]+\/?)\S*/;
+  const outFileName = fileName ? `${fileName}.${fileExt}` : '';
+  // download netword file
+  if (reg.test(file)) {
+    if (fileName && !fileExt) throw new Error('fileExt is undefined');
+    return downloadjs(file, outFileName);
+  } else {
+    return downloadjs(file, outFileName, strMimeType);
+  }
 }
 
 /**

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 00:57:48
+ * @LastEditTime: 2023-07-16 12:55:12
  * @Description: 导入JSON文件
 -->
 
@@ -12,18 +12,38 @@
   </div>
 </template>
 
-<script>
-import select from '@/mixins/select';
+<script name="ImportJson" setup>
+import useSelect from '@/hooks/select';
+// import { selectFiles, downFontByJSON } from '@/utils/utils';
 
-export default {
-  name: 'ToolBar',
-  mixins: [select],
-  methods: {
-    insert() {
-      this.canvasEditor.insert();
-    },
-  },
+const { canvasEditor } = useSelect();
+const insert = () => {
+  canvasEditor.insert();
+  // selectFiles({ accept: '.json' }).then((files) => {
+  //   const [file] = files;
+  //   const reader = new FileReader();
+  //   reader.readAsText(file, 'UTF-8');
+  //   reader.onload = () => {
+  //     insertSvgFile(reader.result);
+  //   };
+  // });
 };
-</script>
 
-<style scoped lang="less"></style>
+// function insertSvgFile(jsonFile) {
+//   // 加载字体后导入
+//   downFontByJSON(jsonFile).then(() => {
+//     canvas.c.loadFromJSON(jsonFile, () => {
+//       canvas.c.renderAll.bind(canvas.c);
+//       setTimeout(() => {
+//         const workspace = canvas.c.getObjects().find((item) => item.id === 'workspace');
+//         workspace.set('selectable', false);
+//         workspace.set('hasControls', false);
+//         canvas.c.requestRenderAll();
+//         canvas.editor.editorWorkspace.setSize(workspace.width, workspace.height);
+//         canvas.c.renderAll();
+//         canvas.c.requestRenderAll();
+//       }, 100);
+//     });
+//   });
+// }
+</script>

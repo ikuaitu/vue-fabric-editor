@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 00:36:42
+ * @LastEditTime: 2023-07-16 13:55:03
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -56,9 +56,13 @@ class ServersPlugin {
   }
 
   insertSvgFile(jsonFile) {
+    // 加载前钩子
     this.editor.hooksEntity.hookImportBefore.callAsync(jsonFile, () => {
+      console.log(jsonFile, '2222');
       this.canvas.loadFromJSON(jsonFile, () => {
+        console.log(jsonFile, '33333');
         this.canvas.renderAll();
+        // 加载后钩子
         this.editor.hooksEntity.hookImportAfter.callAsync(jsonFile, () => {
           this.canvas.renderAll();
         });
