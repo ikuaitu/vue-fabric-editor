@@ -1,12 +1,18 @@
 [文档](https://nihaojob.gitbook.io/editor/) | [English](https://github.com/nihaojob/vue-fabric-editor/blob/main/README-en.md) | 中文 
 
 # vue-fabric-editor
+基于 fabric.js 和 Vue 开发的插件化图片编辑器，可自定义字体、素材、设计模板、右键菜单、快捷键。
+ 
 
-基于 fabric.js 和 Vue 开发的图片编辑器，可自定义字体、素材、设计模板。
 - [预览](https://nihaojob.github.io/vue-fabric-editor/) 
 - [Gitee预览](https://nihaojob.gitee.io/vue-fabric-editor/#/)
 
 ![image](https://user-images.githubusercontent.com/13534626/230828335-0adee0ae-b951-4171-b6ba-d2b9cd44dd6a.png)
+
+## 特点
+1. 插件化架构：可自定义素材、右键菜单、快捷键等功能，易扩展。
+2. 简洁易用：以轻量、简洁为主的图形编辑器，而非大而全的专业的原型或在线PS类的设计工具。
+3. 功能齐全：自定义模板、渐变、自定义字体等功能，满足轻量图片编辑场景。
 
 ## 已有功能
 [功能介绍文章](https://juejin.cn/post/7222141882515128375) 文字 + 动图。
