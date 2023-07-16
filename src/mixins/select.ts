@@ -8,7 +8,7 @@ interface Data {
 }
 
 export default {
-  inject: ['canvas', 'fabric', 'event'],
+  inject: ['canvas', 'fabric', 'event', 'canvasEditor'],
   data(): Data {
     return {
       mSelectMode: undefined,

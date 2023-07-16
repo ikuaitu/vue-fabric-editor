@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-25 21:53:19
+ * @LastEditTime: 2023-07-16 12:51:11
  * @Description: 插入SVG元素
 -->
 
@@ -46,7 +46,7 @@ import { getImgStr, selectFiles } from '@/utils/utils';
 import useSelect from '@/hooks/select';
 import { v4 as uuid } from 'uuid';
 
-const { canvas, fabric } = useSelect();
+const { fabric, canvasEditor } = useSelect();
 const state = reactive({
   showModal: false,
   svgStr: '',
@@ -85,7 +85,7 @@ const HANDLEMAP = {
         name: 'defaultSVG',
         id: uuid(),
       });
-      canvas.c.add(item).centerObject(item).renderAll();
+      canvasEditor.canvas.add(item).centerObject(item).renderAll();
     });
   },
 };
@@ -110,9 +110,9 @@ function insertImgFile(file) {
       top: 100,
     });
     // 设置缩放
-    canvas.c.add(imgInstance);
-    canvas.c.setActiveObject(imgInstance);
-    canvas.c.renderAll();
+    canvasEditor.canvas.add(imgInstance);
+    canvasEditor.canvas.setActiveObject(imgInstance);
+    canvasEditor.canvas.renderAll();
     // 删除页面中的图片元素
     imgEl.remove();
   };
@@ -127,7 +127,7 @@ function insertSvgFile(svgFile) {
       name: 'defaultSVG',
       id: uuid(),
     });
-    canvas.c.add(item).centerObject(item).renderAll();
+    canvasEditor.canvas.add(item).centerObject(item).renderAll();
   });
 }
 </script>

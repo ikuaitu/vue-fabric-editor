@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-06 23:04:38
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-09 23:27:49
+ * @LastEditTime: 2023-07-16 12:48:28
  * @Description: 图片滤镜
 -->
 
@@ -83,7 +83,7 @@
 import useSelect from '@/hooks/select';
 import { uiType, paramsFilters, combinationFilters } from '@/config/constants/filter';
 
-const { canvas, fabric, mixinState } = useSelect();
+const { fabric, mixinState, canvasEditor } = useSelect();
 const event = inject('event');
 const update = getCurrentInstance();
 // 无参数滤镜
@@ -108,7 +108,7 @@ const state = reactive({
 
 // 无参数滤镜修改状态
 const changeFilters = (type, value) => {
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   state.noParamsFilters[type] = value;
   if (value) {
     const itemFilter = _getFilter(activeObject, type);
@@ -121,7 +121,7 @@ const changeFilters = (type, value) => {
 };
 // 有参数与组合滤镜修改
 const changeFiltersByParams = (type) => {
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   const filtersAll = [...state.paramsFilters, ...state.combinationFilters];
   const moduleInfo = filtersAll.find((item) => item.type === type);
   if (moduleInfo.status) {
@@ -140,7 +140,7 @@ const changeFiltersByParams = (type) => {
 };
 
 const handleSelectOne = () => {
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject) {
     state.type = activeObject.type;
     if (state.type === 'image') {
@@ -186,7 +186,7 @@ function getImageUrl(name) {
 
 // 设置滤镜值
 function _changeAttr(type, key, value) {
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   const itemFilter = _getFilter(activeObject, type);
   if (itemFilter) {
     itemFilter[key] = value;
@@ -195,11 +195,11 @@ function _changeAttr(type, key, value) {
     imgFilter[key] = value;
   }
   activeObject.applyFilters();
-  canvas.c.renderAll();
+  canvasEditor.canvas.renderAll();
 }
 
 function _changeAttrByHandler(moduleInfo) {
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   // 删除
   _removeFilter(activeObject, moduleInfo.type);
   // 创建
@@ -226,7 +226,7 @@ function _createFilter(sourceImg, type, options = null) {
     sourceImg.filters.push(filterObj);
   }
   sourceImg.applyFilters();
-  canvas.c.renderAll();
+  canvasEditor.canvas.renderAll();
   return filterObj;
 }
 /**
@@ -265,7 +265,7 @@ function _removeFilter(sourceImg, type) {
   const fabricType = _getFabricFilterType(type);
   sourceImg.filters = sourceImg.filters.filter((value) => value.type !== fabricType);
   sourceImg.applyFilters();
-  canvas.c.renderAll();
+  canvasEditor.canvas.renderAll();
 }
 /**
  * Change filter class name to fabric's, especially capitalizing first letter

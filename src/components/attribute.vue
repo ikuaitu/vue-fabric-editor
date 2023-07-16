@@ -293,7 +293,7 @@ import { Spin } from 'view-ui-plus';
 const event = inject('event');
 const update = getCurrentInstance();
 const repoSrc = import.meta.env.APP_REPO;
-const { canvas, fabric, mixinState } = useSelect();
+const { canvas, fabric, mixinState, canvasEditor } = useSelect();
 // 通用元素
 const baseType = [
   'text',
@@ -438,7 +438,7 @@ const getFreeFontList = () => {
 };
 
 const getObjectAttr = (e) => {
-  const activeObject = canvas.c.getActiveObject();
+  const activeObject = canvasEditor.canvas.getActiveObject();
   // 不是当前obj，跳过
   if (e && e.target && e.target !== activeObject) return;
   if (activeObject) {
@@ -482,7 +482,7 @@ const init = () => {
 
   event.on('selectCancel', selectCancel);
   event.on('selectOne', getObjectAttr);
-  canvas.c.on('object:modified', getObjectAttr);
+  canvasEditor.canvas.on('object:modified', getObjectAttr);
 };
 
 // 修改字体
@@ -491,9 +491,9 @@ const changeFontFamily = (fontName) => {
   // 跳过加载的属性;
   const skipFonts = ['arial', 'Microsoft YaHei'];
   if (skipFonts.includes(fontName)) {
-    const activeObject = canvas.c.getActiveObjects()[0];
+    const activeObject = canvasEditor.canvas.getActiveObjects()[0];
     activeObject && activeObject.set('fontFamily', fontName);
-    canvas.c.renderAll();
+    canvasEditor.canvas.renderAll();
     return;
   }
   Spin.show();
@@ -502,9 +502,9 @@ const changeFontFamily = (fontName) => {
   font
     .load(null, 150000)
     .then(() => {
-      const activeObject = canvas.c.getActiveObjects()[0];
+      const activeObject = canvasEditor.canvas.getActiveObjects()[0];
       activeObject && activeObject.set('fontFamily', fontName);
-      canvas.c.renderAll();
+      canvasEditor.canvas.renderAll();
       Spin.hide();
     })
     .catch((err) => {
@@ -516,21 +516,21 @@ const changeFontFamily = (fontName) => {
 // 通用属性改变
 const changeCommon = (key, value) => {
   console.log(key, value);
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   // 透明度特殊转换
   if (key === 'opacity') {
     activeObject && activeObject.set(key, value / 100);
-    canvas.c.renderAll();
+    canvasEditor.canvas.renderAll();
     return;
   }
   // 旋转角度适配
   if (key === 'angle') {
     activeObject.rotate(value);
-    canvas.c.renderAll();
+    canvasEditor.canvas.renderAll();
     return;
   }
   activeObject && activeObject.set(key, value);
-  canvas.c.renderAll();
+  canvasEditor.canvas.renderAll();
 
   // 更新属性
   getObjectAttr();
@@ -538,66 +538,66 @@ const changeCommon = (key, value) => {
 
 // 边框设置
 const borderSet = (key) => {
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject) {
     const stroke = strokeDashList.find((item) => item.label === key);
     activeObject.set(stroke.value);
-    canvas.c.renderAll();
+    canvasEditor.canvas.renderAll();
   }
 };
 
 // 阴影设置
 const changeShadow = () => {
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   activeObject && activeObject.set('shadow', new fabric.Shadow(baseAttr.shadow));
-  canvas.c.renderAll();
+  canvasEditor.canvas.renderAll();
 };
 
 // 加粗
 const changeFontWeight = (key, value) => {
   const nValue = value === 'normal' ? 'bold' : 'normal';
   fontAttr.fontWeight = nValue;
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   activeObject && activeObject.set(key, nValue);
-  canvas.c.renderAll();
+  canvasEditor.canvas.renderAll();
 };
 
 // 斜体
 const changeFontStyle = (key, value) => {
   const nValue = value === 'normal' ? 'italic' : 'normal';
   fontAttr.fontStyle = nValue;
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   activeObject && activeObject.set(key, nValue);
-  canvas.c.renderAll();
+  canvasEditor.canvas.renderAll();
 };
 
 // 中划
 const changeLineThrough = (key, value) => {
   const nValue = value === false;
   fontAttr.linethrough = nValue;
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   activeObject && activeObject.set(key, nValue);
-  canvas.c.renderAll();
+  canvasEditor.canvas.renderAll();
 };
 
 // 下划
 const changeUnderline = (key, value) => {
   const nValue = value === false;
   fontAttr.underline = nValue;
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   activeObject && activeObject.set(key, nValue);
-  canvas.c.renderAll();
+  canvasEditor.canvas.renderAll();
 };
 
 // 修改边数
 const changeEdge = (value) => {
-  const activeObjects = canvas.c.getActiveObjects();
+  const activeObjects = canvasEditor.canvas.getActiveObjects();
   if (!activeObjects || !activeObjects.length) return;
   activeObjects[0].set(
     'points',
     getPolygonVertices(value, Math.min(activeObjects[0].width, activeObjects[0].height) / 2)
   );
-  canvas.c.requestRenderAll();
+  canvasEditor.canvas.requestRenderAll();
 };
 
 onMounted(init);
@@ -605,7 +605,7 @@ onMounted(init);
 onBeforeUnmount(() => {
   event.off('selectCancel', selectCancel);
   event.off('selectOne', getObjectAttr);
-  canvas.c.off('object:modified', getObjectAttr);
+  canvasEditor.canvas.off('object:modified', getObjectAttr);
 });
 </script>
 

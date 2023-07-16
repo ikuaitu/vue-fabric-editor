@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-04 15:32:17
+ * @LastEditTime: 2023-07-16 12:42:36
  * @Description: 素材面板
 -->
 
@@ -252,7 +252,7 @@ const defaultPosition = {
   fontFamily: '1-1',
 };
 const repoSrc = import.meta.env.APP_REPO;
-const { canvas, fabric } = useSelect();
+const { fabric, canvasEditor } = useSelect();
 
 const getIndex = (start, end) => {
   const arr = Array(end - (start - 1)).fill('');
@@ -269,7 +269,7 @@ const dragItem = (event) => {
       id: uuid(),
       name: 'svg元素',
     });
-    canvas.editor.dragAddItem(event, item);
+    canvasEditor.dragAddItem(event, item);
   });
 };
 
@@ -283,9 +283,9 @@ const addItem = (e) => {
       id: uuid(),
       name: 'svg元素',
     });
-    canvas.c.add(item);
-    canvas.c.setActiveObject(item);
-    canvas.c.requestRenderAll();
+    canvasEditor.canvas.add(item);
+    canvasEditor.canvas.setActiveObject(item);
+    canvasEditor.canvas.requestRenderAll();
   });
 };
 </script>

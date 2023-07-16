@@ -29,7 +29,7 @@ import useSelect from '@/hooks/select';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
-const { canvas, mixinState } = useSelect();
+const { canvas, mixinState, canvasEditor } = useSelect();
 
 const colorList = [
   {
@@ -65,9 +65,9 @@ const setThisColor = () => {
 };
 // 背景颜色设置
 function setColor(color) {
-  const workspace = canvas.c.getObjects().find((item) => item.id === 'workspace');
+  const workspace = canvasEditor.canvas.getObjects().find((item) => item.id === 'workspace');
   workspace.set('fill', color);
-  canvas.c.renderAll();
+  canvasEditor.canvas.renderAll();
 }
 </script>
 

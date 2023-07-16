@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-06 22:26:57
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-09 23:37:03
+ * @LastEditTime: 2023-07-05 01:04:30
  * @Description: 图片替换
 -->
 
@@ -14,16 +14,17 @@
 
 <script setup name="ReplaceImg">
 import useSelect from '@/hooks/select';
+
 import { getImgStr, selectFiles, insertImgFile } from '@/utils/utils';
 
 const update = getCurrentInstance();
 const event = inject('event');
-const { canvas, mixinState } = useSelect();
+const { mixinState, canvasEditor } = useSelect();
 const type = ref('');
 
 // 替换图片
 const repleace = async () => {
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject && activeObject.type === 'image') {
     // 图片
     const [file] = await selectFiles({ accept: 'image/*', multiple: false });
@@ -38,14 +39,14 @@ const repleace = async () => {
     activeObject.setSrc(imgEl.src, () => {
       activeObject.set('scaleX', (width * scaleX) / imgEl.width);
       activeObject.set('scaleY', (height * scaleY) / imgEl.height);
-      canvas.c.renderAll();
+      canvasEditor.canvas.renderAll();
     });
     imgEl.remove();
   }
 };
 
 const init = () => {
-  const activeObject = canvas.c.getActiveObjects()[0];
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject) {
     type.value = activeObject.type;
     update?.proxy?.$forceUpdate();

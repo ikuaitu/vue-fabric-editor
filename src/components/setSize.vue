@@ -1,9 +1,9 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: bigFace2019 599069310@qq.com
- * @LastEditTime: 2023-05-10 21:52:37
- * @Description: 尺寸设置f
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-07-05 00:52:59
+ * @Description: 尺寸设置
 -->
 
 <template>
@@ -54,9 +54,9 @@
 import { Modal } from 'view-ui-plus';
 import useSelect from '@/hooks/select';
 import { useI18n } from 'vue-i18n';
-import EditorWorkspace from '@/core/EditorWorkspace';
+// import EditorWorkspace from '@/core/EditorWorkspace';
 
-const { canvas, mixinState } = useSelect();
+const { canvas, mixinState, canvasEditor } = useSelect();
 const { t } = useI18n();
 
 const DefaultSize = {
@@ -90,10 +90,17 @@ let presetSize = reactive([
 ]);
 
 onMounted(() => {
-  canvas.editor.editorWorkspace = new EditorWorkspace(canvas.c, {
-    width: width.value,
-    height: height.value,
+  canvasEditor.setSize(width.value, height.value);
+  canvasEditor.on('sizeChange', (width, height) => {
+    width.value = width;
+    height.value = height;
   });
+
+  // canvas.editor.editorWorkspace.setSize(width.value, height.value);
+  // canvas.editor.editorWorkspace = new EditorWorkspace(canvas.c, {
+  //   width: width.value,
+  //   height: height.value,
+  // });
 });
 
 const setSizeBy = (w, h) => {
@@ -101,7 +108,8 @@ const setSizeBy = (w, h) => {
   modalData.height = h;
 };
 const setSize = () => {
-  canvas.editor.editorWorkspace.setSize(width.value, height.value);
+  canvasEditor.setSize(width.value, height.value);
+  // canvas.editor.editorWorkspace.setSize(width.value, height.value);
 };
 
 const handleClose = () => {

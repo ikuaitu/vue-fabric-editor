@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-03 23:01:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-04 15:31:50
+ * @LastEditTime: 2023-07-16 12:47:18
  * @Description: 字体文件
 -->
 
@@ -34,7 +34,7 @@ import { Spin } from 'view-ui-plus';
 import { useI18n } from 'vue-i18n';
 
 const repoSrc = import.meta.env.APP_REPO;
-const { canvas, fabric } = useSelect();
+const { fabric, canvasEditor } = useSelect();
 const { t } = useI18n();
 const list = [
   {
@@ -72,9 +72,9 @@ const insertFile = (str) => {
   const obj = JSON.parse(str);
   obj.id = uuid();
   new fabric.Textbox.fromObject(obj, (e) => {
-    canvas.c.add(e);
+    canvasEditor.canvas.add(e);
     e.center();
-    canvas.c.setActiveObject(e);
+    canvasEditor.canvas.setActiveObject(e);
     Spin.hide();
   });
 };

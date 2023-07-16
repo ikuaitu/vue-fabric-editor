@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-18 08:06:56
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-22 22:55:59
+ * @LastEditTime: 2023-07-16 12:23:40
  * @Description: 拖拽模式
 -->
 
@@ -16,40 +16,40 @@
   </div>
 </template>
 
-<script setup ame="Drag">
+<script setup name="Drag">
 import useSelect from '@/hooks/select';
 const status = ref(false);
-const { canvas } = useSelect();
+const { canvasEditor } = useSelect();
 
 const switchMode = (val) => {
   if (val) {
-    canvas.editor.editorWorkspace.startDring();
+    canvasEditor.startDring();
   } else {
-    canvas.editor.editorWorkspace.endDring();
+    canvasEditor.endDring();
   }
 };
-const handleKeyDown = (e) => {
-  if (status.value) return;
-  if (e.code === 'Space') {
-    status.value = true;
-    canvas.editor.editorWorkspace.startDring();
-  }
-};
-const handleKeyUp = (e) => {
-  if (e.code === 'Space') {
-    status.value = false;
-    canvas.editor.editorWorkspace.endDring();
-  }
-};
+// const handleKeyDown = (e) => {
+//   if (status.value) return;
+//   if (e.code === 'Space') {
+//     status.value = true;
+//     canvas.editor.editorWorkspace.startDring();
+//   }
+// };
+// const handleKeyUp = (e) => {
+//   if (e.code === 'Space') {
+//     status.value = false;
+//     canvas.editor.editorWorkspace.endDring();
+//   }
+// };
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeyDown);
-  window.addEventListener('keyup', handleKeyUp);
+  canvasEditor.on('startDring', () => (status.value = true));
+  canvasEditor.on('endDring', () => (status.value = false));
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener('keydown', handleKeyDown);
-  window.removeEventListener('keyup', handleKeyUp);
+  canvasEditor.off('startDring');
+  canvasEditor.off('endDring');
 });
 </script>
 <style scoped lang="less">

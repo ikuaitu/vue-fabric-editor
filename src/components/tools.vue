@@ -174,7 +174,7 @@
 
 <script setup name="Tools">
 import { v4 as uuid } from 'uuid';
-import initializeLineDrawing from '@/core/initializeLineDrawing';
+// import initializeLineDrawing from '@/core/remove/initializeLineDrawing';
 import { getPolygonVertices } from '@/utils/math';
 import useSelect from '@/hooks/select';
 import { useI18n } from 'vue-i18n';
@@ -187,12 +187,12 @@ const dragOption = {
   top: 0,
 };
 const { t } = useI18n();
-const { canvas, fabric } = useSelect();
+const { canvas, fabric, canvasEditor } = useSelect();
 const state = reactive({
   isDrawingLineMode: false,
   isArrow: false,
 });
-let drawHandler = null;
+// let drawHandler = null;
 
 const addText = (option) => {
   const text = new fabric.IText(t('everything_is_fine'), {
@@ -201,11 +201,11 @@ const addText = (option) => {
     fontSize: 80,
     id: uuid(),
   });
-  canvas.c.add(text);
+  canvasEditor.canvas.add(text);
   if (!option) {
     text.center();
   }
-  canvas.c.setActiveObject(text);
+  canvasEditor.canvas.setActiveObject(text);
 };
 
 // const addImg = (e) => {
@@ -215,8 +215,8 @@ const addText = (option) => {
 //     id: uuid(),
 //     name: '图片default',
 //   });
-//   canvas.c.add(imgInstance);
-//   canvas.c.renderAll();
+//   canvasEditor.canvas.add(imgInstance);
+//   canvasEditor.canvas.renderAll();
 // };
 
 const addTextBox = (option) => {
@@ -228,11 +228,11 @@ const addTextBox = (option) => {
     fontSize: 80,
     id: uuid(),
   });
-  canvas.c.add(text);
+  canvasEditor.canvas.add(text);
   if (!option) {
     text.center();
   }
-  canvas.c.setActiveObject(text);
+  canvasEditor.canvas.setActiveObject(text);
 };
 
 const addTriangle = (option) => {
@@ -245,11 +245,11 @@ const addTriangle = (option) => {
     id: uuid(),
     name: '三角形',
   });
-  canvas.c.add(triangle);
+  canvasEditor.canvas.add(triangle);
   if (!option) {
     triangle.center();
   }
-  canvas.c.setActiveObject(triangle);
+  canvasEditor.canvas.setActiveObject(triangle);
 };
 
 const addPolygon = (option) => {
@@ -270,11 +270,11 @@ const addPolygon = (option) => {
       y: 0,
     },
   });
-  canvas.c.add(polygon);
+  canvasEditor.canvas.add(polygon);
   if (!option) {
     polygon.center();
   }
-  canvas.c.setActiveObject(polygon);
+  canvasEditor.canvas.setActiveObject(polygon);
 };
 
 const addCircle = (option) => {
@@ -286,11 +286,11 @@ const addCircle = (option) => {
     id: uuid(),
     name: '圆形',
   });
-  canvas.c.add(circle);
+  canvasEditor.canvas.add(circle);
   if (!option) {
     circle.center();
   }
-  canvas.c.setActiveObject(circle);
+  canvasEditor.canvas.setActiveObject(circle);
 };
 
 const addRect = (option) => {
@@ -303,18 +303,21 @@ const addRect = (option) => {
     id: uuid(),
     name: '矩形',
   });
-  canvas.c.add(rect);
+  canvasEditor.canvas.add(rect);
   if (!option) {
     rect.center();
   }
-  canvas.c.setActiveObject(rect);
+  canvasEditor.canvas.setActiveObject(rect);
 };
 const drawingLineModeSwitch = (isArrow) => {
   state.isArrow = isArrow;
   state.isDrawingLineMode = !state.isDrawingLineMode;
-  drawHandler?.setMode(state.isDrawingLineMode);
-  drawHandler?.setArrow(isArrow);
-  canvas.c.forEachObject((obj) => {
+  canvasEditor.setMode(state.isDrawingLineMode);
+  canvasEditor.setArrow(isArrow);
+
+  // this.canvasEditor.setMode(this.isDrawingLineMode);
+  // this.canvasEditor.setArrow(isArrow);
+  canvasEditor.canvas.forEachObject((obj) => {
     if (obj.id !== 'workspace') {
       obj.selectable = !state.isDrawingLineMode;
       obj.evented = !state.isDrawingLineMode;
@@ -351,13 +354,13 @@ const onDragend = (type) => {
 onMounted(() => {
   nextTick(() => {
     // 线条绘制
-    drawHandler = initializeLineDrawing(canvas.c, defaultPosition);
+    // drawHandler = initializeLineDrawing(canvasEditor.canvas, defaultPosition);
 
-    canvas.c.on('drop', (opt) => {
+    canvasEditor.canvas.on('drop', (opt) => {
       // 画布元素距离浏览器左侧和顶部的距离
       const offset = {
-        left: canvas.c.getSelectionElement().getBoundingClientRect().left,
-        top: canvas.c.getSelectionElement().getBoundingClientRect().top,
+        left: canvasEditor.canvas.getSelectionElement().getBoundingClientRect().left,
+        top: canvasEditor.canvas.getSelectionElement().getBoundingClientRect().top,
       };
 
       // 鼠标坐标转换成画布的坐标（未经过缩放和平移的坐标）
@@ -367,7 +370,7 @@ onMounted(() => {
       };
 
       // 转换后的坐标，restorePointerVpt 不受视窗变换的影响
-      const pointerVpt = canvas.c.restorePointerVpt(point);
+      const pointerVpt = canvasEditor.canvas.restorePointerVpt(point);
       dragOption.left = pointerVpt.x;
       dragOption.top = pointerVpt.y;
     });
