@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 00:57:35
+ * @LastEditTime: 2023-07-24 23:12:55
  * @Description: 组合与拆分组合
 -->
 
@@ -53,7 +53,7 @@
 <script setup name="Group">
 import useSelect from '@/hooks/select';
 
-const { canvas, mixinState, canvasEditor } = useSelect();
+const { mixinState, canvasEditor } = useSelect();
 
 // 单选且等于组元素
 let isGroup = computed(

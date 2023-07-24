@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 01:06:45
+ * @LastEditTime: 2023-07-24 23:12:09
  * @Description: 元素翻转
 -->
 
@@ -69,7 +69,7 @@
 <script setup name="Flip">
 import useSelect from '@/hooks/select';
 
-const { canvas, mixinState, canvasEditor } = useSelect();
+const { mixinState, canvasEditor } = useSelect();
 
 // 非单选时，禁止镜像操作
 const notSelectOneMode = () => {

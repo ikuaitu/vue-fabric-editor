@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-16 14:05:12
+ * @LastEditTime: 2023-07-24 23:13:51
  * @Description: 图层面板
 -->
 
@@ -43,7 +43,7 @@
 
 <script setup name="Layer">
 import useSelect from '@/hooks/select';
-const { canvas, canvasEditor, fabric, mixinState } = useSelect();
+const { canvasEditor, fabric, mixinState } = useSelect();
 
 const list = ref([]);
 

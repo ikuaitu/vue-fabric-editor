@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 00:58:17
+ * @LastEditTime: 2023-07-24 23:12:22
  * @LastEditors: 秦少卫
  * @LastEditTime: 2023-04-10 14:33:18
  * @Description: 保存文件
@@ -36,11 +36,11 @@ import useSelect from '@/hooks/select';
 
 import { debounce } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
-import { downloadFile } from '@/utils/utils';
+// import { downloadFile } from '@/utils/utils';
 
 const { t } = useI18n();
 
-const { canvas, canvasEditor } = useSelect();
+const { canvasEditor } = useSelect();
 const cbMap = {
   clipboard() {
     canvasEditor.clipboard();

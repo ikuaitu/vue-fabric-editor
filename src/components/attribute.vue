@@ -293,7 +293,7 @@ import { Spin } from 'view-ui-plus';
 const event = inject('event');
 const update = getCurrentInstance();
 const repoSrc = import.meta.env.APP_REPO;
-const { canvas, fabric, mixinState, canvasEditor } = useSelect();
+const { fabric, mixinState, canvasEditor } = useSelect();
 // 通用元素
 const baseType = [
   'text',

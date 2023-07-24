@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 00:52:59
+ * @LastEditTime: 2023-07-24 23:13:24
  * @Description: 尺寸设置
 -->
 
@@ -54,9 +54,8 @@
 import { Modal } from 'view-ui-plus';
 import useSelect from '@/hooks/select';
 import { useI18n } from 'vue-i18n';
-// import EditorWorkspace from '@/core/EditorWorkspace';
 
-const { canvas, mixinState, canvasEditor } = useSelect();
+const { mixinState, canvasEditor } = useSelect();
 const { t } = useI18n();
 
 const DefaultSize = {

@@ -187,7 +187,7 @@ const dragOption = {
   top: 0,
 };
 const { t } = useI18n();
-const { canvas, fabric, canvasEditor } = useSelect();
+const { fabric, canvasEditor } = useSelect();
 const state = reactive({
   isDrawingLineMode: false,
   isArrow: false,

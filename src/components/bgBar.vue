@@ -29,7 +29,7 @@ import useSelect from '@/hooks/select';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
-const { canvas, mixinState, canvasEditor } = useSelect();
+const { mixinState, canvasEditor } = useSelect();
 
 const colorList = [
   {

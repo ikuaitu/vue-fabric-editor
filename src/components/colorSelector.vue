@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-16 22:52:00
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-16 14:51:41
+ * @LastEditTime: 2023-07-24 23:15:36
  * @Description: 颜色选择器
 -->
 <template>
@@ -111,7 +111,7 @@ const props = defineProps({
   },
 });
 const emitChange = defineEmits(['change']);
-const poptipCreated = ref(false);
+// const poptipCreated = ref(false);
 // 是否渐变
 const isGradient = ref(false);
 // 纯色
