@@ -16,6 +16,9 @@
       "@/*": ["./src/*"]
     }
   },
+  "files": [
+    "node_modules/vite-plugin-pwa/client.d.ts"
+  ],
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",

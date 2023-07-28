@@ -3,24 +3,24 @@
  * @version:
  * @Author: June
  * @Date: 2023-04-23 21:10:05
- * @LastEditors: June
- * @LastEditTime: 2023-05-08 18:20:21
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-07-05 00:47:52
  */
+import { inject, onBeforeMount, onMounted, reactive } from 'vue';
+import { SelectEvent, SelectMode, SelectOneType } from '@/utils/event/types';
 
-import { SelectEvent, SelectMode } from '@/utils/event/types';
-// todo
-// interface Data {
-//   mSelectMode: SelectMode | '';
-//   mSelectOneType: SelectOneType | '';
-//   mSelectId: string[] | '';
-//   mSelectIds: string[];
-//   mSelectActive: any;
-// }
+interface Selector {
+  mSelectMode: SelectMode;
+  mSelectOneType: SelectOneType;
+  mSelectId: string[] | '';
+  mSelectIds: string[];
+  mSelectActive: unknown[];
+}
 
 export default function useSelect() {
-  const state = reactive({
-    mSelectMode: '',
-    mSelectOneType: '',
+  const state = reactive<Selector>({
+    mSelectMode: SelectMode.EMPTY,
+    mSelectOneType: SelectOneType.EMPTY,
     mSelectId: '', // 选择id
     mSelectIds: [], // 选择id
     mSelectActive: [],
@@ -28,6 +28,7 @@ export default function useSelect() {
 
   const fabric = inject('fabric');
   const canvas = inject('canvas');
+  const canvasEditor = inject('canvasEditor');
   const event = inject('event');
 
   const selectOne = (e) => {
@@ -46,8 +47,8 @@ export default function useSelect() {
   const selectCancel = () => {
     state.mSelectId = '';
     state.mSelectIds = [];
-    state.mSelectMode = '';
-    state.mSelectOneType = '';
+    state.mSelectMode = SelectMode.EMPTY;
+    state.mSelectOneType = SelectOneType.EMPTY;
   };
 
   onMounted(() => {
@@ -65,6 +66,7 @@ export default function useSelect() {
   return {
     fabric,
     canvas,
+    canvasEditor,
     mixinState: state,
   };
 }

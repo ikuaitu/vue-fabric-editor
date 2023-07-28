@@ -1,14 +1,15 @@
 <template>
-  <div class="box" v-if="mSelectMode === 'one'">
+  <div class="box" v-if="mixinState.mSelectMode === 'one'">
     <!-- 字体属性 -->
-    <div v-show="textType.includes(mSelectOneType)">
+    <div v-show="textType.includes(mixinState.mSelectOneType)">
       <Divider plain orientation="left">{{ $t('attributes.font') }}</Divider>
       <div class="flex-view">
         <div class="flex-item">
           <div class="left font-selector">
             <Select v-model="fontAttr.fontFamily" @on-change="changeFontFamily">
               <Option v-for="item in fontFamilyList" :value="item.name" :key="`font-${item.name}`">
-                <div class="font-item" :style="`background-image:url('${item.preview}');`">
+                <div class="font-item" v-if="!item.preview">{{ item.name }}</div>
+                <div class="font-item" v-else :style="`background-image:url('${item.preview}');`">
                   {{ !item.preview ? item : '' }}
                   <!-- 解决无法选中问题 -->
                   <span style="display: none">{{ item.name }}</span>
@@ -114,10 +115,10 @@
     </div>
 
     <!-- 通用属性 -->
-    <div v-show="baseType.includes(mSelectOneType)">
+    <div v-show="baseType.includes(mixinState.mSelectOneType)">
       <Divider plain orientation="left">{{ $t('attributes.exterior') }}</Divider>
       <!-- 多边形边数 -->
-      <Row v-if="mSelectOneType === 'polygon'" :gutter="12">
+      <Row v-if="mixinState.mSelectOneType === 'polygon'" :gutter="12">
         <Col flex="0.5">
           <InputNumber
             v-model="baseAttr.points.length"
@@ -129,7 +130,10 @@
         </Col>
       </Row>
       <!-- 颜色 -->
-      <Color :color="baseAttr.fill" @change="(value) => changeCommon('fill', value)"></Color>
+      <colorSelector
+        :color="baseAttr.fill"
+        @change="(value) => changeCommon('fill', value)"
+      ></colorSelector>
       <Row :gutter="12">
         <Col flex="1">
           <InputNumber
@@ -276,327 +280,333 @@
   </div>
 </template>
 
-<script>
+<script setup name="AttrBute">
 import fontList from '@/assets/fonts/font';
-import select from '@/mixins/select';
+import useSelect from '@/hooks/select';
 import FontFaceObserver from 'fontfaceobserver';
-import Color from './color.vue';
+import colorSelector from '@/components/colorSelector.vue';
 import axios from 'axios';
 import { getPolygonVertices } from '@/utils/math';
 import InputNumber from '@/components/inputNumber';
+import { Spin } from 'view-ui-plus';
 
+const event = inject('event');
+const update = getCurrentInstance();
 const repoSrc = import.meta.env.APP_REPO;
-
-export default {
-  name: 'AttrBute',
-  mixins: [select],
-  components: {
-    Color,
-    InputNumber,
+const { fabric, mixinState, canvasEditor } = useSelect();
+// 通用元素
+const baseType = [
+  'text',
+  'i-text',
+  'textbox',
+  'rect',
+  'circle',
+  'triangle',
+  'polygon',
+  'image',
+  'group',
+  'line',
+  'arrow',
+];
+// 文字元素
+const textType = ['i-text', 'textbox', 'text'];
+// 通用属性
+const baseAttr = reactive({
+  id: '',
+  opacity: 0,
+  angle: 0,
+  fill: '#fff',
+  left: 0,
+  top: 0,
+  strokeWidth: 0,
+  strokeDashArray: [],
+  stroke: '#fff',
+  shadow: {
+    color: '#fff',
+    blur: 0,
+    offsetX: 0,
+    offsetY: 0,
   },
-  data() {
-    return {
-      // 通用元素
-      baseType: [
-        'text',
-        'i-text',
-        'textbox',
-        'rect',
-        'circle',
-        'triangle',
-        'polygon',
-        'image',
-        'group',
-        'line',
-        'arrow',
-      ],
-      // 文字元素
-      textType: ['i-text', 'textbox', 'text'],
-      // 通用属性
-      baseAttr: {
-        id: '',
-        opacity: 0,
-        angle: 0,
-        fill: '#fff',
-        left: 0,
-        top: 0,
-        strokeWidth: 0,
-        strokeDashArray: [],
-        stroke: '#fff',
-        shadow: {
-          color: '#fff',
-          blur: 0,
-          offsetX: 0,
-          offsetY: 0,
-        },
-        points: {},
-      },
-      // 字体属性
-      fontAttr: {
-        fontSize: 0,
-        fontFamily: '',
-        lineHeight: 0,
-        charSpacing: 0,
-        fontWeight: '',
-        textBackgroundColor: '#fff',
-        textAlign: '',
-        fontStyle: '',
-        underline: false,
-        linethrough: false,
-        overline: false,
-      },
-      // 字体下拉列表
-      fontFamilyList: fontList.map((item) => item.fontFamily),
-      strokeDashList: [
-        {
-          value: {
-            strokeUniform: true,
-            strokeDashArray: [],
-            strokeLineCap: 'butt',
-          },
-          label: 'Stroke',
-        },
-        {
-          value: {
-            strokeUniform: true,
-            strokeDashArray: [1, 10],
-            strokeLineCap: 'butt',
-          },
-          label: 'Dash-1',
-        },
-        {
-          value: {
-            strokeUniform: true,
-            strokeDashArray: [1, 10],
-            strokeLineCap: 'round',
-          },
-          label: 'Dash-2',
-        },
-        {
-          value: {
-            strokeUniform: true,
-            strokeDashArray: [15, 15],
-            strokeLineCap: 'square',
-          },
-          label: 'Dash-3',
-        },
-        {
-          value: {
-            strokeUniform: true,
-            strokeDashArray: [15, 15],
-            strokeLineCap: 'round',
-          },
-          label: 'Dash-4',
-        },
-        {
-          value: {
-            strokeUniform: true,
-            strokeDashArray: [25, 25],
-            strokeLineCap: 'square',
-          },
-          label: 'Dash-5',
-        },
-        {
-          value: {
-            strokeUniform: true,
-            strokeDashArray: [25, 25],
-            strokeLineCap: 'round',
-          },
-          label: 'Dash-6',
-        },
-        {
-          value: {
-            strokeUniform: true,
-            strokeDashArray: [1, 8, 16, 8, 1, 20],
-            strokeLineCap: 'square',
-          },
-          label: 'Dash-7',
-        },
-        {
-          value: {
-            strokeUniform: true,
-            strokeDashArray: [1, 8, 16, 8, 1, 20],
-            strokeLineCap: 'round',
-          },
-          label: 'Dash-8',
-        },
-      ],
-      // 字体对齐方式
-      textAlignList: ['left', 'center', 'right'],
-      // 对齐图标
-      textAlignListSvg: [
-        '<svg t="1650441458823" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3554" width="18" height="18"><path d="M198.4 198.4h341.333333c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-341.333333c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m0 170.666667h569.6c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-569.6c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m0 170.666666h454.4c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-454.4c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533334z m0 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z" p-id="3555"></path></svg>',
-        '<svg t="1650441512015" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3704" width="18" height="18"><path d="M313.6 198.4h398.933333c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-398.933333c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 10.666667-8.533333 19.2-8.533333z m-115.2 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m115.2 170.666666h398.933333c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-398.933333c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 10.666667-8.533333 19.2-8.533334z m-115.2 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z" p-id="3705"></path></svg>',
-        '<svg t="1650441519862" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3854" width="18" height="18"><path d="M454.4 283.733333v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h341.333334c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-341.333334c-8.533333 0-14.933333-2.133333-19.2-8.533334-4.266667-4.266667-8.533333-10.666667-8.533333-19.2z m-226.133333 170.666667v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h569.6c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333H256c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-4.266667-8.533333-10.666667-8.533333-19.2z m113.066666 170.666667v-57.6c0-8.533333 2.133333-14.933333 8.533334-19.2 6.4-6.4 12.8-8.533333 19.2-8.533334h454.4c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-454.4c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-4.266667-8.533333-10.666667-8.533334-19.2z m-170.666666 170.666666v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-4.266667-8.533333-10.666667-8.533333-19.2z" p-id="3855"></path></svg>',
-      ],
-    };
+  points: {},
+});
+// 字体属性
+const fontAttr = reactive({
+  fontSize: 0,
+  fontFamily: '',
+  lineHeight: 0,
+  charSpacing: 0,
+  fontWeight: '',
+  textBackgroundColor: '#fff',
+  textAlign: '',
+  fontStyle: '',
+  underline: false,
+  linethrough: false,
+  overline: false,
+});
+// 字体下拉列表
+const fontFamilyList = ref([...fontList]);
+const strokeDashList = [
+  {
+    value: {
+      strokeUniform: true,
+      strokeDashArray: [],
+      strokeLineCap: 'butt',
+    },
+    label: 'Stroke',
   },
-  created() {
-    // 获取字体数据
-    this.getFreeFontList();
-
-    this.event.on('selectCancel', () => {
-      this.baseAttr.fill = '';
-      this.$forceUpdate();
-    });
-    this.event.on('selectOne', () => {
-      this.getObjectAttr();
-    });
-
-    this.canvas.c.on('object:modified', this.getObjectAttr);
+  {
+    value: {
+      strokeUniform: true,
+      strokeDashArray: [1, 10],
+      strokeLineCap: 'butt',
+    },
+    label: 'Dash-1',
   },
-  beforeUnmount() {
-    this.canvas.c.off('object:modified', this.getObjectAttr);
+  {
+    value: {
+      strokeUniform: true,
+      strokeDashArray: [1, 10],
+      strokeLineCap: 'round',
+    },
+    label: 'Dash-2',
   },
-  methods: {
-    getObjectAttr(e) {
-      const activeObject = this.canvas.c.getActiveObject();
-      // 不是当前obj，跳过
-      if (e && e.target && e.target !== activeObject) return;
-      if (activeObject) {
-        // base
-        this.baseAttr.id = activeObject.get('id');
-        this.baseAttr.opacity = activeObject.get('opacity') * 100;
-        this.baseAttr.fill = activeObject.get('fill');
-        this.baseAttr.left = activeObject.get('left');
-        this.baseAttr.top = activeObject.get('top');
-        this.baseAttr.stroke = activeObject.get('stroke');
-        this.baseAttr.strokeWidth = activeObject.get('strokeWidth');
-        this.baseAttr.shadow = activeObject.get('shadow') || {};
-        this.baseAttr.angle = activeObject.get('angle') || 0;
-        this.baseAttr.points = activeObject.get('points') || {};
-
-        const textTypes = ['i-text', 'text', 'textbox'];
-        if (textTypes.includes(activeObject.type)) {
-          this.fontAttr.fontSize = activeObject.get('fontSize');
-          this.fontAttr.fontFamily = activeObject.get('fontFamily');
-          this.fontAttr.lineHeight = activeObject.get('lineHeight');
-          this.fontAttr.textAlign = activeObject.get('textAlign');
-          this.fontAttr.underline = activeObject.get('underline');
-          this.fontAttr.linethrough = activeObject.get('linethrough');
-          this.fontAttr.charSpacing = activeObject.get('charSpacing');
-          this.fontAttr.overline = activeObject.get('overline');
-          this.fontAttr.fontStyle = activeObject.get('fontStyle');
-          this.fontAttr.textBackgroundColor = activeObject.get('textBackgroundColor');
-          this.fontAttr.fontWeight = activeObject.get('fontWeight');
-        }
-      }
+  {
+    value: {
+      strokeUniform: true,
+      strokeDashArray: [15, 15],
+      strokeLineCap: 'square',
     },
-    // 修改字体
-    changeFontFamily(fontName) {
-      if (!fontName) return;
-      // 跳过加载的属性;
-      const skipFonts = ['arial', 'Microsoft YaHei'];
-      if (skipFonts.includes(fontName)) {
-        const activeObject = this.canvas.c.getActiveObjects()[0];
-        activeObject && activeObject.set('fontFamily', fontName);
-        this.canvas.c.renderAll();
-        return;
-      }
-      this.$Spin.show();
-      // 字体加载
-      const font = new FontFaceObserver(fontName);
-      font
-        .load(null, 150000)
-        .then(() => {
-          const activeObject = this.canvas.c.getActiveObjects()[0];
-          activeObject && activeObject.set('fontFamily', fontName);
-          this.canvas.c.renderAll();
-          this.$Spin.hide();
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$Spin.hide();
-        });
-    },
-    getFreeFontList() {
-      axios.get(`${repoSrc}/font/free-font.json`).then((res) => {
-        this.fontFamilyList = [
-          ...this.fontFamilyList,
-          ...Object.entries(res.data).map(([, value]) => value),
-        ];
-      });
-    },
-    // 通用属性改变
-    changeCommon(key, value) {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
-      // 透明度特殊转换
-      if (key === 'opacity') {
-        activeObject && activeObject.set(key, value / 100);
-        this.canvas.c.renderAll();
-        return;
-      }
-      // 旋转角度适配
-      if (key === 'angle') {
-        activeObject.rotate(value);
-        this.canvas.c.renderAll();
-        return;
-      }
-      activeObject && activeObject.set(key, value);
-      this.canvas.c.renderAll();
-
-      // 更新属性
-      this.getObjectAttr();
-    },
-    // 边框设置
-    borderSet(key) {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
-      if (activeObject) {
-        const stroke = this.strokeDashList.find((item) => item.label === key);
-        activeObject.set(stroke.value);
-        this.canvas.c.renderAll();
-      }
-    },
-    // 阴影设置
-    changeShadow() {
-      const activeObject = this.canvas.c.getActiveObjects()[0];
-      activeObject && activeObject.set('shadow', new this.fabric.Shadow(this.baseAttr.shadow));
-      this.canvas.c.renderAll();
-    },
-    // 加粗
-    changeFontWeight(key, value) {
-      const nValue = value === 'normal' ? 'bold' : 'normal';
-      this.fontAttr.fontWeight = nValue;
-      const activeObject = this.canvas.c.getActiveObjects()[0];
-      activeObject && activeObject.set(key, nValue);
-      this.canvas.c.renderAll();
-    },
-    // 斜体
-    changeFontStyle(key, value) {
-      const nValue = value === 'normal' ? 'italic' : 'normal';
-      this.fontAttr.fontStyle = nValue;
-      const activeObject = this.canvas.c.getActiveObjects()[0];
-      activeObject && activeObject.set(key, nValue);
-      this.canvas.c.renderAll();
-    },
-    // 中划
-    changeLineThrough(key, value) {
-      const nValue = value === false;
-      this.fontAttr.linethrough = nValue;
-      const activeObject = this.canvas.c.getActiveObjects()[0];
-      activeObject && activeObject.set(key, nValue);
-      this.canvas.c.renderAll();
-    },
-    // 下划
-    changeUnderline(key, value) {
-      const nValue = value === false;
-      this.fontAttr.underline = nValue;
-      const activeObject = this.canvas.c.getActiveObjects()[0];
-      activeObject && activeObject.set(key, nValue);
-      this.canvas.c.renderAll();
-    },
-    // 修改边数
-    changeEdge(value) {
-      const activeObjects = this.canvas.c.getActiveObjects();
-      if (!activeObjects || !activeObjects.length) return;
-      activeObjects[0].set(
-        'points',
-        getPolygonVertices(value, Math.min(activeObjects[0].width, activeObjects[0].height) / 2)
-      );
-      this.canvas.c.requestRenderAll();
-    },
+    label: 'Dash-3',
   },
+  {
+    value: {
+      strokeUniform: true,
+      strokeDashArray: [15, 15],
+      strokeLineCap: 'round',
+    },
+    label: 'Dash-4',
+  },
+  {
+    value: {
+      strokeUniform: true,
+      strokeDashArray: [25, 25],
+      strokeLineCap: 'square',
+    },
+    label: 'Dash-5',
+  },
+  {
+    value: {
+      strokeUniform: true,
+      strokeDashArray: [25, 25],
+      strokeLineCap: 'round',
+    },
+    label: 'Dash-6',
+  },
+  {
+    value: {
+      strokeUniform: true,
+      strokeDashArray: [1, 8, 16, 8, 1, 20],
+      strokeLineCap: 'square',
+    },
+    label: 'Dash-7',
+  },
+  {
+    value: {
+      strokeUniform: true,
+      strokeDashArray: [1, 8, 16, 8, 1, 20],
+      strokeLineCap: 'round',
+    },
+    label: 'Dash-8',
+  },
+];
+// 字体对齐方式
+const textAlignList = ['left', 'center', 'right'];
+// 对齐图标
+const textAlignListSvg = [
+  '<svg t="1650441458823" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3554" width="18" height="18"><path d="M198.4 198.4h341.333333c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-341.333333c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m0 170.666667h569.6c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-569.6c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m0 170.666666h454.4c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-454.4c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533334z m0 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z" p-id="3555"></path></svg>',
+  '<svg t="1650441512015" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3704" width="18" height="18"><path d="M313.6 198.4h398.933333c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-398.933333c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 10.666667-8.533333 19.2-8.533333z m-115.2 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z m115.2 170.666666h398.933333c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533334 19.2v57.6c0 8.533333-2.133333 14.933333-8.533334 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-398.933333c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 10.666667-8.533333 19.2-8.533334z m-115.2 170.666667h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-6.4-8.533333-12.8-8.533333-19.2v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 4.266667-4.266667 12.8-8.533333 19.2-8.533333z" p-id="3705"></path></svg>',
+  '<svg t="1650441519862" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3854" width="18" height="18"><path d="M454.4 283.733333v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h341.333334c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-341.333334c-8.533333 0-14.933333-2.133333-19.2-8.533334-4.266667-4.266667-8.533333-10.666667-8.533333-19.2z m-226.133333 170.666667v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h569.6c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333H256c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-4.266667-8.533333-10.666667-8.533333-19.2z m113.066666 170.666667v-57.6c0-8.533333 2.133333-14.933333 8.533334-19.2 6.4-6.4 12.8-8.533333 19.2-8.533334h454.4c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-454.4c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-4.266667-8.533333-10.666667-8.533334-19.2z m-170.666666 170.666666v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-4.266667-8.533333-10.666667-8.533333-19.2z" p-id="3855"></path></svg>',
+];
+
+const getFreeFontList = () => {
+  axios.get(`${repoSrc}/font/free-font.json`).then((res) => {
+    fontFamilyList.value = [
+      ...fontFamilyList.value,
+      ...Object.entries(res.data).map(([, value]) => value),
+    ];
+  });
 };
+
+const getObjectAttr = (e) => {
+  const activeObject = canvasEditor.canvas.getActiveObject();
+  // 不是当前obj，跳过
+  if (e && e.target && e.target !== activeObject) return;
+  if (activeObject) {
+    // base
+    baseAttr.id = activeObject.get('id');
+    baseAttr.opacity = activeObject.get('opacity') * 100;
+    baseAttr.fill = activeObject.get('fill');
+    baseAttr.left = activeObject.get('left');
+    baseAttr.top = activeObject.get('top');
+    baseAttr.stroke = activeObject.get('stroke');
+    baseAttr.strokeWidth = activeObject.get('strokeWidth');
+    baseAttr.shadow = activeObject.get('shadow') || {};
+    baseAttr.angle = activeObject.get('angle') || 0;
+    baseAttr.points = activeObject.get('points') || {};
+
+    const textTypes = ['i-text', 'text', 'textbox'];
+    if (textTypes.includes(activeObject.type)) {
+      fontAttr.fontSize = activeObject.get('fontSize');
+      fontAttr.fontFamily = activeObject.get('fontFamily');
+      fontAttr.lineHeight = activeObject.get('lineHeight');
+      fontAttr.textAlign = activeObject.get('textAlign');
+      fontAttr.underline = activeObject.get('underline');
+      fontAttr.linethrough = activeObject.get('linethrough');
+      fontAttr.charSpacing = activeObject.get('charSpacing');
+      fontAttr.overline = activeObject.get('overline');
+      fontAttr.fontStyle = activeObject.get('fontStyle');
+      fontAttr.textBackgroundColor = activeObject.get('textBackgroundColor');
+      fontAttr.fontWeight = activeObject.get('fontWeight');
+    }
+  }
+};
+
+const selectCancel = () => {
+  baseAttr.fill = '';
+  update?.proxy?.$forceUpdate();
+};
+
+const init = () => {
+  // 获取字体数据
+  getFreeFontList();
+
+  event.on('selectCancel', selectCancel);
+  event.on('selectOne', getObjectAttr);
+  canvasEditor.canvas.on('object:modified', getObjectAttr);
+};
+
+// 修改字体
+const changeFontFamily = (fontName) => {
+  if (!fontName) return;
+  // 跳过加载的属性;
+  const skipFonts = ['arial', 'Microsoft YaHei'];
+  if (skipFonts.includes(fontName)) {
+    const activeObject = canvasEditor.canvas.getActiveObjects()[0];
+    activeObject && activeObject.set('fontFamily', fontName);
+    canvasEditor.canvas.renderAll();
+    return;
+  }
+  Spin.show();
+  // 字体加载
+  const font = new FontFaceObserver(fontName);
+  font
+    .load(null, 150000)
+    .then(() => {
+      const activeObject = canvasEditor.canvas.getActiveObjects()[0];
+      activeObject && activeObject.set('fontFamily', fontName);
+      canvasEditor.canvas.renderAll();
+      Spin.hide();
+    })
+    .catch((err) => {
+      console.log(err);
+      Spin.hide();
+    });
+};
+
+// 通用属性改变
+const changeCommon = (key, value) => {
+  console.log(key, value);
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
+  // 透明度特殊转换
+  if (key === 'opacity') {
+    activeObject && activeObject.set(key, value / 100);
+    canvasEditor.canvas.renderAll();
+    return;
+  }
+  // 旋转角度适配
+  if (key === 'angle') {
+    activeObject.rotate(value);
+    canvasEditor.canvas.renderAll();
+    return;
+  }
+  activeObject && activeObject.set(key, value);
+  canvasEditor.canvas.renderAll();
+
+  // 更新属性
+  getObjectAttr();
+};
+
+// 边框设置
+const borderSet = (key) => {
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
+  if (activeObject) {
+    const stroke = strokeDashList.find((item) => item.label === key);
+    activeObject.set(stroke.value);
+    canvasEditor.canvas.renderAll();
+  }
+};
+
+// 阴影设置
+const changeShadow = () => {
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
+  activeObject && activeObject.set('shadow', new fabric.Shadow(baseAttr.shadow));
+  canvasEditor.canvas.renderAll();
+};
+
+// 加粗
+const changeFontWeight = (key, value) => {
+  const nValue = value === 'normal' ? 'bold' : 'normal';
+  fontAttr.fontWeight = nValue;
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
+  activeObject && activeObject.set(key, nValue);
+  canvasEditor.canvas.renderAll();
+};
+
+// 斜体
+const changeFontStyle = (key, value) => {
+  const nValue = value === 'normal' ? 'italic' : 'normal';
+  fontAttr.fontStyle = nValue;
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
+  activeObject && activeObject.set(key, nValue);
+  canvasEditor.canvas.renderAll();
+};
+
+// 中划
+const changeLineThrough = (key, value) => {
+  const nValue = value === false;
+  fontAttr.linethrough = nValue;
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
+  activeObject && activeObject.set(key, nValue);
+  canvasEditor.canvas.renderAll();
+};
+
+// 下划
+const changeUnderline = (key, value) => {
+  const nValue = value === false;
+  fontAttr.underline = nValue;
+  const activeObject = canvasEditor.canvas.getActiveObjects()[0];
+  activeObject && activeObject.set(key, nValue);
+  canvasEditor.canvas.renderAll();
+};
+
+// 修改边数
+const changeEdge = (value) => {
+  const activeObjects = canvasEditor.canvas.getActiveObjects();
+  if (!activeObjects || !activeObjects.length) return;
+  activeObjects[0].set(
+    'points',
+    getPolygonVertices(value, Math.min(activeObjects[0].width, activeObjects[0].height) / 2)
+  );
+  canvasEditor.canvas.requestRenderAll();
+};
+
+onMounted(init);
+
+onBeforeUnmount(() => {
+  event.off('selectCancel', selectCancel);
+  event.off('selectOne', getObjectAttr);
+  canvasEditor.canvas.off('object:modified', getObjectAttr);
+});
 </script>
 
 <style scoped lang="less">

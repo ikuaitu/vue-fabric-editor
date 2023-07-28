@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: June
- * @LastEditTime: 2023-06-02 11:33:48
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-07-24 23:14:01
  * @Description: 多元素或单元素对齐方式
 -->
 
@@ -79,10 +79,10 @@
 
 <script setup name="CenterAlign">
 import useSelect from '@/hooks/select';
-const { canvas, mixinState } = useSelect();
+const { mixinState, canvasEditor } = useSelect();
 
 const position = (name) => {
-  canvas.editor.centerAlign.position(name);
+  canvasEditor.position(name);
 };
 </script>
 <style scoped lang="less">

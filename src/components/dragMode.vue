@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-18 08:06:56
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-22 22:55:59
+ * @LastEditTime: 2023-07-16 12:23:40
  * @Description: 拖拽模式
 -->
 
@@ -16,56 +16,41 @@
   </div>
 </template>
 
-<script>
-import select from '@/mixins/select';
+<script setup name="Drag">
+import useSelect from '@/hooks/select';
+const status = ref(false);
+const { canvasEditor } = useSelect();
 
-export default {
-  name: 'ToolBar',
-  mixins: [select],
-  data() {
-    return {
-      status: false,
-    };
-  },
-  computed: {
-    unShow() {
-      return this.mSelectMode === 'one' && this.mSelectOneType === 'group';
-    },
-    createShow() {
-      return this.mSelectMode === 'multiple';
-    },
-  },
-  methods: {
-    switchMode(val) {
-      if (val) {
-        this.canvas.editor.editorWorkspace.startDring();
-      } else {
-        this.canvas.editor.editorWorkspace.endDring();
-      }
-    },
-    handleKeyDown(e) {
-      if (this.status) return;
-      if (e.code === 'Space') {
-        this.status = true;
-        this.canvas.editor.editorWorkspace.startDring();
-      }
-    },
-    handleKeyUp(e) {
-      if (e.code === 'Space') {
-        this.status = false;
-        this.canvas.editor.editorWorkspace.endDring();
-      }
-    },
-  },
-  mounted() {
-    window.addEventListener('keydown', this.handleKeyDown);
-    window.addEventListener('keyup', this.handleKeyUp);
-  },
-  beforeUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-    window.removeEventListener('keyup', this.handleKeyUp);
-  },
+const switchMode = (val) => {
+  if (val) {
+    canvasEditor.startDring();
+  } else {
+    canvasEditor.endDring();
+  }
 };
+// const handleKeyDown = (e) => {
+//   if (status.value) return;
+//   if (e.code === 'Space') {
+//     status.value = true;
+//     canvas.editor.editorWorkspace.startDring();
+//   }
+// };
+// const handleKeyUp = (e) => {
+//   if (e.code === 'Space') {
+//     status.value = false;
+//     canvas.editor.editorWorkspace.endDring();
+//   }
+// };
+
+onMounted(() => {
+  canvasEditor.on('startDring', () => (status.value = true));
+  canvasEditor.on('endDring', () => (status.value = false));
+});
+
+onBeforeUnmount(() => {
+  canvasEditor.off('startDring');
+  canvasEditor.off('endDring');
+});
 </script>
 <style scoped lang="less">
 .box {

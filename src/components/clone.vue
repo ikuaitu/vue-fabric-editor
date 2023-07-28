@@ -8,8 +8,8 @@
 import useSelect from '@/hooks/select';
 import { debounce } from 'lodash-es';
 
-const { canvas, mixinState } = useSelect();
+const { mixinState, canvasEditor } = useSelect();
 const clone = debounce(function () {
-  canvas.editor.clone();
+  canvasEditor.clone();
 }, 300);
 </script>

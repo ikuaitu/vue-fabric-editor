@@ -1,10 +1,13 @@
 /*
  * @Author: 秦少卫
- * @Date: 2023-01-09 22:49:02
- * @LastEditors: bamzc
- * @LastEditTime: 2023-06-02 17:04:16
- * @Description: 控制条样式
+ * @Date: 2023-06-13 23:00:43
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-06-13 23:09:59
+ * @Description: 控制条插件
  */
+
+import Editor from '../core';
+type IEditor = Editor;
 
 import { fabric } from 'fabric';
 import verticalImg from '@/assets/editor/middlecontrol.svg';
@@ -216,28 +219,42 @@ function rotationControl() {
   });
 }
 
-function initControls(canvas: fabric.Canvas) {
-  // 删除图标
-  deleteControl(canvas);
-  // 顶点图标
-  peakControl();
-  // 中间横杠图标
-  intervalControl();
-  // 旋转图标
-  rotationControl();
+class ControlsPlugin {
+  public canvas: fabric.Canvas;
+  public editor: IEditor;
+  static pluginName = 'ControlsPlugin';
+  constructor(canvas: fabric.Canvas, editor: IEditor) {
+    this.canvas = canvas;
+    this.editor = editor;
+    this.init();
+  }
+  init() {
+    // 删除图标
+    deleteControl(this.canvas);
+    // 顶点图标
+    peakControl();
+    // 中间横杠图标
+    intervalControl();
+    // 旋转图标
+    rotationControl();
 
-  // 选中样式
-  fabric.Object.prototype.set({
-    transparentCorners: false,
-    borderColor: '#51B9F9',
-    cornerColor: '#FFF',
-    borderScaleFactor: 2.5,
-    cornerStyle: 'circle',
-    cornerStrokeColor: '#0E98FC',
-    borderOpacityWhenMoving: 1,
-  });
-  // textbox保持一致
-  // fabric.Textbox.prototype.controls = fabric.Object.prototype.controls;
+    // 选中样式
+    fabric.Object.prototype.set({
+      transparentCorners: false,
+      borderColor: '#51B9F9',
+      cornerColor: '#FFF',
+      borderScaleFactor: 2.5,
+      cornerStyle: 'circle',
+      cornerStrokeColor: '#0E98FC',
+      borderOpacityWhenMoving: 1,
+    });
+    // textbox保持一致
+    // fabric.Textbox.prototype.controls = fabric.Object.prototype.controls;
+  }
+
+  destroy() {
+    console.log('pluginDestroy');
+  }
 }
 
-export default initControls;
+export default ControlsPlugin;

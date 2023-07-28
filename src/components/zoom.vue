@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-04-21 20:20:20
- * @LastEditors: June
- * @LastEditTime: 2023-05-29 17:02:46
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-07-24 23:12:41
  * @Description: 缩放元素
 -->
 <template>
@@ -60,22 +60,22 @@
   </div>
 </template>
 
-<script setup name="zoom">
+<script setup name="Zoom">
 import useSelect from '@/hooks/select';
 
-const { canvas } = useSelect();
+const { canvasEditor } = useSelect();
 
 const rSet = () => {
-  canvas.editor.editorWorkspace.one();
+  canvasEditor.one();
 };
 const big = () => {
-  canvas.editor.editorWorkspace.big();
+  canvasEditor.big();
 };
 const small = () => {
-  canvas.editor.editorWorkspace.small();
+  canvasEditor.small();
 };
 const setViewport = () => {
-  canvas.editor.editorWorkspace.auto();
+  canvasEditor.auto();
 };
 </script>
 <style scoped lang="less">

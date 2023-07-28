@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-03-31 13:09:32
+ * @LastEditTime: 2023-07-16 12:42:36
  * @Description: 素材面板
 -->
 
@@ -241,56 +241,52 @@
   </div>
 </template>
 
-<script>
+<script name="SvgEl" setup>
 import { v4 as uuid } from 'uuid';
+import useSelect from '@/hooks/select';
+
 const defaultPosition = {
   left: 100,
   top: 100,
   shadow: '',
   fontFamily: '1-1',
 };
-export default {
-  name: 'ToolBar',
-  inject: ['canvas', 'fabric'],
-  data() {
-    return {
-      repoSrc: import.meta.env.APP_REPO,
-      arr: [],
-    };
-  },
-  methods: {
-    getIndex(start, end) {
-      const arr = Array(end - (start - 1)).fill('');
-      return arr.map((item, i) => i + start);
-    },
-    dragItem(event) {
-      const url = event.target.src;
-      // 会有性能开销 dragAddItem复用更简洁
-      this.fabric.loadSVGFromURL(url, (objects) => {
-        const item = this.fabric.util.groupSVGElements(objects, {
-          shadow: '',
-          fontFamily: 'arial',
-          id: uuid(),
-          name: 'svg元素',
-        });
-        this.canvas.editor.dragAddItem(event, item);
-      });
-    },
-    // 按照类型渲染
-    addItem(e) {
-      const url = e.target.src;
-      this.fabric.loadSVGFromURL(url, (objects, options) => {
-        const item = this.fabric.util.groupSVGElements(objects, {
-          ...options,
-          ...defaultPosition,
-          id: uuid(),
-          name: 'svg元素',
-        });
-        this.canvas.c.add(item);
-        this.canvas.c.requestRenderAll();
-      });
-    },
-  },
+const repoSrc = import.meta.env.APP_REPO;
+const { fabric, canvasEditor } = useSelect();
+
+const getIndex = (start, end) => {
+  const arr = Array(end - (start - 1)).fill('');
+  return arr.map((item, i) => i + start);
+};
+
+const dragItem = (event) => {
+  const url = event.target.src;
+  // 会有性能开销 dragAddItem复用更简洁
+  fabric.loadSVGFromURL(url, (objects) => {
+    const item = fabric.util.groupSVGElements(objects, {
+      shadow: '',
+      fontFamily: 'arial',
+      id: uuid(),
+      name: 'svg元素',
+    });
+    canvasEditor.dragAddItem(event, item);
+  });
+};
+
+// 按照类型渲染
+const addItem = (e) => {
+  const url = e.target.src;
+  fabric.loadSVGFromURL(url, (objects, options) => {
+    const item = fabric.util.groupSVGElements(objects, {
+      ...options,
+      ...defaultPosition,
+      id: uuid(),
+      name: 'svg元素',
+    });
+    canvasEditor.canvas.add(item);
+    canvasEditor.canvas.setActiveObject(item);
+    canvasEditor.canvas.requestRenderAll();
+  });
 };
 </script>
 
