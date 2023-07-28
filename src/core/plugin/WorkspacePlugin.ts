@@ -1,34 +1,35 @@
-/* eslint-disable func-names */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-underscore-dangle */
 /*
  * @Author: 秦少卫
- * @Date: 2023-02-03 21:50:10
+ * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-05-21 19:07:05
- * @Description: 工作区初始化
+ * @LastEditTime: 2023-07-05 00:34:38
+ * @Description: 画布区域插件
  */
 
 import { fabric } from 'fabric';
+import Editor from '../core';
 import { throttle } from 'lodash-es';
+type IEditor = Editor;
 
-declare type EditorWorkspaceOption = { width: number; height: number };
-declare type ExtCanvas = fabric.Canvas & {
-  isDragging: boolean;
-  lastPosX: number;
-  lastPosY: number;
-};
-
-class EditorWorkspace {
-  canvas: fabric.Canvas;
+class WorkspacePlugin {
+  public canvas: fabric.Canvas;
+  public editor: IEditor;
+  static pluginName = 'WorkspacePlugin';
+  static events = ['sizeChange'];
+  static apis = ['big', 'small', 'auto', 'one', 'setSize'];
   workspaceEl: HTMLElement;
-  workspace: fabric.Rect | null;
-  option: EditorWorkspaceOption;
-  // width: number;
-  // height: number;
-  dragMode: boolean;
-  constructor(canvas: fabric.Canvas, option: EditorWorkspaceOption) {
+  workspace: null | fabric.Rect;
+  option: any;
+  constructor(canvas: fabric.Canvas, editor: IEditor) {
     this.canvas = canvas;
+    this.editor = editor;
+    this.init({
+      width: 900,
+      height: 2000,
+    });
+  }
+
+  init(option) {
     const workspaceEl = document.querySelector('#workspace') as HTMLElement;
     if (!workspaceEl) {
       throw new Error('element #workspace is missing, plz check!');
@@ -36,16 +37,40 @@ class EditorWorkspace {
     this.workspaceEl = workspaceEl;
     this.workspace = null;
     this.option = option;
-    this.dragMode = false;
     this._initBackground();
     this._initWorkspace();
     this._initResizeObserve();
-    this._initDring();
+    this._bindWheel();
+  }
+
+  // hookImportBefore() {
+  //   return new Promise((resolve, reject) => {
+  //     resolve();
+  //   });
+  // }
+
+  hookImportAfter() {
+    return new Promise((resolve) => {
+      const workspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
+      if (workspace) {
+        workspace.set('selectable', false);
+        workspace.set('hasControls', false);
+        this.setSize(workspace.width, workspace.height);
+        this.editor.emit('sizeChange', workspace.width, workspace.height);
+      }
+      resolve();
+    });
+  }
+
+  hookSaveAfter() {
+    return new Promise((resolve) => {
+      this.auto();
+      resolve(true);
+    });
   }
 
   // 初始化背景
   _initBackground() {
-    this.canvas.setBackgroundColor('#F1F1F1', this.canvas.renderAll.bind(this.canvas));
     this.canvas.backgroundImage = '';
     this.canvas.setWidth(this.workspaceEl.offsetWidth);
     this.canvas.setHeight(this.workspaceEl.offsetHeight);
@@ -55,7 +80,7 @@ class EditorWorkspace {
   _initWorkspace() {
     const { width, height } = this.option;
     const workspace = new fabric.Rect({
-      fill: '#ffffff',
+      fill: 'rgba(255,255,255,1)',
       width,
       height,
       id: 'workspace',
@@ -169,62 +194,7 @@ class EditorWorkspace {
     this.canvas.requestRenderAll();
   }
 
-  // 开始拖拽
-  startDring() {
-    this.dragMode = true;
-    this.canvas.defaultCursor = 'grab';
-  }
-  endDring() {
-    this.dragMode = false;
-    this.canvas.defaultCursor = 'default';
-  }
-
-  // 拖拽模式
-  _initDring() {
-    const This = this;
-    this.canvas.on('mouse:down', function (this: ExtCanvas, opt) {
-      const evt = opt.e;
-      if (evt.altKey || This.dragMode) {
-        This.canvas.defaultCursor = 'grabbing';
-        This.canvas.discardActiveObject();
-        This._setDring();
-        this.selection = false;
-        this.isDragging = true;
-        this.lastPosX = evt.clientX;
-        this.lastPosY = evt.clientY;
-        this.requestRenderAll();
-      }
-    });
-
-    this.canvas.on('mouse:move', function (this: ExtCanvas, opt) {
-      if (this.isDragging) {
-        This.canvas.discardActiveObject();
-        This.canvas.defaultCursor = 'grabbing';
-        const { e } = opt;
-        if (!this.viewportTransform) return;
-        const vpt = this.viewportTransform;
-        vpt[4] += e.clientX - this.lastPosX;
-        vpt[5] += e.clientY - this.lastPosY;
-        this.lastPosX = e.clientX;
-        this.lastPosY = e.clientY;
-        this.requestRenderAll();
-      }
-    });
-
-    this.canvas.on('mouse:up', function (this: ExtCanvas) {
-      if (!this.viewportTransform) return;
-      this.setViewportTransform(this.viewportTransform);
-      this.isDragging = false;
-      this.selection = true;
-      this.getObjects().forEach((obj) => {
-        if (obj.id !== 'workspace' && obj.hasControls) {
-          obj.selectable = true;
-        }
-      });
-      this.requestRenderAll();
-      This.canvas.defaultCursor = 'default';
-    });
-
+  _bindWheel() {
     this.canvas.on('mouse:wheel', function (this: fabric.Canvas, opt) {
       const delta = opt.e.deltaY;
       let zoom = this.getZoom();
@@ -238,15 +208,9 @@ class EditorWorkspace {
     });
   }
 
-  _setDring() {
-    this.canvas.selection = false;
-    this.canvas.defaultCursor = 'grab';
-    this.canvas.getObjects().forEach((obj) => {
-      obj.selectable = false;
-    });
-    this.canvas.renderAll();
-    this.canvas.requestRenderAll();
+  destroy() {
+    console.log('pluginDestroy');
   }
 }
 
-export default EditorWorkspace;
+export default WorkspacePlugin;

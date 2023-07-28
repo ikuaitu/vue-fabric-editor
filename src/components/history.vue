@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: June
- * @LastEditTime: 2023-05-20 22:54:13
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-07-16 12:31:25
  * @Description: 回退重做
 -->
 
@@ -10,14 +10,14 @@
   <div style="display: inline-block">
     <!-- 后退 -->
     <Tooltip :content="$t('history.revocation') + `(${undoStack.length})`">
-      <Button @click="undo" type="text" size="small" :disabled="!canUndo">
+      <Button @click="undo" type="text" size="small" :disabled="undoStack.length === 0">
         <Icon type="ios-undo" size="20" />
       </Button>
     </Tooltip>
 
     <!-- 重做 -->
     <Tooltip :content="$t('history.redo') + `(${redoStack.length})`">
-      <Button @click="redo" type="text" size="small" :disabled="!canRedo">
+      <Button @click="redo" type="text" size="small" :disabled="redoStack.length === 0">
         <Icon type="ios-redo" size="20" />
       </Button>
     </Tooltip>
@@ -29,86 +29,19 @@
 </template>
 
 <script setup lang="ts">
-import { useRefHistory, useDateFormat } from '@vueuse/core';
-import { keyNames, hotkeys } from '@/core/initHotKeys';
-import type { fabric } from 'fabric';
-import * as vfe from 'vfe';
-
-const canvas = inject<vfe.ICanvas>('canvas');
-
-const {
-  undo: _undo,
-  redo: _redo,
-  canRedo,
-  canUndo,
-  commit,
-  pause,
-  resume,
-  clear,
-  history,
-  source,
-  redoStack,
-  undoStack,
-  isTracking,
-} = useRefHistory(ref(), {
-  capacity: 50,
-});
-
-const save = (event: fabric.IEvent) => {
-  // 过滤选择元素事件
-  const isSelect = event.action === undefined && event.e;
-  if (isSelect || !canvas) return;
-
-  // 丢弃workspace创建前的记录
-  if (!canvas.editor.editorWorkspace) {
-    source.value = canvas.editor.getJson();
-    commit();
-    clear();
-    return;
-  }
-
-  if (isTracking.value) {
-    source.value = canvas.editor.getJson();
-  }
-};
+import { useDateFormat } from '@vueuse/core';
+import useSelect from '@/hooks/select';
+const { canvasEditor } = useSelect();
+const { history, redoStack, undoStack } = reactive(canvasEditor.getHistory());
 
 // 后退
 const undo = () => {
-  _undo();
-  renderCanvas();
+  canvasEditor.undo();
 };
 // 重做
 const redo = () => {
-  _redo();
-  renderCanvas();
+  canvasEditor.redo();
 };
-
-const renderCanvas = () => {
-  if (!canvas) return;
-  pause();
-  canvas.c.clear();
-  canvas.c.loadFromJSON(source.value, () => {
-    canvas.c.renderAll();
-    resume();
-  });
-};
-
-onMounted(() => {
-  canvas?.c.on({
-    'object:added': save,
-    'object:modified': save,
-    'selection:updated': save,
-  });
-  hotkeys(keyNames.ctrlz, undo);
-});
-
-onUnmounted(() => {
-  canvas?.c.off({
-    'object:added': save,
-    'object:modified': save,
-    'selection:updated': save,
-  });
-});
 </script>
 
 <style scoped lang="less">

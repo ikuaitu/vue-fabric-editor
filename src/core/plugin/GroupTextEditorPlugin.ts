@@ -1,22 +1,25 @@
 /*
-/*
  * @Author: 秦少卫
- * @Date: 2023-04-20 02:15:09
+ * @Date: 2023-06-22 16:11:40
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-04-27 23:07:25
- * @Description: 编辑组内文字
+ * @LastEditTime: 2023-06-22 16:14:55
+ * @Description: 组内文字编辑
  */
 
 import { fabric } from 'fabric';
+import Editor from '../core';
 import { v4 as uuid } from 'uuid';
+type IEditor = Editor;
 
-class EditorGroupText {
-  canvas: fabric.Canvas;
-  isDown: boolean;
-  constructor(canvas: fabric.Canvas) {
+class GroupTextEditorPlugin {
+  public canvas: fabric.Canvas;
+  public editor: IEditor;
+  static pluginName = 'GroupTextEditorPlugin';
+  isDown = false;
+  constructor(canvas: fabric.Canvas, editor: IEditor) {
     this.canvas = canvas;
+    this.editor = editor;
     this._init();
-    this.isDown = false;
   }
 
   // 组内文本输入
@@ -89,18 +92,22 @@ class EditorGroupText {
     const ids: string[] = [];
     const activeObj = this.canvas.getActiveObject() as fabric.Group;
     if (!activeObj) return;
-    activeObj.toActiveSelection();
     activeObj.getObjects().forEach((item) => {
       const id = uuid();
       ids.push(id);
       item.set('id', id);
     });
+    activeObj.toActiveSelection();
     return ids;
   }
 
   isText(obj: fabric.Object) {
     return obj.type && ['i-text', 'text', 'textbox'].includes(obj.type);
   }
+
+  destroy() {
+    console.log('pluginDestroy');
+  }
 }
 
-export default EditorGroupText;
+export default GroupTextEditorPlugin;

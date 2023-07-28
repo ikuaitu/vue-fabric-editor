@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: June
- * @LastEditTime: 2023-05-08 18:20:27
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-07-24 23:13:51
  * @Description: 图层面板
 -->
 
@@ -43,7 +43,7 @@
 
 <script setup name="Layer">
 import useSelect from '@/hooks/select';
-const { canvas, fabric, mixinState } = useSelect();
+const { canvasEditor, fabric, mixinState } = useSelect();
 
 const list = ref([]);
 
@@ -92,10 +92,10 @@ const textType = (type, item) => {
 };
 // 选中元素
 const select = (id) => {
-  const info = canvas.c.getObjects().find((item) => item.id === id);
-  canvas.c.discardActiveObject();
-  canvas.c.setActiveObject(info);
-  canvas.c.requestRenderAll();
+  const info = canvasEditor.canvas.getObjects().find((item) => item.id === id);
+  canvasEditor.canvas.discardActiveObject();
+  canvasEditor.canvas.setActiveObject(info);
+  canvasEditor.canvas.requestRenderAll();
 };
 
 // 按钮类型
@@ -111,22 +111,23 @@ const btnIconType = (type) => {
   return iconType[type];
 };
 const up = () => {
-  canvas.editor.up();
+  canvasEditor.up();
 };
 const upTop = () => {
-  canvas.editor.upTop();
+  canvasEditor.upTop();
 };
 const down = () => {
-  canvas.editor.down();
+  canvasEditor.down();
 };
 const downTop = () => {
-  canvas.editor.downTop();
+  canvasEditor.downTop();
 };
 
 const getList = () => {
   // 不改原数组 反转
   list.value = [
-    ...canvas.c.getObjects().filter((item) => {
+    ...canvasEditor.canvas.getObjects().filter((item) => {
+      // return item;
       // 过滤掉辅助线
       return !(item instanceof fabric.GuideLine || item.id === 'workspace');
     }),
@@ -145,8 +146,8 @@ const getList = () => {
 
 onMounted(() => {
   // 当选择画布中的对象时，该对象不出现在顶层。
-  canvas.c.preserveObjectStacking = true;
-  canvas.c.on('after:render', getList);
+  canvasEditor.canvas.preserveObjectStacking = true;
+  canvasEditor.canvas.on('after:render', getList);
 });
 </script>
 

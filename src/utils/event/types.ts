@@ -4,11 +4,13 @@
 
 // 选择模式
 export enum SelectMode {
+  EMPTY = '',
   ONE = 'one',
   MULTI = 'multiple',
 }
 
 export enum SelectOneType {
+  EMPTY = '',
   GROUP = 'group',
   POLYGON = 'polygon',
 }

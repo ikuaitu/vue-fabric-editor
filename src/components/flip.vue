@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: bigFace2019 599069310@qq.com
- * @LastEditTime: 2023-05-14 18:48:56
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-07-24 23:12:09
  * @Description: 元素翻转
 -->
 
@@ -69,16 +69,16 @@
 <script setup name="Flip">
 import useSelect from '@/hooks/select';
 
-const { canvas, mixinState } = useSelect();
+const { mixinState, canvasEditor } = useSelect();
 
 // 非单选时，禁止镜像操作
 const notSelectOneMode = () => {
   return mixinState.mSelectMode !== 'one';
 };
 const flip = (type) => {
-  const activeObject = canvas.c.getActiveObject();
+  const activeObject = canvasEditor.canvas.getActiveObject();
   activeObject.set(`flip${type}`, !activeObject[`flip${type}`]).setCoords();
-  canvas.c.requestRenderAll();
+  canvasEditor.canvas.requestRenderAll();
 };
 </script>
 
