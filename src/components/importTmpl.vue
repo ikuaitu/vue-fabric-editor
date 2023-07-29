@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-16 13:56:21
+ * @LastEditTime: 2023-07-29 21:17:46
  * @Description: 导入模板
 -->
 
@@ -19,7 +19,7 @@
         class="tmpl-img"
         :alt="item.label"
         v-lazy="item.src"
-        @click="getTempData(item.tempUrl)"
+        @click="beforeClearTip(item.tempUrl)"
       />
     </Tooltip>
   </div>
@@ -31,6 +31,7 @@ import useSelect from '@/hooks/select';
 import axios from 'axios';
 import { Spin } from 'view-ui-plus';
 import { useI18n } from 'vue-i18n';
+import { Modal } from 'view-ui-plus';
 
 const repoSrc = import.meta.env.APP_REPO;
 const { t } = useI18n();
@@ -105,6 +106,16 @@ const getTempList = () => {
     .catch(Spin.hide);
 };
 
+const beforeClearTip = (tmplUrl) => {
+  Modal.confirm({
+    title: t('tip'),
+    content: `<p>${t('replaceTip')}</p>`,
+    okText: t('ok'),
+    cancelText: t('cancel'),
+    onOk: () => getTempData(tmplUrl),
+  });
+};
+
 // 获取模板数据
 const getTempData = (tmplUrl) => {
   Spin.show({
@@ -123,7 +134,7 @@ getTempList();
 
 <style scoped lang="less">
 .tmpl-img {
-  width: 94px;
+  width: 140px;
   cursor: pointer;
   margin-right: 5px;
 }
