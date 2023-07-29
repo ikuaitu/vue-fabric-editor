@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-29 21:17:46
+ * @LastEditTime: 2023-07-29 21:49:18
  * @Description: 导入模板
 -->
 
@@ -29,9 +29,8 @@
 import useSelect from '@/hooks/select';
 // import { downFontByJSON } from '@/utils/utils';
 import axios from 'axios';
-import { Spin } from 'view-ui-plus';
+import { Spin, Modal } from 'view-ui-plus';
 import { useI18n } from 'vue-i18n';
-import { Modal } from 'view-ui-plus';
 
 const repoSrc = import.meta.env.APP_REPO;
 const { t } = useI18n();
