@@ -1,0 +1,9 @@
+{
+  "name": "fabric-editor-core",
+  "private": true,
+  "license": "MIT",
+  "main": "index.ts",
+  "peerDependencies": {
+    "vue": "^3.2.25"
+  }
+}

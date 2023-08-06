@@ -177,7 +177,7 @@ import Editor, {
   HistoryPlugin,
   FlipPlugin,
   RulerPlugin,
-} from '@/core';
+} from 'fabric-editor-core';
 
 // 创建编辑器
 const canvasEditor = new Editor();

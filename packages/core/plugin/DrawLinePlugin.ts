@@ -8,7 +8,7 @@
 
 import { v4 as uuid } from 'uuid';
 import { fabric } from 'fabric';
-import Arrow from '@/core/objects/Arrow';
+import Arrow from '../objects/Arrow';
 import Editor from '../core';
 type IEditor = Editor;
 

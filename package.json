@@ -20,6 +20,7 @@
     "color-gradient-picker-vue3": "^1.0.3",
     "events": "^3.3.0",
     "fabric": "^5.2.1",
+    "fabric-editor-core": "workspace:*",
     "fontfaceobserver": "^2.1.0",
     "hotkeys-js": "^3.8.8",
     "lodash-es": "^4.17.21",

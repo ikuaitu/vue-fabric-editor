@@ -53,25 +53,25 @@ const config = ({ mode }) => {
     base: isProd ? '/vue-fabric-editor/' : '/',
     plugins: [
       vue(),
-      VitePWA({
-        manifest: false,
-        registerType: 'autoUpdate',
-        workbox: {
-          cacheId: APP_TITLE,
-          runtimeCaching: [
-            getCache({
-              // js /css /ts静态资源缓存
-              name: 'js-css-cache',
-              pattern: /(.*?)\.(js|css|ts)/,
-            }),
-            getCache({
-              // 图片缓存
-              name: 'image-cache',
-              pattern: /(.*?)\.(png|jpe?g|svg|gif|json|psd|ttf)/,
-            }),
-          ],
-        },
-      }),
+      // VitePWA({
+      //   manifest: false,
+      //   registerType: 'autoUpdate',
+      //   workbox: {
+      //     cacheId: APP_TITLE,
+      //     runtimeCaching: [
+      //       getCache({
+      //         // js /css /ts静态资源缓存
+      //         name: 'js-css-cache',
+      //         pattern: /(.*?)\.(js|css|ts)/,
+      //       }),
+      //       getCache({
+      //         // 图片缓存
+      //         name: 'image-cache',
+      //         pattern: /(.*?)\.(png|jpe?g|svg|gif|json|psd|ttf)/,
+      //       }),
+      //     ],
+      //   },
+      // }),
       autoImports({
         imports: ['vue'],
         eslintrc: {
