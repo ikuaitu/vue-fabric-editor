@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-16 13:55:03
+ * @LastEditTime: 2023-07-29 21:32:54
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -13,7 +13,7 @@ import Editor from '../core';
 type IEditor = Editor;
 // import { v4 as uuid } from 'uuid';
 
-function downFile(fileStr, fileType) {
+function downFile(fileStr: string, fileType: string) {
   const anchorEl = document.createElement('a');
   anchorEl.href = fileStr;
   anchorEl.download = `${uuid()}.${fileType}`;

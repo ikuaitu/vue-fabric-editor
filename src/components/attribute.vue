@@ -508,14 +508,12 @@ const changeFontFamily = (fontName) => {
       Spin.hide();
     })
     .catch((err) => {
-      console.log(err);
       Spin.hide();
     });
 };
 
 // 通用属性改变
 const changeCommon = (key, value) => {
-  console.log(key, value);
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   // 透明度特殊转换
   if (key === 'opacity') {

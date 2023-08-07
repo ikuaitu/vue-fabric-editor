@@ -3,8 +3,8 @@
  * @version:
  * @Author: June
  * @Date: 2023-04-24 00:25:39
- * @LastEditors: June
- * @LastEditTime: 2023-05-22 23:44:10
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2023-07-29 21:47:22
  */
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
