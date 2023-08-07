@@ -27,7 +27,7 @@ export default function useSelect() {
   });
 
   const fabric = inject('fabric');
-  const canvas = inject('canvas');
+  // const canvas = inject('canvas');
   const canvasEditor = inject('canvasEditor');
   const event = inject('event');
 
@@ -65,7 +65,7 @@ export default function useSelect() {
 
   return {
     fabric,
-    canvas,
+    // canvas,
     canvasEditor,
     mixinState: state,
   };

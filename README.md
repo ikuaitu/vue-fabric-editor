@@ -46,7 +46,7 @@ yarn install
 yarn serve
 ```
 
-为非web前端开发人员准备了[部署教程](https://t.zsxq.com/0drqSuyjY)，快速解决你的部署需求，你可以联系我进行有偿的部署、定制开发。
+为非web前端开发人员准备了[部署教程](https://t.zsxq.com/0drqSuyjY)，快速解决你的部署需求，你可以联系我进行**有偿的部署、定制开发**。
 
 ### 自定义素材
 可自定义字体、设计模板、标题模板等，所有自定义素材在https://github.com/nihaojob/vue-fabric-editor-static 项目中保存。

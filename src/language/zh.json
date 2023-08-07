@@ -163,6 +163,7 @@
   "setSizeTip": "调整画布尺寸",
   "tip": "提示",
   "clearTip": "确定要清空吗？",
+  "replaceTip": "确定要添加到画布中吗？",
   "ok": "确认",
   "cancel": "取消"
 }
