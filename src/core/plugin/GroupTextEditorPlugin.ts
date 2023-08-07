@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-22 16:11:40
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-22 16:14:55
+ * @LastEditTime: 2023-08-07 23:24:36
  * @Description: 组内文字编辑
  */
 
@@ -26,15 +26,16 @@ class GroupTextEditorPlugin {
   _init() {
     this.canvas.on('mouse:down', (opt) => {
       this.isDown = true;
-      if (opt.target && opt.target.type === 'group') {
-        const textObject = this._getGroupTextObj(opt) as fabric.IText;
-        if (textObject) {
-          this._bedingEditingEvent(textObject, opt);
-          this.canvas.setActiveObject(textObject);
-          textObject.enterEditing();
-        } else {
-          this.canvas.setActiveObject(opt.target);
-        }
+      // 重置选中controls
+      if (
+        opt.target &&
+        !opt.target.lockMovementX &&
+        !opt.target.lockMovementY &&
+        !opt.target.lockRotation &&
+        !opt.target.lockScalingX &&
+        !opt.target.lockScalingY
+      ) {
+        opt.target.hasControls = true;
       }
     });
 
@@ -42,12 +43,21 @@ class GroupTextEditorPlugin {
       this.isDown = false;
     });
 
-    this.canvas.on('mouse:move', (opt) => {
-      if (this.isDown && opt.target && opt.target.type === 'group') {
-        const textObject = this._getGroupTextObj(opt);
-        if (textObject) {
-          // todo bug 文字编辑结束后，点击组内其他元素可单独拖动
+    this.canvas.on('mouse:dblclick', (opt) => {
+      if (opt.target && opt.target.type === 'group') {
+        const selectedObject = this._getGroupObj(opt) as fabric.IText;
+        if (!selectedObject) return;
+        selectedObject.selectable = true;
+        // 由于组内的元素，双击以后会导致controls偏移，因此隐藏他
+        if (selectedObject.hasControls) {
+          selectedObject.hasControls = false;
         }
+        if (this.isText(selectedObject)) {
+          this._bedingTextEditingEvent(selectedObject, opt);
+          return;
+        }
+        this.canvas.setActiveObject(selectedObject);
+        this.canvas.renderAll();
       }
     });
   }
@@ -60,6 +70,71 @@ class GroupTextEditorPlugin {
       return clickObj;
     }
     return false;
+  }
+
+  _getGroupObj(opt: fabric.IEvent<MouseEvent>) {
+    const pointer = this.canvas.getPointer(opt.e, true);
+    const clickObj = this.canvas._searchPossibleTargets(opt.target?._objects, pointer);
+    return clickObj;
+  }
+
+  // 通过组合重新组装来编辑文字，可能会耗性能。
+  _bedingTextEditingEvent(textObject: fabric.IText, opt: fabric.IEvent<MouseEvent>) {
+    if (!opt.target) return;
+    const textObjectJSON = textObject.toObject();
+    const groupObj = opt.target;
+
+    const ftype: any = {
+      'i-text': 'IText',
+      text: 'Text',
+      textbox: 'Textbox',
+    };
+
+    const eltype: string = ftype[textObjectJSON.type];
+
+    const groupMatrix: number[] = groupObj.calcTransformMatrix();
+
+    const a: number = groupMatrix[0];
+    const b: number = groupMatrix[1];
+    const c: number = groupMatrix[2];
+    const d: number = groupMatrix[3];
+    const e: number = groupMatrix[4];
+    const f: number = groupMatrix[5];
+
+    const newX = a * textObject.left + c * textObject.top + e;
+    const newY = b * textObject.left + d * textObject.top + f;
+
+    const tempText = new fabric[eltype](textObject.text, {
+      ...textObjectJSON,
+      textAlign: textObject.textAlign,
+      left: newX,
+      top: newY,
+      styles: textObject.styles,
+      groupCopyed: textObject.group,
+    });
+    tempText.id = uuid();
+    textObject.visible = false;
+    opt.target.addWithUpdate();
+    tempText.visible = true;
+    tempText.selectable = true;
+    tempText.hasConstrols = false;
+    tempText.editable = true;
+    this.canvas.add(tempText);
+    this.canvas.setActiveObject(tempText);
+    tempText.enterEditing();
+    tempText.selectAll();
+
+    tempText.on('editing:exited', () => {
+      // 进入编辑模式时触发
+      textObject.set({
+        text: tempText.text,
+        visible: true,
+      });
+      opt.target.addWithUpdate();
+      tempText.visible = false;
+      this.canvas.remove(tempText);
+      this.canvas.setActiveObject(opt.target);
+    });
   }
 
   // 绑定编辑取消事件
