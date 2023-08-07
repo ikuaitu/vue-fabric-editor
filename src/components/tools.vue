@@ -157,18 +157,6 @@
         </svg>
       </span>
     </div>
-    <Divider plain orientation="left">{{ $t('quick_navigation') }}</Divider>
-    <div>
-      <a href="https://color.uisdc.com/pick.html" target="_blank">{{ $t('color_macthing') }}</a>
-      <Divider type="vertical" />
-      <a href="https://www.svgrepo.com/" target="_blank">{{ $t('material') }}</a>
-      <Divider type="vertical" />
-      <a href="https://unsplash.com/" target="_blank">{{ $t('picture') }}</a>
-      <Divider type="vertical" />
-      <a href="https://www.pexels.com/zh-cn/search/%E8%83%8C%E6%99%AF/" target="_blank">
-        {{ $t('background') }}
-      </a>
-    </div>
   </div>
 </template>
 

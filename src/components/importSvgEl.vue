@@ -1,9 +1,9 @@
 <!--
  * @Author: 秦少卫
- * @Date: 2022-09-03 19:16:55
+ * @Date: 2023-08-05 17:47:35
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-08-05 17:49:58
- * @Description: 导入模板
+ * @LastEditTime: 2023-08-07 22:59:07
+ * @Description: file content
 -->
 
 <template>
@@ -36,23 +36,28 @@
         <img
           class="tmpl-img"
           :alt="info.label"
+          @click="addItem"
           v-lazy="info.src"
-          @click="beforeClearTip(info.tempUrl)"
+          @dragend="dragItem"
         />
       </Tooltip>
     </div>
   </div>
 </template>
 
-<script setup name="ImportTmpl" lang="ts">
+<script setup name="ImportSvg" lang="ts">
 import useSelect from '@/hooks/select';
-import axios from 'axios';
-import { Spin, Modal } from 'view-ui-plus';
-import { useI18n } from 'vue-i18n';
 import { cloneDeep } from 'lodash-es';
+import { v4 as uuid } from 'uuid';
 
-const { t } = useI18n();
-const { canvasEditor } = useSelect();
+const { fabric, canvasEditor } = useSelect();
+
+const defaultPosition = {
+  left: 100,
+  top: 100,
+  shadow: '',
+  fontFamily: '1-1',
+};
 
 interface materialTypeI {
   value: string;
@@ -82,39 +87,11 @@ const state = reactive({
 });
 
 // 获取素材分类
-canvasEditor.getMaterialType('template').then((list: materialTypeI[]) => {
+canvasEditor.getMaterialType('svg').then((list: materialTypeI[]) => {
   state.materialTypelist = [...list];
   state.materialist = list;
 });
 
-// 插入文件
-const insertSvgFile = () => {
-  canvasEditor.insertSvgFile(state.jsonFile);
-};
-
-// 替换提示
-const beforeClearTip = (tmplUrl: string) => {
-  Modal.confirm({
-    title: t('tip'),
-    content: `<p>${t('replaceTip')}</p>`,
-    okText: t('ok'),
-    cancelText: t('cancel'),
-    onOk: () => getTempData(tmplUrl),
-  });
-};
-
-// 获取模板数据
-const getTempData = (tmplUrl: string) => {
-  Spin.show({
-    render: (h) => h('div', t('alert.loading_data')),
-  });
-  const getTemp = axios.get(tmplUrl);
-  getTemp.then((res) => {
-    state.jsonFile = JSON.stringify(res.data);
-    Spin.hide();
-    insertSvgFile();
-  });
-};
 // 切换素材类型
 const handleChange = (e, item) => {
   // 搜索框文字设置
@@ -153,6 +130,36 @@ const search = () => {
   const [typeValue] = state.materialType;
   filterTypeList(typeValue);
 };
+
+const dragItem = (event) => {
+  const url = event.target.src;
+  // 会有性能开销 dragAddItem复用更简洁
+  fabric.loadSVGFromURL(url, (objects) => {
+    const item = fabric.util.groupSVGElements(objects, {
+      shadow: '',
+      fontFamily: 'arial',
+      id: uuid(),
+      name: 'svg元素',
+    });
+    canvasEditor.dragAddItem(event, item);
+  });
+};
+
+// 按照类型渲染
+const addItem = (e) => {
+  const url = e.target.src;
+  fabric.loadSVGFromURL(url, (objects, options) => {
+    const item = fabric.util.groupSVGElements(objects, {
+      ...options,
+      ...defaultPosition,
+      id: uuid(),
+      name: 'svg元素',
+    });
+    canvasEditor.canvas.add(item);
+    canvasEditor.canvas.setActiveObject(item);
+    canvasEditor.canvas.requestRenderAll();
+  });
+};
 </script>
 
 <style scoped lang="less">
@@ -164,8 +171,15 @@ const search = () => {
   }
 }
 .tmpl-img {
-  width: 135px;
+  display: inline-block;
+  width: 53px;
+  margin-left: 2px;
+  margin-bottom: 2px;
+  background: #f5f5f5;
+  padding: 6px;
   cursor: pointer;
-  margin-right: 5px;
+  // width: 135px;
+  // cursor: pointer;
+  // margin-right: 5px;
 }
 </style>

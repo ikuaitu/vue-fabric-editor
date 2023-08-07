@@ -8,10 +8,8 @@
   "grid": "Grid",
   "common_elements": "Common Elements",
   "draw_elements": "Draw Elements",
-  "quick_navigation": "Quick Navigation",
   "color_macthing": "Macthing",
   "background_texture": "Background Texture",
-  "material": "Material",
   "picture": "picture",
   "everything_is_fine": "Everything is fine",
   "everything_goes_well": "Everything goes well",
@@ -34,6 +32,9 @@
   "import_files": "Import files",
   "select_json": "Select JSON",
   "repleaceImg": "repleace Image",
+  "material": {
+    "cartoon": "cartoon"
+  },
   "filters": {
     "simple": "Simple Filter",
     "complex": "Complex Filter",

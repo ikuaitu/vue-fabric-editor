@@ -47,6 +47,10 @@
               <div>{{ $t('elements') }}</div>
             </MenuItem>
             <MenuItem :name="3" class="menu-item">
+              <Icon type="ios-leaf-outline" size="24" />
+              <div>{{ $t('material.cartoon') }}</div>
+            </MenuItem>
+            <MenuItem :name="4" class="menu-item">
               <Icon type="md-reorder" size="24" />
               <div>{{ $t('layers') }}</div>
             </MenuItem>
@@ -61,10 +65,13 @@
             <div v-show="state.menuActive === 2" class="left-panel">
               <tools></tools>
               <fontTmpl></fontTmpl>
-              <svgEl></svgEl>
             </div>
-            <!-- 背景设置 -->
+            <!-- 卡通素材 -->
             <div v-show="state.menuActive === 3" class="left-panel">
+              <importSvgEl></importSvgEl>
+            </div>
+            <!-- 图层设置 -->
+            <div v-show="state.menuActive === 4" class="left-panel">
               <layer></layer>
             </div>
           </div>
@@ -85,7 +92,6 @@
         </div>
 
         <!-- 属性区域 380-->
-        <!-- <transition name="move-right"> -->
         <div class="right-bar" v-show="state.attrBarShow">
           <div v-if="state.show" style="padding-top: 10px">
             <!-- 新增字体样式使用 -->
@@ -109,7 +115,6 @@
           </div>
           <attribute v-if="state.show"></attribute>
         </div>
-        <!-- </transition> -->
         <!-- 右侧关闭按钮 -->
         <div
           :class="`close-btn right-btn ${state.attrBarShow && 'right-btn-open'}`"
@@ -143,7 +148,7 @@ import dele from '@/components/del.vue';
 // 左侧组件
 import importTmpl from '@/components/importTmpl.vue';
 import tools from '@/components/tools.vue';
-import svgEl from '@/components/svgEl.vue';
+import importSvgEl from '@/components/importSvgEl.vue';
 import bgBar from '@/components/bgBar.vue';
 import setSize from '@/components/setSize.vue';
 import replaceImg from '@/components/replaceImg.vue';
@@ -177,13 +182,13 @@ import Editor, {
   HistoryPlugin,
   FlipPlugin,
   RulerPlugin,
+  MaterialPlugin,
 } from '@/core';
 
 // 创建编辑器
 const canvasEditor = new Editor();
 
 const event = new CanvasEventEmitter();
-// const canvas = {};
 
 const state = reactive({
   menuActive: 1,
@@ -222,6 +227,7 @@ onMounted(() => {
   canvasEditor.use(HistoryPlugin);
   canvasEditor.use(FlipPlugin);
   canvasEditor.use(RulerPlugin);
+  canvasEditor.use(MaterialPlugin);
 
   event.init(canvas);
   state.show = true;

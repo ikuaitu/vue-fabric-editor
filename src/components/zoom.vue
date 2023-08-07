@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-04-21 20:20:20
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-24 23:12:41
+ * @LastEditTime: 2023-08-05 18:44:54
  * @Description: 缩放元素
 -->
 <template>
@@ -54,8 +54,8 @@
           ></path>
         </svg>
       </Button>
-      <Button @click="rSet">1:1</Button>
-      <Button @click="setViewport" icon="md-resize"></Button>
+      <Button @click="rSet" icon="ios-expand"></Button>
+      <Button @click="setViewport" icon="md-contract"></Button>
     </ButtonGroup>
   </div>
 </template>

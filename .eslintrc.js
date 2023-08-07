@@ -24,6 +24,7 @@ module.exports = {
     'no-plusplus': 'off',
     '@typescript-eslint/no-this-alias': 'off',
     '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     'import/no-unresolved': 'off',
     'vuejs-accessibility/form-control-has-label': 'off',
     'consistent-return': 'off', // 强制统一返回值
