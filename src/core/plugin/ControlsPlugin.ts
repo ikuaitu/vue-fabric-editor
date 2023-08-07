@@ -1,9 +1,9 @@
 /*
  * @Author: 秦少卫
- * @Date: 2023-06-13 23:00:43
+ * @Date: 2023-01-09 22:49:02
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-13 23:09:59
- * @Description: 控制条插件
+ * @LastEditTime: 2023-06-04 10:50:10
+ * @Description: 控制条样式
  */
 
 import Editor from '../core';

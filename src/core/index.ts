@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: bamzc
- * @LastEditTime: 2023-07-28 15:47:34
+ * @LastEditTime: 2023-08-07 17:53:56
  * @Description: 核心入口文件
  */
 import Editor from './core';
