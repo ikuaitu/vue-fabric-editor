@@ -135,9 +135,14 @@ const config = ({ mode }) => {
       open: true,
       proxy: {
         '/fontFile': {
-          target: 'https://github.com/',
+          target: 'https://wordshub.github.io/free-font/',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/fontFile/, ''),
+        },
+        '/vue-fabric-editor-static': {
+          target: 'https://nihaojob.github.io/vue-fabric-editor-static/',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/vue-fabric-editor-static/, ''),
         },
       },
     },

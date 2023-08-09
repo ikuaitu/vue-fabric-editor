@@ -11,6 +11,9 @@ import Editor from '../core';
 type IEditor = Editor;
 import axios from 'axios';
 
+const templateJsonFile = import.meta.env.APP_TEMPLATE_JSON_FILE;
+const svgJsonFile = import.meta.env.APP_SVG_JSON_FILE;
+
 class MaterialPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
@@ -22,8 +25,8 @@ class MaterialPlugin {
     this.editor = editor;
 
     this.apiMapUrl = {
-      template: 'https://nihaojob.github.io/vue-fabric-editor-static/template/type.json',
-      svg: 'https://nihaojob.github.io/vue-fabric-editor-static/svg/type.json',
+      template: templateJsonFile,
+      svg: svgJsonFile,
     };
   }
 

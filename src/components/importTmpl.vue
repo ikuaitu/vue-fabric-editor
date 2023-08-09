@@ -164,7 +164,7 @@ const search = () => {
   }
 }
 .tmpl-img {
-  width: 135px;
+  width: 134px;
   cursor: pointer;
   margin-right: 5px;
 }

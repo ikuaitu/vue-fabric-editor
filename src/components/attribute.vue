@@ -292,7 +292,7 @@ import { Spin } from 'view-ui-plus';
 
 const event = inject('event');
 const update = getCurrentInstance();
-const repoSrc = import.meta.env.APP_REPO;
+const fontJsonFile = import.meta.env.APP_FONT_JSON_FILE;
 const { fabric, mixinState, canvasEditor } = useSelect();
 // 通用元素
 const baseType = [
@@ -429,7 +429,7 @@ const textAlignListSvg = [
 ];
 
 const getFreeFontList = () => {
-  axios.get(`${repoSrc}/font/free-font.json`).then((res) => {
+  axios.get(fontJsonFile).then((res) => {
     fontFamilyList.value = [
       ...fontFamilyList.value,
       ...Object.entries(res.data).map(([, value]) => value),
