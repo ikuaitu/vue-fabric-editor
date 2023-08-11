@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-08-05 17:49:58
+ * @LastEditTime: 2023-08-11 10:12:00
  * @Description: 导入模板
 -->
 
@@ -164,7 +164,7 @@ const search = () => {
   }
 }
 .tmpl-img {
-  width: 135px;
+  width: 132px;
   cursor: pointer;
   margin-right: 5px;
 }

@@ -6,5 +6,9 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "prettier.configPath": ".prettierrc.js",
-    "prettier.requireConfig": true // 需要Prettier的配置文件
+    "prettier.requireConfig": true,
+    "i18n-ally.localesPaths": [
+        "src/language"
+    ],
+    "i18n-ally.sourceLanguage": "zh" // 需要Prettier的配置文件
 }
