@@ -59,8 +59,8 @@ const { mixinState, canvasEditor } = useSelect();
 const { t } = useI18n();
 
 const DefaultSize = {
-  width: 900,
-  height: 1200,
+  width: 1920,
+  height: 1080,
 };
 
 const showModal = ref(false);
