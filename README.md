@@ -219,6 +219,13 @@ yarn serve
     </td></tr>
 <tr>
     <td align="center">
+        <a href="https://github.com/dulltackle">
+            <img src="https://avatars.githubusercontent.com/u/45963660?v=4" width="80;" alt="dulltackle"/>
+            <br />
+            <sub><b>dulltackle</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/macheteHot">
             <img src="https://avatars.githubusercontent.com/u/26652329?v=4" width="80;" alt="macheteHot"/>
             <br />
@@ -252,15 +259,15 @@ yarn serve
             <br />
             <sub><b>wozhi-cl</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/xiaozeo">
             <img src="https://avatars.githubusercontent.com/u/13568242?v=4" width="80;" alt="xiaozeo"/>
             <br />
             <sub><b>xiaozeo</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/luke358">
             <img src="https://avatars.githubusercontent.com/u/48149577?v=4" width="80;" alt="luke358"/>
