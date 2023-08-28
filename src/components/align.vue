@@ -170,7 +170,6 @@
 </template>
 
 <script setup name="Align">
-// import { fabric } from 'fabric';
 import useSelect from '@/hooks/select';
 
 const { mixinState, canvasEditor } = useSelect();
