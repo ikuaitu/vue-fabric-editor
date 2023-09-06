@@ -10,12 +10,28 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="renderer" content="webkit" />
+  <meta name="force-rendering" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=1000px,initial-scale=1.0" />
   <link rel="icon" href="<%- BASE_URL %>favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%- APP_TITLE %></title>
   <link rel="stylesheet" href="<%- APP_REPO %>font/<%- APP_FONT_CSS_FILE%>">
+  <style>
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+    ::-webkit-scrollbar-track {
+      border-radius: 0;
+      background: rgba(0, 0, 0, 0.1);
+    }
+  </style>
 </head>
 
 <body>
