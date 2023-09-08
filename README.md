@@ -2,7 +2,7 @@
 
 # vue-fabric-editor
 基于 fabric.js 和 Vue 开发的插件化图片编辑器，可自定义字体、素材、设计模板、右键菜单、快捷键。
- 
+
 
 - [预览](https://nihaojob.github.io/vue-fabric-editor/) 
 - [Gitee预览](https://nihaojob.gitee.io/vue-fabric-editor/#/)
@@ -45,6 +45,32 @@
 yarn install
 yarn serve
 ```
+
+以Windows 10上操作应用步骤：
+
+1. 确保已经安装了Node.js和Yarn：首先，在 Windows 10 上安装 Node.js 和 Yarn；你可以从官方网站下载安装程序并按照指示进行安装。
+2. 打开命令提示符或PowerShell：按下 Win + R 组合键，然后输入 cmd 或 powershell 并按下回车键。这将打开命令提示符或 PowerShell。
+3. 导航至项目目录：使用 cd 命令导航至包含应用程序代码的目录。例如，如果应用程序代码位于 C:\MyApp 目录下，则运行：
+
+```
+cd C:\MyApp
+```
+
+1. 安装依赖项：运行 yarn install 命令来安装应用程序的依赖项。这将读取项目中的 package.json 文件，并下载所需的包。
+
+```
+yarn install
+```
+
+1. 启动应用程序：运行 yarn serve 命令来启动应用程序。这将根据项目的配置，在本地服务器上启动应用程序。
+
+```
+yarn serve
+```
+
+1. 在浏览器中查看应用程序：打开一个浏览器窗口，并访问应用程序的URL。通常情况下，默认的URL是 http://localhost:8080，但具体取决于项目的配置。
+
+请注意，以上步骤假设你已经在正确的项目目录中，并且具有正确的代码和配置文件。如果你在执行过程中遇到任何问题，请检查错误消息并参考相关文档或向应用程序的开发者寻求帮助。
 
 为非web前端开发人员准备了[部署教程](https://t.zsxq.com/0drqSuyjY)，快速解决你的部署需求，你可以联系我进行**有偿的部署、定制开发**。
 
