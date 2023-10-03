@@ -20,22 +20,17 @@
     <div v-if="isGradient">
       <div class="gradient-bar" :style="bgStr"></div>
       <!-- 颜色插件 -->
-      <div class="ivu-poptip-inner">
+      <div class="ivu-poptip-popper ivu-poptip-inner">
         <gradientColorPicker
           :is-gradient="true"
           :gradient="currentGradient"
-          :on-end-change="changeGradientColor"
+          @change="changeGradientColor"
+          :cancel-text="$t('cancel')"
+          :confirm-text="$t('ok')"
         />
       </div>
     </div>
 
-    <!-- <div class="ivu-poptip-popper ivu-poptip-inner">
-      <gradientColorPicker
-        :is-gradient="true"
-        :gradient="currentGradient"
-        :on-end-change="changeGradientColor"
-      />
-    </div> -->
     <!-- 纯色选择器 -->
     <ColorPicker v-show="!isGradient" v-model="fill" @on-change="changePureColor" alpha />
   </div>
@@ -160,22 +155,29 @@ const checkColor = (val) => {
 };
 const changeGradientColor = (val) => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
+  const { gradient } = val;
   if (activeObject) {
-    const currentGradient = cssToFabricGradient(val, activeObject);
+    const currentGradient = cssToFabricGradient(gradient, activeObject);
     // TODO:
     emitChange('change', currentGradient);
 
     // 保存角度，用于下一次选中展示
-    activeObject.set(props.angleKey, val.degree);
+    activeObject.set(props.angleKey, gradient.degree);
     setGradientBar(val);
   }
 };
 // 设置渐变颜色条
 const setGradientBar = (val) => {
-  bgStr.value = `background:${val.style.replace('radial', 'linear')};`;
+  if (val.gradient.type === 'linear') {
+    bgStr.value = `background: ${val.style};`;
+  } else {
+    bgStr.value = `background: ${val.style.replace('radial', 'linear')};`;
+  }
 };
 // Fabric渐变bar背景设置
 const fabricGradientToBar = (val) => {
+  // 百分比排序
+  val.colorStops.sort((a, b) => a.offset - b.offset);
   const str = val.colorStops.map((item) => `${item.color} ${item.offset * 100}%`);
   bgStr.value = `background: linear-gradient(124deg, ${str});`;
 };
