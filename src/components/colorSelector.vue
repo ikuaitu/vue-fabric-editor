@@ -20,15 +20,14 @@
     <div v-if="isGradient">
       <div class="gradient-bar" :style="bgStr"></div>
       <!-- 颜色插件 -->
-      <div class="ivu-poptip-popper ivu-poptip-inner">
-        <gradientColorPicker
-          :is-gradient="true"
-          :gradient="currentGradient"
-          @change="changeGradientColor"
-          :cancel-text="$t('cancel')"
-          :confirm-text="$t('ok')"
-        />
-      </div>
+
+      <gradientColorPicker
+        :is-gradient="true"
+        :gradient="currentGradient"
+        @change="changeGradientColor"
+        :cancel-text="$t('cancel')"
+        :confirm-text="$t('ok')"
+      />
     </div>
 
     <!-- 纯色选择器 -->
@@ -41,6 +40,7 @@ import 'color-gradient-picker-vue3/dist/style.css';
 import gradientColorPicker from 'color-gradient-picker-vue3';
 import { fabric } from 'fabric';
 import useSelect from '@/hooks/select';
+import { debounce } from 'lodash-es';
 const { canvasEditor } = useSelect();
 const generateFabricGradientFromColorStops = (handlers, width, height, orientation, angle) => {
   // 角度转换坐标
@@ -109,6 +109,8 @@ const emitChange = defineEmits(['change']);
 // const poptipCreated = ref(false);
 // 是否渐变
 const isGradient = ref(false);
+// 是否显示渐变
+const showGradient = ref(false);
 // 纯色
 const fill = ref('');
 // 渐变
@@ -153,7 +155,7 @@ const checkColor = (val) => {
     }
   }
 };
-const changeGradientColor = (val) => {
+const changeGradientColor = debounce(function (val) {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   const { gradient } = val;
   if (activeObject) {
@@ -165,7 +167,7 @@ const changeGradientColor = (val) => {
     activeObject.set(props.angleKey, gradient.degree);
     setGradientBar(val);
   }
-};
+}, 500);
 // 设置渐变颜色条
 const setGradientBar = (val) => {
   if (val.gradient.type === 'linear') {
