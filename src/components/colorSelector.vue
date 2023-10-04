@@ -109,8 +109,6 @@ const emitChange = defineEmits(['change']);
 // const poptipCreated = ref(false);
 // 是否渐变
 const isGradient = ref(false);
-// 是否显示渐变
-const showGradient = ref(false);
 // 纯色
 const fill = ref('');
 // 渐变
