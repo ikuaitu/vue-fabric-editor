@@ -188,6 +188,8 @@ import Editor, {
 // 创建编辑器
 const canvasEditor = new Editor();
 
+window.canvasEditor = canvasEditor;
+
 const event = new CanvasEventEmitter();
 
 const state = reactive({
