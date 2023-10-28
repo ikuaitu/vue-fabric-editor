@@ -507,7 +507,7 @@ const changeFontFamily = (fontName) => {
       canvasEditor.canvas.renderAll();
       Spin.hide();
     })
-    .catch((err) => {
+    .catch(() => {
       Spin.hide();
     });
 };
