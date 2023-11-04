@@ -185,6 +185,13 @@ Pro商业版支持素材管理功能，可以在后台维护字体、模板、�
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/JiangShuQ">
+            <img src="https://avatars.githubusercontent.com/u/95730895?v=4" width="80;" alt="JiangShuQ"/>
+            <br />
+            <sub><b>JiangShuQ</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/briver0825">
             <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="briver0825"/>
             <br />
@@ -210,13 +217,6 @@ Pro商业版支持素材管理功能，可以在后台维护字体、模板、�
             <img src="https://avatars.githubusercontent.com/u/3260480?v=4" width="80;" alt="icleitoncosta"/>
             <br />
             <sub><b>icleitoncosta</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/JiangShuQ">
-            <img src="https://avatars.githubusercontent.com/u/95730895?v=4" width="80;" alt="JiangShuQ"/>
-            <br />
-            <sub><b>JiangShuQ</b></sub>
         </a>
     </td></tr>
 <tr>
