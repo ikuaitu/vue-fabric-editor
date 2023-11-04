@@ -2,6 +2,7 @@
   "templates": "Templates",
   "elements": "Elements",
   "background": "Background",
+  "placeholder": "Please input",
   "size": "Size",
   "width": "Width",
   "height": "Height",
@@ -32,6 +33,23 @@
   "import_files": "Import files",
   "select_json": "Select JSON",
   "repleaceImg": "repleace Image",
+  "waterMark": {
+    "text": "WaterMark",
+    "modalTitle": "WaterMark Setting",
+    "setting": {
+        "name": "Mark Name",
+        "size": "MarK Size",
+        "angle": "Mark Angle",
+        "position": {
+            "label": "Mark Position",
+            "lt": "Left Top",
+            "rt": "Right Top",
+            "lb": "Left Bottom",
+            "rb": "Right Bottom",
+            "full": "Full"
+        }
+    }
+  },
   "material": {
     "cartoon": "cartoon"
   },
@@ -87,6 +105,7 @@
     "insert": "insert",
     "insert_picture": "Insert picture",
     "insert_SVG": "Insert SVG",
+    "insert_PSD": "insert PSD",
     "insert_SVGStr": "Insert SVG String",
     "insert_SVGStr_placeholder": "Please enter SVG String",
     "modal_tittle": "Please enter"

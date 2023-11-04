@@ -6,6 +6,7 @@
   "width": "宽度",
   "height": "高度",
   "grid": "网格",
+  "placeholder": "请输入",
   "common_elements": "基础要素",
   "draw_elements": "绘制元素",
   "color_macthing": "配色",
@@ -32,6 +33,23 @@
   "import_files": "导入文件",
   "select_json": "选择JSON文件",
   "repleaceImg": "替换图片",
+  "waterMark": {
+    "text": "水印",
+    "modalTitle": "配置水印",
+    "setting": {
+        "name": "水印名称",
+        "size": "水印大小",
+        "angle": "水印角度",
+        "position": {
+            "label": "水印位置",
+            "lt": "左上角",
+            "rt": "右上角",
+            "lb": "左下角",
+            "rb": "右下角",
+            "full": "平铺"
+        }
+    }
+  },
   "material": {
     "cartoon": "卡通"
   },
@@ -92,6 +110,7 @@
     "insert_picture": "插入图片",
     "insert_SVG": "插入SVG元素",
     "insert_SVGStr": "插入SVG字符",
+    "insert_PSD": "插入PSD",
     "insert_SVGStr_placeholder": "请输入SVG字符串",
     "modal_tittle": "请输入"
   },

@@ -38,6 +38,7 @@ module.exports = {
     'vue/multi-word-component-names': 'off', // 开启组件需要多单词
     'vue/no-setup-props-destructure': 'off',
     'vuejs-accessibility/anchor-has-content': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
   },
   overrides: [
     {

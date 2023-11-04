@@ -43,6 +43,23 @@
     "insert_SVGStr_placeholder": "Please enter SVG String",
     "modal_tittle": "Please enter"
   },
+  "waterMark": {
+    "text": "WaterMark",
+    "modalTitle": "WaterMark Setting",
+    "setting": {
+        "name": "Mark Name",
+        "size": "MarK Size",
+        "angle": "Mark Angle",
+        "position": {
+            "label": "Mark Position",
+            "lt": "Left Top",
+            "rt": "Right Top",
+            "lb": "Left Bottom",
+            "rb": "Right Bottom",
+            "full": "Full"
+        }
+    }
+  },
   "upload_background": "Carregar plano de fundo",
   "mouseMenu": {
     "layer": "Gestão de camadas",

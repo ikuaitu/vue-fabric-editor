@@ -1,3 +1,10 @@
+/*
+ * @Author: June
+ * @Description:
+ * @Date: 2023-10-29 12:18:14
+ * @LastEditors: June
+ * @LastEditTime: 2023-11-01 12:01:24
+ */
 import { createI18n } from 'vue-i18n';
 import zh from 'view-ui-plus/dist/locale/zh-CN';
 import en from 'view-ui-plus/dist/locale/en-US'; //新版本把'iview'改成'view-design'
