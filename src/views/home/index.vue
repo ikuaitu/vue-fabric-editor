@@ -30,6 +30,7 @@
         <div style="float: right">
           <!-- 预览 -->
           <previewCurrent />
+          <waterMark />
           <save></save>
           <lang></lang>
         </div>
@@ -144,7 +145,7 @@ import zoom from '@/components/zoom.vue';
 import dragMode from '@/components/dragMode.vue';
 import lock from '@/components/lock.vue';
 import dele from '@/components/del.vue';
-
+import waterMark from '@/components/waterMark';
 // 左侧组件
 import importTmpl from '@/components/importTmpl.vue';
 import tools from '@/components/tools.vue';
