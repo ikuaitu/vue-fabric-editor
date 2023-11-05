@@ -221,6 +221,13 @@ Pro商业版支持素材管理功能，可以在后台维护字体、模板、�
     </td></tr>
 <tr>
     <td align="center">
+        <a href="https://github.com/Yangzongtai">
+            <img src="https://avatars.githubusercontent.com/u/93592008?v=4" width="80;" alt="Yangzongtai"/>
+            <br />
+            <sub><b>Yangzongtai</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/Bamzc">
             <img src="https://avatars.githubusercontent.com/u/10151046?v=4" width="80;" alt="Bamzc"/>
             <br />
@@ -254,15 +261,15 @@ Pro商业版支持素材管理功能，可以在后台维护字体、模板、�
             <br />
             <sub><b>slarkerino</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/vvbear">
             <img src="https://avatars.githubusercontent.com/u/32010827?v=4" width="80;" alt="vvbear"/>
             <br />
             <sub><b>vvbear</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/wozhi-cl">
             <img src="https://avatars.githubusercontent.com/u/25359239?v=4" width="80;" alt="wozhi-cl"/>
