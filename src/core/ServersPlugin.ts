@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-29 21:32:54
+ * @LastEditors: June
+ * @LastEditTime: 2023-11-07 21:57:19
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -20,6 +20,17 @@ function downFile(fileStr: string, fileType: string) {
   document.body.appendChild(anchorEl); // required for firefox
   anchorEl.click();
   anchorEl.remove();
+}
+
+function transformText(objects) {
+  if (!objects) return;
+  objects.forEach((item) => {
+    if (item.objects) {
+      transformText(item.objects);
+    } else {
+      item.type === 'text' && (item.type = 'textbox');
+    }
+  });
 }
 
 class ServersPlugin {
@@ -58,9 +69,7 @@ class ServersPlugin {
   insertSvgFile(jsonFile) {
     // 加载前钩子
     this.editor.hooksEntity.hookImportBefore.callAsync(jsonFile, () => {
-      console.log(jsonFile, '2222');
       this.canvas.loadFromJSON(jsonFile, () => {
-        console.log(jsonFile, '33333');
         this.canvas.renderAll();
         // 加载后钩子
         this.editor.hooksEntity.hookImportAfter.callAsync(jsonFile, () => {
@@ -99,8 +108,10 @@ class ServersPlugin {
     clipboardText(JSON.stringify(jsonStr, null, '\t'));
   }
 
-  saveJson() {
+  async saveJson() {
     const dataUrl = this.getJson();
+    // 把文本text转为textgroup，让导入可以编辑
+    await transformText(dataUrl.objects);
     const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
       JSON.stringify(dataUrl, null, '\t')
     )}`;
