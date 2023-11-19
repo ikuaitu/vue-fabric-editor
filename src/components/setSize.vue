@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-11-19 14:00:40
+ * @LastEditTime: 2023-11-19 14:10:41
  * @Description: 尺寸设置
 -->
 
@@ -85,6 +85,16 @@ let presetSize = reactive([
     label: t('phone_wallpaper'),
     width: 1080,
     height: 1920,
+  },
+  {
+    label: 'kindle',
+    width: 2560,
+    height: 1600,
+  },
+  {
+    label: 'kindle-resize',
+    width: 1600,
+    height: 2560,
   },
 ]);
 
