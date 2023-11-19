@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 00:34:38
+ * @LastEditTime: 2023-11-19 21:05:33
  * @Description: 画布区域插件
  */
 
@@ -84,6 +84,7 @@ class WorkspacePlugin {
       width,
       height,
       id: 'workspace',
+      strokeWidth: 0,
     });
     workspace.set('selectable', false);
     workspace.set('hasControls', false);
