@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-24 23:13:24
+ * @LastEditTime: 2023-11-19 14:00:40
  * @Description: 尺寸设置
 -->
 
@@ -40,10 +40,10 @@
 
       <Form :label-width="40" class="form-wrap" style="justify-content: flex-start">
         <FormItem :label="$t('width')" prop="name" style="margin-right: 10px">
-          <InputNumber :min="1" :max="2000" v-model="modalData.width"></InputNumber>
+          <InputNumber :min="1" :max="5000" v-model="modalData.width"></InputNumber>
         </FormItem>
         <FormItem :label="$t('height')" prop="name">
-          <InputNumber :min="1" :max="2000" v-model="modalData.height"></InputNumber>
+          <InputNumber :min="1" :max="5000" v-model="modalData.height"></InputNumber>
         </FormItem>
       </Form>
     </Modal>
