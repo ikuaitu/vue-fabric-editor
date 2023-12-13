@@ -6,7 +6,12 @@ Documents are translated using software,You are welcome to submit for inspection
 
 [Demo](https://nihaojob.github.io/vue-fabric-editor/) fabric.js and Vue based image editor, can customize fonts, materials, design templates.
 
-<p align="center"><img src="./src/assets/demo.png" /></p>
+<div style="display:flex;justify-content:flex-start;align-items:center;margin-bottom:10px;">
+    <img style='margin:0 5px' src='https://badgen.net/github/stars/nihaojob/vue-fabric-editor' />
+    <img style='margin:0 5px' src='https://badgen.net/github/forks/nihaojob/vue-fabric-editor' />
+</div>
+
+<p align="center"><img src="https://user-images.githubusercontent.com/13534626/230828335-0adee0ae-b951-4171-b6ba-d2b9cd44dd6a.png" /></p>
 
 ## Existing function
 

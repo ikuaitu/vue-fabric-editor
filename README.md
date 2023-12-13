@@ -2,7 +2,11 @@
 
 # vue-fabric-editor
 基于 fabric.js 和 Vue 开发的插件化图片编辑器，可自定义字体、素材、设计模板、右键菜单、快捷键。
- 
+
+<div style="display:flex;justify-content:flex-start;align-items:center;margin-bottom:10px;">
+    <img style='margin:0 5px' src='https://badgen.net/github/stars/nihaojob/vue-fabric-editor' />
+    <img style='margin:0 5px' src='https://badgen.net/github/forks/nihaojob/vue-fabric-editor' />
+</div>
 
 - [预览](https://nihaojob.github.io/vue-fabric-editor/) 
 - [Gitee预览](https://nihaojob.gitee.io/vue-fabric-editor/#/)
