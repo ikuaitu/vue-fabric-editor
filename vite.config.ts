@@ -13,6 +13,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import eslintPlugin from 'vite-plugin-eslint'; //导入包
 import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus';
 import autoImports from 'unplugin-auto-import/vite';
+import { resolve } from 'path';
+import autoprefixer from 'autoprefixer';
 // import { VitePWA } from 'vite-plugin-pwa';
 
 type CacheStrategy =
@@ -28,8 +30,6 @@ interface IgetCache {
   cacheType?: CacheStrategy;
 }
 
-const autoprefixer = require('autoprefixer');
-const path = require('path');
 const getCache = ({ name, pattern, cacheDay = 7, cacheType }: IgetCache) => ({
   urlPattern: pattern,
   handler: cacheType || 'CacheFirst',
@@ -98,13 +98,13 @@ const config = ({ mode }) => {
     ],
     build: {
       target: 'es2015',
-      outDir: path.resolve(__dirname, 'dist'),
+      outDir: resolve(__dirname, 'dist'),
       assetsDir: 'assets',
       assetsInlineLimit: 8192,
       // sourcemap: !isProd,
       emptyOutDir: true,
       rollupOptions: {
-        input: path.resolve(__dirname, 'index.html'),
+        input: resolve(__dirname, 'index.html'),
         output: {
           chunkFileNames: 'js/[name].[hash].js',
           entryFileNames: 'js/[name].[hash].js',
@@ -114,7 +114,7 @@ const config = ({ mode }) => {
     envPrefix,
     resolve: {
       alias: [
-        { find: /^@\//, replacement: path.resolve(__dirname, 'src') + '/' },
+        { find: /^@\//, replacement: resolve(__dirname, 'src') + '/' },
         { find: /^~/, replacement: '' },
         { find: /^vue-i18n/, replacement: 'vue-i18n/dist/vue-i18n.cjs.js' },
       ],
@@ -122,12 +122,24 @@ const config = ({ mode }) => {
     },
     css: {
       postcss: {
-        plugins: [autoprefixer],
+        plugins: [
+          autoprefixer({
+            // 自动添加前缀
+            overrideBrowserslist: [
+              'Android 4.1',
+              'iOS 7.1',
+              'Chrome > 31',
+              'ff > 31',
+              'ie >= 8',
+              'last 2 versions', // 所有主流浏览器最近2个版本
+            ],
+          }),
+        ],
       },
       preprocessorOptions: {
         less: {
           javascriptEnabled: true,
-          additionalData: `@import "${path.resolve(__dirname, 'src/styles/variable.less')}";`,
+          additionalData: `@import '${resolve(__dirname, 'src/styles/variable.less')}";`,
         },
       },
     },
