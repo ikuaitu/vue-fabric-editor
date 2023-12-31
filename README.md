@@ -6,6 +6,7 @@
 <div style="display:flex;justify-content:flex-start;align-items:center;margin-bottom:10px;">
     <img style='margin:0 5px' src='https://badgen.net/github/stars/nihaojob/vue-fabric-editor' />
     <img style='margin:0 5px' src='https://badgen.net/github/forks/nihaojob/vue-fabric-editor' />
+    <img style='margin:0 5px' src="https://img.shields.io/github/license/nihaojob/vue-fabric-editor" />
 </div>
 
 - [预览](https://nihaojob.github.io/vue-fabric-editor/) 
