@@ -74,8 +74,9 @@ const config = ({ mode }) => {
       // }),
       autoImports({
         imports: ['vue'],
+        dts: './typings/auto-imports.d.ts',
         eslintrc: {
-          enabled: true,
+          enabled: false, // 一般更新imports启动一次即可
         },
       }),
       vueSetupExtend(),
