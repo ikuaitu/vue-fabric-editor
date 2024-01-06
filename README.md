@@ -183,17 +183,10 @@ Pro商业版支持素材管理功能，可以在后台维护字体、模板、�
     </td></tr>
 <tr>
     <td align="center">
-        <a href="https://github.com/hudenghui">
-            <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
+        <a href="https://github.com/a847244052">
+            <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
             <br />
-            <sub><b>hudenghui</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/JiangShuQ">
-            <img src="https://avatars.githubusercontent.com/u/95730895?v=4" width="80;" alt="JiangShuQ"/>
-            <br />
-            <sub><b>JiangShuQ</b></sub>
+            <sub><b>a847244052</b></sub>
         </a>
     </td>
     <td align="center">
@@ -204,10 +197,17 @@ Pro商业版支持素材管理功能，可以在后台维护字体、模板、�
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/a847244052">
-            <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
+        <a href="https://github.com/JiangShuQ">
+            <img src="https://avatars.githubusercontent.com/u/95730895?v=4" width="80;" alt="JiangShuQ"/>
             <br />
-            <sub><b>a847244052</b></sub>
+            <sub><b>JiangShuQ</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/hudenghui">
+            <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
+            <br />
+            <sub><b>hudenghui</b></sub>
         </a>
     </td>
     <td align="center">
