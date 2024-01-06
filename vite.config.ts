@@ -4,7 +4,7 @@
  * @Author: June
  * @Date: 2023-04-24 00:25:39
  * @LastEditors: June
- * @LastEditTime: 2024-01-06 22:03:40
+ * @LastEditTime: 2024-01-06 22:15:15
  */
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -150,7 +150,7 @@ const config = ({ mode }) => {
         '/fontFile': {
           target: 'https://github.com/',
           changeOrigin: true,
-          rewrite: (path) => replace(/^\/fontFile/, ''),
+          rewrite: (path) => path.replace(/^\/fontFile/, ''),
         },
       },
     },
