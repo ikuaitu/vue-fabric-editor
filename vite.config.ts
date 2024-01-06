@@ -3,8 +3,8 @@
  * @version:
  * @Author: June
  * @Date: 2023-04-24 00:25:39
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-08-11 10:13:09
+ * @LastEditors: June
+ * @LastEditTime: 2024-01-06 22:03:40
  */
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -76,7 +76,7 @@ const config = ({ mode }) => {
         imports: ['vue'],
         dts: './typings/auto-imports.d.ts',
         eslintrc: {
-          enabled: false, // 一般更新imports启动一次即可
+          enabled: true, // 一般更新imports启动一次即可
         },
       }),
       vueSetupExtend(),
@@ -139,7 +139,7 @@ const config = ({ mode }) => {
       preprocessorOptions: {
         less: {
           javascriptEnabled: true,
-          additionalData: `@import '${resolve(__dirname, 'src/styles/variable.less')}";`,
+          additionalData: `@import '${resolve(__dirname, 'src/styles/variable.less')}';`,
         },
       },
     },
@@ -150,7 +150,7 @@ const config = ({ mode }) => {
         '/fontFile': {
           target: 'https://github.com/',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/fontFile/, ''),
+          rewrite: (path) => replace(/^\/fontFile/, ''),
         },
       },
     },
