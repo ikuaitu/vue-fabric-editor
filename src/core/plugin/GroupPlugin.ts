@@ -52,7 +52,6 @@ class GroupPlugin {
 
   contextMenu() {
     const activeObject = this.canvas.getActiveObject();
-    console.log(activeObject, '111');
     if (activeObject && activeObject.type === 'group') {
       return [
         { text: '拆分组合', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.unGroup() },
