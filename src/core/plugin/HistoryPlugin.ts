@@ -12,7 +12,6 @@ import Editor from '../core';
 import { ref } from 'vue';
 import { useRefHistory } from '@vueuse/core';
 type IEditor = Editor;
-// import { v4 as uuid } from 'uuid';
 
 class HistoryPlugin {
   public canvas: fabric.Canvas;
@@ -20,7 +19,7 @@ class HistoryPlugin {
   static pluginName = 'HistoryPlugin';
   static apis = ['undo', 'redo', 'getHistory'];
   static events = ['historyInitSuccess'];
-  public hotkeys: string[] = ['ctrl+z'];
+  public hotkeys: string[] = ['ctrl+z', 'ctrl+shift+z', '⌘+z', '⌘+shift+z'];
   history: any;
   constructor(canvas: fabric.Canvas, editor: IEditor) {
     this.canvas = canvas;
@@ -38,6 +37,16 @@ class HistoryPlugin {
       'object:modified': (event) => this._save(event),
       'selection:updated': (event) => this._save(event),
     });
+    window.addEventListener('beforeunload', function (e) {
+      if (history.length > 0) {
+        (e || window.event).returnValue = '确认离开';
+      }
+    });
+  }
+
+  // 导入模板之后，清理 History 缓存
+  hookImportAfter() {
+    this.history.clear();
   }
 
   getHistory() {
@@ -58,8 +67,8 @@ class HistoryPlugin {
 
   undo() {
     if (this.history.canUndo.value) {
-      this.renderCanvas();
       this.history.undo();
+      this.renderCanvas();
     }
   }
 
@@ -79,12 +88,18 @@ class HistoryPlugin {
 
   // 快捷键扩展回调
   hotkeyEvent(eventName: string, e: any) {
-    if (eventName === 'ctrl+z' && e.type === 'keydown') {
-      this.undo();
+    if (e.type === 'keydown') {
+      switch (eventName) {
+        case 'ctrl+z':
+        case '⌘+z':
+          this.undo();
+          break;
+        case 'ctrl+shift+z':
+        case '⌘+shift+z':
+          this.redo();
+          break;
+      }
     }
-  }
-  destroy() {
-    console.log('pluginDestroy');
   }
 }
 

@@ -74,6 +74,7 @@ class ServersPlugin {
         // 加载后钩子
         this.editor.hooksEntity.hookImportAfter.callAsync(jsonFile, () => {
           this.canvas.renderAll();
+          // this.editor.getPlugin('HistoryPlugin').history.clear();
         });
       });
     });

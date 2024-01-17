@@ -43,12 +43,6 @@ class WorkspacePlugin {
     this._bindWheel();
   }
 
-  // hookImportBefore() {
-  //   return new Promise((resolve, reject) => {
-  //     resolve();
-  //   });
-  // }
-
   hookImportAfter() {
     return new Promise((resolve) => {
       const workspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
