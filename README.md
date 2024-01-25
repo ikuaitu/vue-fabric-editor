@@ -283,6 +283,13 @@ Pro商业版支持素材管理功能，可以在后台维护字体、模板、�
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/nanfb">
+            <img src="https://avatars.githubusercontent.com/u/56207464?v=4" width="80;" alt="nanfb"/>
+            <br />
+            <sub><b>nanfb</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/dulltackle">
             <img src="https://avatars.githubusercontent.com/u/45963660?v=4" width="80;" alt="dulltackle"/>
             <br />
@@ -302,15 +309,15 @@ Pro商业版支持素材管理功能，可以在后台维护字体、模板、�
             <br />
             <sub><b>Yangzongtai</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/icleitoncosta">
             <img src="https://avatars.githubusercontent.com/u/3260480?v=4" width="80;" alt="icleitoncosta"/>
             <br />
             <sub><b>icleitoncosta</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/liucity">
             <img src="https://avatars.githubusercontent.com/u/12006542?v=4" width="80;" alt="liucity"/>
