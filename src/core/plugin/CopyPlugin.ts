@@ -77,7 +77,7 @@ class CopyPlugin {
   }
 
   // 复制元素
-  clone(paramsActiveObeject: fabric.ActiveSelection | fabric.Object) {
+  clone(paramsActiveObeject?: fabric.ActiveSelection | fabric.Object) {
     const activeObject = paramsActiveObeject || this.canvas.getActiveObject();
     if (!activeObject) return;
     if (activeObject?.type === 'activeSelection') {

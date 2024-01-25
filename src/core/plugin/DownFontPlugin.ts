@@ -20,7 +20,7 @@ class DownFontPlugin {
     this.editor = editor;
   }
 
-  hookImportBefore(json) {
+  hookImportBefore(json: string) {
     // console.log(downFontByJSON(json).then, 111);
     return downFontByJSON(json);
   }
