@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-24 23:13:51
+ * @LastEditors: June
+ * @LastEditTime: 2024-01-31 12:43:22
  * @Description: 图层面板
 -->
 
@@ -42,6 +42,7 @@
 </template>
 
 <script setup name="Layer">
+import { uniqBy } from 'lodash-es';
 import useSelect from '@/hooks/select';
 const { canvasEditor, fabric, mixinState } = useSelect();
 
@@ -142,6 +143,7 @@ const getList = () => {
         text,
       };
     });
+  list.value = uniqBy(unref(list), 'id');
 };
 
 onMounted(() => {

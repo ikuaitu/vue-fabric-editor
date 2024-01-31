@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2023-02-16 22:52:00
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-24 23:15:36
+ * @LastEditors: June
+ * @LastEditTime: 2024-01-31 12:46:50
  * @Description: 颜色选择器
 -->
 <template>
@@ -184,6 +184,7 @@ const fabricGradientToBar = (val) => {
 // Fabric渐变转css
 const fabricGradientToCss = (val, activeObject) => {
   // 渐变类型
+  if (!val) return;
   currentGradient.type = val.type;
   currentGradient.degree = activeObject.get(props.angleKey, val.degree);
   currentGradient.points = val.colorStops.map((item) => {
