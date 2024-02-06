@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-08-05 17:47:35
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-08-07 22:59:07
+ * @LastEditTime: 2024-02-06 16:43:23
  * @Description: file content
 -->
 
@@ -50,7 +50,7 @@ import useSelect from '@/hooks/select';
 import { cloneDeep } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
-const { fabric, canvasEditor } = useSelect();
+const { fabric, canvasEditor }: { canvasEditor: any; fabric: any } = useSelect();
 
 const defaultPosition = {
   left: 100,

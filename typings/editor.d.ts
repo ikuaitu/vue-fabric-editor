@@ -3,7 +3,7 @@
  * @Author: 秦少卫
  * @Date: 2023-05-13 18:53:44
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-27 22:44:31
+ * @LastEditTime: 2024-02-06 16:44:37
  * @Description: file content
  */
 
@@ -37,5 +37,9 @@ declare interface IPluginTempl {
   canvas: fabric.Canvas;
   hotkeyEvent: (name: string, e: Event) => viode;
   [propName: IEditorHooksType]: () => void;
+  [propName: string]: any;
+}
+
+declare interface CanvasEditorI {
   [propName: string]: any;
 }

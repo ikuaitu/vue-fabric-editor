@@ -128,7 +128,7 @@
 
 <script name="Home" setup>
 // 导入元素
-import importJSON from '@/components/importJSON.vue';
+// import importJSON from '@/components/importJSON.vue';
 import importFile from '@/components/importFile.vue';
 import fontTmpl from '@/components/fontTmpl.vue';
 
@@ -206,6 +206,7 @@ onMounted(() => {
     fireRightClick: true, // 启用右键，button的数字为3
     stopContextMenu: true, // 禁止默认右键菜单
     controlsAboveOverlay: true, // 超出clipPath后仍然展示控制条
+    imageSmoothingEnabled: false, // 解决文字导出后不清晰问题
   });
 
   // 初始化编辑器
