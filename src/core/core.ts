@@ -5,8 +5,7 @@ import ServersPlugin from './ServersPlugin';
 import { AsyncSeriesHook } from 'tapable';
 
 class Editor extends EventEmitter {
-  canvas: fabric.Canvas;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  canvas: fabric.Canvas | undefined;
   contextMenu: any;
   private pluginMap: {
     [propName: string]: IPluginTempl;
@@ -104,7 +103,7 @@ class Editor extends EventEmitter {
   // 代理API事件
   private _bindingApis(pluginRunTime: IPluginTempl) {
     const { apis = [] } = pluginRunTime.constructor;
-    apis.forEach((apiName) => {
+    apis.forEach((apiName: string) => {
       this[apiName] = function () {
         // eslint-disable-next-line prefer-rest-params
         return pluginRunTime[apiName].apply(pluginRunTime, [...arguments]);
@@ -130,7 +129,7 @@ class Editor extends EventEmitter {
   }
 
   // 渲染右键菜单
-  private _renderMenu(opt: fabric.IEvent, menu: IPluginMenu[]) {
+  private _renderMenu(opt: { e: MouseEvent }, menu: IPluginMenu[]) {
     if (menu.length !== 0) {
       this.contextMenu.hideAll();
       this.contextMenu.setData(menu);

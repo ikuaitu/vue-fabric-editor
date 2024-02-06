@@ -3,12 +3,12 @@
  * @Author: 秦少卫
  * @Date: 2023-05-13 18:53:44
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-06 17:54:39
+ * @LastEditTime: 2024-02-06 18:03:50
  * @Description: file content
  */
 
 declare interface IPluginOption {
-  [propName: string]: unknown;
+  [propName: string]: unknown | undefined;
 }
 
 // 生命周期事件类型
