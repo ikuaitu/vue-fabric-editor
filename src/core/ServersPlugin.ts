@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
- * @LastEditors: June
- * @LastEditTime: 2023-11-07 21:57:19
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-02-06 18:46:28
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -22,9 +22,9 @@ function downFile(fileStr: string, fileType: string) {
   anchorEl.remove();
 }
 
-function transformText(objects) {
+function transformText(objects: any) {
   if (!objects) return;
-  objects.forEach((item) => {
+  objects.forEach((item: any) => {
     if (item.objects) {
       transformText(item.objects);
     } else {
@@ -66,7 +66,7 @@ class ServersPlugin {
     });
   }
 
-  insertSvgFile(jsonFile) {
+  insertSvgFile(jsonFile: string) {
     // 加载前钩子
     this.editor.hooksEntity.hookImportBefore.callAsync(jsonFile, () => {
       this.canvas.loadFromJSON(jsonFile, () => {
@@ -157,7 +157,7 @@ class ServersPlugin {
 
   _getSaveSvgOption() {
     const workspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
-    const { left, top, width, height } = workspace;
+    const { left, top, width, height } = workspace as fabric.Object;
     return {
       width,
       height,
