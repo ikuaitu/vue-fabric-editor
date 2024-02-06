@@ -14,11 +14,10 @@
 
 <script lang="ts" setup>
 import { ImagePreview } from 'view-ui-plus';
-import vfe from 'vfe';
 
-const canvasEditor = inject('canvasEditor') as vfe.ICanvas;
+const canvasEditor: any = inject('canvasEditor');
 const preview = () => {
-  canvasEditor.preview().then((dataUrl) => {
+  canvasEditor.preview().then((dataUrl: string) => {
     // const dataUrl = getImgUrl();
     ImagePreview.show({
       previewList: [dataUrl],

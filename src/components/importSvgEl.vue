@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-08-05 17:47:35
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-06 16:43:23
+ * @LastEditTime: 2024-02-06 17:54:10
  * @Description: file content
 -->
 
@@ -48,9 +48,10 @@
 <script setup name="ImportSvg" lang="ts">
 import useSelect from '@/hooks/select';
 import { cloneDeep } from 'lodash-es';
+import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
 
-const { fabric, canvasEditor }: { canvasEditor: any; fabric: any } = useSelect();
+const { canvasEditor }: { canvasEditor: any } = useSelect();
 
 const defaultPosition = {
   left: 100,
@@ -93,7 +94,7 @@ canvasEditor.getMaterialType('svg').then((list: materialTypeI[]) => {
 });
 
 // 切换素材类型
-const handleChange = (e, item) => {
+const handleChange = (e: Event, item: [materialTypeI]) => {
   // 搜索框文字设置
   const { label, value } = item[0];
   state.placeholder = label;
@@ -131,8 +132,9 @@ const search = () => {
   filterTypeList(typeValue);
 };
 
-const dragItem = (event) => {
-  const url = event.target.src;
+const dragItem = (event: Event) => {
+  const target = event.target as HTMLImageElement;
+  const url = target.src;
   // 会有性能开销 dragAddItem复用更简洁
   fabric.loadSVGFromURL(url, (objects) => {
     const item = fabric.util.groupSVGElements(objects, {
@@ -146,8 +148,9 @@ const dragItem = (event) => {
 };
 
 // 按照类型渲染
-const addItem = (e) => {
-  const url = e.target.src;
+const addItem = (e: Event) => {
+  const target = e.target as HTMLImageElement;
+  const url = target.src;
   fabric.loadSVGFromURL(url, (objects, options) => {
     const item = fabric.util.groupSVGElements(objects, {
       ...options,

@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: June
- * @LastEditTime: 2024-01-31 12:29:07
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-02-06 17:00:13
  * @Description: 回退重做
 -->
 
@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { useDateFormat } from '@vueuse/core';
 import useSelect from '@/hooks/select';
-const { canvasEditor } = useSelect();
+const { canvasEditor } = useSelect() as { canvasEditor: any };
 const { history, redoStack, undoStack } = reactive(canvasEditor.getHistory());
 
 // 后退

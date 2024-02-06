@@ -4,23 +4,25 @@
  * @Author: June
  * @Date: 2023-04-23 21:10:05
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 00:47:52
+ * @LastEditTime: 2024-02-06 17:53:05
  */
 import { inject, onBeforeMount, onMounted, reactive } from 'vue';
-import { SelectEvent, SelectMode, SelectOneType } from '@/utils/event/types';
+import { SelectEvent, SelectMode } from '@/utils/event/types';
+
+import EventEmitter from 'events';
 
 interface Selector {
   mSelectMode: SelectMode;
-  mSelectOneType: SelectOneType;
-  mSelectId: string[] | '';
-  mSelectIds: string[];
+  mSelectOneType: string | undefined;
+  mSelectId: string | undefined;
+  mSelectIds: (string | undefined)[];
   mSelectActive: unknown[];
 }
 
 export default function useSelect() {
   const state = reactive<Selector>({
     mSelectMode: SelectMode.EMPTY,
-    mSelectOneType: SelectOneType.EMPTY,
+    mSelectOneType: '',
     mSelectId: '', // 选择id
     mSelectIds: [], // 选择id
     mSelectActive: [],
@@ -29,16 +31,18 @@ export default function useSelect() {
   const fabric = inject('fabric');
   // const canvas = inject('canvas');
   const canvasEditor = inject('canvasEditor');
-  const event = inject('event');
+  const event = inject('event') as EventEmitter;
 
-  const selectOne = (e) => {
+  const selectOne = (e: [fabric.Object]) => {
     state.mSelectMode = SelectMode.ONE;
-    state.mSelectId = e[0].id;
-    state.mSelectOneType = e[0].type;
-    state.mSelectIds = e.map((item) => item.id);
+    if (e[0]) {
+      state.mSelectId = e[0].id;
+      state.mSelectOneType = e[0].type;
+      state.mSelectIds = e.map((item) => item.id);
+    }
   };
 
-  const selectMulti = (e) => {
+  const selectMulti = (e: fabric.Object[]) => {
     state.mSelectMode = SelectMode.MULTI;
     state.mSelectId = '';
     state.mSelectIds = e.map((item) => item.id);
@@ -48,7 +52,7 @@ export default function useSelect() {
     state.mSelectId = '';
     state.mSelectIds = [];
     state.mSelectMode = SelectMode.EMPTY;
-    state.mSelectOneType = SelectOneType.EMPTY;
+    state.mSelectOneType = '';
   };
 
   onMounted(() => {
