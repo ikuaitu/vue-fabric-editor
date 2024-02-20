@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-20 12:54:10
+ * @LastEditTime: 2024-02-20 13:04:10
  * @Description: 画布区域插件
  */
 
@@ -17,12 +17,13 @@ class WorkspacePlugin {
   static pluginName = 'WorkspacePlugin';
   static events = ['sizeChange'];
   static apis = ['big', 'small', 'auto', 'one', 'setSize'];
-  workspaceEl: HTMLElement;
+  workspaceEl!: HTMLElement;
   workspace: null | fabric.Rect;
   option: any;
   constructor(canvas: fabric.Canvas, editor: IEditor) {
     this.canvas = canvas;
     this.editor = editor;
+    this.workspace = null;
     this.init({
       width: 900,
       height: 2000,
@@ -115,7 +116,7 @@ class WorkspacePlugin {
     resizeObserver.observe(this.workspaceEl);
   }
 
-  setSize(width: number, height: number) {
+  setSize(width: number | undefined, height: number) {
     this._initBackground();
     this.option.width = width;
     this.option.height = height;

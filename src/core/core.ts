@@ -5,7 +5,7 @@ import ServersPlugin from './ServersPlugin';
 import { AsyncSeriesHook } from 'tapable';
 
 class Editor extends EventEmitter {
-  canvas: fabric.Canvas | undefined;
+  canvas!: fabric.Canvas;
   contextMenu: any;
   private pluginMap: {
     [propName: string]: IPluginTempl;

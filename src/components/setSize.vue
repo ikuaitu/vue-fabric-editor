@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-11-19 15:58:59
+ * @LastEditTime: 2024-02-20 13:11:30
  * @Description: 尺寸设置
 -->
 
@@ -100,9 +100,9 @@ let presetSize = reactive([
 
 onMounted(() => {
   canvasEditor.setSize(width.value, height.value);
-  canvasEditor.on('sizeChange', (width, height) => {
-    width.value = width;
-    height.value = height;
+  canvasEditor.on('sizeChange', (w, h) => {
+    width.value = w;
+    height.value = h;
   });
 
   // canvas.editor.editorWorkspace.setSize(width.value, height.value);
