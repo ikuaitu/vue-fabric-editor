@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-22 16:19:46
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-16 12:14:55
+ * @LastEditTime: 2024-02-20 13:41:29
  * @Description: 组对齐插件
  */
 
@@ -38,20 +38,22 @@ class GroupAlignPlugin {
 
     const activeObject = canvas.getActiveObject();
     const selectObjects = canvas.getActiveObjects();
-    const { left } = activeObject;
-    canvas.discardActiveObject();
-    selectObjects.forEach((item) => {
-      const bounding = item.getBoundingRect(true);
-      item.set({
-        left: left - bounding.left + item.left,
+    if (activeObject) {
+      const { left = 0 } = activeObject;
+      canvas.discardActiveObject();
+      selectObjects.forEach((item) => {
+        const bounding = item.getBoundingRect(true);
+        item.set({
+          left: left - bounding.left + Number(item.left),
+        });
+        item.setCoords();
       });
-      item.setCoords();
-    });
-    const activeSelection = new fabric.ActiveSelection(selectObjects, {
-      canvas: canvas,
-    });
-    canvas.setActiveObject(activeSelection);
-    canvas.requestRenderAll();
+      const activeSelection = new fabric.ActiveSelection(selectObjects, {
+        canvas: canvas,
+      });
+      canvas.setActiveObject(activeSelection);
+      canvas.requestRenderAll();
+    }
   }
 
   right() {
@@ -71,19 +73,21 @@ class GroupAlignPlugin {
 
     const activeObject = canvas.getActiveObject();
     const selectObjects = canvas.getActiveObjects();
-    const { left, width } = activeObject;
-    canvas.discardActiveObject();
-    selectObjects.forEach((item) => {
-      const bounding = item.getBoundingRect(true);
-      item.set({
-        left: left + width - (bounding.left + bounding.width) + item.left,
+    if (activeObject) {
+      const { left = 0, width = 0 } = activeObject;
+      canvas.discardActiveObject();
+      selectObjects.forEach((item) => {
+        const bounding = item.getBoundingRect(true);
+        item.set({
+          left: left + width - (bounding.left + bounding.width) + Number(item.left),
+        });
       });
-    });
-    const activeSelection = new fabric.ActiveSelection(selectObjects, {
-      canvas: canvas,
-    });
-    canvas.setActiveObject(activeSelection);
-    canvas.requestRenderAll();
+      const activeSelection = new fabric.ActiveSelection(selectObjects, {
+        canvas: canvas,
+      });
+      canvas.setActiveObject(activeSelection);
+      canvas.requestRenderAll();
+    }
   }
 
   xcenter() {
@@ -102,19 +106,21 @@ class GroupAlignPlugin {
 
     const activeObject = canvas.getActiveObject();
     const selectObjects = canvas.getActiveObjects();
-    const { left, width } = activeObject;
-    canvas.discardActiveObject();
-    selectObjects.forEach((item) => {
-      const bounding = item.getBoundingRect(true);
-      item.set({
-        left: left + width / 2 - (bounding.left + bounding.width / 2) + item.left,
+    if (activeObject) {
+      const { left = 0, width = 0 } = activeObject;
+      canvas.discardActiveObject();
+      selectObjects.forEach((item) => {
+        const bounding = item.getBoundingRect(true);
+        item.set({
+          left: left + width / 2 - (bounding.left + bounding.width / 2) + Number(item.left),
+        });
       });
-    });
-    const activeSelection = new fabric.ActiveSelection(selectObjects, {
-      canvas: canvas,
-    });
-    canvas.setActiveObject(activeSelection);
-    canvas.requestRenderAll();
+      const activeSelection = new fabric.ActiveSelection(selectObjects, {
+        canvas: canvas,
+      });
+      canvas.setActiveObject(activeSelection);
+      canvas.requestRenderAll();
+    }
   }
 
   ycenter() {
@@ -133,19 +139,21 @@ class GroupAlignPlugin {
 
     const activeObject = canvas.getActiveObject();
     const selectObjects = canvas.getActiveObjects();
-    const { top, height } = activeObject;
-    canvas.discardActiveObject();
-    selectObjects.forEach((item) => {
-      const bounding = item.getBoundingRect(true);
-      item.set({
-        top: top + height / 2 - (bounding.top + bounding.height / 2) + item.top,
+    if (activeObject) {
+      const { top = 0, height = 0 } = activeObject;
+      canvas.discardActiveObject();
+      selectObjects.forEach((item) => {
+        const bounding = item.getBoundingRect(true);
+        item.set({
+          top: top + height / 2 - (bounding.top + bounding.height / 2) + Number(item.top),
+        });
       });
-    });
-    const activeSelection = new fabric.ActiveSelection(selectObjects, {
-      canvas: canvas,
-    });
-    canvas.setActiveObject(activeSelection);
-    canvas.requestRenderAll();
+      const activeSelection = new fabric.ActiveSelection(selectObjects, {
+        canvas: canvas,
+      });
+      canvas.setActiveObject(activeSelection);
+      canvas.requestRenderAll();
+    }
   }
 
   top() {
@@ -165,19 +173,21 @@ class GroupAlignPlugin {
 
     const activeObject = canvas.getActiveObject();
     const selectObjects = canvas.getActiveObjects();
-    const { top } = activeObject;
-    canvas.discardActiveObject();
-    selectObjects.forEach((item) => {
-      const bounding = item.getBoundingRect(true);
-      item.set({
-        top: top - bounding.top + item.top,
+    if (activeObject) {
+      const { top = 0 } = activeObject;
+      canvas.discardActiveObject();
+      selectObjects.forEach((item) => {
+        const bounding = item.getBoundingRect(true);
+        item.set({
+          top: top - bounding.top + Number(item.top),
+        });
       });
-    });
-    const activeSelection = new fabric.ActiveSelection(selectObjects, {
-      canvas: canvas,
-    });
-    canvas.setActiveObject(activeSelection);
-    canvas.requestRenderAll();
+      const activeSelection = new fabric.ActiveSelection(selectObjects, {
+        canvas: canvas,
+      });
+      canvas.setActiveObject(activeSelection);
+      canvas.requestRenderAll();
+    }
   }
 
   bottom() {
@@ -197,25 +207,26 @@ class GroupAlignPlugin {
 
     const activeObject = canvas.getActiveObject();
     const selectObjects = canvas.getActiveObjects();
-    const { top, height } = activeObject;
-    canvas.discardActiveObject();
-    selectObjects.forEach((item) => {
-      const bounding = item.getBoundingRect(true);
-      item.set({
-        top: top + height - (bounding.top + bounding.height) + item.top,
+    if (activeObject) {
+      const { top = 0, height = 0 } = activeObject;
+      canvas.discardActiveObject();
+      selectObjects.forEach((item) => {
+        const bounding = item.getBoundingRect(true);
+        item.set({
+          top: top + height - (bounding.top + bounding.height) + Number(item.top),
+        });
       });
-    });
-    const activeSelection = new fabric.ActiveSelection(selectObjects, {
-      canvas: canvas,
-    });
-    canvas.setActiveObject(activeSelection);
-    canvas.requestRenderAll();
+      const activeSelection = new fabric.ActiveSelection(selectObjects, {
+        canvas: canvas,
+      });
+      canvas.setActiveObject(activeSelection);
+      canvas.requestRenderAll();
+    }
   }
 
   xequation() {
     const { canvas } = this;
     const activeObject = canvas.getActiveObject();
-
     // width属性不准确，需要坐标换算
     function getItemWidth(item) {
       return item.aCoords.tr.x - item.aCoords.tl.x;
@@ -224,28 +235,35 @@ class GroupAlignPlugin {
     // 获取所有元素高度
     function getAllItemHeight() {
       let count = 0;
-      activeObject.forEachObject((item) => {
-        count += getItemWidth(item);
-      });
+      if (activeObject) {
+        activeObject.forEachObject((item) => {
+          count += getItemWidth(item);
+        });
+      }
+
       return count;
     }
     // 获取平均间距
     function spacWidth() {
       const count = getAllItemHeight();
-      const allSpac = activeObject.width - count;
-      return allSpac / (activeObject._objects.length - 1);
+      if (activeObject) {
+        const allSpac = Number(activeObject.width) - count;
+        return allSpac / (activeObject._objects.length - 1);
+      }
     }
 
     // 获取当前元素之前所有元素的高度
     function getItemLeft(i) {
       if (i === 0) return 0;
       let width = 0;
-      for (let index = 0; index < i; index++) {
-        width += getItemWidth(activeObject._objects[index]);
+      if (activeObject) {
+        for (let index = 0; index < i; index++) {
+          width += getItemWidth(activeObject._objects[index]);
+        }
       }
+
       return width;
     }
-
     if (activeObject && activeObject.type === 'activeSelection') {
       const activeSelection = activeObject;
       // 排序
@@ -254,7 +272,7 @@ class GroupAlignPlugin {
       // 平均间距计算
       const itemSpac = spacWidth();
       // 组原点高度
-      const yHeight = activeObject.width / 2;
+      const yHeight = Number(activeObject.width) / 2;
 
       activeObject.forEachObject((item, i) => {
         // 获取当前元素之前所有元素的高度
@@ -269,7 +287,7 @@ class GroupAlignPlugin {
 
   yequation() {
     const { canvas } = this;
-    const activeObject = canvas.getActiveObject();
+    const activeObject = canvas.getActiveObject() || { top: 0, height: 0 };
     // width属性不准确，需要坐标换算
     function getItemHeight(item) {
       return item.aCoords.bl.y - item.aCoords.tl.y;
@@ -307,9 +325,9 @@ class GroupAlignPlugin {
       // 平均间距计算
       const itemSpac = spacHeight();
       // 组原点高度
-      const yHeight = activeObject.height / 2;
+      const yHeight = Number(activeObject.height) / 2;
 
-      activeObject.forEachObject((item, i) => {
+      activeObject.forEachObject((item: fabric.Object, i: number) => {
         // 获取当前元素之前所有元素的高度
         const preHeight = getItemTop(i);
         // 顶部距离 间距 * 索引 + 之前元素高度 - 原点高度

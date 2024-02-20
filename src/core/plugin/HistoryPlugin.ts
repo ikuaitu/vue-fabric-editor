@@ -3,7 +3,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 13:06:31
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-04 23:37:07
+ * @LastEditTime: 2024-02-20 13:33:29
  * @Description: 历史记录插件
  */
 
@@ -33,9 +33,9 @@ class HistoryPlugin {
       capacity: 50,
     });
     this.canvas.on({
-      'object:added': (event) => this._save(event),
-      'object:modified': (event) => this._save(event),
-      'selection:updated': (event) => this._save(event),
+      'object:added': (event: fabric.IEvent) => this._save(event),
+      'object:modified': (event: fabric.IEvent) => this._save(event),
+      'selection:updated': (event: fabric.IEvent) => this._save(event),
     });
     window.addEventListener('beforeunload', function (e) {
       if (history.length > 0) {
@@ -52,7 +52,7 @@ class HistoryPlugin {
   getHistory() {
     return this.history;
   }
-  _save(event) {
+  _save(event: fabric.IEvent) {
     // 过滤选择元素事件
     const isSelect = event.action === undefined && event.e;
     if (isSelect || !this.canvas) return;

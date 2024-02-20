@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-20 13:04:10
+ * @LastEditTime: 2024-02-20 13:16:19
  * @Description: 画布区域插件
  */
 
@@ -30,7 +30,7 @@ class WorkspacePlugin {
     });
   }
 
-  init(option) {
+  init(option: { width: number; height: number }) {
     const workspaceEl = document.querySelector('#workspace') as HTMLElement;
     if (!workspaceEl) {
       throw new Error('element #workspace is missing, plz check!');
@@ -53,7 +53,7 @@ class WorkspacePlugin {
         this.setSize(workspace.width, workspace.height);
         this.editor.emit('sizeChange', workspace.width, workspace.height);
       }
-      resolve();
+      resolve('');
     });
   }
 
@@ -116,7 +116,7 @@ class WorkspacePlugin {
     resizeObserver.observe(this.workspaceEl);
   }
 
-  setSize(width: number | undefined, height: number) {
+  setSize(width: number | undefined, height: number | undefined) {
     this._initBackground();
     this.option.width = width;
     this.option.height = height;
