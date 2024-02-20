@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-11-19 21:05:33
+ * @LastEditTime: 2024-02-20 12:54:10
  * @Description: 画布区域插件
  */
 
@@ -125,6 +125,7 @@ class WorkspacePlugin {
       .find((item) => item.id === 'workspace') as fabric.Rect;
     this.workspace.set('width', width);
     this.workspace.set('height', height);
+    this.editor.emit('sizeChange', this.workspace.width, this.workspace.height);
     this.auto();
   }
 
