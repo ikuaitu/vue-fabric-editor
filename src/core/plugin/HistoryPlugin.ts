@@ -6,6 +6,11 @@
  * @LastEditTime: 2024-02-20 13:33:29
  * @Description: 历史记录插件
  */
+import { fabric } from 'fabric';
+import Editor from '../core';
+import 'fabric-history';
+
+type IEditor = Editor;
 type extendCanvas = {
   undo: () => void;
   redo: () => void;
@@ -14,19 +19,12 @@ type extendCanvas = {
   historyRedo: any[];
 };
 
-import 'fabric-history';
-import { fabric } from 'fabric';
-import Editor from '../core';
-import { ref } from 'vue';
-import { useRefHistory } from '@vueuse/core';
-type IEditor = Editor;
-
 class HistoryPlugin {
   public canvas: fabric.Canvas & extendCanvas;
   public editor: IEditor;
   static pluginName = 'HistoryPlugin';
-  static apis = ['undo', 'redo', 'getHistory', 'canUndo', 'canRedo'];
-  static events = ['historyInitSuccess'];
+  static apis = ['undo', 'redo'];
+  static events = ['historyUpdate'];
   public hotkeys: string[] = ['ctrl+z', 'ctrl+shift+z', '⌘+z', '⌘+shift+z'];
   constructor(canvas: fabric.Canvas & extendCanvas, editor: IEditor) {
     this.canvas = canvas;
@@ -38,46 +36,36 @@ class HistoryPlugin {
     this.canvas.getObjects().forEach((item) => {
       this.canvas.add(item);
     });
-
+    this.canvas.on('history:append', () => {
+      this.historyUpdate();
+    });
     window.addEventListener('beforeunload', (e) => {
-      console.log(this.canUndo(), this.canRedo());
-      if (history.length > 0) {
+      if (this.canvas.historyUndo.length > 0) {
         (e || window.event).returnValue = '确认离开';
       }
     });
   }
 
+  historyUpdate() {
+    const { historyUndo, historyRedo } = this.canvas;
+    this.editor.emit('historyUpdate', historyUndo.length, historyRedo.length);
+  }
+
   // 导入模板之后，清理 History 缓存
   hookImportAfter() {
     this.canvas.clearHistory();
-  }
-
-  getHistory() {
-    return this.canvas.historyUndo;
+    this.historyUpdate();
   }
 
   undo() {
     this.canvas.undo();
+    this.historyUpdate();
   }
 
   redo() {
     this.canvas.redo();
+    this.historyUpdate();
   }
-  canUndo() {
-    return this.canvas.historyUndo.length;
-  }
-  canRedo() {
-    return this.canvas.historyRedo.length;
-  }
-
-  // renderCanvas = () => {
-  //   this.history.pause();
-  //   this.canvas.clear();
-  //   this.canvas.loadFromJSON(this.history.source.value, () => {
-  //     this.canvas.renderAll();
-  //     this.history.resume();
-  //   });
-  // };
 
   // 快捷键扩展回调
   hotkeyEvent(eventName: string, e: any) {

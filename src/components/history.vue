@@ -10,14 +10,14 @@
   <div style="display: inline-block">
     <!-- 后退 -->
     <Tooltip :content="$t('history.revocation') + `(${canUndo})`">
-      <Button @click="undo" type="text" size="small">
+      <Button @click="undo" type="text" size="small" :disabled="!canUndo">
         <Icon type="ios-undo" size="20" />
       </Button>
     </Tooltip>
 
     <!-- 重做 -->
     <Tooltip :content="$t('history.redo') + `(${canRedo})`">
-      <Button @click="redo" type="text" size="small">
+      <Button @click="redo" type="text" size="small" :disabled="!canRedo">
         <Icon type="ios-redo" size="20" />
       </Button>
     </Tooltip>
@@ -28,14 +28,10 @@
 </template>
 
 <script setup lang="ts">
-import { useDateFormat } from '@vueuse/core';
 import useSelect from '@/hooks/select';
 const { canvasEditor } = useSelect() as { canvasEditor: any };
-console.log('canvasEditor', canvasEditor.getHistory());
-const history = reactive(canvasEditor.getHistory());
-const canUndo = reactive(canvasEditor.canUndo());
-const canRedo = reactive(canvasEditor.canRedo());
-const comUndo = computed(() => canvasEditor.canUndo());
+const canUndo = ref(0);
+const canRedo = ref(0);
 // 后退
 const undo = () => {
   canvasEditor.undo();
@@ -44,6 +40,13 @@ const undo = () => {
 const redo = () => {
   canvasEditor.redo();
 };
+
+onMounted(() => {
+  canvasEditor.on('historyUpdate', (canUndoParam: number, canRedoParam: number) => {
+    canUndo.value = canUndoParam;
+    canRedo.value = canRedoParam;
+  });
+});
 </script>
 
 <style scoped lang="less">
