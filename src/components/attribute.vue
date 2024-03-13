@@ -276,6 +276,29 @@
           </div>
         </div>
       </div>
+      <!-- 关联数据 -->
+      <div class="flex-view">
+        <div class="flex-item">
+          <span class="label">{{ $t('attributes.linkData') }}</span>
+          <div class="content slider-box">
+            <!-- <Input v-model="baseAttr.linkData" @on-change="changeCommon('id', baseAttr.id)"></Input> -->
+            <Select
+              v-model="baseAttr.linkData"
+              filterable
+              multiple
+              allow-create
+              @on-change="changeCommon('linkData', baseAttr.linkData)"
+            >
+              <Option value="src"></Option>
+              <Option value="text"></Option>
+              <Option value="名称"></Option>
+              <Option value="照片"></Option>
+              <Option value="日期"></Option>
+              <Option value="描述"></Option>
+            </Select>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -328,6 +351,7 @@ const baseAttr = reactive({
     offsetY: 0,
   },
   points: {},
+  linkData: null,
 });
 // 字体属性
 const fontAttr = reactive({
@@ -453,6 +477,7 @@ const getObjectAttr = (e) => {
     baseAttr.shadow = activeObject.get('shadow') || {};
     baseAttr.angle = activeObject.get('angle') || 0;
     baseAttr.points = activeObject.get('points') || {};
+    baseAttr.linkData = activeObject.get('linkData') || null;
 
     const textTypes = ['i-text', 'text', 'textbox'];
     if (textTypes.includes(activeObject.type)) {
