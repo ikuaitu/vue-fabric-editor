@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-06 18:46:28
+ * @LastEditTime: 2024-03-05 22:02:19
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -81,7 +81,7 @@ class ServersPlugin {
   }
 
   getJson() {
-    return this.canvas.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls']);
+    return this.canvas.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls', 'linkData']);
   }
 
   /**
