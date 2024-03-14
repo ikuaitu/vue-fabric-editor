@@ -211,27 +211,20 @@ yarn serve
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/macheteHot">
-            <img src="https://avatars.githubusercontent.com/u/26652329?v=4" width="80;" alt="macheteHot"/>
-            <br />
-            <sub><b>macheteHot</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/rolitter">
             <img src="https://avatars.githubusercontent.com/u/27326998?v=4" width="80;" alt="rolitter"/>
             <br />
             <sub><b>rolitter</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/slarkerino">
             <img src="https://avatars.githubusercontent.com/u/7014849?v=4" width="80;" alt="slarkerino"/>
             <br />
             <sub><b>slarkerino</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/vvbear">
             <img src="https://avatars.githubusercontent.com/u/32010827?v=4" width="80;" alt="vvbear"/>
@@ -266,13 +259,27 @@ yarn serve
             <br />
             <sub><b>luke358</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/yehan68">
             <img src="https://avatars.githubusercontent.com/u/40497166?v=4" width="80;" alt="yehan68"/>
             <br />
             <sub><b>yehan68</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/ddshiyu">
+            <img src="https://avatars.githubusercontent.com/u/37503208?v=4" width="80;" alt="ddshiyu"/>
+            <br />
+            <sub><b>ddshiyu</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/macheteHot">
+            <img src="https://avatars.githubusercontent.com/u/26652329?v=4" width="80;" alt="macheteHot"/>
+            <br />
+            <sub><b>macheteHot</b></sub>
         </a>
     </td>
     <td align="center">
@@ -302,15 +309,15 @@ yarn serve
             <br />
             <sub><b>Bamzc</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/Yangzongtai">
             <img src="https://avatars.githubusercontent.com/u/93592008?v=4" width="80;" alt="Yangzongtai"/>
             <br />
             <sub><b>Yangzongtai</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/Alicehhhmm">
             <img src="https://avatars.githubusercontent.com/u/86783773?v=4" width="80;" alt="Alicehhhmm"/>
