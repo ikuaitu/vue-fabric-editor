@@ -6,85 +6,66 @@
  * @LastEditTime: 2024-02-20 13:33:29
  * @Description: 历史记录插件
  */
-
 import { fabric } from 'fabric';
 import Editor from '../core';
-import { ref } from 'vue';
-import { useRefHistory } from '@vueuse/core';
+import 'fabric-history';
+
 type IEditor = Editor;
+type extendCanvas = {
+  undo: () => void;
+  redo: () => void;
+  clearHistory: () => void;
+  historyUndo: any[];
+  historyRedo: any[];
+};
 
 class HistoryPlugin {
-  public canvas: fabric.Canvas;
+  public canvas: fabric.Canvas & extendCanvas;
   public editor: IEditor;
   static pluginName = 'HistoryPlugin';
-  static apis = ['undo', 'redo', 'getHistory'];
-  static events = ['historyInitSuccess'];
+  static apis = ['undo', 'redo'];
+  static events = ['historyUpdate'];
   public hotkeys: string[] = ['ctrl+z', 'ctrl+shift+z', '⌘+z', '⌘+shift+z'];
-  history: any;
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
+  constructor(canvas: fabric.Canvas & extendCanvas, editor: IEditor) {
     this.canvas = canvas;
     this.editor = editor;
-
     this._init();
   }
 
   _init() {
-    this.history = useRefHistory(ref(), {
-      capacity: 50,
+    this.canvas.getObjects().forEach((item) => {
+      this.canvas.add(item);
     });
-    this.canvas.on({
-      'object:added': (event: fabric.IEvent) => this._save(event),
-      'object:modified': (event: fabric.IEvent) => this._save(event),
-      'selection:updated': (event: fabric.IEvent) => this._save(event),
+    this.canvas.on('history:append', () => {
+      this.historyUpdate();
     });
-    window.addEventListener('beforeunload', function (e) {
-      if (history.length > 0) {
+    window.addEventListener('beforeunload', (e) => {
+      if (this.canvas.historyUndo.length > 0) {
         (e || window.event).returnValue = '确认离开';
       }
     });
   }
 
-  // 导入模板之后，清理 History 缓存
-  hookImportAfter() {
-    this.history.clear();
+  historyUpdate() {
+    const { historyUndo, historyRedo } = this.canvas;
+    this.editor.emit('historyUpdate', historyUndo.length, historyRedo.length);
   }
 
-  getHistory() {
-    return this.history;
-  }
-  _save(event: fabric.IEvent) {
-    // 过滤选择元素事件
-    const isSelect = event.action === undefined && event.e;
-    if (isSelect || !this.canvas) return;
-    const workspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
-    if (!workspace) {
-      return;
-    }
-    if (this.history.isTracking.value) {
-      this.history.source.value = this.editor.getJson();
-    }
+  // 导入模板之后，清理 History 缓存
+  hookImportAfter() {
+    this.canvas.clearHistory();
+    this.historyUpdate();
   }
 
   undo() {
-    if (this.history.canUndo.value) {
-      this.history.undo();
-      this.renderCanvas();
-    }
+    this.canvas.undo();
+    this.historyUpdate();
   }
 
   redo() {
-    this.history.redo();
-    this.renderCanvas();
+    this.canvas.redo();
+    this.historyUpdate();
   }
-
-  renderCanvas = () => {
-    this.history.pause();
-    this.canvas.clear();
-    this.canvas.loadFromJSON(this.history.source.value, () => {
-      this.canvas.renderAll();
-      this.history.resume();
-    });
-  };
 
   // 快捷键扩展回调
   hotkeyEvent(eventName: string, e: any) {
