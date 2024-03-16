@@ -14,7 +14,8 @@ jobs:
 
       - name: Build
         run: |
-          npm install
+          npm i -g pnpm
+          pnpm install
           npm run build
 
       - name: Deploy
