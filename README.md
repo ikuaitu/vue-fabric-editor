@@ -44,11 +44,11 @@
 ## 使用
 
 ### 启动项目
-请先安装node.js v16，然后执行以下命令：
+请先安装node.js v16，及pnpm， 然后执行以下命令：
 
 ```
-yarn install
-yarn serve
+pnpm i 
+pnpm dev
 ```
 
 为非web前端开发人员准备了[部署教程](https://t.zsxq.com/0drqSuyjY)，快速解决你的部署需求，你可以联系我进行**有偿的部署、定制开发**。
