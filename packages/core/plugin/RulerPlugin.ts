@@ -11,7 +11,7 @@ import Editor from '../core';
 // import { throttle } from 'lodash-es';
 type IEditor = Editor;
 
-import initRuler from '@/core/ruler';
+import initRuler from '@/core12122/ruler';
 
 class RulerPlugin {
   public canvas: fabric.Canvas;

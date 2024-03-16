@@ -167,6 +167,11 @@ import attribute from '@/components/attribute.vue';
 import { CanvasEventEmitter } from '@/utils/event/notifier';
 // import { downFile } from '@/utils/utils';
 import { fabric } from 'fabric';
+
+// import test from '@kuaitu/core';
+
+// console.log(test(), '1111');
+
 import Editor, {
   DringPlugin,
   AlignGuidLinePlugin,
@@ -187,7 +192,7 @@ import Editor, {
   FlipPlugin,
   RulerPlugin,
   MaterialPlugin,
-} from '@/core';
+} from '@kuaitu/core';
 
 // 创建编辑器
 const canvasEditor = new Editor();
