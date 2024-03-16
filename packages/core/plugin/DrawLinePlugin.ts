@@ -2,13 +2,13 @@
  * @Author: 秦少卫
  * @Date: 2023-06-21 22:09:36
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-22 16:07:52
+ * @LastEditTime: 2024-03-16 08:19:12
  * @Description: file content
  */
 
 import { v4 as uuid } from 'uuid';
 import { fabric } from 'fabric';
-import Arrow from '@/core12122/objects/Arrow';
+import Arrow from '../objects/Arrow';
 import Editor from '../core';
 type IEditor = Editor;
 

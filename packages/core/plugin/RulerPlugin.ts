@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-07-04 23:45:49
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 00:26:39
+ * @LastEditTime: 2024-03-16 08:19:20
  * @Description: 标尺插件
  */
 
@@ -11,7 +11,7 @@ import Editor from '../core';
 // import { throttle } from 'lodash-es';
 type IEditor = Editor;
 
-import initRuler from '@/core12122/ruler';
+import initRuler from '../ruler';
 
 class RulerPlugin {
   public canvas: fabric.Canvas;
