@@ -16,7 +16,7 @@ jobs:
         run: |
           npm i -g pnpm
           pnpm install
-          npm run build
+          pnpm run build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
