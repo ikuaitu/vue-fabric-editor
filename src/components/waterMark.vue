@@ -3,7 +3,7 @@
  * @Description:
  * @Date: 2023-11-01 11:54:10
  * @LastEditors: June
- * @LastEditTime: 2023-11-04 16:11:12
+ * @LastEditTime: 2024-03-17 12:41:08
 -->
 <template>
   <Button type="text" @click="addWaterMark">
@@ -25,6 +25,19 @@
         show-word-limit
         :placeholder="$t('placeholder')"
       />
+    </div>
+    <div class="setting-item font-selector">
+      <span class="mr-10px">选择字体</span>
+      <Select class="w-320" v-model="waterMarkState.fontFamily" @on-change="changeFontFamily">
+        <Option v-for="item in fontFamilyList" :value="item.name" :key="`font-${item.name}`">
+          <div class="font-item" v-if="!item.preview">{{ item.name }}</div>
+          <div class="font-item" v-else :style="`background-image:url('${item.preview}');`">
+            {{ !item.preview ? item : '' }}
+            <!-- 解决无法选中问题 -->
+            <span style="display: none">{{ item.name }}</span>
+          </div>
+        </Option>
+      </Select>
     </div>
     <div class="setting-item">
       <span class="mr-10px">{{ $t('waterMark.setting.size') }}</span>
@@ -57,15 +70,20 @@
 
 <script name="WaterMark" lang="ts" setup>
 import { debounce } from 'lodash-es';
-import { Message } from 'view-ui-plus';
+import FontFaceObserver from 'fontfaceobserver';
 import useSelect from '@/hooks/select';
+import fontList from '@/assets/fonts/font';
+import axios from 'axios';
+import { Spin, Message } from 'view-ui-plus';
 
+const repoSrc = import.meta.env.APP_REPO;
 const { canvasEditor }: any = useSelect();
+const fontFamilyList = ref([...fontList]);
 const waterMarkState = reactive({
   text: '',
   size: 24,
   isRotate: 0, // 组件不支持boolean
-  font: 'serif', // 可考虑自定义字体
+  fontFamily: '汉体', // 可考虑自定义字体
   color: '#ccc', // 可考虑自定义颜色
   position: 'lt', // lt 左上 lr 右上 lb 左下  rb 右下 full 平铺
 });
@@ -74,7 +92,7 @@ const showWaterMadal = ref(false);
 const onMadalCancel = () => {
   waterMarkState.text = '';
   waterMarkState.size = 24;
-  waterMarkState.font = 'serif';
+  waterMarkState.fontFamily = 'serif';
   waterMarkState.color = '#ccc';
   waterMarkState.position = 'lt';
   waterMarkState.isRotate = 0;
@@ -96,7 +114,7 @@ const drawWaterMark: Record<string, any> = {
     const w = waterCanvas.width || width;
     let ctx: CanvasRenderingContext2D | null = waterCanvas.getContext('2d')!;
     ctx.fillStyle = waterMarkState.color;
-    ctx.font = `${waterMarkState.size}px ${waterMarkState.font}`;
+    ctx.font = `${waterMarkState.size}px ${waterMarkState.fontFamily}`;
     ctx.fillText(waterMarkState.text, 10, waterMarkState.size + 10, w - 20);
     cb && cb(waterCanvas.toDataURL());
     waterCanvas = null;
@@ -107,7 +125,7 @@ const drawWaterMark: Record<string, any> = {
     let ctx: CanvasRenderingContext2D | null = waterCanvas.getContext('2d')!;
     const w = waterCanvas.width || width;
     ctx.fillStyle = waterMarkState.color;
-    ctx.font = `${waterMarkState.size}px ${waterMarkState.font}`;
+    ctx.font = `${waterMarkState.size}px ${waterMarkState.fontFamily}`;
     ctx.fillText(
       waterMarkState.text,
       w - ctx.measureText(waterMarkState.text).width - 20,
@@ -124,7 +142,7 @@ const drawWaterMark: Record<string, any> = {
     const w = waterCanvas.width || width;
     const h = waterCanvas.height || height;
     ctx.fillStyle = waterMarkState.color;
-    ctx.font = `${waterMarkState.size}px ${waterMarkState.font}`;
+    ctx.font = `${waterMarkState.size}px ${waterMarkState.fontFamily}`;
     ctx.fillText(waterMarkState.text, 10, h - waterMarkState.size, w - 20);
     cb && cb(waterCanvas.toDataURL());
     waterCanvas = null;
@@ -135,7 +153,7 @@ const drawWaterMark: Record<string, any> = {
     let ctx: CanvasRenderingContext2D | null = waterCanvas.getContext('2d')!;
     const w = waterCanvas.width || width;
     ctx.fillStyle = waterMarkState.color;
-    ctx.font = `${waterMarkState.size}px ${waterMarkState.font}`;
+    ctx.font = `${waterMarkState.size}px ${waterMarkState.fontFamily}`;
     ctx.fillText(
       waterMarkState.text,
       w - ctx.measureText(waterMarkState.text).width - 20,
@@ -158,7 +176,7 @@ const drawWaterMark: Record<string, any> = {
     let ctxWater: CanvasRenderingContext2D | null = patternCanvas.getContext('2d')!;
     ctxWater.textAlign = 'left';
     ctxWater.textBaseline = 'top';
-    ctxWater.font = `${waterMarkState.size}px ${waterMarkState.font}`;
+    ctxWater.font = `${waterMarkState.size}px ${waterMarkState.fontFamily}`;
     ctxWater.fillStyle = `${waterMarkState.color}`;
     if (waterMarkState.isRotate === 0) {
       ctxWater.fillText(waterMarkState.text, 10, 10);
@@ -197,9 +215,37 @@ const onModalOk = () => {
   onMadalCancel();
 };
 
+// 修改字体
+const getFreeFontList = () => {
+  axios.get(`${repoSrc}/font/free-font.json`).then((res) => {
+    fontFamilyList.value = [
+      ...fontFamilyList.value,
+      ...Object.entries(res.data).map(([, value]) => value),
+    ];
+  });
+};
+const changeFontFamily = (fontName: string) => {
+  if (!fontName) return;
+  Spin.show();
+  const font = new FontFaceObserver(fontName);
+  font
+    .load(null, 150000)
+    .then(() => {
+      Message.success('字体加载成功');
+      Spin.hide();
+      console.log('字体加载成功');
+    })
+    .catch(() => {
+      Message.error('字体加载失败');
+      Spin.hide();
+    });
+};
+
 const addWaterMark = debounce(function () {
   showWaterMadal.value = true;
 }, 250);
+
+onMounted(getFreeFontList);
 </script>
 
 <style lang="less" scoped>
@@ -215,5 +261,22 @@ const addWaterMark = debounce(function () {
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 10px;
+}
+.font-selector {
+  :deep(.ivu-select-item) {
+    padding: 1px 4px;
+  }
+
+  .font-item {
+    background-color: #000;
+    background-size: cover;
+    background-position: center center;
+    height: 40px;
+    width: 200px;
+    color: #fff;
+    font-size: 27px;
+    text-align: center;
+    filter: invert(100%);
+  }
 }
 </style>
