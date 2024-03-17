@@ -172,6 +172,8 @@ import { fabric } from 'fabric';
 
 // console.log(test(), '1111');
 
+const repoSrc = import.meta.env.APP_REPO;
+
 import Editor, {
   DringPlugin,
   AlignGuidLinePlugin,
@@ -237,7 +239,9 @@ onMounted(() => {
   canvasEditor.use(HistoryPlugin);
   canvasEditor.use(FlipPlugin);
   canvasEditor.use(RulerPlugin);
-  canvasEditor.use(MaterialPlugin);
+  canvasEditor.use(MaterialPlugin, {
+    repoSrc,
+  });
 
   event.init(canvas);
   state.show = true;

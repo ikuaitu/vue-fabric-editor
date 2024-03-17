@@ -9,6 +9,7 @@
     "dev:staging": "vite serve --mode=staging",
     "dev:prod": "vite serve --mode=production",
     "build": "vite build",
+    "build:sdk": "vite build --config viteSDK.config.ts",
     "build:staging": "vite build --mode=staging",
     "preview": "npm run build && vite preview",
     "preview:staging": "npm run build:staging && vite preview --mode=staging",

@@ -17,13 +17,13 @@ class MaterialPlugin {
   static pluginName = 'MaterialPlugin';
   static apis = ['getMaterialType', 'getMaterialList'];
   apiMapUrl: { [propName: string]: string };
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
+  constructor(canvas: fabric.Canvas, editor: IEditor, config: { repoSrc: string }) {
     this.canvas = canvas;
     this.editor = editor;
 
     this.apiMapUrl = {
-      template: 'https://nihaojob.github.io/vue-fabric-editor-static/template/type.json',
-      svg: 'https://nihaojob.github.io/vue-fabric-editor-static/svg/type.json',
+      template: config.repoSrc + '/template/type.json',
+      svg: config.repoSrc + '/svg/type.json',
     };
   }
 
