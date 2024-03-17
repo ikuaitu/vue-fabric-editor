@@ -2,11 +2,10 @@
  * @Author: 秦少卫
  * @Date: 2022-09-05 22:21:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-29 21:30:41
+ * @LastEditTime: 2024-03-17 21:38:03
  * @Description: 工具文件
  */
 
-import FontFaceObserver from 'fontfaceobserver';
 import { useClipboard, useFileDialog, useBase64 } from '@vueuse/core';
 import { Message } from 'view-ui-plus';
 
@@ -22,28 +21,6 @@ interface Font {
  */
 export function getImgStr(file: File | Blob): Promise<FileReader['result']> {
   return useBase64(file).promise.value;
-}
-
-/**
- * @description: 根据json模板下载字体文件
- * @param {String} str
- * @return {Promise}
- */
-export function downFontByJSON(str: string) {
-  const skipFonts = ['arial', 'Microsoft YaHei'];
-  const fontFamilies: string[] = JSON.parse(str)
-    .objects.filter(
-      (item: Font) =>
-        // 为text 并且不为包含字体
-        // eslint-disable-next-line implicit-arrow-linebreak
-        item.type.includes('text') && !skipFonts.includes(item.fontFamily)
-    )
-    .map((item: Font) => item.fontFamily);
-  const fontFamiliesAll = fontFamilies.map((fontName) => {
-    const font = new FontFaceObserver(fontName);
-    return font.load(null, 150000);
-  });
-  return Promise.all(fontFamiliesAll);
 }
 
 /**

@@ -3,11 +3,11 @@
  * @Author: 秦少卫
  * @Date: 2023-05-25 22:33:23
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-05-25 23:06:29
+ * @LastEditTime: 2024-03-17 19:00:29
  * @Description: 右键菜单
  */
 /* Author: @UnrealSec */
-import '@/styles/contextMenu.css';
+import './styles/contextMenu.css';
 
 class ContextMenu {
   constructor(container, items) {
