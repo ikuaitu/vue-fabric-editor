@@ -3,7 +3,7 @@
  * @Description:
  * @Date: 2023-11-01 11:54:10
  * @LastEditors: June
- * @LastEditTime: 2024-03-17 12:41:08
+ * @LastEditTime: 2024-03-24 11:01:30
 -->
 <template>
   <Button type="text" @click="addWaterMark">
@@ -29,7 +29,7 @@
     <div class="setting-item font-selector">
       <span class="mr-10px">选择字体</span>
       <Select class="w-320" v-model="waterMarkState.fontFamily" @on-change="changeFontFamily">
-        <Option v-for="item in fontFamilyList" :value="item.name" :key="`font-${item.name}`">
+        <Option v-for="item in fontsList" :value="item.name" :key="`font-${item.name}`">
           <div class="font-item" v-if="!item.preview">{{ item.name }}</div>
           <div class="font-item" v-else :style="`background-image:url('${item.preview}');`">
             {{ !item.preview ? item : '' }}
@@ -70,15 +70,12 @@
 
 <script name="WaterMark" lang="ts" setup>
 import { debounce } from 'lodash-es';
-import FontFaceObserver from 'fontfaceobserver';
 import useSelect from '@/hooks/select';
-import fontList from '@/assets/fonts/font';
-import axios from 'axios';
-import { Spin, Message } from 'view-ui-plus';
+import { useFont } from '@/hooks';
+import { Message } from 'view-ui-plus';
 
-const repoSrc = import.meta.env.APP_REPO;
+const { fontsList, loadFont } = useFont();
 const { canvasEditor }: any = useSelect();
-const fontFamilyList = ref([...fontList]);
 const waterMarkState = reactive({
   text: '',
   size: 24,
@@ -215,37 +212,14 @@ const onModalOk = () => {
   onMadalCancel();
 };
 
-// 修改字体
-const getFreeFontList = () => {
-  axios.get(`${repoSrc}/font/free-font.json`).then((res) => {
-    fontFamilyList.value = [
-      ...fontFamilyList.value,
-      ...Object.entries(res.data).map(([, value]) => value),
-    ];
-  });
-};
 const changeFontFamily = (fontName: string) => {
   if (!fontName) return;
-  Spin.show();
-  const font = new FontFaceObserver(fontName);
-  font
-    .load(null, 150000)
-    .then(() => {
-      Message.success('字体加载成功');
-      Spin.hide();
-      console.log('字体加载成功');
-    })
-    .catch(() => {
-      Message.error('字体加载失败');
-      Spin.hide();
-    });
+  loadFont(fontName);
 };
 
 const addWaterMark = debounce(function () {
   showWaterMadal.value = true;
 }, 250);
-
-onMounted(getFreeFontList);
 </script>
 
 <style lang="less" scoped>

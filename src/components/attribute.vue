@@ -7,7 +7,7 @@
         <div class="flex-item">
           <div class="left font-selector">
             <Select v-model="fontAttr.fontFamily" @on-change="changeFontFamily">
-              <Option v-for="item in fontFamilyList" :value="item.name" :key="`font-${item.name}`">
+              <Option v-for="item in fontsList" :value="item.name" :key="`font-${item.name}`">
                 <div class="font-item" v-if="!item.preview">{{ item.name }}</div>
                 <div class="font-item" v-else :style="`background-image:url('${item.preview}');`">
                   {{ !item.preview ? item : '' }}
@@ -299,18 +299,16 @@
 </template>
 
 <script setup name="AttrBute">
-import fontList from '@/assets/fonts/font';
 import useSelect from '@/hooks/select';
-import FontFaceObserver from 'fontfaceobserver';
 import colorSelector from '@/components/colorSelector.vue';
-import axios from 'axios';
 import { getPolygonVertices } from '@/utils/math';
 import InputNumber from '@/components/inputNumber';
 import { Spin } from 'view-ui-plus';
+import { useFont } from '@/hooks';
 
+const { fontsList, loadFont } = useFont();
 const event = inject('event');
 const update = getCurrentInstance();
-const repoSrc = import.meta.env.APP_REPO;
 const { fabric, mixinState, canvasEditor } = useSelect();
 // 通用元素
 const baseType = [
@@ -362,8 +360,6 @@ const fontAttr = reactive({
   linethrough: false,
   overline: false,
 });
-// 字体下拉列表
-const fontFamilyList = ref([...fontList]);
 const strokeDashList = [
   {
     value: {
@@ -447,15 +443,6 @@ const textAlignListSvg = [
   '<svg t="1650441519862" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3854" width="18" height="18"><path d="M454.4 283.733333v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h341.333334c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-341.333334c-8.533333 0-14.933333-2.133333-19.2-8.533334-4.266667-4.266667-8.533333-10.666667-8.533333-19.2z m-226.133333 170.666667v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h569.6c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333H256c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-4.266667-8.533333-10.666667-8.533333-19.2z m113.066666 170.666667v-57.6c0-8.533333 2.133333-14.933333 8.533334-19.2 6.4-6.4 12.8-8.533333 19.2-8.533334h454.4c8.533333 0 14.933333 2.133333 19.2 8.533334 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533333h-454.4c-8.533333 0-14.933333-2.133333-19.2-8.533333-6.4-4.266667-8.533333-10.666667-8.533334-19.2z m-170.666666 170.666666v-57.6c0-8.533333 2.133333-14.933333 8.533333-19.2 6.4-6.4 12.8-8.533333 19.2-8.533333h625.066667c8.533333 0 14.933333 2.133333 19.2 8.533333 6.4 6.4 8.533333 12.8 8.533333 19.2v57.6c0 8.533333-2.133333 14.933333-8.533333 19.2-6.4 6.4-12.8 8.533333-19.2 8.533334h-625.066667c-8.533333 0-14.933333-2.133333-19.2-8.533334-6.4-4.266667-8.533333-10.666667-8.533333-19.2z" p-id="3855"></path></svg>',
 ];
 
-const getFreeFontList = () => {
-  axios.get(`${repoSrc}/font/free-font.json`).then((res) => {
-    fontFamilyList.value = [
-      ...fontFamilyList.value,
-      ...Object.entries(res.data).map(([, value]) => value),
-    ];
-  });
-};
-
 const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
   // 不是当前obj，跳过
@@ -498,7 +485,6 @@ const selectCancel = () => {
 
 const init = () => {
   // 获取字体数据
-  getFreeFontList();
 
   event.on('selectCancel', selectCancel);
   event.on('selectOne', getObjectAttr);
@@ -506,7 +492,7 @@ const init = () => {
 };
 
 // 修改字体
-const changeFontFamily = (fontName) => {
+const changeFontFamily = async (fontName) => {
   if (!fontName) return;
   // 跳过加载的属性;
   const skipFonts = ['arial', 'Microsoft YaHei'];
@@ -518,18 +504,11 @@ const changeFontFamily = (fontName) => {
   }
   Spin.show();
   // 字体加载
-  const font = new FontFaceObserver(fontName);
-  font
-    .load(null, 150000)
-    .then(() => {
-      const activeObject = canvasEditor.canvas.getActiveObjects()[0];
-      activeObject && activeObject.set('fontFamily', fontName);
-      canvasEditor.canvas.renderAll();
-      Spin.hide();
-    })
-    .catch(() => {
-      Spin.hide();
-    });
+  if (await loadFont(fontName)) {
+    const activeObject = canvasEditor.canvas.getActiveObjects()[0];
+    activeObject && activeObject.set('fontFamily', fontName);
+    canvasEditor.canvas.renderAll();
+  }
 };
 
 // 通用属性改变
