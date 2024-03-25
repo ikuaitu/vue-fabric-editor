@@ -17,6 +17,7 @@
       "dom"
     ],
     "skipLibCheck": true,
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
