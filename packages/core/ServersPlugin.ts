@@ -66,7 +66,7 @@ class ServersPlugin {
     });
   }
 
-  insertSvgFile(jsonFile: string) {
+  insertSvgFile(jsonFile: string, callback: () => void = null) {
     // 加载前钩子
     this.editor.hooksEntity.hookImportBefore.callAsync(jsonFile, () => {
       this.canvas.loadFromJSON(jsonFile, () => {
@@ -75,6 +75,7 @@ class ServersPlugin {
         this.editor.hooksEntity.hookImportAfter.callAsync(jsonFile, () => {
           this.canvas.renderAll();
           // this.editor.getPlugin('HistoryPlugin').history.clear();
+          callback && callback();
         });
       });
     });
