@@ -152,6 +152,12 @@ class Editor extends EventEmitter {
   _initServersPlugin() {
     this.use(ServersPlugin, {});
   }
+
+  // 解决 listener 为 undefined 的时候卸载错误
+  off<K>(eventName, listener): this {
+    // noinspection TypeScriptValidateTypes
+    return listener ? super.off(eventName, listener) : this;
+  }
 }
 
 export default Editor;
