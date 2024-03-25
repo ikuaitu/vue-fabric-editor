@@ -283,6 +283,9 @@ class AlignGuidLinePlugin {
 
     canvas.on('before:render', () => {
       // fix 保存图片时报错
+      if (canvas.contextTop === null) {
+        return;
+      }
       try {
         canvas.clearContext(canvas.contextTop);
       } catch (error) {
