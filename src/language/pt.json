@@ -76,11 +76,12 @@
   "alert": {
     "loading_fonts": "Carregando fontes, aguarde...",
     "loading_fonts_failed": "Falha ao carregar as fontes, tente novamente",
+    "loading_fonts_success": "O tipo de letra foi carregado com sucesso！",
     "loading_data": "Carregando dados...",
     "select_image": "Por favor, selecione uma imagem de plano de fundo",
     "select_file": "Selecione um arquivo",
-    "copied_sucessful": "复制成功",
-    "fail_copy": "复制失败"
+    "copied_sucessful": "A cópia foi bem sucedida",
+    "fail_copy": "a cópia falhou"
   },
   "fruits": "Frutas de desenhos animados",
   "sports": "Esportes",

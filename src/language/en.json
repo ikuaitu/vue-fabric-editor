@@ -131,6 +131,7 @@
   "alert": {
     "loading_fonts": "Loading fonts, please wait...",
     "loading_fonts_failed": "Fonts failed to load, please try again",
+    "loading_fonts_success": "Fonts success to load！",
     "loading_data": "Loading data...",
     "select_image": "Please select a background image",
     "select_file": "Select a file",
