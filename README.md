@@ -254,20 +254,27 @@ pnpm dev
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/1912715645">
+            <img src="https://avatars.githubusercontent.com/u/86701050?v=4" width="80;" alt="1912715645"/>
+            <br />
+            <sub><b>1912715645</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/vvbear">
             <img src="https://avatars.githubusercontent.com/u/32010827?v=4" width="80;" alt="vvbear"/>
             <br />
             <sub><b>vvbear</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/slarkerino">
             <img src="https://avatars.githubusercontent.com/u/7014849?v=4" width="80;" alt="slarkerino"/>
             <br />
             <sub><b>slarkerino</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/rolitter">
             <img src="https://avatars.githubusercontent.com/u/27326998?v=4" width="80;" alt="rolitter"/>
@@ -302,15 +309,15 @@ pnpm dev
             <br />
             <sub><b>dulltackle</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/Bamzc">
             <img src="https://avatars.githubusercontent.com/u/10151046?v=4" width="80;" alt="Bamzc"/>
             <br />
             <sub><b>Bamzc</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/Yangzongtai">
             <img src="https://avatars.githubusercontent.com/u/93592008?v=4" width="80;" alt="Yangzongtai"/>
