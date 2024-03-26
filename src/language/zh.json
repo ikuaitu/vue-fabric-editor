@@ -133,7 +133,8 @@
   },
   "alert": {
     "loading_fonts": "正在加载字体，您耐心等候...",
-    "loading_fonts_failed": "字体加载失败，请重试",
+    "loading_fonts_failed": "字体加载失败，请重试!",
+    "loading_fonts_success": "字体加载成功！",
     "loading_data": "加载数据中...",
     "select_image": "请选择背景图片",
     "select_file": "请选择文件",
