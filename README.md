@@ -197,6 +197,13 @@ pnpm dev
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/1912715645">
+            <img src="https://avatars.githubusercontent.com/u/86701050?v=4" width="80;" alt="1912715645"/>
+            <br />
+            <sub><b>1912715645</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/briver0825">
             <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="briver0825"/>
             <br />
@@ -216,15 +223,15 @@ pnpm dev
             <br />
             <sub><b>hudenghui</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/ddshiyu">
             <img src="https://avatars.githubusercontent.com/u/37503208?v=4" width="80;" alt="ddshiyu"/>
             <br />
             <sub><b>ddshiyu</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/yehan68">
             <img src="https://avatars.githubusercontent.com/u/40497166?v=4" width="80;" alt="yehan68"/>
@@ -251,13 +258,6 @@ pnpm dev
             <img src="https://avatars.githubusercontent.com/u/25359239?v=4" width="80;" alt="wozhi-cl"/>
             <br />
             <sub><b>wozhi-cl</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/1912715645">
-            <img src="https://avatars.githubusercontent.com/u/86701050?v=4" width="80;" alt="1912715645"/>
-            <br />
-            <sub><b>1912715645</b></sub>
         </a>
     </td>
     <td align="center">
