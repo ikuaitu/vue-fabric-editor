@@ -124,7 +124,7 @@ pnpm dev
 
 第三阶段
 
-- [ ] monorepo升级 进行中
+- [x] monorepo升级 进行中
 - [x] 插件化 
 - [x] 标尺插件
 - [ ] 截图插件
