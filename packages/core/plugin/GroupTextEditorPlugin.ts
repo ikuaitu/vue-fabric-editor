@@ -106,6 +106,8 @@ class GroupTextEditorPlugin {
 
     const tempText = new fabric[eltype](textObject.text, {
       ...textObjectJSON,
+      scaleX: textObjectJSON.scaleX * a,
+      scaleY: textObjectJSON.scaleY * a,
       textAlign: textObject.textAlign,
       left: newX,
       top: newY,
