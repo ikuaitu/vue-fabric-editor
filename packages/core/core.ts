@@ -7,6 +7,7 @@ import { AsyncSeriesHook } from 'tapable';
 class Editor extends EventEmitter {
   canvas!: fabric.Canvas;
   contextMenu: any;
+  [key: string]: any;
   private pluginMap: {
     [propName: string]: IPluginTempl;
   } = {};
@@ -21,7 +22,7 @@ class Editor extends EventEmitter {
     'hookSaveBefore',
     'hookSaveAfter',
   ];
-  private hooksEntity: {
+  public hooksEntity: {
     [propName: string]: AsyncSeriesHook;
   } = {};
 
