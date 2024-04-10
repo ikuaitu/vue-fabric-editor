@@ -1,4 +1,4 @@
-import Editor from './core';
+import Editor from './Editor';
 type IEditor = Editor;
 
 class EditorWorkspacePlugin {

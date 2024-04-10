@@ -3,11 +3,11 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 13:06:31
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-20 13:33:29
+ * @LastEditTime: 2024-04-10 17:33:25
  * @Description: 历史记录插件
  */
 import { fabric } from 'fabric';
-import Editor from '../core';
+import Editor from '../Editor';
 import 'fabric-history';
 
 type IEditor = Editor;

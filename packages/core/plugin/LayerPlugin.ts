@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2023-06-15 23:23:18
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-27 23:07:57
+ * @LastEditTime: 2024-04-10 17:33:28
  * @Description: 图层调整插件
  */
 
 import { fabric } from 'fabric';
-import Editor from '../core';
+import Editor from '../Editor';
 type IEditor = Editor;
 
 class LayerPlugin {

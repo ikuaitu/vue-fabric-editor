@@ -2,10 +2,10 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 14:01:02
+ * @LastEditTime: 2024-04-10 15:50:30
  * @Description: 核心入口文件
  */
-import Editor from './core';
+import Editor from './Editor';
 import DringPlugin from './plugin/DringPlugin';
 import AlignGuidLinePlugin from './plugin/AlignGuidLinePlugin';
 import ControlsPlugin from './plugin/ControlsPlugin';

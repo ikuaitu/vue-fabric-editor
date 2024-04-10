@@ -2,11 +2,11 @@
  * @Author: 秦少卫
  * @Date: 2023-05-19 08:31:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-27 23:20:25
+ * @LastEditTime: 2024-04-10 17:33:11
  * @Description: 拖拽插件
  */
 
-import Editor from '../core';
+import Editor from '../Editor';
 type IEditor = Editor;
 
 declare type ExtCanvas = fabric.Canvas & {

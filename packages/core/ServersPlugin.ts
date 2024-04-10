@@ -2,14 +2,13 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 15:13:17
+ * @LastEditTime: 2024-04-10 17:32:45
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
 import { selectFiles, clipboardText } from '@/utils/utils';
-// import { clipboardText } from '@/utils/utils.ts';
 import { fabric } from 'fabric';
-import Editor from '../core';
+import Editor from '../Editor';
 type IEditor = Editor;
 // import { v4 as uuid } from 'uuid';
 import { SelectEvent, SelectMode } from './eventType';
@@ -103,7 +102,7 @@ class ServersPlugin {
     });
   }
 
-  insertSvgFile(jsonFile: string, callback: () => void) {
+  insertSvgFile(jsonFile: string, callback?: () => void) {
     // 加载前钩子
     this.editor.hooksEntity.hookImportBefore.callAsync(jsonFile, () => {
       this.canvas.loadFromJSON(jsonFile, () => {
@@ -180,7 +179,7 @@ class ServersPlugin {
   }
 
   preview() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.editor.hooksEntity.hookSaveBefore.callAsync('', () => {
         const option = this._getSaveOption();
         this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);

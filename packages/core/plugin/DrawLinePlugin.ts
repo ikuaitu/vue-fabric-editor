@@ -2,14 +2,14 @@
  * @Author: 秦少卫
  * @Date: 2023-06-21 22:09:36
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-03-16 08:19:12
+ * @LastEditTime: 2024-04-10 17:33:05
  * @Description: file content
  */
 
 import { v4 as uuid } from 'uuid';
 import { fabric } from 'fabric';
 import Arrow from '../objects/Arrow';
-import Editor from '../core';
+import Editor from '../Editor';
 type IEditor = Editor;
 
 class DrawLinePlugin {

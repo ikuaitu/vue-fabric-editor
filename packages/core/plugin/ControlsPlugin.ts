@@ -2,11 +2,11 @@
  * @Author: 秦少卫
  * @Date: 2023-06-13 23:00:43
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 11:29:46
+ * @LastEditTime: 2024-04-10 17:32:54
  * @Description: 控制条插件
  */
 
-import Editor from '../core';
+import Editor from '../Editor';
 type IEditor = Editor;
 
 import { fabric } from 'fabric';

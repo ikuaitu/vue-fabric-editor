@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 13:21:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-20 13:42:32
+ * @LastEditTime: 2024-04-10 17:33:19
  * @Description: 组合拆分组合插件
  */
 
 import { fabric } from 'fabric';
-import Editor from '../core';
+import Editor from '../Editor';
 import { v4 as uuid } from 'uuid';
 type IEditor = Editor;
 

@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:38:37
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-20 13:34:21
+ * @LastEditTime: 2024-04-10 17:33:00
  * @Description: 复制插件
  */
 
 import { fabric } from 'fabric';
-import Editor from '../core';
+import Editor from '../Editor';
 type IEditor = Editor;
 import { v4 as uuid } from 'uuid';
 

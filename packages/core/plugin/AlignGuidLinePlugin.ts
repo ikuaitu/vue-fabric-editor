@@ -2,11 +2,11 @@
  * @Author: 秦少卫
  * @Date: 2023-05-21 08:55:25
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-09 13:17:27
+ * @LastEditTime: 2024-04-10 17:32:48
  * @Description: 辅助线功能
  */
 
-import Editor from '../core';
+import Editor from '../Editor';
 type IEditor = Editor;
 
 import { fabric } from 'fabric';
