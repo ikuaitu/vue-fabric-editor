@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-13 23:00:43
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-13 23:09:59
+ * @LastEditTime: 2024-04-10 11:29:46
  * @Description: 控制条插件
  */
 
@@ -10,10 +10,11 @@ import Editor from '../core';
 type IEditor = Editor;
 
 import { fabric } from 'fabric';
-import verticalImg from '@/assets/editor/middlecontrol.svg';
-import horizontalImg from '@/assets/editor/middlecontrolhoz.svg';
-import edgeImg from '@/assets/editor/edgecontrol.svg';
-import rotateImg from '@/assets/editor/rotateicon.svg';
+import verticalImg from '../assets/middlecontrol.svg';
+// import verticalImg from './middlecontrol.svg';
+import horizontalImg from '../assets/middlecontrolhoz.svg';
+import edgeImg from '../assets/edgecontrol.svg';
+import rotateImg from '../assets/rotateicon.svg';
 
 /**
  * 实际场景: 在进行某个对象缩放的时候，由于fabricjs默认精度使用的是toFixed(2)。
