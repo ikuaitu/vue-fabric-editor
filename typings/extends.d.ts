@@ -5,6 +5,7 @@ declare namespace fabric {
     wrapperEl: HTMLElement;
     isDragging: boolean;
     _currentTransform: unknown;
+    clearHistory(): void;
     _centerObject: (obj: fabric.Object, center: fabric.Point) => fabric.Canvas;
   }
 
