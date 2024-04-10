@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 13:21:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:33:19
+ * @LastEditTime: 2024-04-10 23:26:13
  * @Description: 组合拆分组合插件
  */
 
@@ -26,10 +26,11 @@ class GroupPlugin {
     const activeObject = this.canvas.getActiveObject() as fabric.Group;
     if (!activeObject) return;
     // 先获取当前选中的对象，然后打散
+    const activeObjectList = activeObject.getObjects();
     activeObject.toActiveSelection();
-    activeObject.getObjects().forEach((item: fabric.Object) => {
+    for (const item of activeObjectList) {
       item.set('id', uuid());
-    });
+    }
     this.canvas.discardActiveObject().renderAll();
   }
 
