@@ -2,13 +2,13 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:32:45
+ * @LastEditTime: 2024-04-10 17:58:55
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
 import { selectFiles, clipboardText } from '@/utils/utils';
 import { fabric } from 'fabric';
-import Editor from '../Editor';
+import Editor from './Editor';
 type IEditor = Editor;
 // import { v4 as uuid } from 'uuid';
 import { SelectEvent, SelectMode } from './eventType';
