@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 15:50:30
+ * @LastEditTime: 2024-04-10 22:37:05
  * @Description: 核心入口文件
  */
 import Editor from './Editor';
@@ -26,6 +26,7 @@ import FlipPlugin from './plugin/FlipPlugin';
 import RulerPlugin from './plugin/RulerPlugin';
 import MaterialPlugin from './plugin/MaterialPlugin';
 import EventType from './eventType';
+import Utils from './utils/utils';
 
 export {
   DringPlugin,
@@ -48,5 +49,6 @@ export {
   RulerPlugin,
   MaterialPlugin,
   EventType,
+  Utils,
 };
 export default Editor;

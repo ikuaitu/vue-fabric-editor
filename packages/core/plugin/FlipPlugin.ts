@@ -3,7 +3,8 @@ import type Editor from '../Editor';
 import { SelectMode } from '../eventType';
 // import { Ref } from 'vue';
 
-import { t } from '@/language/index';
+// import { t } from '@/language/index';
+const t = (key: string) => key;
 // import event from '@/utils/event/notifier';
 
 export default class FlipPlugin {

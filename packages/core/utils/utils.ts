@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-05 22:21:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 15:17:34
+ * @LastEditTime: 2024-04-10 22:38:24
  * @Description: 工具文件
  */
 
@@ -71,4 +71,11 @@ export const clipboardText = async (
     Message.error('复制失败');
     throw error;
   }
+};
+
+export default {
+  getImgStr,
+  selectFiles,
+  insertImgFile,
+  clipboardText,
 };

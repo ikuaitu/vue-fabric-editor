@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-06 22:26:57
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 14:37:51
+ * @LastEditTime: 2024-04-10 22:43:45
  * @Description: 图片替换
 -->
 
@@ -15,7 +15,8 @@
 <script setup name="ReplaceImg">
 import useSelect from '@/hooks/select';
 
-import { getImgStr, selectFiles, insertImgFile } from '@/utils/utils';
+import { Utils } from '@kuaitu/core';
+const { getImgStr, selectFiles, insertImgFile } = Utils;
 
 const update = getCurrentInstance();
 // const canvasEditor = inject('canvasEditor');
