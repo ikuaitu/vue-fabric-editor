@@ -1,7 +1,10 @@
 /*
- * @Description: 自定义事件的类型
+ * @Author: 秦少卫
+ * @Date: 2024-04-10 14:00:05
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-04-10 14:01:39
+ * @Description: 事件类型
  */
-
 // 选择模式
 export enum SelectMode {
   EMPTY = '',
@@ -15,3 +18,5 @@ export enum SelectEvent {
   MULTI = 'selectMultiple',
   CANCEL = 'selectCancel',
 }
+
+export default { SelectMode, SelectEvent };

@@ -1,6 +1,6 @@
 import { fabric } from 'fabric';
 import type Editor from '../core';
-import { SelectEvent, SelectMode } from '@/utils/event/types';
+import { SelectEvent, SelectMode } from '../eventType';
 import { Ref } from 'vue';
 
 import { t } from '@/language/index';

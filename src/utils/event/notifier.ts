@@ -2,14 +2,15 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-02-09 13:17:11
+ * @LastEditTime: 2024-04-10 14:06:13
  * @Description: 自定义事件
  */
 
 import EventEmitter from 'events';
 import { fabric } from 'fabric';
 import { Canvas } from 'fabric/fabric-impl';
-import { SelectEvent } from '@/utils/event/types';
+import { EventType } from '@kuaitu/core';
+const { SelectEvent } = EventType;
 
 /**
  * 发布订阅器

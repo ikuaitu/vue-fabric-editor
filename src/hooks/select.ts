@@ -4,10 +4,13 @@
  * @Author: June
  * @Date: 2023-04-23 21:10:05
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-06 17:53:05
+ * @LastEditTime: 2024-04-10 14:03:55
  */
 import { inject, onBeforeMount, onMounted, reactive } from 'vue';
-import { SelectEvent, SelectMode } from '@/utils/event/types';
+// import { SelectEvent, SelectMode } from '@/utils/event/types';
+
+import { EventType } from '@kuaitu/core';
+const { SelectEvent, SelectMode } = EventType;
 
 import EventEmitter from 'events';
 
