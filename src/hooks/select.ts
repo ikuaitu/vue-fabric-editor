@@ -4,16 +4,12 @@
  * @Author: June
  * @Date: 2023-04-23 21:10:05
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 14:03:55
+ * @LastEditTime: 2024-04-10 14:42:34
  */
 import { inject, onBeforeMount, onMounted, reactive } from 'vue';
-// import { SelectEvent, SelectMode } from '@/utils/event/types';
 
-import { EventType } from '@kuaitu/core';
+import Editor, { EventType } from '@kuaitu/core';
 const { SelectEvent, SelectMode } = EventType;
-
-import EventEmitter from 'events';
-
 interface Selector {
   mSelectMode: SelectMode;
   mSelectOneType: string | undefined;
@@ -32,9 +28,7 @@ export default function useSelect() {
   });
 
   const fabric = inject('fabric');
-  // const canvas = inject('canvas');
-  const canvasEditor = inject('canvasEditor');
-  const event = inject('event') as EventEmitter;
+  const canvasEditor = inject('canvasEditor') as Editor;
 
   const selectOne = (e: [fabric.Object]) => {
     state.mSelectMode = SelectMode.ONE;
@@ -59,20 +53,19 @@ export default function useSelect() {
   };
 
   onMounted(() => {
-    event.on(SelectEvent.ONE, selectOne);
-    event.on(SelectEvent.MULTI, selectMulti);
-    event.on(SelectEvent.CANCEL, selectCancel);
+    canvasEditor.on(SelectEvent.ONE, selectOne);
+    canvasEditor.on(SelectEvent.MULTI, selectMulti);
+    canvasEditor.on(SelectEvent.CANCEL, selectCancel);
   });
 
   onBeforeMount(() => {
-    event.off(SelectEvent.ONE, selectOne);
-    event.off(SelectEvent.MULTI, selectMulti);
-    event.off(SelectEvent.CANCEL, selectCancel);
+    canvasEditor.off(SelectEvent.ONE, selectOne);
+    canvasEditor.off(SelectEvent.MULTI, selectMulti);
+    canvasEditor.off(SelectEvent.CANCEL, selectCancel);
   });
 
   return {
     fabric,
-    // canvas,
     canvasEditor,
     mixinState: state,
   };

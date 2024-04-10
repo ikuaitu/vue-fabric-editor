@@ -164,13 +164,8 @@ import layer from '@/components/layer.vue';
 import attribute from '@/components/attribute.vue';
 
 // 功能组件
-import { CanvasEventEmitter } from '@/utils/event/notifier';
 // import { downFile } from '@/utils/utils';
 import { fabric } from 'fabric';
-
-// import test from '@kuaitu/core';
-
-// console.log(test(), '1111');
 
 const repoSrc = import.meta.env.APP_REPO;
 
@@ -198,8 +193,6 @@ import Editor, {
 
 // 创建编辑器
 const canvasEditor = new Editor();
-
-const event = new CanvasEventEmitter();
 
 const state = reactive({
   menuActive: 1,
@@ -243,7 +236,6 @@ onMounted(() => {
     repoSrc,
   });
 
-  event.init(canvas);
   state.show = true;
 });
 
@@ -285,7 +277,7 @@ const switchAttrBar = () => {
 };
 
 provide('fabric', fabric);
-provide('event', event);
+// provide('event', event);
 provide('canvasEditor', canvasEditor);
 </script>
 <style lang="less" scoped>

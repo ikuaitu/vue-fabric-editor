@@ -307,7 +307,6 @@ import { Spin } from 'view-ui-plus';
 import { useFont } from '@/hooks';
 
 const { fontsList, loadFont } = useFont();
-const event = inject('event');
 const update = getCurrentInstance();
 const { fabric, mixinState, canvasEditor } = useSelect();
 // 通用元素
@@ -486,8 +485,8 @@ const selectCancel = () => {
 const init = () => {
   // 获取字体数据
 
-  event.on('selectCancel', selectCancel);
-  event.on('selectOne', getObjectAttr);
+  canvasEditor.on('selectCancel', selectCancel);
+  canvasEditor.on('selectOne', getObjectAttr);
   canvasEditor.canvas.on('object:modified', getObjectAttr);
 };
 

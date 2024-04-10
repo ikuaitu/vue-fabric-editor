@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-03-05 22:02:19
+ * @LastEditTime: 2024-04-10 14:47:44
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -12,6 +12,7 @@ import { fabric } from 'fabric';
 import Editor from '../core';
 type IEditor = Editor;
 // import { v4 as uuid } from 'uuid';
+import { SelectEvent, SelectMode } from './eventType';
 
 function downFile(fileStr: string, fileType: string) {
   const anchorEl = document.createElement('a');
@@ -36,6 +37,7 @@ function transformText(objects: any) {
 class ServersPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
+  public selectedMode: SelectMode;
   static pluginName = 'ServersPlugin';
   static apis = [
     'insert',
@@ -48,11 +50,44 @@ class ServersPlugin {
     'saveImg',
     'clear',
     'preview',
+    'getSelectMode',
   ];
+  static events = [SelectMode.ONE, SelectMode.MULTI, SelectEvent.CANCEL];
   // public hotkeys: string[] = ['left', 'right', 'down', 'up'];
   constructor(canvas: fabric.Canvas, editor: IEditor) {
     this.canvas = canvas;
     this.editor = editor;
+    this.selectedMode = SelectMode.EMPTY;
+    this._initSelectEvent();
+  }
+
+  private _initSelectEvent() {
+    this.canvas.on('selection:created', () => this._emitSelectEvent());
+    this.canvas.on('selection:updated', () => this._emitSelectEvent());
+    this.canvas.on('selection:cleared', () => this._emitSelectEvent());
+  }
+
+  private _emitSelectEvent() {
+    if (!this.canvas) {
+      throw TypeError('还未初始化');
+    }
+
+    const actives = this.canvas
+      .getActiveObjects()
+      .filter((item) => !(item instanceof fabric.GuideLine)); // 过滤掉辅助线
+    if (actives && actives.length === 1) {
+      this.selectedMode = SelectMode.ONE;
+      this.editor.emit(SelectEvent.ONE, actives);
+    } else if (actives && actives.length > 1) {
+      this.selectedMode = SelectMode.MULTI;
+      this.editor.emit(SelectEvent.MULTI, actives);
+    } else {
+      this.editor.emit(SelectEvent.CANCEL);
+    }
+  }
+
+  getSelectMode() {
+    return String(this.selectedMode);
   }
 
   insert() {

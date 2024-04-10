@@ -154,7 +154,7 @@ class Editor extends EventEmitter {
   }
 
   // 解决 listener 为 undefined 的时候卸载错误
-  off<K>(eventName, listener): this {
+  off<K>(eventName: string, listener: any): this {
     // noinspection TypeScriptValidateTypes
     return listener ? super.off(eventName, listener) : this;
   }

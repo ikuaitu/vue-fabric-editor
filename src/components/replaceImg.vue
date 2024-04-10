@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-06 22:26:57
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-05 01:04:30
+ * @LastEditTime: 2024-04-10 14:37:51
  * @Description: 图片替换
 -->
 
@@ -18,7 +18,7 @@ import useSelect from '@/hooks/select';
 import { getImgStr, selectFiles, insertImgFile } from '@/utils/utils';
 
 const update = getCurrentInstance();
-const event = inject('event');
+// const canvasEditor = inject('canvasEditor');
 const { mixinState, canvasEditor } = useSelect();
 const type = ref('');
 
@@ -54,10 +54,10 @@ const init = () => {
 };
 
 onMounted(() => {
-  event.on('selectOne', init);
+  canvasEditor.on('selectOne', init);
 });
 
 onBeforeUnmount(() => {
-  event.off('selectOne', init);
+  canvasEditor.off('selectOne', init);
 });
 </script>
