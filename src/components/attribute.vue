@@ -599,8 +599,8 @@ const changeEdge = (value) => {
 onMounted(init);
 
 onBeforeUnmount(() => {
-  event.off('selectCancel', selectCancel);
-  event.off('selectOne', getObjectAttr);
+  canvasEditor.off('selectCancel', selectCancel);
+  canvasEditor.off('selectOne', getObjectAttr);
   canvasEditor.canvas.off('object:modified', getObjectAttr);
 });
 </script>
