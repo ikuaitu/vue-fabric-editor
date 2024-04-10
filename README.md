@@ -58,7 +58,8 @@ pnpm dev
 - **微信交流群**：我们组建了450+人的微信项目交流群，作者和项目维护者活跃在群内，定期解答问题。
 - **知识星球**：沉淀高质量常见问题、最佳实践文档，如跨域、部署、字体素材等问题，长期更新围绕在开源编辑器、fabric.js的相关资料。
 - **付费咨询**：提供200元/小时的咨询服务，帮你快速解决项目中遇到的问题。
-- **视频教程**：《fabric.js 入门教程》、《使用fabric.js从0到1构建图片编辑器》、《vue-fabric-editor开发实践》，[获取链接](https://wj.qq.com/s2/14436637/b22b/)。
+- **fabric.js代码示例**：[查看](https://mbd.pub/o/bread/ZZ6Vl55u)。
+- **视频教程**：《fabric.js 入门教程》、[《使用fabric.js从0到1构建图片编辑器》](https://www.yuque.com/qinshaowei/fabric/qrdqudwo7sxadr4d?singleDoc#o8m1e)、[《vue-fabric-editor开发实践》](https://mbd.pub/o/bread/ZZ6Vl5hr)。
 
 ![27d4480f-efa5-4ed3-93ed-d1a755cb41cf](https://github.com/nihaojob/vue-fabric-editor/assets/13534626/25e9075e-f751-4110-aadd-30fe453e02d9)
 
@@ -123,7 +124,7 @@ pnpm dev
 
 第三阶段
 
-- [ ] monorepo升级 进行中
+- [x] monorepo升级 进行中
 - [x] 插件化 
 - [x] 标尺插件
 - [ ] 截图插件
