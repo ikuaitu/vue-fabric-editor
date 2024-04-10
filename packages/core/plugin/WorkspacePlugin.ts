@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-20 13:16:19
+ * @LastEditTime: 2024-04-10 11:47:47
  * @Description: 画布区域插件
  */
 
@@ -88,6 +88,9 @@ class WorkspacePlugin {
     this.canvas.renderAll();
 
     this.workspace = workspace;
+    if (this.canvas.clearHistory) {
+      this.canvas.clearHistory();
+    }
     this.auto();
   }
 
