@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 19:15:51
+ * @LastEditTime: 2024-04-11 12:53:54
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -126,17 +126,21 @@ class ServersPlugin {
    * @param {Event} event
    * @param {Object} item
    */
-  dragAddItem(event: DragEvent, item: fabric.Object) {
-    const { left, top } = this.canvas.getSelectionElement().getBoundingClientRect();
-    if (event.x < left || event.y < top || item.width === undefined) return;
+  dragAddItem(item: fabric.Object, event?: DragEvent) {
+    if (event) {
+      const { left, top } = this.canvas.getSelectionElement().getBoundingClientRect();
+      if (event.x < left || event.y < top || item.width === undefined) return;
 
-    const point = {
-      x: event.x - left,
-      y: event.y - top,
-    };
-    const pointerVpt = this.canvas.restorePointerVpt(point);
-    item.left = pointerVpt.x - item.width / 2;
-    item.top = pointerVpt.y;
+      const point = {
+        x: event.x - left,
+        y: event.y - top,
+      };
+      const pointerVpt = this.canvas.restorePointerVpt(point);
+      item.left = pointerVpt.x - item.width / 2;
+      item.top = pointerVpt.y;
+    }
+    const { width } = this._getSaveOption();
+    width && item.scaleToWidth(width / 2);
     this.canvas.add(item);
     this.canvas.requestRenderAll();
   }
