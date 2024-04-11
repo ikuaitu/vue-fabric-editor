@@ -127,6 +127,15 @@ class ServersPlugin {
    * @param {Object} item
    */
   dragAddItem(item: fabric.Object, event?: DragEvent) {
+    const { width, height } = this._getSaveOption();
+    const scaleX = width / item.width;
+    const scaleY = height / item.height;
+    const scale = Math.min(scaleX, scaleY); // 取宽高比 中的最小值，保证长边完全显示
+    let itemW = item.width; // 记录元素宽度， 用以修改item.left
+    if (item.width > width) {
+      itemW = width * scale;
+      item.scaleToWidth(itemW); // 按比例缩放
+    }
     if (event) {
       const { left, top } = this.canvas.getSelectionElement().getBoundingClientRect();
       if (event.x < left || event.y < top || item.width === undefined) return;
@@ -136,11 +145,13 @@ class ServersPlugin {
         y: event.y - top,
       };
       const pointerVpt = this.canvas.restorePointerVpt(point);
-      item.left = pointerVpt.x - item.width / 2;
+      item.left = pointerVpt.x - itemW / 2;
       item.top = pointerVpt.y;
+    } else {
+      // 处理点击添加时的偏移
+      item.left = width / 2 - itemW / 2;
+      item.top = height * 0.1;
     }
-    const { width } = this._getSaveOption();
-    width && item.scaleToWidth(width / 2);
     this.canvas.add(item);
     this.canvas.requestRenderAll();
   }
