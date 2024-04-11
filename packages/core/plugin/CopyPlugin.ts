@@ -10,6 +10,8 @@ import { fabric } from 'fabric';
 import Editor from '../Editor';
 type IEditor = Editor;
 import { v4 as uuid } from 'uuid';
+import { Utils } from '@kuaitu/core';
+const { getImgStr } = Utils;
 
 class CopyPlugin {
   public canvas: fabric.Canvas;
@@ -22,6 +24,7 @@ class CopyPlugin {
     this.canvas = canvas;
     this.editor = editor;
     this.cache = null;
+    this.initPaste();
   }
 
   // 多选对象复制
@@ -109,6 +112,111 @@ class CopyPlugin {
 
   destroy() {
     console.log('pluginDestroy');
+    window.removeEventListener('paste', (e) => this.pasteListener(e));
+  }
+
+  initPaste() {
+    window.addEventListener('paste', (e) => this.pasteListener(e));
+  }
+
+  async pasteListener(event: any) {
+    const canvas = this.canvas;
+    if (document.activeElement === document.body) {
+      event.preventDefault(); // 阻止默认粘贴行为
+    } else {
+      return;
+    }
+
+    const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    const fileAccept = '.pdf,.psd,.cdr,.ai,.svg,.jpg,.jpeg,.png,.webp,.json';
+    for (const item of items) {
+      if (item.kind === 'file') {
+        const file = item.getAsFile();
+        const curFileSuffix: string | undefined = file.name.split('.').pop();
+        if (!fileAccept.split(',').includes(`.${curFileSuffix}`)) return;
+        if (curFileSuffix === 'svg') {
+          const svgFile = await getImgStr(file);
+          if (!svgFile) throw new Error('file is undefined');
+          fabric.loadSVGFromURL(svgFile as string, (objects, options) => {
+            const item = fabric.util.groupSVGElements(objects, {
+              ...options,
+              name: 'defaultSVG',
+              id: uuid(),
+            });
+            canvas.add(item).centerObject(item).renderAll();
+          });
+        }
+        // if (curFileSuffix === 'json') {
+        //   const dataText = await getImageText(file);
+        //   const template = JSON.parse(dataText);
+        //   addTemplate(template);
+        // }
+        if (item.type.indexOf('image/') === 0) {
+          // 这是一个图片文件
+          const imageUrl = URL.createObjectURL(file);
+          const imgEl = document.createElement('img');
+          imgEl.src = imageUrl;
+          // 插入页面
+          document.body.appendChild(imgEl);
+          imgEl.onload = () => {
+            // 创建图片对象
+            const imgInstance = new fabric.Image(imgEl, {
+              id: uuid(),
+              name: '图片1',
+              left: 100,
+              top: 100,
+            });
+            // 设置缩放
+            canvas.add(imgInstance);
+            canvas.setActiveObject(imgInstance);
+            canvas.renderAll();
+            // 删除页面中的图片元素
+            imgEl.remove();
+          };
+        }
+      } else if (item.kind === 'string' && item.type.indexOf('text/plain') === 0) {
+        // 文本数据
+        item.getAsString((text: any) => {
+          // 插入到文本框
+          const activeObject = canvas.getActiveObject() as fabric.Textbox;
+          // 如果是激活的文字把复制的内容插入到对应光标位置
+          if (
+            activeObject &&
+            (activeObject.type === 'textbox' || activeObject.type === 'i-text') &&
+            activeObject.text
+          ) {
+            const cursorPosition = activeObject.selectionStart;
+            const textBeforeCursorPosition = activeObject.text.substring(0, cursorPosition);
+            const textAfterCursorPosition = activeObject.text.substring(cursorPosition as number);
+
+            // 更新文本对象的文本
+            activeObject.set('text', textBeforeCursorPosition + text + textAfterCursorPosition);
+
+            // 重新设置光标的位置
+            activeObject.selectionStart = cursorPosition + text.length;
+            activeObject.selectionEnd = cursorPosition + text.length;
+
+            // 重新渲染画布展示更新后的文本
+            activeObject.dirty = true;
+            canvas.renderAll();
+          } else {
+            const fabricText = new fabric.IText(text, {
+              left: 100,
+              top: 100,
+              fontSize: 80,
+              id: uuid(),
+            });
+            canvas.add(fabricText);
+            canvas.setActiveObject(fabricText);
+          }
+        });
+      }
+    }
+    if (!items.length) {
+      if (this.cache) {
+        this.clone(this.cache);
+      }
+    }
   }
 }
 
