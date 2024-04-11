@@ -200,7 +200,7 @@ const state = reactive({
   toolsBarShow: true,
   attrBarShow: true,
   select: null,
-  ruler: false,
+  ruler: true,
 });
 
 onMounted(() => {
@@ -237,6 +237,10 @@ onMounted(() => {
   });
 
   state.show = true;
+  // 默认打开标尺
+  if (state.ruler) {
+    canvasEditor.rulerEnable();
+  }
 });
 
 // 获取字体数据 新增字体样式使用
