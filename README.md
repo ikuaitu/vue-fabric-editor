@@ -256,6 +256,13 @@ pnpm dev
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/zjc2233">
+            <img src="https://avatars.githubusercontent.com/u/43945226?v=4" width="80;" alt="zjc2233"/>
+            <br />
+            <sub><b>zjc2233</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/xiaozeo">
             <img src="https://avatars.githubusercontent.com/u/13568242?v=4" width="80;" alt="xiaozeo"/>
             <br />
@@ -268,15 +275,15 @@ pnpm dev
             <br />
             <sub><b>x007xyz</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/wozhi-cl">
             <img src="https://avatars.githubusercontent.com/u/25359239?v=4" width="80;" alt="wozhi-cl"/>
             <br />
             <sub><b>wozhi-cl</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/vvbear">
             <img src="https://avatars.githubusercontent.com/u/32010827?v=4" width="80;" alt="vvbear"/>
@@ -311,15 +318,15 @@ pnpm dev
             <br />
             <sub><b>jooyyy</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/nanfb">
             <img src="https://avatars.githubusercontent.com/u/56207464?v=4" width="80;" alt="nanfb"/>
             <br />
             <sub><b>nanfb</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/dulltackle">
             <img src="https://avatars.githubusercontent.com/u/45963660?v=4" width="80;" alt="dulltackle"/>
@@ -354,7 +361,8 @@ pnpm dev
             <br />
             <sub><b>icleitoncosta</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/liucity">
             <img src="https://avatars.githubusercontent.com/u/12006542?v=4" width="80;" alt="liucity"/>
