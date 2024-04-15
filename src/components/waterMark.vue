@@ -73,6 +73,7 @@ import { debounce } from 'lodash-es';
 import useSelect from '@/hooks/select';
 import { useFont } from '@/hooks';
 import { Message } from 'view-ui-plus';
+import { reactive, ref } from 'vue';
 
 const { fontsList, loadFont } = useFont();
 const { canvasEditor }: any = useSelect();
