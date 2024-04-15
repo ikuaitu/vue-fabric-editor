@@ -9,16 +9,12 @@ import FontFaceObserver from 'fontfaceobserver';
 import fontList from '@/assets/fonts/font';
 import axios from 'axios';
 import { Spin, Message } from 'view-ui-plus';
-import { useI18n } from 'vue-i18n';
-import { computed, onMounted, ref, unref } from 'vue';
 
 const repoSrc = import.meta.env.APP_REPO;
 
 const _fontList = ref<any[]>([]);
 
 export function useFont() {
-  const { t } = useI18n();
-
   const initFont = () => {
     if (unref(_fontList).length > 0) return;
     axios.get(`${repoSrc}/font/free-font.json`).then((res) => {
@@ -36,12 +32,12 @@ export function useFont() {
       font
         .load(null, 150000)
         .then(() => {
-          Message.success(t('alert.loading_fonts_success'));
+          Message.success('字体加载成功');
           Spin.hide();
           resolve(true);
         })
         .catch(() => {
-          Message.error(t('alert.loading_fonts_failed'));
+          Message.error('字体加载失败');
           Spin.hide();
           resolve(false);
         });
