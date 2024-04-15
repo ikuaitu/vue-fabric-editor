@@ -35,7 +35,7 @@ declare interface IPluginTempl {
   events: string[];
   apis: string[];
   canvas?: fabric.Canvas | null | undefined;
-  hotkeyEvent?: (name: string, e: Event) => viode;
+  hotkeyEvent?: (name: string, e: Event) => void;
   [propName: IEditorHooksType]: () => void;
   [propName: string]: any;
 }
