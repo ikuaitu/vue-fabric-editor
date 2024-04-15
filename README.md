@@ -170,6 +170,13 @@ pnpm dev
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/AliceLanniste">
+            <img src="https://avatars.githubusercontent.com/u/17617116?v=4" width="80;" alt="AliceLanniste"/>
+            <br />
+            <sub><b>AliceLanniste</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/bigFace2019">
             <img src="https://avatars.githubusercontent.com/u/55651401?v=4" width="80;" alt="bigFace2019"/>
             <br />
@@ -182,15 +189,15 @@ pnpm dev
             <br />
             <sub><b>ylx252</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/makeng">
             <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
             <br />
             <sub><b>makeng</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/z09176141">
             <img src="https://avatars.githubusercontent.com/u/49260613?v=4" width="80;" alt="z09176141"/>
@@ -225,15 +232,15 @@ pnpm dev
             <br />
             <sub><b>JiangShuQ</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/hudenghui">
             <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
             <br />
             <sub><b>hudenghui</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/ddshiyu">
             <img src="https://avatars.githubusercontent.com/u/37503208?v=4" width="80;" alt="ddshiyu"/>
@@ -268,15 +275,15 @@ pnpm dev
             <br />
             <sub><b>xiaozeo</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/x007xyz">
             <img src="https://avatars.githubusercontent.com/u/13807549?v=4" width="80;" alt="x007xyz"/>
             <br />
             <sub><b>x007xyz</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/wozhi-cl">
             <img src="https://avatars.githubusercontent.com/u/25359239?v=4" width="80;" alt="wozhi-cl"/>
@@ -311,15 +318,15 @@ pnpm dev
             <br />
             <sub><b>macheteHot</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/jooyyy">
             <img src="https://avatars.githubusercontent.com/u/30552622?v=4" width="80;" alt="jooyyy"/>
             <br />
             <sub><b>jooyyy</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/nanfb">
             <img src="https://avatars.githubusercontent.com/u/56207464?v=4" width="80;" alt="nanfb"/>
@@ -354,15 +361,15 @@ pnpm dev
             <br />
             <sub><b>Alicehhhmm</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/icleitoncosta">
             <img src="https://avatars.githubusercontent.com/u/3260480?v=4" width="80;" alt="icleitoncosta"/>
             <br />
             <sub><b>icleitoncosta</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/liucity">
             <img src="https://avatars.githubusercontent.com/u/12006542?v=4" width="80;" alt="liucity"/>
