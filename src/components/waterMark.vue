@@ -2,8 +2,8 @@
  * @Author: June
  * @Description:
  * @Date: 2023-11-01 11:54:10
- * @LastEditors: June
- * @LastEditTime: 2024-03-24 11:01:30
+ * @LastEditors: June 1601745371@qq.com
+ * @LastEditTime: 2024-04-15 17:30:50
 -->
 <template>
   <Button type="text" @click="addWaterMark">
@@ -73,7 +73,6 @@ import { debounce } from 'lodash-es';
 import useSelect from '@/hooks/select';
 import { useFont } from '@/hooks';
 import { Message } from 'view-ui-plus';
-import { reactive, ref } from 'vue';
 
 const { fontsList, loadFont } = useFont();
 const { canvasEditor }: any = useSelect();

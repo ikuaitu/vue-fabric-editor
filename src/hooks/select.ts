@@ -6,8 +6,6 @@
  * @LastEditors: 秦少卫
  * @LastEditTime: 2024-04-10 14:42:34
  */
-import { inject, onBeforeMount, onMounted, reactive } from 'vue';
-
 import Editor, { EventType } from '@kuaitu/core';
 const { SelectEvent, SelectMode } = EventType;
 interface Selector {
