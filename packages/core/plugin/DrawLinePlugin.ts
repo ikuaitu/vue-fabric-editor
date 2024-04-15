@@ -78,7 +78,7 @@ class DrawLinePlugin {
         const y2 = this.pointer.y - startY;
         const r = Math.sqrt(x2 * x2 + y2 * y2);
         let angle = (Math.atan2(y2, x2) / Math.PI) * 180;
-        angle = (((angle + 7.5) % 360) / 15) * 15;
+        angle = ~~(((angle + 7.5) % 360) / 15) * 15;
 
         const cosx = r * Math.cos((angle * Math.PI) / 180);
         const sinx = r * Math.sin((angle * Math.PI) / 180);
