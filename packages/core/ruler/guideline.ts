@@ -20,7 +20,7 @@ export function setupGuideLine() {
     axis: 'horizontal',
     // excludeFromExport: true,
 
-    initialize(points, options) {
+    initialize(points: number, options: fabric.IGuideLineOptions) {
       const isHorizontal = options.axis === 'horizontal';
       // 指针
       this.hoverCursor = isHorizontal ? 'ns-resize' : 'ew-resize';
@@ -34,37 +34,39 @@ export function setupGuideLine() {
       this.callSuper('initialize', newPoints, options);
 
       // 绑定事件
-      this.on('mousedown:before', (e) => {
+      this.on('mousedown:before', (e: fabric.IEvent<MouseEvent>) => {
         if (this.activeOn === 'down') {
           // 设置selectable:false后激活对象才能进行移动
-          this.canvas.setActiveObject(this, e.e);
+          this.canvas && this.canvas.setActiveObject(this, e.e);
         }
       });
 
       this.on('moving', (e) => {
-        if (this.canvas.ruler.options.enabled && this.isPointOnRuler(e.e)) {
+        if (this.canvas && this.canvas.ruler.options.enabled && this.isPointOnRuler(e.e)) {
           this.moveCursor = 'not-allowed';
         } else {
           this.moveCursor = this.isHorizontal() ? 'ns-resize' : 'ew-resize';
         }
-        this.canvas.fire('guideline:moving', {
-          target: this,
-          e: e.e,
-        });
+        this.canvas &&
+          this.canvas.fire('guideline:moving', {
+            target: this,
+            e: e.e,
+          });
       });
 
       this.on('mouseup', (e) => {
         // 移动到标尺上，移除辅助线
-        if (this.canvas.ruler.options.enabled && this.isPointOnRuler(e.e)) {
+        if (this.canvas && this.canvas.ruler.options.enabled && this.isPointOnRuler(e.e)) {
           // console.log('移除辅助线', this);
           this.canvas.remove(this);
           return;
         }
         this.moveCursor = this.isHorizontal() ? 'ns-resize' : 'ew-resize';
-        this.canvas.fire('guideline:mouseup', {
-          target: this,
-          e: e.e,
-        });
+        this.canvas &&
+          this.canvas.fire('guideline:mouseup', {
+            target: this,
+            e: e.e,
+          });
       });
 
       this.on('removed', () => {
@@ -87,7 +89,8 @@ export function setupGuideLine() {
 
     isPointOnRuler(e) {
       const isHorizontal = this.isHorizontal();
-      const hoveredRuler = this.canvas.ruler.isPointOnRuler(new fabric.Point(e.offsetX, e.offsetY));
+      const hoveredRuler =
+        this.canvas && this.canvas.ruler.isPointOnRuler(new fabric.Point(e.offsetX, e.offsetY));
       if (
         (isHorizontal && hoveredRuler === 'horizontal') ||
         (!isHorizontal && hoveredRuler === 'vertical')
@@ -100,7 +103,7 @@ export function setupGuideLine() {
     isHorizontal() {
       return this.height === 0;
     },
-  } as fabric.IGuideLineClassOptions);
+  } as fabric.GuideLine);
 
   fabric.GuideLine.fromObject = function (object, callback) {
     const clone = fabric.util.object.clone as (object: any, deep: boolean) => any;
