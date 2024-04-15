@@ -10,6 +10,7 @@ import fontList from '@/assets/fonts/font';
 import axios from 'axios';
 import { Spin, Message } from 'view-ui-plus';
 import { useI18n } from 'vue-i18n';
+import { computed, onMounted, ref, unref } from 'vue';
 
 const repoSrc = import.meta.env.APP_REPO;
 
