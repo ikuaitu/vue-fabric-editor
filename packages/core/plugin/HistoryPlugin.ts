@@ -3,7 +3,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 13:06:31
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:33:25
+ * @LastEditTime: 2024-04-17 12:26:45
  * @Description: 历史记录插件
  */
 import { fabric } from 'fabric';
@@ -30,12 +30,13 @@ class HistoryPlugin {
     this.canvas = canvas;
     this.editor = editor;
     this._init();
+
+    fabric.Canvas.prototype._historyNext = () => {
+      return this.editor.getJson();
+    };
   }
 
   _init() {
-    this.canvas.getObjects().forEach((item) => {
-      this.canvas.add(item);
-    });
     this.canvas.on('history:append', () => {
       this.historyUpdate();
     });

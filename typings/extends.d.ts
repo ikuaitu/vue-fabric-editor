@@ -6,6 +6,7 @@ declare namespace fabric {
     isDragging: boolean;
     _currentTransform: unknown;
     clearHistory(): void;
+    _historyNext(): void;
     _centerObject: (obj: fabric.Object, center: fabric.Point) => fabric.Canvas;
     _setupCurrentTransform(e: Event, target: fabric.Object, alreadySelected: boolean): void;
   }
