@@ -5,8 +5,10 @@ declare namespace fabric {
     wrapperEl: HTMLElement;
     isDragging: boolean;
     _currentTransform: unknown;
+    extraProps: any;
     clearHistory(): void;
     _historyNext(): void;
+    _historyInit(): void;
     _centerObject: (obj: fabric.Object, center: fabric.Point) => fabric.Canvas;
     _setupCurrentTransform(e: Event, target: fabric.Object, alreadySelected: boolean): void;
   }
