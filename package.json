@@ -4,15 +4,16 @@
   "version": "1.0.0",
   "description": "a template project for vue3, ViewUIPlus, TypeScript and Vite.",
   "scripts": {
-    "serve": "npm run dev",
+    "preinstall": "npx only-allow pnpm",
+    "serve": "pnpm dev",
     "dev": "vite serve",
     "dev:staging": "vite serve --mode=staging",
     "dev:prod": "vite serve --mode=production",
     "build": "vite build",
-    "build:sdk": "vite build --config viteSDK.config.ts",
+    "build:sdk": "pnpm -C packages/core build",
     "build:staging": "vite build --mode=staging",
-    "preview": "npm run build && vite preview",
-    "preview:staging": "npm run build:staging && vite preview --mode=staging",
+    "preview": "pnpm build && vite preview",
+    "preview:staging": "pnpm build:staging && vite preview --mode=staging",
     "prepare": "husky install"
   },
   "dependencies": {
