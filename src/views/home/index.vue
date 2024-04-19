@@ -13,7 +13,7 @@
         <!-- 导入 -->
         <import-Json></import-Json>
         <Divider type="vertical" />
-        <import-file></import-file>
+        <import-file :upload-file="uploadFile"></import-file>
         <Divider type="vertical" />
         <!-- 标尺开关 -->
         <Tooltip :content="$t('grid')">
@@ -193,6 +193,22 @@ import Editor, {
 
 // 创建编辑器
 const canvasEditor = new Editor();
+
+// v-model
+const props = defineProps({
+  modelValue: {
+    type: Object,
+    default: () => {
+      return {}
+    }
+  },
+  uploadFile: {
+    type: Function,
+    default: () => {
+      return () => {}
+    }
+  },
+})
 
 const state = reactive({
   menuActive: 1,

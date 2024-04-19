@@ -48,6 +48,15 @@ const { getImgStr, selectFiles } = Utils;
 import useSelect from '@/hooks/select';
 import { v4 as uuid } from 'uuid';
 
+const props = defineProps({
+  uploadFile: {
+    type: Function,
+    default: () => {
+      return null
+    }
+  },
+})
+
 const { fabric, canvasEditor } = useSelect();
 const state = reactive({
   showModal: false,
@@ -58,9 +67,16 @@ const HANDLEMAP = {
   insertImg: function () {
     selectFiles({ accept: 'image/*', multiple: true }).then((fileList) => {
       Array.from(fileList).forEach((item) => {
-        getImgStr(item).then((file) => {
-          insertImgFile(file);
-        });
+        // 支持传入自定义图片上传处理逻辑便于将图片存储在oss等地方降低json文件大小
+        if (props.uploadFile) {
+          props.uploadFile(item).then((fileUrl) => {
+            insertImgFile(fileUrl);
+          });
+        } else {
+          getImgStr(item).then((file) => {
+            insertImgFile(file);
+          });
+        }
       });
     });
   },
