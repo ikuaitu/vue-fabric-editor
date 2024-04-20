@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 dist
+typings/auto-imports.d.ts
 
 # local env files
 .env.local
