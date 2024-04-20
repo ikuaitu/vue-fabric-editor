@@ -39,6 +39,7 @@
     "setting": {
       "name": "水印名称",
       "size": "水印大小",
+      "color": "水印颜色",
       "angle": "水印角度",
       "position": {
         "label": "水印位置",

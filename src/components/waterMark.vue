@@ -45,6 +45,11 @@
       <Slider class="w-320" v-model="waterMarkState.size" :min="18" :max="48"></Slider>
     </div>
     <div class="setting-item">
+      <span class="mr-10px">{{ $t('waterMark.setting.color') }}</span>
+
+      <ColorPicker v-model="waterMarkState.color" alpha size="small" transfer />
+    </div>
+    <div class="setting-item">
       <span class="mr-10px">{{ $t('waterMark.setting.position.label') }}</span>
 
       <RadioGroup v-model="waterMarkState.position">

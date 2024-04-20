@@ -38,7 +38,8 @@
     "modalTitle": "WaterMark Setting",
     "setting": {
       "name": "Mark Name",
-      "size": "MarK Size",
+      "size": "Mark Size",
+      "color": "Color",
       "angle": "Mark Angle",
       "position": {
         "label": "Mark Position",
