@@ -13,8 +13,9 @@
   <Modal
     v-model="showWaterMadal"
     :title="$t('waterMark.modalTitle')"
+    :cancel-text="`${$t('cleanUp')}${$t('waterMark.text')}`"
     @on-ok="onModalOk"
-    @on-cancel="onMadalCancel"
+    @on-cancel="onCleanUpWaterMark"
   >
     <div class="setting-item">
       <span class="mr-10px">{{ $t('waterMark.setting.name') }}</span>
@@ -93,6 +94,12 @@ const onMadalCancel = () => {
   waterMarkState.color = '#ccc';
   waterMarkState.position = 'lt';
   waterMarkState.isRotate = 0;
+};
+
+const onCleanUpWaterMark = () => {
+  canvasEditor.canvas.overlayImage = null; // 清空覆盖层
+  canvasEditor.canvas.renderAll();
+  onMadalCancel();
 };
 
 const createCanvas = (width: number, height: number) => {

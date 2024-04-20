@@ -173,5 +173,6 @@
   "clearTip": "确定要清空吗？",
   "replaceTip": "确定要添加到画布中吗？",
   "ok": "确认",
-  "cancel": "取消"
+  "cancel": "取消",
+  "cleanUp": "清除"
 }
