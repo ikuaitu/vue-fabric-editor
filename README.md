@@ -206,6 +206,13 @@ pnpm dev
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/zjc2233">
+            <img src="https://avatars.githubusercontent.com/u/43945226?v=4" width="80;" alt="zjc2233"/>
+            <br />
+            <sub><b>zjc2233</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/a847244052">
             <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
             <br />
@@ -225,15 +232,15 @@ pnpm dev
             <br />
             <sub><b>briver0825</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/JiangShuQ">
             <img src="https://avatars.githubusercontent.com/u/95730895?v=4" width="80;" alt="JiangShuQ"/>
             <br />
             <sub><b>JiangShuQ</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/hudenghui">
             <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
@@ -260,13 +267,6 @@ pnpm dev
             <img src="https://avatars.githubusercontent.com/u/48149577?v=4" width="80;" alt="luke358"/>
             <br />
             <sub><b>luke358</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/zjc2233">
-            <img src="https://avatars.githubusercontent.com/u/43945226?v=4" width="80;" alt="zjc2233"/>
-            <br />
-            <sub><b>zjc2233</b></sub>
         </a>
     </td>
     <td align="center">
