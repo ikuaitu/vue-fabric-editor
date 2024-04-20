@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2023-08-04 21:13:16
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-08-07 23:04:58
+ * @LastEditTime: 2024-04-10 17:33:31
  * @Description: 素材插件
  */
 
 import { fabric } from 'fabric';
-import Editor from '../core';
+import Editor from '../Editor';
 type IEditor = Editor;
 import axios from 'axios';
 

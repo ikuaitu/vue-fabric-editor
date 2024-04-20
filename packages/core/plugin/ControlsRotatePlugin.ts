@@ -2,11 +2,11 @@
  * @Author: 秦少卫
  * @Date: 2023-06-13 23:07:04
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-06-13 23:10:52
+ * @LastEditTime: 2024-04-10 17:32:56
  * @Description: 控制条插件
  */
 
-import Editor from '../core';
+import Editor from '../Editor';
 type IEditor = Editor;
 
 // 定义旋转光标样式，根据转动角度设定光标旋转

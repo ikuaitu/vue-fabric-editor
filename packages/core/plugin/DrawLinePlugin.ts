@@ -2,14 +2,14 @@
  * @Author: 秦少卫
  * @Date: 2023-06-21 22:09:36
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-03-16 08:19:12
+ * @LastEditTime: 2024-04-10 17:33:05
  * @Description: file content
  */
 
 import { v4 as uuid } from 'uuid';
 import { fabric } from 'fabric';
 import Arrow from '../objects/Arrow';
-import Editor from '../core';
+import Editor from '../Editor';
 type IEditor = Editor;
 
 class DrawLinePlugin {
@@ -78,7 +78,7 @@ class DrawLinePlugin {
         const y2 = this.pointer.y - startY;
         const r = Math.sqrt(x2 * x2 + y2 * y2);
         let angle = (Math.atan2(y2, x2) / Math.PI) * 180;
-        angle = parseInt(((angle + 7.5) % 360) / 15) * 15;
+        angle = ~~(((angle + 7.5) % 360) / 15) * 15;
 
         const cosx = r * Math.cos((angle * Math.PI) / 180);
         const sinx = r * Math.sin((angle * Math.PI) / 180);

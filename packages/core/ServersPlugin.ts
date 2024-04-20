@@ -2,16 +2,16 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-03-05 22:02:19
+ * @LastEditTime: 2024-04-11 12:53:54
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
-import { selectFiles, clipboardText } from '@/utils/utils';
-// import { clipboardText } from '@/utils/utils.ts';
+import { selectFiles, clipboardText } from './utils/utils';
 import { fabric } from 'fabric';
-import Editor from '../core';
+import Editor from './Editor';
 type IEditor = Editor;
 // import { v4 as uuid } from 'uuid';
+import { SelectEvent, SelectMode } from './eventType';
 
 function downFile(fileStr: string, fileType: string) {
   const anchorEl = document.createElement('a');
@@ -36,6 +36,7 @@ function transformText(objects: any) {
 class ServersPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
+  public selectedMode: SelectMode;
   static pluginName = 'ServersPlugin';
   static apis = [
     'insert',
@@ -48,25 +49,60 @@ class ServersPlugin {
     'saveImg',
     'clear',
     'preview',
+    'getSelectMode',
   ];
+  static events = [SelectMode.ONE, SelectMode.MULTI, SelectEvent.CANCEL];
   // public hotkeys: string[] = ['left', 'right', 'down', 'up'];
   constructor(canvas: fabric.Canvas, editor: IEditor) {
     this.canvas = canvas;
     this.editor = editor;
+    this.selectedMode = SelectMode.EMPTY;
+    this._initSelectEvent();
+  }
+
+  private _initSelectEvent() {
+    this.canvas.on('selection:created', () => this._emitSelectEvent());
+    this.canvas.on('selection:updated', () => this._emitSelectEvent());
+    this.canvas.on('selection:cleared', () => this._emitSelectEvent());
+  }
+
+  private _emitSelectEvent() {
+    if (!this.canvas) {
+      throw TypeError('还未初始化');
+    }
+
+    const actives = this.canvas
+      .getActiveObjects()
+      .filter((item) => !(item instanceof fabric.GuideLine)); // 过滤掉辅助线
+    if (actives && actives.length === 1) {
+      this.selectedMode = SelectMode.ONE;
+      this.editor.emit(SelectEvent.ONE, actives);
+    } else if (actives && actives.length > 1) {
+      this.selectedMode = SelectMode.MULTI;
+      this.editor.emit(SelectEvent.MULTI, actives);
+    } else {
+      this.editor.emit(SelectEvent.CANCEL);
+    }
+  }
+
+  getSelectMode() {
+    return String(this.selectedMode);
   }
 
   insert() {
     selectFiles({ accept: '.json' }).then((files) => {
-      const [file] = files;
-      const reader = new FileReader();
-      reader.readAsText(file, 'UTF-8');
-      reader.onload = () => {
-        this.insertSvgFile(reader.result);
-      };
+      if (files && files.length > 0) {
+        const file = files[0];
+        const reader = new FileReader();
+        reader.readAsText(file, 'UTF-8');
+        reader.onload = () => {
+          this.insertSvgFile(reader.result as string);
+        };
+      }
     });
   }
 
-  insertSvgFile(jsonFile: string, callback: () => void = null) {
+  insertSvgFile(jsonFile: string, callback?: () => void) {
     // 加载前钩子
     this.editor.hooksEntity.hookImportBefore.callAsync(jsonFile, () => {
       this.canvas.loadFromJSON(jsonFile, () => {
@@ -90,17 +126,21 @@ class ServersPlugin {
    * @param {Event} event
    * @param {Object} item
    */
-  dragAddItem(event: DragEvent, item: fabric.Object) {
-    const { left, top } = this.canvas.getSelectionElement().getBoundingClientRect();
-    if (event.x < left || event.y < top || item.width === undefined) return;
+  dragAddItem(item: fabric.Object, event?: DragEvent) {
+    if (event) {
+      const { left, top } = this.canvas.getSelectionElement().getBoundingClientRect();
+      if (event.x < left || event.y < top || item.width === undefined) return;
 
-    const point = {
-      x: event.x - left,
-      y: event.y - top,
-    };
-    const pointerVpt = this.canvas.restorePointerVpt(point);
-    item.left = pointerVpt.x - item.width / 2;
-    item.top = pointerVpt.y;
+      const point = {
+        x: event.x - left,
+        y: event.y - top,
+      };
+      const pointerVpt = this.canvas.restorePointerVpt(point);
+      item.left = pointerVpt.x - item.width / 2;
+      item.top = pointerVpt.y;
+    }
+    const { width } = this._getSaveOption();
+    width && item.scaleToWidth(width / 2);
     this.canvas.add(item);
     this.canvas.requestRenderAll();
   }
@@ -143,7 +183,7 @@ class ServersPlugin {
   }
 
   preview() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.editor.hooksEntity.hookSaveBefore.callAsync('', () => {
         const option = this._getSaveOption();
         this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);

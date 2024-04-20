@@ -164,13 +164,8 @@ import layer from '@/components/layer.vue';
 import attribute from '@/components/attribute.vue';
 
 // 功能组件
-import { CanvasEventEmitter } from '@/utils/event/notifier';
 // import { downFile } from '@/utils/utils';
 import { fabric } from 'fabric';
-
-// import test from '@kuaitu/core';
-
-// console.log(test(), '1111');
 
 const repoSrc = import.meta.env.APP_REPO;
 
@@ -199,15 +194,13 @@ import Editor, {
 // 创建编辑器
 const canvasEditor = new Editor();
 
-const event = new CanvasEventEmitter();
-
 const state = reactive({
   menuActive: 1,
   show: false,
   toolsBarShow: true,
   attrBarShow: true,
   select: null,
-  ruler: false,
+  ruler: true,
 });
 
 onMounted(() => {
@@ -243,8 +236,11 @@ onMounted(() => {
     repoSrc,
   });
 
-  event.init(canvas);
   state.show = true;
+  // 默认打开标尺
+  if (state.ruler) {
+    canvasEditor.rulerEnable();
+  }
 });
 
 // 获取字体数据 新增字体样式使用
@@ -285,7 +281,7 @@ const switchAttrBar = () => {
 };
 
 provide('fabric', fabric);
-provide('event', event);
+// provide('event', event);
 provide('canvasEditor', canvasEditor);
 </script>
 <style lang="less" scoped>

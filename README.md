@@ -51,16 +51,27 @@ pnpm i
 pnpm dev
 ```
 
-为非web前端开发人员准备了[部署教程](https://t.zsxq.com/0drqSuyjY)，快速解决你的部署需求，你可以联系我进行**有偿的部署、定制开发**。
-
 ### 自定义素材
 可自定义字体、设计模板、标题模板等，所有自定义素材在https://github.com/nihaojob/vue-fabric-editor-static 项目中保存。
 
-[Pro商业版](https://nihaojob.github.io/editorDoc/pro/)支持素材管理功能，可以在后台维护字体、模板、字体样式模板、图片素材，支持分类搜索等功能，**快速构建符合自己业务的图片编辑器应用**。
+你也可以购买我整理好的字体文件 + 字体文件生成预览图片的示例代码，[购买链接](https://mbd.pub/o/bread/ZZ6cmppq)。
 
-我们通过有偿的方式积累高质量的常见问题、最佳实践文档，欢迎加入星球：
+### 开发者服务
+- **微信交流群**：我们组建了450+人的微信项目交流群，作者和项目维护者活跃在群内，定期解答问题。
+- **知识星球**：沉淀高质量常见问题、最佳实践文档，如跨域、部署、字体素材等问题，长期更新围绕在开源编辑器、fabric.js的相关资料。
+- **付费咨询**：提供200元/小时的咨询服务，帮你快速解决项目中遇到的问题。
+- **fabric.js代码示例**：[查看](https://mbd.pub/o/bread/ZZ6Vl55u)。
+- **视频教程**：《fabric.js 入门教程》、[《使用fabric.js从0到1构建图片编辑器》](https://www.yuque.com/qinshaowei/fabric/qrdqudwo7sxadr4d?singleDoc#o8m1e)、[《vue-fabric-editor开发实践》](https://mbd.pub/o/bread/ZZ6Vl5hr)。
 
-<img src="https://user-images.githubusercontent.com/13534626/231202037-18fe913f-81ab-4cd6-aa87-ada471e27586.png" width="50%" >
+![27d4480f-efa5-4ed3-93ed-d1a755cb41cf](https://github.com/nihaojob/vue-fabric-editor/assets/13534626/25e9075e-f751-4110-aadd-30fe453e02d9)
+
+### 服务支持
+该项目是一个完全免费无任何使用限制的开源项目，帮助大量企业、开发者在短时间内构建了图片编辑器应用，因不同企业对研发资源的投入差异会很大，所以我们提供了**帮助企业和开发者更快速、高效、低成本构建图片编辑应用的解决方案**，[商务联系](https://wj.qq.com/s2/13937276/c127/)。
+- 素材管理后台：提供素材管理后台系统，可对编辑器进行字体、模板、图片素材进行管理。
+- 批量图片生成：可根据模板 + 内容，批量生成创意图片，支持
+- 围绕在电商、营销、印刷等图片场景下的解决完整解决方案，欢迎与我们联系。
+- **定制开发**：我们提供700元/天的定制开发服务，我们有更多关于fabric与图片编辑器的相关经验。
+
 
 
 ## 贡献指南
@@ -115,7 +126,7 @@ pnpm dev
 
 第三阶段
 
-- [ ] monorepo升级 进行中
+- [x] monorepo升级 进行中
 - [x] 插件化 
 - [x] 标尺插件
 - [ ] 截图插件
@@ -161,6 +172,13 @@ pnpm dev
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/AliceLanniste">
+            <img src="https://avatars.githubusercontent.com/u/17617116?v=4" width="80;" alt="AliceLanniste"/>
+            <br />
+            <sub><b>AliceLanniste</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/bigFace2019">
             <img src="https://avatars.githubusercontent.com/u/55651401?v=4" width="80;" alt="bigFace2019"/>
             <br />
@@ -173,20 +191,27 @@ pnpm dev
             <br />
             <sub><b>ylx252</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/makeng">
             <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
             <br />
             <sub><b>makeng</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/z09176141">
             <img src="https://avatars.githubusercontent.com/u/49260613?v=4" width="80;" alt="z09176141"/>
             <br />
             <sub><b>z09176141</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/zjc2233">
+            <img src="https://avatars.githubusercontent.com/u/43945226?v=4" width="80;" alt="zjc2233"/>
+            <br />
+            <sub><b>zjc2233</b></sub>
         </a>
     </td>
     <td align="center">
@@ -197,12 +222,20 @@ pnpm dev
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/wohuweixiya">
+            <img src="https://avatars.githubusercontent.com/u/86701050?v=4" width="80;" alt="wohuweixiya"/>
+            <br />
+            <sub><b>wohuweixiya</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/briver0825">
             <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="briver0825"/>
             <br />
             <sub><b>briver0825</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/JiangShuQ">
             <img src="https://avatars.githubusercontent.com/u/95730895?v=4" width="80;" alt="JiangShuQ"/>
@@ -223,8 +256,7 @@ pnpm dev
             <br />
             <sub><b>ddshiyu</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/yehan68">
             <img src="https://avatars.githubusercontent.com/u/40497166?v=4" width="80;" alt="yehan68"/>
@@ -244,6 +276,14 @@ pnpm dev
             <img src="https://avatars.githubusercontent.com/u/13568242?v=4" width="80;" alt="xiaozeo"/>
             <br />
             <sub><b>xiaozeo</b></sub>
+        </a>
+    </td></tr>
+<tr>
+    <td align="center">
+        <a href="https://github.com/x007xyz">
+            <img src="https://avatars.githubusercontent.com/u/13807549?v=4" width="80;" alt="x007xyz"/>
+            <br />
+            <sub><b>x007xyz</b></sub>
         </a>
     </td>
     <td align="center">
@@ -266,8 +306,7 @@ pnpm dev
             <br />
             <sub><b>slarkerino</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/rolitter">
             <img src="https://avatars.githubusercontent.com/u/27326998?v=4" width="80;" alt="rolitter"/>
@@ -281,7 +320,8 @@ pnpm dev
             <br />
             <sub><b>macheteHot</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/jooyyy">
             <img src="https://avatars.githubusercontent.com/u/30552622?v=4" width="80;" alt="jooyyy"/>
@@ -309,8 +349,7 @@ pnpm dev
             <br />
             <sub><b>Bamzc</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/Yangzongtai">
             <img src="https://avatars.githubusercontent.com/u/93592008?v=4" width="80;" alt="Yangzongtai"/>
@@ -324,7 +363,8 @@ pnpm dev
             <br />
             <sub><b>Alicehhhmm</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/icleitoncosta">
             <img src="https://avatars.githubusercontent.com/u/3260480?v=4" width="80;" alt="icleitoncosta"/>

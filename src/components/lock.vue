@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-16 12:39:51
+ * @LastEditTime: 2024-04-10 14:43:36
  * @Description: 锁定元素
 -->
 
@@ -17,7 +17,6 @@
 import useSelect from '@/hooks/select';
 import { onBeforeUnmount, onMounted } from 'vue';
 
-const event = inject('event');
 const { mixinState, canvasEditor } = useSelect();
 const lockAttrs = [
   'lockMovementX',
@@ -64,11 +63,11 @@ const handleSelected = (items) => {
 };
 
 onMounted(() => {
-  event.on('selectOne', handleSelected);
+  canvasEditor.on('selectOne', handleSelected);
 });
 
 onBeforeUnmount(() => {
-  event.off('selectOne', handleSelected);
+  canvasEditor.off('selectOne', handleSelected);
 });
 </script>
 

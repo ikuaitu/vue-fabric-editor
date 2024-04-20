@@ -3,7 +3,7 @@
  * @Description:
  * @Date: 2023-11-01 11:54:10
  * @LastEditors: June
- * @LastEditTime: 2024-03-24 11:01:30
+ * @LastEditTime: 2024-04-20 21:28:06
 -->
 <template>
   <Button type="text" @click="addWaterMark">
@@ -13,8 +13,9 @@
   <Modal
     v-model="showWaterMadal"
     :title="$t('waterMark.modalTitle')"
+    :cancel-text="`${$t('cleanUp')}${$t('waterMark.text')}`"
     @on-ok="onModalOk"
-    @on-cancel="onMadalCancel"
+    @on-cancel="onCleanUpWaterMark"
   >
     <div class="setting-item">
       <span class="mr-10px">{{ $t('waterMark.setting.name') }}</span>
@@ -91,13 +92,25 @@ const waterMarkState = reactive({
 });
 
 const showWaterMadal = ref(false);
-const onMadalCancel = () => {
+// const onMadalCancel = () => {
+//   // waterMarkState.text = '';
+//   // waterMarkState.size = 24;
+//   // waterMarkState.fontFamily = 'serif';
+//   // waterMarkState.color = '#ccc';
+//   // waterMarkState.position = 'lt';
+//   // waterMarkState.isRotate = 0;
+// };
+
+const onCleanUpWaterMark = () => {
   waterMarkState.text = '';
   waterMarkState.size = 24;
   waterMarkState.fontFamily = 'serif';
   waterMarkState.color = '#ccc';
   waterMarkState.position = 'lt';
   waterMarkState.isRotate = 0;
+  canvasEditor.canvas.overlayImage = null; // 清空覆盖层
+  canvasEditor.canvas.renderAll();
+  // onMadalCancel();
 };
 
 const createCanvas = (width: number, height: number) => {
@@ -197,8 +210,8 @@ const drawWaterMark: Record<string, any> = {
   },
 };
 
-const onModalOk = () => {
-  if (!waterMarkState.text) return Message.warning('水印名字不能为空');
+const handleDraw = () => {
+  if (!waterMarkState.text) return; // 这里为了抽离插件终止
   const workspace = canvasEditor.canvas.getObjects().find((item: any) => item.id === 'workspace');
   const { width, height, left, top } = workspace;
   drawWaterMark[waterMarkState.position](width, height, (imgString: string) => {
@@ -214,7 +227,13 @@ const onModalOk = () => {
       }
     );
   });
-  onMadalCancel();
+};
+
+const onModalOk = async () => {
+  // 这里为了提示
+  if (!waterMarkState.text) return Message.warning('水印名字不能为空');
+  await handleDraw();
+  // onMadalCancel();
 };
 
 const changeFontFamily = (fontName: string) => {
@@ -225,6 +244,10 @@ const changeFontFamily = (fontName: string) => {
 const addWaterMark = debounce(function () {
   showWaterMadal.value = true;
 }, 250);
+
+onMounted(() => {
+  canvasEditor.on('sizeChange', handleDraw);
+});
 </script>
 
 <style lang="less" scoped>

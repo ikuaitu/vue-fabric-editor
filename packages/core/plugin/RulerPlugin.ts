@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2023-07-04 23:45:49
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-03-16 08:19:20
+ * @LastEditTime: 2024-04-10 17:33:54
  * @Description: 标尺插件
  */
 
 import { fabric } from 'fabric';
-import Editor from '../core';
+import Editor from '../Editor';
 // import { throttle } from 'lodash-es';
 type IEditor = Editor;
 

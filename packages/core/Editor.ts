@@ -7,6 +7,7 @@ import { AsyncSeriesHook } from 'tapable';
 class Editor extends EventEmitter {
   canvas!: fabric.Canvas;
   contextMenu: any;
+  [key: string]: any;
   private pluginMap: {
     [propName: string]: IPluginTempl;
   } = {};
@@ -21,8 +22,8 @@ class Editor extends EventEmitter {
     'hookSaveBefore',
     'hookSaveAfter',
   ];
-  private hooksEntity: {
-    [propName: string]: AsyncSeriesHook;
+  public hooksEntity: {
+    [propName: string]: AsyncSeriesHook<any, any>;
   } = {};
 
   init(canvas: fabric.Canvas) {
@@ -34,10 +35,10 @@ class Editor extends EventEmitter {
   }
 
   // 引入组件
-  use(plugin: IPluginClass, options: IPluginOption) {
+  use(plugin: IPluginClass, options?: IPluginOption) {
     if (this._checkPlugin(plugin)) {
       this._saveCustomAttr(plugin);
-      const pluginRunTime = new plugin(this.canvas, this, options);
+      const pluginRunTime = new plugin(this.canvas, this, options || {}) as IPluginClass;
       this.pluginMap[plugin.pluginName] = pluginRunTime;
       this._bindingHooks(pluginRunTime);
       this._bindingHotkeys(pluginRunTime);
@@ -90,7 +91,9 @@ class Editor extends EventEmitter {
   private _bindingHotkeys(plugin: IPluginTempl) {
     plugin?.hotkeys?.forEach((keyName: string) => {
       // 支持 keyup
-      hotkeys(keyName, { keyup: true }, (e) => plugin.hotkeyEvent(keyName, e));
+      hotkeys(keyName, { keyup: true }, (e) => {
+        plugin.hotkeyEvent && plugin.hotkeyEvent(keyName, e);
+      });
     });
   }
 
@@ -102,7 +105,7 @@ class Editor extends EventEmitter {
   }
   // 代理API事件
   private _bindingApis(pluginRunTime: IPluginTempl) {
-    const { apis = [] } = pluginRunTime.constructor;
+    const { apis = [] } = (pluginRunTime.constructor as any) || {};
     apis.forEach((apiName: string) => {
       this[apiName] = function () {
         // eslint-disable-next-line prefer-rest-params
@@ -150,11 +153,11 @@ class Editor extends EventEmitter {
   }
 
   _initServersPlugin() {
-    this.use(ServersPlugin, {});
+    this.use(ServersPlugin);
   }
 
   // 解决 listener 为 undefined 的时候卸载错误
-  off<K>(eventName, listener): this {
+  off(eventName: string, listener: any): this {
     // noinspection TypeScriptValidateTypes
     return listener ? super.off(eventName, listener) : this;
   }

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-16 12:51:11
+ * @LastEditTime: 2024-04-10 22:43:52
  * @Description: 插入SVG元素
 -->
 
@@ -42,7 +42,9 @@
 </template>
 
 <script name="ImportFile" setup>
-import { getImgStr, selectFiles } from '@/utils/utils';
+import { Utils } from '@kuaitu/core';
+const { getImgStr, selectFiles } = Utils;
+
 import useSelect from '@/hooks/select';
 import { v4 as uuid } from 'uuid';
 

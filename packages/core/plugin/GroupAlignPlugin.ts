@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2023-06-22 16:19:46
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-20 13:41:29
+ * @LastEditTime: 2024-04-10 17:33:17
  * @Description: 组对齐插件
  */
 
 import { fabric } from 'fabric';
-import Editor from '../core';
+import Editor from '../Editor';
 type IEditor = Editor;
 
 class GroupAlignPlugin {

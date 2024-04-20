@@ -3,7 +3,7 @@
  * @Author: 秦少卫
  * @Date: 2023-05-13 18:53:44
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-06 18:03:50
+ * @LastEditTime: 2024-04-10 17:24:09
  * @Description: file content
  */
 
@@ -20,7 +20,7 @@ declare type IEditorHooksType =
 
 // 插件class
 declare interface IPluginClass extends IPluginTempl {
-  new (canvas: fabric.Canvas, editor: any, options: IPluginOption): IPluginTempl;
+  new (canvas: fabric.Canvas, editor: any, options?: IPluginOption);
 }
 
 declare interface IPluginMenu {
@@ -34,8 +34,8 @@ declare interface IPluginTempl {
   pluginName: string;
   events: string[];
   apis: string[];
-  canvas: fabric.Canvas;
-  hotkeyEvent: (name: string, e: Event) => viode;
+  canvas?: fabric.Canvas | null | undefined;
+  hotkeyEvent?: (name: string, e: Event) => void;
   [propName: IEditorHooksType]: () => void;
   [propName: string]: any;
 }

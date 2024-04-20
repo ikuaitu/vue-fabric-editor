@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-16 12:15:26
+ * @LastEditors: June
+ * @LastEditTime: 2024-04-15 19:52:00
  * @Description: 组合元素对齐
 -->
 
@@ -169,7 +169,7 @@
   </div>
 </template>
 
-<script setup name="Align">
+<script name="Align" lang="ts" setup>
 import useSelect from '@/hooks/select';
 
 const { mixinState, canvasEditor } = useSelect();

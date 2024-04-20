@@ -2,13 +2,13 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 22:58:57
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-03-17 21:35:50
+ * @LastEditTime: 2024-04-10 17:33:08
  * @Description: 下载字体插件
  */
 
 import { downFontByJSON } from '../utils';
 import { fabric } from 'fabric';
-import Editor from '../core';
+import Editor from '../Editor';
 type IEditor = Editor;
 
 class DownFontPlugin {

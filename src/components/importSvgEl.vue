@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-08-05 17:47:35
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-06 17:54:10
+ * @LastEditTime: 2024-04-11 12:52:53
  * @Description: file content
 -->
 
@@ -143,7 +143,7 @@ const dragItem = (event: Event) => {
       id: uuid(),
       name: 'svg元素',
     });
-    canvasEditor.dragAddItem(event, item);
+    canvasEditor.dragAddItem(item, event);
   });
 };
 
@@ -151,16 +151,15 @@ const dragItem = (event: Event) => {
 const addItem = (e: Event) => {
   const target = e.target as HTMLImageElement;
   const url = target.src;
-  fabric.loadSVGFromURL(url, (objects, options) => {
+  fabric.loadSVGFromURL(url, (objects) => {
     const item = fabric.util.groupSVGElements(objects, {
-      ...options,
       ...defaultPosition,
+      shadow: '',
+      fontFamily: 'arial',
       id: uuid(),
       name: 'svg元素',
     });
-    canvasEditor.canvas.add(item);
-    canvasEditor.canvas.setActiveObject(item);
-    canvasEditor.canvas.requestRenderAll();
+    canvasEditor.dragAddItem(item);
   });
 };
 </script>
