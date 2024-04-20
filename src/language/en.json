@@ -184,5 +184,6 @@
   "clearTip": "Are you sure you want to clear it?",
   "replaceTip": "Are you sure you want to add to the canvas?",
   "ok": "ok",
-  "cancel": "cancel"
+  "cancel": "cancel",
+  "cleanUp": "cleanUp"
 }
