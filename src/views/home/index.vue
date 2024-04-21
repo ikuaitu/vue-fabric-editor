@@ -189,6 +189,7 @@ import Editor, {
   FlipPlugin,
   RulerPlugin,
   MaterialPlugin,
+  WaterMarkPlugin,
 } from '@kuaitu/core';
 
 // 创建编辑器
@@ -235,6 +236,7 @@ onMounted(() => {
   canvasEditor.use(MaterialPlugin, {
     repoSrc,
   });
+  canvasEditor.use(WaterMarkPlugin);
 
   state.show = true;
   // 默认打开标尺
