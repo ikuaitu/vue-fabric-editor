@@ -8,9 +8,8 @@
           <div class="left font-selector">
             <Select v-model="fontAttr.fontFamily" @on-change="changeFontFamily">
               <Option v-for="item in fontsList" :value="item.name" :key="`font-${item.name}`">
-                <div class="font-item" v-if="!item.preview">{{ item.name }}</div>
-                <div class="font-item" v-else :style="`background-image:url('${item.preview}');`">
-                  {{ !item.preview ? item : '' }}
+                <div class="font-item" :style="`background-image:url('${item.img}');`">
+                  {{ !item.img ? item : '' }}
                   <!-- 解决无法选中问题 -->
                   <span style="display: none">{{ item.name }}</span>
                 </div>
@@ -304,11 +303,14 @@ import colorSelector from '@/components/colorSelector.vue';
 import { getPolygonVertices } from '@/utils/math';
 import InputNumber from '@/components/inputNumber';
 import { Spin } from 'view-ui-plus';
-import { useFont } from '@/hooks';
 
-const { fontsList, loadFont } = useFont();
 const update = getCurrentInstance();
 const { fabric, mixinState, canvasEditor } = useSelect();
+
+const fontsList = ref([]);
+canvasEditor.getFontList().then((list) => {
+  fontsList.value = list;
+});
 // 通用元素
 const baseType = [
   'text',
@@ -493,21 +495,8 @@ const init = () => {
 // 修改字体
 const changeFontFamily = async (fontName) => {
   if (!fontName) return;
-  // 跳过加载的属性;
-  const skipFonts = ['arial', 'Microsoft YaHei'];
-  if (skipFonts.includes(fontName)) {
-    const activeObject = canvasEditor.canvas.getActiveObjects()[0];
-    activeObject && activeObject.set('fontFamily', fontName);
-    canvasEditor.canvas.renderAll();
-    return;
-  }
   Spin.show();
-  // 字体加载
-  if (await loadFont(fontName)) {
-    const activeObject = canvasEditor.canvas.getActiveObjects()[0];
-    activeObject && activeObject.set('fontFamily', fontName);
-    canvasEditor.canvas.renderAll();
-  }
+  canvasEditor.loadFont(fontName).finally(() => Spin.hide());
 };
 
 // 通用属性改变
@@ -737,15 +726,10 @@ onBeforeUnmount(() => {
   }
 
   .font-item {
-    background-color: #000;
-    background-size: cover;
-    background-position: center center;
     height: 40px;
-    width: 200px;
-    color: #fff;
-    font-size: 27px;
-    text-align: center;
-    filter: invert(100%);
+    width: 330px;
+    background-size: auto 40px;
+    background-repeat: no-repeat;
   }
 }
 </style>

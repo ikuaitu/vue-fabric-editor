@@ -2,10 +2,10 @@
  * @Author: 秦少卫
  * @Date: 2022-09-05 22:21:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 22:38:24
+ * @LastEditTime: 2024-04-22 00:43:01
  * @Description: 工具文件
  */
-
+import { v4 as uuid } from 'uuid';
 import { useClipboard, useFileDialog, useBase64 } from '@vueuse/core';
 import { Message } from 'view-ui-plus';
 
@@ -73,8 +73,18 @@ export const clipboardText = async (
   }
 };
 
+export function downFile(fileStr: string, fileType: string) {
+  const anchorEl = document.createElement('a');
+  anchorEl.href = fileStr;
+  anchorEl.download = `${uuid()}.${fileType}`;
+  document.body.appendChild(anchorEl); // required for firefox
+  anchorEl.click();
+  anchorEl.remove();
+}
+
 export default {
   getImgStr,
+  downFile,
   selectFiles,
   insertImgFile,
   clipboardText,

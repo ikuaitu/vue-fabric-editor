@@ -2,25 +2,16 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-11 12:53:54
+ * @LastEditTime: 2024-04-22 00:42:47
  * @Description: 内部插件
  */
-import { v4 as uuid } from 'uuid';
-import { selectFiles, clipboardText } from './utils/utils';
+// import { v4 as uuid } from 'uuid';
+import { selectFiles, clipboardText, downFile } from './utils/utils';
 import { fabric } from 'fabric';
 import Editor from './Editor';
 type IEditor = Editor;
 // import { v4 as uuid } from 'uuid';
 import { SelectEvent, SelectMode } from './eventType';
-
-function downFile(fileStr: string, fileType: string) {
-  const anchorEl = document.createElement('a');
-  anchorEl.href = fileStr;
-  anchorEl.download = `${uuid()}.${fileType}`;
-  document.body.appendChild(anchorEl); // required for firefox
-  anchorEl.click();
-  anchorEl.remove();
-}
 
 function transformText(objects: any) {
   if (!objects) return;

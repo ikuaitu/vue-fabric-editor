@@ -2,8 +2,8 @@
  * @Author: June
  * @Description:
  * @Date: 2023-11-01 11:54:10
- * @LastEditors: June
- * @LastEditTime: 2024-04-21 10:57:55
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-04-22 00:51:43
 -->
 <template>
   <Button type="text" @click="addWaterMark">
@@ -31,9 +31,9 @@
       <span class="mr-10px">选择字体</span>
       <Select class="w-320" v-model="waterMarkState.fontFamily" @on-change="changeFontFamily">
         <Option v-for="item in fontsList" :value="item.name" :key="`font-${item.name}`">
-          <div class="font-item" v-if="!item.preview">{{ item.name }}</div>
-          <div class="font-item" v-else :style="`background-image:url('${item.preview}');`">
-            {{ !item.preview ? item : '' }}
+          <div class="font-item" v-if="!item.img">{{ item.name }}</div>
+          <div class="font-item" v-else :style="`background-image:url('${item.img}');`">
+            {{ !item.img ? item : '' }}
             <!-- 解决无法选中问题 -->
             <span style="display: none">{{ item.name }}</span>
           </div>
@@ -77,7 +77,7 @@
 <script name="WaterMark" lang="ts" setup>
 import { cloneDeep, debounce } from 'lodash-es';
 import useSelect from '@/hooks/select';
-import { useFont } from '@/hooks';
+// import { useFont } from '@/hooks';
 import { Message } from 'view-ui-plus';
 enum POSITION {
   lt = 'Left_Top',
@@ -97,9 +97,12 @@ type IDrawOps = {
   isRotate: boolean;
   position: IPosition;
 };
-
-const { fontsList, loadFont } = useFont();
 const { canvasEditor }: any = useSelect();
+
+const fontsList = ref([]);
+canvasEditor.getFontList().then((list: any) => {
+  fontsList.value = list;
+});
 const waterMarkState: any = reactive({
   text: '',
   size: 24,
@@ -131,7 +134,7 @@ const onModalOk = async () => {
 
 const changeFontFamily = (fontName: string) => {
   if (!fontName) return;
-  loadFont(fontName);
+  canvasEditor.loadFont(fontName);
 };
 
 const addWaterMark = debounce(function () {
@@ -159,15 +162,10 @@ const addWaterMark = debounce(function () {
   }
 
   .font-item {
-    background-color: #000;
-    background-size: cover;
-    background-position: center center;
     height: 40px;
-    width: 200px;
-    color: #fff;
-    font-size: 27px;
-    text-align: center;
-    filter: invert(100%);
+    width: 330px;
+    background-size: auto 40px;
+    background-repeat: no-repeat;
   }
 }
 </style>
