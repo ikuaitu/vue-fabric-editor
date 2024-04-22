@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-06 16:35:45
+ * @LastEditTime: 2024-04-22 17:48:54
  * @Description: 导入模板
 -->
 
@@ -27,26 +27,31 @@
 
     <div :key="item.value" v-for="item in state.materialist">
       <Divider plain orientation="left">{{ item.label }}</Divider>
-      <Tooltip
-        :content="info.label"
-        v-for="(info, i) in item.list"
-        :key="`${i}-bai1-button`"
-        placement="top"
-      >
-        <img
-          class="tmpl-img"
-          :alt="info.label"
-          v-lazy="info.src"
-          @click="beforeClearTip(info.tempUrl)"
-        />
-      </Tooltip>
+      <div class="img-group">
+        <Tooltip
+          :content="info.label"
+          v-for="(info, i) in item.list"
+          :key="`${i}-bai1-button`"
+          placement="top"
+        >
+          <div class="tmpl-img-box">
+            <Image
+              lazy
+              :src="info.src"
+              fit="contain"
+              height="100%"
+              :alt="info.label"
+              @click="beforeClearTip(info.json)"
+            />
+          </div>
+        </Tooltip>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup name="ImportTmpl" lang="ts">
 import useSelect from '@/hooks/select';
-import axios from 'axios';
 import { Spin, Modal } from 'view-ui-plus';
 import { useI18n } from 'vue-i18n';
 import { cloneDeep } from 'lodash-es';
@@ -63,7 +68,7 @@ interface materialTypeI {
 interface materialItemI {
   value: string;
   label: string;
-  tempUrl: string;
+  json: string;
   src: string;
 }
 
@@ -82,38 +87,28 @@ const state = reactive({
 });
 
 // 获取素材分类
-canvasEditor.getMaterialType('template').then((list: materialTypeI[]) => {
+canvasEditor.getTemplMaterialTypeList().then((list: materialTypeI[]) => {
   state.materialTypelist = [...list];
   state.materialist = list;
 });
 
-// 插入文件
-const insertSvgFile = () => {
-  canvasEditor.insertSvgFile(state.jsonFile);
-};
-
 // 替换提示
-const beforeClearTip = (tmplUrl: string) => {
+const beforeClearTip = (json: string) => {
   Modal.confirm({
     title: t('tip'),
     content: `<p>${t('replaceTip')}</p>`,
     okText: t('ok'),
     cancelText: t('cancel'),
-    onOk: () => getTempData(tmplUrl),
+    onOk: () => getTempData(json),
   });
 };
 
 // 获取模板数据
-const getTempData = (tmplUrl: string) => {
+const getTempData = (json: string) => {
   Spin.show({
     render: (h: any) => h('div', t('alert.loading_data')),
   });
-  const getTemp = axios.get(tmplUrl);
-  getTemp.then((res) => {
-    state.jsonFile = JSON.stringify(res.data);
-    Spin.hide();
-    insertSvgFile();
-  });
+  canvasEditor.loadJSON(JSON.stringify(json), Spin.hide);
 };
 // 切换素材类型
 const handleChange = (e: Event, item: [materialItemI]) => {
@@ -163,9 +158,21 @@ const search = () => {
     margin-left: 10px;
   }
 }
-.tmpl-img {
-  width: 132px;
+
+.img-group {
+  background: #eeeeeea1;
+  border-radius: 10px;
+  padding: 10px;
+}
+.tmpl-img-box {
+  width: 134px;
+  height: 180px;
+  padding: 5px;
   cursor: pointer;
-  margin-right: 5px;
+  border-radius: 10px;
+
+  &:hover {
+    background: #e3e3e3;
+  }
 }
 </style>

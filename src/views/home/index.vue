@@ -166,7 +166,6 @@ import attribute from '@/components/attribute.vue';
 // 功能组件
 import { fabric } from 'fabric';
 
-const repoSrc = import.meta.env.APP_REPO;
 const APIHOST = import.meta.env.APP_APIHOST;
 
 import Editor, {
@@ -236,7 +235,7 @@ onMounted(() => {
     repoSrc: APIHOST,
   });
   canvasEditor.use(MaterialPlugin, {
-    repoSrc,
+    repoSrc: APIHOST,
   });
   canvasEditor.use(WaterMarkPlugin);
 

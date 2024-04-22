@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-21 23:51:01
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-22 11:24:42
+ * @LastEditTime: 2024-04-22 19:14:54
  * @Description: 自定义字体
  */
 
@@ -68,7 +68,7 @@ class FontPlugin {
 
   downFontByJSON(str: string) {
     const fontFamilies: string[] = JSON.parse(str)
-      .objects.filter((item: Font) => item.type.includes('text'))
+      .objects.filter((item: Font) => item.type.includes('text') && item.fontFamily !== 'arial')
       .map((item: Font) => item.fontFamily);
 
     const fontFamiliesAll = fontFamilies.map((fontName) => {
