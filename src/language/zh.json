@@ -20,6 +20,7 @@
   "empty": "清空",
   "keep": "保存",
   "copy_to_clipboard": "复制到剪切板",
+  "copy_to_clipboardstr": "复制字符串剪切板",
   "save_as_picture": "保存为图片",
   "save_as_svg": "保存为SVG",
   "save_as_json": "保存为JSON",

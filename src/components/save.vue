@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-24 23:12:22
+ * @LastEditTime: 2024-04-24 22:48:15
  * @LastEditors: 秦少卫
  * @LastEditTime: 2023-04-10 14:33:18
  * @Description: 保存文件
@@ -21,6 +21,7 @@
       <template #list>
         <DropdownMenu>
           <DropdownItem name="clipboard">{{ $t('copy_to_clipboard') }}</DropdownItem>
+          <DropdownItem name="clipboardBase64">{{ $t('copy_to_clipboardstr') }}</DropdownItem>
           <DropdownItem name="saveImg">{{ $t('save_as_picture') }}</DropdownItem>
           <DropdownItem name="saveSvg">{{ $t('save_as_svg') }}</DropdownItem>
           <DropdownItem name="saveJson" divided>{{ $t('save_as_json') }}</DropdownItem>
@@ -56,6 +57,9 @@ const cbMap = {
 
   saveImg() {
     canvasEditor.saveImg();
+  },
+  clipboardBase64() {
+    canvasEditor.clipboardBase64();
   },
 };
 

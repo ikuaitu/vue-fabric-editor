@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-22 16:25:56
+ * @LastEditTime: 2024-04-24 22:49:06
  * @Description: 内部插件
  */
 // import { v4 as uuid } from 'uuid';
@@ -35,6 +35,7 @@ class ServersPlugin {
     'getJson',
     'dragAddItem',
     'clipboard',
+    'clipboardBase64',
     'saveJson',
     'saveSvg',
     'saveImg',
@@ -138,6 +139,12 @@ class ServersPlugin {
   clipboard() {
     const jsonStr = this.getJson();
     clipboardText(JSON.stringify(jsonStr, null, '\t'));
+  }
+
+  clipboardBase64() {
+    this.preview().then((dataUrl: any) => {
+      clipboardText(dataUrl);
+    });
   }
 
   async saveJson() {
