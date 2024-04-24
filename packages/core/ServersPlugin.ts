@@ -2,25 +2,16 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-11 12:53:54
+ * @LastEditTime: 2024-04-22 16:25:56
  * @Description: 内部插件
  */
-import { v4 as uuid } from 'uuid';
-import { selectFiles, clipboardText } from './utils/utils';
+// import { v4 as uuid } from 'uuid';
+import { selectFiles, clipboardText, downFile } from './utils/utils';
 import { fabric } from 'fabric';
 import Editor from './Editor';
 type IEditor = Editor;
 // import { v4 as uuid } from 'uuid';
 import { SelectEvent, SelectMode } from './eventType';
-
-function downFile(fileStr: string, fileType: string) {
-  const anchorEl = document.createElement('a');
-  anchorEl.href = fileStr;
-  anchorEl.download = `${uuid()}.${fileType}`;
-  document.body.appendChild(anchorEl); // required for firefox
-  anchorEl.click();
-  anchorEl.remove();
-}
 
 function transformText(objects: any) {
   if (!objects) return;
@@ -40,7 +31,7 @@ class ServersPlugin {
   static pluginName = 'ServersPlugin';
   static apis = [
     'insert',
-    'insertSvgFile',
+    'loadJSON',
     'getJson',
     'dragAddItem',
     'clipboard',
@@ -89,20 +80,20 @@ class ServersPlugin {
     return String(this.selectedMode);
   }
 
-  insert() {
+  insert(callback?: () => void) {
     selectFiles({ accept: '.json' }).then((files) => {
       if (files && files.length > 0) {
         const file = files[0];
         const reader = new FileReader();
         reader.readAsText(file, 'UTF-8');
         reader.onload = () => {
-          this.insertSvgFile(reader.result as string);
+          this.loadJSON(reader.result as string, callback);
         };
       }
     });
   }
 
-  insertSvgFile(jsonFile: string, callback?: () => void) {
+  loadJSON(jsonFile: string, callback?: () => void) {
     // 加载前钩子
     this.editor.hooksEntity.hookImportBefore.callAsync(jsonFile, () => {
       this.canvas.loadFromJSON(jsonFile, () => {
@@ -110,7 +101,6 @@ class ServersPlugin {
         // 加载后钩子
         this.editor.hooksEntity.hookImportAfter.callAsync(jsonFile, () => {
           this.canvas.renderAll();
-          // this.editor.getPlugin('HistoryPlugin').history.clear();
           callback && callback();
         });
       });

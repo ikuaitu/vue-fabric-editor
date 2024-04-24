@@ -52,9 +52,7 @@ pnpm dev
 ```
 
 ### 自定义素材
-可自定义字体、设计模板、标题模板等，所有自定义素材在https://github.com/nihaojob/vue-fabric-editor-static 项目中保存。
-
-你也可以购买我整理好的字体文件 + 字体文件生成预览图片的示例代码，[购买链接](https://mbd.pub/o/bread/ZZ6cmppq)。
+可自定义字体、设计模板、标题模板等，你也可以购买我整理好的字体文件 + 字体文件生成预览图片的示例代码，[购买链接](https://mbd.pub/o/bread/ZZ6cmppq)。
 
 ### 开发者服务
 - **微信交流群**：我们组建了450+人的微信项目交流群，作者和项目维护者活跃在群内，定期解答问题。
@@ -70,7 +68,7 @@ pnpm dev
 - 素材管理后台：提供素材管理后台系统，可对编辑器进行字体、模板、图片素材进行管理。
 - 批量图片生成：可根据模板 + 内容，批量生成创意图片，支持
 - 围绕在电商、营销、印刷等图片场景下的解决完整解决方案，欢迎与我们联系。
-- **定制开发**：我们提供700元/天的定制开发服务，我们有更多关于fabric与图片编辑器的相关经验。
+- **定制开发**：我们有更多关于fabric与图片编辑器的相关经验。
 
 
 
@@ -208,6 +206,13 @@ pnpm dev
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/wohuweixiya">
+            <img src="https://avatars.githubusercontent.com/u/86701050?v=4" width="80;" alt="wohuweixiya"/>
+            <br />
+            <sub><b>wohuweixiya</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/zjc2233">
             <img src="https://avatars.githubusercontent.com/u/43945226?v=4" width="80;" alt="zjc2233"/>
             <br />
@@ -219,13 +224,6 @@ pnpm dev
             <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
             <br />
             <sub><b>a847244052</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/wohuweixiya">
-            <img src="https://avatars.githubusercontent.com/u/86701050?v=4" width="80;" alt="wohuweixiya"/>
-            <br />
-            <sub><b>wohuweixiya</b></sub>
         </a>
     </td>
     <td align="center">

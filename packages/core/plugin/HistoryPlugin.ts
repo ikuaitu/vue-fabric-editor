@@ -3,7 +3,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 13:06:31
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-17 13:22:48
+ * @LastEditTime: 2024-04-22 16:15:46
  * @Description: 历史记录插件
  */
 import { fabric } from 'fabric';
@@ -57,6 +57,7 @@ class HistoryPlugin {
   hookImportAfter() {
     this.canvas.clearHistory();
     this.historyUpdate();
+    return Promise.resolve();
   }
 
   undo() {

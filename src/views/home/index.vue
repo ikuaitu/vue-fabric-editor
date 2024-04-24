@@ -164,10 +164,9 @@ import layer from '@/components/layer.vue';
 import attribute from '@/components/attribute.vue';
 
 // 功能组件
-// import { downFile } from '@/utils/utils';
 import { fabric } from 'fabric';
 
-const repoSrc = import.meta.env.APP_REPO;
+const APIHOST = import.meta.env.APP_APIHOST;
 
 import Editor, {
   DringPlugin,
@@ -184,11 +183,12 @@ import Editor, {
   GroupTextEditorPlugin,
   GroupAlignPlugin,
   WorkspacePlugin,
-  DownFontPlugin,
   HistoryPlugin,
   FlipPlugin,
   RulerPlugin,
   MaterialPlugin,
+  WaterMarkPlugin,
+  FontPlugin,
 } from '@kuaitu/core';
 
 // 创建编辑器
@@ -228,13 +228,16 @@ onMounted(() => {
   canvasEditor.use(GroupTextEditorPlugin);
   canvasEditor.use(GroupAlignPlugin);
   canvasEditor.use(WorkspacePlugin);
-  canvasEditor.use(DownFontPlugin);
   canvasEditor.use(HistoryPlugin);
   canvasEditor.use(FlipPlugin);
   canvasEditor.use(RulerPlugin);
-  canvasEditor.use(MaterialPlugin, {
-    repoSrc,
+  canvasEditor.use(FontPlugin, {
+    repoSrc: APIHOST,
   });
+  canvasEditor.use(MaterialPlugin, {
+    repoSrc: APIHOST,
+  });
+  canvasEditor.use(WaterMarkPlugin);
 
   state.show = true;
   // 默认打开标尺
@@ -242,21 +245,6 @@ onMounted(() => {
     canvasEditor.rulerEnable();
   }
 });
-
-// 获取字体数据 新增字体样式使用
-// getFontJson() {
-//   const activeObject = this.canvas.getActiveObject();
-//   if (activeObject) {
-//     const json = activeObject.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls']);
-//     console.log(json);
-//     const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
-//       JSON.stringify(json, null, '\t')
-//     )}`;
-//     downFile(fileStr, 'font.json');
-//     const dataUrl = activeObject.toDataURL();
-//     downFile(dataUrl, 'font.png');
-//   }
-// },
 
 const rulerSwitch = (val) => {
   if (val) {

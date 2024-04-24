@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-08-05 17:47:35
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-11 12:52:53
+ * @LastEditTime: 2024-04-22 17:30:40
  * @Description: file content
 -->
 
@@ -27,20 +27,26 @@
 
     <div :key="item.value" v-for="item in state.materialist">
       <Divider plain orientation="left">{{ item.label }}</Divider>
-      <Tooltip
-        :content="info.label"
-        v-for="(info, i) in item.list"
-        :key="`${i}-bai1-button`"
-        placement="top"
-      >
-        <img
-          class="tmpl-img"
-          :alt="info.label"
-          @click="addItem"
-          v-lazy="info.src"
-          @dragend="dragItem"
-        />
-      </Tooltip>
+      <div class="img-group">
+        <Tooltip
+          :content="info.label"
+          v-for="(info, i) in item.list"
+          :key="`${i}-bai1-button`"
+          placement="top"
+        >
+          <div class="tmpl-img-box">
+            <Image
+              lazy
+              :src="info.src"
+              fit="contain"
+              height="100%"
+              :alt="info.label"
+              @click="addItem"
+              @dragend="dragItem"
+            />
+          </div>
+        </Tooltip>
+      </div>
     </div>
   </div>
 </template>
@@ -88,7 +94,7 @@ const state = reactive({
 });
 
 // 获取素材分类
-canvasEditor.getMaterialType('svg').then((list: materialTypeI[]) => {
+canvasEditor.getMaterialTypeList().then((list: materialTypeI[]) => {
   state.materialTypelist = [...list];
   state.materialist = list;
 });
@@ -150,17 +156,31 @@ const dragItem = (event: Event) => {
 // 按照类型渲染
 const addItem = (e: Event) => {
   const target = e.target as HTMLImageElement;
-  const url = target.src;
-  fabric.loadSVGFromURL(url, (objects) => {
-    const item = fabric.util.groupSVGElements(objects, {
-      ...defaultPosition,
-      shadow: '',
-      fontFamily: 'arial',
-      id: uuid(),
-      name: 'svg元素',
+  const imgType = canvasEditor.getImageExtension(target.src);
+  if (imgType === 'svg') {
+    fabric.loadSVGFromURL(target.src, (objects) => {
+      const item = fabric.util.groupSVGElements(objects, {
+        ...defaultPosition,
+        shadow: '',
+        fontFamily: 'arial',
+        id: uuid(),
+        name: 'svg元素',
+      });
+      canvasEditor.dragAddItem(item);
     });
-    canvasEditor.dragAddItem(item);
-  });
+  } else {
+    fabric.Image.fromURL(
+      target.src,
+      (imgEl) => {
+        imgEl.set({
+          left: 100,
+          top: 100,
+        });
+        canvasEditor.dragAddItem(imgEl);
+      },
+      { crossOrigin: 'anonymous' }
+    );
+  }
 };
 </script>
 
@@ -172,16 +192,21 @@ const addItem = (e: Event) => {
     margin-left: 10px;
   }
 }
-.tmpl-img {
-  display: inline-block;
-  width: 53px;
-  margin-left: 2px;
-  margin-bottom: 2px;
-  background: #f5f5f5;
-  padding: 6px;
+
+.img-group {
+  background: #eeeeeea1;
+  border-radius: 10px;
+  padding: 10px;
+}
+.tmpl-img-box {
+  width: 67px;
+  height: 100px;
+  padding: 5px;
   cursor: pointer;
-  // width: 135px;
-  // cursor: pointer;
-  // margin-right: 5px;
+  border-radius: 10px;
+
+  &:hover {
+    background: #e3e3e3;
+  }
 }
 </style>
