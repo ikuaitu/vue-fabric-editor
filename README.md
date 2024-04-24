@@ -192,6 +192,13 @@ pnpm dev
     </td></tr>
 <tr>
     <td align="center">
+        <a href="https://github.com/wohuweixiya">
+            <img src="https://avatars.githubusercontent.com/u/86701050?v=4" width="80;" alt="wohuweixiya"/>
+            <br />
+            <sub><b>wohuweixiya</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/makeng">
             <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
             <br />
@@ -203,13 +210,6 @@ pnpm dev
             <img src="https://avatars.githubusercontent.com/u/49260613?v=4" width="80;" alt="z09176141"/>
             <br />
             <sub><b>z09176141</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/wohuweixiya">
-            <img src="https://avatars.githubusercontent.com/u/86701050?v=4" width="80;" alt="wohuweixiya"/>
-            <br />
-            <sub><b>wohuweixiya</b></sub>
         </a>
     </td>
     <td align="center">
