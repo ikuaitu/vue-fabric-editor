@@ -77,10 +77,10 @@ class MaterialPlugin {
   _getMaterialInfoUrl(info: any) {
     if (
       info.attributes.img.data.attributes.formats &&
-      info.attributes.img.data.attributes.formats.medium &&
-      info.attributes.img.data.attributes.formats.medium.url
+      info.attributes.img.data.attributes.formats.small &&
+      info.attributes.img.data.attributes.formats.small.url
     ) {
-      return info.attributes.img.data.attributes.formats.medium.url;
+      return info.attributes.img.data.attributes.formats.small.url;
     }
     return info.attributes.img.data.attributes.url;
   }
