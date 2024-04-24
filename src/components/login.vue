@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-24 12:51:24
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-24 14:55:16
+ * @LastEditTime: 2024-04-24 15:10:46
  * @Description: 登录
 -->
 
@@ -227,8 +227,8 @@ const registerHandle = () => {
 };
 
 const switchTab = () => {
-  registerForm && registerForm.value.resetFields();
-  loginForm && loginForm.value.resetFields();
+  registerForm.value && registerForm.value.resetFields();
+  loginForm.value && loginForm.value.resetFields();
 };
 </script>
 <style scoped lang="less">
