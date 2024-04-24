@@ -99,7 +99,7 @@ type IDrawOps = {
 };
 const { canvasEditor }: any = useSelect();
 
-const fontsList = ref([]);
+const fontsList: any = ref([]);
 canvasEditor.getFontList().then((list: any) => {
   fontsList.value = list;
 });

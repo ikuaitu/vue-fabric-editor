@@ -486,7 +486,7 @@ const selectCancel = () => {
 
 const init = () => {
   // 获取字体数据
-
+  getObjectAttr();
   canvasEditor.on('selectCancel', selectCancel);
   canvasEditor.on('selectOne', getObjectAttr);
   canvasEditor.canvas.on('object:modified', getObjectAttr);
@@ -517,8 +517,8 @@ const changeCommon = (key, value) => {
   activeObject && activeObject.set(key, value);
   canvasEditor.canvas.renderAll();
 
-  // 更新属性
-  getObjectAttr();
+  // 更新属性 都是通过v-model绑定的值  只需要在渲染时更新一次即可
+  // getObjectAttr();
 };
 
 // 边框设置
