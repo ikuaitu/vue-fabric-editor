@@ -225,11 +225,7 @@
           <div class="ivu-col__box">
             <span class="label">{{ $t('color') }}</span>
             <div class="content">
-              <ColorPicker
-                v-model="baseAttr.shadow.color"
-                @on-change="(value) => changeCommon('color', value)"
-                alpha
-              />
+              <ColorPicker v-model="baseAttr.shadow.color" @on-change="changeShadow" alpha />
             </div>
           </div>
         </Col>
@@ -237,7 +233,7 @@
           <InputNumber
             v-model="baseAttr.shadow.blur"
             :defaultValue="0"
-            @on-change="(value) => changeShadow('blur', value)"
+            @on-change="changeShadow"
             :append="$t('attributes.blur')"
             :min="0"
           ></InputNumber>
@@ -249,7 +245,7 @@
           <InputNumber
             v-model="baseAttr.shadow.offsetX"
             :defaultValue="0"
-            @on-change="(value) => changeShadow('offsetX', value)"
+            @on-change="changeShadow"
             :append="$t('attributes.offset_x')"
           ></InputNumber>
         </Col>
@@ -257,7 +253,7 @@
           <InputNumber
             v-model="baseAttr.shadow.offsetY"
             :defaultValue="0"
-            @on-change="(value) => changeShadow('offsetY', value)"
+            @on-change="changeShadow"
             :append="$t('attributes.offset_y')"
           ></InputNumber>
         </Col>
@@ -486,7 +482,7 @@ const selectCancel = () => {
 
 const init = () => {
   // 获取字体数据
-  getObjectAttr();
+
   canvasEditor.on('selectCancel', selectCancel);
   canvasEditor.on('selectOne', getObjectAttr);
   canvasEditor.canvas.on('object:modified', getObjectAttr);
@@ -517,8 +513,8 @@ const changeCommon = (key, value) => {
   activeObject && activeObject.set(key, value);
   canvasEditor.canvas.renderAll();
 
-  // 更新属性 都是通过v-model绑定的值  只需要在渲染时更新一次即可
-  // getObjectAttr();
+  // 更新属性
+  getObjectAttr();
 };
 
 // 边框设置
