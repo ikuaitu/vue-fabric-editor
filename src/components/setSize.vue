@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-11 13:01:36
+ * @LastEditTime: 2024-04-24 12:16:05
  * @Description: 尺寸设置
 -->
 
@@ -104,12 +104,6 @@ onMounted(() => {
     width.value = w;
     height.value = h;
   });
-
-  // canvas.editor.editorWorkspace.setSize(width.value, height.value);
-  // canvas.editor.editorWorkspace = new EditorWorkspace(canvas.c, {
-  //   width: width.value,
-  //   height: height.value,
-  // });
 });
 
 const setSizeBy = (w, h) => {
@@ -118,7 +112,6 @@ const setSizeBy = (w, h) => {
 };
 const setSize = () => {
   canvasEditor.setSize(width.value, height.value);
-  // canvas.editor.editorWorkspace.setSize(width.value, height.value);
 };
 
 const handleClose = () => {
