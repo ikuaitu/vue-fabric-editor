@@ -106,6 +106,7 @@
             <group></group>
             <replaceImg></replaceImg>
             <filters></filters>
+            <imgStroke />
             <div class="attr-item">
               <lock></lock>
               <dele></dele>
@@ -149,7 +150,7 @@ import zoom from '@/components/zoom.vue';
 import dragMode from '@/components/dragMode.vue';
 import lock from '@/components/lock.vue';
 import dele from '@/components/del.vue';
-import waterMark from '@/components/waterMark';
+import waterMark from '@/components/waterMark.vue';
 import login from '@/components/login';
 // 左侧组件
 import importTmpl from '@/components/importTmpl.vue';
@@ -159,7 +160,7 @@ import bgBar from '@/components/bgBar.vue';
 import setSize from '@/components/setSize.vue';
 import replaceImg from '@/components/replaceImg.vue';
 import filters from '@/components/filters.vue';
-
+import imgStroke from '@/components/imgStroke.vue';
 // 右侧组件
 import history from '@/components/history.vue';
 import layer from '@/components/layer.vue';
