@@ -5,8 +5,8 @@ import ServersPlugin from './ServersPlugin';
 import { AsyncSeriesHook } from 'tapable';
 
 class Editor extends EventEmitter {
-  canvas!: fabric.Canvas;
-  contextMenu: any;
+  private canvas: fabric.Canvas | null = null;
+  contextMenu: ContextMenu | null = null;
   [key: string]: any;
   private pluginMap: {
     [propName: string]: IPluginTempl;
@@ -36,7 +36,7 @@ class Editor extends EventEmitter {
 
   // 引入组件
   use(plugin: IPluginClass, options?: IPluginOption) {
-    if (this._checkPlugin(plugin)) {
+    if (this._checkPlugin(plugin) && this.canvas) {
       this._saveCustomAttr(plugin);
       const pluginRunTime = new plugin(this.canvas, this, options || {}) as IPluginClass;
       this.pluginMap[plugin.pluginName] = pluginRunTime;
@@ -46,6 +46,14 @@ class Editor extends EventEmitter {
     }
   }
 
+  destory() {
+    this.canvas = null;
+    this.contextMenu = null;
+    this.pluginMap = {};
+    this.customEvents = [];
+    this.customApis = [];
+    this.hooksEntity = {};
+  }
   // 获取插件
   getPlugin(name: string) {
     if (this.pluginMap[name]) {
@@ -116,24 +124,25 @@ class Editor extends EventEmitter {
 
   // 右键菜单
   private _bindContextMenu() {
-    this.canvas.on('mouse:down', (opt) => {
-      if (opt.button === 3) {
-        let menu: IPluginMenu[] = [];
-        Object.keys(this.pluginMap).forEach((pluginName) => {
-          const pluginRunTime = this.pluginMap[pluginName];
-          const pluginMenu = pluginRunTime.contextMenu && pluginRunTime.contextMenu();
-          if (pluginMenu) {
-            menu = menu.concat(pluginMenu);
-          }
-        });
-        this._renderMenu(opt, menu);
-      }
-    });
+    this.canvas &&
+      this.canvas.on('mouse:down', (opt) => {
+        if (opt.button === 3) {
+          let menu: IPluginMenu[] = [];
+          Object.keys(this.pluginMap).forEach((pluginName) => {
+            const pluginRunTime = this.pluginMap[pluginName];
+            const pluginMenu = pluginRunTime.contextMenu && pluginRunTime.contextMenu();
+            if (pluginMenu) {
+              menu = menu.concat(pluginMenu);
+            }
+          });
+          this._renderMenu(opt, menu);
+        }
+      });
   }
 
   // 渲染右键菜单
   private _renderMenu(opt: { e: MouseEvent }, menu: IPluginMenu[]) {
-    if (menu.length !== 0) {
+    if (menu.length !== 0 && this.contextMenu) {
       this.contextMenu.hideAll();
       this.contextMenu.setData(menu);
       this.contextMenu.show(opt.e.clientX, opt.e.clientY);
@@ -148,7 +157,7 @@ class Editor extends EventEmitter {
   }
 
   _initContextMenu() {
-    this.contextMenu = new ContextMenu(this.canvas.wrapperEl, []);
+    this.contextMenu = new ContextMenu(this.canvas!.wrapperEl, []);
     this.contextMenu.install();
   }
 
