@@ -25,6 +25,7 @@
   "save_as_svg": "保存为SVG",
   "save_as_json": "保存为JSON",
   "layers": "图层",
+  "mymaterial": "我的",
   "title_template": "标题模板",
   "insert_svg": "插入SVG元素",
   "select_svg": "选择SVG文件",
@@ -53,7 +54,7 @@
     }
   },
   "material": {
-    "cartoon": "卡通"
+    "cartoon": "素材"
   },
   "filters": {
     "simple": "简单滤镜",
@@ -191,5 +192,8 @@
     "emailValidate": "请输入正确的邮箱地址",
     "logoutTip": "确定要退出吗？",
     "logoutSuccessTip": "退出成功"
+  },
+  "myMaterial": {
+    "uploadBtn": "上传素材"
   }
 }

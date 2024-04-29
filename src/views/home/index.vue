@@ -56,6 +56,10 @@
               <Icon type="md-reorder" size="24" />
               <div>{{ $t('layers') }}</div>
             </MenuItem>
+            <MenuItem :name="5" class="menu-item">
+              <Icon type="ios-contact-outline" size="24" />
+              <div>{{ $t('mymaterial') }}</div>
+            </MenuItem>
           </Menu>
 
           <div class="content" v-show="state.toolsBarShow">
@@ -75,6 +79,10 @@
             <!-- 图层设置 -->
             <div v-show="state.menuActive === 4" class="left-panel">
               <layer></layer>
+            </div>
+            <!-- 我的素材 -->
+            <div v-show="state.menuActive === 5" class="left-panel">
+              <myMaterial></myMaterial>
             </div>
           </div>
 
@@ -154,6 +162,7 @@ import waterMark from '@/components/waterMark.vue';
 import login from '@/components/login';
 // 左侧组件
 import importTmpl from '@/components/importTmpl.vue';
+import myMaterial from '@/components/myMaterial.vue';
 import tools from '@/components/tools.vue';
 import importSvgEl from '@/components/importSvgEl.vue';
 import bgBar from '@/components/bgBar.vue';
@@ -272,7 +281,6 @@ const switchAttrBar = () => {
 };
 
 provide('fabric', fabric);
-// provide('event', event);
 provide('canvasEditor', canvasEditor);
 </script>
 <style lang="less" scoped>

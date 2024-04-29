@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-24 14:07:06
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-24 14:53:37
+ * @LastEditTime: 2024-04-29 12:13:51
  * @Description: 用户接口登录
  */
 
@@ -39,3 +39,15 @@ export const logout = () => localStorage.setItem(tokenKey, '');
 
 // 设置token
 export const setToken = (token: string) => localStorage.setItem(tokenKey, token);
+
+// 获取个人素材列表
+export const getFileList = (data: any) => instance.get('/api/user-materials?populate=*', data);
+
+// 上传素材
+export const uploadImg = (data: any) => instance.post('/api/upload', data);
+
+// 创建素材
+export const createdMaterial = (data: any) => instance.post('/api/user-materials', data);
+
+// 删除素材
+export const removeMaterial = (id: any) => instance.delete('/api/user-materials/' + id);

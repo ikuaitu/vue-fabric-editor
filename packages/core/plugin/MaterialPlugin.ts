@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-08-04 21:13:16
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-22 16:09:16
+ * @LastEditTime: 2024-04-29 11:56:51
  * @Description: 素材插件
  */
 
@@ -15,7 +15,7 @@ class MaterialPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
   static pluginName = 'MaterialPlugin';
-  static apis = ['getTemplMaterialTypeList', 'getMaterialTypeList', 'getImageExtension'];
+  static apis = ['getTemplMaterialTypeList', 'getMaterialTypeList'];
   apiMapUrl: { [propName: string]: string };
   repoSrc: string;
   constructor(canvas: fabric.Canvas, editor: IEditor, config: { repoSrc: string }) {
@@ -89,13 +89,6 @@ class MaterialPlugin {
     const url = this.apiMapUrl[typeId];
     const res = await axios.get(url, { params: { typeId } });
     return res.data.data;
-  }
-
-  getImageExtension(imageUrl: string) {
-    const pathParts = imageUrl.split('/');
-    const filename = pathParts[pathParts.length - 1];
-    const fileParts = filename.split('.');
-    return fileParts[fileParts.length - 1];
   }
 }
 
