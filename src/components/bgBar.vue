@@ -31,7 +31,7 @@ import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 const { mixinState, canvasEditor } = useSelect();
 
-const colorList = [
+const colorList = computed(() => [
   {
     label: t('scenary_x', { number: 1 }),
     color: ['#5F2B63', '#B23554', '#F27E56', '#FCE766'],
@@ -56,7 +56,7 @@ const colorList = [
     label: t('scenary_x', { number: 6 }),
     color: ['#ffaaa5', '#ffd3b6', '#dcedc1', '#a8e6cf'],
   },
-];
+]);
 
 const color = ref('');
 // 背景颜色设置
