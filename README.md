@@ -285,6 +285,13 @@ pnpm dev
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/wuchenguang1998">
+            <img src="https://avatars.githubusercontent.com/u/63847336?v=4" width="80;" alt="wuchenguang1998"/>
+            <br />
+            <sub><b>wuchenguang1998</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/wozhi-cl">
             <img src="https://avatars.githubusercontent.com/u/25359239?v=4" width="80;" alt="wozhi-cl"/>
             <br />
@@ -311,15 +318,15 @@ pnpm dev
             <br />
             <sub><b>rolitter</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/macheteHot">
             <img src="https://avatars.githubusercontent.com/u/26652329?v=4" width="80;" alt="macheteHot"/>
             <br />
             <sub><b>macheteHot</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/jooyyy">
             <img src="https://avatars.githubusercontent.com/u/30552622?v=4" width="80;" alt="jooyyy"/>
@@ -354,15 +361,15 @@ pnpm dev
             <br />
             <sub><b>Yangzongtai</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/Alicehhhmm">
             <img src="https://avatars.githubusercontent.com/u/86783773?v=4" width="80;" alt="Alicehhhmm"/>
             <br />
             <sub><b>Alicehhhmm</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/icleitoncosta">
             <img src="https://avatars.githubusercontent.com/u/3260480?v=4" width="80;" alt="icleitoncosta"/>
