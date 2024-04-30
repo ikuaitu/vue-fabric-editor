@@ -213,6 +213,13 @@ pnpm dev
         </a>
     </td>
     <td align="center">
+        <a href="https://github.com/wuchenguang1998">
+            <img src="https://avatars.githubusercontent.com/u/63847336?v=4" width="80;" alt="wuchenguang1998"/>
+            <br />
+            <sub><b>wuchenguang1998</b></sub>
+        </a>
+    </td>
+    <td align="center">
         <a href="https://github.com/zjc2233">
             <img src="https://avatars.githubusercontent.com/u/43945226?v=4" width="80;" alt="zjc2233"/>
             <br />
@@ -225,15 +232,15 @@ pnpm dev
             <br />
             <sub><b>a847244052</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/briver0825">
             <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="briver0825"/>
             <br />
             <sub><b>briver0825</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/JiangShuQ">
             <img src="https://avatars.githubusercontent.com/u/95730895?v=4" width="80;" alt="JiangShuQ"/>
@@ -268,27 +275,20 @@ pnpm dev
             <br />
             <sub><b>luke358</b></sub>
         </a>
-    </td>
+    </td></tr>
+<tr>
     <td align="center">
         <a href="https://github.com/xiaozeo">
             <img src="https://avatars.githubusercontent.com/u/13568242?v=4" width="80;" alt="xiaozeo"/>
             <br />
             <sub><b>xiaozeo</b></sub>
         </a>
-    </td></tr>
-<tr>
+    </td>
     <td align="center">
         <a href="https://github.com/x007xyz">
             <img src="https://avatars.githubusercontent.com/u/13807549?v=4" width="80;" alt="x007xyz"/>
             <br />
             <sub><b>x007xyz</b></sub>
-        </a>
-    </td>
-    <td align="center">
-        <a href="https://github.com/wuchenguang1998">
-            <img src="https://avatars.githubusercontent.com/u/63847336?v=4" width="80;" alt="wuchenguang1998"/>
-            <br />
-            <sub><b>wuchenguang1998</b></sub>
         </a>
     </td>
     <td align="center">
