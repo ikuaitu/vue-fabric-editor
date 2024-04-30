@@ -5,6 +5,7 @@
  * @LastEditors: June
  * @LastEditTime: 2024-04-21 11:07:07
  */
+import { cloneDeep } from 'lodash-es';
 import { fabric } from 'fabric';
 import Editor from '../Editor';
 
@@ -27,20 +28,22 @@ type IDrawOps = {
   position: IPosition;
 };
 
+const defaultOptions: IDrawOps = {
+  text: '',
+  size: 24,
+  isRotate: false, // 是否倾斜
+  fontFamily: '汉体', // 可考虑自定义字体
+  color: '#ccc', // 可考虑自定义颜色
+  position: POSITION.lt,
+};
+
 class WaterMarkPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
   static pluginName = 'WaterMarkPlugin';
   static apis = ['drawWaterMark', 'clearWaterMMatk'];
   private hadDraw = false;
-  private drawOps: IDrawOps = {
-    text: '',
-    size: 24,
-    isRotate: false, // 是否倾斜
-    fontFamily: '汉体', // 可考虑自定义字体
-    color: '#ccc', // 可考虑自定义颜色
-    position: POSITION.lt,
-  };
+  private drawOps: IDrawOps = defaultOptions;
   constructor(canvas: fabric.Canvas, editor: IEditor) {
     this.canvas = canvas;
     this.editor = editor;
@@ -146,7 +149,7 @@ class WaterMarkPlugin {
   };
 
   drawWaterMark(ops: IDrawOps) {
-    Object.assign(this.drawOps, ops);
+    this.drawOps = Object.assign(cloneDeep(this.drawOps), ops);
     if (!this.drawOps.text) return;
     const workspace = this.canvas.getObjects().find((item: any) => item.id === 'workspace');
     const { width, height, left, top }: any = workspace;
@@ -167,6 +170,7 @@ class WaterMarkPlugin {
     this.canvas.overlayImage = undefined;
     this.canvas.renderAll();
     this.hadDraw = false;
+    this.drawOps = defaultOptions;
   }
 
   init() {
