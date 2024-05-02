@@ -10,14 +10,8 @@
     {{ $t('waterMark.text') }}
   </Button>
 
-  <Modal
-    v-model="showWaterMadal"
-    :title="$t('waterMark.modalTitle')"
-    :cancel-text="`${$t('cleanUp')}${$t('waterMark.text')}`"
-    @on-ok="onModalOk"
-    @on-cancel="onCleanUpWaterMark"
-  >
-    <div class="setting-item">
+  <Modal v-model="showWaterMadal" :title="$t('waterMark.modalTitle')">
+    <div class="setting-item required">
       <span class="mr-10px">{{ $t('waterMark.setting.name') }}</span>
       <Input
         class="w-320"
@@ -71,6 +65,12 @@
         </RadioGroup>
       </div>
     </div>
+    <template #footer>
+      <Button type="text" @click="onCleanUpWaterMark">
+        {{ `${$t('cleanUp')}${$t('waterMark.text')}` }}
+      </Button>
+      <Button type="primary" @click="onModalOk">确定</Button>
+    </template>
   </Modal>
 </template>
 
@@ -122,6 +122,7 @@ const onCleanUpWaterMark = () => {
   waterMarkState.position = POSITION.lt;
   waterMarkState.isRotate = 0;
   canvasEditor.clearWaterMMatk();
+  showWaterMadal.value = false;
 };
 
 const onModalOk = async () => {
@@ -129,6 +130,7 @@ const onModalOk = async () => {
   const ops: IDrawOps = cloneDeep(waterMarkState);
   ops.isRotate = !!ops.isRotate; // 转为对应类型  后续再统一处理类型
   await canvasEditor.drawWaterMark(ops);
+  showWaterMadal.value = false;
   // onMadalCancel();
 };
 
@@ -155,6 +157,14 @@ const addWaterMark = debounce(function () {
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 10px;
+  position: relative;
+  &.required::before {
+    content: '*';
+    color: red;
+    position: absolute;
+    top: 3px;
+    left: -6px;
+  }
 }
 .font-selector {
   :deep(.ivu-select-item) {
