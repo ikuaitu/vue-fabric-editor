@@ -199,17 +199,17 @@ pnpm dev
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/makeng">
-            <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
-            <br />
-            <sub><b>makeng</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/wuchenguang1998">
             <img src="https://avatars.githubusercontent.com/u/63847336?v=4" width="80;" alt="wuchenguang1998"/>
             <br />
             <sub><b>wuchenguang1998</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/makeng">
+            <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
+            <br />
+            <sub><b>makeng</b></sub>
         </a>
     </td>
     <td align="center">
