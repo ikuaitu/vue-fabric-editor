@@ -1,5 +1,5 @@
 <template>
-  <div class="box" v-if="mixinState.mSelectMode === 'one' && activeObject?.type === 'image'">
+  <div class="box" v-if="mixinState.mSelectMode === 'one' && isImage">
     <Divider plain orientation="left">图像描边</Divider>
 
     <div class="hd-wrap">
@@ -69,16 +69,15 @@ interface IActiveCanvas extends fabric.Canvas {
 }
 
 const { mixinState, canvasEditor } = useSelect();
+const isImage = ref(false);
 const openImgStroke = ref(false);
 const strokeWidth = ref(5);
 const strokeColor = ref('#000');
 const isOnlyStroke = ref(false);
-const activeObject = computed(
-  () => canvasEditor.canvas.getActiveObjects()[0] as unknown as IActiveCanvas
-);
+const getActiveObject = () => canvasEditor.canvas.getActiveObjects()[0] as unknown as IActiveCanvas;
 
 const setOrigin = () => {
-  const _activeObject = canvasEditor.canvas.getActiveObjects()[0] as unknown as IActiveCanvas;
+  const _activeObject = getActiveObject();
   if (_activeObject?.originSrc) return;
   _activeObject.set('originWidth', _activeObject?.get('width'));
   _activeObject.set('originHeight', _activeObject?.get('height'));
@@ -115,8 +114,21 @@ const onColorChange = (val: string) => {
   updateStroke();
 };
 
+const handleSelectOne = () => {
+  const activeObject = getActiveObject();
+  isImage.value = activeObject.type === 'image';
+};
+
+onMounted(() => {
+  canvasEditor.on('selectOne', handleSelectOne);
+});
+
+onBeforeUnmount(() => {
+  canvasEditor.off('selectOne', handleSelectOne);
+});
+
 async function strokeImage(stroke: string, strokeWidth: number, type = 'source-over') {
-  const _activeObject = canvasEditor.canvas.getActiveObjects()[0] as unknown as IActiveCanvas;
+  const _activeObject = getActiveObject();
   const w = _activeObject.originWidth || 0,
     h = _activeObject.originHeight || 0,
     src = _activeObject?.originSrc || _activeObject.getSrc();
