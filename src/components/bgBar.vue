@@ -3,7 +3,7 @@
     <Divider orientation="left" plain>{{ $t('color') }}</Divider>
     <Form :label-width="40">
       <FormItem :label="$t('color')" prop="name">
-        <ColorPicker v-model="color" @on-change="setThisColor" alpha size="small" transfer />
+        <ColorPicker v-model="color" @on-change="setThisColor" alpha size="small" />
       </FormItem>
     </Form>
     <Divider orientation="left" plain>{{ $t('color_macthing') }}</Divider>
@@ -58,7 +58,7 @@ const colorList = computed(() => [
   },
 ]);
 
-const color = ref('');
+const color = ref('rgba(255, 255, 255, 1)');
 // 背景颜色设置
 const setThisColor = () => {
   setColor(color.value);
@@ -75,6 +75,9 @@ function setColor(color) {
 <style scoped lang="less">
 :deep(.ivu-form-item) {
   margin-bottom: 0;
+  .ivu-color-picker {
+    display: unset;
+  }
 }
 .img {
   width: 50px;
