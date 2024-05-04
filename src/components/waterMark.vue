@@ -42,7 +42,7 @@
     <div class="setting-item">
       <span class="mr-10px">{{ $t('waterMark.setting.color') }}</span>
 
-      <ColorPicker v-model="waterMarkState.color" alpha size="small" transfer />
+      <ColorPicker v-model="waterMarkState.color" alpha size="small" />
     </div>
     <div class="setting-item">
       <span class="mr-10px">{{ $t('waterMark.setting.position.label') }}</span>
