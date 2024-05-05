@@ -104,6 +104,7 @@ class ServersPlugin {
         this.editor.hooksEntity.hookImportAfter.callAsync(jsonFile, () => {
           this.canvas.renderAll();
           callback && callback();
+          this.editor.emit('loadJson');
         });
       });
     });

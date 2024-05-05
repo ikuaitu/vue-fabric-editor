@@ -64,11 +64,26 @@ const setThisColor = () => {
   setColor(color.value);
 };
 // 背景颜色设置
-function setColor(color) {
+function setColor(c) {
   const workspace = canvasEditor.canvas.getObjects().find((item) => item.id === 'workspace');
-  workspace.set('fill', color);
+  workspace.set('fill', c);
   canvasEditor.canvas.renderAll();
+  color.value = c;
 }
+
+// 加载模板时回显颜色值
+const handleChangeColor = () => {
+  const workspace = canvasEditor.canvas.getObjects().find((item) => item.id === 'workspace');
+  color.value = workspace.fill;
+};
+
+onMounted(() => {
+  canvasEditor.on('loadJson', handleChangeColor);
+});
+
+onUnmounted(() => {
+  canvasEditor.off('loadJson', handleChangeColor);
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
