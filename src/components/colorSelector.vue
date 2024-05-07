@@ -177,6 +177,7 @@ const setGradientBar = (val) => {
 // Fabric渐变bar背景设置
 const fabricGradientToBar = (val) => {
   // 百分比排序
+  if (!val?.colorStops) return // 防止从模板加载后出现colorStops报错
   val.colorStops.sort((a, b) => a.offset - b.offset);
   const str = val.colorStops.map((item) => `${item.color} ${item.offset * 100}%`);
   bgStr.value = `background: linear-gradient(124deg, ${str});`;
