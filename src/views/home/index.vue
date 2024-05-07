@@ -178,6 +178,9 @@ import attribute from '@/components/attribute.vue';
 // 功能组件
 import { fabric } from 'fabric';
 
+// hooks
+import useSelectListen from '@/hooks/useSelectListen';
+
 const APIHOST = import.meta.env.APP_APIHOST;
 
 import Editor, {
@@ -282,8 +285,11 @@ const switchAttrBar = () => {
   state.attrBarShow = !state.attrBarShow;
 };
 
+const { mixinState } = useSelectListen(canvasEditor);
+
 provide('fabric', fabric);
 provide('canvasEditor', canvasEditor);
+provide('mixinState', mixinState);
 </script>
 <style lang="less" scoped>
 .logo {
