@@ -164,6 +164,13 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/wuchenguang1998">
+                    <img src="https://avatars.githubusercontent.com/u/63847336?v=4" width="80;" alt="wuchenguang1998"/>
+                    <br />
+                    <sub><b>wuchenguang1998</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/ylx252">
                     <img src="https://avatars.githubusercontent.com/u/6425957?v=4" width="80;" alt="ylx252"/>
                     <br />
@@ -182,13 +189,6 @@ pnpm dev
                     <img src="https://avatars.githubusercontent.com/u/17617116?v=4" width="80;" alt="AliceLanniste"/>
                     <br />
                     <sub><b>AliceLanniste</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/wuchenguang1998">
-                    <img src="https://avatars.githubusercontent.com/u/63847336?v=4" width="80;" alt="wuchenguang1998"/>
-                    <br />
-                    <sub><b>wuchenguang1998</b></sub>
                 </a>
             </td>
 		</tr>
