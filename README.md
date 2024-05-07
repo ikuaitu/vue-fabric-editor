@@ -333,6 +333,13 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/ijry">
+                    <img src="https://avatars.githubusercontent.com/u/3102798?v=4" width="80;" alt="ijry"/>
+                    <br />
+                    <sub><b>ijry</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/jooyyy">
                     <img src="https://avatars.githubusercontent.com/u/30552622?v=4" width="80;" alt="jooyyy"/>
                     <br />
@@ -360,6 +367,8 @@ pnpm dev
                     <sub><b>Bamzc</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/Yangzongtai">
                     <img src="https://avatars.githubusercontent.com/u/93592008?v=4" width="80;" alt="Yangzongtai"/>
@@ -367,8 +376,6 @@ pnpm dev
                     <sub><b>Yangzongtai</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/Alicehhhmm">
                     <img src="https://avatars.githubusercontent.com/u/86783773?v=4" width="80;" alt="Alicehhhmm"/>
