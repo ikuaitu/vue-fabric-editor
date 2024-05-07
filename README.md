@@ -185,19 +185,19 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/bigFace2019">
-                    <img src="https://avatars.githubusercontent.com/u/55651401?v=4" width="80;" alt="bigFace2019"/>
+                <a href="https://github.com/wuchenguang1998">
+                    <img src="https://avatars.githubusercontent.com/u/63847336?v=4" width="80;" alt="wuchenguang1998"/>
                     <br />
-                    <sub><b>bigFace2019</b></sub>
+                    <sub><b>wuchenguang1998</b></sub>
                 </a>
             </td>
 		</tr>
 		<tr>
             <td align="center">
-                <a href="https://github.com/wuchenguang1998">
-                    <img src="https://avatars.githubusercontent.com/u/63847336?v=4" width="80;" alt="wuchenguang1998"/>
+                <a href="https://github.com/bigFace2019">
+                    <img src="https://avatars.githubusercontent.com/u/55651401?v=4" width="80;" alt="bigFace2019"/>
                     <br />
-                    <sub><b>wuchenguang1998</b></sub>
+                    <sub><b>bigFace2019</b></sub>
                 </a>
             </td>
             <td align="center">
