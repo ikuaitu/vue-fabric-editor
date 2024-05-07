@@ -222,6 +222,7 @@ onMounted(() => {
     stopContextMenu: true, // 禁止默认右键菜单
     controlsAboveOverlay: true, // 超出clipPath后仍然展示控制条
     imageSmoothingEnabled: false, // 解决文字导出后不清晰问题
+    preserveObjectStacking: true, // 当选择画布中的对象时，让对象不在顶层。
   });
 
   // 初始化编辑器

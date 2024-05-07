@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: June
- * @LastEditTime: 2024-01-31 12:43:22
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-05-07 16:17:08
  * @Description: 图层面板
 -->
 
@@ -147,8 +147,6 @@ const getList = () => {
 };
 
 onMounted(() => {
-  // 当选择画布中的对象时，该对象不出现在顶层。
-  canvasEditor.canvas.preserveObjectStacking = true;
   canvasEditor.canvas.on('after:render', getList);
 });
 </script>
