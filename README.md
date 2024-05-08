@@ -1,6 +1,7 @@
-[文档](https://nihaojob.github.io/editorDoc/) | [English](https://github.com/nihaojob/vue-fabric-editor/blob/main/README-en.md) | 中文 
+[文档](https://nihaojob.github.io/editorDoc/) | [English](https://github.com/nihaojob/vue-fabric-editor/blob/main/README-en.md) | 中文
 
 # vue-fabric-editor
+
 基于 fabric.js 和 Vue 开发的插件化图片编辑器，可自定义字体、素材、设计模板、右键菜单、快捷键。
 
 <div style="display:flex;justify-content:flex-start;align-items:center;margin-bottom:10px;">
@@ -9,18 +10,21 @@
     <img style='margin:0 5px' src="https://img.shields.io/github/license/nihaojob/vue-fabric-editor" />
 </div>
 
-- [预览](https://nihaojob.github.io/vue-fabric-editor/) 
-- [Gitee预览](https://nihaojob.gitee.io/vue-fabric-editor/#/)
+- [预览](https://nihaojob.github.io/vue-fabric-editor/)
+- [Gitee 预览](https://nihaojob.gitee.io/vue-fabric-editor/#/)
 
 ![image](https://user-images.githubusercontent.com/13534626/230828335-0adee0ae-b951-4171-b6ba-d2b9cd44dd6a.png)
 
 ## 特点
+
 1. 插件化架构：可自定义素材、右键菜单、快捷键等功能，易扩展。
-2. 简洁易用：以轻量、简洁为主的图形编辑器，而非大而全的在线PS类的重行设计工具。
+2. 简洁易用：以轻量、简洁为主的图形编辑器，而非大而全的在线 PS 类的重行设计工具。
 3. 功能齐全：自定义模板、渐变、自定义字体等功能，满足轻量图片编辑场景。
 
 ## 已有功能
+
 [功能介绍文章](https://juejin.cn/post/7222141882515128375) 文字 + 动图。
+
 - 导入 JSON 文件
 - 保存为 PNG、SVG、JSON 文件
 - 插入 SVG、图片文件
@@ -44,57 +48,63 @@
 ## 使用
 
 ### 启动项目
-请先安装node.js v16，及pnpm， 然后执行以下命令：
+
+请先安装 node.js v16，及 pnpm， 然后执行以下命令：
 
 ```
-pnpm i 
+pnpm i
 pnpm dev
 ```
 
 ### 自定义素材
+
 可自定义字体、设计模板、标题模板等，你也可以购买我整理好的字体文件 + 字体文件生成预览图片的示例代码，[购买链接](https://mbd.pub/o/bread/ZZ6cmppq)。
 
 ### 开发者服务
-- **微信交流群**：我们组建了450+人的微信项目交流群，作者和项目维护者活跃在群内，定期解答问题。
-- **知识星球**：沉淀高质量常见问题、最佳实践文档，如跨域、部署、字体素材等问题，长期更新围绕在开源编辑器、fabric.js的相关资料。
-- **付费咨询**：提供200元/小时的咨询服务，帮你快速解决项目中遇到的问题。
-- **fabric.js代码示例**：[查看](https://mbd.pub/o/bread/ZZ6Vl55u)。
-- **视频教程**：《fabric.js 入门教程》、[《使用fabric.js从0到1构建图片编辑器》](https://www.yuque.com/qinshaowei/fabric/qrdqudwo7sxadr4d?singleDoc#o8m1e)、[《vue-fabric-editor开发实践》](https://mbd.pub/o/bread/ZZ6Vl5hr)。
+
+- **微信交流群**：我们组建了 450+人的微信项目交流群，作者和项目维护者活跃在群内，定期解答问题。
+- **知识星球**：沉淀高质量常见问题、最佳实践文档，如跨域、部署、字体素材等问题，长期更新围绕在开源编辑器、fabric.js 的相关资料。
+- **付费咨询**：提供 200 元/小时的咨询服务，帮你快速解决项目中遇到的问题。
+- **fabric.js 代码示例**：[查看](https://mbd.pub/o/bread/ZZ6Vl55u)。
+- **视频教程**：《fabric.js 入门教程》、[《使用 fabric.js 从 0 到 1 构建图片编辑器》](https://www.yuque.com/qinshaowei/fabric/qrdqudwo7sxadr4d?singleDoc#o8m1e)、[《vue-fabric-editor 开发实践》](https://mbd.pub/o/bread/ZZ6Vl5hr)。
 
 ![27d4480f-efa5-4ed3-93ed-d1a755cb41cf](https://github.com/nihaojob/vue-fabric-editor/assets/13534626/25e9075e-f751-4110-aadd-30fe453e02d9)
 
-### 服务支持
-该项目是一个完全免费无任何使用限制的开源项目，帮助大量企业、开发者在短时间内构建了图片编辑器应用，因不同企业对研发资源的投入差异会很大，所以我们提供了**帮助企业和开发者更快速、高效、低成本构建图片编辑应用的解决方案**，[商务联系](https://wj.qq.com/s2/13937276/c127/)。
-- 素材管理后台：提供素材管理后台系统，可对编辑器进行字体、模板、图片素材进行管理。
-- 批量图片生成：可根据模板 + 内容，批量生成创意图片，支持
-- 围绕在电商、营销、印刷等图片场景下的解决完整解决方案，欢迎与我们联系。
-- **定制开发**：我们有更多关于fabric与图片编辑器的相关经验。
+### 付费版本
 
+付费版本**提供完整的前后端服务，无须任何开发，2999 元提供前后端源码，支持 Docker 部署**，包括功能：
 
+- 素材管理后台：可对编辑器中的字体、模板、图片素材进行便捷操作管理。
+- 用户管理：支持登录/注册，用户账号禁用启用。
+- 用户素材：图片素材、用户模板。
+- HTTP 接口服务：可通过接口对系统内的用户、素材进行管理。
+- 批量图片生成：可根据模板 + 内容，批量生成创意图片。
+
+我们致力于帮助企业快速、低成本构建图片编辑应用，支持定制开发，欢迎与我们联系。
 
 ## 贡献指南
-项目致力于打造一个开箱即用的web图片编辑器应用，同时沉淀一个介于web图片编辑器应用与fabric.js之间的封装层，期望封装层面向开发者设计，提供更简单的接口，让开发者可以轻松的实现图片应用开发。
 
-我们离目标还有很长的距离，如果你对这件事情感兴趣，真诚的邀请你加入，我们一起沉淀fabric.js的最佳实践，你会得到包括不限于以下列表的收获，你只要会简单的Git和Javascript语法就可以。
+项目致力于打造一个开箱即用的 web 图片编辑器应用，同时沉淀一个介于 web 图片编辑器应用与 fabric.js 之间的封装层，期望封装层面向开发者设计，提供更简单的接口，让开发者可以轻松的实现图片应用开发。
+
+我们离目标还有很长的距离，如果你对这件事情感兴趣，真诚的邀请你加入，我们一起沉淀 fabric.js 的最佳实践，你会得到包括不限于以下列表的收获，你只要会简单的 Git 和 Javascript 语法就可以。
 
 - 熟悉开源协作方式，成为项目贡献者。
-- Vue3 + TS实践，边学边开发。
-- fabric.js开发，边学边开发。
+- Vue3 + TS 实践，边学边开发。
+- fabric.js 开发，边学边开发。
 - 入门单元测试，边学边开发。
-- 众多的fabric.js开发者交流。
+- 众多的 fabric.js 开发者交流。
 - 图形编辑器架构经验。
 
-目前有很多需要做的工作，比如英文文档的搭建、SDK拆分等，欢迎与我联系，我愿意与你进行任何问题的交流，微信：13146890191。期待你的 issue 和 PR 。
+目前有很多需要做的工作，比如英文文档的搭建、SDK 拆分等，欢迎与我联系，我愿意与你进行任何问题的交流，微信：13146890191。期待你的 issue 和 PR 。
 
 这是我发表在掘金社区关于编辑器的技术笔记，会有更多的细节：
+
 1. [使用 fabric.js 快速开发一个图片编辑器](https://juejin.cn/post/7155040639497797645)，
-2. [fabric.js开发图片编辑器的细节实现](https://juejin.cn/post/7199849226745430076)
+2. [fabric.js 开发图片编辑器的细节实现](https://juejin.cn/post/7199849226745430076)
 
 注：如果遇到技术问题，期望使用 issue 讨论，它更加开放与透明，足够多的信息会让解决问题变得更高效，参考[提问的智慧](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md#%E6%8F%90%E9%97%AE%E7%9A%84%E6%99%BA%E6%85%A7)。
 
-
 <!-- <img src="https://user-images.githubusercontent.com/13534626/231202488-f35be6bc-617a-412e-831e-b3764466d833.jpeg" width="20%"> -->
-
 
 ## 规划
 
@@ -121,30 +131,28 @@ pnpm dev
 - [x] 滤镜
 - [x] 描边 strokeDashArray
 
-
 第三阶段
 
-- [x] monorepo升级 进行中
-- [x] 插件化 
+- [x] monorepo 升级 进行中
+- [x] 插件化
 - [x] 标尺插件
 - [ ] 截图插件
 - [ ] 滤镜插件
 - [x] 画布插件
 - [x] 其他工具函数
-- [ ] @fabricEditor SDK封装
+- [ ] @fabricEditor SDK 封装
 - [ ] 基于插件开发移动端
 - [ ] 基于插件开发其他图片应用
 - [ ] 文档建设(中英文)
-
-
 
 ## 致谢
 
 - [color-gradient-picker-vue3](https://github.com/Qiu-Jun/color-gradient-picker-vue3) 一个 vue3 版本的渐变组件，作者[Qiu-Jun
   ](https://github.com/Qiu-Jun)。
 - 标尺功能作者[刘明野](https://github.com/liumingye)。
-  
+
 ## 贡献者
+
 <!-- readme: collaborators,contributors -start -->
 <table>
 	<tbody>
