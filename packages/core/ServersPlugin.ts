@@ -96,6 +96,12 @@ class ServersPlugin {
   }
 
   loadJSON(jsonFile: string, callback?: () => void) {
+    // 确保元素存在id
+    const temp = JSON.parse(jsonFile);
+    temp.objects.forEach((item: any) => {
+      !item.id && (item.id = uuid());
+    });
+    jsonFile = JSON.stringify(temp);
     // 加载前钩子
     this.editor.hooksEntity.hookImportBefore.callAsync(jsonFile, () => {
       this.canvas.loadFromJSON(jsonFile, () => {
