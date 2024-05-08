@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-08-05 17:47:35
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-22 17:30:40
+ * @LastEditTime: 2024-05-08 21:09:16
  * @Description: file content
 -->
 
@@ -56,6 +56,8 @@ import useSelect from '@/hooks/select';
 import { cloneDeep } from 'lodash-es';
 import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
+import { useRoute } from 'vue-router';
+import { Utils } from '@kuaitu/core';
 
 const { canvasEditor }: { canvasEditor: any } = useSelect();
 
@@ -182,6 +184,16 @@ const addItem = (e: Event) => {
     );
   }
 };
+
+// 默认加载图片
+onMounted(async () => {
+  const route = useRoute();
+  if (route?.query?.loadFile) {
+    const url = route.query.loadFile as string;
+    const image = await Utils.insertImgFile(url);
+    addItem({ target: image } as Event);
+  }
+});
 </script>
 
 <style scoped lang="less">
