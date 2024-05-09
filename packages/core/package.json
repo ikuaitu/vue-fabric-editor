@@ -11,6 +11,7 @@
     "fabric-history": "^1.6.0",
     "fontfaceobserver": "^2.1.0",
     "hotkeys-js": "^3.8.8",
+    "qs": "^6.12.1",
     "tapable": "^2.2.1",
     "uuid": "^8.3.2"
   },
