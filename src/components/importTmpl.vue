@@ -2,98 +2,144 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-22 17:48:54
+ * @LastEditTime: 2024-05-09 14:51:32
  * @Description: 导入模板
 -->
 
 <template>
   <div>
+    <!-- 搜索组件 -->
     <div class="search-box">
-      <Cascader
-        :data="[allType, ...state.materialTypelist]"
-        v-model="state.materialType"
-        @on-change="handleChange"
+      <Select
+        class="select"
+        v-model="materialType"
+        @on-change="startGetMaterialList"
+        :disabled="loading"
       >
-        <Button icon="ios-menu"></Button>
-      </Cascader>
+        <Option key="全部" value="">全部</Option>
+        <Option v-for="item in materialTypeList" :value="item.value" :key="item.value">
+          {{ item.label }}
+        </Option>
+      </Select>
       <Input
         class="input"
-        :placeholder="state.placeholder"
-        v-model="state.search"
+        :placeholder="`在${getSearchTypeText()}中搜索`"
+        v-model="searchKeyword"
         search
-        @on-change="search"
+        :disabled="loading"
+        @on-search="startGetMaterialList"
       />
     </div>
 
-    <div :key="item.value" v-for="item in state.materialist">
-      <Divider plain orientation="left">{{ item.label }}</Divider>
-      <div class="img-group">
-        <Tooltip
-          :content="info.label"
-          v-for="(info, i) in item.list"
-          :key="`${i}-bai1-button`"
-          placement="top"
-        >
-          <div class="tmpl-img-box">
-            <Image
-              lazy
-              :src="info.src"
-              fit="contain"
-              height="100%"
-              :alt="info.label"
-              @click="beforeClearTip(info.json)"
-            />
-          </div>
-        </Tooltip>
-      </div>
+    <!-- 列表 -->
+    <div style="height: calc(100vh - 110px)" id="myTemplBox">
+      <Scroll
+        key="mysscroll"
+        v-if="showScroll"
+        :on-reach-bottom="handleReachBottom"
+        :height="scrollHeight"
+        :distance-to-edge="[-1, -1]"
+      >
+        <!-- 列表 -->
+        <div>
+          <Tooltip
+            :content="info.name"
+            v-for="info in materialList"
+            :key="info.src"
+            placement="top"
+          >
+            <div class="tmpl-img-box">
+              <Image
+                lazy
+                :src="info.src"
+                fit="contain"
+                height="100%"
+                :alt="info.name"
+                @click="beforeClearTip(info.json)"
+              />
+            </div>
+          </Tooltip>
+        </div>
+        <Spin size="large" fix :show="loading"></Spin>
+
+        <Divider plain v-if="isDownBottm()">已经到底了</Divider>
+      </Scroll>
     </div>
   </div>
 </template>
 
-<script setup name="ImportTmpl" lang="ts">
+<script setup name="ImportTmpl">
 import useSelect from '@/hooks/select';
 import { Spin, Modal } from 'view-ui-plus';
 import { useI18n } from 'vue-i18n';
-import { cloneDeep } from 'lodash-es';
 
 const { t } = useI18n();
-const { canvasEditor }: { canvasEditor: any } = useSelect();
+const { canvasEditor } = useSelect();
 
-interface materialTypeI {
-  value: string;
-  label: string;
-  list?: materialItemI[];
-}
+// 素材类型
+const materialType = ref('');
+materialType.value = '';
+// 素材类型列表
+const materialTypeList = ref([]);
+// 素材列表
+const materialList = ref([]);
+// 搜索关键字
+const searchKeyword = ref('');
+// 面板加载
+const loading = ref(false);
 
-interface materialItemI {
-  value: string;
-  label: string;
-  json: string;
-  src: string;
-}
+// 分页信息
+const page = ref(1);
+const pagination = reactive({
+  page: 0,
+  pageCount: 0,
+  pageSize: 10,
+  total: 0,
+});
 
-const allType: materialTypeI = {
-  value: '',
-  label: '全部',
+const getSearchTypeText = () => {
+  const info = materialTypeList.value.find((item) => item.value === materialType.value);
+  const type = info?.label || '全部';
+  return type;
 };
 
-const state = reactive({
-  search: '',
-  placeholder: <undefined | string>'',
-  jsonFile: <any>null,
-  materialType: [''], // 选中分类
-  materialTypelist: <materialTypeI[]>[], // 分类列表
-  materialist: <materialTypeI[]>[], // 列表内容
+const isDownBottm = () => {
+  return pagination.page === page.value && pagination.page >= pagination.pageCount;
+};
+// 获取素材分类
+canvasEditor.getTemplTypeList().then((list) => {
+  materialTypeList.value = list;
 });
 
-// 获取素材分类
-canvasEditor.getTemplMaterialTypeList().then((list: materialTypeI[]) => {
-  state.materialTypelist = [...list];
-  state.materialist = list;
-});
+// 获取素材列表
+const getMaterialList = () => {
+  loading.value = true;
+  canvasEditor.getTemplList(materialType.value, page.value, searchKeyword.value).then((res) => {
+    const { list, pagination: resPagination } = res;
+    Object.keys(resPagination).forEach((key) => {
+      pagination[key] = resPagination[key];
+    });
+    materialList.value = [...materialList.value, ...list];
+    loading.value = false;
+  });
+};
+
+const startGetMaterialList = () => {
+  materialList.value = [];
+  page.value = 1;
+  getMaterialList();
+};
+
+const handleReachBottom = () => {
+  if (page.value >= pagination.pageCount) return;
+  page.value++;
+  setTimeout(() => {
+    getMaterialList();
+  }, 1000);
+};
 
 // 替换提示
-const beforeClearTip = (json: string) => {
+const beforeClearTip = (json) => {
   Modal.confirm({
     title: t('tip'),
     content: `<p>${t('replaceTip')}</p>`,
@@ -103,59 +149,34 @@ const beforeClearTip = (json: string) => {
   });
 };
 
+const showScroll = ref(false);
+const scrollHeight = ref(0);
+onMounted(() => {
+  const myTemplBox = document.querySelector('#myTemplBox');
+  scrollHeight.value = myTemplBox.offsetHeight - 10;
+  showScroll.value = true;
+  getMaterialList();
+});
+
 // 获取模板数据
-const getTempData = (json: string) => {
+const getTempData = (json) => {
   Spin.show({
-    render: (h: any) => h('div', t('alert.loading_data')),
+    render: (h) => h('div', t('alert.loading_data')),
   });
   canvasEditor.loadJSON(JSON.stringify(json), Spin.hide);
-};
-// 切换素材类型
-const handleChange = (e: Event, item: [materialItemI]) => {
-  // 搜索框文字设置
-  const { label, value } = item[0];
-  state.placeholder = label;
-  state.search = '';
-  filterTypeList(value);
-};
-
-// 模板搜索功能
-const filterTypeList = (value: string) => {
-  // 全部类型
-  if (!value) {
-    state.materialist = cloneDeep(state.materialTypelist);
-  } else {
-    // 当前分类详情
-    const materialTypeInfoList =
-      state.materialTypelist.filter((item) => item.value === value) || [];
-    state.materialist = materialTypeInfoList;
-  }
-
-  // 展示分类
-  if (state.search) {
-    const list = cloneDeep(state.materialist);
-    // 按照搜索内容展示
-    state.materialist = list.map((item) => {
-      if (item.list) {
-        item.list = item.list.filter((info) => info.label.includes(state.search));
-      }
-      return item;
-    });
-  }
-};
-
-const search = () => {
-  const [typeValue] = state.materialType;
-  filterTypeList(typeValue);
 };
 </script>
 
 <style scoped lang="less">
 .search-box {
   padding-top: 10px;
+  padding-bottom: 10px;
   display: flex;
   .input {
     margin-left: 10px;
+  }
+  .select {
+    width: 100px;
   }
 }
 
@@ -165,7 +186,7 @@ const search = () => {
   padding: 10px;
 }
 .tmpl-img-box {
-  width: 134px;
+  width: 140px;
   height: 180px;
   padding: 5px;
   cursor: pointer;

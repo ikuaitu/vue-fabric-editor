@@ -2,167 +2,180 @@
  * @Author: 秦少卫
  * @Date: 2023-08-05 17:47:35
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-08 21:09:16
+ * @LastEditTime: 2024-05-09 15:05:49
  * @Description: file content
 -->
 
 <template>
   <div>
+    <!-- 搜索组件 -->
     <div class="search-box">
-      <Cascader
-        :data="[allType, ...state.materialTypelist]"
-        v-model="state.materialType"
-        @on-change="handleChange"
+      <Select
+        class="select"
+        v-model="materialType"
+        @on-change="startGetMaterialList"
+        :disabled="loading"
       >
-        <Button icon="ios-menu"></Button>
-      </Cascader>
+        <Option key="全部" value="">全部</Option>
+        <Option v-for="item in materialTypeList" :value="item.value" :key="item.value">
+          {{ item.label }}
+        </Option>
+      </Select>
       <Input
         class="input"
-        :placeholder="state.placeholder"
-        v-model="state.search"
+        :placeholder="`在${getSearchTypeText()}中搜索`"
+        v-model="searchKeyword"
         search
-        @on-change="search"
+        :disabled="loading"
+        @on-search="startGetMaterialList"
       />
     </div>
 
-    <div :key="item.value" v-for="item in state.materialist">
-      <Divider plain orientation="left">{{ item.label }}</Divider>
-      <div class="img-group">
-        <Tooltip
-          :content="info.label"
-          v-for="(info, i) in item.list"
-          :key="`${i}-bai1-button`"
-          placement="top"
-        >
-          <div class="tmpl-img-box">
-            <Image
-              lazy
-              :src="info.src"
-              fit="contain"
-              height="100%"
-              :alt="info.label"
-              @click="addItem"
-              @dragend="dragItem"
-            />
-          </div>
-        </Tooltip>
-      </div>
+    <!-- 列表 -->
+    <div style="height: calc(100vh - 110px)" id="myTemplBox">
+      <Scroll
+        key="mysscroll"
+        v-if="showScroll"
+        :on-reach-bottom="handleReachBottom"
+        :height="scrollHeight"
+        :distance-to-edge="[-1, -1]"
+      >
+        <!-- 列表 -->
+        <div>
+          <Tooltip
+            :content="info.name"
+            v-for="info in materialList"
+            :key="info.src"
+            placement="top"
+          >
+            <div class="tmpl-img-box">
+              <Image
+                lazy
+                :src="info.src"
+                fit="contain"
+                height="100%"
+                :alt="info.name"
+                @click="addItem"
+                @dragend="dragItem"
+              />
+            </div>
+          </Tooltip>
+        </div>
+        <Spin size="large" fix :show="loading"></Spin>
+
+        <Divider plain v-if="isDownBottm()">已经到底了</Divider>
+      </Scroll>
     </div>
   </div>
 </template>
 
-<script setup name="ImportSvg" lang="ts">
+<script setup name="ImportSvg">
 import useSelect from '@/hooks/select';
-import { cloneDeep } from 'lodash-es';
 import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
 import { useRoute } from 'vue-router';
 import { Utils } from '@kuaitu/core';
 
-const { canvasEditor }: { canvasEditor: any } = useSelect();
+const { canvasEditor } = useSelect();
 
-const defaultPosition = {
-  left: 100,
-  top: 100,
-  shadow: '',
-  fontFamily: '1-1',
-};
+// 素材类型
+const materialType = ref('');
+materialType.value = '';
+// 素材类型列表
+const materialTypeList = ref([]);
+// 素材列表
+const materialList = ref([]);
+// 搜索关键字
+const searchKeyword = ref('');
+// 面板加载
+const loading = ref(false);
 
-interface materialTypeI {
-  value: string;
-  label: string;
-  list?: materialItemI[];
-}
-
-interface materialItemI {
-  value: string;
-  label: string;
-  tempUrl: string;
-  src: string;
-}
-
-const allType: materialTypeI = {
-  value: '',
-  label: '全部',
-};
-
-const state = reactive({
-  search: '',
-  placeholder: <undefined | string>'',
-  jsonFile: <any>null,
-  materialType: [''], // 选中分类
-  materialTypelist: <materialTypeI[]>[], // 分类列表
-  materialist: <materialTypeI[]>[], // 列表内容
+// 分页信息
+const page = ref(1);
+const pagination = reactive({
+  page: 0,
+  pageCount: 0,
+  pageSize: 10,
+  total: 0,
 });
+
+const getSearchTypeText = () => {
+  const info = materialTypeList.value.find((item) => item.value === materialType.value);
+  const type = info?.label || '全部';
+  return type;
+};
+
+const isDownBottm = () => {
+  return pagination.page === page.value && pagination.page >= pagination.pageCount;
+};
 
 // 获取素材分类
-canvasEditor.getMaterialTypeList().then((list: materialTypeI[]) => {
-  state.materialTypelist = [...list];
-  state.materialist = list;
+canvasEditor.getMaterialTypeList().then((list) => {
+  materialTypeList.value = list;
 });
 
-// 切换素材类型
-const handleChange = (e: Event, item: [materialTypeI]) => {
-  // 搜索框文字设置
-  const { label, value } = item[0];
-  state.placeholder = label;
-  state.search = '';
-  filterTypeList(value);
-};
-
-// 模板搜索功能
-const filterTypeList = (value: string) => {
-  // 全部类型
-  if (!value) {
-    state.materialist = cloneDeep(state.materialTypelist);
-  } else {
-    // 当前分类详情
-    const materialTypeInfoList =
-      state.materialTypelist.filter((item) => item.value === value) || [];
-    state.materialist = materialTypeInfoList;
-  }
-
-  // 展示分类
-  if (state.search) {
-    const list = cloneDeep(state.materialist);
-    // 按照搜索内容展示
-    state.materialist = list.map((item) => {
-      if (item.list) {
-        item.list = item.list.filter((info) => info.label.includes(state.search));
-      }
-      return item;
+// 获取素材列表
+const getMaterialList = () => {
+  loading.value = true;
+  canvasEditor.getMaterialList(materialType.value, page.value, searchKeyword.value).then((res) => {
+    const { list, pagination: resPagination } = res;
+    Object.keys(resPagination).forEach((key) => {
+      pagination[key] = resPagination[key];
     });
-  }
-};
-
-const search = () => {
-  const [typeValue] = state.materialType;
-  filterTypeList(typeValue);
-};
-
-const dragItem = (event: Event) => {
-  const target = event.target as HTMLImageElement;
-  const url = target.src;
-  // 会有性能开销 dragAddItem复用更简洁
-  fabric.loadSVGFromURL(url, (objects) => {
-    const item = fabric.util.groupSVGElements(objects, {
-      shadow: '',
-      fontFamily: 'arial',
-      id: uuid(),
-      name: 'svg元素',
-    });
-    canvasEditor.dragAddItem(item, event);
+    materialList.value = [...materialList.value, ...list];
+    loading.value = false;
   });
 };
 
-// 按照类型渲染
-const addItem = (e: Event) => {
-  const target = e.target as HTMLImageElement;
+const startGetMaterialList = () => {
+  materialList.value = [];
+  page.value = 1;
+  getMaterialList();
+};
+
+const handleReachBottom = () => {
+  if (page.value >= pagination.pageCount) return;
+  page.value++;
+  setTimeout(() => {
+    getMaterialList();
+  }, 1000);
+};
+
+// // 按照类型渲染
+const dragItem = (e) => {
+  const target = e.target;
   const imgType = canvasEditor.getImageExtension(target.src);
   if (imgType === 'svg') {
     fabric.loadSVGFromURL(target.src, (objects) => {
       const item = fabric.util.groupSVGElements(objects, {
-        ...defaultPosition,
+        shadow: '',
+        fontFamily: 'arial',
+        id: uuid(),
+        name: 'svg元素',
+      });
+      canvasEditor.dragAddItem(item, e);
+    });
+  } else {
+    fabric.Image.fromURL(
+      target.src,
+      (imgEl) => {
+        imgEl.set({
+          left: 100,
+          top: 100,
+        });
+        canvasEditor.dragAddItem(imgEl, e);
+      },
+      { crossOrigin: 'anonymous' }
+    );
+  }
+};
+
+const addItem = (e) => {
+  const target = e.target;
+  const imgType = canvasEditor.getImageExtension(target.src);
+  if (imgType === 'svg') {
+    fabric.loadSVGFromURL(target.src, (objects) => {
+      const item = fabric.util.groupSVGElements(objects, {
         shadow: '',
         fontFamily: 'arial',
         id: uuid(),
@@ -185,14 +198,22 @@ const addItem = (e: Event) => {
   }
 };
 
-// 默认加载图片
+const showScroll = ref(false);
+const scrollHeight = ref(0);
 onMounted(async () => {
+  // 默认添加图片
   const route = useRoute();
   if (route?.query?.loadFile) {
-    const url = route.query.loadFile as string;
+    const url = route.query.loadFile;
     const image = await Utils.insertImgFile(url);
-    addItem({ target: image } as Event);
+    addItem({ target: image });
   }
+
+  // 滚动
+  const myTemplBox = document.querySelector('#myTemplBox');
+  scrollHeight.value = myTemplBox.offsetHeight - 10;
+  showScroll.value = true;
+  getMaterialList();
 });
 </script>
 
@@ -202,6 +223,9 @@ onMounted(async () => {
   display: flex;
   .input {
     margin-left: 10px;
+  }
+  .select {
+    width: 100px;
   }
 }
 
@@ -220,5 +244,10 @@ onMounted(async () => {
   &:hover {
     background: #e3e3e3;
   }
+}
+
+.tip-text {
+  display: block;
+  text-align: center;
 }
 </style>

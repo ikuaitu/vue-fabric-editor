@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-08-04 21:13:16
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-29 11:56:51
+ * @LastEditTime: 2024-05-09 15:03:37
  * @Description: 素材插件
  */
 
@@ -10,12 +10,13 @@ import { fabric } from 'fabric';
 import Editor from '../Editor';
 type IEditor = Editor;
 import axios from 'axios';
+import qs from 'qs';
 
 class MaterialPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
   static pluginName = 'MaterialPlugin';
-  static apis = ['getTemplMaterialTypeList', 'getMaterialTypeList'];
+  static apis = ['getTemplTypeList', 'getTemplList', 'getMaterialTypeList', 'getMaterialList'];
   apiMapUrl: { [propName: string]: string };
   repoSrc: string;
   constructor(canvas: fabric.Canvas, editor: IEditor, config: { repoSrc: string }) {
@@ -27,62 +28,136 @@ class MaterialPlugin {
       svg: config.repoSrc + '/svg/type.json',
     };
   }
-
-  getMaterialTypeList() {
-    return axios
-      .get(
-        `${this.repoSrc}/api/material-types?populate[materials][populate]=*&pagination[pageSize]=100`
-      )
-      .then((res) => {
-        const list = res.data.data.map((item: any) => {
-          return {
-            value: item.id,
-            label: item.attributes.name,
-            list: item.attributes.materials.data.map((info: any) => {
-              return {
-                value: info.id,
-                label: info.attributes.name,
-                tempUrl: this.repoSrc + this._getMaterialInfoUrl(info),
-                src: this.repoSrc + info.attributes.img.data.attributes.url,
-              };
-            }),
-          };
-        });
-        return list;
+  // 获取模板分类
+  getTemplTypeList() {
+    return axios.get(`${this.repoSrc}/api/templ-types?pagination[pageSize]=100`).then((res) => {
+      const list = res.data.data.map((item: any) => {
+        return {
+          value: item.id,
+          label: item.attributes.name,
+        };
       });
+      return list;
+    });
+  }
+  // 分页获取模板列表
+  getTemplList(templType = '', index = 1, searchKeyword = '') {
+    const query = {
+      fields: '*',
+      populate: {
+        img: '*',
+      },
+      filters: {},
+      pagination: {
+        page: index,
+        pageSize: 10,
+      },
+    };
+
+    const queryParams = this._getQueryParams(query, [
+      {
+        key: 'templ_type',
+        value: templType,
+        type: '$eq',
+      },
+      {
+        key: 'name',
+        value: searchKeyword,
+        type: '$contains',
+      },
+    ]);
+
+    return axios.get(`${this.repoSrc}/api/templs?${queryParams}`).then((res: any) => {
+      const list = res.data.data.map((item: any) => {
+        return {
+          name: item.attributes.name,
+          desc: item.attributes.desc,
+          src: this._getMaterialPreviewUrl(item.attributes.img),
+          json: item.attributes.json,
+        };
+      });
+      return { list, pagination: res?.data?.meta?.pagination };
+    });
   }
 
-  getTemplMaterialTypeList() {
-    return axios
-      .get(`${this.repoSrc}/api/templ-types?populate[templs][populate]=*&pagination[pageSize]=100`)
-      .then((res) => {
-        const list = res.data.data.map((item: any) => {
-          return {
-            value: item.id,
-            label: item.attributes.name,
-            list: item.attributes.templs.data.map((info: any) => {
-              return {
-                value: info.id,
-                label: info.attributes.name,
-                src: this.repoSrc + this._getMaterialInfoUrl(info),
-                json: info.attributes.json,
-              };
-            }),
-          };
-        });
-        return list;
+  /**
+   * @description: 获取素材分类
+   * @return {Promise<any>}
+   */
+  getMaterialTypeList() {
+    return axios.get(`${this.repoSrc}/api/material-types?pagination[pageSize]=100`).then((res) => {
+      const list = res.data.data.map((item: any) => {
+        return {
+          value: item.id,
+          label: item.attributes.name,
+        };
       });
+      return list;
+    });
+  }
+
+  /**
+   * @description: 获取素材列表
+   * @returns Promise<Array>
+   */
+  getMaterialList(materialType = '', index = 1, searchKeyword = '') {
+    const query = {
+      populate: {
+        img: '*',
+      },
+      // fields: ['materialType'],
+      filters: {},
+      pagination: {
+        page: index,
+        pageSize: 50,
+      },
+    };
+
+    const queryParams = this._getQueryParams(query, [
+      {
+        key: 'material_type',
+        value: materialType,
+        type: '$eq',
+      },
+      {
+        key: 'name',
+        value: searchKeyword,
+        type: '$contains',
+      },
+    ]);
+
+    return axios.get(`${this.repoSrc}/api/materials?${queryParams}`).then((res: any) => {
+      const list = res.data.data.map((item: any) => {
+        return {
+          name: item.attributes.name,
+          desc: item.attributes.desc,
+          src: this._getMaterialInfoUrl(item.attributes.img),
+          previewSrc: this._getMaterialPreviewUrl(item.attributes.img),
+        };
+      });
+      return { list, pagination: res?.data?.meta?.pagination };
+    });
   }
 
   _getMaterialInfoUrl(info: any) {
-    if (
-      info.attributes.img.data.attributes.formats &&
-      info.attributes.img.data.attributes.formats.small &&
-      info.attributes.img.data.attributes.formats.small.url
-    ) {
-      return info.attributes.img.data.attributes.formats.small.url;
-    }
-    return info.attributes.img.data.attributes.url;
+    const imgUrl = info?.data?.attributes?.url || '';
+    return this.repoSrc + imgUrl;
+  }
+
+  _getMaterialPreviewUrl(info: any) {
+    const imgUrl = info?.data?.attributes?.formats?.small?.url || info?.data?.attributes?.url || '';
+    return this.repoSrc + imgUrl;
+  }
+
+  // 拼接查询条件参数
+  _getQueryParams(option: any, filters: any) {
+    filters.forEach((item: any) => {
+      const { key, value, type } = item;
+      if (value) {
+        option.filters[key] = { [type]: value };
+      }
+    });
+    return qs.stringify(option);
   }
 
   async getMaterialInfo(typeId: string) {
