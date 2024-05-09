@@ -457,6 +457,14 @@ const getObjectAttr = (e) => {
     baseAttr.angle = activeObject.get('angle') || 0;
     baseAttr.points = activeObject.get('points') || {};
     baseAttr.linkData = activeObject.get('linkData') || [null, null];
+    const strokeDashArray = JSON.stringify(activeObject.get('strokeDashArray') || []);
+    const target = strokeDashList.find((item) => {
+      return (
+        JSON.stringify(item.value.strokeDashArray) === strokeDashArray &&
+        activeObject.get('strokeLineCap') === item.value.strokeLineCap
+      );
+    });
+    target && (baseAttr.strokeDashArray = target.label);
 
     const textTypes = ['i-text', 'text', 'textbox'];
     if (textTypes.includes(activeObject.type)) {
