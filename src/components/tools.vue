@@ -109,8 +109,8 @@
     <Divider plain orientation="left">{{ $t('draw_elements') }}</Divider>
     <div class="tool-box">
       <span
-        @click="drawingLineModeSwitch(false)"
-        :class="state.isDrawingLineMode && !state.isArrow && 'bg'"
+        @click="drawingLineModeSwitch('line')"
+        :class="state.isDrawingLineMode && state.lineType === 'line' && 'bg'"
       >
         <svg
           t="1673022047861"
@@ -135,8 +135,8 @@
         </svg>
       </span>
       <span
-        @click="drawingLineModeSwitch(true)"
-        :class="state.isDrawingLineMode && state.isArrow && 'bg'"
+        @click="drawingLineModeSwitch('arrow')"
+        :class="state.isDrawingLineMode && state.lineType === 'arrow' && 'bg'"
       >
         <!-- <svg t="1673022047861" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4206" width="20" height="20"><path d="M187.733333 1024h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM34.133333 989.866667h136.533334v-136.533334H34.133333v136.533334zM1006.933333 204.8h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM853.333333 170.666667h136.533334V34.133333h-136.533334v136.533334z" fill="" p-id="4207"></path><path d="M187.733333 853.333333c-3.413333 0-10.24 0-13.653333-3.413333-6.826667-6.826667-6.826667-17.066667 0-23.893333l648.533333-648.533334c6.826667-6.826667 17.066667-6.826667 23.893334 0s6.826667 17.066667 0 23.893334l-648.533334 648.533333c0 3.413333-6.826667 3.413333-10.24 3.413333z" fill="" p-id="4208"></path></svg> -->
         <svg
@@ -153,6 +153,27 @@
             d="M320 738.133333L827.733333 230.4l-29.866666-29.866667L290.133333 708.266667v-268.8h-42.666666v341.333333h341.333333v-42.666667H320z"
             fill="#444444"
             p-id="2660"
+          ></path>
+        </svg>
+      </span>
+      <span
+        @click="drawingLineModeSwitch('thinTailArrow')"
+        :class="state.isDrawingLineMode && state.lineType === 'thinTailArrow' && 'bg'"
+      >
+        <svg
+          t="1715323097309"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="24572"
+          width="20"
+          height="20"
+        >
+          <path
+            d="M485.954269 735.978673 643.38051 811.107852C688.831327 832.798434 686.17686 860.459274 635.3838 871.903075L81.378406 996.721881C31.19882 1008.027444-1.313538 976.266799 10.130269 925.473745L134.949081 371.468357C146.254656 321.288783 173.611855 317.095036 195.744311 363.471653L270.873453 520.897858 903.670271 62.052983C986.301645 2.136458 1004.805285 20.426857 944.799125 103.181838L485.954269 735.978673Z"
+            fill="#444444"
+            p-id="24573"
           ></path>
         </svg>
       </span>
@@ -178,7 +199,7 @@ const { t } = useI18n();
 const { fabric, canvasEditor } = useSelect();
 const state = reactive({
   isDrawingLineMode: false,
-  isArrow: false,
+  lineType: false,
 });
 // let drawHandler = null;
 
@@ -297,11 +318,11 @@ const addRect = (option) => {
   }
   canvasEditor.canvas.setActiveObject(rect);
 };
-const drawingLineModeSwitch = (isArrow) => {
-  state.isArrow = isArrow;
+const drawingLineModeSwitch = (type) => {
+  state.lineType = type;
   state.isDrawingLineMode = !state.isDrawingLineMode;
   canvasEditor.setMode(state.isDrawingLineMode);
-  canvasEditor.setArrow(isArrow);
+  canvasEditor.setLineType(type);
 
   // this.canvasEditor.setMode(this.isDrawingLineMode);
   // this.canvasEditor.setArrow(isArrow);
