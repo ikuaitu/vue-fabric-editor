@@ -39,6 +39,8 @@ class Editor extends EventEmitter {
     if (this._checkPlugin(plugin) && this.canvas) {
       this._saveCustomAttr(plugin);
       const pluginRunTime = new plugin(this.canvas, this, options || {}) as IPluginClass;
+      // 添加插件名称
+      pluginRunTime.pluginName = plugin.pluginName;
       this.pluginMap[plugin.pluginName] = pluginRunTime;
       this._bindingHooks(pluginRunTime);
       this._bindingHotkeys(pluginRunTime);
