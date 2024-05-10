@@ -89,7 +89,9 @@ class Editor extends EventEmitter {
       if (hook) {
         this.hooksEntity[hookName].tapPromise(plugin.pluginName + hookName, function () {
           // eslint-disable-next-line prefer-rest-params
-          return hook.apply(plugin, [...arguments]);
+          const result = hook.apply(plugin, [...arguments]);
+          // hook 兼容非 Promise 返回值
+          return result instanceof Promise ? result : Promise.resolve(result);
         });
       }
     });
