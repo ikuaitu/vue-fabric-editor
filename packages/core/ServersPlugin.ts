@@ -95,9 +95,9 @@ class ServersPlugin {
     });
   }
 
-  loadJSON(jsonFile: string, callback?: () => void) {
+  loadJSON(jsonFile: string | object, callback?: () => void) {
     // 确保元素存在id
-    const temp = JSON.parse(jsonFile);
+    const temp = typeof jsonFile === 'string' ? JSON.parse(jsonFile) : jsonFile;
     temp.objects.forEach((item: any) => {
       !item.id && (item.id = uuid());
     });

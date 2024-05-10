@@ -163,7 +163,7 @@ const getTempData = (json) => {
   Spin.show({
     render: (h) => h('div', t('alert.loading_data')),
   });
-  canvasEditor.loadJSON(JSON.stringify(json), Spin.hide);
+  canvasEditor.loadJSON(json, Spin.hide);
 };
 </script>
 
