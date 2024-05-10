@@ -11,8 +11,8 @@ export function createEditor() {
     preserveObjectStacking: true,
   });
   editor.init(canvas);
+  window.editor = editor;
   return {
-    editor: editor,
     cleanUp: editor.destory(),
   };
 }
