@@ -166,6 +166,7 @@ const getTempData = (json) => {
   });
   router.replace('/');
   canvasEditor.loadJSON(JSON.stringify(json), Spin.hide);
+
 };
 </script>
 
