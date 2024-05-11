@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 14:07:09
+ * @LastEditTime: 2024-05-11 18:19:04
  * @Description: 导入模板
 -->
 
@@ -166,7 +166,6 @@ const getTempData = (json) => {
   });
   router.replace('/');
   canvasEditor.loadJSON(JSON.stringify(json), Spin.hide);
-
 };
 </script>
 
