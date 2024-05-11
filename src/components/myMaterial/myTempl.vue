@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 14:07:09
+ * @LastEditTime: 2024-05-11 15:36:50
  * @Description: 导入模板
 -->
 
@@ -10,20 +10,9 @@
   <div>
     <!-- 搜索组件 -->
     <div class="search-box">
-      <Select
-        class="select"
-        v-model="materialType"
-        @on-change="startGetMaterialList"
-        :disabled="loading"
-      >
-        <Option key="全部" value="">全部</Option>
-        <Option v-for="item in materialTypeList" :value="item.value" :key="item.value">
-          {{ item.label }}
-        </Option>
-      </Select>
       <Input
         class="input"
-        :placeholder="`在${getSearchTypeText()}中搜索`"
+        placeholder="请输入关键词"
         v-model="searchKeyword"
         search
         :disabled="loading"
@@ -32,9 +21,9 @@
     </div>
 
     <!-- 列表 -->
-    <div style="height: calc(100vh - 110px)" id="myTemplBox">
+    <div style="height: calc(100vh - 180px)" id="myFileTemplBox">
       <Scroll
-        key="mysscroll"
+        key="myFileTemplBox"
         v-if="showScroll"
         :on-reach-bottom="handleReachBottom"
         :height="scrollHeight"
@@ -49,13 +38,14 @@
             placement="top"
           >
             <div class="tmpl-img-box">
+              <Icon type="ios-trash" class="del-btn" color="red" @click="removeTempl(info.id)" />
               <Image
                 lazy
                 :src="info.src"
                 fit="contain"
                 height="100%"
                 :alt="info.name"
-                @click="beforeClearTip(info.json)"
+                @click="beforeClearTip(info.json, info.id)"
               />
             </div>
           </Tooltip>
@@ -69,19 +59,20 @@
 </template>
 
 <script setup name="ImportTmpl">
+import qs from 'qs';
 import useSelect from '@/hooks/select';
+import { Message } from 'view-ui-plus';
 import { Spin, Modal } from 'view-ui-plus';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
-const router = useRouter();
+import { getTmplList } from '@/api/user';
+import useMaterial from '@/hooks/useMaterial';
+const { routerToId, removeTemplInfo } = useMaterial();
+
+const APIHOST = import.meta.env.APP_APIHOST;
+
 const { t } = useI18n();
 const { canvasEditor } = useSelect();
 
-// 素材类型
-const materialType = ref('');
-materialType.value = '';
-// 素材类型列表
-const materialTypeList = ref([]);
 // 素材列表
 const materialList = ref([]);
 // 搜索关键字
@@ -98,24 +89,14 @@ const pagination = reactive({
   total: 0,
 });
 
-const getSearchTypeText = () => {
-  const info = materialTypeList.value.find((item) => item.value === materialType.value);
-  const type = info?.label || '全部';
-  return type;
-};
-
 const isDownBottm = () => {
   return pagination.page === page.value && pagination.page >= pagination.pageCount;
 };
-// 获取素材分类
-canvasEditor.getTemplTypeList().then((list) => {
-  materialTypeList.value = list;
-});
 
 // 获取素材列表
 const getMaterialList = () => {
   loading.value = true;
-  canvasEditor.getTemplList(materialType.value, page.value, searchKeyword.value).then((res) => {
+  getTmplListHandler(page.value, searchKeyword.value).then((res) => {
     const { list, pagination: resPagination } = res;
     Object.keys(resPagination).forEach((key) => {
       pagination[key] = resPagination[key];
@@ -140,32 +121,97 @@ const handleReachBottom = () => {
 };
 
 // 替换提示
-const beforeClearTip = (json) => {
+const beforeClearTip = (json, id) => {
   Modal.confirm({
     title: t('tip'),
     content: `<p>${t('replaceTip')}</p>`,
     okText: t('ok'),
     cancelText: t('cancel'),
-    onOk: () => getTempData(json),
+    onOk: () => getTempData(json, id),
   });
 };
 
 const showScroll = ref(false);
 const scrollHeight = ref(0);
 onMounted(() => {
-  const myTemplBox = document.querySelector('#myTemplBox');
+  const myTemplBox = document.querySelector('#myFileTemplBox');
   scrollHeight.value = myTemplBox.offsetHeight - 10;
   showScroll.value = true;
   getMaterialList();
 });
 
 // 获取模板数据
-const getTempData = (json) => {
+const getTempData = (json, id) => {
   Spin.show({
     render: (h) => h('div', t('alert.loading_data')),
   });
-  router.replace('/');
+  // console.log(json, 111);
+  routerToId(id);
   canvasEditor.loadJSON(JSON.stringify(json), Spin.hide);
+};
+
+const getTmplListHandler = (index, searchKeyword) => {
+  const query = {
+    populate: {
+      img: '*',
+    },
+    filters: {},
+    pagination: {
+      page: index,
+      pageSize: 50,
+    },
+  };
+  const queryParams = getQueryParams(query, [
+    {
+      key: 'name',
+      value: searchKeyword,
+      type: '$contains',
+    },
+  ]);
+  return getTmplList(queryParams)
+    .then((res) => {
+      const list = res.data.data.map((item) => {
+        return {
+          id: item.id,
+          name: item.attributes.name,
+          desc: item.attributes.desc,
+          json: item.attributes.json,
+          src: getMaterialInfoUrl(item.attributes.img),
+          previewSrc: getMaterialPreviewUrl(item.attributes.img),
+        };
+      });
+      return { list, pagination: res?.data?.meta?.pagination };
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+const getQueryParams = (option, filters) => {
+  filters.forEach((item) => {
+    const { key, value, type } = item;
+    if (value) {
+      option.filters[key] = { [type]: value };
+    }
+  });
+  return qs.stringify(option);
+};
+
+const getMaterialInfoUrl = (info) => {
+  const imgUrl = info?.data?.attributes?.url || '';
+  return APIHOST + imgUrl;
+};
+
+const getMaterialPreviewUrl = (info) => {
+  const imgUrl = info?.data?.attributes?.formats?.medium?.url || info?.data?.attributes?.url || '';
+  return APIHOST + imgUrl;
+};
+
+const removeTempl = (id) => {
+  removeTemplInfo(id).then(() => {
+    Message.success('删除成功');
+    startGetMaterialList();
+  });
 };
 </script>
 
@@ -193,9 +239,20 @@ const getTempData = (json) => {
   padding: 5px;
   cursor: pointer;
   border-radius: 10px;
+  position: relative;
 
   &:hover {
     background: #e3e3e3;
+    .del-btn {
+      right: 5px;
+    }
   }
+}
+
+.del-btn {
+  z-index: 1;
+  position: absolute;
+  top: 5px;
+  right: 1000000px;
 }
 </style>

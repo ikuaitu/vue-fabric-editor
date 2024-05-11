@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-29 11:56:32
+ * @LastEditTime: 2024-05-11 14:19:33
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -274,6 +274,7 @@ class ServersPlugin {
         this.canvas.remove(obj);
       }
     });
+    this.editor?.setWorkspaseBg('#fff');
     this.canvas.discardActiveObject();
     this.canvas.renderAll();
   }

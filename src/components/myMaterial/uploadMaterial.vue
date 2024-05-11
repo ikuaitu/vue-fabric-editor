@@ -2,16 +2,15 @@
  * @Author: 秦少卫
  * @Date: 2024-04-25 15:30:54
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-29 17:05:39
+ * @LastEditTime: 2024-05-11 14:42:44
  * @Description: 我的素材
 -->
 
 <template>
-  <div class="my-material" v-if="isLogin">
+  <div class="my-material">
     <Button icon="md-cloud-upload" @click="uploadImgHandule" long type="primary">
       {{ $t('myMaterial.uploadBtn') }}
     </Button>
-
     <div class="img-group" v-if="fileList.length">
       <Tooltip
         :content="info.name"
@@ -39,7 +38,6 @@
     </div>
     <div class="tip" v-else>暂无素材</div>
   </div>
-  <div class="tip" v-else>请先登录</div>
 </template>
 
 <script setup name="ImportTmpl">
@@ -131,17 +129,17 @@ const removeMaterialHandle = (id) => {
   &:hover {
     background: #e3e3e3;
     .del-btn {
-      opacity: 1;
+      // opacity: 1;
+      right: 5px;
     }
   }
 }
 
 .del-btn {
-  opacity: 0;
   z-index: 1;
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 1000000px;
 }
 
 .tip {

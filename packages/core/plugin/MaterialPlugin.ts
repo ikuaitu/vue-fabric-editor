@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-08-04 21:13:16
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-09 15:03:37
+ * @LastEditTime: 2024-05-11 14:20:26
  * @Description: 素材插件
  */
 
@@ -16,7 +16,13 @@ class MaterialPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
   static pluginName = 'MaterialPlugin';
-  static apis = ['getTemplTypeList', 'getTemplList', 'getMaterialTypeList', 'getMaterialList'];
+  static apis = [
+    'getTemplTypeList',
+    'getTemplList',
+    'getMaterialTypeList',
+    'getMaterialList',
+    'getSizeList',
+  ];
   apiMapUrl: { [propName: string]: string };
   repoSrc: string;
   constructor(canvas: fabric.Canvas, editor: IEditor, config: { repoSrc: string }) {
@@ -136,6 +142,32 @@ class MaterialPlugin {
         };
       });
       return { list, pagination: res?.data?.meta?.pagination };
+    });
+  }
+
+  getSizeList() {
+    return axios.get(`${this.repoSrc}/api/sizes?pagination[pageSize]=100`).then((res) => {
+      const list = res.data.data.map((item: any) => {
+        return {
+          value: item.id,
+          name: item.attributes.name,
+          width: Number(item.attributes.width),
+          height: Number(item.attributes.height),
+          unit: item.attributes.unit,
+        };
+      });
+      return list;
+    });
+  }
+  getFontList() {
+    return axios.get(`${this.repoSrc}/api/fonts?pagination[pageSize]=100`).then((res) => {
+      const list = res.data.data.map((item: any) => {
+        return {
+          value: item.id,
+          label: item.attributes.name,
+        };
+      });
+      return list;
     });
   }
 
