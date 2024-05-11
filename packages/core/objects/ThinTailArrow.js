@@ -34,11 +34,11 @@ fabric.ThinTailArrow = fabric.util.createClass(fabric.Line, {
     // 绘制箭头
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.lineTo(length - 20, -5);
+    ctx.lineTo(length - 18, -5);
     ctx.lineTo(length - 20, -12);
     ctx.lineTo(length, 0);
     ctx.lineTo(length - 20, 12);
-    ctx.lineTo(length - 20, 5);
+    ctx.lineTo(length - 18, 5);
     ctx.lineTo(0, 0);
     ctx.lineWidth = this.strokeWidth;
     ctx.strokeStyle = this.stroke;
