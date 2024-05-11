@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-24 14:07:06
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-29 12:13:51
+ * @LastEditTime: 2024-05-11 14:47:44
  * @Description: 用户接口登录
  */
 
@@ -51,3 +51,18 @@ export const createdMaterial = (data: any) => instance.post('/api/user-materials
 
 // 删除素材
 export const removeMaterial = (id: any) => instance.delete('/api/user-materials/' + id);
+
+// 创建模板
+export const createdTempl = (data: any) => instance.post('/api/user-templs', data);
+
+// 删除素材
+export const removeTempl = (data: any) => instance.delete(`/api/user-templs/${data}`);
+
+// 更新素材
+export const updataTempl = (id: any, data: any) => instance.put(`/api/user-templs/${id}`, data);
+
+// 查询素材列表
+export const getTmplList = (data: any) => instance.get(`/api/user-templs?${data}`);
+
+// 查询素材列表
+export const getTmplInfo = (data: any) => instance.get(`/api/user-templs/${data}`);

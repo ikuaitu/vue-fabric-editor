@@ -15,6 +15,7 @@
         <Divider type="vertical" />
         <import-file></import-file>
         <Divider type="vertical" />
+        <myTemplName></myTemplName>
         <!-- 标尺开关 -->
         <Tooltip :content="$t('grid')">
           <iSwitch
@@ -81,7 +82,7 @@
               <layer></layer>
             </div>
             <!-- 我的素材 -->
-            <div v-show="state.menuActive === 5" class="left-panel">
+            <div v-if="state.menuActive === 5" class="left-panel">
               <myMaterial></myMaterial>
             </div>
           </div>
@@ -147,6 +148,7 @@ import fontTmpl from '@/components/fontTmpl.vue';
 
 // 顶部组件
 import align from '@/components/align.vue';
+import myTemplName from '@/components/myTemplName.vue';
 import centerAlign from '@/components/centerAlign.vue';
 import flip from '@/components/flip.vue';
 import previewCurrent from '@/components/previewCurrent';
@@ -162,7 +164,7 @@ import waterMark from '@/components/waterMark.vue';
 import login from '@/components/login';
 // 左侧组件
 import importTmpl from '@/components/importTmpl.vue';
-import myMaterial from '@/components/myMaterial.vue';
+import myMaterial from '@/components/myMaterial/index.vue';
 import tools from '@/components/tools.vue';
 import importSvgEl from '@/components/importSvgEl.vue';
 import bgBar from '@/components/bgBar.vue';

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-07 16:28:40
+ * @LastEditTime: 2024-05-11 14:18:13
  * @Description: 画布区域插件
  */
 
@@ -16,7 +16,7 @@ class WorkspacePlugin {
   public editor: IEditor;
   static pluginName = 'WorkspacePlugin';
   static events = ['sizeChange'];
-  static apis = ['big', 'small', 'auto', 'one', 'setSize', 'getWorkspase'];
+  static apis = ['big', 'small', 'auto', 'one', 'setSize', 'getWorkspase', 'setWorkspaseBg'];
   workspaceEl!: HTMLElement;
   workspace: null | fabric.Rect;
   option: any;
@@ -196,6 +196,11 @@ class WorkspacePlugin {
   one() {
     this.setZoomAuto(1 * this.zoomRatio);
     this.canvas.requestRenderAll();
+  }
+
+  setWorkspaseBg(color: string) {
+    const workspase = this.getWorkspase();
+    workspase?.set('fill', color);
   }
 
   _bindWheel() {

@@ -17,22 +17,40 @@
   "cartoon": "卡通",
   "default_size": "预设尺寸",
   "preview": "预览",
-  "empty": "清空",
-  "keep": "保存",
-  "copy_to_clipboard": "复制到剪切板",
-  "copy_to_clipboardstr": "复制字符串剪切板",
-  "save_as_picture": "保存为图片",
-  "save_as_svg": "保存为SVG",
-  "save_as_json": "保存为JSON",
+  "save": {
+    "empty": "清空",
+    "down": "下载",
+    "save_my_spase": "保存到我的空间",
+    "save_as_picture": "PNG图片",
+    "save_as_svg": "SVG图片",
+    "copy_to_clipboard": "复制到剪切板",
+    "copy_to_clipboardstr": "复制字符串剪切板",
+    "save_as_json": "保存为JSON"
+  },
   "layers": "图层",
   "mymaterial": "我的",
+  "my_spase": {
+    "remove_templ": "删除模板",
+    "remove_templTip": "确认删除模板吗？"
+  },
   "title_template": "标题模板",
   "insert_svg": "插入SVG元素",
   "select_svg": "选择SVG文件",
   "please_choose": "请选择",
   "string": "字符串",
   "file": "文件",
-  "import_files": "导入文件",
+  "importFiles": {
+    "file": "文件",
+    "createDesign": {
+      "title": "创建设计",
+      "customSize": "自定义尺寸",
+      "systemSize": "系统推荐尺寸",
+      "width": "宽度",
+      "height": "高度",
+      "create": "创建"
+    },
+    "importFiles": "导入文件"
+  },
   "select_json": "选择JSON文件",
   "repleaceImg": "替换图片",
   "waterMark": {

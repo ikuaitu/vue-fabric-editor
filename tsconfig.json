@@ -31,6 +31,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "typings/**/*.ts",
+    "src/hooks/useMaterial.js",
   ],
   "references": [
     {

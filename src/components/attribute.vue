@@ -320,6 +320,7 @@ const baseType = [
   'group',
   'line',
   'arrow',
+  'thinTailArrow',
 ];
 // 文字元素
 const textType = ['i-text', 'textbox', 'text'];
