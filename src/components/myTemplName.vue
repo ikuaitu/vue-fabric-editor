@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-11 13:23:48
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 16:51:47
+ * @LastEditTime: 2024-05-11 17:33:56
  * @Description: 文件名称
 -->
 
@@ -27,7 +27,10 @@
 import { debounce } from 'lodash-es';
 import useMaterial from '@/hooks/useMaterial';
 import { useRoute } from 'vue-router';
+import useSelect from '@/hooks/select';
 const { getTemplInfo, updataTemplInfo } = useMaterial();
+
+const { canvasEditor } = useSelect();
 
 const fileName = ref('');
 const route = useRoute();
@@ -46,6 +49,18 @@ watch(
   }
 );
 
+onMounted(() => {
+  if (route?.query?.id) {
+    getTemplInfo(route?.query?.id)
+      .then((res) => {
+        fileName.value = res?.data?.attributes?.name;
+        canvasEditor.loadJSON(JSON.stringify(res?.data?.attributes?.json));
+      })
+      .catch(() => {
+        window.location.href = '/';
+      });
+  }
+});
 const saveTempl = () => {
   loading.value = true;
   updataTemplInfo(route.query.id, fileName.value)

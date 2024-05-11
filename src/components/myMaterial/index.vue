@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-25 15:30:54
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 15:50:32
+ * @LastEditTime: 2024-05-11 17:12:21
  * @Description: 我的素材
 -->
 
@@ -30,7 +30,7 @@ const isLogin = ref(false);
 const getFileListHandle = () => {
   // 获取素材列表
   getFileList()
-    .then((res) => {
+    .then(() => {
       isLogin.value = true;
     })
     .catch(() => {
