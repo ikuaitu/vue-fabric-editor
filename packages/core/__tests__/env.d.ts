@@ -1,4 +1,4 @@
-import Editor from '@kuaitu/core';
+import Editor from '../Editor';
 
 declare global {
   interface Window {

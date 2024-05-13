@@ -10,7 +10,7 @@ export default defineConfig((_configEnv) =>
       },
     },
     test: {
-      include: ['packages/__tests__/**/*.spec.ts'],
+      include: ['./__tests__/**/*.spec.ts'],
 
       deps: {
         interopDefault: true,

@@ -1,8 +1,10 @@
-import Editor from '../../core/Editor.ts';
+import Editor from '../../Editor.ts';
 import { fabric } from 'fabric';
 
 export function createEditor() {
   const editor = new Editor();
+  const canvasElement = document.createElement('canvas');
+  canvasElement.id = 'canvas';
   const canvas = new fabric.Canvas('canvas', {
     fireRightClick: true,
     stopContextMenu: true,
@@ -12,6 +14,7 @@ export function createEditor() {
   });
   editor.init(canvas);
   window.editor = editor;
+
   return {
     cleanUp: editor.destory(),
   };
