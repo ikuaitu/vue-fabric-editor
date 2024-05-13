@@ -118,6 +118,7 @@
             <imgStroke />
             <div class="attr-item">
               <lock></lock>
+              <hide></hide>
               <dele></dele>
               <clone></clone>
             </div>
@@ -159,6 +160,7 @@ import group from '@/components/group.vue';
 import zoom from '@/components/zoom.vue';
 import dragMode from '@/components/dragMode.vue';
 import lock from '@/components/lock.vue';
+import hide from '@/components/hide.vue';
 import dele from '@/components/del.vue';
 import waterMark from '@/components/waterMark.vue';
 import login from '@/components/login';
