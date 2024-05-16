@@ -71,14 +71,8 @@ class AlignGuidLinePlugin {
     function drawLine(x1: number, y1: number, x2: number, y2: number) {
       if (viewportTransform == null) return;
 
-      ctx.save();
-      ctx.lineWidth = This.defautOption.width;
-      ctx.strokeStyle = This.defautOption.color;
-      ctx.beginPath();
       ctx.moveTo(x1 * zoom + viewportTransform[4], y1 * zoom + viewportTransform[5]);
       ctx.lineTo(x2 * zoom + viewportTransform[4], y2 * zoom + viewportTransform[5]);
-      ctx.stroke();
-      ctx.restore();
     }
 
     function isInRange(value1: number, value2: number) {
@@ -294,12 +288,18 @@ class AlignGuidLinePlugin {
     });
 
     canvas.on('after:render', () => {
+      ctx.save();
+      ctx.beginPath();
+      ctx.lineWidth = This.defautOption.width;
+      ctx.strokeStyle = This.defautOption.color;
       for (let i = verticalLines.length; i--; ) {
         drawVerticalLine(verticalLines[i]);
       }
       for (let j = horizontalLines.length; j--; ) {
         drawHorizontalLine(horizontalLines[j]);
       }
+      ctx.stroke();
+      ctx.restore();
 
       // noinspection NestedAssignmentJS
       verticalLines.length = 0;
