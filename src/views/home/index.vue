@@ -1,3 +1,10 @@
+<!--
+ * @Author: 秦少卫
+ * @Date: 2024-05-17 15:30:21
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-05-17 15:58:21
+ * @Description: file content
+-->
 <template>
   <div class="home">
     <Layout>
@@ -40,53 +47,21 @@
       <Content style="display: flex; height: calc(100vh - 64px)">
         <!-- 左侧区域 -->
         <div v-if="state.show" :class="`left-bar ${state.toolsBarShow && 'show-tools-bar'}`">
-          <Menu :active-name="state.menuActive" accordion @on-select="showToolsBar" width="65px">
-            <MenuItem :name="1" class="menu-item">
-              <Icon type="md-book" size="24" />
-              <div>{{ $t('templates') }}</div>
-            </MenuItem>
-            <MenuItem :name="2" class="menu-item">
-              <Icon type="md-images" size="24" />
-              <div>{{ $t('elements') }}</div>
-            </MenuItem>
-            <MenuItem :name="3" class="menu-item">
-              <Icon type="ios-leaf-outline" size="24" />
-              <div>{{ $t('material.cartoon') }}</div>
-            </MenuItem>
-            <MenuItem :name="4" class="menu-item">
-              <Icon type="md-reorder" size="24" />
-              <div>{{ $t('layers') }}</div>
-            </MenuItem>
-            <MenuItem :name="5" class="menu-item">
-              <Icon type="ios-contact-outline" size="24" />
-              <div>{{ $t('mymaterial') }}</div>
+          <!-- 左侧菜单 -->
+          <Menu :active-name="menuActive" accordion @on-select="showToolsBar" width="65px">
+            <MenuItem v-for="item in leftBar" :key="item.key" :name="item.key" class="menu-item">
+              <Icon :type="item.icon" size="24" />
+              <div>{{ item.name }}</div>
             </MenuItem>
           </Menu>
-
+          <!-- 左侧组件 -->
           <div class="content" v-show="state.toolsBarShow">
-            <!-- 生成模板 -->
-            <div v-show="state.menuActive === 1" class="left-panel">
-              <import-tmpl></import-tmpl>
-            </div>
-            <!-- 常用元素 -->
-            <div v-show="state.menuActive === 2" class="left-panel">
-              <tools></tools>
-              <fontTmpl></fontTmpl>
-            </div>
-            <!-- 卡通素材 -->
-            <div v-show="state.menuActive === 3" class="left-panel">
-              <importSvgEl></importSvgEl>
-            </div>
-            <!-- 图层设置 -->
-            <div v-show="state.menuActive === 4" class="left-panel">
-              <layer></layer>
-            </div>
-            <!-- 我的素材 -->
-            <div v-if="state.menuActive === 5" class="left-panel">
-              <myMaterial></myMaterial>
+            <div class="left-panel">
+              <KeepAlive>
+                <component :is="leftBarComponent[menuActive]"></component>
+              </KeepAlive>
             </div>
           </div>
-
           <!-- 关闭按钮 -->
           <div
             :class="`close-btn left-btn ${state.toolsBarShow && 'left-btn-open'}`"
@@ -101,15 +76,15 @@
             <canvas id="canvas" :class="state.ruler ? 'design-stage-grid' : ''"></canvas>
             <dragMode v-if="state.show"></dragMode>
             <zoom></zoom>
-            <!-- <mouseMenu></mouseMenu> -->
           </div>
         </div>
 
         <!-- 属性区域 380-->
         <div class="right-bar" v-show="state.attrBarShow">
           <div v-if="state.show" style="padding-top: 10px">
+            <element-data></element-data>
             <!-- 新增字体样式使用 -->
-            <!-- <Button @click="getFontJson" size="small">获取字体数据</Button> -->
+            <Button @click="canvasEditor.getFontJson()" size="small">获取字体数据</Button>
             <set-size></set-size>
             <bg-bar></bg-bar>
             <group></group>
@@ -118,7 +93,6 @@
             <imgStroke />
             <div class="attr-item">
               <lock></lock>
-              <hide></hide>
               <dele></dele>
               <clone></clone>
             </div>
@@ -145,7 +119,7 @@
 // 导入元素
 import importJson from '@/components/importJSON.vue';
 import importFile from '@/components/importFile.vue';
-import fontTmpl from '@/components/fontTmpl.vue';
+// import fontTmpl from '@/components/fontTmpl.vue';
 
 // 顶部组件
 import align from '@/components/align.vue';
@@ -160,12 +134,12 @@ import group from '@/components/group.vue';
 import zoom from '@/components/zoom.vue';
 import dragMode from '@/components/dragMode.vue';
 import lock from '@/components/lock.vue';
-import hide from '@/components/hide.vue';
 import dele from '@/components/del.vue';
 import waterMark from '@/components/waterMark.vue';
 import login from '@/components/login';
 // 左侧组件
 import importTmpl from '@/components/importTmpl.vue';
+import fontStyle from '@/components/fontStyle.vue';
 import myMaterial from '@/components/myMaterial/index.vue';
 import tools from '@/components/tools.vue';
 import importSvgEl from '@/components/importSvgEl.vue';
@@ -174,6 +148,7 @@ import setSize from '@/components/setSize.vue';
 import replaceImg from '@/components/replaceImg.vue';
 import filters from '@/components/filters.vue';
 import imgStroke from '@/components/imgStroke.vue';
+// import elementData from '@/components/elementData.vue';
 // 右侧组件
 import history from '@/components/history.vue';
 import layer from '@/components/layer.vue';
@@ -184,6 +159,9 @@ import { fabric } from 'fabric';
 
 // hooks
 import useSelectListen from '@/hooks/useSelectListen';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const APIHOST = import.meta.env.APP_APIHOST;
 
@@ -221,6 +199,55 @@ const state = reactive({
   select: null,
   ruler: true,
 });
+
+// 左侧菜单渲染
+const menuActive = ref('importTmpl');
+const leftBarComponent = {
+  importTmpl,
+  tools,
+  importSvgEl,
+  fontStyle,
+  layer,
+  myMaterial,
+};
+const leftBar = ref([
+  {
+    //模板
+    key: 'importTmpl',
+    name: t('templates'),
+    icon: 'md-book',
+  },
+  {
+    //基础元素
+    key: 'tools',
+    name: t('elements'),
+    icon: 'md-images',
+  },
+  {
+    //字体样式
+    key: 'fontStyle',
+    name: t('font_style'),
+    icon: 'ios-pulse',
+  },
+  {
+    // 图片元素
+    key: 'importSvgEl',
+    name: t('material.cartoon'),
+    icon: 'ios-leaf-outline',
+  },
+  {
+    // 图层
+    key: 'layer',
+    name: t('layers'),
+    icon: 'md-reorder',
+  },
+  {
+    // 用户素材
+    key: 'myMaterial',
+    name: t('mymaterial'),
+    icon: 'ios-contact-outline',
+  },
+]);
 
 onMounted(() => {
   // 初始化fabric
@@ -281,7 +308,7 @@ const hideToolsBar = () => {
 };
 // 展示工具条
 const showToolsBar = (val) => {
-  state.menuActive = val;
+  menuActive.value = val;
   state.toolsBarShow = true;
 };
 // 属性面板开关

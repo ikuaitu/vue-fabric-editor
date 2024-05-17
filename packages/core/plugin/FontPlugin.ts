@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-21 23:51:01
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-22 19:14:54
+ * @LastEditTime: 2024-05-17 16:13:03
  * @Description: 自定义字体
  */
 
@@ -31,7 +31,7 @@ class FontPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
   static pluginName = 'FontPlugin';
-  static apis = ['getFontList', 'loadFont'];
+  static apis = ['getFontList', 'loadFont', 'getFontJson', 'downFontByJSON'];
   repoSrc: string;
   cacheList: FontSource[];
   constructor(canvas: fabric.Canvas, editor: IEditor, config: { repoSrc: string }) {

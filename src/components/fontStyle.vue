@@ -1,16 +1,9 @@
 <!--
  * @Author: 秦少卫
- * @Date: 2024-05-17 15:31:24
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-17 15:31:25
- * @Description: file content
--->
-<!--
- * @Author: 秦少卫
  * @Date: 2023-08-05 17:47:35
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-17 15:16:59
- * @Description: file content
+ * @LastEditTime: 2024-05-17 16:26:25
+ * @Description: 字体样式
 -->
 
 <template>
@@ -32,7 +25,7 @@
       />
     </div>
     <!-- 列表 -->
-    <div style="height: calc(100vh - 108px)" id="myTemplBox1">
+    <div style="height: calc(100vh - 108px)" id="myTemplBox3">
       <Scroll
         key="mysscroll2"
         v-if="showScroll"
@@ -50,8 +43,8 @@
                 fit="contain"
                 height="100%"
                 :alt="info.name"
-                @click="addItem"
-                @dragend="dragItem"
+                @click="addItem(info)"
+                @dragend="(e) => dragItem(e, info)"
               />
             </div>
           </Tooltip>
@@ -69,8 +62,9 @@ import useSelect from '@/hooks/select';
 import usePageList from '@/hooks/pageList';
 import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
-import { useRoute } from 'vue-router';
-import { Utils } from '@kuaitu/core';
+import { Spin } from 'view-ui-plus';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const {
   startPage,
@@ -86,82 +80,51 @@ const {
   showScroll,
   scrollHeight,
 } = usePageList({
-  typeUrl: 'material-types',
-  listUrl: 'materials',
-  searchTypeKey: 'material_type',
+  typeUrl: 'font-style-types',
+  listUrl: 'font-styles',
+  searchTypeKey: 'font_style_type',
   searchWordKey: 'name',
   pageSize: 50,
-  scrollElement: '#myTemplBox1',
+  scrollElement: '#myTemplBox3',
 });
 
 const { canvasEditor } = useSelect();
 
 // 按照类型渲染
-const dragItem = (e) => {
-  const target = e.target;
-  const imgType = canvasEditor.getImageExtension(target.src);
-  if (imgType === 'svg') {
-    fabric.loadSVGFromURL(target.src, (objects) => {
-      const item = fabric.util.groupSVGElements(objects, {
-        shadow: '',
-        fontFamily: 'arial',
-        id: uuid(),
-        name: 'svg元素',
-      });
-      canvasEditor.dragAddItem(item, e);
-    });
-  } else {
-    fabric.Image.fromURL(
-      target.src,
-      (imgEl) => {
-        imgEl.set({
-          left: 100,
-          top: 100,
-        });
-        canvasEditor.dragAddItem(imgEl, e);
-      },
-      { crossOrigin: 'anonymous' }
-    );
-  }
+const dragItem = async (e, item) => {
+  Spin.show({
+    render: (h) => h('div', t('alert.loading_data')),
+  });
+  await canvasEditor.downFontByJSON(JSON.stringify(item.json));
+  const el = JSON.parse(JSON.stringify(item.json));
+  el.id = uuid();
+  const elType = capitalizeFirstLetter(el.type);
+  new fabric[elType].fromObject(el, (fabricEl) => {
+    canvasEditor.dragAddItem(fabricEl, e);
+    Spin.hide();
+  });
 };
 
-const addItem = (e) => {
-  const target = e.target;
-  const imgType = canvasEditor.getImageExtension(target.src);
-  if (imgType === 'svg') {
-    fabric.loadSVGFromURL(target.src, (objects) => {
-      const item = fabric.util.groupSVGElements(objects, {
-        shadow: '',
-        fontFamily: 'arial',
-        id: uuid(),
-        name: 'svg元素',
-      });
-      canvasEditor.dragAddItem(item);
-    });
-  } else {
-    fabric.Image.fromURL(
-      target.src,
-      (imgEl) => {
-        imgEl.set({
-          left: 100,
-          top: 100,
-        });
-        canvasEditor.dragAddItem(imgEl);
-      },
-      { crossOrigin: 'anonymous' }
-    );
-  }
+const addItem = async (item) => {
+  Spin.show({
+    render: (h) => h('div', t('alert.loading_data')),
+  });
+  await canvasEditor.downFontByJSON(JSON.stringify(item.json));
+  const el = JSON.parse(JSON.stringify(item.json));
+  el.id = uuid();
+  const elType = capitalizeFirstLetter(el.type);
+  new fabric[elType].fromObject(el, (fabricEl) => {
+    canvasEditor.dragAddItem(fabricEl);
+
+    Spin.hide();
+  });
 };
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 onMounted(async () => {
-  // 默认添加图片
-  const route = useRoute();
-  if (route?.query?.loadFile) {
-    const url = route.query.loadFile;
-    const image = await Utils.insertImgFile(url);
-    addItem({ target: image });
-  }
-
   startPage();
 });
 </script>
