@@ -186,17 +186,17 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/liumingye">
-                    <img src="https://avatars.githubusercontent.com/u/8676207?v=4" width="80;" alt="liumingye"/>
-                    <br />
-                    <sub><b>liumingye</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/AliceLanniste">
                     <img src="https://avatars.githubusercontent.com/u/17617116?v=4" width="80;" alt="AliceLanniste"/>
                     <br />
                     <sub><b>AliceLanniste</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/liumingye">
+                    <img src="https://avatars.githubusercontent.com/u/8676207?v=4" width="80;" alt="liumingye"/>
+                    <br />
+                    <sub><b>liumingye</b></sub>
                 </a>
             </td>
 		</tr>
