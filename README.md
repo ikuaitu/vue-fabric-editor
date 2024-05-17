@@ -1,6 +1,6 @@
 [文档](https://nihaojob.github.io/editorDoc/) | [English](https://github.com/nihaojob/vue-fabric-editor/blob/main/README-en.md) | 中文
 
-# vue-fabric-editor
+# 快图设计 - vue-fabric-editor
 
 基于 fabric.js 和 Vue 开发的插件化图片编辑器，可自定义字体、素材、设计模板、右键菜单、快捷键。
 
