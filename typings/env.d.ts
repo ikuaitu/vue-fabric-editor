@@ -28,3 +28,11 @@ declare module 'vfe' {
     editor: Editor;
   }
 }
+
+import Editor from '@kuaitu/core';
+
+declare global {
+  interface Window {
+    editor: Editor;
+  }
+}
