@@ -2,7 +2,7 @@
   <div>
     <Divider plain orientation="left">{{ $t('common_elements') }}</Divider>
     <div class="tool-box">
-      <span @click="() => addText()" :draggable="true" @dragend="onDragend('text')">
+      <span @click="() => addText()" :draggable="true" @dragend="onDragend('text', $event)">
         <svg
           t="1650875455324"
           class="icon"
@@ -19,7 +19,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="() => addTextBox()" :draggable="true" @dragend="onDragend('textBox')">
+      <span @click="() => addTextBox()" :draggable="true" @dragend="onDragend('textBox', $event)">
         <svg
           t="1650854954008"
           class="icon"
@@ -36,7 +36,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="() => addRect()" :draggable="true" @dragend="onDragend('rect')">
+      <span @click="() => addRect()" :draggable="true" @dragend="onDragend('rect', $event)">
         <svg
           t="1650855811131"
           class="icon"
@@ -53,7 +53,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="() => addCircle()" :draggable="true" @dragend="onDragend('circle')">
+      <span @click="() => addCircle()" :draggable="true" @dragend="onDragend('circle', $event)">
         <svg
           t="1650855860236"
           class="icon"
@@ -70,7 +70,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="() => addTriangle()" :draggable="true" @dragend="onDragend('triangle')">
+      <span @click="() => addTriangle()" :draggable="true" @dragend="onDragend('triangle', $event)">
         <svg
           t="1650874633978"
           class="icon"
@@ -88,7 +88,7 @@
         </svg>
       </span>
       <!-- 多边形按钮 -->
-      <span @click="() => addPolygon()" :draggable="true" @dragend="onDragend('polygon')">
+      <span @click="() => addPolygon()" :draggable="true" @dragend="onDragend('polygon', $event)">
         <svg
           t="1650874633978"
           class="icon"
@@ -186,6 +186,7 @@ import { v4 as uuid } from 'uuid';
 // import initializeLineDrawing from '@/core/remove/initializeLineDrawing';
 import { getPolygonVertices } from '@/utils/math';
 import useSelect from '@/hooks/select';
+import useCalculate from '@/hooks/useCalculate';
 import { useI18n } from 'vue-i18n';
 
 // 默认属性
@@ -197,6 +198,7 @@ const dragOption = {
 };
 const { t } = useI18n();
 const { fabric, canvasEditor } = useSelect();
+const { getCanvasBound, isOutsideCanvas } = useCalculate();
 const state = reactive({
   isDrawingLineMode: false,
   lineType: false,
@@ -335,7 +337,9 @@ const drawingLineModeSwitch = (type) => {
 };
 
 // 拖拽开始时就记录当前打算创建的元素类型
-const onDragend = (type) => {
+const onDragend = (type, e) => {
+  // 若拖拽结束点在画布外，则不进行绘制
+  if (isOutsideCanvas(e.clientX, e.clientY)) return;
   // todo 拖拽优化 this.canvas.editor.dragAddItem(event, item);
   switch (type) {
     case 'text':
@@ -367,10 +371,8 @@ onMounted(() => {
 
     canvasEditor.canvas.on('drop', (opt) => {
       // 画布元素距离浏览器左侧和顶部的距离
-      const offset = {
-        left: canvasEditor.canvas.getSelectionElement().getBoundingClientRect().left,
-        top: canvasEditor.canvas.getSelectionElement().getBoundingClientRect().top,
-      };
+      const { left, top } = getCanvasBound();
+      const offset = { left, top };
 
       // 鼠标坐标转换成画布的坐标（未经过缩放和平移的坐标）
       const point = {

@@ -59,6 +59,7 @@
 
 <script setup name="ImportSvg">
 import useSelect from '@/hooks/select';
+import useCalculate from '@/hooks/useCalculate';
 import usePageList from '@/hooks/pageList';
 import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
@@ -90,8 +91,11 @@ const {
 
 const { canvasEditor } = useSelect();
 
+const { isOutsideCanvas } = useCalculate();
+
 // 按照类型渲染
 const dragItem = async (e, item) => {
+  if (isOutsideCanvas(e.clientX, e.clientY)) return;
   Spin.show({
     render: (h) => h('div', t('alert.loading_data')),
   });

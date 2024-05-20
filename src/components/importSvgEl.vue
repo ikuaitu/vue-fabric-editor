@@ -66,6 +66,7 @@
 
 <script setup name="ImportSvg">
 import useSelect from '@/hooks/select';
+import useCalculate from '@/hooks/useCalculate';
 import usePageList from '@/hooks/pageList';
 import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
@@ -96,8 +97,11 @@ const {
 
 const { canvasEditor } = useSelect();
 
+const { isOutsideCanvas } = useCalculate();
+
 // 按照类型渲染
 const dragItem = (e) => {
+  if (isOutsideCanvas(e.clientX, e.clientY)) return;
   const target = e.target;
   const imgType = canvasEditor.getImageExtension(target.src);
   if (imgType === 'svg') {
