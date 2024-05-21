@@ -2,13 +2,15 @@
  * @Author: 秦少卫
  * @Date: 2023-04-06 22:26:57
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 22:43:45
+ * @LastEditTime: 2024-05-21 15:52:16
  * @Description: 图片替换
 -->
 
 <template>
-  <div v-if="mixinState.mSelectMode === 'one' && type === 'image'" class="box attr-item">
-    <Button @click="repleace" type="text" long>{{ $t('repleaceImg') }}</Button>
+  <div v-if="mixinState.mSelectMode === 'one' && type === 'image'" class="attr-item-box">
+    <div class="bg-item">
+      <Button @click="repleace" type="text" long>{{ $t('repleaceImg') }}</Button>
+    </div>
   </div>
 </template>
 
@@ -62,3 +64,8 @@ onBeforeUnmount(() => {
   canvasEditor.off('selectOne', init);
 });
 </script>
+<style lang="less" scoped>
+.attr-item-box {
+  margin-top: 8px;
+}
+</style>

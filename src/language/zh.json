@@ -1,16 +1,46 @@
 {
+  "bgSeting": {
+    "size": "尺寸",
+    "color": "颜色",
+    "colorMacthing": "配色",
+    "width": "宽度",
+    "height": "高度"
+  },
+  "attrSeting": {
+    "group": "成组",
+    "unGroup": "拆分组",
+    "flip": {
+      "name": "翻转",
+      "x": "水平翻转",
+      "y": "垂直翻转"
+    },
+    "align": {
+      "name": "对齐",
+      "left": "左对齐",
+      "centerX": "水平居中对齐",
+      "right": "右对齐",
+      "top": "上对齐",
+      "bottom": "下对齐",
+      "centerY": "垂直居中对齐",
+      "averageX": "水平分布",
+      "averageY": "垂直分布"
+    },
+    "centerAlign": {
+      "name": "居中",
+      "centerX": "水平居中",
+      "center": "水平垂直居中",
+      "centerY": "垂直居中"
+    }
+  },
+  "color": "颜色",
   "templates": "模板",
   "elements": "元素",
   "font_style": "文字",
   "background": "背景",
-  "size": "尺寸",
-  "width": "宽度",
-  "height": "高度",
   "grid": "网格",
   "placeholder": "请输入",
   "common_elements": "基础要素",
   "draw_elements": "绘制元素",
-  "color_macthing": "配色",
   "background_texture": "背景纹理",
   "picture": "图片",
   "everything_is_fine": "万事大吉",
@@ -109,25 +139,6 @@
     "lock": "锁定",
     "hide": "隐藏"
   },
-  "flip": {
-    "x": "水平翻转",
-    "y": "垂直翻转"
-  },
-  "center_align": {
-    "centerX": "水平居中",
-    "center": "水平垂直居中",
-    "centerY": "垂直居中"
-  },
-  "group_align": {
-    "left": "左对齐",
-    "centerX": "水平居中对齐",
-    "right": "右对齐",
-    "top": "上对齐",
-    "bottom": "下对齐",
-    "centerY": "垂直居中对齐",
-    "averageX": "水平分布",
-    "averageY": "垂直分布"
-  },
   "insertFile": {
     "insert": "插入",
     "insert_picture": "插入图片",
@@ -165,7 +176,6 @@
     "fail_copy": "复制失败"
   },
   "scenary_x": "方案 {number}",
-  "color": "颜色",
   "red_book_vertical": "红书竖版",
   "red_book_horizontal": "红书横版",
   "phone_wallpaper": "手机壁纸",

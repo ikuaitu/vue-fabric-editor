@@ -2,12 +2,15 @@
  * @Author: 秦少卫
  * @Date: 2023-04-06 23:04:38
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 14:43:26
+ * @LastEditTime: 2024-05-21 15:51:52
  * @Description: 图片滤镜
 -->
 
 <template>
   <div v-if="mixinState.mSelectMode === 'one' && state.type === 'image'" class="box">
+    <Divider plain orientation="left">
+      <h4>图片滤镜</h4>
+    </Divider>
     <Collapse>
       <Panel name="1">
         {{ $t('filters.simple') }}

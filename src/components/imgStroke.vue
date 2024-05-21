@@ -1,7 +1,9 @@
 <template>
   <div class="box" v-if="mixinState.mSelectMode === 'one' && isImage">
-    <Divider plain orientation="left">图像描边</Divider>
-
+    <!-- <Divider plain orientation="left">图像描边</Divider> -->
+    <Divider plain orientation="left">
+      <h4>图像描边</h4>
+    </Divider>
     <div class="hd-wrap">
       <div class="hd">
         <span>启用图像描边</span>
@@ -184,14 +186,14 @@ async function addImage(src: string): Promise<HTMLImageElement | undefined> {
 </script>
 
 <style lang="less" scoped>
-:deep(.ivu-divider-plain) {
-  &.ivu-divider-with-text-left {
-    margin: 10px 0;
-    font-weight: bold;
-    font-size: 16px;
-    color: #000000;
-  }
-}
+// :deep(.ivu-divider-plain) {
+//   &.ivu-divider-with-text-left {
+//     margin: 10px 0;
+//     font-weight: bold;
+//     font-size: 16px;
+//     color: #000000;
+//   }
+// }
 .box {
   margin-bottom: 20px;
   .hd-wrap {

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-17 15:58:21
+ * @LastEditTime: 2024-05-21 15:53:33
  * @Description: file content
 -->
 <template>
@@ -82,28 +82,63 @@
         <!-- 属性区域 380-->
         <div class="right-bar" v-show="state.attrBarShow">
           <div v-if="state.show" style="padding-top: 10px">
-            <element-data></element-data>
-            <!-- 新增字体样式使用 -->
-            <Button @click="canvasEditor.getFontJson()" size="small">获取字体数据</Button>
-            <set-size></set-size>
-            <bg-bar></bg-bar>
-            <group></group>
-            <replaceImg></replaceImg>
-            <filters></filters>
-            <imgStroke />
-            <div class="attr-item">
-              <lock></lock>
-              <dele></dele>
-              <clone></clone>
+            <!-- 未选择元素时 展示背景设置 -->
+            <div v-show="!mixinState.mSelectMode">
+              <set-size></set-size>
+              <bg-bar></bg-bar>
             </div>
-            <!-- 组对齐方式 -->
-            <align></align>
-            <!-- 居中对齐 -->
-            <center-align></center-align>
-            <!-- 翻转 -->
-            <flip></flip>
+
+            <!-- 多选时展示 -->
+            <div v-show="mixinState.mSelectMode === 'multiple'">
+              <!-- 分组 -->
+              <group></group>
+              <!-- <Divider plain></Divider> -->
+              <!-- 组对齐方式 -->
+              <align></align>
+              <!-- 居中对齐 -->
+              <center-align></center-align>
+            </div>
+
+            <div v-show="mixinState.mSelectMode === 'one'" class="attr-item-box">
+              <!-- <h3>快捷操作</h3> -->
+              <!-- 分组 -->
+              <group></group>
+              <!-- <Divider plain></Divider> -->
+              <Divider plain orientation="left">
+                <h4>快捷操作</h4>
+              </Divider>
+              <div class="bg-item" v-if="mixinState.mSelectMode">
+                <lock></lock>
+                <dele></dele>
+                <clone></clone>
+              </div>
+              <!-- <Divider plain></Divider> -->
+
+              <replaceImg></replaceImg>
+              <!-- 翻转 -->
+              <flip></flip>
+              <!-- 图片滤镜 -->
+              <filters></filters>
+              <!-- 图片描边 -->
+              <imgStroke />
+              <!-- 颜色 -->
+              <attributeColor></attributeColor>
+              <!-- 字体属性 -->
+              <attributeFont></attributeFont>
+              <!-- 位置信息 -->
+              <attributePostion></attributePostion>
+              <!-- 阴影 -->
+              <attributeShadow></attributeShadow>
+              <!-- 边框 -->
+              <attributeBorder></attributeBorder>
+              <!-- 关联数据 -->
+              <attributeId></attributeId>
+            </div>
+
+            <!-- 新增字体样式使用 -->
+            <!-- <Button @click="canvasEditor.getFontJson()" size="small">获取字体数据</Button> -->
           </div>
-          <attribute v-if="state.show"></attribute>
+          <!-- <attribute v-if="state.show"></attribute> -->
         </div>
         <!-- 右侧关闭按钮 -->
         <div
@@ -153,6 +188,12 @@ import imgStroke from '@/components/imgStroke.vue';
 import history from '@/components/history.vue';
 import layer from '@/components/layer.vue';
 import attribute from '@/components/attribute.vue';
+import attributePostion from '@/components/attributePostion.vue';
+import attributeId from '@/components/attributeId.vue';
+import attributeShadow from '@/components/attributeShadow.vue';
+import attributeBorder from '@/components/attributeBorder.vue';
+import attributeFont from '@/components/attributeFont.vue';
+import attributeColor from '@/components/attributeColor.vue';
 
 // 功能组件
 import { fabric } from 'fabric';
@@ -264,7 +305,7 @@ onMounted(() => {
   canvasEditor.use(DringPlugin);
   canvasEditor.use(AlignGuidLinePlugin);
   canvasEditor.use(ControlsPlugin);
-  canvasEditor.use(ControlsRotatePlugin);
+  // canvasEditor.use(ControlsRotatePlugin);
   canvasEditor.use(CenterAlignPlugin);
   canvasEditor.use(LayerPlugin);
   canvasEditor.use(CopyPlugin);

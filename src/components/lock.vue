@@ -2,14 +2,14 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 14:43:36
+ * @LastEditTime: 2024-05-21 09:21:51
  * @Description: 锁定元素
 -->
 
 <template>
   <Tooltip :content="$t('quick.lock')" v-if="mixinState.mSelectMode === 'one'">
-    <Button v-if="isLock" @click="doLock(false)" icon="md-lock" type="text"></Button>
-    <Button v-else @click="doLock(true)" icon="md-unlock" type="text"></Button>
+    <Button long v-if="isLock" @click="doLock(false)" icon="md-lock" type="text"></Button>
+    <Button long v-else @click="doLock(true)" icon="md-unlock" type="text"></Button>
   </Tooltip>
 </template>
 

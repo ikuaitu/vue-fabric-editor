@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-13 23:00:43
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:32:54
+ * @LastEditTime: 2024-05-21 15:07:27
  * @Description: 控制条插件
  */
 
@@ -231,7 +231,7 @@ class ControlsPlugin {
   }
   init() {
     // 删除图标
-    deleteControl(this.canvas);
+    // deleteControl(this.canvas);
     // 顶点图标
     peakControl();
     // 中间横杠图标

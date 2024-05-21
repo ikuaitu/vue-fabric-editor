@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-07 16:17:08
+ * @LastEditTime: 2024-05-21 08:59:36
  * @Description: 图层面板
 -->
 
@@ -161,9 +161,9 @@ onMounted(() => {
   display: block;
 }
 
-:deep(.ivu-tooltip-rel) {
-  display: block;
-}
+// :deep(.ivu-tooltip-rel) {
+//   display: block;
+// }
 .box {
   width: 100%;
 }

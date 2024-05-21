@@ -1,6 +1,6 @@
 <template>
   <Tooltip v-if="mixinState.mSelectMode === 'one'" :content="$t('quick.copy')">
-    <Button @click="clone" icon="ios-copy" type="text"></Button>
+    <Button long @click="clone" icon="ios-copy" type="text"></Button>
   </Tooltip>
 </template>
 

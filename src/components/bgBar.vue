@@ -1,24 +1,27 @@
 <template>
   <div v-if="!mixinState.mSelectMode">
-    <Divider orientation="left" plain>{{ $t('color') }}</Divider>
-    <Form :label-width="40">
-      <FormItem :label="$t('color')" prop="name">
-        <ColorPicker v-model="color" @on-change="setThisColor" alpha size="small" />
-      </FormItem>
-    </Form>
-    <Divider orientation="left" plain>{{ $t('color_macthing') }}</Divider>
-    <div class="color-list">
-      <template v-for="(item, i) in colorList" :key="item.label + i">
-        <div class="item">
-          {{ item.label }}:
-          <span
-            v-for="color in item.color"
-            :key="color"
-            :style="`background:${color}`"
-            @click="setColor(color)"
-          ></span>
-        </div>
-      </template>
+    <div class="attr-item-box">
+      <!-- <h3>{{ $t('bgSeting.color') }}</h3> -->
+      <Divider plain orientation="left">
+        <h4>{{ $t('bgSeting.color') }}</h4>
+      </Divider>
+      <Form :label-width="0">
+        <FormItem prop="name">
+          <ColorPicker v-model="color" @on-change="setThisColor" alpha />
+        </FormItem>
+      </Form>
+      <!-- <Divider plain></Divider> -->
+    </div>
+    <div class="attr-item-box">
+      <!-- <h3>{{ $t('bgSeting.colorMacthing') }}</h3> -->
+      <Divider plain orientation="left">
+        <h4>{{ $t('bgSeting.colorMacthing') }}</h4>
+      </Divider>
+      <div class="color-list">
+        <template v-for="(item, i) in colorList" :key="item + i">
+          <span :style="`background:${item}`" @click="setColor(item)"></span>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -26,36 +29,33 @@
 <script setup name="BgBar">
 import { ref } from 'vue';
 import useSelect from '@/hooks/select';
-import { useI18n } from 'vue-i18n';
-
-const { t } = useI18n();
 const { mixinState, canvasEditor } = useSelect();
 
-const colorList = computed(() => [
-  {
-    label: t('scenary_x', { number: 1 }),
-    color: ['#5F2B63', '#B23554', '#F27E56', '#FCE766'],
-  },
-  {
-    label: t('scenary_x', { number: 2 }),
-    color: ['#86DCCD', '#E7FDCB', '#FFDC84', '#F57677'],
-  },
-  {
-    label: t('scenary_x', { number: 3 }),
-    color: ['#5FC2C7', '#98DFE5', '#C2EFF3', '#DDFDFD'],
-  },
-  {
-    label: t('scenary_x', { number: 4 }),
-    color: ['#9EE9D3', '#2FC6C8', '#2D7A9D', '#48466d'],
-  },
-  {
-    label: t('scenary_x', { number: 5 }),
-    color: ['#61c0bf', '#bbded6', '#fae3d9', '#ffb6b9'],
-  },
-  {
-    label: t('scenary_x', { number: 6 }),
-    color: ['#ffaaa5', '#ffd3b6', '#dcedc1', '#a8e6cf'],
-  },
+const colorList = ref([
+  '#5F2B63',
+  '#B23554',
+  '#F27E56',
+  '#FCE766',
+  '#86DCCD',
+  '#E7FDCB',
+  '#FFDC84',
+  '#F57677',
+  '#5FC2C7',
+  '#98DFE5',
+  '#C2EFF3',
+  '#DDFDFD',
+  '#9EE9D3',
+  '#2FC6C8',
+  '#2D7A9D',
+  '#48466d',
+  '#61c0bf',
+  '#bbded6',
+  '#fae3d9',
+  '#ffb6b9',
+  '#ffaaa5',
+  '#ffd3b6',
+  '#dcedc1',
+  '#a8e6cf',
 ]);
 
 const color = ref('rgba(255, 255, 255, 1)');
@@ -86,7 +86,6 @@ onUnmounted(() => {
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 :deep(.ivu-form-item) {
   margin-bottom: 0;
@@ -94,37 +93,16 @@ onUnmounted(() => {
     display: unset;
   }
 }
-.img {
-  width: 50px;
-  padding: 5px;
-  background: #f5f5f5;
-  margin-left: 2px;
-  height: 70px;
-  cursor: pointer;
-}
-
 .color-list {
-  padding: 10px 0;
-  .item {
-    padding-bottom: 5px;
-  }
+  display: flex;
+  flex-wrap: wrap;
   span {
-    display: inline-block;
-    margin-left: 6px;
-    background: #f5f5f5;
-    height: 20px;
-    width: 20px;
-    font-size: 12px;
-    line-height: 20px;
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    border: 3px solid #fff;
     vertical-align: middle;
     cursor: pointer;
-  }
-}
-
-:deep(.ivu-divider-plain) {
-  &.ivu-divider-with-text-left {
-    margin: 10px 0;
-    font-weight: bold;
   }
 }
 </style>

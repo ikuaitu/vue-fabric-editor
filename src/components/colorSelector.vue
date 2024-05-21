@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2023-02-16 22:52:00
- * @LastEditors: June
- * @LastEditTime: 2024-01-31 12:46:50
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-05-21 15:15:04
  * @Description: 颜色选择器
 -->
 <template>
@@ -36,8 +36,8 @@
 </template>
 
 <script setup name="ColorSelector">
-import 'color-gradient-picker-vue3/dist/style.css';
-import gradientColorPicker from 'color-gradient-picker-vue3';
+// import 'color-gradient-picker-vue3/dist/style.css';
+// import gradientColorPicker from 'color-gradient-picker-vue3';
 import { fabric } from 'fabric';
 import useSelect from '@/hooks/select';
 import { debounce } from 'lodash-es';
