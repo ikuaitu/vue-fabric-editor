@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:53:33
+ * @LastEditTime: 2024-05-21 16:42:50
  * @Description: file content
 -->
 <template>
@@ -107,10 +107,11 @@
               <Divider plain orientation="left">
                 <h4>快捷操作</h4>
               </Divider>
-              <div class="bg-item" v-if="mixinState.mSelectMode">
+              <div class="bg-item" v-show="mixinState.mSelectMode">
                 <lock></lock>
                 <dele></dele>
                 <clone></clone>
+                <hide></hide>
               </div>
               <!-- <Divider plain></Divider> -->
 
@@ -165,6 +166,7 @@ import previewCurrent from '@/components/previewCurrent';
 import save from '@/components/save.vue';
 import lang from '@/components/lang.vue';
 import clone from '@/components/clone.vue';
+import hide from '@/components/hide.vue';
 import group from '@/components/group.vue';
 import zoom from '@/components/zoom.vue';
 import dragMode from '@/components/dragMode.vue';
@@ -187,7 +189,7 @@ import imgStroke from '@/components/imgStroke.vue';
 // 右侧组件
 import history from '@/components/history.vue';
 import layer from '@/components/layer.vue';
-import attribute from '@/components/attribute.vue';
+// import attribute from '@/components/attribute.vue';
 import attributePostion from '@/components/attributePostion.vue';
 import attributeId from '@/components/attributeId.vue';
 import attributeShadow from '@/components/attributeShadow.vue';

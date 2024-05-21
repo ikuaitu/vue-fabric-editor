@@ -1,15 +1,15 @@
 <!--
  * @Author: wuchenguang1998
  * @Date: 2024-05-13 22:34:03
- * @LastEditors: wuchenguang1998
- * @LastEditTime: 2024-05-13 23:40:48
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-05-21 16:42:31
  * @Description: 隐藏或显示元素
 -->
 
 <template>
   <Tooltip :content="$t('quick.hide')" v-if="mixinState.mSelectMode === 'one'">
-    <Button v-if="isHide" @click="doHide(false)" icon="md-eye-off" type="text"></Button>
-    <Button v-else @click="doHide(true)" icon="md-eye" type="text"></Button>
+    <Button long v-if="isHide" @click="doHide(false)" icon="md-eye-off" type="text"></Button>
+    <Button long v-else @click="doHide(true)" icon="md-eye" type="text"></Button>
   </Tooltip>
 </template>
 
