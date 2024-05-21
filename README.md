@@ -151,6 +151,11 @@ pnpm dev
   ](https://github.com/Qiu-Jun)。
 - 标尺功能作者[刘明野](https://github.com/liumingye)。
 
+## 管理员
+
+<!-- readme: collaborators -start -->
+<!-- readme: collaborators -end -->
+
 ## 贡献者
 
 <!-- readme: collaborators,contributors -start -->
