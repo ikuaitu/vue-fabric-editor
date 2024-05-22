@@ -2,14 +2,18 @@
  * @Author: 秦少卫
  * @Date: 2024-05-21 10:59:48
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:56:18
+ * @LastEditTime: 2024-05-22 09:12:41
  * @Description: 渐变
 -->
 
 <template>
   <div
     class="box attr-item-box"
-    v-if="mixinState.mSelectMode === 'one' && mixinState.mSelectOneType !== 'image'"
+    v-if="
+      mixinState.mSelectMode === 'one' &&
+      mixinState.mSelectOneType !== 'image' &&
+      mixinState.mSelectOneType !== 'group'
+    "
   >
     <Divider plain orientation="left"><h4>颜色</h4></Divider>
     <!-- 通用属性 -->
