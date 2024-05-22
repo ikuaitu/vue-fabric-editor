@@ -30,6 +30,7 @@ interface FontSource {
 class FontPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
+  private tempPromise: Promise<FontSource[]> | null;
   static pluginName = 'FontPlugin';
   static apis = ['getFontList', 'loadFont', 'getFontJson', 'downFontByJSON'];
   repoSrc: string;
@@ -39,6 +40,7 @@ class FontPlugin {
     this.editor = editor;
     this.repoSrc = config.repoSrc;
     this.cacheList = [];
+    this.tempPromise = null;
   }
 
   hookImportBefore(json: string) {
@@ -49,7 +51,8 @@ class FontPlugin {
     if (this.cacheList.length) {
       return Promise.resolve(this.cacheList);
     }
-    return axios
+    if (this.tempPromise) return this.tempPromise;
+    this.tempPromise = axios
       .get(`${this.repoSrc}/api/fonts?populate=*&pagination[pageSize]=100`)
       .then((res) => {
         const list = res.data.data.map((item: any) => {
@@ -64,6 +67,7 @@ class FontPlugin {
         this.createFontCSS(list);
         return list;
       });
+    return this.tempPromise;
   }
 
   downFontByJSON(str: string) {
