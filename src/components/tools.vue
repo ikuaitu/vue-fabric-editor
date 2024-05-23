@@ -177,6 +177,26 @@
           ></path>
         </svg>
       </span>
+      <span
+        @click="drawingLineModeSwitch('polygon')"
+        :class="state.isDrawingLineMode && state.lineType === 'polygon' && 'bg'"
+      >
+        <svg
+          t="1650874633978"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="203255"
+          width="26"
+          height="26"
+        >
+          <path
+            d="M161.152 398.016l134.016 412.416h433.664l134.016-412.416L512 143.104 161.152 398.08zM512 64l426.048 309.568-162.752 500.864H248.704L85.952 373.568 512 64z"
+            p-id="203355"
+          ></path>
+        </svg>
+      </span>
     </div>
   </div>
 </template>
@@ -321,11 +341,16 @@ const addRect = (option) => {
   canvasEditor.canvas.setActiveObject(rect);
 };
 const drawingLineModeSwitch = (type) => {
+  if (type === 'polygon') {
+    canvasEditor.beginDrawPolygon();
+    return;
+  } else {
+    canvasEditor.endDrawPolygon();
+  }
   state.lineType = type;
   state.isDrawingLineMode = !state.isDrawingLineMode;
   canvasEditor.setMode(state.isDrawingLineMode);
   canvasEditor.setLineType(type);
-
   // this.canvasEditor.setMode(this.isDrawingLineMode);
   // this.canvasEditor.setArrow(isArrow);
   canvasEditor.canvas.forEachObject((obj) => {

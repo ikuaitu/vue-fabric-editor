@@ -233,6 +233,7 @@ import Editor, {
   WaterMarkPlugin,
   FontPlugin,
   PolygonModifyPlugin,
+  DrawPolygonPlugin,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
 
@@ -327,6 +328,7 @@ onMounted(() => {
   canvasEditor.use(HistoryPlugin);
   canvasEditor.use(FlipPlugin);
   canvasEditor.use(RulerPlugin);
+  canvasEditor.use(DrawPolygonPlugin);
   canvasEditor.use(FontPlugin, {
     repoSrc: APIHOST,
   });
