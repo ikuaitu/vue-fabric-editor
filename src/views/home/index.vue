@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 16:42:50
+ * @LastEditTime: 2024-05-23 09:16:59
  * @Description: file content
 -->
 <template>
@@ -114,7 +114,9 @@
                 <hide></hide>
               </div>
               <!-- <Divider plain></Divider> -->
-
+              <!-- 居中对齐 -->
+              <center-align></center-align>
+              <!-- 替换图片 -->
               <replaceImg></replaceImg>
               <!-- 翻转 -->
               <flip></flip>
@@ -212,7 +214,7 @@ import Editor, {
   DringPlugin,
   AlignGuidLinePlugin,
   ControlsPlugin,
-  ControlsRotatePlugin,
+  // ControlsRotatePlugin,
   CenterAlignPlugin,
   LayerPlugin,
   CopyPlugin,
