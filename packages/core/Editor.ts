@@ -34,6 +34,10 @@ class Editor extends EventEmitter {
     this._initServersPlugin();
   }
 
+  get fabricCanvas() {
+    return this.canvas;
+  }
+
   // 引入组件
   use(plugin: IPluginClass, options?: IPluginOption) {
     if (this._checkPlugin(plugin) && this.canvas) {

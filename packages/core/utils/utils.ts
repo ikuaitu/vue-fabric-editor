@@ -82,10 +82,28 @@ export function downFile(fileStr: string, fileType: string) {
   anchorEl.remove();
 }
 
+export function drawImg(
+  ctx: CanvasRenderingContext2D,
+  left: number,
+  top: number,
+  img: HTMLImageElement,
+  wSize: number,
+  hSize: number,
+  angle: number | undefined
+) {
+  if (angle === undefined) return;
+  ctx.save();
+  ctx.translate(left, top);
+  ctx.rotate(angle);
+  ctx.drawImage(img, -wSize / 2, -hSize / 2, wSize, hSize);
+  ctx.restore();
+}
+
 export default {
   getImgStr,
   downFile,
   selectFiles,
   insertImgFile,
   clipboardText,
+  drawImg,
 };

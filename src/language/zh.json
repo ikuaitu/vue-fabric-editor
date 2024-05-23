@@ -137,7 +137,8 @@
     "del": "删除",
     "copy": "复制",
     "lock": "锁定",
-    "hide": "隐藏"
+    "hide": "隐藏",
+    "editPoly": "编辑多边形"
   },
   "insertFile": {
     "insert": "插入",
