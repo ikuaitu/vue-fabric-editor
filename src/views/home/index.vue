@@ -112,6 +112,7 @@
                 <dele></dele>
                 <clone></clone>
                 <hide></hide>
+                <edit></edit>
               </div>
               <!-- <Divider plain></Divider> -->
               <!-- 居中对齐 -->
@@ -231,7 +232,9 @@ import Editor, {
   MaterialPlugin,
   WaterMarkPlugin,
   FontPlugin,
+  PolygonModifyPlugin,
 } from '@kuaitu/core';
+import Edit from '@/components/edit.vue';
 
 // 创建编辑器
 const canvasEditor = new Editor();
@@ -307,6 +310,7 @@ onMounted(() => {
   // 初始化编辑器
   canvasEditor.init(canvas);
   canvasEditor.use(DringPlugin);
+  canvasEditor.use(PolygonModifyPlugin);
   canvasEditor.use(AlignGuidLinePlugin);
   canvasEditor.use(ControlsPlugin);
   // canvasEditor.use(ControlsRotatePlugin);

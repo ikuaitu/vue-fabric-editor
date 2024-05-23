@@ -26,6 +26,7 @@ export { default as RulerPlugin } from './plugin/RulerPlugin';
 export { default as MaterialPlugin } from './plugin/MaterialPlugin';
 export { default as WaterMarkPlugin } from './plugin/WaterMarkPlugin';
 export { default as FontPlugin } from './plugin/FontPlugin';
+export { default as PolygonModifyPlugin } from './plugin/PolygonModifyPlugin';
 import EventType from './eventType';
 import Utils from './utils/utils';
 
