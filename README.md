@@ -150,6 +150,7 @@ pnpm dev
 - [color-gradient-picker-vue3](https://github.com/Qiu-Jun/color-gradient-picker-vue3) 一个 vue3 版本的渐变组件，作者[Qiu-Jun
   ](https://github.com/Qiu-Jun)。
 - 标尺功能作者[刘明野](https://github.com/liumingye)。
+- [palxiao](https://github.com/palxiao/poster-design/tree/main/packages/color-picker)设计编辑器的渐变组件
 
 ## 管理员
 
