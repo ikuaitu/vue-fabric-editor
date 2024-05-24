@@ -7,52 +7,78 @@ type IEditor = Editor;
 type LineCoords = [fabric.Point, fabric.Point];
 
 class DrawPolygonPlugin {
-  polygon: fabric.Polygon | null = null;
   isDrawingPolygon = false;
   points: fabric.Point[] = [];
   lines: fabric.Line[] = [];
+  anchors: fabric.Circle[] = [];
   tempPoint: fabric.Point | undefined;
   tempLine: fabric.Line | undefined;
   lastPoint: fabric.Point | undefined;
+  // 最后一点和第一点的距离为<=delta即闭合
+  delta = 5;
   static pluginName = 'DrawPolygonPlugin';
-  static apis = ['beginDrawPolygon', 'endDrawPolygon'];
-  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
-    this.init();
+  static apis = ['beginDrawPolygon', 'endDrawPolygon', 'discardPolygon'];
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
+  _bindEvent() {
+    window.addEventListener('keydown', this._escListener);
+    this.canvas.on('mouse:down', this._downHandler);
+    this.canvas.on('mouse:move', this._moveHandler);
   }
-  init() {
-    this.canvas.on('mouse:down', (ev) => {
-      if (!this.isDrawingPolygon) return;
-      const absPointer = ev.absolutePointer!;
-      const confirmPoint = new fabric.Point(absPointer.x, absPointer.y);
-      if (this.tempPoint == null) {
-        this.tempPoint = new fabric.Point(absPointer.x, absPointer.y);
+  _escListener = (evt: KeyboardEvent) => {
+    if (evt.key === 'Escape' || evt['keyCode'] === 27) {
+      this._confirmBuildPolygon();
+    }
+  };
+  _downHandler = (ev: fabric.IEvent<Event>) => {
+    if (!this.isDrawingPolygon) return;
+    const absPointer = ev.absolutePointer!;
+    const confirmPoint = new fabric.Point(absPointer.x, absPointer.y);
+    const anchor = this._mackAnchor(absPointer);
+    this.anchors.push(anchor);
+    if (this.tempLine == null) {
+      const tempPoint = new fabric.Point(absPointer.x, absPointer.y);
+      this.tempLine = this._makeLine([tempPoint, tempPoint]);
+      this.canvas.add(this.tempLine);
+    } else {
+      this.tempLine.set({
+        x1: absPointer.x,
+        y1: absPointer.y,
+        x2: absPointer.x,
+        y2: absPointer.y,
+      });
+    }
+    if (this.lastPoint) {
+      const line = this._makeLine([this.lastPoint, confirmPoint]);
+      this.lines.push(line);
+      this.canvas.add(line);
+      if (this.points[0].distanceFrom(confirmPoint) / this.canvas.getZoom() <= this.delta) {
+        this._confirmBuildPolygon();
+        return;
       }
-      if (this.lastPoint) {
-        const line = this._makeLine([this.lastPoint, confirmPoint]);
-        this.lines.push(line);
-        this.canvas.add(line);
-        if (this.points[0].distanceFrom(confirmPoint) <= 3) {
-          console.info('finished');
-          const poly = this._createPolygon();
-          this.canvas.add(poly);
-          this.lines.forEach((item) => {
-            this.canvas.remove(item);
-          });
-          this.lines.length = 0;
-          this.isDrawingPolygon = false;
-          this.lastPoint = undefined;
-          this.tempPoint = undefined;
-          return;
-        }
-      }
-      this.lastPoint = confirmPoint;
-      this.points.push(confirmPoint);
+    }
+    this.canvas.add(anchor);
+    this.lastPoint = confirmPoint;
+    this.points.push(confirmPoint);
+    this._ensureAnchorsForward();
+  };
+  _moveHandler = (ev: fabric.IEvent<Event>) => {
+    if (!this.isDrawingPolygon || !this.tempLine) return;
+    const absPoint = ev.absolutePointer!;
+    this.tempLine.set({
+      x2: absPoint.x,
+      y2: absPoint.y,
     });
-    // this.canvas.on('mouse:move', (ev) => {
-    //   if (!this.isDrawingPolygon) return;
-    //   const absPointer = ev.absolutePointer!;
-    //   this.tempPoint?.setXY(absPointer.x, absPointer.y);
-    // });
+    this.canvas.renderAll();
+  };
+  _ensureAnchorsForward() {
+    this.anchors.forEach((item) => {
+      item.bringForward();
+    });
+  }
+  _unbindEvent() {
+    window.removeEventListener('keydown', this._escListener);
+    this.canvas.off('mouse:down', this._downHandler);
+    this.canvas.off('mouse:move', this._moveHandler);
   }
   _createPolygon() {
     return new fabric.Polygon([...this.points], {
@@ -60,7 +86,6 @@ class DrawPolygonPlugin {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       id: uuid(),
-      objectCaching: false,
     });
   }
   _makeLine(coors: LineCoords) {
@@ -73,6 +98,28 @@ class DrawPolygonPlugin {
       evented: false,
     });
   }
+  _mackAnchor(position: fabric.Point) {
+    return new fabric.Circle({
+      radius: 5,
+      left: position.x,
+      top: position.y,
+      fill: 'rgb(178, 53, 84)',
+      scaleX: 1 / this.canvas.getZoom(),
+      scaleY: 1 / this.canvas.getZoom(),
+      strokeWidth: 1 / this.canvas.getZoom(),
+      originX: 'center',
+      originY: 'center',
+      evented: false,
+      selectable: false,
+    });
+  }
+  _confirmBuildPolygon() {
+    if (this.points.length >= 3) {
+      const poly = this._createPolygon();
+      this.canvas.add(poly);
+    }
+    this.discardPolygon();
+  }
   beginDrawPolygon() {
     this.canvas.discardActiveObject();
     this.canvas.getObjects().forEach((obj) => {
@@ -81,24 +128,28 @@ class DrawPolygonPlugin {
     });
     this.canvas.requestRenderAll();
     this.isDrawingPolygon = true;
-    this.pointIndex = 0;
+    this._bindEvent();
   }
   endDrawPolygon() {
-    if (this.polygon == null) return;
-    if (this.points.length < 3) {
-      this.canvas.remove(this.polygon);
-    } else {
-      this.polygon.set({
-        selectable: true,
-        evented: true,
-        strokeUniform: false,
-      });
-    }
-    this.polygon.setCoords();
     this.canvas.discardActiveObject();
     this.isDrawingPolygon = false;
-    this.polygon = null;
-    this.pointIndex = -1;
+    this.lastPoint = undefined;
+    this.tempPoint = undefined;
+    this._unbindEvent();
+  }
+  discardPolygon() {
+    this.lines.forEach((item) => {
+      this.canvas.remove(item);
+    });
+    this.anchors.forEach((item) => {
+      this.canvas.remove(item);
+    });
+    this.tempLine && this.canvas.remove(this.tempLine);
+    this.tempLine = undefined;
+    this.anchors = [];
+    this.lines = [];
+    this.points = [];
+    this.endDrawPolygon();
   }
 }
 

@@ -178,7 +178,7 @@
         </svg>
       </span>
       <span
-        @click="drawingLineModeSwitch('polygon')"
+        @click="drawPolygon"
         :class="state.isDrawingLineMode && state.lineType === 'polygon' && 'bg'"
       >
         <svg
@@ -340,12 +340,20 @@ const addRect = (option) => {
   }
   canvasEditor.canvas.setActiveObject(rect);
 };
-const drawingLineModeSwitch = (type) => {
-  if (type === 'polygon') {
+const drawPolygon = () => {
+  if (state.lineType !== 'polygon') {
+    state.lineType = 'polygon';
+    state.isDrawingLineMode = true;
     canvasEditor.beginDrawPolygon();
-    return;
+    ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
   } else {
-    canvasEditor.endDrawPolygon();
+    state.isDrawingLineMode = false;
+    canvasEditor.discardPolygon();
+  }
+};
+const drawingLineModeSwitch = (type) => {
+  if (state.lineType === 'polygon') {
+    canvasEditor.discardPolygon();
   }
   state.lineType = type;
   state.isDrawingLineMode = !state.isDrawingLineMode;
@@ -353,10 +361,14 @@ const drawingLineModeSwitch = (type) => {
   canvasEditor.setLineType(type);
   // this.canvasEditor.setMode(this.isDrawingLineMode);
   // this.canvasEditor.setArrow(isArrow);
+  ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
+};
+
+const ensureObjectSelEvStatus = (evented, selectable) => {
   canvasEditor.canvas.forEachObject((obj) => {
     if (obj.id !== 'workspace') {
-      obj.selectable = !state.isDrawingLineMode;
-      obj.evented = !state.isDrawingLineMode;
+      obj.selectable = selectable;
+      obj.evented = evented;
     }
   });
 };
