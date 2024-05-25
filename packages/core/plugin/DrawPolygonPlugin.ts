@@ -1,11 +1,13 @@
 import { fabric } from 'fabric';
 import Editor from '../Editor';
 import { v4 as uuid } from 'uuid';
+import { shiftAngle } from '../utils/utils';
 
 type IEditor = Editor;
 
 type LineCoords = [fabric.Point, fabric.Point];
-
+type OffListener = (ev: fabric.IEvent) => void;
+type OnEnd = (...args: any[]) => void;
 class DrawPolygonPlugin {
   isDrawingPolygon = false;
   points: fabric.Point[] = [];
@@ -14,6 +16,7 @@ class DrawPolygonPlugin {
   tempPoint: fabric.Point | undefined;
   tempLine: fabric.Line | undefined;
   lastPoint: fabric.Point | undefined;
+  onEnd?: OnEnd;
   // 最后一点和第一点的距离为<=delta即闭合
   delta = 5;
   static pluginName = 'DrawPolygonPlugin';
@@ -29,7 +32,7 @@ class DrawPolygonPlugin {
       this._confirmBuildPolygon();
     }
   };
-  _downHandler = (ev: fabric.IEvent<Event>) => {
+  _downHandler = (ev: fabric.IEvent<MouseEvent>): void => {
     if (!this.isDrawingPolygon) return;
     const absPointer = ev.absolutePointer!;
     const confirmPoint = new fabric.Point(absPointer.x, absPointer.y);
@@ -40,11 +43,13 @@ class DrawPolygonPlugin {
       this.tempLine = this._makeLine([tempPoint, tempPoint]);
       this.canvas.add(this.tempLine);
     } else {
+      ev.e.shiftKey && confirmPoint.setXY(this.tempLine.x2!, this.tempLine.y2!);
+      anchor.set({ left: confirmPoint.x, top: confirmPoint.y });
       this.tempLine.set({
-        x1: absPointer.x,
-        y1: absPointer.y,
-        x2: absPointer.x,
-        y2: absPointer.y,
+        x1: confirmPoint.x,
+        y1: confirmPoint.y,
+        x2: confirmPoint.x,
+        y2: confirmPoint.y,
       });
     }
     if (this.lastPoint) {
@@ -61,13 +66,21 @@ class DrawPolygonPlugin {
     this.points.push(confirmPoint);
     this._ensureAnchorsForward();
   };
-  _moveHandler = (ev: fabric.IEvent<Event>) => {
+  _moveHandler = (ev: fabric.IEvent<MouseEvent>): void => {
     if (!this.isDrawingPolygon || !this.tempLine) return;
     const absPoint = ev.absolutePointer!;
-    this.tempLine.set({
-      x2: absPoint.x,
-      y2: absPoint.y,
-    });
+    if (ev.e.shiftKey && this.lastPoint) {
+      const point = shiftAngle(this.lastPoint, absPoint);
+      this.tempLine.set({
+        x2: point.x,
+        y2: point.y,
+      });
+    } else {
+      this.tempLine.set({
+        x2: absPoint.x,
+        y2: absPoint.y,
+      });
+    }
     this.canvas.renderAll();
   };
   _ensureAnchorsForward() {
@@ -77,8 +90,8 @@ class DrawPolygonPlugin {
   }
   _unbindEvent() {
     window.removeEventListener('keydown', this._escListener);
-    this.canvas.off('mouse:down', this._downHandler);
-    this.canvas.off('mouse:move', this._moveHandler);
+    this.canvas.off('mouse:down', this._downHandler as OffListener);
+    this.canvas.off('mouse:move', this._moveHandler as OffListener);
   }
   _createPolygon() {
     return new fabric.Polygon([...this.points], {
@@ -120,12 +133,16 @@ class DrawPolygonPlugin {
     }
     this.discardPolygon();
   }
-  beginDrawPolygon() {
+  _prepare() {
     this.canvas.discardActiveObject();
     this.canvas.getObjects().forEach((obj) => {
       obj.selectable = false;
       obj.hasControls = false;
     });
+  }
+  beginDrawPolygon(onEnd?: OnEnd) {
+    this._prepare();
+    this.onEnd = onEnd;
     this.canvas.requestRenderAll();
     this.isDrawingPolygon = true;
     this._bindEvent();
@@ -136,6 +153,8 @@ class DrawPolygonPlugin {
     this.lastPoint = undefined;
     this.tempPoint = undefined;
     this._unbindEvent();
+    this.onEnd && this.onEnd();
+    this.onEnd = undefined;
   }
   discardPolygon() {
     this.lines.forEach((item) => {
