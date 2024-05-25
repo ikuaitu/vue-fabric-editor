@@ -22,6 +22,10 @@ class DrawPolygonPlugin {
   static pluginName = 'DrawPolygonPlugin';
   static apis = ['beginDrawPolygon', 'endDrawPolygon', 'discardPolygon'];
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
+
+  _isUsingHistory() {
+    return this.canvas.offHistory && typeof this.canvas.offHistory === 'function';
+  }
   _bindEvent() {
     window.addEventListener('keydown', this._escListener);
     this.canvas.on('mouse:down', this._downHandler);
@@ -93,8 +97,8 @@ class DrawPolygonPlugin {
     this.canvas.off('mouse:down', this._downHandler as OffListener);
     this.canvas.off('mouse:move', this._moveHandler as OffListener);
   }
-  _createPolygon() {
-    return new fabric.Polygon([...this.points], {
+  _createPolygon(points: fabric.Point[]) {
+    return new fabric.Polygon(points, {
       fill: '#ccc',
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -127,11 +131,15 @@ class DrawPolygonPlugin {
     });
   }
   _confirmBuildPolygon() {
-    if (this.points.length >= 3) {
-      const poly = this._createPolygon();
+    const points = this.points;
+    this.discardPolygon();
+    if (this._isUsingHistory()) {
+      this.canvas.historyProcessing = false;
+    }
+    if (points.length >= 3) {
+      const poly = this._createPolygon(points);
       this.canvas.add(poly);
     }
-    this.discardPolygon();
   }
   _prepare() {
     this.canvas.discardActiveObject();
@@ -143,6 +151,9 @@ class DrawPolygonPlugin {
   beginDrawPolygon(onEnd?: OnEnd) {
     this._prepare();
     this.onEnd = onEnd;
+    if (this._isUsingHistory()) {
+      this.canvas.historyProcessing = true;
+    }
     this.canvas.requestRenderAll();
     this.isDrawingPolygon = true;
     this._bindEvent();
