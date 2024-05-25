@@ -2,8 +2,8 @@
  * @Author: June
  * @Description: 水印插件
  * @Date: 2024-04-21 08:30:48
- * @LastEditors: June
- * @LastEditTime: 2024-04-21 11:07:07
+ * @LastEditors: June 1601745371@qq.com
+ * @LastEditTime: 2024-05-23 17:56:45
  */
 import { cloneDeep } from 'lodash-es';
 import { fabric } from 'fabric';
@@ -41,7 +41,7 @@ class WaterMarkPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
   static pluginName = 'WaterMarkPlugin';
-  static apis = ['drawWaterMark', 'clearWaterMMatk'];
+  static apis = ['drawWaterMark', 'clearWaterMMatk', 'updateDrawStatus'];
   private hadDraw = false;
   private drawOps: IDrawOps = defaultOptions;
   constructor(canvas: fabric.Canvas, editor: IEditor) {
@@ -169,6 +169,11 @@ class WaterMarkPlugin {
         originY: 'top',
       });
     });
+  }
+
+  // 更新handDrow 导入json时无法知道是否绘制
+  updateDrawStatus(status: boolean) {
+    this.hadDraw = status;
   }
 
   clearWaterMMatk() {

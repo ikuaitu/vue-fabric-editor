@@ -149,7 +149,8 @@ pnpm dev
 
 - [color-gradient-picker-vue3](https://github.com/Qiu-Jun/color-gradient-picker-vue3) 一个 vue3 版本的渐变组件，作者[Qiu-Jun
   ](https://github.com/Qiu-Jun)。
-- 标尺功能作者[刘明野](https://github.com/liumingye)。
+- [刘明野](https://github.com/liumingye)标尺功能作者。
+- [palxiao](https://github.com/palxiao/poster-design/tree/main/packages/color-picker)设计编辑器的渐变组件。
 
 ## 管理员
 
@@ -292,17 +293,17 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/a847244052">
-                    <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
-                    <br />
-                    <sub><b>a847244052</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/zjc2233">
                     <img src="https://avatars.githubusercontent.com/u/43945226?v=4" width="80;" alt="zjc2233"/>
                     <br />
                     <sub><b>zjc2233</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/a847244052">
+                    <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
+                    <br />
+                    <sub><b>a847244052</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -435,6 +436,13 @@ pnpm dev
                     <img src="https://avatars.githubusercontent.com/u/12006542?v=4" width="80;" alt="liucity"/>
                     <br />
                     <sub><b>liucity</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/ByeWord">
+                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
+                    <br />
+                    <sub><b>ByeWord</b></sub>
                 </a>
             </td>
 		</tr>

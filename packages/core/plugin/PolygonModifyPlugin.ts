@@ -99,12 +99,16 @@ function renderIconEdge(
 
 class PolygonModifyPlugin {
   public isEdit: boolean;
+  private img: HTMLImageElement;
   static pluginName = 'PolygonModifyPlugin';
   static events = [];
   static apis = ['toggleEdit', 'activeEdit', 'inActiveEdit'];
 
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.isEdit = false;
+    const img = document.createElement('img');
+    img.src = edgeImg;
+    this.img = img;
     this.init();
   }
   init() {
@@ -124,6 +128,7 @@ class PolygonModifyPlugin {
       this._ensureEvent(poly);
       if (poly.points == null) return;
       const lastControl = poly.points.length - 1;
+      const This = this;
       poly.controls = poly.points.reduce<Record<string, PointIndexControl>>(function (
         acc,
         point,
@@ -133,7 +138,7 @@ class PolygonModifyPlugin {
           positionHandler: polygonPositionHandler,
           actionHandler: anchorWrapper(index > 0 ? index - 1 : lastControl, actionHandler),
           actionName: 'modifyPolygon',
-          render: renderIconEdge,
+          render: (...args) => renderIconEdge(...args, This.img),
         });
         Object.defineProperty(acc['p' + index], 'pointIndex', { value: index });
         return acc;
