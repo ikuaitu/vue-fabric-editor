@@ -4,11 +4,13 @@ declare namespace fabric {
     lowerCanvasEl: HTMLElement;
     wrapperEl: HTMLElement;
     isDragging: boolean;
+    historyProcessing: boolean;
     _currentTransform: unknown;
     extraProps: any;
     clearHistory(): void;
     _historyNext(): void;
     _historyInit(): void;
+    offHistory(): void;
     _centerObject: (obj: fabric.Object, center: fabric.Point) => fabric.Canvas;
     _setupCurrentTransform(e: Event, target: fabric.Object, alreadySelected: boolean): void;
   }
