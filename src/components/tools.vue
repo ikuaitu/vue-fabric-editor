@@ -341,13 +341,17 @@ const addRect = (option) => {
   canvasEditor.canvas.setActiveObject(rect);
 };
 const drawPolygon = () => {
+  const onEnd = () => {
+    state.lineType = false;
+    state.isDrawingLineMode = false;
+    ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
+  };
   if (state.lineType !== 'polygon') {
     state.lineType = 'polygon';
     state.isDrawingLineMode = true;
-    canvasEditor.beginDrawPolygon();
+    canvasEditor.beginDrawPolygon(onEnd);
     ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
   } else {
-    state.isDrawingLineMode = false;
     canvasEditor.discardPolygon();
   }
 };
