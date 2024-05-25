@@ -28,6 +28,7 @@ export { default as WaterMarkPlugin } from './plugin/WaterMarkPlugin';
 export { default as FontPlugin } from './plugin/FontPlugin';
 export { default as PolygonModifyPlugin } from './plugin/PolygonModifyPlugin';
 export { default as DrawPolygonPlugin } from './plugin/DrawPolygonPlugin';
+export { default as FreeDrawPlugin } from './plugin/FreeDrawPlugin';
 import EventType from './eventType';
 import Utils from './utils/utils';
 

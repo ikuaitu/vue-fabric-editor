@@ -197,6 +197,12 @@
           ></path>
         </svg>
       </span>
+      <span
+        @click="freeDraw"
+        :class="state.isDrawingLineMode && state.lineType === 'freeDraw' && 'bg'"
+      >
+        <Icon type="md-brush" :size="22" />
+      </span>
     </div>
   </div>
 </template>
@@ -209,6 +215,10 @@ import useSelect from '@/hooks/select';
 import useCalculate from '@/hooks/useCalculate';
 import { useI18n } from 'vue-i18n';
 
+const LINE_TYPE = {
+  polygon: 'polygon',
+  freeDraw: 'freeDraw',
+};
 // 默认属性
 const defaultPosition = { shadow: '', fontFamily: 'arial' };
 // 拖拽属性
@@ -346,18 +356,32 @@ const drawPolygon = () => {
     state.isDrawingLineMode = false;
     ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
   };
-  if (state.lineType !== 'polygon') {
-    state.lineType = 'polygon';
+  if (state.lineType !== LINE_TYPE.polygon) {
+    state.lineType = LINE_TYPE.polygon;
     state.isDrawingLineMode = true;
     canvasEditor.beginDrawPolygon(onEnd);
+    canvasEditor.endDraw();
     ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
   } else {
     canvasEditor.discardPolygon();
   }
 };
+
+const freeDraw = () => {
+  if (state.lineType === LINE_TYPE.freeDraw) {
+    canvasEditor.endDraw();
+    state.lineType = false;
+    state.isDrawingLineMode = false;
+  } else {
+    state.lineType = LINE_TYPE.freeDraw;
+    state.isDrawingLineMode = true;
+    canvasEditor.startDraw({ width: 20 });
+  }
+};
 const drawingLineModeSwitch = (type) => {
-  if (state.lineType === 'polygon') {
+  if ([LINE_TYPE.polygon, LINE_TYPE.freeDraw].includes(state.lineType)) {
     canvasEditor.discardPolygon();
+    canvasEditor.endDraw();
   }
   state.lineType = type;
   state.isDrawingLineMode = !state.isDrawingLineMode;

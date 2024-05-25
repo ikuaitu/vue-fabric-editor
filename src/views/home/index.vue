@@ -234,6 +234,7 @@ import Editor, {
   FontPlugin,
   PolygonModifyPlugin,
   DrawPolygonPlugin,
+  FreeDrawPlugin,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
 
@@ -329,6 +330,7 @@ onMounted(() => {
   canvasEditor.use(FlipPlugin);
   canvasEditor.use(RulerPlugin);
   canvasEditor.use(DrawPolygonPlugin);
+  canvasEditor.use(FreeDrawPlugin);
   canvasEditor.use(FontPlugin, {
     repoSrc: APIHOST,
   });
