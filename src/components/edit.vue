@@ -13,7 +13,7 @@ const onEditPolygon = () => {
 </script>
 
 <template>
-  <Tooltip :content="$t('quick.editPoly')" v-if="mixinState.mSelectMode === 'one'">
+  <Tooltip :content="$t('quick.editPoly')" v-if="mixinState.mSelectOneType === 'polygon'">
     <Button long @click="onEditPolygon" icon="md-brush" type="text"></Button>
   </Tooltip>
 </template>

@@ -177,6 +177,38 @@
           ></path>
         </svg>
       </span>
+      <span
+        @click="drawPolygon"
+        :class="state.isDrawingLineMode && state.lineType === 'polygon' && 'bg'"
+      >
+        <svg
+          t="1650874633978"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="203255"
+          width="26"
+          height="26"
+        >
+          <path
+            d="M161.152 398.016l134.016 412.416h433.664l134.016-412.416L512 143.104 161.152 398.08zM512 64l426.048 309.568-162.752 500.864H248.704L85.952 373.568 512 64z"
+            p-id="203355"
+          ></path>
+        </svg>
+      </span>
+      <span
+        @click="drawPathText"
+        :class="state.isDrawingLineMode && state.lineType === 'pathText' && 'bg'"
+      >
+        <Icon type="logo-tumblr" :size="22" />
+      </span>
+      <span
+        @click="freeDraw"
+        :class="state.isDrawingLineMode && state.lineType === 'freeDraw' && 'bg'"
+      >
+        <Icon type="md-brush" :size="22" />
+      </span>
     </div>
   </div>
 </template>
@@ -189,6 +221,11 @@ import useSelect from '@/hooks/select';
 import useCalculate from '@/hooks/useCalculate';
 import { useI18n } from 'vue-i18n';
 
+const LINE_TYPE = {
+  polygon: 'polygon',
+  freeDraw: 'freeDraw',
+  pathText: 'pathText',
+};
 // 默认属性
 const defaultPosition = { shadow: '', fontFamily: 'arial' };
 // 拖拽属性
@@ -320,18 +357,73 @@ const addRect = (option) => {
   }
   canvasEditor.canvas.setActiveObject(rect);
 };
+const drawPolygon = () => {
+  const onEnd = () => {
+    state.lineType = false;
+    state.isDrawingLineMode = false;
+    ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
+  };
+  if (state.lineType !== LINE_TYPE.polygon) {
+    endConflictTools();
+    state.lineType = LINE_TYPE.polygon;
+    state.isDrawingLineMode = true;
+    canvasEditor.beginDrawPolygon(onEnd);
+    canvasEditor.endDraw();
+    ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
+  } else {
+    canvasEditor.discardPolygon();
+  }
+};
+
+const drawPathText = () => {
+  if (state.lineType === LINE_TYPE.pathText) {
+    state.lineType = false;
+    state.isDrawingLineMode = false;
+    canvasEditor.endTextPathDraw();
+  } else {
+    endConflictTools();
+    state.lineType = LINE_TYPE.pathText;
+    state.isDrawingLineMode = true;
+    canvasEditor.startTextPathDraw();
+  }
+};
+
+const freeDraw = () => {
+  if (state.lineType === LINE_TYPE.freeDraw) {
+    canvasEditor.endDraw();
+    state.lineType = false;
+    state.isDrawingLineMode = false;
+  } else {
+    endConflictTools();
+    state.lineType = LINE_TYPE.freeDraw;
+    state.isDrawingLineMode = true;
+    canvasEditor.startDraw({ width: 20 });
+  }
+};
+
+const endConflictTools = () => {
+  canvasEditor.discardPolygon();
+  canvasEditor.endDraw();
+  canvasEditor.endTextPathDraw();
+};
 const drawingLineModeSwitch = (type) => {
+  if ([LINE_TYPE.polygon, LINE_TYPE.freeDraw, LINE_TYPE.freeDraw].includes(state.lineType)) {
+    endConflictTools();
+  }
   state.lineType = type;
   state.isDrawingLineMode = !state.isDrawingLineMode;
   canvasEditor.setMode(state.isDrawingLineMode);
   canvasEditor.setLineType(type);
-
   // this.canvasEditor.setMode(this.isDrawingLineMode);
   // this.canvasEditor.setArrow(isArrow);
+  ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
+};
+
+const ensureObjectSelEvStatus = (evented, selectable) => {
   canvasEditor.canvas.forEachObject((obj) => {
     if (obj.id !== 'workspace') {
-      obj.selectable = !state.isDrawingLineMode;
-      obj.evented = !state.isDrawingLineMode;
+      obj.selectable = selectable;
+      obj.evented = evented;
     }
   });
 };

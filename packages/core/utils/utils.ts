@@ -107,3 +107,21 @@ export default {
   clipboardText,
   drawImg,
 };
+
+export function shiftAngle(start: fabric.Point, end: fabric.Point) {
+  const startX = start.x;
+  const startY = start.y;
+  const x2 = end.x - startX;
+  const y2 = end.y - startY;
+  const r = Math.sqrt(x2 * x2 + y2 * y2);
+  let angle = (Math.atan2(y2, x2) / Math.PI) * 180;
+  angle = ~~(((angle + 7.5) % 360) / 15) * 15;
+
+  const cosx = r * Math.cos((angle * Math.PI) / 180);
+  const sinx = r * Math.sin((angle * Math.PI) / 180);
+
+  return {
+    x: cosx + startX,
+    y: sinx + startY,
+  };
+}
