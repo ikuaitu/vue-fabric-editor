@@ -29,6 +29,7 @@ export { default as FontPlugin } from './plugin/FontPlugin';
 export { default as PolygonModifyPlugin } from './plugin/PolygonModifyPlugin';
 export { default as DrawPolygonPlugin } from './plugin/DrawPolygonPlugin';
 export { default as FreeDrawPlugin } from './plugin/FreeDrawPlugin';
+export { default as PathTextPlugin } from './plugin/PathTextPlugin';
 import EventType from './eventType';
 import Utils from './utils/utils';
 

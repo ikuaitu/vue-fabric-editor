@@ -129,6 +129,8 @@
               <attributeColor></attributeColor>
               <!-- 字体属性 -->
               <attributeFont></attributeFont>
+              <!--      文字内容        -->
+              <attribute-text-content></attribute-text-content>
               <!-- 位置信息 -->
               <attributePostion></attributePostion>
               <!-- 阴影 -->
@@ -235,8 +237,10 @@ import Editor, {
   PolygonModifyPlugin,
   DrawPolygonPlugin,
   FreeDrawPlugin,
+  PathTextPlugin,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
+import AttributeTextContent from '@/components/attributeTextContent.vue';
 
 // 创建编辑器
 const canvasEditor = new Editor();
@@ -331,6 +335,7 @@ onMounted(() => {
   canvasEditor.use(RulerPlugin);
   canvasEditor.use(DrawPolygonPlugin);
   canvasEditor.use(FreeDrawPlugin);
+  canvasEditor.use(PathTextPlugin);
   canvasEditor.use(FontPlugin, {
     repoSrc: APIHOST,
   });
