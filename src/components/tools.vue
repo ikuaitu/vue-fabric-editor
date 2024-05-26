@@ -198,6 +198,12 @@
         </svg>
       </span>
       <span
+        @click="drawPathText"
+        :class="state.isDrawingLineMode && state.lineType === 'pathText' && 'bg'"
+      >
+        <Icon type="logo-tumblr" :size="22" />
+      </span>
+      <span
         @click="freeDraw"
         :class="state.isDrawingLineMode && state.lineType === 'freeDraw' && 'bg'"
       >
@@ -218,6 +224,7 @@ import { useI18n } from 'vue-i18n';
 const LINE_TYPE = {
   polygon: 'polygon',
   freeDraw: 'freeDraw',
+  pathText: 'pathText',
 };
 // 默认属性
 const defaultPosition = { shadow: '', fontFamily: 'arial' };
@@ -357,6 +364,7 @@ const drawPolygon = () => {
     ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
   };
   if (state.lineType !== LINE_TYPE.polygon) {
+    endConflictTools();
     state.lineType = LINE_TYPE.polygon;
     state.isDrawingLineMode = true;
     canvasEditor.beginDrawPolygon(onEnd);
@@ -367,21 +375,40 @@ const drawPolygon = () => {
   }
 };
 
+const drawPathText = () => {
+  if (state.lineType === LINE_TYPE.pathText) {
+    state.lineType = false;
+    state.isDrawingLineMode = false;
+    canvasEditor.endTextPathDraw();
+  } else {
+    endConflictTools();
+    state.lineType = LINE_TYPE.pathText;
+    state.isDrawingLineMode = true;
+    canvasEditor.startTextPathDraw();
+  }
+};
+
 const freeDraw = () => {
   if (state.lineType === LINE_TYPE.freeDraw) {
     canvasEditor.endDraw();
     state.lineType = false;
     state.isDrawingLineMode = false;
   } else {
+    endConflictTools();
     state.lineType = LINE_TYPE.freeDraw;
     state.isDrawingLineMode = true;
     canvasEditor.startDraw({ width: 20 });
   }
 };
+
+const endConflictTools = () => {
+  canvasEditor.discardPolygon();
+  canvasEditor.endDraw();
+  canvasEditor.endTextPathDraw();
+};
 const drawingLineModeSwitch = (type) => {
-  if ([LINE_TYPE.polygon, LINE_TYPE.freeDraw].includes(state.lineType)) {
-    canvasEditor.discardPolygon();
-    canvasEditor.endDraw();
+  if ([LINE_TYPE.polygon, LINE_TYPE.freeDraw, LINE_TYPE.freeDraw].includes(state.lineType)) {
+    endConflictTools();
   }
   state.lineType = type;
   state.isDrawingLineMode = !state.isDrawingLineMode;
