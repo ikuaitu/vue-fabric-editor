@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-23 09:16:59
+ * @LastEditTime: 2024-05-27 16:10:14
  * @Description: file content
 -->
 <template>
@@ -238,6 +238,7 @@ import Editor, {
   DrawPolygonPlugin,
   FreeDrawPlugin,
   PathTextPlugin,
+  PsdPlugin,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
 import AttributeTextContent from '@/components/attributeTextContent.vue';
@@ -343,6 +344,7 @@ onMounted(() => {
     repoSrc: APIHOST,
   });
   canvasEditor.use(WaterMarkPlugin);
+  canvasEditor.use(PsdPlugin);
 
   state.show = true;
   // 默认打开标尺
