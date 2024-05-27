@@ -38,15 +38,15 @@
         </iSwitch>
       </div>
       <div class="operation">
-        <div class="hd">
+        <div class="hd" style="flex-basis: 98px">
           <span>描边大小</span>
         </div>
-        <div class="flex-1">
+        <div style="width: 100%">
           <Slider v-model="strokeWidth" :max="50" @on-change="onSliderChange"></Slider>
         </div>
       </div>
 
-      <div class="operation" style="justify-content: flex-start">
+      <div class="operation" style="justify-content: space-between">
         <div class="hd">
           <span>描边颜色</span>
         </div>
@@ -62,6 +62,7 @@
 <script name="ImgStroke" lang="ts" setup>
 import useSelect from '@/hooks/select';
 import { fabric } from 'fabric';
+import { Slider } from 'view-ui-plus';
 
 interface IActiveCanvas extends fabric.Canvas {
   [x: string]: any;
@@ -76,7 +77,8 @@ const openImgStroke = ref(false);
 const strokeWidth = ref(5);
 const strokeColor = ref('#000');
 const isOnlyStroke = ref(false);
-const getActiveObject = () => canvasEditor.canvas.getActiveObjects()[0] as unknown as IActiveCanvas;
+const getActiveObject = () =>
+  canvasEditor.canvas?.getActiveObjects()[0] as unknown as IActiveCanvas;
 
 const setOrigin = () => {
   const _activeObject = getActiveObject();
@@ -212,6 +214,9 @@ async function addImage(src: string): Promise<HTMLImageElement | undefined> {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .slide-wrap {
+      width: 100%;
+    }
   }
 }
 </style>
