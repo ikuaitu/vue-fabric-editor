@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-27 16:09:29
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-27 18:53:59
+ * @LastEditTime: 2024-05-28 11:01:28
  * @Description: PSD插件
  */
 
@@ -74,11 +74,8 @@ class PsdPlugin {
         } else {
           const isFont = item.text;
           if (isFont) {
-            console.log(item, '111');
             const { FontSize, FillColor, Tracking } =
               item.textProperties.EngineDict.StyleRun.RunArray[0].StyleSheet.StyleSheetData;
-
-            console.log(item.text, FillColor.Values, that.getColor(FillColor.Values));
             return {
               ...getAttrByType('textbox'),
               ...commonAttr,
@@ -115,7 +112,6 @@ class PsdPlugin {
   }
 
   loadJSON() {
-    console.log(this.json);
     this.editor.loadJSON(JSON.stringify(this.json));
   }
 
