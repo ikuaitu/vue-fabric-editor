@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2024-05-11 11:51:59
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 15:46:39
+ * @LastEditTime: 2024-05-29 10:14:01
  * @Description: 素材相关
  */
 
 import dayjs from 'dayjs';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { uploadImg, createdTempl, getTmplInfo, updataTempl, removeTempl } from '@/api/user';
 import { Modal } from 'view-ui-plus';
 
@@ -16,6 +16,7 @@ import { useI18n } from 'vue-i18n';
 export default function useMaterial() {
   const { t } = useI18n();
   const router = useRouter();
+  const route = useRoute();
   const canvasEditor = inject('canvasEditor');
 
   // 创建模板
@@ -24,7 +25,6 @@ export default function useMaterial() {
     canvasEditor.setSize(width, height);
     const name = dayjs().format('YYYY[年]MM[月]DD[日]HH[小时]mm[分钟]ss[秒]') + '创建的作品';
     const data = await getCanvasCommonData();
-
     // 上传图片
     const templInfo = await createdTempl({
       data: {
@@ -42,6 +42,7 @@ export default function useMaterial() {
     const templInfo = await createdTempl({
       data: {
         ...data,
+        externalId: route.query?.projectid || null,
         name,
       },
     });

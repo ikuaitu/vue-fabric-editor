@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-24 14:07:06
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 14:47:44
+ * @LastEditTime: 2024-05-29 10:07:24
  * @Description: 用户接口登录
  */
 
@@ -36,6 +36,9 @@ export const register = (data: any) => instance.post('/api/auth/local/register',
 
 // 登出
 export const logout = () => localStorage.setItem(tokenKey, '');
+
+// 自动登录
+export const autoLogin = (data: any) => instance.post('/api/custom/autoAuthUser', data);
 
 // 设置token
 export const setToken = (token: string) => localStorage.setItem(tokenKey, token);

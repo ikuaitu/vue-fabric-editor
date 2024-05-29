@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-11 13:23:48
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 17:33:56
+ * @LastEditTime: 2024-05-29 10:25:44
  * @Description: 文件名称
 -->
 
@@ -26,8 +26,13 @@
 <script name="ImportJson" setup>
 import { debounce } from 'lodash-es';
 import useMaterial from '@/hooks/useMaterial';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import useSelect from '@/hooks/select';
+import { getTmplList } from '@/api/user';
+
+// const APIHOST = import.meta.env.APP_APIHOST;
+import qs from 'qs';
+const router = useRouter();
 const { getTemplInfo, updataTemplInfo } = useMaterial();
 
 const { canvasEditor } = useSelect();
@@ -49,7 +54,7 @@ watch(
   }
 );
 
-onMounted(() => {
+onMounted(async () => {
   if (route?.query?.id) {
     getTemplInfo(route?.query?.id)
       .then((res) => {
@@ -59,8 +64,45 @@ onMounted(() => {
       .catch(() => {
         window.location.href = '/';
       });
+  } else if (route?.query?.projectid) {
+    const infoid = await queryTemplIdByProId(route?.query?.projectid);
+    if (infoid) {
+      getTemplInfo(infoid).then((res) => {
+        router.replace(route.fullPath + '&id=' + infoid);
+        fileName.value = res?.data?.attributes?.name;
+        canvasEditor.loadJSON(JSON.stringify(res?.data?.attributes?.json));
+      });
+    }
   }
 });
+
+const queryTemplIdByProId = (projectid) => {
+  const query = {
+    populate: {
+      img: '*',
+    },
+    filters: {
+      externalId: {
+        $eq: String(projectid),
+      },
+    },
+    pagination: {
+      page: 1,
+      pageSize: 50,
+    },
+  };
+
+  return getTmplList(qs.stringify(query))
+    .then((res) => {
+      if (res.data.data.length) {
+        return res.data.data[0].id;
+      }
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 const saveTempl = () => {
   loading.value = true;
   updataTemplInfo(route.query.id, fileName.value)
