@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 15:36:50
+ * @LastEditTime: 2024-05-30 15:06:14
  * @Description: 导入模板
 -->
 
@@ -10,249 +10,228 @@
   <div>
     <!-- 搜索组件 -->
     <div class="search-box">
+      <Dropdown @on-click="createType" placement="bottom-start" style="margin-right: 10px" transfer>
+        <Button type="primary" icon="md-add"></Button>
+        <template #list>
+          <DropdownMenu>
+            <DropdownItem name="file">新建设计</DropdownItem>
+            <DropdownItem name="fileType">新建文件夹</DropdownItem>
+          </DropdownMenu>
+        </template>
+      </Dropdown>
+
       <Input
         class="input"
         placeholder="请输入关键词"
-        v-model="searchKeyword"
+        v-model="filters.name.$contains"
         search
-        :disabled="loading"
-        @on-search="startGetMaterialList"
+        :disabled="pageLoading"
+        @on-search="startGetList"
       />
     </div>
 
+    <!-- 面包屑导航 -->
+    <Breadcrumb>
+      <BreadcrumbItem
+        @click="toFile(item.parentId, i)"
+        :key="item.id"
+        v-for="(item, i) in filePath"
+      >
+        {{ item.name }}
+      </BreadcrumbItem>
+    </Breadcrumb>
+
     <!-- 列表 -->
-    <div style="height: calc(100vh - 180px)" id="myFileTemplBox">
+    <div style="height: calc(100vh - 160px)" id="myFileTemplBox">
       <Scroll
         key="myFileTemplBox"
         v-if="showScroll"
-        :on-reach-bottom="handleReachBottom"
+        :on-reach-bottom="nextPage"
         :height="scrollHeight"
         :distance-to-edge="[-1, -1]"
       >
         <!-- 列表 -->
-        <div>
-          <Tooltip
-            :content="info.name"
-            v-for="info in materialList"
-            :key="info.src"
-            placement="top"
-          >
-            <div class="tmpl-img-box">
-              <Icon type="ios-trash" class="del-btn" color="red" @click="removeTempl(info.id)" />
-              <Image
-                lazy
-                :src="info.src"
-                fit="contain"
-                height="100%"
-                :alt="info.name"
-                @click="beforeClearTip(info.json, info.id)"
-              />
-            </div>
-          </Tooltip>
-        </div>
-        <Spin size="large" fix :show="loading"></Spin>
+        <div v-for="info in pageData" :key="info.name" class="item">
+          <!-- 文件夹样式 -->
+          <fileType
+            v-if="info.type === 'fileType'"
+            :itemId="info.id"
+            :name="info.name"
+            @select="() => joinFileTyper(info.id, info.name)"
+            @change="startGetList"
+          ></fileType>
 
-        <Divider plain v-if="isDownBottm()">已经到底了</Divider>
+          <file
+            v-else
+            :src="info.src"
+            :json="info.json"
+            :previewSrc="info.previewSrc"
+            :itemId="info.id"
+            :name="info.name"
+            @change="startGetList"
+          ></file>
+        </div>
+        <Spin size="large" fix :show="pageLoading"></Spin>
+        <Divider plain v-if="isDownBottom">已经到底了</Divider>
       </Scroll>
     </div>
+
+    <!-- 创建设计 -->
+    <modalSzie
+      :title="$t('importFiles.createDesign.title')"
+      ref="modalSizeRef"
+      @set="customSizeCreate"
+    ></modalSzie>
   </div>
 </template>
 
 <script setup name="ImportTmpl">
-import qs from 'qs';
-import useSelect from '@/hooks/select';
-import { Message } from 'view-ui-plus';
-import { Spin, Modal } from 'view-ui-plus';
-import { useI18n } from 'vue-i18n';
+import { Input } from 'view-ui-plus';
+import { Spin, Modal, Message } from 'view-ui-plus';
+
+// 组件
+import fileType from './components/fileType.vue';
+import file from './components/file.vue';
+import modalSzie from '@/components/common/modalSzie';
+
+// API
 import { getTmplList } from '@/api/user';
+
+// 素材与分页
 import useMaterial from '@/hooks/useMaterial';
-const { routerToId, removeTemplInfo } = useMaterial();
+import usePageList, { getMaterialInfoUrl, getMaterialPreviewUrl } from '@/hooks/usePageList';
+// 用户素材API操作
+const { createdFileType, createTmpl } = useMaterial();
 
-const APIHOST = import.meta.env.APP_APIHOST;
-
-const { t } = useI18n();
-const { canvasEditor } = useSelect();
-
-// 素材列表
-const materialList = ref([]);
-// 搜索关键字
-const searchKeyword = ref('');
-// 面板加载
-const loading = ref(false);
-
-// 分页信息
-const page = ref(1);
-const pagination = reactive({
-  page: 0,
-  pageCount: 0,
-  pageSize: 10,
-  total: 0,
+// 检索条件
+const filters = reactive({
+  name: {
+    $contains: '',
+  },
+  parentId: {
+    $eq: '',
+    filterEmpty: false,
+  },
 });
 
-const isDownBottm = () => {
-  return pagination.page === page.value && pagination.page >= pagination.pageCount;
-};
+const sort = ['type:desc'];
 
-// 获取素材列表
-const getMaterialList = () => {
-  loading.value = true;
-  getTmplListHandler(page.value, searchKeyword.value).then((res) => {
-    const { list, pagination: resPagination } = res;
-    Object.keys(resPagination).forEach((key) => {
-      pagination[key] = resPagination[key];
-    });
-    materialList.value = [...materialList.value, ...list];
-    loading.value = false;
+// 分页格式化
+const formatData = (data) => {
+  return data.map((item) => {
+    return {
+      id: item.id,
+      name: item.attributes.name,
+      type: item.attributes.type || 'file',
+      desc: item.attributes.desc,
+      json: item.attributes.json,
+      src: getMaterialInfoUrl(item.attributes.img),
+      previewSrc: getMaterialPreviewUrl(item.attributes.img),
+    };
   });
 };
+// 通用分页
+const {
+  pageData,
+  showScroll,
+  scrollHeight,
+  isDownBottom,
+  pageLoading,
+  startPage,
+  startGetList,
+  nextPage,
+} = usePageList({
+  el: '#myFileTemplBox',
+  apiClient: getTmplList,
+  filters,
+  sort,
+  formatData,
+});
 
-const startGetMaterialList = () => {
-  materialList.value = [];
-  page.value = 1;
-  getMaterialList();
-};
-
-const handleReachBottom = () => {
-  if (page.value >= pagination.pageCount) return;
-  page.value++;
-  setTimeout(() => {
-    getMaterialList();
-  }, 1000);
-};
-
-// 替换提示
-const beforeClearTip = (json, id) => {
-  Modal.confirm({
-    title: t('tip'),
-    content: `<p>${t('replaceTip')}</p>`,
-    okText: t('ok'),
-    cancelText: t('cancel'),
-    onOk: () => getTempData(json, id),
-  });
-};
-
-const showScroll = ref(false);
-const scrollHeight = ref(0);
 onMounted(() => {
-  const myTemplBox = document.querySelector('#myFileTemplBox');
-  scrollHeight.value = myTemplBox.offsetHeight - 10;
-  showScroll.value = true;
-  getMaterialList();
+  startPage();
 });
 
-// 获取模板数据
-const getTempData = (json, id) => {
-  Spin.show({
-    render: (h) => h('div', t('alert.loading_data')),
-  });
-  // console.log(json, 111);
-  routerToId(id);
-  canvasEditor.loadJSON(JSON.stringify(json), Spin.hide);
-};
-
-const getTmplListHandler = (index, searchKeyword) => {
-  const query = {
-    populate: {
-      img: '*',
-    },
-    filters: {},
-    pagination: {
-      page: index,
-      pageSize: 50,
-    },
-  };
-  const queryParams = getQueryParams(query, [
-    {
-      key: 'name',
-      value: searchKeyword,
-      type: '$contains',
-    },
-  ]);
-  return getTmplList(queryParams)
-    .then((res) => {
-      const list = res.data.data.map((item) => {
-        return {
-          id: item.id,
-          name: item.attributes.name,
-          desc: item.attributes.desc,
-          json: item.attributes.json,
-          src: getMaterialInfoUrl(item.attributes.img),
-          previewSrc: getMaterialPreviewUrl(item.attributes.img),
-        };
-      });
-      return { list, pagination: res?.data?.meta?.pagination };
-    })
-    .catch((err) => {
-      return err;
+const fileTypeName = ref('');
+const modalSizeRef = ref(null);
+// 新建文件
+const createType = (type) => {
+  if (type === 'fileType') {
+    fileTypeName.value = '';
+    Modal.confirm({
+      title: '新建文件夹',
+      render: (h) => {
+        return h(Input, {
+          size: 'large',
+          modelValue: fileTypeName,
+          autofocus: true,
+          placeholder: '请输入文件夹名称',
+        });
+      },
+      onOk: async () => {
+        if (fileTypeName.value === '') {
+          Message.warning('文件夹名称不能为空');
+          return;
+        }
+        await createdFileType(fileTypeName.value, filters.parentId.$eq);
+        startGetList();
+      },
     });
+  } else {
+    modalSizeRef.value.showSetSize();
+  }
+};
+const customSizeCreate = async (w, h) => {
+  await createTmpl(w, h, filters.parentId.$eq);
+  startGetList();
 };
 
-const getQueryParams = (option, filters) => {
-  filters.forEach((item) => {
-    const { key, value, type } = item;
-    if (value) {
-      option.filters[key] = { [type]: value };
-    }
+const filePath = ref([
+  {
+    name: '全部',
+    parentId: '',
+  },
+]);
+// 进入文件夹
+const joinFileTyper = (id, name) => {
+  filters.parentId.$eq = String(id);
+  filePath.value.push({
+    name: name,
+    parentId: id,
   });
-  return qs.stringify(option);
+  startGetList();
 };
 
-const getMaterialInfoUrl = (info) => {
-  const imgUrl = info?.data?.attributes?.url || '';
-  return APIHOST + imgUrl;
-};
-
-const getMaterialPreviewUrl = (info) => {
-  const imgUrl = info?.data?.attributes?.formats?.medium?.url || info?.data?.attributes?.url || '';
-  return APIHOST + imgUrl;
-};
-
-const removeTempl = (id) => {
-  removeTemplInfo(id).then(() => {
-    Message.success('删除成功');
-    startGetMaterialList();
-  });
+// 面包屑跳转文件夹
+const toFile = (id, i) => {
+  const isLast = i === filePath.value.length - 1;
+  if (!isLast) {
+    filters.parentId.$eq = id;
+    filePath.value = filePath.value.slice(0, i + 1);
+    startGetList();
+  }
 };
 </script>
 
 <style scoped lang="less">
 .search-box {
-  padding-top: 10px;
   padding-bottom: 10px;
   display: flex;
-  .input {
-    margin-left: 10px;
-  }
-  .select {
-    width: 100px;
-  }
 }
 
-.img-group {
-  background: #eeeeeea1;
-  border-radius: 10px;
-  padding: 10px;
+/deep/.ivu-scroll-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-right: 10px;
 }
-.tmpl-img-box {
-  width: 140px;
-  height: 180px;
-  padding: 5px;
+.item {
+  margin-bottom: 10px;
+}
+/deep/.ivu-breadcrumb-item-link {
   cursor: pointer;
-  border-radius: 10px;
-  position: relative;
-
   &:hover {
-    background: #e3e3e3;
-    .del-btn {
-      right: 5px;
-    }
+    color: #57a3f3;
   }
-}
-
-.del-btn {
-  z-index: 1;
-  position: absolute;
-  top: 5px;
-  right: 1000000px;
 }
 </style>

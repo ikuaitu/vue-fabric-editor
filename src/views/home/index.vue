@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-27 16:10:14
+ * @LastEditTime: 2024-05-30 14:11:31
  * @Description: file content
 -->
 <template>
@@ -526,8 +526,7 @@ provide('mixinState', mixinState);
 .content {
   flex: 1;
   width: 220px;
-  padding: 10px;
-  padding-top: 0;
+  padding: 0 10px;
   height: 100%;
   overflow-y: auto;
 }

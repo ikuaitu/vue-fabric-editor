@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-27 18:56:58
+ * @LastEditTime: 2024-05-30 14:14:02
  * @Description: 导入JSON文件
 -->
 
@@ -25,7 +25,6 @@
     </Dropdown>
 
     <!-- 创建设计 -->
-    <!-- 修改尺寸 -->
     <modalSzie
       :title="$t('importFiles.createDesign.title')"
       ref="modalSizeRef"

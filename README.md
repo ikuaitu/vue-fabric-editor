@@ -375,6 +375,13 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/skyscraperno1">
+                    <img src="https://avatars.githubusercontent.com/u/63391543?v=4" width="80;" alt="skyscraperno1"/>
+                    <br />
+                    <sub><b>skyscraperno1</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/rolitter">
                     <img src="https://avatars.githubusercontent.com/u/27326998?v=4" width="80;" alt="rolitter"/>
                     <br />
@@ -402,6 +409,8 @@ pnpm dev
                     <sub><b>nanfb</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/dulltackle">
                     <img src="https://avatars.githubusercontent.com/u/45963660?v=4" width="80;" alt="dulltackle"/>
@@ -409,8 +418,6 @@ pnpm dev
                     <sub><b>dulltackle</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/Bamzc">
                     <img src="https://avatars.githubusercontent.com/u/10151046?v=4" width="80;" alt="Bamzc"/>
