@@ -247,6 +247,7 @@ const addText = (option) => {
     ...defaultPosition,
     ...option,
     fontSize: 80,
+    fill: '#000000FF',
     id: uuid(),
   });
   canvasEditor.canvas.add(text);
@@ -274,6 +275,7 @@ const addTextBox = (option) => {
     splitByGrapheme: true,
     width: 400,
     fontSize: 80,
+    fill: '#000000FF',
     id: uuid(),
   });
   canvasEditor.canvas.add(text);
