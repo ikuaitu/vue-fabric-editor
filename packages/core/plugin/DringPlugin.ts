@@ -15,7 +15,7 @@ declare type ExtCanvas = fabric.Canvas & {
   lastPosY: number;
 };
 
-class DringPlugin {
+export class DringPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
   public defautOption = {};
