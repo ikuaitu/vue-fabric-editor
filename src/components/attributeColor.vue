@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-21 10:59:48
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-22 09:12:41
+ * @LastEditTime: 2024-05-30 10:34:49
  * @Description: 渐变
 -->
 
@@ -52,13 +52,11 @@ const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
   // 不是当前obj，跳过
   if (e && e.target && e.target !== activeObject) return;
-  if (activeObject) {
-    console.log(activeObject.type);
+  if (activeObject && mixinState.mSelectMode === 'one') {
     const fill = activeObject.get('fill');
     if (typeof fill === 'string') {
       baseAttr.fill = fill;
     } else {
-      console.log(fill);
       baseAttr.fill = fabricGradientToCss(fill, activeObject);
     }
   }

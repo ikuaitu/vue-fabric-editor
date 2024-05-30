@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-11 13:23:48
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-29 10:25:44
+ * @LastEditTime: 2024-05-30 14:44:50
  * @Description: 文件名称
 -->
 
@@ -25,6 +25,7 @@
 
 <script name="ImportJson" setup>
 import { debounce } from 'lodash-es';
+import { Message } from 'view-ui-plus';
 import useMaterial from '@/hooks/useMaterial';
 import { useRoute, useRouter } from 'vue-router';
 import useSelect from '@/hooks/select';
@@ -104,6 +105,11 @@ const queryTemplIdByProId = (projectid) => {
 };
 
 const saveTempl = () => {
+  if (fileName.value === '') {
+    Message.warning('文件名称不能为空');
+    fileName.value = '默认文件名称';
+    return;
+  }
   loading.value = true;
   updataTemplInfo(route.query.id, fileName.value)
     .then()

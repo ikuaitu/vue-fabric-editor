@@ -62,7 +62,9 @@
   "mymaterial": "我的",
   "my_spase": {
     "remove_templ": "删除模板",
-    "remove_templTip": "确认删除模板吗？"
+    "remove_templTip": "确认删除模板吗？",
+    "remove_file_type": "确认删除文件夹吗？",
+    "remove_file_type_Tip": "确认删除模板吗？"
   },
   "title_template": "标题模板",
   "insert_svg": "插入SVG元素",

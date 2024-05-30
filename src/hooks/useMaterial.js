@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-11 11:51:59
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-29 10:14:01
+ * @LastEditTime: 2024-05-30 15:09:18
  * @Description: 素材相关
  */
 
@@ -20,7 +20,7 @@ export default function useMaterial() {
   const canvasEditor = inject('canvasEditor');
 
   // 创建模板
-  const createTmpl = async (width, height) => {
+  const createTmpl = async (width, height, parentId = '') => {
     canvasEditor.clear();
     canvasEditor.setSize(width, height);
     const name = dayjs().format('YYYY[年]MM[月]DD[日]HH[小时]mm[分钟]ss[秒]') + '创建的作品';
@@ -29,10 +29,23 @@ export default function useMaterial() {
     const templInfo = await createdTempl({
       data: {
         ...data,
+        type: 'file',
+        parentId: String(parentId),
         name,
       },
     });
+    routerToId(templInfo.data.data.id);
     return templInfo;
+  };
+
+  const createdFileType = async (name, parentId = '') => {
+    await createdTempl({
+      data: {
+        name,
+        type: 'fileType',
+        parentId: String(parentId),
+      },
+    });
   };
 
   const createTmplByCommon = async () => {
@@ -42,6 +55,8 @@ export default function useMaterial() {
     const templInfo = await createdTempl({
       data: {
         ...data,
+        type: 'file',
+        parentId: '',
         externalId: route.query?.projectid || null,
         name,
       },
@@ -125,6 +140,27 @@ export default function useMaterial() {
       });
     });
   };
+
+  const removeFileType = (id) => {
+    return new Promise((resolve, reject) => {
+      Modal.confirm({
+        title: t('my_spase.remove_file_type'),
+        content: `<p>${t('my_spase.remove_file_type_Tip')}</p>`,
+        onOk: () => {
+          removeTempl(id).then(resolve).catch(reject);
+        },
+      });
+    });
+  };
+
+  const reNameFileType = async (name, id) => {
+    await updataTempl(id, {
+      data: {
+        name,
+      },
+    });
+  };
+
   return {
     createTmpl,
     createTmplByCommon,
@@ -132,5 +168,8 @@ export default function useMaterial() {
     updataTemplInfo,
     removeTemplInfo,
     routerToId,
+    createdFileType, // 创建文件夹
+    reNameFileType, // 修改文件夹名称
+    removeFileType, // 删除文件夹
   };
 }
