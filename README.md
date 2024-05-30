@@ -403,14 +403,21 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/nanfb">
+                    <img src="https://avatars.githubusercontent.com/u/56207464?v=4" width="80;" alt="nanfb"/>
+                    <br />
+                    <sub><b>nanfb</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
                 <a href="https://github.com/dulltackle">
                     <img src="https://avatars.githubusercontent.com/u/45963660?v=4" width="80;" alt="dulltackle"/>
                     <br />
                     <sub><b>dulltackle</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/Bamzc">
                     <img src="https://avatars.githubusercontent.com/u/10151046?v=4" width="80;" alt="Bamzc"/>
