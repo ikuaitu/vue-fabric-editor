@@ -287,6 +287,13 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/skyscraperno1">
+                    <img src="https://avatars.githubusercontent.com/u/63391543?v=4" width="80;" alt="skyscraperno1"/>
+                    <br />
+                    <sub><b>skyscraperno1</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/ijry">
                     <img src="https://avatars.githubusercontent.com/u/3102798?v=4" width="80;" alt="ijry"/>
                     <br />
@@ -314,6 +321,8 @@ pnpm dev
                     <sub><b>ByeWord</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/ddshiyu">
                     <img src="https://avatars.githubusercontent.com/u/37503208?v=4" width="80;" alt="ddshiyu"/>
@@ -321,8 +330,6 @@ pnpm dev
                     <sub><b>ddshiyu</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/yehan68">
                     <img src="https://avatars.githubusercontent.com/u/40497166?v=4" width="80;" alt="yehan68"/>
@@ -358,6 +365,8 @@ pnpm dev
                     <sub><b>wozhi-cl</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/vvbear">
                     <img src="https://avatars.githubusercontent.com/u/32010827?v=4" width="80;" alt="vvbear"/>
@@ -365,20 +374,11 @@ pnpm dev
                     <sub><b>vvbear</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/slarkerino">
                     <img src="https://avatars.githubusercontent.com/u/7014849?v=4" width="80;" alt="slarkerino"/>
                     <br />
                     <sub><b>slarkerino</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/skyscraperno1">
-                    <img src="https://avatars.githubusercontent.com/u/63391543?v=4" width="80;" alt="skyscraperno1"/>
-                    <br />
-                    <sub><b>skyscraperno1</b></sub>
                 </a>
             </td>
             <td align="center">
