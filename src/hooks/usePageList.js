@@ -2,11 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2024-05-29 15:39:20
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-30 15:04:06
+ * @LastEditTime: 2024-05-30 15:22:25
  * @Description: 通用分页
  */
 
 import qs from 'qs';
+import { ref } from 'vue';
 
 const APIHOST = import.meta.env.APP_APIHOST;
 export default function usePageList({ el, apiClient, filters = {}, sort = [], formatData }) {
@@ -49,7 +50,7 @@ export default function usePageList({ el, apiClient, filters = {}, sort = [], fo
         sort: sort,
         pagination: {
           page: page.value,
-          pageSize: page.pageSize,
+          pageSize: page.value.pageSize,
         },
       };
 
