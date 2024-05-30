@@ -375,6 +375,13 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/skyscraperno1">
+                    <img src="https://avatars.githubusercontent.com/u/63391543?v=4" width="80;" alt="skyscraperno1"/>
+                    <br />
+                    <sub><b>skyscraperno1</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/rolitter">
                     <img src="https://avatars.githubusercontent.com/u/27326998?v=4" width="80;" alt="rolitter"/>
                     <br />
@@ -393,13 +400,6 @@ pnpm dev
                     <img src="https://avatars.githubusercontent.com/u/30552622?v=4" width="80;" alt="jooyyy"/>
                     <br />
                     <sub><b>jooyyy</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/nanfb">
-                    <img src="https://avatars.githubusercontent.com/u/56207464?v=4" width="80;" alt="nanfb"/>
-                    <br />
-                    <sub><b>nanfb</b></sub>
                 </a>
             </td>
             <td align="center">
