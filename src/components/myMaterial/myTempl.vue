@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-30 15:06:14
+ * @LastEditTime: 2024-05-30 18:12:40
  * @Description: 导入模板
 -->
 
@@ -95,11 +95,14 @@ import file from './components/file.vue';
 import modalSzie from '@/components/common/modalSzie';
 
 // API
-import { getTmplList } from '@/api/user';
-
+import { getTmplList, getFileTypeTree } from '@/api/user';
 // 素材与分页
 import useMaterial from '@/hooks/useMaterial';
 import usePageList, { getMaterialInfoUrl, getMaterialPreviewUrl } from '@/hooks/usePageList';
+// 路由
+import { useRoute } from 'vue-router';
+const route = useRoute();
+
 // 用户素材API操作
 const { createdFileType, createTmpl } = useMaterial();
 
@@ -148,7 +151,8 @@ const {
   formatData,
 });
 
-onMounted(() => {
+onMounted(async () => {
+  await getFileTypeTreeData();
   startPage();
 });
 
@@ -192,6 +196,17 @@ const filePath = ref([
     parentId: '',
   },
 ]);
+
+const getFileTypeTreeData = async () => {
+  if (route?.query?.id) {
+    const res = await getFileTypeTree({
+      id: route.query.id,
+    });
+    filePath.value = res.data.data;
+    const last = res.data.data[res.data.data.length - 1];
+    filters.parentId.$eq = last.parentId;
+  }
+};
 // 进入文件夹
 const joinFileTyper = (id, name) => {
   filters.parentId.$eq = String(id);

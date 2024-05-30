@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-24 14:07:06
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-30 15:12:53
+ * @LastEditTime: 2024-05-30 17:54:26
  * @Description: 用户接口登录
  */
 
@@ -69,3 +69,9 @@ export const getTmplList = (data: any) => instance.get(`/api/user-templs?${data}
 
 // 查询素材列表
 export const getTmplInfo = (data: any) => instance.get(`/api/user-templs/${data}`);
+
+// 获取菜单树
+export const getFileTypeTree = (data: any) =>
+  instance.get(`/api/custom/getUerFileTypeTree`, {
+    params: data,
+  });
