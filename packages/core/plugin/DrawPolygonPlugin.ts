@@ -99,7 +99,7 @@ class DrawPolygonPlugin {
   }
   _createPolygon(points: fabric.Point[]) {
     return new fabric.Polygon(points, {
-      fill: '#ccc',
+      fill: '#ccccccff',
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       id: uuid(),
