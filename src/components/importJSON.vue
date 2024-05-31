@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-30 14:14:02
+ * @LastEditTime: 2024-05-31 16:58:12
  * @Description: 导入JSON文件
 -->
 
@@ -54,9 +54,9 @@ const clickHandler = (type) => {
     createDesign,
     // psd
     psd: () => {
-      Spin.show({
-        render: (h) => h('div', t('alert.loading_data')),
-      });
+      // Spin.show({
+      //   render: (h) => h('div', t('alert.loading_data')),
+      // });
       canvasEditor.insertPSD().finally(Spin.hide);
     },
   };

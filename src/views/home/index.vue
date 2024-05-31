@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-30 14:11:31
+ * @LastEditTime: 2024-05-31 14:26:41
  * @Description: file content
 -->
 <template>
@@ -160,6 +160,9 @@
 // 导入元素
 import importJson from '@/components/importJSON.vue';
 import importFile from '@/components/importFile.vue';
+// 路由
+import { useRoute } from 'vue-router';
+
 // import fontTmpl from '@/components/fontTmpl.vue';
 
 // 顶部组件
@@ -350,6 +353,12 @@ onMounted(() => {
   // 默认打开标尺
   if (state.ruler) {
     canvasEditor.rulerEnable();
+  }
+
+  // 有ID时，打开作品面板
+  const route = useRoute();
+  if (route?.query?.id) {
+    menuActive.value = 'myMaterial';
   }
 });
 
