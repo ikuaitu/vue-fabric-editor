@@ -8,7 +8,10 @@ describe('canvas:drag', async () => {
   const { pluginInstance, cleanUp } = initPlugin(DringPlugin);
 
   beforeEach(() => {
-    return cleanUp;
+    return () => {
+      cleanUp();
+      (pluginInstance as DringPlugin).destroy();
+    };
   });
   test('dragMode is  true', async () => {
     const instance = pluginInstance as DringPlugin;

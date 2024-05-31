@@ -30,7 +30,6 @@ export function initPlugin(plugin: any) {
   return {
     pluginInstance,
     cleanUp: () => {
-      // pluginInstance = null;
       editor.destory();
     },
   };
