@@ -25,12 +25,12 @@ export function initPlugin(plugin: any) {
   const canvasElement = document.createElement('canvas');
   canvasElement.id = 'canvas';
   const canvas = new fabric.Canvas('canvas', {});
-  let pluginInstance = new plugin(canvas, editor);
+  const pluginInstance = new plugin(canvas, editor);
 
   return {
     pluginInstance,
     cleanUp: () => {
-      pluginInstance = null;
+      // pluginInstance = null;
       editor.destory();
     },
   };
