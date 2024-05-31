@@ -27,8 +27,9 @@ describe('canvas:drag', async () => {
   });
 
   test('dragMode is  false', async () => {
-    pluginInstance.dragMode = false;
-    const testCanvas = pluginInstance.canvas as ExtCanvas;
+    const instance = pluginInstance as DringPlugin;
+    instance.dragMode = false;
+    const testCanvas = instance.canvas as ExtCanvas;
     testCanvas.lastPosX = 0;
     testCanvas.lastPosY = 0;
     mouseDown(testCanvas, { x: 50, y: 50 });
@@ -37,7 +38,8 @@ describe('canvas:drag', async () => {
   });
 
   test('canvas drag', async () => {
-    pluginInstance.dragMode = false;
+    const instance = pluginInstance as DringPlugin;
+    instance.dragMode = false;
     const testCanvas = pluginInstance.canvas as ExtCanvas;
     testCanvas.lastPosX = 0;
     testCanvas.lastPosY = 0;
