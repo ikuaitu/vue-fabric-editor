@@ -72,15 +72,19 @@ pnpm dev
 
 ### 付费版本
 
-开源版本仅前端代码，[付费版本](https://ws0gdejldw.feishu.cn/file/NpBKbLKGRos0Z1xHvYXcqg6YnAg)**提供完整的前后端服务，无须任何开发，2999 元提供前后端源码，支持 Docker 部署**，包括功能：
+开源版本仅前端代码，[付费版本](https://ws0gdejldw.feishu.cn/docx/GKmnddCgFokr4sxFeYNcoql1nAb)**提供完整的前后端服务，开箱即用，无须任何开发，支持 Docker 部署**，包括功能：
 
 - 素材管理后台：可对编辑器中的字体、模板、图片素材进行便捷操作管理。
 - 用户管理：支持登录/注册，用户账号禁用启用。
 - 用户素材：图片素材、用户模板。
-- HTTP 接口服务：可通过接口对系统内的用户、素材进行管理。
+- HTTP接口对接：支持多种形式对接。
 - 批量图片生成：可根据模板 + 内容，批量生成创意图片。
+- 批量AI抠图。
 
 我们致力于帮助企业快速、低成本构建图片编辑应用，支持定制开发，欢迎与我们联系。
+![image](https://github.com/nihaojob/vue-fabric-editor/assets/13534626/d77c075c-807a-42f1-8934-e8dbfb9da0b2)
+
+
 
 ## 贡献指南
 
