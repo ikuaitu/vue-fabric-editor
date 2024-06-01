@@ -1,7 +1,7 @@
 import { fabric } from 'fabric';
 import Editor from '../Editor';
 import { getPolygonVertices } from '../../../src/utils/math';
-// import { throttle } from 'lodash-es';
+import { get, set } from 'lodash-es';
 type IEditor = Editor;
 
 const getBounds = (activeObject: fabric.Object) => {
@@ -12,6 +12,14 @@ const getBounds = (activeObject: fabric.Object) => {
     left,
     top,
   };
+};
+const bindInfo = (shell: fabric.Object, activeObject: fabric.Object) => {
+  bindFlagToObject(shell);
+  bindFlagToObject(shell, 'targetId', get(activeObject, 'id'));
+  bindFlagToObject(shell, 'targetType', get(activeObject, 'type'));
+};
+const bindFlagToObject = (activeObject: fabric.Object, key = 'clip', value: any = true) => {
+  set(activeObject, key, value);
 };
 const createRectClip = (activeObject: fabric.Object, inverted: boolean) => {
   const { width = 0, height = 0, left = 0, top = 0 } = getBounds(activeObject);
@@ -26,6 +34,7 @@ const createRectClip = (activeObject: fabric.Object, inverted: boolean) => {
     left: left + width / 2,
     top: top + height / 2,
   });
+  bindInfo(shell, activeObject);
   const clipPath = new fabric.Rect({
     absolutePositioned: true,
     width: shell.width,
@@ -49,6 +58,7 @@ const createCircleClip = (activeObject: fabric.Object, inverted: boolean) => {
     top: point.y,
     radius: width / 2,
   });
+  bindInfo(shell, activeObject);
   const clipPath = new fabric.Circle({
     absolutePositioned: true,
     originX: 'center',
@@ -74,6 +84,7 @@ const createTriClip = (activeObject: fabric.Object, inverted: boolean) => {
     width: clipW,
     height: clipH,
   });
+  bindInfo(shell, activeObject);
   const clipPath = new fabric.Triangle({
     absolutePositioned: true,
     originX: 'center',
@@ -96,6 +107,7 @@ const createPolygonClip = (activeObject: fabric.Object, inverted: boolean) => {
     left: point.x,
     top: point.y,
   });
+  bindInfo(shell, activeObject);
   const clipPath = new fabric.Polygon([...points], {
     absolutePositioned: true,
     originX: 'center',

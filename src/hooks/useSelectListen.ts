@@ -8,6 +8,7 @@
  */
 import Editor, { EventType } from '@kuaitu/core';
 const { SelectEvent, SelectMode } = EventType;
+import { get } from 'lodash-es';
 interface Selector {
   mSelectMode: SelectMode;
   mSelectOneType: string | undefined;
@@ -27,6 +28,12 @@ export default function useSelectListen(canvasEditor: Editor) {
 
   const selectOne = (e: [fabric.Object]) => {
     state.mSelectMode = SelectMode.ONE;
+    // if (e[0] && get(e[0], 'clip')) {
+    //   state.mSelectId = get(e[0], 'targetId');
+    //   state.mSelectOneType = get(e[0], 'targetType');
+    //   state.mSelectIds = e.map((item) => get(item, 'targetId'));
+    //   return;
+    // }
     if (e[0]) {
       state.mSelectId = e[0].id;
       state.mSelectOneType = e[0].type;
