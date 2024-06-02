@@ -147,6 +147,7 @@ const getList = () => {
 };
 
 onMounted(() => {
+  getList();
   canvasEditor.canvas.on('after:render', getList);
 });
 </script>
