@@ -25,7 +25,7 @@
 
 [功能介绍文章](https://juejin.cn/post/7222141882515128375) 文字 + 动图。
 
-- 导入 JSON 文件
+- 导入 JSON、PSD 文件
 - 保存为 PNG、SVG、JSON 文件
 - 插入 SVG、图片文件
 - 多元素水平、垂直对齐方式
@@ -72,15 +72,19 @@ pnpm dev
 
 ### 付费版本
 
-开源版本仅前端代码，[付费版本](https://ws0gdejldw.feishu.cn/file/NpBKbLKGRos0Z1xHvYXcqg6YnAg)**提供完整的前后端服务，无须任何开发，2999 元提供前后端源码，支持 Docker 部署**，包括功能：
+开源版本仅前端代码，[付费版本](https://ws0gdejldw.feishu.cn/docx/GKmnddCgFokr4sxFeYNcoql1nAb)**提供完整的前后端服务，开箱即用，无须任何开发，支持 Docker 部署**，包括功能：
 
 - 素材管理后台：可对编辑器中的字体、模板、图片素材进行便捷操作管理。
 - 用户管理：支持登录/注册，用户账号禁用启用。
 - 用户素材：图片素材、用户模板。
-- HTTP 接口服务：可通过接口对系统内的用户、素材进行管理。
+- HTTP接口对接：支持多种形式对接。
 - 批量图片生成：可根据模板 + 内容，批量生成创意图片。
+- 批量AI抠图。
 
 我们致力于帮助企业快速、低成本构建图片编辑应用，支持定制开发，欢迎与我们联系。
+![image](https://github.com/nihaojob/vue-fabric-editor/assets/13534626/d77c075c-807a-42f1-8934-e8dbfb9da0b2)
+
+
 
 ## 贡献指南
 
@@ -136,6 +140,7 @@ pnpm dev
 - [x] monorepo 升级 进行中
 - [x] 插件化
 - [x] 标尺插件
+- [x] PSD导入插件
 - [ ] 截图插件
 - [ ] 滤镜插件
 - [x] 画布插件
@@ -249,13 +254,6 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/z09176141">
-                    <img src="https://avatars.githubusercontent.com/u/49260613?v=4" width="80;" alt="z09176141"/>
-                    <br />
-                    <sub><b>z09176141</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/makeng">
                     <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
                     <br />
@@ -263,33 +261,10 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/hudenghui">
-                    <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
+                <a href="https://github.com/z09176141">
+                    <img src="https://avatars.githubusercontent.com/u/49260613?v=4" width="80;" alt="z09176141"/>
                     <br />
-                    <sub><b>hudenghui</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/JiangShuQ">
-                    <img src="https://avatars.githubusercontent.com/u/95730895?v=4" width="80;" alt="JiangShuQ"/>
-                    <br />
-                    <sub><b>JiangShuQ</b></sub>
-                </a>
-            </td>
-		</tr>
-		<tr>
-            <td align="center">
-                <a href="https://github.com/ijry">
-                    <img src="https://avatars.githubusercontent.com/u/3102798?v=4" width="80;" alt="ijry"/>
-                    <br />
-                    <sub><b>ijry</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/briver0825">
-                    <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="briver0825"/>
-                    <br />
-                    <sub><b>briver0825</b></sub>
+                    <sub><b>z09176141</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -306,6 +281,52 @@ pnpm dev
                     <sub><b>a847244052</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/briver0825">
+                    <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="briver0825"/>
+                    <br />
+                    <sub><b>briver0825</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/skyscraperno1">
+                    <img src="https://avatars.githubusercontent.com/u/63391543?v=4" width="80;" alt="skyscraperno1"/>
+                    <br />
+                    <sub><b>skyscraperno1</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/ijry">
+                    <img src="https://avatars.githubusercontent.com/u/3102798?v=4" width="80;" alt="ijry"/>
+                    <br />
+                    <sub><b>ijry</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/JiangShuQ">
+                    <img src="https://avatars.githubusercontent.com/u/95730895?v=4" width="80;" alt="JiangShuQ"/>
+                    <br />
+                    <sub><b>JiangShuQ</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/hudenghui">
+                    <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
+                    <br />
+                    <sub><b>hudenghui</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/ByeWord">
+                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
+                    <br />
+                    <sub><b>ByeWord</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/ddshiyu">
                     <img src="https://avatars.githubusercontent.com/u/37503208?v=4" width="80;" alt="ddshiyu"/>
@@ -320,8 +341,6 @@ pnpm dev
                     <sub><b>yehan68</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/luke358">
                     <img src="https://avatars.githubusercontent.com/u/48149577?v=4" width="80;" alt="luke358"/>
@@ -350,6 +369,8 @@ pnpm dev
                     <sub><b>wozhi-cl</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/vvbear">
                     <img src="https://avatars.githubusercontent.com/u/32010827?v=4" width="80;" alt="vvbear"/>
@@ -364,8 +385,6 @@ pnpm dev
                     <sub><b>slarkerino</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/rolitter">
                     <img src="https://avatars.githubusercontent.com/u/27326998?v=4" width="80;" alt="rolitter"/>
@@ -394,6 +413,8 @@ pnpm dev
                     <sub><b>nanfb</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/dulltackle">
                     <img src="https://avatars.githubusercontent.com/u/45963660?v=4" width="80;" alt="dulltackle"/>
@@ -408,8 +429,6 @@ pnpm dev
                     <sub><b>Bamzc</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/Yangzongtai">
                     <img src="https://avatars.githubusercontent.com/u/93592008?v=4" width="80;" alt="Yangzongtai"/>
@@ -436,13 +455,6 @@ pnpm dev
                     <img src="https://avatars.githubusercontent.com/u/12006542?v=4" width="80;" alt="liucity"/>
                     <br />
                     <sub><b>liucity</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/ByeWord">
-                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
-                    <br />
-                    <sub><b>ByeWord</b></sub>
                 </a>
             </td>
 		</tr>

@@ -62,7 +62,9 @@
   "mymaterial": "我的",
   "my_spase": {
     "remove_templ": "删除模板",
-    "remove_templTip": "确认删除模板吗？"
+    "remove_templTip": "确认删除模板吗？",
+    "remove_file_type": "确认删除文件夹吗？",
+    "remove_file_type_Tip": "确认删除模板吗？"
   },
   "title_template": "标题模板",
   "insert_svg": "插入SVG元素",
@@ -84,6 +86,16 @@
   },
   "select_json": "选择JSON文件",
   "repleaceImg": "替换图片",
+  "createClip": "添加裁切",
+  "removeClip": "移除裁切",
+  "polygonClip": "多边形",
+  "rectClip": "矩形",
+  "circleClip": "圆",
+  "triangleClip": "三角形",
+  "polygonClipInverted": "多边形【反】",
+  "rectClipInverted": "矩形【反】",
+  "circleClipInverted": "圆【反】",
+  "triangleClipInverted": "三角形【反】",
   "waterMark": {
     "text": "水印",
     "modalTitle": "配置水印",

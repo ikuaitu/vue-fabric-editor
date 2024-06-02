@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:46:01
+ * @LastEditTime: 2024-05-30 18:57:21
  * @Description: 组合元素对齐
 -->
 
@@ -12,7 +12,7 @@
     <Divider plain orientation="left"><h4>对齐</h4></Divider>
     <div class="bg-item">
       <!-- 水平对齐 -->
-      <Tooltip :content="$t('group_align.left')">
+      <Tooltip :content="$t('attrSeting.align.left')">
         <Button :disabled="notMultiple" @click="left" size="small" type="text">
           <svg
             t="1650442284704"
@@ -31,7 +31,7 @@
           </svg>
         </Button>
       </Tooltip>
-      <Tooltip :content="$t('group_align.centerX')">
+      <Tooltip :content="$t('attrSeting.align.centerX')">
         <Button :disabled="notMultiple" @click="xcenter" size="small" type="text">
           <svg
             t="1650442754876"
@@ -51,7 +51,7 @@
           </svg>
         </Button>
       </Tooltip>
-      <Tooltip :content="$t('group_align.right')">
+      <Tooltip :content="$t('attrSeting.align.right')">
         <Button :disabled="notMultiple" @click="right" size="small" type="text">
           <svg
             t="1650442299564"
@@ -71,7 +71,7 @@
         </Button>
       </Tooltip>
       <!-- 垂直对齐 -->
-      <Tooltip :content="$t('group_align.top')">
+      <Tooltip :content="$t('attrSeting.align.top')">
         <Button :disabled="notMultiple" @click="top" size="small" type="text">
           <svg
             t="1650442692910"
@@ -91,7 +91,7 @@
           </svg>
         </Button>
       </Tooltip>
-      <Tooltip :content="$t('group_align.centerY')">
+      <Tooltip :content="$t('attrSeting.align.centerY')">
         <Button :disabled="notMultiple" @click="ycenter" size="small" type="text">
           <svg
             t="1650442732396"
@@ -111,7 +111,7 @@
           </svg>
         </Button>
       </Tooltip>
-      <Tooltip :content="$t('group_align.bottom')">
+      <Tooltip :content="$t('attrSeting.align.bottom')">
         <Button :disabled="notMultiple" @click="bottom" size="small" type="text">
           <svg
             t="1650442674784"
@@ -132,7 +132,7 @@
         </Button>
       </Tooltip>
       <!-- 平均对齐 -->
-      <Tooltip :content="$t('group_align.averageX')">
+      <Tooltip :content="$t('attrSeting.align.averageX')">
         <Button :disabled="notMultiple" @click="xequation" size="small" type="text">
           <svg
             t="1650442800956"
@@ -152,7 +152,7 @@
           </svg>
         </Button>
       </Tooltip>
-      <Tooltip :content="$t('group_align.averageY')">
+      <Tooltip :content="$t('attrSeting.align.averageY')">
         <Button :disabled="notMultiple" @click="yequation" size="small" type="text">
           <svg
             t="1650442784286"

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-22 00:40:24
+ * @LastEditTime: 2024-05-27 16:09:57
  * @Description: 核心入口文件
  */
 import Editor from './Editor';
@@ -30,6 +30,7 @@ export { default as PolygonModifyPlugin } from './plugin/PolygonModifyPlugin';
 export { default as DrawPolygonPlugin } from './plugin/DrawPolygonPlugin';
 export { default as FreeDrawPlugin } from './plugin/FreeDrawPlugin';
 export { default as PathTextPlugin } from './plugin/PathTextPlugin';
+export { default as PsdPlugin } from './plugin/PsdPlugin';
 export { default as SimpleClipImagePlugin } from './plugin/SimpleClipImagePlugin';
 import EventType from './eventType';
 import Utils from './utils/utils';

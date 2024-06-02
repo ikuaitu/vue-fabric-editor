@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 19:15:19
+ * @LastEditTime: 2024-05-31 16:58:12
  * @Description: 导入JSON文件
 -->
 
@@ -19,12 +19,12 @@
             {{ $t('importFiles.createDesign.title') }}
           </DropdownItem>
           <DropdownItem name="importFiles">{{ $t('importFiles.importFiles') }}</DropdownItem>
+          <DropdownItem name="psd">PSD</DropdownItem>
         </DropdownMenu>
       </template>
     </Dropdown>
 
     <!-- 创建设计 -->
-    <!-- 修改尺寸 -->
     <modalSzie
       :title="$t('importFiles.createDesign.title')"
       ref="modalSizeRef"
@@ -38,6 +38,7 @@ import useSelect from '@/hooks/select';
 import useMaterial from '@/hooks/useMaterial';
 import { Message } from 'view-ui-plus';
 import modalSzie from '@/components/common/modalSzie';
+import { Spin } from 'view-ui-plus';
 
 const { canvasEditor } = useSelect();
 const { createTmpl, routerToId } = useMaterial();
@@ -49,6 +50,13 @@ const clickHandler = (type) => {
     importFiles: canvasEditor.insert,
     // 创建文件
     createDesign,
+    // psd
+    psd: () => {
+      // Spin.show({
+      //   render: (h) => h('div', t('alert.loading_data')),
+      // });
+      canvasEditor.insertPSD().finally(Spin.hide);
+    },
   };
   handleMap[type]?.();
 };

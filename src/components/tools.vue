@@ -247,13 +247,14 @@ const addText = (option) => {
     ...defaultPosition,
     ...option,
     fontSize: 80,
+    fill: '#000000FF',
     id: uuid(),
   });
   canvasEditor.canvas.add(text);
-  if (!option) {
-    text.center();
-  }
   canvasEditor.canvas.setActiveObject(text);
+  if (!option) {
+    canvasEditor.position('center');
+  }
 };
 
 // const addImg = (e) => {
@@ -274,13 +275,14 @@ const addTextBox = (option) => {
     splitByGrapheme: true,
     width: 400,
     fontSize: 80,
+    fill: '#000000FF',
     id: uuid(),
   });
   canvasEditor.canvas.add(text);
-  if (!option) {
-    text.center();
-  }
   canvasEditor.canvas.setActiveObject(text);
+  if (!option) {
+    canvasEditor.position('center');
+  }
 };
 
 const addTriangle = (option) => {
@@ -289,22 +291,22 @@ const addTriangle = (option) => {
     ...option,
     width: 400,
     height: 400,
-    fill: '#92706B',
+    fill: '#92706BFF',
     id: uuid(),
     name: '三角形',
   });
   canvasEditor.canvas.add(triangle);
-  if (!option) {
-    triangle.center();
-  }
   canvasEditor.canvas.setActiveObject(triangle);
+  if (!option) {
+    canvasEditor.position('center');
+  }
 };
 
 const addPolygon = (option) => {
   const polygon = new fabric.Polygon(getPolygonVertices(5, 200), {
     ...defaultPosition,
     ...option,
-    fill: '#ccc',
+    fill: '#CCCCCCFF',
     id: uuid(),
     name: '多边形',
   });
@@ -319,43 +321,44 @@ const addPolygon = (option) => {
     },
   });
   canvasEditor.canvas.add(polygon);
-  if (!option) {
-    polygon.center();
-  }
   canvasEditor.canvas.setActiveObject(polygon);
+  if (!option) {
+    canvasEditor.position('center');
+  }
 };
 
 const addCircle = (option) => {
+  console.log(canvasEditor);
   const circle = new fabric.Circle({
     ...defaultPosition,
     ...option,
     radius: 150,
-    fill: '#57606B',
+    fill: '#57606BFF',
     id: uuid(),
     name: '圆形',
   });
   canvasEditor.canvas.add(circle);
-  if (!option) {
-    circle.center();
-  }
   canvasEditor.canvas.setActiveObject(circle);
+  if (!option) {
+    canvasEditor.position('center');
+  }
 };
 
 const addRect = (option) => {
   const rect = new fabric.Rect({
     ...defaultPosition,
     ...option,
-    fill: '#F57274',
+    fill: '#F57274FF',
     width: 400,
     height: 400,
     id: uuid(),
     name: '矩形',
   });
   canvasEditor.canvas.add(rect);
-  if (!option) {
-    rect.center();
-  }
   canvasEditor.canvas.setActiveObject(rect);
+  if (!option) {
+    canvasEditor.position('center');
+  }
 };
 const drawPolygon = () => {
   const onEnd = () => {

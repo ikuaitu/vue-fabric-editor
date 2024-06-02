@@ -2,13 +2,13 @@
  * @Author: 秦少卫
  * @Date: 2024-04-25 15:30:54
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 17:12:21
+ * @LastEditTime: 2024-05-30 11:53:28
  * @Description: 我的素材
 -->
 
 <template>
   <div class="my-material" v-if="isLogin">
-    <Tabs size="small" v-model="type">
+    <Tabs v-model="type">
       <TabPane label="模板" name="templ">
         <myTempl v-if="type === 'templ'"></myTempl>
       </TabPane>
@@ -42,9 +42,6 @@ getFileListHandle();
 </script>
 
 <style scoped lang="less">
-.my-material {
-  padding-top: 10px;
-}
 .tip {
   padding: 20px;
   text-align: center;

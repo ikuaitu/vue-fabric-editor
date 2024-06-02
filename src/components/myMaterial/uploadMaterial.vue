@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-25 15:30:54
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 14:42:44
+ * @LastEditTime: 2024-05-30 12:02:24
  * @Description: 我的素材
 -->
 
@@ -109,10 +109,6 @@ const removeMaterialHandle = (id) => {
 </script>
 
 <style scoped lang="less">
-.my-material {
-  padding-top: 10px;
-}
-
 .img-group {
   background: #eeeeeea1;
   border-radius: 10px;
@@ -125,6 +121,7 @@ const removeMaterialHandle = (id) => {
   padding: 5px;
   cursor: pointer;
   border-radius: 10px;
+  text-align: center;
 
   &:hover {
     background: #e3e3e3;

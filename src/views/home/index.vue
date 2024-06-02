@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-23 09:16:59
+ * @LastEditTime: 2024-05-31 14:26:41
  * @Description: file content
 -->
 <template>
@@ -162,6 +162,9 @@
 // 导入元素
 import importJson from '@/components/importJSON.vue';
 import importFile from '@/components/importFile.vue';
+// 路由
+import { useRoute } from 'vue-router';
+
 // import fontTmpl from '@/components/fontTmpl.vue';
 
 // 顶部组件
@@ -240,11 +243,12 @@ import Editor, {
   DrawPolygonPlugin,
   FreeDrawPlugin,
   PathTextPlugin,
+  PsdPlugin,
   SimpleClipImagePlugin,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
-import AttributeTextContent from '@/components/attributeTextContent.vue';
 import ClipImage from '@/components/clipImage.vue';
+import AttributeTextContent from '@/components/attributeTextContent.vue';
 
 // 创建编辑器
 const canvasEditor = new Editor();
@@ -348,11 +352,18 @@ onMounted(() => {
     repoSrc: APIHOST,
   });
   canvasEditor.use(WaterMarkPlugin);
+  canvasEditor.use(PsdPlugin);
 
   state.show = true;
   // 默认打开标尺
   if (state.ruler) {
     canvasEditor.rulerEnable();
+  }
+
+  // 有ID时，打开作品面板
+  const route = useRoute();
+  if (route?.query?.id) {
+    menuActive.value = 'myMaterial';
   }
 });
 
@@ -529,8 +540,7 @@ provide('mixinState', mixinState);
 .content {
   flex: 1;
   width: 220px;
-  padding: 10px;
-  padding-top: 0;
+  padding: 0 10px;
   height: 100%;
   overflow-y: auto;
 }

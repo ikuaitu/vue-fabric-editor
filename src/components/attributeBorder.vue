@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-21 10:18:57
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:36:46
+ * @LastEditTime: 2024-05-26 22:59:26
  * @Description: 边框
 -->
 <template>
@@ -170,7 +170,8 @@ const getObjectAttr = (e) => {
 const changeCommon = (key, value) => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject) {
-    activeObject && activeObject.set(key, value);
+    activeObject.set(key, value);
+    activeObject.set('strokeUniform', true);
     canvasEditor.canvas.renderAll();
   }
 };
