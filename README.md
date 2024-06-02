@@ -407,14 +407,21 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/guda-art">
+                    <img src="https://avatars.githubusercontent.com/u/66010134?v=4" width="80;" alt="guda-art"/>
+                    <br />
+                    <sub><b>guda-art</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
                 <a href="https://github.com/nanfb">
                     <img src="https://avatars.githubusercontent.com/u/56207464?v=4" width="80;" alt="nanfb"/>
                     <br />
                     <sub><b>nanfb</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/dulltackle">
                     <img src="https://avatars.githubusercontent.com/u/45963660?v=4" width="80;" alt="dulltackle"/>
@@ -450,6 +457,8 @@ pnpm dev
                     <sub><b>icleitoncosta</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/liucity">
                     <img src="https://avatars.githubusercontent.com/u/12006542?v=4" width="80;" alt="liucity"/>
