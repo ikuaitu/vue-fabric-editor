@@ -119,6 +119,8 @@
               <center-align></center-align>
               <!-- 替换图片 -->
               <replaceImg></replaceImg>
+              <!--       图片裁切       -->
+              <clip-image></clip-image>
               <!-- 翻转 -->
               <flip></flip>
               <!-- 图片滤镜 -->
@@ -242,8 +244,10 @@ import Editor, {
   FreeDrawPlugin,
   PathTextPlugin,
   PsdPlugin,
+  SimpleClipImagePlugin,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
+import ClipImage from '@/components/clipImage.vue';
 import AttributeTextContent from '@/components/attributeTextContent.vue';
 
 // 创建编辑器
@@ -340,6 +344,7 @@ onMounted(() => {
   canvasEditor.use(DrawPolygonPlugin);
   canvasEditor.use(FreeDrawPlugin);
   canvasEditor.use(PathTextPlugin);
+  canvasEditor.use(SimpleClipImagePlugin);
   canvasEditor.use(FontPlugin, {
     repoSrc: APIHOST,
   });
