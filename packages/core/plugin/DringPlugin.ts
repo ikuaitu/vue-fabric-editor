@@ -9,13 +9,7 @@
 import Editor from '../Editor';
 type IEditor = Editor;
 
-declare type ExtCanvas = fabric.Canvas & {
-  isDragging: boolean;
-  lastPosX: number;
-  lastPosY: number;
-};
-
-class DringPlugin {
+export class DringPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
   public defautOption = {};
@@ -120,6 +114,14 @@ class DringPlugin {
       this.endDring();
     }
   }
+}
+
+declare global {
+  export type ExtCanvas = fabric.Canvas & {
+    isDragging: boolean;
+    lastPosX: number;
+    lastPosY: number;
+  };
 }
 
 export default DringPlugin;
