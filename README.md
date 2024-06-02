@@ -254,13 +254,6 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/ByeWord">
-                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
-                    <br />
-                    <sub><b>ByeWord</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/makeng">
                     <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
                     <br />
@@ -281,8 +274,6 @@ pnpm dev
                     <sub><b>zjc2233</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/a847244052">
                     <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
@@ -290,6 +281,8 @@ pnpm dev
                     <sub><b>a847244052</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/briver0825">
                     <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="briver0825"/>
@@ -323,6 +316,13 @@ pnpm dev
                     <img src="https://avatars.githubusercontent.com/u/17875293?v=4" width="80;" alt="hudenghui"/>
                     <br />
                     <sub><b>hudenghui</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/ByeWord">
+                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
+                    <br />
+                    <sub><b>ByeWord</b></sub>
                 </a>
             </td>
 		</tr>
