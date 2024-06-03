@@ -2,14 +2,15 @@
  * @Author: 秦少卫
  * @Date: 2024-05-30 10:03:30
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-30 14:47:19
+ * @LastEditTime: 2024-05-30 18:39:13
  * @Description: 文件夹
 -->
 
 <template>
   <div class="file-type-box">
-    <img :src="fileTypeIcon" @click="emit('select')" />
+    <img :src="fileTypeIcon" />
     <span>{{ props.name }}</span>
+    <div class="click-bg" @click="emit('select')"></div>
     <div class="more">
       <Dropdown trigger="click" @on-click="operation">
         <Button size="small" shape="circle" type="text">
@@ -80,7 +81,14 @@ const reNameFile = () => {
 };
 
 const deleteFile = async () => {
-  await removeFileType(props.itemId);
+  const res = await removeFileType(props.itemId);
+  if (res?.data?.msg) {
+    Message.error({
+      content: res.data?.msg,
+      duration: 3,
+    });
+    return;
+  }
   emit('change');
 };
 </script>
@@ -116,6 +124,14 @@ const deleteFile = async () => {
   div.more {
     position: absolute;
     display: none;
+  }
+
+  .click-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 
   &:hover {

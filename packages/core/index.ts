@@ -31,6 +31,7 @@ export { default as DrawPolygonPlugin } from './plugin/DrawPolygonPlugin';
 export { default as FreeDrawPlugin } from './plugin/FreeDrawPlugin';
 export { default as PathTextPlugin } from './plugin/PathTextPlugin';
 export { default as PsdPlugin } from './plugin/PsdPlugin';
+export { default as SimpleClipImagePlugin } from './plugin/SimpleClipImagePlugin';
 import EventType from './eventType';
 import Utils from './utils/utils';
 

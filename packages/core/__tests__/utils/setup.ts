@@ -19,3 +19,18 @@ export function createEditor() {
     cleanUp: editor.destory(),
   };
 }
+
+export function initPlugin(plugin: any) {
+  const editor = new Editor();
+  const canvasElement = document.createElement('canvas');
+  canvasElement.id = 'canvas';
+  const canvas = new fabric.Canvas('canvas', {});
+  const pluginInstance = new plugin(canvas, editor);
+
+  return {
+    pluginInstance,
+    cleanUp: () => {
+      editor.destory();
+    },
+  };
+}

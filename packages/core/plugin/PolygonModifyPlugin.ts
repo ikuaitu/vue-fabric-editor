@@ -90,9 +90,10 @@ function renderIconEdge(
   left: number,
   top: number,
   styleOverride: any,
-  fabricObject: fabric.Object,
-  img: HTMLImageElement
+  fabricObject: fabric.Object
 ) {
+  const img = document.createElement('img');
+  img.src = edgeImg;
   drawImg(ctx, left, top, img, 25, 25, fabric.util.degreesToRadians(fabricObject.angle || 0));
 }
 

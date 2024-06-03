@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-11 13:23:48
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-30 14:44:50
+ * @LastEditTime: 2024-05-30 18:49:59
  * @Description: 文件名称
 -->
 
@@ -118,9 +118,14 @@ const saveTempl = () => {
     });
 };
 
+// canvasEditor
 const changeFileName = debounce(() => {
-  saveTempl();
-}, 1000);
+  if (route.query.id) {
+    saveTempl();
+  }
+}, 3000);
+// 自动保存优化
+canvasEditor.canvas.on('object:modified', changeFileName);
 </script>
 <style scoped lang="less">
 h3 {

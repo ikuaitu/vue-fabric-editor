@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-30 10:48:00
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-30 14:47:39
+ * @LastEditTime: 2024-05-31 16:38:14
  * @Description: 模板文件
 -->
 <template>
@@ -26,18 +26,25 @@
             <DropdownMenu>
               <DropdownItem name="reName">重命名</DropdownItem>
               <DropdownItem name="delete">删除</DropdownItem>
+              <DropdownItem name="transfer">迁移目录</DropdownItem>
             </DropdownMenu>
           </template>
         </Dropdown>
       </div>
     </div>
   </Tooltip>
+  <!-- 迁移文件夹 -->
+  <Modal v-model="modalVisable" title="请选择迁移目录" @on-ok="transferRequest">
+    <TreeSelect v-model="fileTypeId" :data="treeData" v-width="200" />
+  </Modal>
+  <!--  -->
 </template>
 
 <script setup name="ImportTmpl">
 import useMaterial from '@/hooks/useMaterial';
 import { useI18n } from 'vue-i18n';
 import useSelect from '@/hooks/select';
+import { getUserFileTypeTree, updataTempl } from '@/api/user';
 const { t } = useI18n();
 const { canvasEditor } = useSelect();
 const { reNameFileType, removeTemplInfo, routerToId } = useMaterial();
@@ -73,6 +80,7 @@ const operation = (value) => {
   const mapActions = {
     reName: reNameFile,
     delete: deleteFile,
+    transfer: transfer,
   };
   mapActions[value]();
 };
@@ -123,6 +131,28 @@ const getTempData = () => {
   });
   routerToId(props.itemId);
   canvasEditor.loadJSON(JSON.stringify(props.json), Spin.hide);
+};
+
+const modalVisable = ref(false);
+const fileTypeId = ref('');
+const treeData = ref([]);
+
+const transfer = async () => {
+  treeData.value = [];
+  fileTypeId.value = '';
+  const res = await getUserFileTypeTree();
+  treeData.value = [res.data.data];
+  modalVisable.value = true;
+};
+
+const transferRequest = async () => {
+  const parentId = fileTypeId.value === 'root' ? '' : fileTypeId.value;
+  await updataTempl(props.itemId, {
+    data: {
+      parentId: String(parentId),
+    },
+  });
+  emit('change');
 };
 </script>
 

@@ -15,6 +15,11 @@ export default defineConfig((_configEnv) =>
       deps: {
         interopDefault: true,
       },
+      poolOptions: {
+        threads: {
+          singleThread: true,
+        },
+      },
       environment: 'jsdom',
     },
   })

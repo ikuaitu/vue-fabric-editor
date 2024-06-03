@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { setToken, autoLogin } from '@/api/user';
+import { setToken, autoLogin, logout } from '@/api/user';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -14,6 +14,10 @@ const routes: RouteRecordRaw[] = [
         });
         if (res.data.jwt) {
           setToken(res.data.jwt);
+        } else {
+          logout();
+          alert('签名失败');
+          window.location.href = '/';
         }
       }
       return true;

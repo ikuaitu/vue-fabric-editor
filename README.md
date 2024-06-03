@@ -72,15 +72,19 @@ pnpm dev
 
 ### 付费版本
 
-开源版本仅前端代码，[付费版本](https://ws0gdejldw.feishu.cn/file/NpBKbLKGRos0Z1xHvYXcqg6YnAg)**提供完整的前后端服务，无须任何开发，2999 元提供前后端源码，支持 Docker 部署**，包括功能：
+开源版本仅前端代码，[付费版本](https://ws0gdejldw.feishu.cn/docx/GKmnddCgFokr4sxFeYNcoql1nAb)**提供完整的前后端服务，开箱即用，无须任何开发，支持 Docker 部署**，包括功能：
 
 - 素材管理后台：可对编辑器中的字体、模板、图片素材进行便捷操作管理。
+- 批量导入：字体文件、素材、PSD模板批量导入到后台系统。
 - 用户管理：支持登录/注册，用户账号禁用启用。
 - 用户素材：图片素材、用户模板。
-- HTTP 接口服务：可通过接口对系统内的用户、素材进行管理。
+- HTTP接口对接：微信、短信登录，API接口登录，支持多种形式对接。
 - 批量图片生成：可根据模板 + 内容，批量生成创意图片。
+- 批量AI抠图：提供一定数量级的免费抠图服务。
 
 我们致力于帮助企业快速、低成本构建图片编辑应用，支持定制开发，欢迎与我们联系。
+![image](https://github.com/nihaojob/vue-fabric-editor/assets/13534626/d77c075c-807a-42f1-8934-e8dbfb9da0b2)
+
 
 ## 贡献指南
 
@@ -127,7 +131,7 @@ pnpm dev
 - [x] 图片替换
 - [x] 渐变配置
 - [ ] 平铺背景、等比例背景
-- [ ] 图片裁剪
+- [x] 图片裁剪
 - [x] 滤镜
 - [x] 描边 strokeDashArray
 
@@ -137,7 +141,7 @@ pnpm dev
 - [x] 插件化
 - [x] 标尺插件
 - [x] PSD导入插件
-- [ ] 截图插件
+- [x] 截图插件
 - [ ] 滤镜插件
 - [x] 画布插件
 - [x] 其他工具函数
@@ -250,6 +254,13 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/ByeWord">
+                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
+                    <br />
+                    <sub><b>ByeWord</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/makeng">
                     <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
                     <br />
@@ -270,6 +281,8 @@ pnpm dev
                     <sub><b>zjc2233</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/a847244052">
                     <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
@@ -277,13 +290,18 @@ pnpm dev
                     <sub><b>a847244052</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/briver0825">
                     <img src="https://avatars.githubusercontent.com/u/87807886?v=4" width="80;" alt="briver0825"/>
                     <br />
                     <sub><b>briver0825</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/skyscraperno1">
+                    <img src="https://avatars.githubusercontent.com/u/63391543?v=4" width="80;" alt="skyscraperno1"/>
+                    <br />
+                    <sub><b>skyscraperno1</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -307,13 +325,8 @@ pnpm dev
                     <sub><b>hudenghui</b></sub>
                 </a>
             </td>
-            <td align="center">
-                <a href="https://github.com/ByeWord">
-                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
-                    <br />
-                    <sub><b>ByeWord</b></sub>
-                </a>
-            </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/ddshiyu">
                     <img src="https://avatars.githubusercontent.com/u/37503208?v=4" width="80;" alt="ddshiyu"/>
@@ -321,8 +334,6 @@ pnpm dev
                     <sub><b>ddshiyu</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/yehan68">
                     <img src="https://avatars.githubusercontent.com/u/40497166?v=4" width="80;" alt="yehan68"/>
@@ -358,6 +369,8 @@ pnpm dev
                     <sub><b>wozhi-cl</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/vvbear">
                     <img src="https://avatars.githubusercontent.com/u/32010827?v=4" width="80;" alt="vvbear"/>
@@ -365,20 +378,11 @@ pnpm dev
                     <sub><b>vvbear</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/slarkerino">
                     <img src="https://avatars.githubusercontent.com/u/7014849?v=4" width="80;" alt="slarkerino"/>
                     <br />
                     <sub><b>slarkerino</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/skyscraperno1">
-                    <img src="https://avatars.githubusercontent.com/u/63391543?v=4" width="80;" alt="skyscraperno1"/>
-                    <br />
-                    <sub><b>skyscraperno1</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -403,14 +407,21 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/guda-art">
+                    <img src="https://avatars.githubusercontent.com/u/66010134?v=4" width="80;" alt="guda-art"/>
+                    <br />
+                    <sub><b>guda-art</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
                 <a href="https://github.com/nanfb">
                     <img src="https://avatars.githubusercontent.com/u/56207464?v=4" width="80;" alt="nanfb"/>
                     <br />
                     <sub><b>nanfb</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/dulltackle">
                     <img src="https://avatars.githubusercontent.com/u/45963660?v=4" width="80;" alt="dulltackle"/>
@@ -446,6 +457,8 @@ pnpm dev
                     <sub><b>icleitoncosta</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/liucity">
                     <img src="https://avatars.githubusercontent.com/u/12006542?v=4" width="80;" alt="liucity"/>
