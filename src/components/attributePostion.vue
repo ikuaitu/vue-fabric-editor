@@ -132,7 +132,6 @@ const changeCommon = (key, value) => {
       canvasEditor.canvas.renderAll();
       return;
     }
-    console.log(7777777777, key, value);
     activeObject && activeObject.set(key, value);
     canvasEditor.canvas.renderAll();
   }
