@@ -122,6 +122,7 @@
     "blur": "Blur",
     "offset_x": "X",
     "offset_y": "Y",
+    "rx_ry": "Rounded",
     "picture_filter": "Filtro"
   }
 }
