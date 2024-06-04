@@ -393,6 +393,13 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/pengzhijian">
+                    <img src="https://avatars.githubusercontent.com/u/133614612?v=4" width="80;" alt="pengzhijian"/>
+                    <br />
+                    <sub><b>pengzhijian</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/macheteHot">
                     <img src="https://avatars.githubusercontent.com/u/26652329?v=4" width="80;" alt="macheteHot"/>
                     <br />
@@ -406,6 +413,8 @@ pnpm dev
                     <sub><b>jooyyy</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/guda-art">
                     <img src="https://avatars.githubusercontent.com/u/66010134?v=4" width="80;" alt="guda-art"/>
@@ -413,8 +422,6 @@ pnpm dev
                     <sub><b>guda-art</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/nanfb">
                     <img src="https://avatars.githubusercontent.com/u/56207464?v=4" width="80;" alt="nanfb"/>
@@ -450,6 +457,8 @@ pnpm dev
                     <sub><b>Alicehhhmm</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/icleitoncosta">
                     <img src="https://avatars.githubusercontent.com/u/3260480?v=4" width="80;" alt="icleitoncosta"/>
@@ -457,8 +466,6 @@ pnpm dev
                     <sub><b>icleitoncosta</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/liucity">
                     <img src="https://avatars.githubusercontent.com/u/12006542?v=4" width="80;" alt="liucity"/>

@@ -328,7 +328,6 @@ const addPolygon = (option) => {
 };
 
 const addCircle = (option) => {
-  console.log(canvasEditor);
   const circle = new fabric.Circle({
     ...defaultPosition,
     ...option,
@@ -368,6 +367,7 @@ const drawPolygon = () => {
   };
   if (state.lineType !== LINE_TYPE.polygon) {
     endConflictTools();
+    canvasEditor.setMode(false);
     state.lineType = LINE_TYPE.polygon;
     state.isDrawingLineMode = true;
     canvasEditor.beginDrawPolygon(onEnd);
@@ -385,6 +385,7 @@ const drawPathText = () => {
     canvasEditor.endTextPathDraw();
   } else {
     endConflictTools();
+    canvasEditor.setMode(false);
     state.lineType = LINE_TYPE.pathText;
     state.isDrawingLineMode = true;
     canvasEditor.startTextPathDraw();
@@ -398,6 +399,7 @@ const freeDraw = () => {
     state.isDrawingLineMode = false;
   } else {
     endConflictTools();
+    canvasEditor.setMode(false);
     state.lineType = LINE_TYPE.freeDraw;
     state.isDrawingLineMode = true;
     canvasEditor.startDraw({ width: 20 });
@@ -410,15 +412,17 @@ const endConflictTools = () => {
   canvasEditor.endTextPathDraw();
 };
 const drawingLineModeSwitch = (type) => {
-  if ([LINE_TYPE.polygon, LINE_TYPE.freeDraw, LINE_TYPE.freeDraw].includes(state.lineType)) {
+  if ([LINE_TYPE.polygon, LINE_TYPE.pathText, LINE_TYPE.freeDraw].includes(state.lineType)) {
     endConflictTools();
   }
+  if (type === state.lineType && state.isDrawingLineMode) {
+    state.isDrawingLineMode = false;
+  } else {
+    state.isDrawingLineMode = true;
+  }
   state.lineType = type;
-  state.isDrawingLineMode = !state.isDrawingLineMode;
   canvasEditor.setMode(state.isDrawingLineMode);
   canvasEditor.setLineType(type);
-  // this.canvasEditor.setMode(this.isDrawingLineMode);
-  // this.canvasEditor.setArrow(isArrow);
   ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
 };
 

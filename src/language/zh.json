@@ -212,7 +212,9 @@
     "shadow": "阴影",
     "blur": "模糊",
     "offset_x": "X轴",
-    "offset_y": "Y轴"
+    "offset_y": "Y轴",
+    "borderRadiusX": "圆角水平半径",
+    "borderRadiusY": "圆角垂直半径"
   },
   "setSizeTip": "调整画布尺寸",
   "tip": "提示",
