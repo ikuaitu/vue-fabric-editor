@@ -27,7 +27,6 @@
           ></InputNumber>
         </Col>
       </Row>
-
       <Form :label-width="40" class="form-wrap">
         <FormItem :label="$t('attributes.angle')">
           <Slider
