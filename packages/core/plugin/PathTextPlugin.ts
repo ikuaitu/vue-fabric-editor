@@ -1,5 +1,6 @@
 import { fabric } from 'fabric';
 import Editor from '../Editor';
+import { v4 as uuid } from 'uuid';
 
 type IEditor = Editor;
 type DrawOptions = {
@@ -31,6 +32,7 @@ export default class PathTextPlugin {
       left: path.left,
       fill: this.options.color,
       path: path,
+      id: uuid(),
     });
     this.canvas.add(textObject);
   };
