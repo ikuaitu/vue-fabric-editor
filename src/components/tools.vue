@@ -419,7 +419,7 @@ const endDrawingLineMode = () => {
   canvasEditor.setLineType(state.lineType);
 };
 const drawingLineModeSwitch = (type) => {
-  if ([LINE_TYPE.polygon, LINE_TYPE.freeDraw, LINE_TYPE.freeDraw].includes(state.lineType)) {
+  if ([LINE_TYPE.polygon, LINE_TYPE.freeDraw, LINE_TYPE.pathText].includes(state.lineType)) {
     endConflictTools();
   }
   if (state.lineType === type) {
