@@ -51,13 +51,6 @@
             @on-input="(value) => changeCommon('angle', value)"
           ></Slider>
         </FormItem>
-        <FormItem :label="$t('attributes.angle')">
-          <Slider
-            v-model="baseAttr.angle"
-            :max="360"
-            @on-input="(value) => changeCommon('angle', value)"
-          ></Slider>
-        </FormItem>
         <FormItem :label="$t('attributes.opacity')">
           <Slider
             v-model="baseAttr.opacity"
