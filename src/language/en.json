@@ -181,6 +181,7 @@
     "offset_y": "Y",
     "borderRadiusX": "radiusX",
     "borderRadiusY": "radiusY"
+    "rx_ry": "Rounded"
   },
   "setSizeTip": "Resize canvas",
   "tip": "tip",

@@ -139,6 +139,8 @@
               <attributeShadow></attributeShadow>
               <!-- 边框 -->
               <attributeBorder></attributeBorder>
+              <!-- 圆角 -->
+              <attributeRounded></attributeRounded>
               <!-- 关联数据 -->
               <attributeId></attributeId>
             </div>
@@ -204,6 +206,7 @@ import attributePostion from '@/components/attributePostion.vue';
 import attributeId from '@/components/attributeId.vue';
 import attributeShadow from '@/components/attributeShadow.vue';
 import attributeBorder from '@/components/attributeBorder.vue';
+import attributeRounded from '@/components/attributeRounded.vue';
 import attributeFont from '@/components/attributeFont.vue';
 import attributeColor from '@/components/attributeColor.vue';
 

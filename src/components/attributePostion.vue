@@ -27,30 +27,7 @@
           ></InputNumber>
         </Col>
       </Row>
-      <Row :gutter="10">
-        <Col flex="1">
-          <InputNumber
-            v-model="baseAttr.rx"
-            @on-change="(value) => changeCommon('rx', value)"
-            :append="$t('attributes.borderRadiusX')"
-          ></InputNumber>
-        </Col>
-        <Col flex="1">
-          <InputNumber
-            v-model="baseAttr.ry"
-            @on-change="(value) => changeCommon('ry', value)"
-            :append="$t('attributes.borderRadiusY')"
-          ></InputNumber>
-        </Col>
-      </Row>
       <Form :label-width="40" class="form-wrap">
-        <FormItem :label="$t('attributes.angle')">
-          <Slider
-            v-model="baseAttr.angle"
-            :max="360"
-            @on-input="(value) => changeCommon('angle', value)"
-          ></Slider>
-        </FormItem>
         <FormItem :label="$t('attributes.angle')">
           <Slider
             v-model="baseAttr.angle"
