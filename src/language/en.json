@@ -179,8 +179,8 @@
     "blur": "Blur",
     "offset_x": "X",
     "offset_y": "Y",
-    "borderRadiusX": "Horizontal borderRadius",
-    "borderRadiusY": "Vertical borderRadius"
+    "borderRadiusX": "radiusX",
+    "borderRadiusY": "radiusY"
   },
   "setSizeTip": "Resize canvas",
   "tip": "tip",
