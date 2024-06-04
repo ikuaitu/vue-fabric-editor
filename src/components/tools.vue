@@ -368,6 +368,7 @@ const drawPolygon = () => {
   };
   if (state.lineType !== LINE_TYPE.polygon) {
     endConflictTools();
+    endDrawingLineMode();
     state.lineType = LINE_TYPE.polygon;
     state.isDrawingLineMode = true;
     canvasEditor.beginDrawPolygon(onEnd);
@@ -385,6 +386,7 @@ const drawPathText = () => {
     canvasEditor.endTextPathDraw();
   } else {
     endConflictTools();
+    endDrawingLineMode();
     state.lineType = LINE_TYPE.pathText;
     state.isDrawingLineMode = true;
     canvasEditor.startTextPathDraw();
@@ -398,6 +400,7 @@ const freeDraw = () => {
     state.isDrawingLineMode = false;
   } else {
     endConflictTools();
+    endDrawingLineMode();
     state.lineType = LINE_TYPE.freeDraw;
     state.isDrawingLineMode = true;
     canvasEditor.startDraw({ width: 20 });
@@ -409,12 +412,23 @@ const endConflictTools = () => {
   canvasEditor.endDraw();
   canvasEditor.endTextPathDraw();
 };
+const endDrawingLineMode = () => {
+  state.isDrawingLineMode = false;
+  state.lineType = '';
+  canvasEditor.setMode(state.isDrawingLineMode);
+  canvasEditor.setLineType(state.lineType);
+};
 const drawingLineModeSwitch = (type) => {
-  if ([LINE_TYPE.polygon, LINE_TYPE.freeDraw, LINE_TYPE.freeDraw].includes(state.lineType)) {
+  if ([LINE_TYPE.polygon, LINE_TYPE.freeDraw, LINE_TYPE.pathText].includes(state.lineType)) {
     endConflictTools();
   }
-  state.lineType = type;
-  state.isDrawingLineMode = !state.isDrawingLineMode;
+  if (state.lineType === type) {
+    state.isDrawingLineMode = false;
+    state.lineType = '';
+  } else {
+    state.isDrawingLineMode = true;
+    state.lineType = type;
+  }
   canvasEditor.setMode(state.isDrawingLineMode);
   canvasEditor.setLineType(type);
   // this.canvasEditor.setMode(this.isDrawingLineMode);
