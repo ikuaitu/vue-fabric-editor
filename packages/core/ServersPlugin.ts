@@ -95,16 +95,36 @@ class ServersPlugin {
     });
   }
 
+  // 设置path属性
+  renderITextPath(textPaths: Record<'id' | 'path', any>[]) {
+    textPaths.forEach((item) => {
+      const object = this.canvas.getObjects().find((o) => o.id === item.id);
+      if (object) {
+        fabric.Path.fromObject(item.path, (e) => {
+          object.set('path', e);
+        });
+      }
+    });
+  }
+
   loadJSON(jsonFile: string | object, callback?: () => void) {
     // 确保元素存在id
     const temp = typeof jsonFile === 'string' ? JSON.parse(jsonFile) : jsonFile;
+    const textPaths: Record<'id' | 'path', any>[] = [];
     temp.objects.forEach((item: any) => {
       !item.id && (item.id = uuid());
+      // 收集所有路径文本元素i-text，并设置path为null
+      if (item.type === 'i-text' && item.path) {
+        textPaths.push({ id: item.id, path: item.path });
+        item.path = null;
+      }
     });
     jsonFile = JSON.stringify(temp);
     // 加载前钩子
     this.editor.hooksEntity.hookImportBefore.callAsync(jsonFile, () => {
       this.canvas.loadFromJSON(jsonFile, () => {
+        // 把i-text对应的path加上
+        this.renderITextPath(textPaths);
         this.canvas.renderAll();
         // 加载后钩子
         this.editor.hooksEntity.hookImportAfter.callAsync(jsonFile, () => {
@@ -119,7 +139,14 @@ class ServersPlugin {
   }
 
   getJson() {
-    return this.canvas.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls', 'linkData']);
+    return this.canvas.toJSON([
+      'id',
+      'gradientAngle',
+      'selectable',
+      'hasControls',
+      'linkData',
+      'editable',
+    ]);
   }
 
   /**
