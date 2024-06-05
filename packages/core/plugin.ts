@@ -6,8 +6,10 @@ class FontPlugin {
   public editor: IEditor;
   // 插件名称
   static pluginName = 'FontPlugin';
-  // 暴漏的API名称
+  // 挂载API名称
   static apis = ['downFontByJSON'];
+  // 发布事件
+  static events = ['textEvent1', 'textEvent2'];
   // 快捷键 keyCode hotkeys-js
   public hotkeys: string[] = ['backspace', 'space'];
   // 私有属性
@@ -29,8 +31,11 @@ class FontPlugin {
   // 挂载API方法
   downFontByJSON(str: string) {}
   
-  // 私有方法
-  _createFontCSS(){}
+  // 私有方法 + 发布事件
+  _createFontCSS(){
+    const params = []
+    this.editor.emit('textEvent1', params)
+  }
 
   // 右键菜单 
   contextMenu() {
