@@ -14,9 +14,26 @@ declare namespace fabric {
     _centerObject: (obj: fabric.Object, center: fabric.Point) => fabric.Canvas;
     _setupCurrentTransform(e: Event, target: fabric.Object, alreadySelected: boolean): void;
   }
+  export interface Object {
+    id: string;
+  }
 
   export interface Control {
     rotate: number;
+  }
+
+  export interface IObjectOptions {
+    /**
+     * 标识
+     */
+    id?: string | undefined;
+  }
+
+  export interface IUtil {
+    findScaleToFit: (
+      source: Record<string, unknown> | fabric.Object,
+      destination: Record<string, unknown> | fabric.Object
+    ) => number;
   }
 
   function ControlMouseEventHandler(

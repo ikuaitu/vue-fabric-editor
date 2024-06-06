@@ -10,14 +10,7 @@ declare module '*.vue' {
 }
 
 declare global {
-  declare module 'fabric/fabric-impl' {
-    interface IObjectOptions {
-      /**
-       * 标识
-       */
-      id?: string | undefined;
-    }
-  }
+  declare module 'fabric/fabric-impl' {}
 }
 
 export as namespace vfe;
