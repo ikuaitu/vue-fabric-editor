@@ -27,7 +27,6 @@
           ></InputNumber>
         </Col>
       </Row>
-
       <Form :label-width="40" class="form-wrap">
         <FormItem :label="$t('attributes.angle')">
           <Slider
@@ -77,6 +76,8 @@ const baseAttr = reactive({
   angle: 0,
   left: 0,
   top: 0,
+  rx: 0,
+  ry: 0,
 });
 
 // 属性获取

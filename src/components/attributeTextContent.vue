@@ -58,7 +58,7 @@ onBeforeUnmount(() => {
 <template>
   <div
     class="box attr-item-box"
-    v-if="mixinState.mSelectMode === 'one' && mixinState.mSelectOneType === 'text'"
+    v-if="mixinState.mSelectMode === 'one' && mixinState.mSelectOneType === 'i-text'"
   >
     <!-- <h3>数据</h3> -->
     <Divider plain orientation="left"><h4>文本内容</h4></Divider>

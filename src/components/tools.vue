@@ -243,6 +243,7 @@ const state = reactive({
 // let drawHandler = null;
 
 const addText = (option) => {
+  cancelDraw();
   const text = new fabric.IText(t('everything_is_fine'), {
     ...defaultPosition,
     ...option,
@@ -269,6 +270,7 @@ const addText = (option) => {
 // };
 
 const addTextBox = (option) => {
+  cancelDraw();
   const text = new fabric.Textbox(t('everything_goes_well'), {
     ...defaultPosition,
     ...option,
@@ -286,6 +288,7 @@ const addTextBox = (option) => {
 };
 
 const addTriangle = (option) => {
+  cancelDraw();
   const triangle = new fabric.Triangle({
     ...defaultPosition,
     ...option,
@@ -303,6 +306,7 @@ const addTriangle = (option) => {
 };
 
 const addPolygon = (option) => {
+  cancelDraw();
   const polygon = new fabric.Polygon(getPolygonVertices(5, 200), {
     ...defaultPosition,
     ...option,
@@ -328,7 +332,7 @@ const addPolygon = (option) => {
 };
 
 const addCircle = (option) => {
-  console.log(canvasEditor);
+  cancelDraw();
   const circle = new fabric.Circle({
     ...defaultPosition,
     ...option,
@@ -345,6 +349,7 @@ const addCircle = (option) => {
 };
 
 const addRect = (option) => {
+  cancelDraw();
   const rect = new fabric.Rect({
     ...defaultPosition,
     ...option,
@@ -368,6 +373,7 @@ const drawPolygon = () => {
   };
   if (state.lineType !== LINE_TYPE.polygon) {
     endConflictTools();
+    endDrawingLineMode();
     state.lineType = LINE_TYPE.polygon;
     state.isDrawingLineMode = true;
     canvasEditor.beginDrawPolygon(onEnd);
@@ -385,6 +391,7 @@ const drawPathText = () => {
     canvasEditor.endTextPathDraw();
   } else {
     endConflictTools();
+    endDrawingLineMode();
     state.lineType = LINE_TYPE.pathText;
     state.isDrawingLineMode = true;
     canvasEditor.startTextPathDraw();
@@ -398,6 +405,7 @@ const freeDraw = () => {
     state.isDrawingLineMode = false;
   } else {
     endConflictTools();
+    endDrawingLineMode();
     state.lineType = LINE_TYPE.freeDraw;
     state.isDrawingLineMode = true;
     canvasEditor.startDraw({ width: 20 });
@@ -409,12 +417,23 @@ const endConflictTools = () => {
   canvasEditor.endDraw();
   canvasEditor.endTextPathDraw();
 };
+const endDrawingLineMode = () => {
+  state.isDrawingLineMode = false;
+  state.lineType = '';
+  canvasEditor.setMode(state.isDrawingLineMode);
+  canvasEditor.setLineType(state.lineType);
+};
 const drawingLineModeSwitch = (type) => {
-  if ([LINE_TYPE.polygon, LINE_TYPE.freeDraw, LINE_TYPE.freeDraw].includes(state.lineType)) {
+  if ([LINE_TYPE.polygon, LINE_TYPE.freeDraw, LINE_TYPE.pathText].includes(state.lineType)) {
     endConflictTools();
   }
-  state.lineType = type;
-  state.isDrawingLineMode = !state.isDrawingLineMode;
+  if (state.lineType === type) {
+    state.isDrawingLineMode = false;
+    state.lineType = '';
+  } else {
+    state.isDrawingLineMode = true;
+    state.lineType = type;
+  }
   canvasEditor.setMode(state.isDrawingLineMode);
   canvasEditor.setLineType(type);
   // this.canvasEditor.setMode(this.isDrawingLineMode);
@@ -481,6 +500,20 @@ onMounted(() => {
       dragOption.top = pointerVpt.y;
     });
   });
+});
+
+// 退出绘制状态
+const cancelDraw = () => {
+  if (!state.isDrawingLineMode) return;
+  state.isDrawingLineMode = false;
+  state.lineType = '';
+  canvasEditor.setMode(false);
+  endConflictTools();
+  ensureObjectSelEvStatus(true, true);
+};
+
+onDeactivated(() => {
+  cancelDraw();
 });
 </script>
 

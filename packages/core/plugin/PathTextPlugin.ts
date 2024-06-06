@@ -1,5 +1,6 @@
 import { fabric } from 'fabric';
 import Editor from '../Editor';
+import { v4 as uuid } from 'uuid';
 
 type IEditor = Editor;
 type DrawOptions = {
@@ -25,12 +26,17 @@ export default class PathTextPlugin {
     path.set({ stroke: this.options.lineColor });
     const text = this.options.defaultText;
     const fontSize = this.options.defaultFontSize;
-    const textObject = new fabric.Text(text, {
+    const textObject = new fabric.IText(text, {
+      shadow: '',
+      fontFamily: 'arial',
       fontSize: fontSize,
       top: path.top,
       left: path.left,
       fill: this.options.color,
       path: path,
+      id: uuid(),
+      // 路径文字元素禁止在画布上直接编辑
+      editable: false,
     });
     this.canvas.add(textObject);
   };
