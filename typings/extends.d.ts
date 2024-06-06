@@ -14,9 +14,6 @@ declare namespace fabric {
     _centerObject: (obj: fabric.Object, center: fabric.Point) => fabric.Canvas;
     _setupCurrentTransform(e: Event, target: fabric.Object, alreadySelected: boolean): void;
   }
-  export interface Object {
-    id: string;
-  }
 
   export interface Control {
     rotate: number;
