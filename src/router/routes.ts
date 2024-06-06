@@ -10,6 +10,7 @@ const routes: RouteRecordRaw[] = [
       if (to.query.username && to.query.key) {
         const res = await autoLogin({
           username: to.query.username,
+          projectid: to.query.projectid,
           key: to.query.key,
         });
         if (res.data.jwt) {
