@@ -243,6 +243,7 @@ const state = reactive({
 // let drawHandler = null;
 
 const addText = (option) => {
+  cancelDraw();
   const text = new fabric.IText(t('everything_is_fine'), {
     ...defaultPosition,
     ...option,
@@ -269,6 +270,7 @@ const addText = (option) => {
 // };
 
 const addTextBox = (option) => {
+  cancelDraw();
   const text = new fabric.Textbox(t('everything_goes_well'), {
     ...defaultPosition,
     ...option,
@@ -286,6 +288,7 @@ const addTextBox = (option) => {
 };
 
 const addTriangle = (option) => {
+  cancelDraw();
   const triangle = new fabric.Triangle({
     ...defaultPosition,
     ...option,
@@ -303,6 +306,7 @@ const addTriangle = (option) => {
 };
 
 const addPolygon = (option) => {
+  cancelDraw();
   const polygon = new fabric.Polygon(getPolygonVertices(5, 200), {
     ...defaultPosition,
     ...option,
@@ -328,7 +332,7 @@ const addPolygon = (option) => {
 };
 
 const addCircle = (option) => {
-  console.log(canvasEditor);
+  cancelDraw();
   const circle = new fabric.Circle({
     ...defaultPosition,
     ...option,
@@ -345,6 +349,7 @@ const addCircle = (option) => {
 };
 
 const addRect = (option) => {
+  cancelDraw();
   const rect = new fabric.Rect({
     ...defaultPosition,
     ...option,
@@ -495,6 +500,20 @@ onMounted(() => {
       dragOption.top = pointerVpt.y;
     });
   });
+});
+
+// 退出绘制状态
+const cancelDraw = () => {
+  if (!state.isDrawingLineMode) return;
+  state.isDrawingLineMode = false;
+  state.lineType = '';
+  canvasEditor.setMode(false);
+  endConflictTools();
+  ensureObjectSelEvStatus(true, true);
+};
+
+onDeactivated(() => {
+  cancelDraw();
 });
 </script>
 
