@@ -19,6 +19,20 @@ declare namespace fabric {
     rotate: number;
   }
 
+  export interface IObjectOptions {
+    /**
+     * 标识
+     */
+    id?: string | undefined;
+  }
+
+  export interface IUtil {
+    findScaleToFit: (
+      source: Record<string, unknown> | fabric.Object,
+      destination: Record<string, unknown> | fabric.Object
+    ) => number;
+  }
+
   function ControlMouseEventHandler(
     eventData: MouseEvent,
     transformData: Transform,
