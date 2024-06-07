@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 16:27:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 21:16:36
+ * @LastEditTime: 2024-06-07 21:26:22
  * @Description: 条形码插件
 -->
 
@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <div class="flex-view">
+      <div class="flex-view" v-if="baseAttr.displayValue">
         <div class="flex-item">
           <span class="label">文字</span>
           <div class="content">

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 14:12:24
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 21:16:56
+ * @LastEditTime: 2024-06-07 21:24:56
  * @Description: 条形码生成工具
  */
 
@@ -73,9 +73,9 @@ class BarCodePlugin {
           extensionType: 'barcode',
           extension: option,
         });
+        imgEl.scaleToWidth(this.editor.getWorkspase().getScaledWidth() / 2);
         this.canvas.add(imgEl);
         this.canvas.setActiveObject(imgEl);
-        imgEl.scaleToWidth(this.editor.getWorkspase().getScaledWidth() / 4);
         this.editor.position('center');
       },
       { crossOrigin: 'anonymous' }

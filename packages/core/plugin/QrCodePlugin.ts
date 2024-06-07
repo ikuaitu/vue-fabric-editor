@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 19:58:26
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 20:58:16
+ * @LastEditTime: 2024-06-07 21:25:16
  * @Description: 二维码生成工具
  */
 
@@ -136,9 +136,8 @@ class QrCodePlugin {
           extensionType: 'qrcode',
           extension: option,
         });
+        imgEl.scaleToWidth(this.editor.getWorkspase().getScaledWidth() / 2);
         this.canvas.add(imgEl);
-        console.log(this.editor.getWorkspase().getScaledWidth() / 4);
-        imgEl.scaleToWidth(this.editor.getWorkspase().getScaledWidth() / 4);
         this.canvas.setActiveObject(imgEl);
         this.editor.position('center');
       },

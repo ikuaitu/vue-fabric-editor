@@ -3,7 +3,7 @@
  * @Date: 2023-05-26 17:42:26
  * @Description: 调色板
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 11:48:56
+ * @LastEditTime: 2024-06-07 21:38:20
 -->
 <template>
   <div class="color-picker">
@@ -299,14 +299,18 @@ async function onMountedCallback() {
   function onChangeSL(position) {
     disableChangeHSLA();
 
-    const x = position.x * 100;
-    const y = position.y * 100;
+    try {
+      const x = position.x * 100;
+      const y = position.y * 100;
 
-    hsla.s = Math.round(x);
-    hsla.l = Math.round(100 - y);
+      hsla.s = Math.round(x);
+      hsla.l = Math.round(100 - y);
 
-    elPalettePointer.value.style.left = `${x}%`;
-    elPalettePointer.value.style.top = `${y}%`;
+      elPalettePointer.value.style.left = `${x}%`;
+      elPalettePointer.value.style.top = `${y}%`;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   sliderHuxMoveable = registerMoveableElement(elSliderHux.value, {
@@ -432,16 +436,19 @@ function setColor(color) {
     hsla.a = _hsla[3];
 
     updateColorData(color);
+    try {
+      let x = hsla.s;
+      const y = Math.round(100 - hsla.l);
+      elPalettePointer.value.style.left = `${x}%`;
+      elPalettePointer.value.style.top = `${y}%`;
 
-    let x = hsla.s;
-    const y = Math.round(100 - hsla.l);
-    elPalettePointer.value.style.left = `${x}%`;
-    elPalettePointer.value.style.top = `${y}%`;
+      x = hsla.h / 360;
+      elSliderHuxPointer.value.style.left = `${x * 100}%`;
 
-    x = hsla.h / 360;
-    elSliderHuxPointer.value.style.left = `${x * 100}%`;
-
-    elSliderAlphaPointer.value.style.left = `${hsla.a * 100}%`;
+      elSliderAlphaPointer.value.style.left = `${hsla.a * 100}%`;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
