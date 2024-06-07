@@ -231,19 +231,19 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/liumingye">
-                    <img src="https://avatars.githubusercontent.com/u/8676207?v=4" width="80;" alt="liumingye"/>
+                <a href="https://github.com/ByeWord">
+                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
                     <br />
-                    <sub><b>liumingye</b></sub>
+                    <sub><b>ByeWord</b></sub>
                 </a>
             </td>
 		</tr>
 		<tr>
             <td align="center">
-                <a href="https://github.com/ByeWord">
-                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
+                <a href="https://github.com/liumingye">
+                    <img src="https://avatars.githubusercontent.com/u/8676207?v=4" width="80;" alt="liumingye"/>
                     <br />
-                    <sub><b>ByeWord</b></sub>
+                    <sub><b>liumingye</b></sub>
                 </a>
             </td>
             <td align="center">
