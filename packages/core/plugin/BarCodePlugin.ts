@@ -2,13 +2,13 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 14:12:24
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 11:53:04
+ * @LastEditTime: 2024-06-07 11:57:45
  * @Description: 条形码生成工具
  */
 
 import { fabric } from 'fabric';
 import Editor from '../Editor';
-import * as JsBarcode from 'JsBarcode';
+import JsBarcode from 'jsbarcode';
 
 type IEditor = Editor;
 

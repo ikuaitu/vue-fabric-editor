@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 16:27:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 11:05:07
+ * @LastEditTime: 2024-06-07 11:58:56
  * @Description: 条形码插件
 -->
 
@@ -136,7 +136,6 @@ const getObjectAttr = (e) => {
     textType.includes(activeObject.type) &&
     activeObject?.extensionType === 'barcode'
   ) {
-    console.log(activeObject.get('extension'), 111);
     baseAttr.value = activeObject.get('extension').value;
     baseAttr.format = activeObject.get('extension').format;
     baseAttr.text = activeObject.get('extension').text;
