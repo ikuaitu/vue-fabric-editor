@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
- * @LastEditors: June 1601745371@qq.com
- * @LastEditTime: 2024-05-23 17:56:15
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-06-07 11:24:12
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -43,6 +43,7 @@ class ServersPlugin {
     'addImgByElement',
     'getImageExtension',
     'getSelectMode',
+    'getExtensionKey',
   ];
   static events = [SelectMode.ONE, SelectMode.MULTI, SelectEvent.CANCEL];
   // public hotkeys: string[] = ['left', 'right', 'down', 'up'];
@@ -139,14 +140,21 @@ class ServersPlugin {
   }
 
   getJson() {
-    return this.canvas.toJSON([
+    const keys = this.getExtensionKey();
+    return this.canvas.toJSON(keys);
+  }
+
+  getExtensionKey() {
+    return [
       'id',
       'gradientAngle',
       'selectable',
       'hasControls',
       'linkData',
       'editable',
-    ]);
+      'extensionType',
+      'extension',
+    ];
   }
 
   /**
