@@ -50,23 +50,25 @@ const createRectClip = (activeObject: fabric.Object, inverted: boolean) => {
 const createCircleClip = (activeObject: fabric.Object, inverted: boolean) => {
   const point = activeObject.getCenterPoint();
   const { width } = getBounds(activeObject);
-  const shell = new fabric.Circle({
+  const shell = new fabric.Ellipse({
     fill: 'rgba(0,0,0,0)',
     originX: 'center',
     originY: 'center',
     left: point.x,
     top: point.y,
-    radius: width / 2,
+    rx: width / 4,
+    ry: width / 4,
   });
   bindInfo(shell, activeObject);
-  const clipPath = new fabric.Circle({
+  const clipPath = new fabric.Ellipse({
     absolutePositioned: true,
     originX: 'center',
     originY: 'center',
     left: shell.left,
     top: shell.top,
-    radius: width / 2,
     inverted: inverted,
+    rx: shell.rx,
+    ry: shell.ry,
   });
   return { shell, clipPath };
 };
@@ -159,8 +161,8 @@ export default class SimpleClipImagePlugin {
         activeObject.set('dirty', true);
       });
       shell.on('deselected', () => {
-        if (clipPath instanceof fabric.Circle) {
-          clipPath.set({ radius: (shell as fabric.Circle).getRadiusX() });
+        if (clipPath instanceof fabric.Ellipse && shell instanceof fabric.Ellipse) {
+          clipPath.set({ rx: shell.getRx(), ry: shell.getRy() });
         } else {
           clipPath.set({
             width: shell.getScaledWidth(),
