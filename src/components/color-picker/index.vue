@@ -3,7 +3,7 @@
  * @Date: 2023-05-26 17:42:26
  * @Description: 调色板
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 21:38:20
+ * @LastEditTime: 2024-06-07 21:56:39
 -->
 <template>
   <div class="color-picker">
@@ -476,11 +476,15 @@ function onChangeHex(value) {
     hsla.s = s;
     hsla.l = l;
 
-    elPalettePointer.value.style.left = `${hsla.s}%`;
-    elPalettePointer.value.style.top = `${100 - hsla.l}%`;
-    elSliderHuxPointer.value.style.left = `${(hsla.h / 360) * 100}%`;
+    try {
+      elPalettePointer.value.style.left = `${hsla.s}%`;
+      elPalettePointer.value.style.top = `${100 - hsla.l}%`;
+      elSliderHuxPointer.value.style.left = `${(hsla.h / 360) * 100}%`;
 
-    hex.value = value;
+      hex.value = value;
+    } catch (error) {
+      console.log(error);
+    }
   } else {
     // hex.value = backendHex
   }

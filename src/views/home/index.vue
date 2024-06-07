@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-06 20:05:13
+ * @LastEditTime: 2024-06-07 22:07:47
  * @Description: file content
 -->
 <template>
@@ -147,10 +147,10 @@
               <attributeRounded></attributeRounded>
               <!-- 关联数据 -->
               <attributeId></attributeId>
-            </div>
 
-            <!-- 新增字体样式使用 -->
-            <!-- <Button @click="canvasEditor.getFontJson()" size="small">获取字体数据</Button> -->
+              <!-- 新增字体样式使用 -->
+              <Button @click="canvasEditor.getFontJson()" size="small">获取元素数据</Button>
+            </div>
           </div>
           <!-- <attribute v-if="state.show"></attribute> -->
         </div>

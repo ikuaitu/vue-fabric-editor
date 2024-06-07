@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-08-05 17:47:35
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-17 16:26:25
+ * @LastEditTime: 2024-06-07 22:21:21
  * @Description: 字体样式
 -->
 
@@ -119,7 +119,6 @@ const addItem = async (item) => {
   const elType = capitalizeFirstLetter(el.type);
   new fabric[elType].fromObject(el, (fabricEl) => {
     canvasEditor.dragAddItem(fabricEl);
-
     Spin.hide();
   });
 };

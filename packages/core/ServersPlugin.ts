@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 20:47:36
+ * @LastEditTime: 2024-06-07 22:25:44
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -201,6 +201,9 @@ class ServersPlugin {
     const { width } = this._getSaveOption();
     width && item.scaleToWidth(width / 2);
     this.canvas.add(item);
+    this.canvas.setActiveObject(item);
+
+    !event && this.editor.position('center');
     this.canvas.requestRenderAll();
   }
 
