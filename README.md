@@ -240,6 +240,13 @@ pnpm dev
 		</tr>
 		<tr>
             <td align="center">
+                <a href="https://github.com/ByeWord">
+                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
+                    <br />
+                    <sub><b>ByeWord</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/bigFace2019">
                     <img src="https://avatars.githubusercontent.com/u/55651401?v=4" width="80;" alt="bigFace2019"/>
                     <br />
@@ -251,13 +258,6 @@ pnpm dev
                     <img src="https://avatars.githubusercontent.com/u/86701050?v=4" width="80;" alt="wohuweixiya"/>
                     <br />
                     <sub><b>wohuweixiya</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/ByeWord">
-                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
-                    <br />
-                    <sub><b>ByeWord</b></sub>
                 </a>
             </td>
             <td align="center">

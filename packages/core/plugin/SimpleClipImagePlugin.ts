@@ -50,23 +50,25 @@ const createRectClip = (activeObject: fabric.Object, inverted: boolean) => {
 const createCircleClip = (activeObject: fabric.Object, inverted: boolean) => {
   const point = activeObject.getCenterPoint();
   const { width } = getBounds(activeObject);
-  const shell = new fabric.Circle({
+  const shell = new fabric.Ellipse({
     fill: 'rgba(0,0,0,0)',
     originX: 'center',
     originY: 'center',
     left: point.x,
     top: point.y,
-    radius: width / 2,
+    rx: width / 4,
+    ry: width / 4,
   });
   bindInfo(shell, activeObject);
-  const clipPath = new fabric.Circle({
+  const clipPath = new fabric.Ellipse({
     absolutePositioned: true,
     originX: 'center',
     originY: 'center',
     left: shell.left,
     top: shell.top,
-    radius: width / 2,
     inverted: inverted,
+    rx: shell.rx,
+    ry: shell.ry,
   });
   return { shell, clipPath };
 };
@@ -159,22 +161,21 @@ export default class SimpleClipImagePlugin {
         activeObject.set('dirty', true);
       });
       shell.on('deselected', () => {
-        const position = activeObject.toLocalPoint(shell.getCenterPoint(), 'center', 'center');
-        clipPath.set({
-          absolutePositioned: false,
-          left: position.x,
-          top: position.y,
-        });
-        if (clipPath instanceof fabric.Circle) {
-          clipPath.set({ radius: (shell as fabric.Circle).getRadiusX(), scaleY: 1, scaleX: 1 });
+        if (clipPath instanceof fabric.Ellipse && shell instanceof fabric.Ellipse) {
+          clipPath.set({ rx: shell.getRx(), ry: shell.getRy() });
+          this.correctPosition(activeObject, shell, clipPath);
+        } else if (shell instanceof fabric.Polygon) {
+          this.correctPosition(activeObject, shell, clipPath);
+          const { scaleX: cSx = 1, scaleY: cSy = 1 } = clipPath;
+          const { scaleX: sSx = 1, scaleY: sSy = 1 } = shell;
+          clipPath.set('scaleX', cSx * sSx);
+          clipPath.set('scaleY', cSy * sSy);
         } else {
-          clipPath.set({
-            width: shell.getScaledWidth(),
-            height: shell.getScaledHeight(),
-            scaleX: 1,
-            scaleY: 1,
-          });
+          this.correctPosition(activeObject, shell, clipPath);
+          clipPath.set('width', shell.getScaledWidth());
+          clipPath.set('height', shell.getScaledHeight());
         }
+        activeObject.set('dirty', true);
         this.canvas.remove(shell);
         this.canvas.requestRenderAll();
       });
@@ -182,6 +183,17 @@ export default class SimpleClipImagePlugin {
       this.canvas.add(shell);
       this.canvas.setActiveObject(shell);
     }
+  }
+  correctPosition(activeObject: fabric.Object, shell: fabric.Object, clipPath: fabric.Object) {
+    const position = activeObject.toLocalPoint(shell.getCenterPoint(), 'center', 'center');
+    const { scaleX = 1, scaleY = 1 } = activeObject;
+    clipPath.set({
+      absolutePositioned: false,
+      left: position.x / scaleX,
+      top: position.y / scaleY,
+      scaleX: 1 / scaleX,
+      scaleY: 1 / scaleY,
+    });
   }
   removeClip() {
     const activeObject = this.canvas.getActiveObjects()[0];
