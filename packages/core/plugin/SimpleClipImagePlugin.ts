@@ -163,20 +163,18 @@ export default class SimpleClipImagePlugin {
       shell.on('deselected', () => {
         if (clipPath instanceof fabric.Ellipse && shell instanceof fabric.Ellipse) {
           clipPath.set({ rx: shell.getRx(), ry: shell.getRy() });
+          this.correctPosition(activeObject, shell, clipPath);
+        } else if (shell instanceof fabric.Polygon) {
+          this.correctPosition(activeObject, shell, clipPath);
+          const { scaleX: cSx = 1, scaleY: cSy = 1 } = clipPath;
+          const { scaleX: sSx = 1, scaleY: sSy = 1 } = shell;
+          clipPath.set('scaleX', cSx * sSx);
+          clipPath.set('scaleY', cSy * sSy);
         } else {
-          clipPath.set({
-            width: shell.getScaledWidth(),
-            height: shell.getScaledHeight(),
-          });
+          this.correctPosition(activeObject, shell, clipPath);
+          clipPath.set('width', shell.getScaledWidth());
+          clipPath.set('height', shell.getScaledHeight());
         }
-        const position = activeObject.toLocalPoint(shell.getCenterPoint(), 'center', 'center');
-        clipPath.set({
-          absolutePositioned: false,
-          left: position.x / activeObject.scaleX,
-          top: position.y / activeObject.scaleX,
-          scaleX: 1 / activeObject.scaleX,
-          scaleY: 1 / activeObject.scaleY,
-        });
         activeObject.set('dirty', true);
         this.canvas.remove(shell);
         this.canvas.requestRenderAll();
@@ -185,6 +183,17 @@ export default class SimpleClipImagePlugin {
       this.canvas.add(shell);
       this.canvas.setActiveObject(shell);
     }
+  }
+  correctPosition(activeObject: fabric.Object, shell: fabric.Object, clipPath: fabric.Object) {
+    const position = activeObject.toLocalPoint(shell.getCenterPoint(), 'center', 'center');
+    const { scaleX = 1, scaleY = 1 } = activeObject;
+    clipPath.set({
+      absolutePositioned: false,
+      left: position.x / scaleX,
+      top: position.y / scaleY,
+      scaleX: 1 / scaleX,
+      scaleY: 1 / scaleY,
+    });
   }
   removeClip() {
     const activeObject = this.canvas.getActiveObjects()[0];
