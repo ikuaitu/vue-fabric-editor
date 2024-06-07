@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 14:12:24
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 11:57:45
+ * @LastEditTime: 2024-06-07 20:50:01
  * @Description: 条形码生成工具
  */
 
@@ -34,6 +34,12 @@ class BarCodePlugin {
     this.editor = editor;
   }
 
+  async hookTransform(object: any) {
+    if (object.extensionType === 'barcode') {
+      const url = await this._getBase64Str(object.extension);
+      object.src = url;
+    }
+  }
   _getBase64Str(option: any) {
     const canvas = document.createElement('canvas');
     JsBarcode(canvas, option.value, {
@@ -65,9 +71,8 @@ class BarCodePlugin {
           extension: option,
         });
         this.canvas.add(imgEl);
-
         this.canvas.setActiveObject(imgEl);
-
+        imgEl.scaleToWidth(this.editor.getWorkspase().getScaledWidth() / 4);
         this.editor.position('center');
       },
       { crossOrigin: 'anonymous' }

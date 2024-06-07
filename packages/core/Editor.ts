@@ -21,6 +21,7 @@ class Editor extends EventEmitter {
     'hookImportAfter',
     'hookSaveBefore',
     'hookSaveAfter',
+    'hookTransform',
   ];
   public hooksEntity: {
     [propName: string]: AsyncSeriesHook<any, any>;
@@ -94,6 +95,7 @@ class Editor extends EventEmitter {
       const hook = plugin[hookName];
       if (hook) {
         this.hooksEntity[hookName].tapPromise(plugin.pluginName + hookName, function () {
+          // console.log(hookName, ...arguments);
           // eslint-disable-next-line prefer-rest-params
           const result = hook.apply(plugin, [...arguments]);
           // hook 兼容非 Promise 返回值

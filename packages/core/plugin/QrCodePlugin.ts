@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 19:58:26
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 11:03:27
+ * @LastEditTime: 2024-06-07 20:58:16
  * @Description: 二维码生成工具
  */
 
@@ -51,6 +51,14 @@ class QrCodePlugin {
     this.editor = editor;
   }
 
+  async hookTransform(object: any) {
+    if (object.extensionType === 'qrcode') {
+      const paramsOption = this._paramsToOption(object.extension);
+      const url = await this._getBase64Str(paramsOption);
+      object.src = url;
+    }
+  }
+
   async _getBase64Str(options: any) {
     const qrCode = new QRCodeStyling(options);
     const blob = await qrCode.getRawData('png');
@@ -67,7 +75,7 @@ class QrCodePlugin {
       dotsColor: 'black',
       dotsType: 'rounded',
       cornersSquareColor: 'black',
-      cornersSquareType: 'dot',
+      cornersSquareType: 'square',
       cornersDotColor: 'black',
       cornersDotType: 'square',
       background: '#ffffff',
@@ -129,6 +137,8 @@ class QrCodePlugin {
           extension: option,
         });
         this.canvas.add(imgEl);
+        console.log(this.editor.getWorkspase().getScaledWidth() / 4);
+        imgEl.scaleToWidth(this.editor.getWorkspase().getScaledWidth() / 4);
         this.canvas.setActiveObject(imgEl);
         this.editor.position('center');
       },

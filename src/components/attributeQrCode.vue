@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 20:04:48
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 10:58:58
+ * @LastEditTime: 2024-06-07 20:56:55
  * @Description: 二维码组件
 -->
 
@@ -77,7 +77,11 @@
         <div class="flex-item">
           <span class="label" style="margin-left: 10px">类型</span>
           <div class="content">
-            <Select v-model="baseAttr.cornersDotType" @on-change="changeCommon" style="width: 90px">
+            <Select
+              v-model="baseAttr.cornersSquareType"
+              @on-change="changeCommon"
+              style="width: 90px"
+            >
               <Option v-for="item in optionsList.cornersDotType" :value="item" :key="item">
                 {{ item }}
               </Option>

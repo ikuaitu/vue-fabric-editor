@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-21 23:51:01
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-17 16:40:07
+ * @LastEditTime: 2024-06-07 15:28:48
  * @Description: 自定义字体
  */
 
@@ -43,9 +43,9 @@ class FontPlugin {
     this.tempPromise = null;
   }
 
-  hookImportBefore(json: string) {
-    return this.downFontByJSON(json);
-  }
+  // hookImportBefore(json: string) {
+  //   return this.downFontByJSON(json);
+  // }
   getFontList() {
     // 返回暂存字体
     if (this.cacheList.length) {

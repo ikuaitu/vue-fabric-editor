@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 16:27:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 11:58:56
+ * @LastEditTime: 2024-06-07 20:54:19
  * @Description: 条形码插件
 -->
 
@@ -46,6 +46,18 @@
               <span v-html="textAlignListSvg[i]"></span>
             </Radio>
           </RadioGroup>
+        </div>
+      </div>
+
+      <div class="flex-view">
+        <div class="flex-item">
+          <span class="label">垂直</span>
+          <div class="content">
+            <Select v-model="baseAttr.textPosition" @on-change="changeCommon">
+              <Option value="bottom">bottom</Option>
+              <Option value="top">top</Option>
+            </Select>
+          </div>
         </div>
       </div>
 

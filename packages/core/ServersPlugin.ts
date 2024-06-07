@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 11:24:12
+ * @LastEditTime: 2024-06-07 20:47:36
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -108,7 +108,7 @@ class ServersPlugin {
     });
   }
 
-  loadJSON(jsonFile: string | object, callback?: () => void) {
+  async loadJSON(jsonFile: string | object, callback?: () => void) {
     // 确保元素存在id
     const temp = typeof jsonFile === 'string' ? JSON.parse(jsonFile) : jsonFile;
     const textPaths: Record<'id' | 'path', any>[] = [];
@@ -120,7 +120,11 @@ class ServersPlugin {
         item.path = null;
       }
     });
-    jsonFile = JSON.stringify(temp);
+
+    // hookTransform遍历
+    const tempTransform = await this._transform(temp);
+
+    jsonFile = JSON.stringify(tempTransform);
     // 加载前钩子
     this.editor.hooksEntity.hookImportBefore.callAsync(jsonFile, () => {
       this.canvas.loadFromJSON(jsonFile, () => {
@@ -135,6 +139,25 @@ class ServersPlugin {
           callback && callback();
           this.editor.emit('loadJson');
         });
+      });
+    });
+  }
+
+  async _transform(json: any) {
+    await this.promiseCallAsync(json);
+    if (json.objects) {
+      const all = json.objects.map((item: any) => {
+        return this._transform(item);
+      });
+      await Promise.all(all);
+    }
+    return json;
+  }
+
+  promiseCallAsync(item: any) {
+    return new Promise((resolve) => {
+      this.editor.hooksEntity.hookTransform.callAsync(item, () => {
+        resolve(item);
       });
     });
   }
