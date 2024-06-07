@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 14:12:24
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 20:50:01
+ * @LastEditTime: 2024-06-07 21:16:56
  * @Description: 条形码生成工具
  */
 
@@ -57,6 +57,9 @@ class BarCodePlugin {
       textAlign: 'left',
       textPosition: 'bottom',
       fontSize: 12,
+      background: '#fff',
+      lineColor: '#000',
+      displayValue: false,
     };
   }
 
