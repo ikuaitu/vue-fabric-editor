@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-21 23:51:01
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 15:28:48
+ * @LastEditTime: 2024-06-07 21:53:36
  * @Description: 自定义字体
  */
 
@@ -43,9 +43,9 @@ class FontPlugin {
     this.tempPromise = null;
   }
 
-  // hookImportBefore(json: string) {
-  //   return this.downFontByJSON(json);
-  // }
+  hookImportBefore(json: string) {
+    return this.downFontByJSON(json);
+  }
   getFontList() {
     // 返回暂存字体
     if (this.cacheList.length) {
@@ -76,9 +76,10 @@ class FontPlugin {
     const skipFonts = ['arial'];
     if (object.objects) {
       fontFamilies = JSON.parse(str)
-        .objects.filter(
-          (item: Font) => item.type.includes('text') && !skipFonts.includes(item.fontFamily)
-        )
+        .objects.filter((item: Font) => {
+          const hasFontFile = this.cacheList.find((font) => font.name === item.fontFamily);
+          return item.type.includes('text') && !skipFonts.includes(item.fontFamily) && hasFontFile;
+        })
         .map((item: Font) => item.fontFamily);
     } else {
       fontFamilies = skipFonts.includes(object.fontFamily) ? [] : [object.fontFamily];
