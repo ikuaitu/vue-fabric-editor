@@ -159,22 +159,23 @@ export default class SimpleClipImagePlugin {
         activeObject.set('dirty', true);
       });
       shell.on('deselected', () => {
-        const position = activeObject.toLocalPoint(shell.getCenterPoint(), 'center', 'center');
-        clipPath.set({
-          absolutePositioned: false,
-          left: position.x,
-          top: position.y,
-        });
         if (clipPath instanceof fabric.Circle) {
-          clipPath.set({ radius: (shell as fabric.Circle).getRadiusX(), scaleY: 1, scaleX: 1 });
+          clipPath.set({ radius: (shell as fabric.Circle).getRadiusX() });
         } else {
           clipPath.set({
             width: shell.getScaledWidth(),
             height: shell.getScaledHeight(),
-            scaleX: 1,
-            scaleY: 1,
           });
         }
+        const position = activeObject.toLocalPoint(shell.getCenterPoint(), 'center', 'center');
+        clipPath.set({
+          absolutePositioned: false,
+          left: position.x / activeObject.scaleX,
+          top: position.y / activeObject.scaleX,
+          scaleX: 1 / activeObject.scaleX,
+          scaleY: 1 / activeObject.scaleY,
+        });
+        activeObject.set('dirty', true);
         this.canvas.remove(shell);
         this.canvas.requestRenderAll();
       });
