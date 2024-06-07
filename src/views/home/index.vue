@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-31 14:26:41
+ * @LastEditTime: 2024-06-06 20:05:13
  * @Description: file content
 -->
 <template>
@@ -119,10 +119,14 @@
               <center-align></center-align>
               <!-- 替换图片 -->
               <replaceImg></replaceImg>
-              <!--       图片裁切       -->
+              <!-- 图片裁切 -->
               <clip-image></clip-image>
               <!-- 翻转 -->
               <flip></flip>
+              <!-- 条形码属性 -->
+              <attributeBarcode></attributeBarcode>
+              <!-- 二维码 -->
+              <attributeQrCode></attributeQrCode>
               <!-- 图片滤镜 -->
               <filters></filters>
               <!-- 图片描边 -->
@@ -131,7 +135,7 @@
               <attributeColor></attributeColor>
               <!-- 字体属性 -->
               <attributeFont></attributeFont>
-              <!--      文字内容        -->
+              <!-- 文字内容  -->
               <attribute-text-content></attribute-text-content>
               <!-- 位置信息 -->
               <attributePostion></attributePostion>
@@ -209,6 +213,8 @@ import attributeBorder from '@/components/attributeBorder.vue';
 import attributeRounded from '@/components/attributeRounded.vue';
 import attributeFont from '@/components/attributeFont.vue';
 import attributeColor from '@/components/attributeColor.vue';
+import attributeBarcode from '@/components/attributeBarcode.vue';
+import attributeQrCode from '@/components/attributeQrCode.vue';
 
 // 功能组件
 import { fabric } from 'fabric';
@@ -248,6 +254,8 @@ import Editor, {
   PathTextPlugin,
   PsdPlugin,
   SimpleClipImagePlugin,
+  BarCodePlugin,
+  QrCodePlugin,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
 import ClipImage from '@/components/clipImage.vue';
@@ -348,6 +356,8 @@ onMounted(() => {
   canvasEditor.use(FreeDrawPlugin);
   canvasEditor.use(PathTextPlugin);
   canvasEditor.use(SimpleClipImagePlugin);
+  canvasEditor.use(BarCodePlugin);
+  canvasEditor.use(QrCodePlugin);
   canvasEditor.use(FontPlugin, {
     repoSrc: APIHOST,
   });

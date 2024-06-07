@@ -4,7 +4,7 @@
  * @Author: June
  * @Date: 2023-04-24 00:25:39
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-06 15:40:37
+ * @LastEditTime: 2024-06-07 11:45:43
  */
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
