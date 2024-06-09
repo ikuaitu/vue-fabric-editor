@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-30 10:48:00
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-31 16:38:14
+ * @LastEditTime: 2024-06-09 17:08:48
  * @Description: 模板文件
 -->
 <template>
@@ -47,7 +47,7 @@ import useSelect from '@/hooks/select';
 import { getUserFileTypeTree, updataTempl } from '@/api/user';
 const { t } = useI18n();
 const { canvasEditor } = useSelect();
-const { reNameFileType, removeTemplInfo, routerToId } = useMaterial();
+const { reNameFileType, removeTemplInfo, routerToId, getTemplInfo } = useMaterial();
 
 import { Modal, Input, Spin, Message } from 'view-ui-plus';
 
@@ -125,12 +125,13 @@ const beforeClearTip = () => {
 };
 
 // 获取模板数据
-const getTempData = () => {
+const getTempData = async () => {
   Spin.show({
     render: (h) => h('div', t('alert.loading_data')),
   });
+  const data = await getTemplInfo(props.itemId);
   routerToId(props.itemId);
-  canvasEditor.loadJSON(JSON.stringify(props.json), Spin.hide);
+  canvasEditor.loadJSON(JSON.stringify(data.data.attributes.json), Spin.hide);
 };
 
 const modalVisable = ref(false);

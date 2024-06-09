@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-08 18:14:43
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-08 18:25:34
+ * @LastEditTime: 2024-06-08 18:51:03
  * @Description: PSD转换为fabric.js
  */
 
@@ -24,7 +24,7 @@ async function psdToJson(psdFile) {
   const list = flattenTree(psdFile.children);
 
   // 转换
-  const fabricJhildren = await psdChildrenTransform(list, clipPath);
+  const fabricJhildren = await psdChildrenTransform(list);
   json.objects.push(...fabricJhildren.reverse());
 
   // 输出文件
@@ -32,7 +32,7 @@ async function psdToJson(psdFile) {
   return jsonStr;
 }
 
-async function psdChildrenTransform(children, clipPath) {
+async function psdChildrenTransform(children) {
   function attrTransform(childrens) {
     const childrensFilter = childrens.filter((item) => {
       if (item.text) {
@@ -60,9 +60,18 @@ async function psdChildrenTransform(children, clipPath) {
           targetType: 'image',
           attr: [],
           async customTransform(item) {
+            // 图片遮罩
+            // const { maskData } = item.layerFrame.layerProperties;
+            // let clipPath;
+            // if (maskData) {
+            //   clipPath = getAttrByType('rect');
+            //   clipPath.left = maskData.left;
+            //   clipPath.top = maskData.top;
+            // }
             const base64 = await getLayerBse64(item);
             return {
               src: base64,
+              // clipPath,
             };
           },
         },
@@ -81,16 +90,6 @@ async function psdChildrenTransform(children, clipPath) {
             };
           },
         },
-        // {// 已经拍平数据结构，不需要再处理
-        //   sourceType: 'Group',
-        //   targetType: 'group',
-        //   attr: [
-        //     ['width', () => clipPath.width * 2],
-        //     ['height', () => clipPath.height * 2],
-        //     ['top', () => -clipPath.height],
-        //     ['left', () => -clipPath.width],
-        //   ],
-        // },
       ];
 
       const sourctTypeKey = 'type';
@@ -101,10 +100,6 @@ async function psdChildrenTransform(children, clipPath) {
         const customTransformAttr = transformTypeInfo.customTransform
           ? await transformTypeInfo.customTransform(item)
           : null;
-        // 递归 已经拍平数据结构，不需要再处理
-        // if (item.type === 'Group' && item.children) {
-        //   baseAttr.objects = await psdChildrenTransform(item.children, clipPath);
-        // }
         return _.assign(baseAttr, commonAttr, baseAttr, typeAttr, customTransformAttr);
       }
       return {
@@ -267,6 +262,45 @@ function getAttrByType(type) {
       src: '',
       crossOrigin: 'anonymous',
       filters: [],
+    },
+    rect: {
+      type: 'rect',
+      version: '5.3.0',
+      originX: 'center',
+      originY: 'center',
+      left: 0,
+      top: 0,
+      width: 226,
+      height: 302,
+      fill: 'rgb(0,0,0)',
+      stroke: null,
+      strokeWidth: 1,
+      strokeDashArray: null,
+      strokeLineCap: 'butt',
+      strokeDashOffset: 0,
+      strokeLineJoin: 'miter',
+      strokeUniform: false,
+      strokeMiterLimit: 4,
+      scaleX: 1,
+      scaleY: 1,
+      angle: 0,
+      flipX: false,
+      flipY: false,
+      opacity: 1,
+      shadow: null,
+      visible: true,
+      backgroundColor: '',
+      fillRule: 'nonzero',
+      paintFirst: 'fill',
+      globalCompositeOperation: 'source-over',
+      skewX: 0,
+      skewY: 0,
+      rx: 0,
+      ry: 0,
+      selectable: true,
+      hasControls: true,
+      inverted: false,
+      absolutePositioned: false,
     },
   };
   return typeMap[type];

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 22:07:47
+ * @LastEditTime: 2024-06-09 13:25:40
  * @Description: file content
 -->
 <template>
@@ -36,6 +36,8 @@
         <history></history>
 
         <div style="float: right">
+          <!-- 管理员模式 -->
+          <admin />
           <!-- 预览 -->
           <previewCurrent />
           <waterMark />
@@ -190,6 +192,7 @@ import lock from '@/components/lock.vue';
 import dele from '@/components/del.vue';
 import waterMark from '@/components/waterMark.vue';
 import login from '@/components/login';
+import admin from '@/components/admin';
 // 左侧组件
 import importTmpl from '@/components/importTmpl.vue';
 import fontStyle from '@/components/fontStyle.vue';

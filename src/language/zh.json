@@ -242,5 +242,11 @@
   },
   "myMaterial": {
     "uploadBtn": "上传素材"
+  },
+  "admin": {
+    "btnTitle": "管理",
+    "setToken": "设置Token",
+    "save": "保存",
+    "create": "新增"
   }
 }

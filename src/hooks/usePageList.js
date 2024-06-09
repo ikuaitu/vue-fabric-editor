@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-29 15:39:20
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-30 15:22:25
+ * @LastEditTime: 2024-06-09 16:52:59
  * @Description: 通用分页
  */
 
@@ -10,7 +10,14 @@ import qs from 'qs';
 import { ref } from 'vue';
 
 const APIHOST = import.meta.env.APP_APIHOST;
-export default function usePageList({ el, apiClient, filters = {}, sort = [], formatData }) {
+export default function usePageList({
+  el,
+  apiClient,
+  filters = {},
+  sort = [],
+  formatData,
+  fields = [],
+}) {
   //  滚动条根据页面适应
   const showScroll = ref(false);
   const scrollHeight = ref(0);
@@ -48,12 +55,12 @@ export default function usePageList({ el, apiClient, filters = {}, sort = [], fo
         },
         filters: {},
         sort: sort,
+        fields,
         pagination: {
           page: page.value,
           pageSize: page.value.pageSize,
         },
       };
-
       const params = addFilterParams(query, filters);
       const res = await apiClient(qs.stringify(params));
       const list = formatData ? formatData(res.data.data) : res.data.data;

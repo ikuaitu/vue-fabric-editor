@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 11:00:14
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-17 15:13:42
+ * @LastEditTime: 2024-06-09 17:02:23
  * @Description: 分页通用
  */
 
@@ -16,6 +16,8 @@ const typeApi = (url) => axios.get(`${repoSrc}/api/${url}?pagination[pageSize]=2
 // 分页API
 const pageApi = (url, queryParams) => axios.get(`${repoSrc}/api/${url}?${queryParams}`);
 
+const getInfo = (id) => axios.get(`${repoSrc}/api/templs/${id}`);
+
 function getQueryParams(option, filters) {
   filters.forEach((item) => {
     const { key, value, type } = item;
@@ -26,12 +28,21 @@ function getQueryParams(option, filters) {
   return qs.stringify(option);
 }
 
-function getPageParams(page, typeValue, searchKeyWord, searchTypeKey, searchWordKey, pageSize) {
+function getPageParams(
+  page,
+  typeValue,
+  searchKeyWord,
+  searchTypeKey,
+  searchWordKey,
+  pageSize,
+  fields
+) {
   const query = {
     populate: {
       img: '*',
     },
     filters: {},
+    fields,
     pagination: {
       page: page,
       pageSize: pageSize,
@@ -70,6 +81,7 @@ export default function usePageList({
   searchWordKey,
   scrollElement,
   pageSize,
+  fields = [],
 }) {
   const pageLoading = ref(false);
 
@@ -130,11 +142,13 @@ export default function usePageList({
         searchKeyWord.value,
         searchTypeKey,
         searchWordKey,
-        pageSize
+        pageSize,
+        fields
       );
       const res = await pageApi(listUrl, params);
       const list = res.data.data.map((item) => {
         return {
+          id: item.id,
           name: item.attributes.name,
           desc: item.attributes.desc,
           json: item.attributes?.json,
@@ -191,5 +205,6 @@ export default function usePageList({
     nextPage,
     scrollHeight,
     showScroll,
+    getInfo,
   };
 }

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-27 16:09:29
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-08 18:25:55
+ * @LastEditTime: 2024-06-08 18:31:24
  * @Description: PSD插件
  */
 
@@ -16,14 +16,11 @@ type IEditor = Editor;
 class PsdPlugin {
   public canvas: fabric.Canvas;
   public editor: IEditor;
-  public psdFile: any;
-  public json: any;
   static pluginName = 'PsdPlugin';
   static apis = ['insertPSD'];
   constructor(canvas: fabric.Canvas, editor: IEditor) {
     this.canvas = canvas;
     this.editor = editor;
-    this.json = {};
   }
 
   insertPSD() {
@@ -38,9 +35,10 @@ class PsdPlugin {
               const result = await file.arrayBuffer();
               // 解析PSD文件
               const psdFile = Psd.parse(result as ArrayBuffer);
-              this.json = await psdToJson(psdFile);
+              console.log(psdFile, '11111');
+              const json = await psdToJson(psdFile);
               // 加载json
-              this.loadJSON();
+              this.loadJSON(json);
               resolve('');
             };
           }
@@ -49,8 +47,8 @@ class PsdPlugin {
     });
   }
 
-  loadJSON() {
-    this.editor.loadJSON(this.json);
+  loadJSON(json: string) {
+    this.editor.loadJSON(json);
   }
 }
 

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-30 18:12:40
+ * @LastEditTime: 2024-06-09 17:05:58
  * @Description: 导入模板
 -->
 
@@ -148,6 +148,7 @@ const {
   apiClient: getTmplList,
   filters,
   sort,
+  fields: ['name', 'parentId', 'type', 'externalId'],
   formatData,
 });
 
