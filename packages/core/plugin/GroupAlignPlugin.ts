@@ -10,16 +10,11 @@ import { fabric } from 'fabric';
 import Editor from '../Editor';
 type IEditor = Editor;
 
-class GroupAlignPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class GroupAlignPlugin implements IPluginTempl {
   static pluginName = 'GroupAlignPlugin';
   static apis = ['left', 'right', 'xcenter', 'ycenter', 'top', 'bottom', 'xequation', 'yequation'];
   // public hotkeys: string[] = ['space'];
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-  }
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   left() {
     const { canvas } = this;

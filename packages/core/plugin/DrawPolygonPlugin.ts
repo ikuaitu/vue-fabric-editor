@@ -8,7 +8,7 @@ type IEditor = Editor;
 type LineCoords = [fabric.Point, fabric.Point];
 type OffListener = (ev: fabric.IEvent) => void;
 type OnEnd = (...args: any[]) => void;
-class DrawPolygonPlugin {
+class DrawPolygonPlugin implements IPluginTempl {
   isDrawingPolygon = false;
   points: fabric.Point[] = [];
   lines: fabric.Line[] = [];

@@ -27,3 +27,4 @@ yarn.lock
 pnpm-lock.yaml
 package-lock.json
 typings/auto-imports.d.ts
+.eslintrc-auto-import.json

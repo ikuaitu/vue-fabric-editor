@@ -61,10 +61,11 @@
 
 <script name="ImgStroke" lang="ts" setup>
 import useSelect from '@/hooks/select';
-import { fabric } from 'fabric';
 import { Slider } from 'view-ui-plus';
+import { fabric } from 'fabric';
+import { Utils } from '@kuaitu/core';
 
-interface IActiveCanvas extends fabric.Canvas {
+interface IExtendImage {
   [x: string]: any;
   originWidth?: number;
   originHeight?: number;
@@ -77,12 +78,15 @@ const openImgStroke = ref(false);
 const strokeWidth = ref(5);
 const strokeColor = ref('#000');
 const isOnlyStroke = ref(false);
-const getActiveObject = () =>
-  canvasEditor.canvas?.getActiveObjects()[0] as unknown as IActiveCanvas;
+const getActiveObject = (): (fabric.Image & IExtendImage) | undefined => {
+  const activeObject = canvasEditor.fabricCanvas?.getActiveObject();
+  if (!activeObject || !Utils.isImage(activeObject)) return;
+  return activeObject;
+};
 
 const setOrigin = () => {
   const _activeObject = getActiveObject();
-  if (_activeObject?.originSrc) return;
+  if (!_activeObject) return;
   _activeObject.set('originWidth', _activeObject?.get('width'));
   _activeObject.set('originHeight', _activeObject?.get('height'));
   _activeObject.set('originSrc', _activeObject?.getSrc());
@@ -119,8 +123,7 @@ const onColorChange = (val: string) => {
 };
 
 const handleSelectOne = () => {
-  const activeObject = getActiveObject();
-  isImage.value = activeObject.type === 'image';
+  isImage.value = !!getActiveObject();
 };
 
 onMounted(() => {
@@ -133,6 +136,7 @@ onBeforeUnmount(() => {
 
 async function strokeImage(stroke: string, strokeWidth: number, type = 'source-over') {
   const _activeObject = getActiveObject();
+  if (!_activeObject) return;
   const w = _activeObject.originWidth || 0,
     h = _activeObject.originHeight || 0,
     src = _activeObject?.originSrc || _activeObject.getSrc();

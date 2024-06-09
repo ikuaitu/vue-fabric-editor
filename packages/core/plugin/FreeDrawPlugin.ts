@@ -8,7 +8,7 @@ type DrawOptions = {
   width: number;
 };
 
-export default class FreeDrawPlugin {
+export default class FreeDrawPlugin implements IPluginTempl {
   static pluginName = 'FreeDrawPlugin';
   static apis = ['startDraw', 'endDraw'];
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {}

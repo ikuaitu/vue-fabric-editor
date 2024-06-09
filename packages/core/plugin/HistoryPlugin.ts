@@ -19,17 +19,12 @@ type extendCanvas = {
   historyRedo: any[];
 };
 
-class HistoryPlugin {
-  public canvas: fabric.Canvas & extendCanvas;
-  public editor: IEditor;
+class HistoryPlugin implements IPluginTempl {
   static pluginName = 'HistoryPlugin';
   static apis = ['undo', 'redo'];
   static events = ['historyUpdate'];
-  public hotkeys: string[] = ['ctrl+z', 'ctrl+shift+z', '⌘+z', '⌘+shift+z'];
-  constructor(canvas: fabric.Canvas & extendCanvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-
+  hotkeys: string[] = ['ctrl+z', 'ctrl+shift+z', '⌘+z', '⌘+shift+z'];
+  constructor(public canvas: fabric.Canvas & extendCanvas, public editor: IEditor) {
     fabric.Canvas.prototype._historyNext = () => {
       return this.editor.getJson();
     };
@@ -77,7 +72,7 @@ class HistoryPlugin {
   }
 
   // 快捷键扩展回调
-  hotkeyEvent(eventName: string, e: any) {
+  hotkeyEvent(eventName: string, e: KeyboardEvent) {
     if (e.type === 'keydown') {
       switch (eventName) {
         case 'ctrl+z':

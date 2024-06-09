@@ -12,17 +12,12 @@ type IEditor = Editor;
 import { v4 as uuid } from 'uuid';
 import { getImgStr } from '../utils/utils';
 
-class CopyPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class CopyPlugin implements IPluginTempl {
   static pluginName = 'CopyPlugin';
   static apis = ['clone'];
-  public hotkeys: string[] = ['ctrl+v', 'ctrl+c'];
-  private cache: null | fabric.ActiveSelection | fabric.Object;
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-    this.cache = null;
+  hotkeys: string[] = ['ctrl+v', 'ctrl+c'];
+  private cache: null | fabric.ActiveSelection | fabric.Object = null;
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.initPaste();
   }
 
@@ -92,7 +87,7 @@ class CopyPlugin {
   }
 
   // 快捷键扩展回调
-  hotkeyEvent(eventName: string, e: any) {
+  hotkeyEvent(eventName: string, e: KeyboardEvent) {
     if (eventName === 'ctrl+c' && e.type === 'keydown') {
       const activeObject = this.canvas.getActiveObject();
       this.cache = activeObject;

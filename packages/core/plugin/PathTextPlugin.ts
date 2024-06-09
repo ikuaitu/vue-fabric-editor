@@ -12,7 +12,7 @@ type DrawOptions = {
   defaultFontSize: number;
 };
 
-export default class PathTextPlugin {
+export default class PathTextPlugin implements IPluginTempl {
   static pluginName = 'PathTextPlugin';
   static apis = ['startTextPathDraw', 'endTextPathDraw'];
   private options?: DrawOptions;

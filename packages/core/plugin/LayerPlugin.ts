@@ -10,15 +10,10 @@ import { fabric } from 'fabric';
 import Editor from '../Editor';
 type IEditor = Editor;
 
-class LayerPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class LayerPlugin implements IPluginTempl {
   static pluginName = 'LayerPlugin';
   static apis = ['up', 'upTop', 'down', 'downTop'];
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-  }
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   _getWorkspace() {
     return this.canvas.getObjects().find((item) => item.id === 'workspace');

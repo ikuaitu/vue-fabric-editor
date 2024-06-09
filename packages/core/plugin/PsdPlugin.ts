@@ -13,20 +13,15 @@ import psdToJson from '../utils/psd';
 import Psd from '@webtoon/psd';
 type IEditor = Editor;
 
-class PsdPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class PsdPlugin implements IPluginTempl {
   static pluginName = 'PsdPlugin';
   static apis = ['insertPSD'];
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-  }
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   insertPSD() {
     return new Promise((resolve, reject) => {
       selectFiles({ accept: '.psd' })
-        .then((files: string | any[]) => {
+        .then((files) => {
           if (files && files.length > 0) {
             const file = files[0];
             const reader = new FileReader();

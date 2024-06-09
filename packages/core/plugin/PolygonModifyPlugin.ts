@@ -51,7 +51,7 @@ const anchorWrapper = function (anchorIndex: number, fn: fabric.Control['actionH
         fabricObject.calcTransformMatrix()
       ),
       actionPerformed = fn(eventData, transform, x, y),
-      newDim = fabricObject._setPositionDimensions({}),
+      // newDim = fabricObject._setPositionDimensions({}),
       polygonBaseSize = getObjectSizeWithStroke(fabricObject),
       newX = (fabricObject.points[anchorIndex].x - fabricObject.pathOffset.x) / polygonBaseSize.x,
       newY = (fabricObject.points[anchorIndex].y - fabricObject.pathOffset.y) / polygonBaseSize.y;
@@ -97,18 +97,14 @@ function renderIconEdge(
   drawImg(ctx, left, top, img, 25, 25, fabric.util.degreesToRadians(fabricObject.angle || 0));
 }
 
-class PolygonModifyPlugin {
+class PolygonModifyPlugin implements IPluginTempl {
   public isEdit: boolean;
-  private img: HTMLImageElement;
   static pluginName = 'PolygonModifyPlugin';
   static events = [];
   static apis = ['toggleEdit', 'activeEdit', 'inActiveEdit'];
 
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.isEdit = false;
-    const img = document.createElement('img');
-    img.src = edgeImg;
-    this.img = img;
     this.init();
   }
   init() {
@@ -128,7 +124,6 @@ class PolygonModifyPlugin {
       this._ensureEvent(poly);
       if (poly.points == null) return;
       const lastControl = poly.points.length - 1;
-      const This = this;
       poly.controls = poly.points.reduce<Record<string, PointIndexControl>>(function (
         acc,
         point,
@@ -138,7 +133,7 @@ class PolygonModifyPlugin {
           positionHandler: polygonPositionHandler,
           actionHandler: anchorWrapper(index > 0 ? index - 1 : lastControl, actionHandler),
           actionName: 'modifyPolygon',
-          render: (...args) => renderIconEdge(...args, This.img),
+          render: (...args) => renderIconEdge(...args),
         });
         Object.defineProperty(acc['p' + index], 'pointIndex', { value: index });
         return acc;

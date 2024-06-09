@@ -12,9 +12,7 @@ type IEditor = Editor;
 import axios from 'axios';
 import qs from 'qs';
 
-class MaterialPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class MaterialPlugin implements IPluginTempl {
   static pluginName = 'MaterialPlugin';
   static apis = [
     'getTemplTypeList',
@@ -25,9 +23,7 @@ class MaterialPlugin {
   ];
   apiMapUrl: { [propName: string]: string };
   repoSrc: string;
-  constructor(canvas: fabric.Canvas, editor: IEditor, config: { repoSrc: string }) {
-    this.canvas = canvas;
-    this.editor = editor;
+  constructor(public canvas: fabric.Canvas, public editor: IEditor, config: { repoSrc: string }) {
     this.repoSrc = config.repoSrc;
     this.apiMapUrl = {
       template: config.repoSrc + '/template/type.json',

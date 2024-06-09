@@ -41,15 +41,10 @@ enum errorCorrectionLevelType {
   H = 'H',
 }
 
-class QrCodePlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class QrCodePlugin implements IPluginTempl {
   static pluginName = 'QrCodePlugin';
   static apis = ['addQrCode', 'setQrCode', 'getQrCodeTypes'];
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-  }
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   async hookTransform(object: any) {
     if (object.extensionType === 'qrcode') {
@@ -62,6 +57,7 @@ class QrCodePlugin {
   async _getBase64Str(options: any) {
     const qrCode = new QRCodeStyling(options);
     const blob = await qrCode.getRawData('png');
+    if (!blob) return '';
     const base64Str = await this._blobToBase64(blob);
     return base64Str || '';
   }
