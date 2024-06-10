@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-09 13:25:40
+ * @LastEditTime: 2024-06-10 19:53:33
  * @Description: file content
 -->
 <template>
@@ -137,6 +137,8 @@
               <attributeColor></attributeColor>
               <!-- 字体属性 -->
               <attributeFont></attributeFont>
+              <!-- 字体小数点 -->
+              <attributeTextFloat></attributeTextFloat>
               <!-- 文字内容  -->
               <attribute-text-content></attribute-text-content>
               <!-- 位置信息 -->
@@ -215,6 +217,7 @@ import attributeShadow from '@/components/attributeShadow.vue';
 import attributeBorder from '@/components/attributeBorder.vue';
 import attributeRounded from '@/components/attributeRounded.vue';
 import attributeFont from '@/components/attributeFont.vue';
+import attributeTextFloat from '@/components/attributeTextFloat.vue';
 import attributeColor from '@/components/attributeColor.vue';
 import attributeBarcode from '@/components/attributeBarcode.vue';
 import attributeQrCode from '@/components/attributeQrCode.vue';

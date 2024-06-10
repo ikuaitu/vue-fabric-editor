@@ -33,6 +33,7 @@
     }
   },
   "color": "颜色",
+  "textFloat": "小数",
   "templates": "模板",
   "elements": "元素",
   "font_style": "文字",
