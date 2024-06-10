@@ -2,16 +2,18 @@
  * @Author: 秦少卫
  * @Date: 2024-06-09 13:02:18
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-09 15:55:40
+ * @LastEditTime: 2024-06-10 20:21:41
  * @Description: 管理面板管理
  */
 
-import { updataTempl, uploadImg, deleteImg, getTempl } from '@/api/admin';
+import { updataTempl, uploadImg, deleteImg, getTempl, createdTempl } from '@/api/admin';
 import { Spin } from 'view-ui-plus';
+
+import { useRouter } from 'vue-router';
 
 export default function useMaterial() {
   const canvasEditor = inject('canvasEditor');
-
+  const router = useRouter();
   // 画布转图片
   const uploadFileToInfo = async () => {
     const dataURLtoFile = (dataurl, filename) => {
@@ -66,7 +68,25 @@ export default function useMaterial() {
     Spin.hide();
   };
 
+  const createdTemplHander = async (name) => {
+    Spin.show();
+    try {
+      const newImgId = await uploadFileToInfo();
+      const json = canvasEditor.getJson();
+      const res = await createdTempl({
+        name,
+        img: newImgId,
+        json,
+      });
+      router.replace('/?tempId=' + res.data.id + '&admin=true');
+    } catch (error) {
+      console.log(error);
+    }
+
+    Spin.hide();
+  };
   return {
     updataTemplHander,
+    createdTemplHander,
   };
 }

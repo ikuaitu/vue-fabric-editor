@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-09 13:23:07
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-09 19:02:20
+ * @LastEditTime: 2024-06-10 20:17:32
  * @Description: 管理员模式
 -->
 
@@ -33,10 +33,13 @@
 
 <script setup name="ImportTmpl">
 import { getToken, setToken } from '@/api/admin';
-import { Message } from 'view-ui-plus';
+import { Message, Modal, Input } from 'view-ui-plus';
+import useSelect from '@/hooks/select';
 import useAdmin from '@/hooks/useAdmin';
-const { updataTemplHander } = useAdmin();
+const { updataTemplHander, createdTemplHander } = useAdmin();
 import { useRoute } from 'vue-router';
+
+const { t } = useSelect();
 
 const route = useRoute();
 
@@ -57,7 +60,35 @@ const showAdmin = async () => {
 };
 
 const updataTemp = () => {
-  updataTemplHander(route.query.tempId);
+  // 更新模板
+  if (route.query.tempId) {
+    updataTemplHander(route.query.tempId);
+  } else {
+    // 新增
+    addTempl();
+  }
+};
+
+const templName = ref('');
+const addTempl = () => {
+  Modal.confirm({
+    title: t('admin.addTempl'),
+    render: (h) => {
+      return h(Input, {
+        size: 'large',
+        modelValue: templName,
+        autofocus: true,
+        placeholder: t('admin.addTemplPlaceholder'),
+      });
+    },
+    onOk: async () => {
+      if (templName.value === '') {
+        Message.warning(t('admin.addTemplCheckTip'));
+        return;
+      }
+      await createdTemplHander(templName.value);
+    },
+  });
 };
 
 const setTokenHandel = () => {

@@ -248,6 +248,9 @@
     "btnTitle": "管理",
     "setToken": "设置Token",
     "save": "保存",
-    "create": "新增"
+    "create": "新增",
+    "addTempl": "新增模板",
+    "addTemplPlaceholder": "请输入模板名称",
+    "addTemplCheckTip": "模板名称不能为空"
   }
 }
