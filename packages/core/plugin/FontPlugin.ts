@@ -27,17 +27,13 @@ interface FontSource {
   img: string;
 }
 
-class FontPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class FontPlugin implements IPluginTempl {
   private tempPromise: Promise<FontSource[]> | null;
   static pluginName = 'FontPlugin';
   static apis = ['getFontList', 'loadFont', 'getFontJson', 'downFontByJSON'];
   repoSrc: string;
   cacheList: FontSource[];
-  constructor(canvas: fabric.Canvas, editor: IEditor, config: { repoSrc: string }) {
-    this.canvas = canvas;
-    this.editor = editor;
+  constructor(public canvas: fabric.Canvas, public editor: IEditor, config: { repoSrc: string }) {
     this.repoSrc = config.repoSrc;
     this.cacheList = [];
     this.tempPromise = null;
@@ -100,7 +96,7 @@ class FontPlugin {
       const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
         JSON.stringify(json, null, '\t')
       )}`;
-      const dataUrl = activeObject.toDataURL();
+      const dataUrl = activeObject.toDataURL({});
       downFile(fileStr, 'font.json');
       downFile(dataUrl, 'font.png');
     }

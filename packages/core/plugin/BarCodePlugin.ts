@@ -24,15 +24,10 @@ enum CodeType {
   pharmacode = 'pharmacode',
 }
 
-class BarCodePlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class BarCodePlugin implements IPluginTempl {
   static pluginName = 'BarCodePlugin';
   static apis = ['addBarcode', 'setBarcode', 'getBarcodeTypes'];
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-  }
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   async hookTransform(object: any) {
     if (object.extensionType === 'barcode') {

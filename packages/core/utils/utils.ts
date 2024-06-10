@@ -99,15 +99,6 @@ export function drawImg(
   ctx.restore();
 }
 
-export default {
-  getImgStr,
-  downFile,
-  selectFiles,
-  insertImgFile,
-  clipboardText,
-  drawImg,
-};
-
 export function shiftAngle(start: fabric.Point, end: fabric.Point) {
   const startX = start.x;
   const startY = start.y;
@@ -125,3 +116,35 @@ export function shiftAngle(start: fabric.Point, end: fabric.Point) {
     y: sinx + startY,
   };
 }
+
+/**
+ * 类型工具
+ */
+export const isImage = (thing: unknown): thing is fabric.Image => {
+  return thing instanceof fabric.Image;
+};
+
+export const isGroup = (thing: unknown): thing is fabric.Group => {
+  return thing instanceof fabric.Group;
+};
+
+export const isIText = (thing: unknown): thing is fabric.IText => {
+  return thing instanceof fabric.IText;
+};
+
+export const isActiveSelection = (thing: unknown): thing is fabric.ActiveSelection => {
+  return thing instanceof fabric.ActiveSelection;
+};
+
+export default {
+  getImgStr,
+  downFile,
+  selectFiles,
+  insertImgFile,
+  clipboardText,
+  drawImg,
+  isImage,
+  isGroup,
+  isIText,
+  isActiveSelection,
+};

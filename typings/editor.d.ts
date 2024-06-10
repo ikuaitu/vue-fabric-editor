@@ -21,7 +21,7 @@ declare type IEditorHooksType =
 
 // 插件class
 declare interface IPluginClass extends IPluginTempl {
-  new (canvas: fabric.Canvas, editor: any, options?: IPluginOption);
+  new (canvas: fabric.Canvas, editor: IEditor, options?: IPluginOption);
 }
 
 declare interface IPluginMenu {
@@ -31,12 +31,12 @@ declare interface IPluginMenu {
 }
 
 // 插件实例
-declare interface IPluginTempl {
-  pluginName: string;
-  events: string[];
-  apis: string[];
+declare class IPluginTempl {
+  static pluginName: string;
+  static events: string[];
+  static apis: string[];
   canvas?: fabric.Canvas | null | undefined;
-  hotkeyEvent?: (name: string, e: Event) => void;
+  hotkeyEvent?: (name: string, e: KeyboardEvent) => void;
   [propName: IEditorHooksType]: () => void;
   [propName: string]: any;
 }

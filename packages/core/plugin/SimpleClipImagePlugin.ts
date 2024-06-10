@@ -120,9 +120,9 @@ const createPolygonClip = (activeObject: fabric.Object, inverted: boolean) => {
   });
   return { shell, clipPath };
 };
-export default class SimpleClipImagePlugin {
+export default class SimpleClipImagePlugin implements IPluginTempl {
   static pluginName = 'SimpleClipImagePlugin';
-  // static events = ['sizeChange'];
+  //  static events = ['sizeChange'];
   static apis = ['addClipPathToImage', 'removeClip'];
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
   addClipPathToImage(value: string) {

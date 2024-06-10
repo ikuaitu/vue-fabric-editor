@@ -16,7 +16,7 @@ class FontPlugin {
   repoSrc: string;
 
   constructor(canvas: fabric.Canvas, editor: IEditor, config: { repoSrc: string }) {
-    // 初始化 
+    // 初始化
     this.canvas = canvas;
     this.editor = editor;
     // 可插入外部配置
@@ -27,17 +27,19 @@ class FontPlugin {
   hookImportBefore(json: string) {
     return this.downFontByJSON(json);
   }
-	
+
   // 挂载API方法
-  downFontByJSON(str: string) {}
-  
-  // 私有方法 + 发布事件
-  _createFontCSS(){
-    const params = []
-    this.editor.emit('textEvent1', params)
+  downFontByJSON() {
+    //
   }
 
-  // 右键菜单 
+  // 私有方法 + 发布事件
+  _createFontCSS() {
+    const params = [];
+    this.editor.emit('textEvent1', params);
+  }
+
+  // 右键菜单
   contextMenu() {
     const selectedMode = this.editor.getSelectMode();
     if (selectedMode === SelectMode.ONE) {
@@ -62,9 +64,9 @@ class FontPlugin {
       ];
     }
   }
-  
+
   // 快捷键
-  hotkeyEvent(eventName: string, e: { type, code }) {
+  hotkeyEvent(eventName: string, { type }: KeyboardEvent) {
     // eventName：hotkeys中的属性 backspace、space
     // type：keyUp keyDown
     // code：hotkeys-js Code

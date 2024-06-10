@@ -7,10 +7,12 @@
  * @LastEditTime: 2024-05-04 15:27:11
  */
 import Editor, { EventType } from '@kuaitu/core';
-const { SelectEvent, SelectMode } = EventType;
 import { get } from 'lodash-es';
+
+const { SelectEvent, SelectMode } = EventType;
+
 interface Selector {
-  mSelectMode: SelectMode;
+  mSelectMode: (typeof SelectMode)[keyof typeof SelectMode];
   mSelectOneType: string | undefined;
   mSelectId: string | undefined;
   mSelectIds: (string | undefined)[];

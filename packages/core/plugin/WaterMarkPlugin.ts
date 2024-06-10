@@ -37,16 +37,12 @@ const defaultOptions: IDrawOps = {
   position: POSITION.lt,
 };
 
-class WaterMarkPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class WaterMarkPlugin implements IPluginTempl {
   static pluginName = 'WaterMarkPlugin';
   static apis = ['drawWaterMark', 'clearWaterMMatk', 'updateDrawStatus'];
   private hadDraw = false;
   private drawOps: IDrawOps = defaultOptions;
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.init();
   }
 

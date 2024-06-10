@@ -6,9 +6,12 @@
  * @LastEditors: wuchenguang1998
  * @LastEditTime: 2024-05-04 15:37:06
  */
-import Editor from '@kuaitu/core';
+import Editor, { EventType } from '@kuaitu/core';
+
+const { SelectMode } = EventType;
+
 interface Selector {
-  mSelectMode: SelectMode;
+  mSelectMode: (typeof SelectMode)[keyof typeof SelectMode];
   mSelectOneType: string | undefined;
   mSelectId: string | undefined;
   mSelectIds: (string | undefined)[];

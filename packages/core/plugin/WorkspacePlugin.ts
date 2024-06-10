@@ -11,9 +11,7 @@ import Editor from '../Editor';
 import { throttle } from 'lodash-es';
 type IEditor = Editor;
 
-class WorkspacePlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class WorkspacePlugin implements IPluginTempl {
   static pluginName = 'WorkspacePlugin';
   static events = ['sizeChange'];
   static apis = ['big', 'small', 'auto', 'one', 'setSize', 'getWorkspase', 'setWorkspaseBg'];
@@ -21,9 +19,7 @@ class WorkspacePlugin {
   workspace: null | fabric.Rect;
   option: any;
   zoomRatio: number;
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.workspace = null;
     this.init({
       width: 900,

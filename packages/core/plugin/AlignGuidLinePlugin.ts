@@ -23,21 +23,14 @@ declare interface HorizontalLine {
   y: number;
 }
 
-class AlignGuidLinePlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
-  public defautOption = {
+class AlignGuidLinePlugin implements IPluginTempl {
+  defautOption = {
     color: 'rgba(255,95,95,1)',
     width: 1,
   };
   static pluginName = 'AlignGuidLinePlugin';
-  static events = ['', ''];
-  static apis = [];
-  public hotkeys: string[] = [''];
   dragMode = false;
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.dragMode = false;
     this.init();
   }

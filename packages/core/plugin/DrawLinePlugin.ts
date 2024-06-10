@@ -13,9 +13,7 @@ import ThinTailArrow from '../objects/ThinTailArrow';
 import Editor from '../Editor';
 type IEditor = Editor;
 
-class DrawLinePlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class DrawLinePlugin implements IPluginTempl {
   static pluginName = 'DrawLinePlugin';
   static apis = ['setLineType', 'setMode'];
   isDrawingLineMode: boolean;
@@ -24,10 +22,7 @@ class DrawLinePlugin {
   pointer: any;
   pointerPoints: any;
   isDrawingLine: boolean;
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.isDrawingLine = false;
     this.isDrawingLineMode = false;
     this.lineType = '';
