@@ -19,10 +19,9 @@ import autoprefixer from 'autoprefixer';
 const config = ({ mode }) => {
   const isProd = mode === 'production';
   const envPrefix = 'APP_';
-  const { APP_TITLE = '', APP_PATH } = loadEnv(mode, process.cwd(), envPrefix);
-  console.log(APP_PATH, 111);
+  const { APP_TITLE = '', APP_BASE_PATH } = loadEnv(mode, process.cwd(), envPrefix);
   return {
-    base: isProd ? APP_PATH : '/',
+    base: isProd ? APP_BASE_PATH : '/',
     plugins: [
       vue(),
       autoImports({
