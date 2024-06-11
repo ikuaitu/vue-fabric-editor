@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-10 19:53:33
+ * @LastEditTime: 2024-06-11 09:59:52
  * @Description: file content
 -->
 <template>
@@ -10,32 +10,35 @@
     <Layout>
       <!-- 头部区域 -->
       <Header v-if="state.show">
-        <!-- logo -->
-        <span class="logo">
+        <div class="left">
+          <logo></logo>
+          <!-- 导入 -->
+          <import-Json></import-Json>
+          <Divider type="vertical" />
+          <import-file></import-file>
+          <Divider type="vertical" />
+          <myTemplName></myTemplName>
+          <!-- 标尺开关 -->
+          <Tooltip :content="$t('grid')">
+            <iSwitch
+              v-model="state.ruler"
+              @on-change="rulerSwitch"
+              size="small"
+              class="switch"
+            ></iSwitch>
+          </Tooltip>
+          <Divider type="vertical" />
+          <history></history>
+        </div>
+
+        <div class="right">
           <a href="https://github.com/nihaojob/vue-fabric-editor" target="_blank">
-            <Icon type="logo-github" :size="30" />
+            <img
+              src="https://camo.githubusercontent.com/f440bed74efe64ce92599748090837ec92cc33ead4bf29d115d9745af1415c19/68747470733a2f2f62616467656e2e6e65742f6769746875622f73746172732f6e6968616f6a6f622f7675652d6661627269632d656469746f72"
+              alt="vue-fbric-editor"
+            />
           </a>
-        </span>
 
-        <!-- 导入 -->
-        <import-Json></import-Json>
-        <Divider type="vertical" />
-        <import-file></import-file>
-        <Divider type="vertical" />
-        <myTemplName></myTemplName>
-        <!-- 标尺开关 -->
-        <Tooltip :content="$t('grid')">
-          <iSwitch
-            v-model="state.ruler"
-            @on-change="rulerSwitch"
-            size="small"
-            class="switch"
-          ></iSwitch>
-        </Tooltip>
-        <Divider type="vertical" />
-        <history></history>
-
-        <div style="float: right">
           <!-- 管理员模式 -->
           <admin />
           <!-- 预览 -->
@@ -178,6 +181,7 @@ import { useRoute } from 'vue-router';
 // import fontTmpl from '@/components/fontTmpl.vue';
 
 // 顶部组件
+import logo from '@/components/logo.vue';
 import align from '@/components/align.vue';
 import myTemplName from '@/components/myTemplName.vue';
 import centerAlign from '@/components/centerAlign.vue';
@@ -416,17 +420,6 @@ provide('canvasEditor', canvasEditor);
 provide('mixinState', mixinState);
 </script>
 <style lang="less" scoped>
-.logo {
-  width: 30px;
-  height: 30px;
-  display: inline-block;
-  margin-right: 10px;
-  text-align: center;
-  vertical-align: middle;
-  .ivu-icon {
-    vertical-align: super;
-  }
-}
 // 左侧容器
 .left-bar {
   width: 65px;
@@ -441,12 +434,11 @@ provide('mixinState', mixinState);
 }
 // 右侧容器
 .right-bar {
-  width: 304px; height: 100%; padding: 10px; overflow-y: auto; background: #fff
-  // width: 240px;
-  // height: 100%;
-  // padding: 10px;
-  // overflow-y: auto;
-  // background: #fff;
+  width: 304px;
+  height: 100%;
+  padding: 10px;
+  overflow-y: auto;
+  background: #fff;
 }
 
 // 关闭按钮
@@ -515,13 +507,23 @@ provide('mixinState', mixinState);
 
 :deep(.ivu-layout-header) {
   --height: 45px;
-  padding: 0 10px;
+  padding: 0 0px;
   border-bottom: 1px solid #eef2f8;
   background: #fff;
   height: var(--height);
   line-height: var(--height);
+  display: flex;
+  justify-content: space-between;
 }
 
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  img {
+    display: block;
+  }
+}
 .home,
 .ivu-layout {
   height: 100vh;
@@ -552,7 +554,9 @@ provide('mixinState', mixinState);
 
 #workspace {
   flex: 1;
-  width: 100%; position: relative; background: #f1f1f1;
+  width: 100%;
+  position: relative;
+  background: #f1f1f1;
   overflow: hidden;
 }
 
