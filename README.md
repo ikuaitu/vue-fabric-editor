@@ -11,7 +11,7 @@
 </div>
 
 - [预览](https://nihaojob.github.io/vue-fabric-editor/)
-- [Gitee 预览](https://nihaojob.gitee.io/vue-fabric-editor/#/)
+- [国内 预览](https://www.kuaitu.cc/editor/#/)
 
 ![image](https://user-images.githubusercontent.com/13534626/230828335-0adee0ae-b951-4171-b6ba-d2b9cd44dd6a.png)
 
