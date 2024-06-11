@@ -1,0 +1,7 @@
+version: '3'
+services:
+  kuaitu:
+    container_name: kuaitu
+    build: ./
+    ports:
+      - '8888:80'

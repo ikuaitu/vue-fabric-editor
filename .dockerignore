@@ -1,0 +1,9 @@
+# path: ./.dockerignore
+
+.DS_Store
+node_modules
+dist
+.npmrc
+yarn.lock
+pnpm-lock.yaml
+package-lock.json
