@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-12 21:59:53
+ * @LastEditTime: 2024-06-12 22:52:04
  * @Description: file content
 -->
 <template>
@@ -89,6 +89,9 @@
 import { toRaw } from 'vue';
 import { Spin } from 'view-ui-plus';
 import qs from 'qs';
+
+import { useRouter } from 'vue-router';
+const router = useRouter();
 // 路由
 import banner from './components/banner.vue';
 // 顶部组件
@@ -162,7 +165,15 @@ const search = () => {
 getTmplListHandel();
 
 const toInfo = (info) => {
-  window.open(`/#/?tempId=${info.id}`);
+  const href = router.resolve({
+    path: '/',
+    query: {
+      tempId: info.id,
+    },
+  });
+  console.log(href, 1111);
+  // 点击事件
+  window.open(href.href, '_blank');
 };
 </script>
 <style lang="less" scoped>
