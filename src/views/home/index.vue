@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-11 09:59:52
+ * @LastEditors: June 1601745371@qq.com
+ * @LastEditTime: 2024-06-12 14:12:04
  * @Description: file content
 -->
 <template>
@@ -330,7 +330,7 @@ const leftBar = reactive([
   {
     // 用户素材
     key: 'myMaterial',
-    name: computed(() => t('mymaterial')),
+    name: computed(() => t('mine')),
     icon: 'ios-contact-outline',
   },
 ]);
@@ -585,15 +585,15 @@ provide('mixinState', mixinState);
   --size: 16px;
   --color: #dedcdc;
   background-image: linear-gradient(
-    45deg,
-    var(--color) 25%,
-    transparent 0,
-    transparent 75%,
-    var(--color) 0
-  ),
-  linear-gradient(45deg, var(--color) 25%, transparent 0, transparent 75%, var(--color) 0);
+      45deg,
+      var(--color) 25%,
+      transparent 0,
+      transparent 75%,
+      var(--color) 0
+    ),
+    linear-gradient(45deg, var(--color) 25%, transparent 0, transparent 75%, var(--color) 0);
   background-position: var(--offsetX) var(--offsetY),
-  calc(var(--size) + var(--offsetX)) calc(var(--size) + var(--offsetY));
+    calc(var(--size) + var(--offsetX)) calc(var(--size) + var(--offsetY));
   background-size: calc(var(--size) * 2) calc(var(--size) * 2);
 }
 </style>

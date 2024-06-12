@@ -61,7 +61,6 @@
     "save_as_json": "保存为JSON"
   },
   "layers": "图层",
-  "mymaterial": "我的",
   "my_spase": {
     "remove_templ": "删除模板",
     "remove_templTip": "确认删除模板吗？",
@@ -252,5 +251,6 @@
     "addTempl": "新增模板",
     "addTemplPlaceholder": "请输入模板名称",
     "addTemplCheckTip": "模板名称不能为空"
-  }
+  },
+  "mine": "我的"
 }
