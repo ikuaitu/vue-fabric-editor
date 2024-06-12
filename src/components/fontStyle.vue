@@ -2,14 +2,43 @@
  * @Author: 秦少卫
  * @Date: 2023-08-05 17:47:35
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 22:21:21
+ * @LastEditTime: 2024-06-12 15:35:30
  * @Description: 字体样式
 -->
 
 <template>
   <div>
     <!-- 搜索组件 -->
-    <div class="search-box">
+    <searchType
+      ref="selectTypeRef"
+      :typeListApi="getFontStyleTypes"
+      @change="searchChange"
+    ></searchType>
+
+    <!-- 分类列表 -->
+    <typeList
+      v-show="!filters.font_style_type.$contains && !filters.name.$contains"
+      :typeApi="getFontStyleTypes"
+      :typeListApi="getFontStyleListByType"
+      typeKey="font_style_type"
+      :formatData="formatData"
+      @selectType="selectType"
+      @click="addItem"
+      @dragend="dragItem"
+    ></typeList>
+
+    <!-- 搜索分页列表 -->
+    <pageList
+      v-if="filters.font_style_type.$contains || filters.name.$contains"
+      DOMId="fontMaterialList"
+      :pageListApi="getFontStyles"
+      :filters="filters"
+      :formatData="formatData"
+      @click="addItem"
+      @dragend="dragItem"
+    ></pageList>
+
+    <!-- <div class="search-box">
       <Select class="select" v-model="typeValue" @on-change="startGetList" :disabled="pageLoading">
         <Option v-for="item in typeList" :value="item.value" :key="item.value">
           {{ item.label }}
@@ -23,18 +52,18 @@
         :disabled="pageLoading"
         @on-search="startGetList"
       />
-    </div>
+    </div> -->
     <!-- 列表 -->
-    <div style="height: calc(100vh - 108px)" id="myTemplBox3">
+    <!-- <div style="height: calc(100vh - 108px)" id="myTemplBox3">
       <Scroll
         key="mysscroll2"
         v-if="showScroll"
         :on-reach-bottom="nextPage"
         :height="scrollHeight"
         :distance-to-edge="[-1, -1]"
-      >
-        <!-- 列表 -->
-        <div class="img-group">
+      > -->
+    <!-- 列表 -->
+    <!-- <div class="img-group">
           <Tooltip :content="info.name" v-for="info in pageData" :key="info.src" placement="top">
             <div class="tmpl-img-box">
               <Image
@@ -49,52 +78,34 @@
             </div>
           </Tooltip>
         </div>
-        <Spin size="large" fix :show="pageLoading"></Spin>
+        <Spin size="large" fix :show="pageLoading"></Spin> -->
 
-        <Divider plain v-if="isDownBottm">已经到底了</Divider>
-      </Scroll>
-    </div>
+    <!-- <Divider plain v-if="isDownBottm">已经到底了</Divider> -->
+    <!-- </Scroll>
+    </div> -->
   </div>
 </template>
 
 <script setup name="ImportSvg">
+import searchType from '@/components/common/searchType';
+import typeList from '@/components/common/typeList.vue';
+import pageList from '@/components/common/pageList.vue';
 import useSelect from '@/hooks/select';
 import useCalculate from '@/hooks/useCalculate';
-import usePageList from '@/hooks/pageList';
+import { getMaterialInfoUrl, getMaterialPreviewUrl } from '@/hooks/usePageList';
+import { getFontStyleTypes, getFontStyleListByType, getFontStyles } from '@/api/material';
 import { fabric } from 'fabric';
 import { v4 as uuid } from 'uuid';
 import { Spin } from 'view-ui-plus';
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
-const {
-  startPage,
-  typeValue,
-  typeText,
-  typeList,
-  pageLoading,
-  pageData,
-  searchKeyWord,
-  isDownBottm,
-  startGetList,
-  nextPage,
-  showScroll,
-  scrollHeight,
-} = usePageList({
-  typeUrl: 'font-style-types',
-  listUrl: 'font-styles',
-  searchTypeKey: 'font_style_type',
-  searchWordKey: 'name',
-  pageSize: 50,
-  scrollElement: '#myTemplBox3',
-});
-
 const { canvasEditor } = useSelect();
 
 const { isOutsideCanvas } = useCalculate();
 
 // 按照类型渲染
-const dragItem = async (e, item) => {
+const dragItem = async ({ e, info: item }) => {
   if (isOutsideCanvas(e.clientX, e.clientY)) return;
   Spin.show({
     render: (h) => h('div', t('alert.loading_data')),
@@ -109,7 +120,7 @@ const dragItem = async (e, item) => {
   });
 };
 
-const addItem = async (item) => {
+const addItem = async ({ info: item }) => {
   Spin.show({
     render: (h) => h('div', t('alert.loading_data')),
   });
@@ -127,42 +138,46 @@ function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-onMounted(async () => {
-  startPage();
+const selectTypeRef = ref();
+
+const filters = reactive({
+  font_style_type: {
+    $contains: '',
+  },
+  name: {
+    $contains: '',
+  },
 });
+
+// 分页格式化
+const formatData = (data) => {
+  return data.map((item) => {
+    return {
+      id: item.id,
+      name: item.attributes.name,
+      desc: item.attributes.desc,
+      json: item.attributes.json,
+      src: getMaterialInfoUrl(item.attributes.img),
+      previewSrc: getMaterialPreviewUrl(item.attributes.img),
+    };
+  });
+};
+
+// 搜索改变
+const searchChange = async ({ searchKeyWord, typeValue }) => {
+  filters.name.$contains = '';
+  filters.font_style_type.$contains = '';
+  await nextTick();
+  filters.name.$contains = searchKeyWord;
+  filters.font_style_type.$contains = typeValue;
+};
+
+// 分类列表选择
+const selectType = async (type) => {
+  filters.font_style_type.$contains = type;
+  selectTypeRef.value.setType(type);
+  await nextTick();
+};
 </script>
 
-<style scoped lang="less">
-.search-box {
-  padding-top: 10px;
-  display: flex;
-  .input {
-    margin-left: 10px;
-  }
-  .select {
-    width: 100px;
-  }
-}
-
-.img-group {
-  background: #eeeeeea1;
-  border-radius: 10px;
-  padding: 10px;
-}
-.tmpl-img-box {
-  width: 67px;
-  height: 100px;
-  padding: 5px;
-  cursor: pointer;
-  border-radius: 10px;
-
-  &:hover {
-    background: #e3e3e3;
-  }
-}
-
-.tip-text {
-  display: block;
-  text-align: center;
-}
-</style>
+<style scoped lang="less"></style>

@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
- * @LastEditors: June 1601745371@qq.com
- * @LastEditTime: 2024-06-12 14:12:04
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-06-12 15:08:26
  * @Description: file content
 -->
 <template>
@@ -204,7 +204,7 @@ import importTmpl from '@/components/importTmpl.vue';
 import fontStyle from '@/components/fontStyle.vue';
 import myMaterial from '@/components/myMaterial/index.vue';
 import tools from '@/components/tools.vue';
-import importSvgEl from '@/components/importSvgEl.vue';
+import material from '@/components/material.vue';
 import bgBar from '@/components/bgBar.vue';
 import setSize from '@/components/setSize.vue';
 import replaceImg from '@/components/replaceImg.vue';
@@ -288,7 +288,7 @@ const menuActive = ref('importTmpl');
 const leftBarComponent = {
   importTmpl,
   tools,
-  importSvgEl,
+  material,
   fontStyle,
   layer,
   myMaterial,
@@ -317,7 +317,7 @@ const leftBar = reactive([
   },
   {
     // 图片元素
-    key: 'importSvgEl',
+    key: 'material',
     name: computed(() => t('material.cartoon')),
     icon: 'ios-leaf-outline',
   },
@@ -341,7 +341,7 @@ onMounted(() => {
     fireRightClick: true, // 启用右键，button的数字为3
     stopContextMenu: true, // 禁止默认右键菜单
     controlsAboveOverlay: true, // 超出clipPath后仍然展示控制条
-    imageSmoothingEnabled: false, // 解决文字导出后不清晰问题
+    // imageSmoothingEnabled: false, // 解决文字导出后不清晰问题
     preserveObjectStacking: true, // 当选择画布中的对象时，让对象不在顶层。
   });
 

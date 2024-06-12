@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-11 09:12:24
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-11 09:46:09
+ * @LastEditTime: 2024-06-12 09:02:50
  * @Description: logo
 -->
 
@@ -40,6 +40,7 @@ getWebInfoFun();
   height: 44px;
   display: inline-block;
   margin-right: 10px;
+  margin-left: 2px;
   a {
     display: flex;
     height: 100%;
