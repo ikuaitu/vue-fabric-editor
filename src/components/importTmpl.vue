@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: June 1601745371@qq.com
- * @LastEditTime: 2024-06-12 14:19:53
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-06-12 22:07:28
  * @Description: 导入模板
 -->
 
@@ -105,6 +105,7 @@ const beforeClearTip = (info) => {
 
 onMounted(() => {
   startPage();
+  getTemplInfo();
 });
 
 // 获取模板数据
@@ -113,14 +114,23 @@ const getTempData = async (info) => {
     render: (h) => h('div', t('alert.loading_data')),
   });
   const infoRes = await getInfo(info.id);
-  console.log(route.query.admin);
   if (route.query.admin) {
     router.replace('/?tempId=' + info.id + '&admin=true');
   } else {
-    router.replace('/');
+    router.replace('/?tempId=' + info.id);
   }
-
   canvasEditor.loadJSON(JSON.stringify(infoRes.data.data.attributes.json), Spin.hide);
+};
+
+const getTemplInfo = async () => {
+  if (route.query.tempId) {
+    try {
+      const infoRes = await getInfo(route.query.tempId);
+      canvasEditor.loadJSON(JSON.stringify(infoRes.data.data.attributes.json), Spin.hide);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };
 </script>
 

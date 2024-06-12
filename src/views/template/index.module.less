@@ -1,0 +1,159 @@
+.container {
+  width: 50%;
+  margin: 20px;
+}
+
+// 属性面板样式
+// :deep(.attr-item) {
+//   position: relative;
+//   margin-bottom: 12px;
+//   height: 40px;
+//   padding: 0 10px;
+//   background: #f6f7f9;
+//   border: none;
+//   border-radius: 4px;
+//   display: flex;
+//   align-items: center;
+//   .ivu-tooltip {
+//     text-align: center;
+//     flex: 1;
+//   }
+// }
+
+.ivu-menu-vertical .menu-item {
+  text-align: center;
+  padding: 10px 2px;
+  box-sizing: border-box;
+  font-size: 12px;
+
+  & > i {
+    margin: 0;
+  }
+}
+
+:deep(.ivu-layout-header) {
+  --height: 45px;
+  padding: 0 10px;
+  border-bottom: 1px solid #eef2f8;
+  background: #fff;
+  height: var(--height);
+  line-height: var(--height);
+}
+
+.home,
+.ivu-layout {
+  height: 100vh;
+}
+
+.icon {
+  display: block;
+}
+
+.canvas-box {
+  position: relative;
+}
+
+.inside-shadow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 15px 5px blue;
+  box-shadow: inset 0 0 9px 2px #0000001f;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#canvas {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  // background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVQ4jWNgYGAQIYAJglEDhoUBg9+FowbQ2gAARjwKARjtnN8AAAAASUVORK5CYII=");
+  // background-size: 30px 30px;
+}
+
+#workspace {
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  width: 220px;
+  padding: 10px;
+  padding-top: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
+  background: none;
+}
+// 标尺与网格背景
+.switch {
+  margin-right: 10px;
+}
+.design-stage-point {
+  --offsetX: 0px;
+  --offsetY: 0px;
+  --size: 20px;
+  background-size: var(--size) var(--size);
+  background-image: radial-gradient(circle, #2f3542 1px, rgba(0, 0, 0, 0) 1px);
+  background-position: var(--offsetX) var(--offsetY);
+}
+
+.design-stage-grid {
+  // dom.style.setProperty('--offsetX', `${point.x + e.clientX}px`) 通过修改 偏移量 可实现跟随鼠标效果 --size 则为间距
+  // dom.style.setProperty('--offsetY', `${point.y + e.clientY}px`)
+  --offsetX: 0px;
+  --offsetY: 0px;
+  --size: 16px;
+  --color: #dedcdc;
+  background-image: linear-gradient(
+      45deg,
+      var(--color) 25%,
+      transparent 0,
+      transparent 75%,
+      var(--color) 0
+    ),
+    linear-gradient(45deg, var(--color) 25%, transparent 0, transparent 75%, var(--color) 0);
+  background-position: var(--offsetX) var(--offsetY),
+    calc(var(--size) + var(--offsetX)) calc(var(--size) + var(--offsetY));
+  background-size: calc(var(--size) * 2) calc(var(--size) * 2);
+}
+
+.coordinates-bar {
+  --ruler-size: 16px;
+  --ruler-c: #808080;
+  --rule4-bg-c: #252525;
+  --ruler-bdw: 1px;
+  --ruler-h: 8px;
+  --ruler-space: 5px;
+  --ruler-tall-h: 16px;
+  --ruler-tall-space: 15px;
+  position: absolute;
+  z-index: 2;
+  background-color: var(--rule4-bg-c);
+}
+.coordinates-bar-top {
+  cursor: row-resize;
+  top: 0;
+  left: 0;
+  height: var(--ruler-size);
+  width: 100%;
+  background-image: linear-gradient(90deg, var(--ruler-c) 0 var(--ruler-bdw), transparent 0),
+    linear-gradient(90deg, var(--ruler-c) 0 var(--ruler-bdw), transparent 0);
+  background-repeat: repeat-x;
+  background-size: var(--ruler-space) var(--ruler-h), var(--ruler-tall-space) var(--ruler-tall-h);
+  background-position: bottom;
+}
+.coordinates-bar-left {
+  cursor: col-resize;
+  top: var(--ruler-size);
+  width: var(--ruler-size);
+  height: 100%;
+  left: 0;
+  background-image: linear-gradient(0deg, var(--ruler-c) 0 var(--ruler-bdw), transparent 0),
+    linear-gradient(0deg, var(--ruler-c) 0 var(--ruler-bdw), transparent 0);
+  background-repeat: repeat-y;
+  background-size: var(--ruler-h) var(--ruler-space), var(--ruler-tall-h) var(--ruler-tall-space);
+  background-position: right;
+}

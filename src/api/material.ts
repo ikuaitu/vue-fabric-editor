@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-24 14:07:06
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-12 15:19:20
+ * @LastEditTime: 2024-06-12 21:42:00
  * @Description: 用户接口登录
  */
 
@@ -35,3 +35,11 @@ export const getFontStyles = (data: any) => instance.get('/api/font-styles?' + d
 // 获取根据分类获取字体样式列表
 export const getFontStyleListByType = (data: any) =>
   instance.get('/api/font-styles?' + qs.stringify(data));
+
+// 获取字体分类分类
+export const getTmplTypes = () => instance.get('/api/templ-types');
+// 获取模板列表
+export const getTmplList = (data: any) => instance.get('/api/templs?' + data);
+
+// 获取banner
+export const getBannerList = (data: any) => instance.get('/api/banners?' + data);

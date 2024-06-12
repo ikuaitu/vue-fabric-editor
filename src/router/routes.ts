@@ -25,6 +25,10 @@ const routes: RouteRecordRaw[] = [
     },
     component: () => import('@/views/home/index.vue'),
   },
+  {
+    path: '/template',
+    component: () => import('@/views/template/index.vue'),
+  },
 ];
 
 export default routes;

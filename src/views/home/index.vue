@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-12 15:08:26
+ * @LastEditTime: 2024-06-12 21:56:11
  * @Description: file content
 -->
 <template>
@@ -12,11 +12,16 @@
       <Header v-if="state.show">
         <div class="left">
           <logo></logo>
+          <Divider type="vertical" />
+
           <!-- 导入 -->
           <import-Json></import-Json>
           <Divider type="vertical" />
           <import-file></import-file>
           <Divider type="vertical" />
+          <Button type="text" to="/template" target="_blank">全部模板</Button>
+          <Divider type="vertical" />
+
           <myTemplName></myTemplName>
           <!-- 标尺开关 -->
           <Tooltip :content="$t('grid')">
@@ -38,7 +43,6 @@
               alt="vue-fbric-editor"
             />
           </a>
-
           <!-- 管理员模式 -->
           <admin />
           <!-- 预览 -->
@@ -525,6 +529,7 @@ provide('mixinState', mixinState);
   align-items: center;
   img {
     display: block;
+    margin-right: 10px;
   }
 }
 .home,
