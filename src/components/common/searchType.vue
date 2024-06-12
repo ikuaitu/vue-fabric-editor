@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-11 16:04:59
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-12 12:31:18
+ * @LastEditTime: 2024-06-12 16:37:40
  * @Description: 搜索组件
 -->
 
@@ -51,8 +51,8 @@ const typeValue = ref('');
 const searchKeyWord = ref('');
 const typeList = ref([]);
 const typeText = computed(() => {
-  const info = typeList.value.find((item) => item.value === typeValue);
-  return info?.lable || '全部';
+  const info = typeList.value.find((item) => item.value === typeValue.value);
+  return info?.label || '全部';
 });
 
 onMounted(async () => {
