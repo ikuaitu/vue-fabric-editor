@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-09 17:05:58
+ * @LastEditors: June 1601745371@qq.com
+ * @LastEditTime: 2024-06-12 14:20:11
  * @Description: 导入模板
 -->
 
@@ -235,7 +235,7 @@ const toFile = (id, i) => {
   display: flex;
 }
 
-/deep/.ivu-scroll-content {
+:deep(.ivu-scroll-content) {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -244,7 +244,7 @@ const toFile = (id, i) => {
 .item {
   margin-bottom: 10px;
 }
-/deep/.ivu-breadcrumb-item-link {
+:deep(.ivu-breadcrumb-item-link) {
   cursor: pointer;
   &:hover {
     color: #57a3f3;

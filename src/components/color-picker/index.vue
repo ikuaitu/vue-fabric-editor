@@ -2,8 +2,8 @@
  * @Author: ShawnPhang
  * @Date: 2023-05-26 17:42:26
  * @Description: 调色板
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 21:56:39
+ * @LastEditors: June 1601745371@qq.com
+ * @LastEditTime: 2024-06-12 14:18:15
 -->
 <template>
   <div class="color-picker">
@@ -490,10 +490,10 @@ function onChangeHex(value) {
   }
 }
 
-function onChangeAlpha(value) {
-  hsla.a = value / 100;
-  elSliderAlphaPointer.value.style.left = `${value}%`;
-}
+// function onChangeAlpha(value) {
+// hsla.a = value / 100;
+//  elSliderAlphaPointer.value.style.left = `${value}%`;
+// }
 
 function disableChangeHSLA() {
   canChangeHSLAPointerPos = false;
