@@ -293,41 +293,44 @@ const leftBarComponent = {
   layer,
   myMaterial,
 };
-const leftBar = ref([
+
+// fix: 修复vue-i18n function "t" not reactive inside ref object
+// https://github.com/intlify/vue-i18n/issues/1396#issuecomment-1716123143
+const leftBar = reactive([
   {
     //模板
     key: 'importTmpl',
-    name: t('templates'),
+    name: computed(() => t('templates')),
     icon: 'md-book',
   },
   {
     //基础元素
     key: 'tools',
-    name: t('elements'),
+    name: computed(() => t('elements')),
     icon: 'md-images',
   },
   {
     //字体样式
     key: 'fontStyle',
-    name: t('font_style'),
+    name: computed(() => t('font_style')),
     icon: 'ios-pulse',
   },
   {
     // 图片元素
     key: 'importSvgEl',
-    name: t('material.cartoon'),
+    name: computed(() => t('material.cartoon')),
     icon: 'ios-leaf-outline',
   },
   {
     // 图层
     key: 'layer',
-    name: t('layers'),
+    name: computed(() => t('layers')),
     icon: 'md-reorder',
   },
   {
     // 用户素材
     key: 'myMaterial',
-    name: t('mymaterial'),
+    name: computed(() => t('mymaterial')),
     icon: 'ios-contact-outline',
   },
 ]);
@@ -582,15 +585,15 @@ provide('mixinState', mixinState);
   --size: 16px;
   --color: #dedcdc;
   background-image: linear-gradient(
-      45deg,
-      var(--color) 25%,
-      transparent 0,
-      transparent 75%,
-      var(--color) 0
-    ),
-    linear-gradient(45deg, var(--color) 25%, transparent 0, transparent 75%, var(--color) 0);
+    45deg,
+    var(--color) 25%,
+    transparent 0,
+    transparent 75%,
+    var(--color) 0
+  ),
+  linear-gradient(45deg, var(--color) 25%, transparent 0, transparent 75%, var(--color) 0);
   background-position: var(--offsetX) var(--offsetY),
-    calc(var(--size) + var(--offsetX)) calc(var(--size) + var(--offsetY));
+  calc(var(--size) + var(--offsetX)) calc(var(--size) + var(--offsetY));
   background-size: calc(var(--size) * 2) calc(var(--size) * 2);
 }
 </style>
