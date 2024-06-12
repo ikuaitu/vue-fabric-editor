@@ -400,10 +400,10 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/macheteHot">
-                    <img src="https://avatars.githubusercontent.com/u/26652329?v=4" width="80;" alt="macheteHot"/>
+                <a href="https://github.com/moJiXiang">
+                    <img src="https://avatars.githubusercontent.com/u/5847011?v=4" width="80;" alt="moJiXiang"/>
                     <br />
-                    <sub><b>macheteHot</b></sub>
+                    <sub><b>moJiXiang</b></sub>
                 </a>
             </td>
             <td align="center">
