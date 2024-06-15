@@ -286,9 +286,7 @@ class ServersPlugin {
 
     const { left, top, width, height } = workspace as fabric.Object;
     return {
-      fontOption: {
-        ...fontEntry,
-      },
+      fontOption: fontEntry,
       svgOption: {
         width,
         height,
