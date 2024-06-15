@@ -404,6 +404,8 @@ const rulerSwitch = (val) => {
   } else {
     canvasEditor.rulerDisable();
   }
+  // 使标尺开关组件失焦，避免响应键盘的空格事件
+  document.activeElement.blur();
 };
 
 // 隐藏工具条
