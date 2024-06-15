@@ -252,5 +252,6 @@
     "addTemplPlaceholder": "请输入模板名称",
     "addTemplCheckTip": "模板名称不能为空"
   },
-  "mine": "我的"
+  "mine": "我的",
+  "batch": "批量"
 }
