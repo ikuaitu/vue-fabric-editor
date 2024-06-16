@@ -273,15 +273,18 @@ class ServersPlugin {
     let fontFamilyArry = this.canvas
       .getObjects()
       .filter((item) => item.type == 'textbox')
-      .map((item) => item.fontFamily);
+      .map((item) => (item as fabric.Text).fontFamily || '');
     fontFamilyArry = Array.from(new Set(fontFamilyArry));
 
-    const fontList = this.editor.getPlugin('FontPlugin').cacheList;
+    const fontList = this.editor.getPlugin('FontPlugin')?.cacheList ?? [];
 
-    const fontEntry = {};
+    const fontEntry: Record<string, string> = {};
+
     for (const font of fontFamilyArry) {
-      const item = fontList.find((item) => item.name === font);
-      fontEntry[font] = item.file;
+      if (font) {
+        const item = fontList.find((item: { name: string }) => item.name === font);
+        fontEntry[font] = item.file;
+      }
     }
 
     const { left, top, width, height } = workspace as fabric.Object;
