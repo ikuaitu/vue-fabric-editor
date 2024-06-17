@@ -48,6 +48,7 @@ class WorkspacePlugin implements IPluginTempl {
       if (workspace) {
         workspace.set('selectable', false);
         workspace.set('hasControls', false);
+        workspace.set('evented', false);
         this.setSize(workspace.width, workspace.height);
         this.editor.emit('sizeChange', workspace.width, workspace.height);
       }
