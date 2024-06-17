@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-24 14:07:06
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-31 15:52:01
+ * @LastEditTime: 2024-06-14 16:17:41
  * @Description: 用户接口登录
  */
 
@@ -78,3 +78,6 @@ export const getFileTypeTree = (data: any) =>
   instance.get(`/api/custom/getUerFileTypeTree`, {
     params: data,
   });
+
+// 获取用户树菜单
+export const getUerFileTree = () => instance.get(`/api/user-templ/getUerFileTree`);

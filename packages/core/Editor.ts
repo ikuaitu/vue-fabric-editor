@@ -4,6 +4,8 @@ import ContextMenu from './ContextMenu.js';
 import ServersPlugin from './ServersPlugin';
 import { AsyncSeriesHook } from 'tapable';
 
+import Utils from './utils/utils';
+
 class Editor extends EventEmitter {
   private canvas: fabric.Canvas | null = null;
   contextMenu: ContextMenu | null = null;
@@ -33,6 +35,8 @@ class Editor extends EventEmitter {
     this._bindContextMenu();
     this._initActionHooks();
     this._initServersPlugin();
+
+    this.Utils = Utils;
   }
 
   get fabricCanvas() {

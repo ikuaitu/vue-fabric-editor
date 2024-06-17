@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-05 22:21:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-22 00:43:01
+ * @LastEditTime: 2024-06-15 10:34:55
  * @Description: 工具文件
  */
 import { v4 as uuid } from 'uuid';
@@ -136,6 +136,31 @@ export const isActiveSelection = (thing: unknown): thing is fabric.ActiveSelecti
   return thing instanceof fabric.ActiveSelection;
 };
 
+export function blobToBase64(blob: Blob) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      resolve(reader.result);
+    });
+    reader.readAsDataURL(blob);
+  });
+}
+
+export function base64ToBlob(base64Data: string) {
+  if (!base64Data) {
+    return null;
+  }
+  const dataArr = base64Data.split(',');
+  const imageType = dataArr[0].match(/:(.*?);/)[1];
+  const textData = window.atob(dataArr[1]);
+  const arrayBuffer = new ArrayBuffer(textData.length);
+  const uint8Array = new Uint8Array(arrayBuffer);
+  for (let i = 0; i < textData.length; i++) {
+    uint8Array[i] = textData.charCodeAt(i);
+  }
+  return [new Blob([arrayBuffer], { type: imageType }), imageType.slice(6)];
+}
+
 export default {
   getImgStr,
   downFile,
@@ -147,4 +172,6 @@ export default {
   isGroup,
   isIText,
   isActiveSelection,
+  blobToBase64,
+  base64ToBlob,
 };
