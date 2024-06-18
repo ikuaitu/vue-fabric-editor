@@ -43,6 +43,7 @@ class GroupPlugin implements IPluginTempl {
         this.canvas.remove(object);
       });
       this.canvas.add(newgroup);
+      this.canvas.setActiveObject(newgroup);
     });
   }
 
