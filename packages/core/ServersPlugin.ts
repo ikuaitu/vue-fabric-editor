@@ -231,7 +231,6 @@ class ServersPlugin {
   saveSvg() {
     this.editor.hooksEntity.hookSaveBefore.callAsync('', () => {
       const { fontOption, svgOption } = this._getSaveSvgOption();
-      console.log('saveSvg', fontOption);
       fabric.fontPaths = {
         ...fontOption,
       };
