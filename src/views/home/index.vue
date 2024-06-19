@@ -271,6 +271,7 @@ import Editor, {
   BarCodePlugin,
   QrCodePlugin,
   ImageStroke,
+  ResizePlugin,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
 import ClipImage from '@/components/clipImage.vue';
@@ -385,6 +386,7 @@ onMounted(() => {
   canvasEditor.use(WaterMarkPlugin);
   canvasEditor.use(PsdPlugin);
   canvasEditor.use(ImageStroke);
+  canvasEditor.use(ResizePlugin);
 
   state.show = true;
   // 默认打开标尺

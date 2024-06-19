@@ -35,6 +35,7 @@ export { default as SimpleClipImagePlugin } from './plugin/SimpleClipImagePlugin
 export { default as BarCodePlugin } from './plugin/BarCodePlugin';
 export { default as QrCodePlugin } from './plugin/QrCodePlugin';
 export { default as ImageStroke } from './plugin/ImageStroke';
+export { default as ResizePlugin } from './plugin/ResizePlugin';
 import EventType from './eventType';
 import Utils from './utils/utils';
 
