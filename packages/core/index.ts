@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2023-02-03 23:29:34
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-06 20:03:08
+ * @LastEditors: June 1601745371@qq.com
+ * @LastEditTime: 2024-06-19 11:04:37
  * @Description: 核心入口文件
  */
 import Editor from './Editor';
@@ -34,6 +34,7 @@ export { default as PsdPlugin } from './plugin/PsdPlugin';
 export { default as SimpleClipImagePlugin } from './plugin/SimpleClipImagePlugin';
 export { default as BarCodePlugin } from './plugin/BarCodePlugin';
 export { default as QrCodePlugin } from './plugin/QrCodePlugin';
+export { default as ImageStroke } from './plugin/ImageStroke';
 import EventType from './eventType';
 import Utils from './utils/utils';
 

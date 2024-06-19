@@ -93,9 +93,8 @@ const setOrigin = () => {
 };
 
 const updateStroke = () => {
-  setOrigin();
   const strokeType = unref(isOnlyStroke) ? 'destination-out' : 'source-over';
-  strokeImage(unref(strokeColor), unref(strokeWidth), strokeType);
+  canvasEditor.imageStrokeDraw(unref(strokeColor), unref(strokeWidth), strokeType);
 };
 
 const closeImgStroke = () => {
@@ -106,6 +105,7 @@ const closeImgStroke = () => {
 const onSwitchChange = async (val: boolean) => {
   if (val) {
     unref(strokeWidth) === 0 && (strokeWidth.value = 5);
+    setOrigin();
     updateStroke();
   } else {
     closeImgStroke();
@@ -133,62 +133,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   canvasEditor.off('selectOne', handleSelectOne);
 });
-
-async function strokeImage(stroke: string, strokeWidth: number, type = 'source-over') {
-  const _activeObject = getActiveObject();
-  if (!_activeObject) return;
-  const w = _activeObject.originWidth || 0,
-    h = _activeObject.originHeight || 0,
-    src = _activeObject?.originSrc || _activeObject.getSrc();
-  let canvas: HTMLCanvasElement | null = document.createElement('canvas');
-  const ctx = canvas!.getContext('2d');
-  if (!ctx) return;
-  // 描边等于0 说明关闭了开关或者不需要描边  直接从原图绘制
-  if (strokeWidth === 0) {
-    _activeObject.setSrc(src, () => {
-      _activeObject.canvas?.renderAll();
-    });
-    return;
-  }
-  ctx.save();
-  ctx.clearRect(0, 0, canvas!.width, canvas!.height);
-  ctx.restore();
-  canvas!.width = w + strokeWidth * 2;
-  canvas!.height = h + strokeWidth * 2;
-  const dArr = [-1, -1, 0, -1, 1, -1, -1, 0, 1, 0, -1, 1, 0, 1, 1, 1];
-  const img = await addImage(src);
-  if (!img) return;
-  for (let i = 0; i < dArr.length; i += 2) {
-    ctx.drawImage(
-      img,
-      strokeWidth + dArr[i] * strokeWidth,
-      strokeWidth + dArr[i + 1] * strokeWidth,
-      w,
-      h
-    );
-  }
-  ctx.globalCompositeOperation = 'source-in';
-  ctx.fillStyle = stroke;
-  ctx.fillRect(0, 0, w + strokeWidth * 2, h + strokeWidth * 2);
-  ctx.globalCompositeOperation = type as any;
-  ctx.drawImage(img, strokeWidth, strokeWidth, w, h);
-  const res = canvas?.toDataURL();
-  canvas = null;
-  if (!res) return;
-  _activeObject.setSrc(res, () => {
-    _activeObject.canvas?.renderAll();
-  });
-}
-
-async function addImage(src: string): Promise<HTMLImageElement | undefined> {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => resolve(img);
-    img.onerror = () => reject();
-    img.src = src;
-  });
-}
 </script>
 
 <style lang="less" scoped>

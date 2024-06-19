@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-12 21:56:11
+ * @LastEditors: June 1601745371@qq.com
+ * @LastEditTime: 2024-06-19 11:05:24
  * @Description: file content
 -->
 <template>
@@ -270,6 +270,7 @@ import Editor, {
   SimpleClipImagePlugin,
   BarCodePlugin,
   QrCodePlugin,
+  ImageStroke,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
 import ClipImage from '@/components/clipImage.vue';
@@ -383,6 +384,7 @@ onMounted(() => {
   });
   canvasEditor.use(WaterMarkPlugin);
   canvasEditor.use(PsdPlugin);
+  canvasEditor.use(ImageStroke);
 
   state.show = true;
   // 默认打开标尺
