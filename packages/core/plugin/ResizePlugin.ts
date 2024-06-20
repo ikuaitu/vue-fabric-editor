@@ -20,6 +20,8 @@ class ResizePlugin implements IPluginTempl {
   static events = [];
   static apis = [];
   workspaceEl!: HTMLElement;
+  // 最小画布尺寸
+  minSize = { width: 1, height: 1 };
   hasCreatedBar = false;
   isDragging = false;
   dragEl: HTMLElement | null = null;
@@ -150,24 +152,47 @@ class ResizePlugin implements IPluginTempl {
       const deltaViewX = (e.clientX - this.startPoints.x) / scaleX;
       const deltaViewY = (e.clientY - this.startPoints.y) / scaleY;
       const type = this.dragEl.id.split('-')[1];
+      let tempLength = 0;
       switch (type) {
         case 'left':
-          this.dragEl.style.left = `${this.barOffset.x + deltaX}px`;
-          workspace.set('left', this.wsOffset.left + deltaViewX);
-          workspace.set('width', Math.round(this.wsOffset.width - deltaViewX));
+          tempLength = Math.round(this.wsOffset.width - deltaViewX);
+          if (tempLength >= this.minSize.width) {
+            this.dragEl.style.left = `${this.barOffset.x + deltaX}px`;
+            workspace.set('left', this.wsOffset.left + deltaViewX);
+            workspace.set('width', tempLength);
+          } else {
+            workspace.set('left', this.wsOffset.left + this.wsOffset.width - this.minSize.width);
+            workspace.set('width', this.minSize.width);
+          }
           break;
         case 'right':
-          this.dragEl.style.left = `${this.barOffset.x + deltaX}px`;
-          workspace.set('width', Math.round(this.wsOffset.width + deltaViewX));
+          tempLength = Math.round(this.wsOffset.width + deltaViewX);
+          if (tempLength >= this.minSize.width) {
+            this.dragEl.style.left = `${this.barOffset.x + deltaX}px`;
+            workspace.set('width', tempLength);
+          } else {
+            workspace.set('width', this.minSize.width);
+          }
           break;
         case 'top':
-          this.dragEl.style.top = `${this.barOffset.y + deltaY}px`;
-          workspace.set('top', this.wsOffset.top + deltaViewY);
-          workspace.set('height', Math.round(this.wsOffset.height - deltaViewY));
+          tempLength = Math.round(this.wsOffset.height - deltaViewY);
+          if (tempLength >= this.minSize.height) {
+            this.dragEl.style.top = `${this.barOffset.y + deltaY}px`;
+            workspace.set('top', this.wsOffset.top + deltaViewY);
+            workspace.set('height', tempLength);
+          } else {
+            workspace.set('top', this.wsOffset.top + this.wsOffset.height - this.minSize.height);
+            workspace.set('height', this.minSize.height);
+          }
           break;
         case 'bottom':
-          this.dragEl.style.top = `${this.barOffset.y + deltaY}px`;
-          workspace.set('height', Math.round(this.wsOffset.height + deltaViewY));
+          tempLength = Math.round(this.wsOffset.height + deltaViewY);
+          if (tempLength >= this.minSize.height) {
+            this.dragEl.style.top = `${this.barOffset.y + deltaY}px`;
+            workspace.set('height', tempLength);
+          } else {
+            workspace.set('height', this.minSize.height);
+          }
           break;
         default:
           break;
