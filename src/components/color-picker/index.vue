@@ -3,7 +3,7 @@
  * @Date: 2023-05-26 17:42:26
  * @Description: 调色板
  * @LastEditors: June 1601745371@qq.com
- * @LastEditTime: 2024-06-12 14:18:15
+ * @LastEditTime: 2024-06-20 17:46:09
 -->
 <template>
   <div class="color-picker">
@@ -363,8 +363,8 @@ function recordValue(value) {
 }
 
 function updateValue(value) {
-  if (value === props.value) return;
-
+  // 纯色时value和props.value 一样导致不更新
+  // if (value === props.value) return;
   recordValue(value);
   emit('update:value', value);
 
@@ -549,6 +549,10 @@ function patchHexColor(str) {
 function angleChange() {
   updateValue(toGradientString(angle.value, gradients.value));
 }
+
+defineExpose({
+  updateValue,
+});
 </script>
 
 <style lang="less" scoped>
