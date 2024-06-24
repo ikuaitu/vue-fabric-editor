@@ -52,7 +52,7 @@
         </div>
 
         <div>
-          <ColorPicker v-model="strokeColor" @on-change="onColorChange" />
+          <ColorPicker v-model="strokeColor" @on-change="onColorChange" placement="left" />
         </div>
       </div>
     </template>
@@ -64,6 +64,7 @@ import useSelect from '@/hooks/select';
 import { Slider } from 'view-ui-plus';
 import { fabric } from 'fabric';
 import { Utils } from '@kuaitu/core';
+import { values } from 'lodash-es';
 
 interface IExtendImage {
   [x: string]: any;
@@ -118,6 +119,7 @@ const onSliderChange = (val: number) => {
 };
 
 const onColorChange = (val: string) => {
+  console.log('onColorChnage', val);
   strokeColor.value = val;
   updateStroke();
 };
