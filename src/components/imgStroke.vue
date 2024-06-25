@@ -119,7 +119,6 @@ const onSliderChange = (val: number) => {
 };
 
 const onColorChange = (val: string) => {
-  console.log('onColorChnage', val);
   strokeColor.value = val;
   updateStroke();
 };
