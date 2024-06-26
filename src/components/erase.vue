@@ -41,7 +41,7 @@ const doErase = () => {
   if (isErase.value) {
     canvas.isDrawingMode = true;
     canvas.freeDrawingBrush = new fabric.EraserBrush(canvas);
-    canvas.freeDrawingBrush.width = 15; // optional
+    canvas.freeDrawingBrush.width = 15;
   } else {
     canvas.isDrawingMode = false;
   }

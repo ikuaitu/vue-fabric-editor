@@ -101,4 +101,8 @@ declare namespace fabric {
   export class EraserBrush {
     constructor(canvas: Canvas);
   }
+
+  export interface IRectOptions {
+    [key: string]: unknown;
+  }
 }
