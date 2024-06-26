@@ -151,6 +151,7 @@
     "copy": "复制",
     "lock": "锁定",
     "hide": "隐藏",
+    "erase": "橡皮檫",
     "editPoly": "编辑多边形"
   },
   "insertFile": {
