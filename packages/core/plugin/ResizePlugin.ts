@@ -22,6 +22,12 @@ class ResizePlugin implements IPluginTempl {
   workspaceEl!: HTMLElement;
   // 最小画布尺寸
   minSize = { width: 1, height: 1 };
+  // 控制条
+  barOpts = {
+    bWidth: 30, // 宽
+    bHeight: 6, // 高
+    bPadding: 10, // 离画布边缘的距离
+  };
   hasCreatedBar = false;
   isDragging = false;
   dragEl: HTMLElement | null = null;
@@ -66,27 +72,24 @@ class ResizePlugin implements IPluginTempl {
     const wsHeight = workspace.height * scaleY;
     const wsLeft = workspace.left * scaleX;
     const wsTop = workspace.top * scaleY;
+    const { bWidth, bHeight, bPadding } = this.barOpts;
     if (!viewportTransform) return;
     // 左控制条
     const leftBar = this._getBarFromType('left');
-    leftBar.style.left = `${offsetX + wsLeft - 8}px`;
-    leftBar.style.top = `${offsetY + wsTop}px`;
-    leftBar.style.height = `${wsHeight}px`;
+    leftBar.style.left = `${offsetX + wsLeft - bHeight - bPadding}px`;
+    leftBar.style.top = `${offsetY + wsTop + wsHeight / 2 - bWidth / 2}px`;
     // 右控制条
     const rightBar = this._getBarFromType('right');
-    rightBar.style.left = `${offsetX + wsLeft + wsWidth}px`;
-    rightBar.style.top = `${offsetY + wsTop}px`;
-    rightBar.style.height = `${wsHeight}px`;
+    rightBar.style.left = `${offsetX + wsLeft + wsWidth + bPadding}px`;
+    rightBar.style.top = `${offsetY + wsTop + wsHeight / 2 - bWidth / 2}px`;
     // 上控制条
     const topBar = this._getBarFromType('top');
-    topBar.style.left = `${offsetX + wsLeft}px`;
-    topBar.style.top = `${offsetY + wsTop - 8}px`;
-    topBar.style.width = `${wsWidth}px`;
+    topBar.style.left = `${offsetX + wsLeft + wsWidth / 2 - bWidth / 2}px`;
+    topBar.style.top = `${offsetY + wsTop - bHeight - bPadding}px`;
     // 下控制条
     const bottomBar = this._getBarFromType('bottom');
-    bottomBar.style.left = `${offsetX + wsLeft}px`;
-    bottomBar.style.top = `${offsetY + wsTop + wsHeight}px`;
-    bottomBar.style.width = `${wsWidth}px`;
+    bottomBar.style.left = `${offsetX + wsLeft + wsWidth / 2 - bWidth / 2}px`;
+    bottomBar.style.top = `${offsetY + wsTop + wsHeight + bPadding}px`;
     // 监听
     if (!this.hasCreatedBar) {
       this.hasCreatedBar = true;

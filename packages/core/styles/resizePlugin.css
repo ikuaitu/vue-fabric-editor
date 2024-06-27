@@ -1,16 +1,15 @@
 .resize-bar {
-  border-radius: 4px;
-  background-color: transparent;
+  border-radius: 3px;
+  background-color: rgba(160, 160, 160, 0.6);
   position: absolute;
 }
 .resize-bar.horizontal {
-  width: 8px;
+  width: 6px;
+  height: 30px;
 }
 .resize-bar.vertical {
-  height: 8px;
-}
-.resize-bar:hover {
-  background-color: rgba(160, 160, 160, 0.6);
+  width: 30px;
+  height: 6px;
 }
 .resize-bar.active {
   background-color: #328cff;
