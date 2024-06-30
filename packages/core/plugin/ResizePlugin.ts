@@ -1,8 +1,8 @@
 /*
  * @Author: wuchenguang1998
  * @Date: 2024-06-17 21:00:00
- * @LastEditors: wuchenguang1998
- * @LastEditTime: 2024-06-19 19:00:00
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-06-30 20:01:36
  * @Description: 画布resize拖拽插件
  */
 
@@ -200,6 +200,8 @@ class ResizePlugin implements IPluginTempl {
         default:
           break;
       }
+
+      this.editor.setCenterFromObject(workspace);
       workspace.clone((cloned: fabric.Rect) => {
         this.canvas.clipPath = cloned;
         this.canvas.requestRenderAll();

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-11 14:18:13
+ * @LastEditTime: 2024-06-30 20:00:37
  * @Description: 画布区域插件
  */
 
@@ -14,7 +14,16 @@ type IEditor = Editor;
 class WorkspacePlugin implements IPluginTempl {
   static pluginName = 'WorkspacePlugin';
   static events = ['sizeChange'];
-  static apis = ['big', 'small', 'auto', 'one', 'setSize', 'getWorkspase', 'setWorkspaseBg'];
+  static apis = [
+    'big',
+    'small',
+    'auto',
+    'one',
+    'setSize',
+    'getWorkspase',
+    'setWorkspaseBg',
+    'setCenterFromObject',
+  ];
   workspaceEl!: HTMLElement;
   workspace: null | fabric.Rect;
   option: any;

@@ -3,6 +3,9 @@
   background-color: rgba(160, 160, 160, 0.6);
   position: absolute;
 }
+.resize-bar:hover {
+  background-color: #328cff;
+}
 .resize-bar.horizontal {
   width: 6px;
   height: 30px;
