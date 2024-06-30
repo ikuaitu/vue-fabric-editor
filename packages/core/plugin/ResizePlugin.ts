@@ -161,7 +161,7 @@ class ResizePlugin implements IPluginTempl {
         case 'left':
           tempLength = Math.round(this.wsOffset.width - deltaViewX * 2);
           if (tempLength >= this.minSize.width) {
-            // this.dragEl.style.left = `${this.barOffset.x + deltaX}px`;
+            this.dragEl.style.left = `${this.barOffset.x + deltaX}px`;
             workspace.set('left', this.wsOffset.left + deltaViewX * 2);
             workspace.set('width', tempLength);
           } else {
@@ -172,7 +172,7 @@ class ResizePlugin implements IPluginTempl {
         case 'right':
           tempLength = Math.round(this.wsOffset.width + deltaViewX * 2);
           if (tempLength >= this.minSize.width) {
-            // this.dragEl.style.left = `${this.barOffset.x + deltaX}px`;
+            this.dragEl.style.left = `${this.barOffset.x + deltaX}px`;
             workspace.set('width', tempLength);
           } else {
             workspace.set('width', this.minSize.width);
@@ -181,7 +181,7 @@ class ResizePlugin implements IPluginTempl {
         case 'top':
           tempLength = Math.round(this.wsOffset.height - deltaViewY * 2);
           if (tempLength >= this.minSize.height) {
-            // this.dragEl.style.top = `${this.barOffset.y + deltaY}px`;
+            this.dragEl.style.top = `${this.barOffset.y + deltaY}px`;
             workspace.set('top', this.wsOffset.top + deltaViewY * 2);
             workspace.set('height', tempLength);
           } else {
@@ -192,7 +192,7 @@ class ResizePlugin implements IPluginTempl {
         case 'bottom':
           tempLength = Math.round(this.wsOffset.height + deltaViewY * 2);
           if (tempLength >= this.minSize.height) {
-            // this.dragEl.style.top = `${this.barOffset.y + deltaY}px`;
+            this.dragEl.style.top = `${this.barOffset.y + deltaY}px`;
             workspace.set('height', tempLength);
           } else {
             workspace.set('height', this.minSize.height);
