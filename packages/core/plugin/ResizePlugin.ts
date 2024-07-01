@@ -140,6 +140,7 @@ class ResizePlugin implements IPluginTempl {
         this.isDragging = false;
         this.dragEl.classList.remove('active');
         this.dragEl = null;
+        this.canvas.defaultCursor = 'default';
       }
     });
   }
@@ -152,16 +153,16 @@ class ResizePlugin implements IPluginTempl {
       const [scaleX, , , scaleY] = viewportTransform || [];
       const deltaX = e.clientX - this.startPoints.x;
       const deltaY = e.clientY - this.startPoints.y;
-      const deltaViewX = (e.clientX - this.startPoints.x) / scaleX;
-      const deltaViewY = (e.clientY - this.startPoints.y) / scaleY;
+      const deltaViewX = deltaX / scaleX;
+      const deltaViewY = deltaY / scaleY;
       const type = this.dragEl.id.split('-')[1];
       let tempLength = 0;
       switch (type) {
         case 'left':
-          tempLength = Math.round(this.wsOffset.width - deltaViewX);
+          tempLength = Math.round(this.wsOffset.width - deltaViewX * 2);
           if (tempLength >= this.minSize.width) {
             this.dragEl.style.left = `${this.barOffset.x + deltaX}px`;
-            workspace.set('left', this.wsOffset.left + deltaViewX);
+            workspace.set('left', this.wsOffset.left + deltaViewX * 2);
             workspace.set('width', tempLength);
           } else {
             workspace.set('left', this.wsOffset.left + this.wsOffset.width - this.minSize.width);
@@ -169,7 +170,7 @@ class ResizePlugin implements IPluginTempl {
           }
           break;
         case 'right':
-          tempLength = Math.round(this.wsOffset.width + deltaViewX);
+          tempLength = Math.round(this.wsOffset.width + deltaViewX * 2);
           if (tempLength >= this.minSize.width) {
             this.dragEl.style.left = `${this.barOffset.x + deltaX}px`;
             workspace.set('width', tempLength);
@@ -178,10 +179,10 @@ class ResizePlugin implements IPluginTempl {
           }
           break;
         case 'top':
-          tempLength = Math.round(this.wsOffset.height - deltaViewY);
+          tempLength = Math.round(this.wsOffset.height - deltaViewY * 2);
           if (tempLength >= this.minSize.height) {
             this.dragEl.style.top = `${this.barOffset.y + deltaY}px`;
-            workspace.set('top', this.wsOffset.top + deltaViewY);
+            workspace.set('top', this.wsOffset.top + deltaViewY * 2);
             workspace.set('height', tempLength);
           } else {
             workspace.set('top', this.wsOffset.top + this.wsOffset.height - this.minSize.height);
@@ -189,7 +190,7 @@ class ResizePlugin implements IPluginTempl {
           }
           break;
         case 'bottom':
-          tempLength = Math.round(this.wsOffset.height + deltaViewY);
+          tempLength = Math.round(this.wsOffset.height + deltaViewY * 2);
           if (tempLength >= this.minSize.height) {
             this.dragEl.style.top = `${this.barOffset.y + deltaY}px`;
             workspace.set('height', tempLength);
@@ -206,6 +207,11 @@ class ResizePlugin implements IPluginTempl {
         this.canvas.clipPath = cloned;
         this.canvas.requestRenderAll();
       });
+      if (['left', 'right'].includes(type)) {
+        this.canvas.defaultCursor = 'ew-resize';
+      } else {
+        this.canvas.defaultCursor = 'ns-resize';
+      }
       this.editor.emit('sizeChange', workspace.width, workspace.height);
     }
   }
