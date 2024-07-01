@@ -42,7 +42,7 @@ class PsdPlugin implements IPluginTempl {
     });
   }
 
-  loadJSON(json: string, , callback?: () => void) {
+  loadJSON(json: string, callback?: () => void) {
     this.editor.loadJSON(json, callback);
   }
 }
