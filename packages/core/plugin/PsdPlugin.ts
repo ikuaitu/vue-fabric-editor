@@ -18,7 +18,7 @@ class PsdPlugin implements IPluginTempl {
   static apis = ['insertPSD'];
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
-  insertPSD() {
+  insertPSD(callback?: () => void) {
     return new Promise((resolve, reject) => {
       selectFiles({ accept: '.psd' })
         .then((files) => {
@@ -33,7 +33,7 @@ class PsdPlugin implements IPluginTempl {
               console.log(psdFile, '11111');
               const json = await psdToJson(psdFile);
               // 加载json
-              this.loadJSON(json);
+              this.loadJSON(json, callback);
               resolve('');
             };
           }
@@ -42,8 +42,8 @@ class PsdPlugin implements IPluginTempl {
     });
   }
 
-  loadJSON(json: string) {
-    this.editor.loadJSON(json);
+  loadJSON(json: string, callback?: () => void) {
+    this.editor.loadJSON(json, callback);
   }
 }
 
