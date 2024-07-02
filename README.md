@@ -11,7 +11,7 @@
 </div>
 
 - [预览](https://nihaojob.github.io/vue-fabric-editor/)
-- [国内 预览](https://www.kuaitu.cc/editor/#/)
+- [国内 预览](https://www.kuaitu.cc/)
 
 ![image](https://user-images.githubusercontent.com/13534626/230828335-0adee0ae-b951-4171-b6ba-d2b9cd44dd6a.png)
 
@@ -75,16 +75,15 @@ pnpm dev
 开源版本仅前端代码，[付费版本](https://ws0gdejldw.feishu.cn/docx/GKmnddCgFokr4sxFeYNcoql1nAb)**提供完整的前后端服务，开箱即用，无须任何开发，支持 Docker 部署**，包括功能：
 
 - 素材管理后台：可对编辑器中的字体、模板、图片素材进行便捷操作管理。
-- 批量导入：字体文件、素材、PSD模板批量导入到后台系统。
+- 批量导入：字体文件、素材、PSD 模板批量导入到后台系统。
 - 用户管理：支持登录/注册，用户账号禁用启用。
 - 用户素材：图片素材、用户模板。
-- HTTP接口对接：微信、短信登录，API接口登录，支持多种形式对接。
+- HTTP 接口对接：微信、短信登录，API 接口登录，支持多种形式对接。
 - 批量图片生成：可根据模板 + 内容，批量生成创意图片。
-- 批量AI抠图：提供一定数量级的免费抠图服务。
+- 批量 AI 抠图：提供一定数量级的免费抠图服务。
 
 我们致力于帮助企业快速、低成本构建图片编辑应用，支持定制开发，欢迎与我们联系。
 ![image](https://github.com/nihaojob/vue-fabric-editor/assets/13534626/d77c075c-807a-42f1-8934-e8dbfb9da0b2)
-
 
 ## 贡献指南
 
@@ -140,7 +139,7 @@ pnpm dev
 - [x] monorepo 升级 进行中
 - [x] 插件化
 - [x] 标尺插件
-- [x] PSD导入插件
+- [x] PSD 导入插件
 - [x] 截图插件
 - [ ] 滤镜插件
 - [x] 画布插件
