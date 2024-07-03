@@ -225,6 +225,7 @@ class WorkspacePlugin implements IPluginTempl {
 
   destroy() {
     this.resizeObserver.disconnect();
+    this.canvas.off();
     console.log('pluginDestroy');
   }
 }
