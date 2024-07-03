@@ -209,13 +209,12 @@ class ServersPlugin {
 
   clipboard() {
     const jsonStr = this.getJson();
-    clipboardText(JSON.stringify(jsonStr, null, '\t'));
+    return clipboardText(JSON.stringify(jsonStr, null, '\t'));
   }
 
-  clipboardBase64() {
-    this.preview().then((dataUrl: any) => {
-      clipboardText(dataUrl);
-    });
+  async clipboardBase64() {
+    const dataUrl = await this.preview();
+    return clipboardText(dataUrl);
   }
 
   async saveJson() {
@@ -251,7 +250,7 @@ class ServersPlugin {
   }
 
   preview() {
-    return new Promise((resolve) => {
+    return new Promise<string>((resolve) => {
       this.editor.hooksEntity.hookSaveBefore.callAsync('', () => {
         const option = this._getSaveOption();
         this.canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
