@@ -260,6 +260,13 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/ijry">
+                    <img src="https://avatars.githubusercontent.com/u/3102798?v=4" width="80;" alt="ijry"/>
+                    <br />
+                    <sub><b>ijry</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/makeng">
                     <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
                     <br />
@@ -273,6 +280,8 @@ pnpm dev
                     <sub><b>z09176141</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/a847244052">
                     <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
@@ -280,8 +289,6 @@ pnpm dev
                     <sub><b>a847244052</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/zjc2233">
                     <img src="https://avatars.githubusercontent.com/u/43945226?v=4" width="80;" alt="zjc2233"/>
@@ -308,13 +315,6 @@ pnpm dev
                     <img src="https://avatars.githubusercontent.com/u/133614612?v=4" width="80;" alt="pengzhijian"/>
                     <br />
                     <sub><b>pengzhijian</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/ijry">
-                    <img src="https://avatars.githubusercontent.com/u/3102798?v=4" width="80;" alt="ijry"/>
-                    <br />
-                    <sub><b>ijry</b></sub>
                 </a>
             </td>
             <td align="center">
