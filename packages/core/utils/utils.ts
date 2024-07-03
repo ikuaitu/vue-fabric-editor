@@ -7,7 +7,6 @@
  */
 import { v4 as uuid } from 'uuid';
 import { useClipboard, useFileDialog, useBase64 } from '@vueuse/core';
-import { Message } from 'view-ui-plus';
 
 /**
  * @description: 图片文件转字符串
@@ -60,17 +59,8 @@ export function insertImgFile(str: string) {
  * @param options Copy options
  * @returns Promise that resolves when the text is copied successfully, or rejects when the copy fails.
  */
-export const clipboardText = async (
-  source: string,
-  options?: Parameters<typeof useClipboard>[0]
-) => {
-  try {
-    await useClipboard({ source, ...options }).copy();
-    Message.success('复制成功');
-  } catch (error) {
-    Message.error('复制失败');
-    throw error;
-  }
+export const clipboardText = (source: string, options?: Parameters<typeof useClipboard>[0]) => {
+  return useClipboard({ source, ...options }).copy();
 };
 
 export function downFile(fileStr: string, fileType: string) {

@@ -50,7 +50,12 @@ const { t } = useI18n();
 const { canvasEditor } = useSelect();
 const cbMap = {
   clipboard() {
-    canvasEditor.clipboard();
+    try {
+      canvasEditor.clipboard();
+      Message.success('复制成功');
+    } catch (error) {
+      Message.error('复制失败');
+    }
   },
   saveJson() {
     canvasEditor.saveJson();
@@ -62,7 +67,12 @@ const cbMap = {
     canvasEditor.saveImg();
   },
   clipboardBase64() {
-    canvasEditor.clipboardBase64();
+    try {
+      canvasEditor.clipboardBase64();
+      Message.success('复制成功');
+    } catch (error) {
+      Message.error('复制失败');
+    }
   },
   async saveMyClould() {
     try {
