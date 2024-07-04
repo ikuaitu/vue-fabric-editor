@@ -49,9 +49,9 @@ const { t } = useI18n();
 
 const { canvasEditor } = useSelect();
 const cbMap = {
-  clipboard() {
+  async clipboard() {
     try {
-      canvasEditor.clipboard();
+      await canvasEditor.clipboard();
       Message.success('复制成功');
     } catch (error) {
       Message.error('复制失败');
@@ -66,9 +66,9 @@ const cbMap = {
   saveImg() {
     canvasEditor.saveImg();
   },
-  clipboardBase64() {
+  async clipboardBase64() {
     try {
-      canvasEditor.clipboardBase64();
+      await canvasEditor.clipboardBase64();
       Message.success('复制成功');
     } catch (error) {
       Message.error('复制失败');
