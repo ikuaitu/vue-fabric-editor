@@ -150,9 +150,6 @@ pnpm dev
 - [ ] 文档建设(中英文)
 
 ## 致谢
-
-- [color-gradient-picker-vue3](https://github.com/Qiu-Jun/color-gradient-picker-vue3) 一个 vue3 版本的渐变组件，作者[Qiu-Jun(广佛求内推)
-  ](https://github.com/Qiu-Jun)。
 - [刘明野](https://github.com/liumingye)标尺功能作者。
 - [palxiao](https://github.com/palxiao/poster-design/tree/main/packages/color-picker)设计编辑器的渐变组件。
 
@@ -260,6 +257,13 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/ijry">
+                    <img src="https://avatars.githubusercontent.com/u/3102798?v=4" width="80;" alt="ijry"/>
+                    <br />
+                    <sub><b>ijry</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/makeng">
                     <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
                     <br />
@@ -273,6 +277,8 @@ pnpm dev
                     <sub><b>z09176141</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/a847244052">
                     <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
@@ -280,8 +286,6 @@ pnpm dev
                     <sub><b>a847244052</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/zjc2233">
                     <img src="https://avatars.githubusercontent.com/u/43945226?v=4" width="80;" alt="zjc2233"/>
@@ -308,13 +312,6 @@ pnpm dev
                     <img src="https://avatars.githubusercontent.com/u/133614612?v=4" width="80;" alt="pengzhijian"/>
                     <br />
                     <sub><b>pengzhijian</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/ijry">
-                    <img src="https://avatars.githubusercontent.com/u/3102798?v=4" width="80;" alt="ijry"/>
-                    <br />
-                    <sub><b>ijry</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -470,6 +467,13 @@ pnpm dev
                     <img src="https://avatars.githubusercontent.com/u/86783773?v=4" width="80;" alt="Alicehhhmm"/>
                     <br />
                     <sub><b>Alicehhhmm</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/momo2019">
+                    <img src="https://avatars.githubusercontent.com/u/26078793?v=4" width="80;" alt="momo2019"/>
+                    <br />
+                    <sub><b>momo2019</b></sub>
                 </a>
             </td>
             <td align="center">

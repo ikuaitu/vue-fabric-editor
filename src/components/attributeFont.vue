@@ -297,8 +297,8 @@ onBeforeUnmount(() => {
 
   .font-item {
     height: 40px;
-    width: 330px;
-    background-size: auto 40px;
+    width: 280px;
+    background-size: auto 28px;
     background-repeat: no-repeat;
   }
 }
