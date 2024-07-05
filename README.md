@@ -170,7 +170,7 @@ pnpm dev
                 <a href="https://github.com/Qiu-Jun">
                     <img src="https://avatars.githubusercontent.com/u/24954362?v=4" width="80;" alt="Qiu-Jun"/>
                     <br />
-                    <sub><b>Qiu-Jun</b></sub>
+                    <sub><b>Qiu-Jun(广佛求职中)</b></sub>
                 </a>
             </td>
             <td align="center">
