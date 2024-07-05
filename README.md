@@ -155,7 +155,6 @@ pnpm dev
 
 ## 管理员
 
-<!-- readme: collaborators -start -->
 <table>
 	<tbody>
 		<tr>
@@ -170,7 +169,7 @@ pnpm dev
                 <a href="https://github.com/Qiu-Jun">
                     <img src="https://avatars.githubusercontent.com/u/24954362?v=4" width="80;" alt="Qiu-Jun"/>
                     <br />
-                    <sub><b>Qiu-Jun</b></sub>
+                    <sub><b>Qiu-Jun(求职,求内推)</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -183,7 +182,6 @@ pnpm dev
 		</tr>
 	<tbody>
 </table>
-<!-- readme: collaborators -end -->
 
 ## 贡献者
 
