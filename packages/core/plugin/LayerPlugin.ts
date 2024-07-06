@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-15 23:23:18
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-06 18:22:46
+ * @LastEditTime: 2024-07-06 23:53:42
  * @Description: 图层调整插件
  */
 
@@ -85,12 +85,12 @@ class LayerPlugin implements IPluginTempl {
             {
               text: '置顶',
               hotkey: '',
-              onclick: () => this.upTop(),
+              onclick: () => this.toFront(),
             },
             {
               text: '置底',
               hotkey: '',
-              onclick: () => this.downTop(),
+              onclick: () => this.toBack(),
             },
           ],
         },
