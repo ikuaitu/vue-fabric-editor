@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:31:24
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-12 15:35:35
+ * @LastEditTime: 2024-07-06 17:16:52
  * @Description: 素材列表
 -->
 
@@ -48,8 +48,6 @@ import useSelect from '@/hooks/select';
 import { getMaterialInfoUrl, getMaterialPreviewUrl } from '@/hooks/usePageList';
 import { getMaterialTypes, getMaterialsByType, getMaterials } from '@/api/material';
 import useCalculate from '@/hooks/useCalculate';
-import { fabric } from 'fabric';
-import { v4 as uuid } from 'uuid';
 import { useRoute } from 'vue-router';
 import { Utils } from '@kuaitu/core';
 
@@ -97,61 +95,20 @@ const selectType = async (type) => {
 };
 
 // 按照类型渲染
-const dragItem = ({ e }) => {
+const dragItem = async ({ e }) => {
   if (isOutsideCanvas(e.clientX, e.clientY)) return;
-  const target = e.target;
-  const imgType = canvasEditor.getImageExtension(target.src);
-  if (imgType === 'svg') {
-    fabric.loadSVGFromURL(target.src, (objects) => {
-      const item = fabric.util.groupSVGElements(objects, {
-        shadow: '',
-        fontFamily: 'arial',
-        id: uuid(),
-        name: 'svg元素',
-      });
-      canvasEditor.dragAddItem(item, e);
-    });
-  } else {
-    fabric.Image.fromURL(
-      target.src,
-      (imgEl) => {
-        imgEl.set({
-          left: 100,
-          top: 100,
-        });
-        canvasEditor.dragAddItem(imgEl, e);
-      },
-      { crossOrigin: 'anonymous' }
-    );
-  }
+  const imgItem = await canvasEditor.createImgByElement(e.target);
+  canvasEditor.addBaseType(imgItem, {
+    scale: true,
+    event: e,
+  });
 };
 
-const addItem = ({ e }) => {
-  const target = e.target;
-  const imgType = canvasEditor.getImageExtension(target.src);
-  if (imgType === 'svg') {
-    fabric.loadSVGFromURL(target.src, (objects) => {
-      const item = fabric.util.groupSVGElements(objects, {
-        shadow: '',
-        fontFamily: 'arial',
-        id: uuid(),
-        name: 'svg元素',
-      });
-      canvasEditor.dragAddItem(item);
-    });
-  } else {
-    fabric.Image.fromURL(
-      target.src,
-      (imgEl) => {
-        imgEl.set({
-          left: 100,
-          top: 100,
-        });
-        canvasEditor.dragAddItem(imgEl);
-      },
-      { crossOrigin: 'anonymous' }
-    );
-  }
+const addItem = async ({ e }) => {
+  const imgItem = await canvasEditor.createImgByElement(e.target);
+  canvasEditor.addBaseType(imgItem, {
+    scale: true,
+  });
 };
 
 onMounted(async () => {

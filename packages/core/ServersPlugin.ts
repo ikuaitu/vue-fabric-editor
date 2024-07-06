@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 22:25:44
+ * @LastEditTime: 2024-07-06 17:24:55
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -40,8 +40,6 @@ class ServersPlugin {
     'saveImg',
     'clear',
     'preview',
-    'addImgByElement',
-    'getImageExtension',
     'getSelectMode',
     'getExtensionKey',
   ];
@@ -293,41 +291,6 @@ class ServersPlugin {
       top,
     };
     return option;
-  }
-
-  addImgByElement(target: HTMLImageElement) {
-    // const target = e.target as HTMLImageElement;
-    const imgType = this.getImageExtension(target.src);
-    if (imgType === 'svg') {
-      fabric.loadSVGFromURL(target.src, (objects) => {
-        const item = fabric.util.groupSVGElements(objects, {
-          shadow: '',
-          fontFamily: 'arial',
-          id: uuid(),
-          name: 'svg元素',
-        });
-        this.dragAddItem(item);
-      });
-    } else {
-      fabric.Image.fromURL(
-        target.src,
-        (imgEl) => {
-          imgEl.set({
-            left: 100,
-            top: 100,
-          });
-          this.dragAddItem(imgEl);
-        },
-        { crossOrigin: 'anonymous' }
-      );
-    }
-  }
-
-  getImageExtension(imageUrl: string) {
-    const pathParts = imageUrl.split('/');
-    const filename = pathParts[pathParts.length - 1];
-    const fileParts = filename.split('.');
-    return fileParts[fileParts.length - 1];
   }
 
   clear() {

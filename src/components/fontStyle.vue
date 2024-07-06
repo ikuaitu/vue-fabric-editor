@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-08-05 17:47:35
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-12 15:35:30
+ * @LastEditTime: 2024-07-06 16:55:25
  * @Description: 字体样式
 -->
 
@@ -37,52 +37,6 @@
       @click="addItem"
       @dragend="dragItem"
     ></pageList>
-
-    <!-- <div class="search-box">
-      <Select class="select" v-model="typeValue" @on-change="startGetList" :disabled="pageLoading">
-        <Option v-for="item in typeList" :value="item.value" :key="item.value">
-          {{ item.label }}
-        </Option>
-      </Select>
-      <Input
-        class="input"
-        :placeholder="`在${typeText}中搜索`"
-        v-model="searchKeyWord"
-        search
-        :disabled="pageLoading"
-        @on-search="startGetList"
-      />
-    </div> -->
-    <!-- 列表 -->
-    <!-- <div style="height: calc(100vh - 108px)" id="myTemplBox3">
-      <Scroll
-        key="mysscroll2"
-        v-if="showScroll"
-        :on-reach-bottom="nextPage"
-        :height="scrollHeight"
-        :distance-to-edge="[-1, -1]"
-      > -->
-    <!-- 列表 -->
-    <!-- <div class="img-group">
-          <Tooltip :content="info.name" v-for="info in pageData" :key="info.src" placement="top">
-            <div class="tmpl-img-box">
-              <Image
-                lazy
-                :src="info.src"
-                fit="contain"
-                height="100%"
-                :alt="info.name"
-                @click="addItem(info)"
-                @dragend="(e) => dragItem(e, info)"
-              />
-            </div>
-          </Tooltip>
-        </div>
-        <Spin size="large" fix :show="pageLoading"></Spin> -->
-
-    <!-- <Divider plain v-if="isDownBottm">已经到底了</Divider> -->
-    <!-- </Scroll>
-    </div> -->
   </div>
 </template>
 
@@ -112,10 +66,9 @@ const dragItem = async ({ e, info: item }) => {
   });
   await canvasEditor.downFontByJSON(JSON.stringify(item.json));
   const el = JSON.parse(JSON.stringify(item.json));
-  el.id = uuid();
   const elType = capitalizeFirstLetter(el.type);
   new fabric[elType].fromObject(el, (fabricEl) => {
-    canvasEditor.dragAddItem(fabricEl, e);
+    canvasEditor.addBaseType(fabricEl, { event: e });
     Spin.hide();
   });
 };
@@ -129,7 +82,7 @@ const addItem = async ({ info: item }) => {
   el.id = uuid();
   const elType = capitalizeFirstLetter(el.type);
   new fabric[elType].fromObject(el, (fabricEl) => {
-    canvasEditor.dragAddItem(fabricEl);
+    canvasEditor.addBaseType(fabricEl);
     Spin.hide();
   });
 };

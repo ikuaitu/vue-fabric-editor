@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-04-25 15:30:54
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-30 12:02:24
+ * @LastEditTime: 2024-07-06 17:13:28
  * @Description: 我的素材
 -->
 
@@ -98,8 +98,11 @@ const createdH = (id, fileName) => {
   }).finally(getFileListHandle);
 };
 // 添加素材到画布
-const addImgByElement = (e) => {
-  canvasEditor.addImgByElement(e.target);
+const addImgByElement = async (e) => {
+  const imgItem = await canvasEditor.createImgByElement(e.target);
+  canvasEditor.addBaseType(imgItem, {
+    scale: true,
+  });
 };
 
 // 删除素材

@@ -2,7 +2,7 @@
   <div>
     <Divider plain orientation="left">{{ $t('common_elements') }}</Divider>
     <div class="tool-box">
-      <span @click="() => addText()" :draggable="true" @dragend="onDragend('text', $event)">
+      <span @click="() => addText()" :draggable="true" @dragend="addText">
         <svg
           t="1650875455324"
           class="icon"
@@ -19,7 +19,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="() => addTextBox()" :draggable="true" @dragend="onDragend('textBox', $event)">
+      <span @click="() => addTextBox()" :draggable="true" @dragend="addTextBox">
         <svg
           t="1650854954008"
           class="icon"
@@ -36,7 +36,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="() => addRect()" :draggable="true" @dragend="onDragend('rect', $event)">
+      <span @click="() => addRect()" :draggable="true" @dragend="addRect">
         <svg
           t="1650855811131"
           class="icon"
@@ -53,7 +53,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="() => addCircle()" :draggable="true" @dragend="onDragend('circle', $event)">
+      <span @click="() => addCircle()" :draggable="true" @dragend="addCircle">
         <svg
           t="1650855860236"
           class="icon"
@@ -70,7 +70,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="() => addTriangle()" :draggable="true" @dragend="onDragend('triangle', $event)">
+      <span @click="() => addTriangle()" :draggable="true" @dragend="addTriangle">
         <svg
           t="1650874633978"
           class="icon"
@@ -88,7 +88,7 @@
         </svg>
       </span>
       <!-- 多边形按钮 -->
-      <span @click="() => addPolygon()" :draggable="true" @dragend="onDragend('polygon', $event)">
+      <span @click="() => addPolygon()" :draggable="true" @dragend="addPolygon">
         <svg
           t="1650874633978"
           class="icon"
@@ -265,12 +265,11 @@
 </template>
 
 <script setup name="Tools">
-import { v4 as uuid } from 'uuid';
-
-// import initializeLineDrawing from '@/core/remove/initializeLineDrawing';
 import { getPolygonVertices } from '@/utils/math';
 import useSelect from '@/hooks/select';
-import useCalculate from '@/hooks/useCalculate';
+// import useCalculate from '@/hooks/useCalculate';
+// const { getCanvasBound, isOutsideCanvas } = useCalculate();
+
 import { useI18n } from 'vue-i18n';
 
 const LINE_TYPE = {
@@ -280,79 +279,55 @@ const LINE_TYPE = {
 };
 // 默认属性
 const defaultPosition = { shadow: '', fontFamily: 'arial' };
-// 拖拽属性
-const dragOption = {
-  left: 0,
-  top: 0,
-};
+
 const { t } = useI18n();
 const { fabric, canvasEditor } = useSelect();
-const { getCanvasBound, isOutsideCanvas } = useCalculate();
 const state = reactive({
   isDrawingLineMode: false,
   lineType: false,
 });
-// let drawHandler = null;
 
-const addText = (option) => {
+const addText = (event) => {
   cancelDraw();
   const text = new fabric.IText(t('everything_is_fine'), {
     ...defaultPosition,
-    ...option,
     fontSize: 80,
     fill: '#000000FF',
-    id: uuid(),
   });
-  canvasEditor.canvas.add(text);
-  canvasEditor.canvas.setActiveObject(text);
-  if (!option) {
-    canvasEditor.position('center');
-  }
+
+  canvasEditor.addBaseType(text, { center: true, event });
 };
 
-const addTextBox = (option) => {
+const addTextBox = (event) => {
   cancelDraw();
   const text = new fabric.Textbox(t('everything_goes_well'), {
     ...defaultPosition,
-    ...option,
     splitByGrapheme: true,
     width: 400,
     fontSize: 80,
     fill: '#000000FF',
-    id: uuid(),
   });
-  canvasEditor.canvas.add(text);
-  canvasEditor.canvas.setActiveObject(text);
-  if (!option) {
-    canvasEditor.position('center');
-  }
+
+  canvasEditor.addBaseType(text, { center: true, event });
 };
 
-const addTriangle = (option) => {
+const addTriangle = (event) => {
   cancelDraw();
   const triangle = new fabric.Triangle({
     ...defaultPosition,
-    ...option,
     width: 400,
     height: 400,
     fill: '#92706BFF',
-    id: uuid(),
     name: '三角形',
   });
-  canvasEditor.canvas.add(triangle);
-  canvasEditor.canvas.setActiveObject(triangle);
-  if (!option) {
-    canvasEditor.position('center');
-  }
+  canvasEditor.addBaseType(triangle, { center: true, event });
 };
 
-const addPolygon = (option) => {
+const addPolygon = (event) => {
   cancelDraw();
   const polygon = new fabric.Polygon(getPolygonVertices(5, 200), {
     ...defaultPosition,
-    ...option,
     fill: '#CCCCCCFF',
-    id: uuid(),
     name: '多边形',
   });
   polygon.set({
@@ -365,46 +340,32 @@ const addPolygon = (option) => {
       y: 0,
     },
   });
-  canvasEditor.canvas.add(polygon);
-  canvasEditor.canvas.setActiveObject(polygon);
-  if (!option) {
-    canvasEditor.position('center');
-  }
+  canvasEditor.addBaseType(polygon, { center: true, event });
 };
 
-const addCircle = (option) => {
+const addCircle = (event) => {
   cancelDraw();
   const circle = new fabric.Circle({
     ...defaultPosition,
-    ...option,
     radius: 150,
     fill: '#57606BFF',
-    id: uuid(),
+    // id: uuid(),
     name: '圆形',
   });
-  canvasEditor.canvas.add(circle);
-  canvasEditor.canvas.setActiveObject(circle);
-  if (!option) {
-    canvasEditor.position('center');
-  }
+  canvasEditor.addBaseType(circle, { center: true, event });
 };
 
-const addRect = (option) => {
+const addRect = (event) => {
   cancelDraw();
   const rect = new fabric.Rect({
     ...defaultPosition,
-    ...option,
     fill: '#F57274FF',
     width: 400,
     height: 400,
-    id: uuid(),
     name: '矩形',
   });
-  canvasEditor.canvas.add(rect);
-  canvasEditor.canvas.setActiveObject(rect);
-  if (!option) {
-    canvasEditor.position('center');
-  }
+
+  canvasEditor.addBaseType(rect, { center: true, event });
 };
 const drawPolygon = () => {
   const onEnd = () => {
@@ -490,58 +451,6 @@ const ensureObjectSelEvStatus = (evented, selectable) => {
     }
   });
 };
-
-// 拖拽开始时就记录当前打算创建的元素类型
-const onDragend = (type, e) => {
-  // 若拖拽结束点在画布外，则不进行绘制
-  if (isOutsideCanvas(e.clientX, e.clientY)) return;
-  // todo 拖拽优化 this.canvas.editor.dragAddItem(event, item);
-  switch (type) {
-    case 'text':
-      addText(dragOption);
-      break;
-    case 'textBox':
-      addTextBox(dragOption);
-      break;
-    case 'rect':
-      addRect(dragOption);
-      break;
-    case 'circle':
-      addCircle(dragOption);
-      break;
-    case 'triangle':
-      addTriangle(dragOption);
-      break;
-    case 'polygon':
-      addPolygon(dragOption);
-      break;
-    default:
-  }
-};
-
-onMounted(() => {
-  nextTick(() => {
-    // 线条绘制
-    // drawHandler = initializeLineDrawing(canvasEditor.canvas, defaultPosition);
-
-    canvasEditor.canvas.on('drop', (opt) => {
-      // 画布元素距离浏览器左侧和顶部的距离
-      const { left, top } = getCanvasBound();
-      const offset = { left, top };
-
-      // 鼠标坐标转换成画布的坐标（未经过缩放和平移的坐标）
-      const point = {
-        x: opt.e.x - offset.left,
-        y: opt.e.y - offset.top,
-      };
-
-      // 转换后的坐标，restorePointerVpt 不受视窗变换的影响
-      const pointerVpt = canvasEditor.canvas.restorePointerVpt(point);
-      dragOption.left = pointerVpt.x;
-      dragOption.top = pointerVpt.y;
-    });
-  });
-});
 
 // 退出绘制状态
 const cancelDraw = () => {
