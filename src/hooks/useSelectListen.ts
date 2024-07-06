@@ -3,8 +3,8 @@
  * @version:
  * @Author: wuchenguang1998
  * @Date: 2024-05-04 14:36:49
- * @LastEditors: wuchenguang1998
- * @LastEditTime: 2024-05-04 15:27:11
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-07-06 12:15:19
  */
 import Editor, { EventType } from '@kuaitu/core';
 import { get } from 'lodash-es';
@@ -30,6 +30,7 @@ export default function useSelectListen(canvasEditor: Editor) {
 
   const selectOne = (e: [fabric.Object]) => {
     state.mSelectMode = SelectMode.ONE;
+    state.mSelectActive = e[0];
     if (e[0] && get(e[0], 'clip')) {
       selectCancel();
       // state.mSelectId = get(e[0], 'targetId');
