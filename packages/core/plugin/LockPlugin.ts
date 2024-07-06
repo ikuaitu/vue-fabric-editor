@@ -1,16 +1,9 @@
 /*
  * @Author: 秦少卫
- * @Date: 2024-07-06 12:10:36
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-06 12:10:38
- * @Description: file content
- */
-/*
- * @Author: 秦少卫
  * @Date: 2024-07-04 14:27:05
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-04 23:06:33
- * @Description: file content
+ * @LastEditTime: 2024-07-06 17:49:01
+ * @Description: 锁定文件
  */
 import { fabric } from 'fabric';
 import type Editor from '../Editor';

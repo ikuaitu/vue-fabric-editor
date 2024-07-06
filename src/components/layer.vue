@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 08:59:36
+ * @LastEditTime: 2024-07-06 17:59:51
  * @Description: 图层面板
 -->
 
@@ -115,13 +115,13 @@ const up = () => {
   canvasEditor.up();
 };
 const upTop = () => {
-  canvasEditor.upTop();
+  canvasEditor.toFront();
 };
 const down = () => {
   canvasEditor.down();
 };
 const downTop = () => {
-  canvasEditor.downTop();
+  canvasEditor.toBack();
 };
 
 const getList = () => {

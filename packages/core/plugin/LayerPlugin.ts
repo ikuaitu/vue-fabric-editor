@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-15 23:23:18
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:33:28
+ * @LastEditTime: 2024-07-06 18:22:46
  * @Description: 图层调整插件
  */
 
@@ -12,7 +12,7 @@ type IEditor = Editor;
 
 class LayerPlugin implements IPluginTempl {
   static pluginName = 'LayerPlugin';
-  static apis = ['up', 'upTop', 'down', 'downTop'];
+  static apis = ['up', 'down', 'toFront', 'toBack'];
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   _getWorkspace() {
@@ -34,17 +34,6 @@ class LayerPlugin implements IPluginTempl {
     }
   }
 
-  upTop() {
-    const actives = this.canvas.getActiveObjects();
-    if (actives && actives.length === 1) {
-      const activeObject = this.canvas.getActiveObjects()[0];
-      activeObject && activeObject.bringToFront();
-      this.canvas.renderAll();
-      console.log(this);
-      this._workspaceSendToBack();
-    }
-  }
-
   down() {
     const actives = this.canvas.getActiveObjects();
     if (actives && actives.length === 1) {
@@ -55,7 +44,17 @@ class LayerPlugin implements IPluginTempl {
     }
   }
 
-  downTop() {
+  toFront() {
+    const actives = this.canvas.getActiveObjects();
+    if (actives && actives.length === 1) {
+      const activeObject = this.canvas.getActiveObjects()[0];
+      activeObject && activeObject.bringToFront();
+      this.canvas.renderAll();
+      this._workspaceSendToBack();
+    }
+  }
+
+  toBack() {
     const actives = this.canvas.getActiveObjects();
     if (actives && actives.length === 1) {
       const activeObject = this.canvas.getActiveObjects()[0];
@@ -75,22 +74,22 @@ class LayerPlugin implements IPluginTempl {
           subitems: [
             {
               text: '上一个',
-              hotkey: 'key',
+              hotkey: '',
               onclick: () => this.up(),
             },
             {
               text: '下一个',
-              hotkey: 'key',
+              hotkey: '',
               onclick: () => this.down(),
             },
             {
               text: '置顶',
-              hotkey: 'key',
+              hotkey: '',
               onclick: () => this.upTop(),
             },
             {
               text: '置底',
-              hotkey: 'key',
+              hotkey: '',
               onclick: () => this.downTop(),
             },
           ],
