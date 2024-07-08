@@ -11,8 +11,6 @@ import { fabric } from 'fabric';
 import Editor from './Editor';
 type IEditor = Editor;
 import { SelectEvent, SelectMode } from './eventType';
-import { off } from 'process';
-import { forIn } from 'lodash-es';
 
 function transformText(objects: any) {
   if (!objects) return;
