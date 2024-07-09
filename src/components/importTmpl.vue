@@ -148,10 +148,8 @@ const getTemplInfo = async () => {
 }
 
 .list-box {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  column-count: 2;
+  column-gap: 10px;
 }
 
 .tmpl-img-box {
