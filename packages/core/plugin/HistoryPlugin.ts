@@ -3,12 +3,12 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 13:06:31
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-22 16:15:46
+ * @LastEditTime: 2024-07-09 14:27:33
  * @Description: 历史记录插件
  */
 import { fabric } from 'fabric';
 import Editor from '../Editor';
-import 'fabric-history';
+import '../utils/fabric-history.js';
 
 type IEditor = Editor;
 type extendCanvas = {
@@ -28,7 +28,6 @@ class HistoryPlugin implements IPluginTempl {
     fabric.Canvas.prototype._historyNext = () => {
       return this.editor.getJson();
     };
-
     this._init();
   }
 
@@ -56,11 +55,9 @@ class HistoryPlugin implements IPluginTempl {
   }
 
   undo() {
-    // fix 历史记录退回到第一步时，画布区域可被拖拽
     if (this.canvas.historyUndo.length === 1) {
+      this.canvas.clearUndo();
       this.editor.clear();
-      this.canvas.clearHistory();
-      return;
     }
     this.canvas.undo();
     this.historyUpdate();

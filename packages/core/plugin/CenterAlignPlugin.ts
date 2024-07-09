@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-15 22:49:42
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:32:51
+ * @LastEditTime: 2024-07-09 14:12:41
  * @Description: 居中对齐插件
  */
 
@@ -41,7 +41,6 @@ class CenterAlignPlugin implements IPluginTempl {
     if (anignType.includes(name) && activeObject) {
       const defaultWorkspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
       if (defaultWorkspace) {
-        console.log(this[name]);
         this[name](defaultWorkspace, activeObject);
       }
       this.canvas.renderAll();

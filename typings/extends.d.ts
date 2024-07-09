@@ -8,6 +8,7 @@ declare namespace fabric {
     _currentTransform: unknown;
     extraProps: any;
     clearHistory(): void;
+    clearUndo(): void;
     _historyNext(): void;
     _historyInit(): void;
     offHistory(): void;
