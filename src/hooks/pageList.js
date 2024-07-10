@@ -133,11 +133,11 @@ export default function usePageList({
     pageLoading.value = false;
   };
 
-  const getPageData = async () => {
+  const getPageData = async (page, pageSize) => {
     pageLoading.value = true;
     try {
       const params = getPageParams(
-        page.value,
+        page,
         typeValue.value,
         searchKeyWord.value,
         searchTypeKey,
