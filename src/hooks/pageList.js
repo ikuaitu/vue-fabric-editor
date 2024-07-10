@@ -146,12 +146,17 @@ export default function usePageList({
         fields
       );
       const res = await pageApi(listUrl, params);
+
       const list = res.data.data.map((item) => {
+        const height = item.attributes.img.data.attributes.formats.small.height;
+        const width = item.attributes.img.data.attributes.formats.small.width;
         return {
           id: item.id,
           name: item.attributes.name,
           desc: item.attributes.desc,
           json: item.attributes?.json,
+          height: height,
+          width: width,
           src: getMaterialInfoUrl(item.attributes.img),
           previewSrc: getMaterialPreviewUrl(item.attributes.img),
         };
@@ -164,6 +169,11 @@ export default function usePageList({
       console.log(error);
     }
     pageLoading.value = false;
+    if (pageData.value.length) {
+      return pageData.value;
+    } else {
+      return [];
+    }
   };
 
   const startGetList = () => {
@@ -203,6 +213,8 @@ export default function usePageList({
     isDownBottm,
     startGetList,
     nextPage,
+    getTypeList,
+    getPageData,
     scrollHeight,
     showScroll,
     getInfo,
