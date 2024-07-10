@@ -100,6 +100,7 @@ class WorkspacePlugin implements IPluginTempl {
     if (this.canvas.clearHistory) {
       this.canvas.clearHistory();
     }
+    this.auto();
   }
 
   // 返回workspace对象
@@ -144,6 +145,7 @@ class WorkspacePlugin implements IPluginTempl {
     this.workspace.set('width', width);
     this.workspace.set('height', height);
     this.editor.emit('sizeChange', this.workspace.width, this.workspace.height);
+    this.auto();
   }
 
   setZoomAuto(scale: number, cb?: (left?: number, top?: number) => void) {
