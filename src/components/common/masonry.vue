@@ -1,7 +1,7 @@
 <template>
   <div class="masonry-container" ref="containerRef" @scroll="handleScroll">
     <div class="masonry-list" :style="listStyle">
-      <div class="masonry-item" v-for="{ item, style } in renderList" :key="item.id" :style="style">
+      <div class="masonry-item" v-for="{ item, style } in cardList" :key="item.id" :style="style">
         <slot name="item" :item="item"></slot>
       </div>
     </div>
