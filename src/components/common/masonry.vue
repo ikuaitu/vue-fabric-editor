@@ -47,25 +47,6 @@ export interface IItemRect {
   height: number;
 }
 
-export interface IBookColumnQueue {
-  list: IBookRenderItem[];
-  height: number;
-}
-
-export interface IBookRenderItem {
-  item: ICardItem;
-  y: number;
-  h: number;
-  imageHeight: number;
-  style: CSSProperties;
-}
-
-export interface IBookItemRect {
-  width: number;
-  height: number;
-  imageHeight: number;
-}
-
 const props = defineProps<IVirtualWaterFallProps>();
 
 defineSlots<{
@@ -113,10 +94,6 @@ const end = computed(() => scrollState.viewHeight + scrollState.start);
 
 const cardList = computed(() =>
   queueState.queue.reduce<IRenderItem[]>((pre, { list }) => pre.concat(list), [])
-);
-
-const renderList = computed(() =>
-  cardList.value.filter((i) => i.h + i.y > scrollState.start && i.y < end.value)
 );
 
 const computedHeight = computed(() => {
