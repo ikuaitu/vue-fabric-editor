@@ -26,32 +26,22 @@
     </div>
     <!-- 列表 -->
     <div style="height: calc(100vh - 108px)" id="myTemplBox">
-      <Scroll
-        key="mysscroll"
-        v-if="showScroll"
-        :on-reach-bottom="nextPage"
-        :height="scrollHeight"
-        :distance-to-edge="[-1, -1]"
-      >
-        <!-- 列表 -->
-        <div class="list-box">
-          <Tooltip :content="info.name" v-for="info in pageData" :key="info.src" placement="top">
+      <masonry :request="getPageData" :gap="9" :page-size="10" :column="column">
+        <template #item="{ item }">
+          <Tooltip :content="item.name" :key="item.src" placement="top">
             <div class="tmpl-img-box">
               <Image
                 lazy
-                :src="info.previewSrc"
+                :src="item.previewSrc"
                 fit="contain"
                 height="100%"
-                :alt="info.name"
-                @click="beforeClearTip(info)"
+                :alt="item.name"
+                @click="beforeClearTip(item)"
               />
             </div>
           </Tooltip>
-        </div>
-        <Spin size="large" fix :show="pageLoading"></Spin>
-
-        <Divider plain v-if="isDownBottm">已经到底了</Divider>
-      </Scroll>
+        </template>
+      </masonry>
     </div>
   </div>
 </template>
@@ -60,16 +50,18 @@
 import useSelect from '@/hooks/select';
 import usePageList from '@/hooks/pageList';
 import { Spin, Modal } from 'view-ui-plus';
-
+import masonry from './common/masonry.vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter, useRoute } from 'vue-router';
 const router = useRouter();
 const route = useRoute();
 const { t } = useI18n();
 const { canvasEditor } = useSelect();
-
+const column = ref(2);
 const {
   startPage,
+  getTypeList,
+  getPageData,
   typeValue,
   typeText,
   typeList,
@@ -104,8 +96,9 @@ const beforeClearTip = (info) => {
 };
 
 onMounted(() => {
-  startPage();
-  getTemplInfo();
+  // startPage();
+  getTypeList();
+  // getTemplInfo();
 });
 
 // 获取模板数据
