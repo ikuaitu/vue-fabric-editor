@@ -19,7 +19,7 @@ export interface IVirtualWaterFallProps {
   column: number;
   pageSize: number;
   enterSize?: number;
-  request: (page: number, pageSize: number) => Promise<ICardItem[]>;
+  request: ICardItem[] | ((page: number, pageSize: number) => Promise<ICardItem[]>);
 }
 
 export interface ICardItem {
@@ -177,7 +177,7 @@ const generatorItem = (item: ICardItem, before: IRenderItem | null, index: numbe
     style: {
       width: `${width}px`,
       height: `${height}px`,
-      transform: `translate3d(${index === 0 ? 0 : (width + props.gap) * index}px, ${y}px, 0)`,
+      transform: `translate(${index === 0 ? 0 : (width + props.gap) * index}px, ${y}px)`,
     },
   };
 };
@@ -185,13 +185,17 @@ const generatorItem = (item: ICardItem, before: IRenderItem | null, index: numbe
 const loadDataList = async () => {
   if (dataState.isFinish) return;
   dataState.loading = true;
-  const list = await props.request(dataState.currentPage++, props.pageSize);
-
+  let list = [];
+  if (!Array.isArray(props.request)) {
+    list = await props.request(dataState.currentPage++, props.pageSize);
+  } else {
+    list = props.request;
+  }
   if (!list.length) {
     dataState.isFinish = true;
     return;
   }
-  dataState.list.push(...list);
+  dataState.list = list;
   dataState.loading = false;
   return list.length;
 };
@@ -199,6 +203,7 @@ const loadDataList = async () => {
 const handleScroll = throttle(() => {
   const { scrollTop, clientHeight } = containerRef.value!;
   scrollState.start = scrollTop;
+  console.log('handleScroll', dataState.list);
   if (scrollTop + clientHeight > computedHeight.value.minHeight) {
     !dataState.loading &&
       loadDataList().then((len) => {
