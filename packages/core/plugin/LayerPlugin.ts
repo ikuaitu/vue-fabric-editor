@@ -16,12 +16,24 @@ class LayerPlugin implements IPluginTempl {
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   _getWorkspace() {
-    return this.canvas.getObjects().find((item) => item.id === 'workspace');
+    const result: Record<'workspace' | 'coverMask', fabric.Object | null> = {
+      workspace: null,
+      coverMask: null,
+    };
+    this.canvas.getObjects().forEach((item) => {
+      if (item.id === 'workspace') {
+        result.workspace = item;
+      } else if (item.id === 'coverMask') {
+        result.coverMask = item;
+      }
+    });
+    return result;
   }
 
   _workspaceSendToBack() {
     const workspace = this._getWorkspace();
-    workspace && workspace.sendToBack();
+    workspace.workspace && workspace.workspace.sendToBack();
+    workspace.coverMask && workspace.coverMask.bringToFront();
   }
 
   up() {
