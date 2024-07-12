@@ -391,6 +391,7 @@ onMounted(() => {
   canvasEditor.use(ResizePlugin);
   canvasEditor.use(LockPlugin);
   canvasEditor.use(AddBaseTypePlugin);
+  canvasEditor.getPlugin('WorkspacePlugin').maskEnable();
 
   state.show = true;
   // 默认打开标尺
