@@ -19,15 +19,15 @@
 
 <script setup lang="ts">
 import { throttle } from 'lodash-es';
-export interface IVirtualWaterFallProps {
-  gap: number; // 卡片间隔
-  column: number; // 瀑布流列数
+interface IVirtualWaterFallProps {
+  gap: number;
+  column: number;
   bottom: number;
   pageSize: number; // 单次请求数据数量
-  request?: (page: number, pageSize: number) => Promise<ICardItem[]>; // 数据请求方法
+  request?: (page: number, pageSize: number) => Promise<ICardItem[]>;
 }
 
-export interface ICardItem {
+interface ICardItem {
   id: number | string;
   url: string;
   width: number;
@@ -35,7 +35,7 @@ export interface ICardItem {
   [key: string]: any;
 }
 
-export interface ICardPos {
+interface ICardPos {
   width: number;
   height: number;
   x: number;
@@ -71,7 +71,7 @@ const getCardList = async (page: number, pageSize: number) => {
   dataState.loading = false;
   console.log('getCardList', list);
   dataState.cardList = [...dataState.cardList, ...list];
-  computedCardPos(list); // key：根据请求的数据计算卡片位置
+  computedCardPos(list);
 };
 
 const computedWidth = async () => {
@@ -115,12 +115,8 @@ const computedCardPos = (list: ICardItem[]) => {
       });
 
       dataState.columnHeight[index] = cardHeight + props.gap;
-      console.log('item', index, item, cardHeight);
     } else {
       const { minIndex, minHeight } = minColumn.value;
-      if (index == 11) {
-        console.log('11 column item', index, item, cardHeight, dataState);
-      }
       dataState.cardPos.push({
         width: dataState.cardWidth,
         height: cardHeight,
@@ -128,9 +124,6 @@ const computedCardPos = (list: ICardItem[]) => {
         y: minHeight,
       });
       dataState.columnHeight[minIndex] += cardHeight + props.gap;
-      if (index == 11) {
-        console.log('not column item', index, item, cardHeight, dataState.cardPos[11]);
-      }
     }
   });
 };

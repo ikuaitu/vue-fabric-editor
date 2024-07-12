@@ -166,7 +166,6 @@ export default function usePageList({
       Object.keys(res.data.meta.pagination).forEach((key) => {
         pagination[key] = res.data.meta.pagination[key];
       });
-      // pageData.value = [...pageData.value, ...list];
       if (list.length) {
         return list;
       } else {
@@ -176,11 +175,6 @@ export default function usePageList({
       console.log(error);
     }
     pageLoading.value = false;
-    // if (list.length) {
-    //   return pageData.value;
-    // } else {
-    //   return [];
-    // }
   };
 
   const startGetList = () => {
