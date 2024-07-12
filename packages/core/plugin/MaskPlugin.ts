@@ -1,9 +1,9 @@
 /*
- * @Author: 秦少卫
- * @Date: 2023-06-27 12:26:41
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-30 20:00:37
- * @Description: 画布区域插件
+ * @Author: MOmo
+ * @Date: 2024-07-12 15:10:02
+ * @LastEditors: MOmo
+ * @LastEditTime: 2024-07-12 15:15:45
+ * @Description: 画布蒙层插件
  */
 
 import { fabric } from 'fabric';
