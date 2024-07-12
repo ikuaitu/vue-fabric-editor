@@ -51,7 +51,6 @@ class WorkspacePlugin implements IPluginTempl {
     this._initWorkspace();
     this._initResizeObserve();
     this._bindWheel();
-    this._bindSizeChange();
   }
 
   hookImportAfter() {
@@ -223,8 +222,8 @@ class WorkspacePlugin implements IPluginTempl {
     this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), scale);
     if (!this.workspace) return;
     this.setCenterFromObject(this.workspace);
-
-    this.editor.emit('zoomChange');
+    // console.log(this.editor, this.canvas)
+    // this.editor &&  this.editor?.workspaceMaskToggle();
 
     if (cb) cb(this.workspace.left, this.workspace.top);
   }
@@ -282,7 +281,7 @@ class WorkspacePlugin implements IPluginTempl {
       const center = this.canvas.getCenter();
       this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
 
-      this.editor.emit('zoomChange');
+      // this.editor && this.editor?.workspaceMaskToggle()
 
       opt.e.preventDefault();
       opt.e.stopPropagation();
@@ -299,11 +298,6 @@ class WorkspacePlugin implements IPluginTempl {
         this.canvas.requestRenderAll();
       });
     }
-  }
-
-  private _bindSizeChange() {
-    this.editor.on('sizeChange', () => this.clipPathOrRefreshMask());
-    this.editor.on('zoomChange', () => this.clipPathOrRefreshMask());
   }
 
   destroy() {

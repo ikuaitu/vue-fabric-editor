@@ -12,12 +12,11 @@ type IEditor = Editor;
 
 class MaskPlugin implements IPluginTempl {
   static pluginName = 'MaskPlugin';
-  static apis = ['setCoverMask'];
+  static apis = ['setCoverMask', 'workspaceMaskToggle'];
   coverMask: null | fabric.Rect = null;
   workspace: null | fabric.Rect = null;
   workspaceEl!: HTMLElement;
   hackFlag = false;
-
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.init();
   }
@@ -28,7 +27,35 @@ class MaskPlugin implements IPluginTempl {
       throw new Error('element #workspace is missing, plz check!');
     }
     this.workspaceEl = workspaceEl;
-    this.initMask();
+    this.workspaceMaskToggle();
+  }
+
+  /**
+   * @desc 蒙版开关
+   * @param val Boolean false
+   */
+  workspaceMaskToggle() {
+    const workspaceMask = this.getWorkspaceMask();
+    console.log('是睡觉觉睡觉觉睡觉觉', workspaceMask);
+    if (!workspaceMask) {
+      this.initMask();
+    } else {
+      const workspace = this.getWorkspase();
+      // 如果有 则删除
+      workspaceMask && this.canvas.remove(workspaceMask);
+      workspace?.clone((cloned: fabric.Rect) => {
+        this.canvas.clipPath = cloned;
+        this.canvas.requestRenderAll();
+      });
+    }
+  }
+
+  /**
+   * @desc 获取蒙版
+   * @returns Object
+   */
+  getWorkspaceMask() {
+    return this.canvas.getObjects().find((item) => item.id === 'coverMask') as fabric.Rect;
   }
 
   // 返回workspace对象
@@ -76,7 +103,7 @@ class MaskPlugin implements IPluginTempl {
       throw new Error('MaskPlugin must be used after WorkspacePlugin!');
     }
     const coverMask = new fabric.Rect({
-      fill: 'rgba(0,0,0,0.7)',
+      fill: 'rgba(0,0,0,0.5)',
       id: 'coverMask',
       strokeWidth: 0,
     });
