@@ -213,7 +213,7 @@ const toInfo = (info) => {
   padding: 20px;
   border: 2px solid #fff;
 
-  /deep/.ivu-tag-select {
+  :deep(.ivu-tag-select) {
     line-height: 32px;
     max-height: none;
     margin-left: 0;

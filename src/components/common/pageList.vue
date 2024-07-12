@@ -94,22 +94,24 @@ defineExpose({
 .page-list-box {
   margin-top: 10px;
 }
-/deep/.ivu-scroll-container {
+:deep(.ivu-scroll-container) {
   div.ivu-scroll-loader:first-child {
     height: 0;
   }
 }
-/deep/.ivu-divider-horizontal.ivu-divider-with-text-center {
-  margin-bottom: 0;
+:deep(.ivu-divider-horizontal) {
+  &.ivu-divider-with-text-center {
+    margin-bottom: 0;
+  }
 }
-/deep/.ivu-tooltip-rel {
+:deep(.ivu-tooltip-rel) {
   display: block;
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-/deep/.ivu-tooltip {
+:deep(.ivu-tooltip) {
   display: block;
   height: 100%;
   width: 100%;
