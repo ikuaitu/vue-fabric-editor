@@ -10,7 +10,7 @@
   <div>
     <!-- 搜索组件 -->
     <div class="search-box">
-      <Select class="select" v-model="typeValue" @on-change="startGetList" :disabled="pageLoading">
+      <Select class="select" v-model="typeValue" @on-change="keywordSearch" :disabled="pageLoading">
         <Option v-for="item in typeList" :value="item.value" :key="item.value">
           {{ item.label }}
         </Option>
@@ -21,18 +21,18 @@
         v-model="searchKeyWord"
         search
         :disabled="pageLoading"
-        @on-search="startGetList"
+        @on-search="keywordSearch"
       />
     </div>
     <!-- 列表 -->
     <div style="height: calc(100vh - 108px)" id="myTemplBox">
       <masonry
-        :pageData="pageData"
         :request="getPageData"
         :gap="9"
         :page-size="10"
         :column="column"
         :bottom="20"
+        ref="masonryRef"
       >
         <template #item="{ item }">
           <Tooltip :content="item.name" :key="item.src" placement="top">
@@ -66,20 +66,13 @@ const { t } = useI18n();
 const { canvasEditor } = useSelect();
 const column = ref(2);
 const {
-  startPage,
   getTypeList,
   getPageData,
   typeValue,
   typeText,
   typeList,
   pageLoading,
-  pageData,
   searchKeyWord,
-  isDownBottm,
-  startGetList,
-  nextPage,
-  showScroll,
-  scrollHeight,
   getInfo,
 } = usePageList({
   typeUrl: 'templ-types',
@@ -90,7 +83,11 @@ const {
   scrollElement: '#myTemplBox',
   fields: ['name'],
 });
+const masonryRef = ref(null);
 
+const keywordSearch = () => {
+  masonryRef.value.getkeyWordSearch();
+};
 // 替换提示
 const beforeClearTip = (info) => {
   Modal.confirm({
@@ -103,9 +100,8 @@ const beforeClearTip = (info) => {
 };
 
 onMounted(() => {
-  // startPage();
   getTypeList();
-  // getTemplInfo();
+  getTemplInfo();
 });
 
 // 获取模板数据

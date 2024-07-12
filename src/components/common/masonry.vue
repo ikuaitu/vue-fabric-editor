@@ -24,8 +24,7 @@ interface IVirtualWaterFallProps {
   gap: number;
   column: number;
   bottom: number;
-  pageSize: number; // 单次请求数据数量
-  pageData: ICardItem[];
+  pageSize: number;
   request?: (page: number, pageSize: number) => Promise<ICardItem[]>;
 }
 
@@ -61,14 +60,6 @@ const dataState = reactive({
 
 const containerRef = ref<HTMLDivElement | null>(null);
 
-const initLoadData = async () => {
-  if (props.pageData.length) {
-    dataState.cardList = props.pageData;
-    dataState.page++;
-  } else {
-    await computedWidth();
-  }
-};
 const getCardList = async (page: number, pageSize: number) => {
   if (dataState.isFinish) {
     return;
@@ -82,7 +73,7 @@ const getCardList = async (page: number, pageSize: number) => {
     console.log('dataState', dataState.isFinish);
     Message.info({
       content: '已经到底了',
-      duration: 0,
+      duration: 3,
     });
     return;
   }
@@ -97,9 +88,18 @@ const computedWidth = async () => {
   await getCardList(dataState.page, props.pageSize);
 };
 
+const getkeyWordSearch = async () => {
+  dataState.cardList = [];
+  dataState.page = 1;
+  dataState.cardPos = [];
+  if (dataState.isFinish) {
+    dataState.isFinish = false;
+  }
+  await getCardList(dataState.page, props.pageSize);
+};
 const init = async () => {
   if (containerRef.value) {
-    await initLoadData();
+    await computedWidth();
   }
 };
 
@@ -168,6 +168,10 @@ function rafThrottle(fn) {
 onMounted(() => {
   init();
 });
+
+defineExpose({
+  getkeyWordSearch,
+});
 </script>
 
 <style scoped lang="less">
@@ -177,6 +181,7 @@ onMounted(() => {
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
+    padding-top: 45px;
   }
   &-list {
     position: relative;

@@ -146,7 +146,7 @@ export default function usePageList({
         fields
       );
       const res = await pageApi(listUrl, params);
-
+      pageLoading.value = false;
       const list = res.data.data.map((item) => {
         let small = item.attributes.img.data.attributes.formats.small;
         let thumbnail = item.attributes.img.data.attributes.formats.thumbnail;
@@ -174,7 +174,6 @@ export default function usePageList({
     } catch (error) {
       console.log(error);
     }
-    pageLoading.value = false;
   };
 
   const startGetList = () => {
