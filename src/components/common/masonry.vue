@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { throttle } from 'lodash-es';
+import { Message } from 'view-ui-plus';
 interface IVirtualWaterFallProps {
   gap: number;
   column: number;
@@ -61,13 +61,20 @@ const dataState = reactive({
 const containerRef = ref<HTMLDivElement | null>(null);
 
 const getCardList = async (page: number, pageSize: number) => {
-  if (dataState.isFinish) return;
+  if (dataState.isFinish) {
+    return;
+  }
   dataState.loading = true;
   const list = await props.request(page, pageSize);
   dataState.page++;
   dataState.loading = false;
   if (!list.length) {
     dataState.isFinish = true;
+    console.log('dataState', dataState.isFinish);
+    Message.info({
+      content: '已经到底了',
+      duration: 0,
+    });
     return;
   }
   dataState.cardList = [...dataState.cardList, ...list];
@@ -129,13 +136,25 @@ const computedCardPos = (list: ICardItem[]) => {
   });
 };
 
-const handleScroll = throttle(() => {
+const handleScroll = rafThrottle(() => {
   const { scrollTop, clientHeight, scrollHeight } = containerRef.value!;
   const bottom = scrollHeight - clientHeight - scrollTop;
   if (bottom <= props.bottom) {
     !dataState.loading && getCardList(dataState.page, props.pageSize);
   }
 }, 50);
+
+function rafThrottle(fn) {
+  let lock = false;
+  return function (this: any, ...args: any[]) {
+    if (lock) return;
+    lock = true;
+    window.requestAnimationFrame(() => {
+      fn.apply(this, args);
+      lock = false;
+    });
+  };
+}
 
 onMounted(() => {
   init();
@@ -159,6 +178,14 @@ onMounted(() => {
     top: 0;
     left: 0;
     box-sizing: border-box;
+  }
+}
+
+:deep(.ivu-message) {
+  margin-top: 50%;
+  .ivu-message-notice {
+    text-align: left;
+    padding-left: 20%;
   }
 }
 </style>
