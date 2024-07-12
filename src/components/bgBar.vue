@@ -23,10 +23,19 @@
         </template>
       </div>
     </div>
+
+    <div>
+      <Divider plain orientation="left">
+        <h4>蒙版</h4>
+      </Divider>
+
+      <workspaceMaskVue />
+    </div>
   </div>
 </template>
 
 <script setup name="BgBar">
+import workspaceMaskVue from './workspaceMask.vue';
 import { ref } from 'vue';
 import useSelect from '@/hooks/select';
 const { mixinState, canvasEditor } = useSelect();
