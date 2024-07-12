@@ -19,7 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { Message } from 'view-ui-plus';
 interface IVirtualWaterFallProps {
   gap: number;
   column: number;
@@ -70,11 +69,6 @@ const getCardList = async (page: number, pageSize: number) => {
   dataState.loading = false;
   if (!list.length) {
     dataState.isFinish = true;
-    console.log('dataState', dataState.isFinish);
-    Message.info({
-      content: '已经到底了',
-      duration: 3,
-    });
     return;
   }
   dataState.cardList = [...dataState.cardList, ...list];
@@ -200,6 +194,15 @@ defineExpose({
   .ivu-message-notice {
     text-align: left;
     padding-left: 20%;
+  }
+}
+
+:deep(.ivu-divider) {
+  position: absolute;
+  top: 95%;
+
+  .ivu-divider-horizontal.ivu-divider-with-text-center:before {
+    width: 30%;
   }
 }
 </style>
