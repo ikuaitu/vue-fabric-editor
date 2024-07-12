@@ -14,6 +14,7 @@
         <slot name="item" :item="item" :index="index"></slot>
       </div>
     </div>
+    <Spin size="large" fix :show="dataState.loading"></Spin>
   </div>
 </template>
 
@@ -64,13 +65,13 @@ const getCardList = async (page: number, pageSize: number) => {
   dataState.loading = true;
   const list = await props.request(page, pageSize);
   dataState.page++;
+  dataState.loading = false;
   if (!list.length) {
     dataState.isFinish = true;
     return;
   }
-  dataState.loading = false;
-  console.log('getCardList', list);
   dataState.cardList = [...dataState.cardList, ...list];
+
   computedCardPos(list);
 };
 
