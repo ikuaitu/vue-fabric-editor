@@ -148,8 +148,10 @@ export default function usePageList({
       const res = await pageApi(listUrl, params);
 
       const list = res.data.data.map((item) => {
-        const height = item.attributes.img.data.attributes.formats.small.height;
-        const width = item.attributes.img.data.attributes.formats.small.width;
+        let small = item.attributes.img.data.attributes.formats.small;
+        let thumbnail = item.attributes.img.data.attributes.formats.thumbnail;
+        const height = small ? small.height : thumbnail.height;
+        const width = small ? small.width : thumbnail.width;
         return {
           id: item.id,
           name: item.attributes.name,
@@ -164,16 +166,21 @@ export default function usePageList({
       Object.keys(res.data.meta.pagination).forEach((key) => {
         pagination[key] = res.data.meta.pagination[key];
       });
-      pageData.value = [...pageData.value, ...list];
+      // pageData.value = [...pageData.value, ...list];
+      if (list.length) {
+        return list;
+      } else {
+        return [];
+      }
     } catch (error) {
       console.log(error);
     }
     pageLoading.value = false;
-    if (pageData.value.length) {
-      return pageData.value;
-    } else {
-      return [];
-    }
+    // if (list.length) {
+    //   return pageData.value;
+    // } else {
+    //   return [];
+    // }
   };
 
   const startGetList = () => {

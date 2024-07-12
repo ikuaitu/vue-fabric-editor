@@ -1,226 +1,150 @@
 <template>
   <div class="masonry-container" ref="containerRef" @scroll="handleScroll">
-    <div class="masonry-list" :style="listStyle">
-      <div class="masonry-item" v-for="{ item, style } in cardList" :key="item.id" :style="style">
-        <slot name="item" :item="item"></slot>
+    <div class="masonry-list">
+      <div
+        class="masonry-item"
+        v-for="(item, index) in dataState.cardList"
+        :key="item.id"
+        :style="{
+          width: `${dataState.cardPos[index].width}px`,
+          height: `${dataState.cardPos[index].height}px`,
+          transform: `translate(${dataState.cardPos[index].x}px, ${dataState.cardPos[index].y}px)`,
+        }"
+      >
+        <slot name="item" :item="item" :index="index"></slot>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { CSSProperties, computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
-
-import debounce from 'lodash-es/debounce';
 import { throttle } from 'lodash-es';
-
 export interface IVirtualWaterFallProps {
-  gap: number;
-  column: number;
-  pageSize: number;
-  enterSize?: number;
-  request: ICardItem[] | ((page: number, pageSize: number) => Promise<ICardItem[]>);
+  gap: number; // 卡片间隔
+  column: number; // 瀑布流列数
+  bottom: number;
+  pageSize: number; // 单次请求数据数量
+  request?: (page: number, pageSize: number) => Promise<ICardItem[]>; // 数据请求方法
 }
 
 export interface ICardItem {
   id: number | string;
+  url: string;
   width: number;
   height: number;
   [key: string]: any;
 }
 
-export interface IColumnQueue {
-  list: IRenderItem[];
-  height: number;
-}
-
-// 渲染视图项
-export interface IRenderItem {
-  item: ICardItem;
-  y: number;
-  h: number;
-  style: CSSProperties;
-}
-
-export interface IItemRect {
+export interface ICardPos {
   width: number;
   height: number;
+  x: number;
+  y: number;
 }
 
 const props = defineProps<IVirtualWaterFallProps>();
 
 defineSlots<{
-  item(props: { item: ICardItem }): any;
+  item(props: { item: ICardItem; index: number }): any;
 }>();
+const dataState = reactive({
+  isFinish: false,
+  page: 1,
+  cardWidth: 0,
+  cardList: [] as ICardItem[],
+  cardPos: [] as ICardPos[],
+  loading: false,
+  columnHeight: new Array(props.column).fill(0) as number[],
+});
 
 const containerRef = ref<HTMLDivElement | null>(null);
 
-const resizeObserver = new ResizeObserver(() => {
-  handleResize();
-});
-
-const dataState = reactive({
-  loading: false,
-  isFinish: false,
-  currentPage: 1,
-  list: [] as ICardItem[],
-});
-
-const scrollState = reactive({
-  viewWidth: 0,
-  viewHeight: 0,
-  start: 0,
-});
-
-const queueState = reactive({
-  queue: new Array(props.column).fill(0).map<IColumnQueue>(() => ({ list: [], height: 0 })),
-  len: 0,
-});
-
-const itemSizeInfo = computed(() =>
-  dataState.list.reduce<Map<ICardItem['id'], IItemRect>>((pre, current) => {
-    const itemWidth = Math.floor(
-      (scrollState.viewWidth - (props.column - 1) * props.gap) / props.column
-    );
-    pre.set(current.id, {
-      width: itemWidth,
-      height: Math.floor((itemWidth * current.height) / current.width),
-    });
-    return pre;
-  }, new Map())
-);
-
-const end = computed(() => scrollState.viewHeight + scrollState.start);
-
-const cardList = computed(() =>
-  queueState.queue.reduce<IRenderItem[]>((pre, { list }) => pre.concat(list), [])
-);
-
-const computedHeight = computed(() => {
-  let minIndex = 0,
-    minHeight = Infinity,
-    maxHeight = -Infinity;
-  queueState.queue.forEach(({ height }, index) => {
-    if (height < minHeight) {
-      minHeight = height;
-      minIndex = index;
-    }
-    if (height > maxHeight) {
-      maxHeight = height;
-    }
-  });
-  return {
-    minIndex,
-    minHeight,
-    maxHeight,
-  };
-});
-
-const listStyle = computed(
-  () => ({ height: `${computedHeight.value.maxHeight}px` } as CSSProperties)
-);
-
-watch(
-  () => props.column,
-  () => {
-    handleResize();
-  }
-);
-
-const addInQueue = (size = props.pageSize) => {
-  for (let i = 0; i < size; i++) {
-    const minIndex = computedHeight.value.minIndex;
-    const currentColumn = queueState.queue[minIndex];
-    const before = currentColumn.list[currentColumn.list.length - 1] || null;
-    const dataItem = dataState.list[queueState.len];
-    const item = generatorItem(dataItem, before, minIndex);
-    currentColumn.list.push(item);
-    currentColumn.height += item.h;
-    queueState.len++;
-  }
-};
-
-const generatorItem = (item: ICardItem, before: IRenderItem | null, index: number): IRenderItem => {
-  const rect = itemSizeInfo.value.get(item.id);
-  const width = rect!.width;
-  const height = rect!.height;
-  let y = 0;
-  if (before) y = before.y + before.h + props.gap;
-
-  return {
-    item,
-    y,
-    h: height,
-    style: {
-      width: `${width}px`,
-      height: `${height}px`,
-      transform: `translate(${index === 0 ? 0 : (width + props.gap) * index}px, ${y}px)`,
-    },
-  };
-};
-
-const loadDataList = async () => {
+const getCardList = async (page: number, pageSize: number) => {
   if (dataState.isFinish) return;
   dataState.loading = true;
-  let list = [];
-  if (!Array.isArray(props.request)) {
-    list = await props.request(dataState.currentPage++, props.pageSize);
-  } else {
-    list = props.request;
-  }
+  const list = await props.request(page, pageSize);
+  dataState.page++;
   if (!list.length) {
     dataState.isFinish = true;
     return;
   }
-  dataState.list = list;
   dataState.loading = false;
-  return list.length;
+  console.log('getCardList', list);
+  dataState.cardList = [...dataState.cardList, ...list];
+  computedCardPos(list); // key：根据请求的数据计算卡片位置
 };
 
-const handleScroll = throttle(() => {
-  const { scrollTop, clientHeight } = containerRef.value!;
-  scrollState.start = scrollTop;
-  console.log('handleScroll', dataState.list);
-  if (scrollTop + clientHeight > computedHeight.value.minHeight) {
-    !dataState.loading &&
-      loadDataList().then((len) => {
-        len && addInQueue(len);
-      });
-  }
-});
-
-const handleResize = debounce(() => {
-  initScrollState();
-  reComputedQueue();
-}, 300);
-
-const reComputedQueue = () => {
-  queueState.queue = new Array(props.column)
-    .fill(0)
-    .map<IColumnQueue>(() => ({ list: [], height: 0 }));
-  queueState.len = 0;
-  addInQueue(dataState.list.length);
-};
-
-const initScrollState = () => {
-  scrollState.viewWidth = containerRef.value!.clientWidth;
-  scrollState.viewHeight = containerRef.value!.clientHeight;
-  scrollState.start = containerRef.value!.scrollTop;
+const computedWidth = async () => {
+  const containerWidth = containerRef.value.clientWidth;
+  dataState.cardWidth = (containerWidth - props.gap * (props.column - 1)) / props.column;
+  await getCardList(dataState.page, props.pageSize);
 };
 
 const init = async () => {
-  initScrollState();
-  resizeObserver.observe(containerRef.value!);
-  const len = await loadDataList();
-  len && addInQueue(len);
+  if (containerRef.value) {
+    await computedWidth();
+  }
 };
+
+const minColumn = computed(() => {
+  let minIndex = -1,
+    minHeight = Infinity;
+
+  dataState.columnHeight.forEach((item, index) => {
+    if (item < minHeight) {
+      minHeight = item;
+      minIndex = index;
+    }
+  });
+
+  return {
+    minIndex,
+    minHeight,
+  };
+});
+
+const computedCardPos = (list: ICardItem[]) => {
+  list.forEach((item, index) => {
+    const cardHeight = Math.floor((item.height * dataState.cardWidth) / item.width);
+    if (index < props.column && dataState.cardList.length <= props.pageSize) {
+      dataState.cardPos.push({
+        width: dataState.cardWidth,
+        height: cardHeight,
+        x: index ? index * (dataState.cardWidth + props.gap) : 0,
+        y: 0,
+      });
+
+      dataState.columnHeight[index] = cardHeight + props.gap;
+      console.log('item', index, item, cardHeight);
+    } else {
+      const { minIndex, minHeight } = minColumn.value;
+      if (index == 11) {
+        console.log('11 column item', index, item, cardHeight, dataState);
+      }
+      dataState.cardPos.push({
+        width: dataState.cardWidth,
+        height: cardHeight,
+        x: minIndex ? minIndex * (dataState.cardWidth + props.gap) : 0,
+        y: minHeight,
+      });
+      dataState.columnHeight[minIndex] += cardHeight + props.gap;
+      if (index == 11) {
+        console.log('not column item', index, item, cardHeight, dataState.cardPos[11]);
+      }
+    }
+  });
+};
+
+const handleScroll = throttle(() => {
+  const { scrollTop, clientHeight, scrollHeight } = containerRef.value!;
+  const bottom = scrollHeight - clientHeight - scrollTop;
+  if (bottom <= props.bottom) {
+    !dataState.loading && getCardList(dataState.page, props.pageSize);
+  }
+}, 50);
 
 onMounted(() => {
   init();
-});
-
-onUnmounted(() => {
-  resizeObserver.unobserve(containerRef.value!);
 });
 </script>
 
