@@ -27,6 +27,7 @@ class WorkspacePlugin implements IPluginTempl {
   workspaceEl!: HTMLElement;
   workspace: null | fabric.Rect;
   resizeObserver!: ResizeObserver;
+  coverMask: null | fabric.Rect = null;
   option: any;
   zoomRatio: number;
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {
@@ -148,6 +149,69 @@ class WorkspacePlugin implements IPluginTempl {
     this.auto();
   }
 
+  setCoverMask(hack = false) {
+    if (!this.coverMask || !this.workspace) {
+      return;
+    }
+    const center = this.canvas.getCenter();
+    const zoom = this.canvas.getZoom();
+    this.canvas.zoomToPoint(
+      new fabric.Point(center.left, center.top),
+      hack ? zoom - 0.0000001 : zoom // 比较hack的方法，判断为fabric内部的数据更新问题
+    );
+    if (zoom) {
+      const { workspaceEl } = this;
+      const width = workspaceEl.offsetWidth;
+      const height = workspaceEl.offsetHeight;
+      const cWidth = width / zoom;
+      const cHeight = height / zoom;
+      this.coverMask.width = cWidth;
+      this.coverMask.height = cHeight;
+      this.coverMask.left = (this.workspace.left || 0) + (this.workspace.width! - cWidth) / 2;
+      this.coverMask.top = (this.workspace.top || 0) + (this.workspace.height! - cHeight) / 2;
+      this.workspace.clone((clone: fabric.Rect) => {
+        clone.left = -clone.width! / 2;
+        clone.top = -clone.height! / 2;
+        clone.inverted = true;
+        this.coverMask!.objectCaching = false;
+        this.coverMask!.clipPath = clone;
+        this.canvas.requestRenderAll();
+      });
+    }
+  }
+
+  clipPath() {
+    if (this.coverMask) {
+      return;
+    }
+    // 超出画布不展示
+    this.workspace?.clone((cloned: fabric.Rect) => {
+      this.canvas.clipPath = cloned;
+      this.canvas.requestRenderAll();
+    });
+  }
+
+  maskEnable(needBindLoadJSON = true) {
+    const coverMask = new fabric.Rect({
+      fill: 'rgba(0,0,0,0.7)',
+      id: 'coverMask',
+      strokeWidth: 0,
+    });
+    coverMask.set('selectable', false);
+    coverMask.set('hasControls', false);
+    coverMask.set('evented', false);
+    coverMask.hoverCursor = 'default';
+    this.canvas.on('object:added', () => {
+      coverMask.bringToFront();
+    });
+    this.canvas.clipPath = undefined;
+    this.canvas.add(coverMask);
+    this.coverMask = coverMask;
+    this.setCoverMask();
+    // 适配模板和psd的loadjson，在加载完成后再入mask
+    needBindLoadJSON && this.editor.on('loadJson', () => this.maskEnable(false));
+  }
+
   setZoomAuto(scale: number, cb?: (left?: number, top?: number) => void) {
     const { workspaceEl } = this;
     const width = workspaceEl.offsetWidth;
@@ -159,7 +223,9 @@ class WorkspacePlugin implements IPluginTempl {
     this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), scale);
     if (!this.workspace) return;
     this.setCenterFromObject(this.workspace);
+
     this.editor.emit('zoomChange');
+
     if (cb) cb(this.workspace.left, this.workspace.top);
   }
 
@@ -215,7 +281,9 @@ class WorkspacePlugin implements IPluginTempl {
       if (zoom < 0.01) zoom = 0.01;
       const center = this.canvas.getCenter();
       this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
+
       this.editor.emit('zoomChange');
+
       opt.e.preventDefault();
       opt.e.stopPropagation();
     });

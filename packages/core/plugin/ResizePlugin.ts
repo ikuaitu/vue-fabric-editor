@@ -10,6 +10,7 @@ import { fabric } from 'fabric';
 import Editor from '../Editor';
 import { throttle } from 'lodash-es';
 import '../styles/resizePlugin.css';
+import WorkspacePlugin from './WorkspacePlugin';
 
 type IEditor = Editor;
 
@@ -203,6 +204,7 @@ class ResizePlugin implements IPluginTempl {
       }
 
       this.editor.setCenterFromObject(workspace);
+
       if (['left', 'right'].includes(type)) {
         this.canvas.defaultCursor = 'ew-resize';
       } else {
