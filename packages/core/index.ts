@@ -20,6 +20,7 @@ export { default as DrawLinePlugin } from './plugin/DrawLinePlugin';
 export { default as GroupTextEditorPlugin } from './plugin/GroupTextEditorPlugin';
 export { default as GroupAlignPlugin } from './plugin/GroupAlignPlugin';
 export { default as WorkspacePlugin } from './plugin/WorkspacePlugin';
+export { default as MaskPlugin } from './plugin/MaskPlugin';
 export { default as HistoryPlugin } from './plugin/HistoryPlugin';
 export { default as FlipPlugin } from './plugin/FlipPlugin';
 export { default as RulerPlugin } from './plugin/RulerPlugin';

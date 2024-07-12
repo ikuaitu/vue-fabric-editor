@@ -274,6 +274,7 @@ import Editor, {
   ResizePlugin,
   LockPlugin,
   AddBaseTypePlugin,
+  MaskPlugin,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
 import ClipImage from '@/components/clipImage.vue';
@@ -391,7 +392,7 @@ onMounted(() => {
   canvasEditor.use(ResizePlugin);
   canvasEditor.use(LockPlugin);
   canvasEditor.use(AddBaseTypePlugin);
-  canvasEditor.getPlugin('WorkspacePlugin').maskEnable();
+  canvasEditor.use(MaskPlugin);
 
   state.show = true;
   // 默认打开标尺

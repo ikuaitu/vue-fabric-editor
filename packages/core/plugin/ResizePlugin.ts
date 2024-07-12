@@ -204,8 +204,7 @@ class ResizePlugin implements IPluginTempl {
       }
 
       this.editor.setCenterFromObject(workspace);
-      (this.editor.getPlugin('WorkspacePlugin') as WorkspacePlugin).setCoverMask(true);
-      (this.editor.getPlugin('WorkspacePlugin') as WorkspacePlugin).clipPath();
+
       if (['left', 'right'].includes(type)) {
         this.canvas.defaultCursor = 'ew-resize';
       } else {
