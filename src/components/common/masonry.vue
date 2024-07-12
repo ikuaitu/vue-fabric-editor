@@ -25,6 +25,7 @@ interface IVirtualWaterFallProps {
   column: number;
   bottom: number;
   pageSize: number; // 单次请求数据数量
+  pageData: ICardItem[];
   request?: (page: number, pageSize: number) => Promise<ICardItem[]>;
 }
 
@@ -60,6 +61,14 @@ const dataState = reactive({
 
 const containerRef = ref<HTMLDivElement | null>(null);
 
+const initLoadData = async () => {
+  if (props.pageData.length) {
+    dataState.cardList = props.pageData;
+    dataState.page++;
+  } else {
+    await computedWidth();
+  }
+};
 const getCardList = async (page: number, pageSize: number) => {
   if (dataState.isFinish) {
     return;
@@ -90,7 +99,7 @@ const computedWidth = async () => {
 
 const init = async () => {
   if (containerRef.value) {
-    await computedWidth();
+    await initLoadData();
   }
 };
 

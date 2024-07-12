@@ -180,7 +180,7 @@ export default function usePageList({
   const startGetList = () => {
     pageData.value = [];
     page.value = 1;
-    getPageData();
+    getPageData(1, 10);
   };
 
   const nextPage = () => {
