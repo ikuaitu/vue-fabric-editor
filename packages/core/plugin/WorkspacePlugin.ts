@@ -13,7 +13,7 @@ type IEditor = Editor;
 
 class WorkspacePlugin implements IPluginTempl {
   static pluginName = 'WorkspacePlugin';
-  static events = ['sizeChange'];
+  static events = ['sizeChange', 'zoomChange'];
   static apis = [
     'big',
     'small',
@@ -51,6 +51,7 @@ class WorkspacePlugin implements IPluginTempl {
     this._initWorkspace();
     this._initResizeObserve();
     this._bindWheel();
+    this._bindSizeChange();
   }
 
   hookImportAfter() {
@@ -61,7 +62,6 @@ class WorkspacePlugin implements IPluginTempl {
         workspace.set('hasControls', false);
         workspace.set('evented', false);
         this.setSize(workspace.width, workspace.height);
-        this.editor.emit('sizeChange', workspace.width, workspace.height);
       }
       resolve('');
     });
@@ -223,8 +223,9 @@ class WorkspacePlugin implements IPluginTempl {
     this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), scale);
     if (!this.workspace) return;
     this.setCenterFromObject(this.workspace);
-    this.setCoverMask();
-    this.clipPath();
+
+    this.editor.emit('zoomChange');
+
     if (cb) cb(this.workspace.left, this.workspace.top);
   }
 
@@ -280,10 +281,29 @@ class WorkspacePlugin implements IPluginTempl {
       if (zoom < 0.01) zoom = 0.01;
       const center = this.canvas.getCenter();
       this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
-      this.setCoverMask();
+
+      this.editor.emit('zoomChange');
+
       opt.e.preventDefault();
       opt.e.stopPropagation();
     });
+  }
+
+  clipPathOrRefreshMask() {
+    if (this.editor.getPlugin('MaskPlugin')) {
+      this.editor.setCoverMask(true);
+    } else {
+      // 超出画布不展示
+      this.workspace?.clone((cloned: fabric.Rect) => {
+        this.canvas.clipPath = cloned;
+        this.canvas.requestRenderAll();
+      });
+    }
+  }
+
+  private _bindSizeChange() {
+    this.editor.on('sizeChange', () => this.clipPathOrRefreshMask());
+    this.editor.on('zoomChange', () => this.clipPathOrRefreshMask());
   }
 
   destroy() {
