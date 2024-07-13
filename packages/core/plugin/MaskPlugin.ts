@@ -12,7 +12,7 @@ type IEditor = Editor;
 
 class MaskPlugin implements IPluginTempl {
   static pluginName = 'MaskPlugin';
-  static apis = ['setCoverMask', 'workspaceMaskToggle'];
+  static apis = ['setCoverMask', 'workspaceMaskToggle', 'getworkspaceMaskStatus'];
   coverMask: null | fabric.Rect = null;
   workspace: null | fabric.Rect = null;
   workspaceEl!: HTMLElement;
@@ -42,10 +42,17 @@ class MaskPlugin implements IPluginTempl {
       workspaceMask && this.canvas.remove(workspaceMask);
       this.workspace?.clone((cloned: fabric.Rect) => {
         this.canvas.clipPath = cloned;
+        this.coverMask = null;
         this.canvas.requestRenderAll();
       });
       this.editor.off('loadJson', this.initMask);
     }
+  }
+  /**
+   * @desc 获取蒙版开关
+   */
+  getworkspaceMaskStatus() {
+    return this.coverMask !== null;
   }
 
   /**
