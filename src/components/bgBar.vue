@@ -29,13 +29,13 @@
         <h4>蒙版</h4>
       </Divider>
 
-      <workspaceMaskVue />
+      <workspaceMask />
     </div>
   </div>
 </template>
 
 <script setup name="BgBar">
-import workspaceMaskVue from './workspaceMask.vue';
+import workspaceMask from './workspaceMask.vue';
 import { ref } from 'vue';
 import useSelect from '@/hooks/select';
 const { mixinState, canvasEditor } = useSelect();

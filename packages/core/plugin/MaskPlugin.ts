@@ -27,7 +27,6 @@ class MaskPlugin implements IPluginTempl {
       throw new Error('element #workspace is missing, plz check!');
     }
     this.workspaceEl = workspaceEl;
-    this.workspaceMaskToggle();
   }
 
   /**
@@ -36,17 +35,16 @@ class MaskPlugin implements IPluginTempl {
    */
   workspaceMaskToggle() {
     const workspaceMask = this.getWorkspaceMask();
-    console.log('是睡觉觉睡觉觉睡觉觉', workspaceMask);
     if (!workspaceMask) {
       this.initMask();
     } else {
-      const workspace = this.getWorkspase();
       // 如果有 则删除
       workspaceMask && this.canvas.remove(workspaceMask);
-      workspace?.clone((cloned: fabric.Rect) => {
+      this.workspace?.clone((cloned: fabric.Rect) => {
         this.canvas.clipPath = cloned;
         this.canvas.requestRenderAll();
       });
+      this.editor.off('loadJson', this.initMask);
     }
   }
 
