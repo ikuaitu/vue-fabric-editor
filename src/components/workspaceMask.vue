@@ -22,6 +22,10 @@ const openMask = ref(false);
 const onMaskChange = () => {
   canvasEditor?.workspaceMaskToggle();
 };
+
+onMounted(() => {
+  openMask.value = canvasEditor?.getworkspaceMaskStatus();
+});
 </script>
 
 <style lang="less" scoped>
