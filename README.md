@@ -269,21 +269,14 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/momo2019">
-                    <img src="https://avatars.githubusercontent.com/u/26078793?v=4" width="80;" alt="momo2019"/>
-                    <br />
-                    <sub><b>momo2019</b></sub>
-                </a>
-            </td>
-		</tr>
-		<tr>
-            <td align="center">
                 <a href="https://github.com/z09176141">
                     <img src="https://avatars.githubusercontent.com/u/49260613?v=4" width="80;" alt="z09176141"/>
                     <br />
                     <sub><b>z09176141</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/a847244052">
                     <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
@@ -319,13 +312,20 @@ pnpm dev
                     <sub><b>pengzhijian</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/JiangShuQ">
                     <img src="https://avatars.githubusercontent.com/u/95730895?v=4" width="80;" alt="JiangShuQ"/>
                     <br />
                     <sub><b>JiangShuQ</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/momo2019">
+                    <img src="https://avatars.githubusercontent.com/u/26078793?v=4" width="80;" alt="momo2019"/>
+                    <br />
+                    <sub><b>momo2019</b></sub>
                 </a>
             </td>
             <td align="center">
