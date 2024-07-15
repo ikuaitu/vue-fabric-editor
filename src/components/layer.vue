@@ -27,12 +27,10 @@
             <Col span="4">
               <Button
                 long
-                v-if="item.isLock"
-                @click="doLock(item)"
-                icon="md-lock"
+                :icon="item.isLock ? 'md-lock' : 'md-unlock'"
                 type="text"
+                @click="doLock(item)"
               ></Button>
-              <Button long v-else @click="doLock(item)" icon="md-unlock" type="text"></Button>
             </Col>
           </Row>
         </div>
