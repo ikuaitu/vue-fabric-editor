@@ -9,27 +9,23 @@
 import { v4 as uuid } from 'uuid';
 import { fabric } from 'fabric';
 import Arrow from '../objects/Arrow';
+import ThinTailArrow from '../objects/ThinTailArrow';
 import Editor from '../Editor';
 type IEditor = Editor;
 
-class DrawLinePlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class DrawLinePlugin implements IPluginTempl {
   static pluginName = 'DrawLinePlugin';
-  static apis = ['setArrow', 'setMode'];
+  static apis = ['setLineType', 'setMode'];
   isDrawingLineMode: boolean;
-  isArrow: boolean;
+  lineType: string;
   lineToDraw: any;
   pointer: any;
   pointerPoints: any;
   isDrawingLine: boolean;
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.isDrawingLine = false;
     this.isDrawingLineMode = false;
-    this.isArrow = false;
+    this.lineType = '';
     this.lineToDraw = null;
     this.pointer = null;
     this.pointerPoints = null;
@@ -49,13 +45,34 @@ class DrawLinePlugin {
       this.isDrawingLine = true;
       this.pointer = canvas.getPointer(o.e);
       this.pointerPoints = [this.pointer.x, this.pointer.y, this.pointer.x, this.pointer.y];
-
-      const NodeHandler = this.isArrow ? Arrow : fabric.Line;
-      this.lineToDraw = new NodeHandler(this.pointerPoints, {
+      let NodeHandler;
+      let opts: any = {
         strokeWidth: 2,
         stroke: '#000000',
         id: uuid(),
-      });
+      };
+      switch (this.lineType) {
+        case 'line':
+          NodeHandler = fabric.Line;
+          break;
+        case 'arrow':
+          NodeHandler = Arrow;
+          break;
+        case 'thinTailArrow':
+          NodeHandler = ThinTailArrow;
+          opts = {
+            strokeWidth: 2,
+            stroke: '#ff0000',
+            fill: '#ff0000',
+            id: uuid(),
+          };
+          break;
+        default:
+          break;
+      }
+      if (!NodeHandler) throw new Error('Draw failed: invalid lineType.');
+
+      this.lineToDraw = new NodeHandler(this.pointerPoints, opts);
 
       this.lineToDraw.selectable = false;
       this.lineToDraw.evented = false;
@@ -64,7 +81,8 @@ class DrawLinePlugin {
     });
 
     canvas.on('mouse:move', (o) => {
-      if (!this.isDrawingLine) return;
+      if (!this.isDrawingLine || !['line', 'arrow', 'thinTailArrow'].includes(this.lineType))
+        return;
       canvas.discardActiveObject();
       const activeObject = canvas.getActiveObject();
       if (activeObject) return;
@@ -105,8 +123,8 @@ class DrawLinePlugin {
     });
   }
 
-  setArrow(params: any) {
-    this.isArrow = params;
+  setLineType(params: any) {
+    this.lineType = params;
   }
 
   setMode(params: any) {

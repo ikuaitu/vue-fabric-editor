@@ -9,24 +9,14 @@
 import Editor from '../Editor';
 type IEditor = Editor;
 
-declare type ExtCanvas = fabric.Canvas & {
-  isDragging: boolean;
-  lastPosX: number;
-  lastPosY: number;
-};
-
-class DringPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
-  public defautOption = {};
+export class DringPlugin implements IPluginTempl {
+  defautOption = {};
   static pluginName = 'DringPlugin';
   static events = ['startDring', 'endDring'];
   static apis = ['startDring', 'endDring'];
-  public hotkeys: string[] = ['space'];
+  hotkeys: string[] = ['space'];
   dragMode = false;
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.dragMode = false;
     this.init();
   }
@@ -110,7 +100,7 @@ class DringPlugin {
 
   // 快捷键扩展回调
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  hotkeyEvent(eventName: string, e: any) {
+  hotkeyEvent(eventName: string, e: KeyboardEvent) {
     if (e.code === 'Space' && e.type === 'keydown') {
       if (!this.dragMode) {
         this.startDring();
@@ -120,6 +110,14 @@ class DringPlugin {
       this.endDring();
     }
   }
+}
+
+declare global {
+  export type ExtCanvas = fabric.Canvas & {
+    isDragging: boolean;
+    lastPosX: number;
+    lastPosY: number;
+  };
 }
 
 export default DringPlugin;

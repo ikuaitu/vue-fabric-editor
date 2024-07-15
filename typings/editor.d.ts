@@ -3,7 +3,7 @@
  * @Author: 秦少卫
  * @Date: 2023-05-13 18:53:44
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:24:09
+ * @LastEditTime: 2024-06-07 19:48:01
  * @Description: file content
  */
 
@@ -16,11 +16,12 @@ declare type IEditorHooksType =
   | 'hookImportBefore'
   | 'hookImportAfter'
   | 'hookSaveBefore'
-  | 'hookSaveAfter';
+  | 'hookSaveAfter'
+  | 'hookTransform';
 
 // 插件class
 declare interface IPluginClass extends IPluginTempl {
-  new (canvas: fabric.Canvas, editor: any, options?: IPluginOption);
+  new (canvas: fabric.Canvas, editor: IEditor, options?: IPluginOption);
 }
 
 declare interface IPluginMenu {
@@ -30,12 +31,12 @@ declare interface IPluginMenu {
 }
 
 // 插件实例
-declare interface IPluginTempl {
-  pluginName: string;
-  events: string[];
-  apis: string[];
+declare class IPluginTempl {
+  static pluginName: string;
+  static events: string[];
+  static apis: string[];
   canvas?: fabric.Canvas | null | undefined;
-  hotkeyEvent?: (name: string, e: Event) => void;
+  hotkeyEvent?: (name: string, e: KeyboardEvent) => void;
   [propName: IEditorHooksType]: () => void;
   [propName: string]: any;
 }

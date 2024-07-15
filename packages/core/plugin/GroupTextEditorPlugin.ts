@@ -8,17 +8,14 @@
 
 import { fabric } from 'fabric';
 import Editor from '../Editor';
+import { isGroup } from '../utils/utils';
 import { v4 as uuid } from 'uuid';
 type IEditor = Editor;
 
-class GroupTextEditorPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class GroupTextEditorPlugin implements IPluginTempl {
   static pluginName = 'GroupTextEditorPlugin';
   isDown = false;
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this._init();
   }
 
@@ -44,7 +41,7 @@ class GroupTextEditorPlugin {
     });
 
     this.canvas.on('mouse:dblclick', (opt) => {
-      if (opt.target && opt.target.type === 'group') {
+      if (isGroup(opt.target)) {
         const selectedObject = this._getGroupObj(opt) as fabric.IText;
         if (!selectedObject) return;
         selectedObject.selectable = true;
@@ -53,7 +50,7 @@ class GroupTextEditorPlugin {
           selectedObject.hasControls = false;
         }
         if (this.isText(selectedObject)) {
-          this._bedingTextEditingEvent(selectedObject, opt);
+          this._bedingTextEditingEvent(selectedObject, opt.target);
           return;
         }
         this.canvas.setActiveObject(selectedObject);
@@ -65,7 +62,8 @@ class GroupTextEditorPlugin {
   // 获取点击区域内的组内文字元素
   _getGroupTextObj(opt: fabric.IEvent<MouseEvent>) {
     const pointer = this.canvas.getPointer(opt.e, true);
-    const clickObj = this.canvas._searchPossibleTargets(opt.target?._objects, pointer);
+    if (!isGroup(opt.target)) return false;
+    const clickObj = this.canvas._searchPossibleTargets(opt.target._objects, pointer);
     if (clickObj && this.isText(clickObj)) {
       return clickObj;
     }
@@ -74,23 +72,14 @@ class GroupTextEditorPlugin {
 
   _getGroupObj(opt: fabric.IEvent<MouseEvent>) {
     const pointer = this.canvas.getPointer(opt.e, true);
-    const clickObj = this.canvas._searchPossibleTargets(opt.target?._objects, pointer);
+    if (!isGroup(opt.target)) return false;
+    const clickObj = this.canvas._searchPossibleTargets(opt.target._objects, pointer);
     return clickObj;
   }
 
   // 通过组合重新组装来编辑文字，可能会耗性能。
-  _bedingTextEditingEvent(textObject: fabric.IText, opt: fabric.IEvent<MouseEvent>) {
-    if (!opt.target) return;
+  _bedingTextEditingEvent(textObject: fabric.IText, groupObj: fabric.Group) {
     const textObjectJSON = textObject.toObject();
-    const groupObj = opt.target;
-
-    const ftype: any = {
-      'i-text': 'IText',
-      text: 'Text',
-      textbox: 'Textbox',
-    };
-
-    const eltype: string = ftype[textObjectJSON.type];
 
     const groupMatrix: number[] = groupObj.calcTransformMatrix();
 
@@ -101,10 +90,10 @@ class GroupTextEditorPlugin {
     const e: number = groupMatrix[4];
     const f: number = groupMatrix[5];
 
-    const newX = a * textObject.left + c * textObject.top + e;
-    const newY = b * textObject.left + d * textObject.top + f;
+    const newX = a * (textObject.left ?? 0) + c * (textObject.top ?? 0) + e;
+    const newY = b * (textObject.left ?? 0) + d * (textObject.top ?? 0) + f;
 
-    const tempText = new fabric[eltype](textObject.text, {
+    const tempText = new (textObject.constructor as typeof fabric.IText)(textObject.text ?? '', {
       ...textObjectJSON,
       scaleX: textObjectJSON.scaleX * a,
       scaleY: textObjectJSON.scaleY * a,
@@ -116,10 +105,10 @@ class GroupTextEditorPlugin {
     });
     tempText.id = uuid();
     textObject.visible = false;
-    opt.target.addWithUpdate();
+    groupObj.addWithUpdate();
     tempText.visible = true;
     tempText.selectable = true;
-    tempText.hasConstrols = false;
+    tempText.hasControls = false;
     tempText.editable = true;
     this.canvas.add(tempText);
     this.canvas.setActiveObject(tempText);
@@ -132,10 +121,10 @@ class GroupTextEditorPlugin {
         text: tempText.text,
         visible: true,
       });
-      opt.target.addWithUpdate();
+      groupObj.addWithUpdate();
       tempText.visible = false;
       this.canvas.remove(tempText);
-      this.canvas.setActiveObject(opt.target);
+      this.canvas.setActiveObject(groupObj);
     });
   }
 

@@ -10,16 +10,11 @@ import { fabric } from 'fabric';
 import Editor from '../Editor';
 type IEditor = Editor;
 
-class GroupAlignPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class GroupAlignPlugin implements IPluginTempl {
   static pluginName = 'GroupAlignPlugin';
   static apis = ['left', 'right', 'xcenter', 'ycenter', 'top', 'bottom', 'xequation', 'yequation'];
   // public hotkeys: string[] = ['space'];
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-  }
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   left() {
     const { canvas } = this;
@@ -229,7 +224,17 @@ class GroupAlignPlugin {
     const activeObject = canvas.getActiveObject();
     // width属性不准确，需要坐标换算
     function getItemWidth(item) {
-      return item.aCoords.tr.x - item.aCoords.tl.x;
+      let x1 = Infinity,
+        x2 = -Infinity;
+      for (const key in item.aCoords) {
+        if (item.aCoords[key].x < x1) {
+          x1 = item.aCoords[key].x;
+        }
+        if (item.aCoords[key].x > x2) {
+          x2 = item.aCoords[key].x;
+        }
+      }
+      return x2 - x1;
     }
 
     // 获取所有元素高度
@@ -281,8 +286,25 @@ class GroupAlignPlugin {
         const top = itemSpac * i + preHeight - yHeight;
         item.set('left', top);
       });
-      canvas.renderAll();
     }
+
+    const objecs = canvas.getActiveObjects();
+    canvas.discardActiveObject();
+    objecs.forEach((item) => {
+      let x = Infinity;
+      for (const key in item.aCoords) {
+        if (item.aCoords[key].x < x) {
+          x = item.aCoords[key].x;
+        }
+      }
+      item.set('left', 2 * item.left - x);
+    });
+
+    const sel = new fabric.ActiveSelection(objecs, {
+      canvas: canvas,
+    });
+    canvas.setActiveObject(sel);
+    canvas.requestRenderAll();
   }
 
   yequation() {
@@ -290,7 +312,17 @@ class GroupAlignPlugin {
     const activeObject = canvas.getActiveObject() || { top: 0, height: 0 };
     // width属性不准确，需要坐标换算
     function getItemHeight(item) {
-      return item.aCoords.bl.y - item.aCoords.tl.y;
+      let y1 = Infinity,
+        y2 = -Infinity;
+      for (const key in item.aCoords) {
+        if (item.aCoords[key].y < y1) {
+          y1 = item.aCoords[key].y;
+        }
+        if (item.aCoords[key].y > y2) {
+          y2 = item.aCoords[key].y;
+        }
+      }
+      return y2 - y1;
     }
     // 获取所有元素高度
     function getAllItemHeight() {
@@ -334,8 +366,25 @@ class GroupAlignPlugin {
         const top = itemSpac * i + preHeight - yHeight;
         item.set('top', top);
       });
-      canvas.renderAll();
     }
+
+    const objecs = canvas.getActiveObjects();
+    canvas.discardActiveObject();
+    objecs.forEach((item) => {
+      let y = Infinity;
+      for (const key in item.aCoords) {
+        if (item.aCoords[key].y < y) {
+          y = item.aCoords[key].y;
+        }
+      }
+      item.set('top', 2 * item.top - y);
+    });
+
+    const sel = new fabric.ActiveSelection(objecs, {
+      canvas: canvas,
+    });
+    canvas.setActiveObject(sel);
+    canvas.requestRenderAll();
   }
 
   destroy() {

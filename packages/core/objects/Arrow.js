@@ -21,10 +21,12 @@ fabric.Arrow = fabric.util.createClass(fabric.Line, {
   _render(ctx) {
     this.callSuper('_render', ctx);
     ctx.save();
-    const xDiff = this.x2 - this.x1;
-    const yDiff = this.y2 - this.y1;
+    // 乘或除对应的scaleX(Y)，抵消元素放缩造成的影响，使箭头不会变形
+    ctx.scale(1 / this.scaleX, 1 / this.scaleY);
+    const xDiff = (this.x2 - this.x1) * this.scaleX;
+    const yDiff = (this.y2 - this.y1) * this.scaleY;
     const angle = Math.atan2(yDiff, xDiff);
-    ctx.translate((this.x2 - this.x1) / 2, (this.y2 - this.y1) / 2);
+    ctx.translate(((this.x2 - this.x1) / 2) * this.scaleX, ((this.y2 - this.y1) / 2) * this.scaleY);
     ctx.rotate(angle);
     ctx.beginPath();
     // Move 5px in front of line to start the arrow so it does not have the square line end showing in front (0,0)
@@ -32,7 +34,10 @@ fabric.Arrow = fabric.util.createClass(fabric.Line, {
     ctx.lineTo(-5, 5);
     ctx.lineTo(-5, -5);
     ctx.closePath();
-    ctx.fillStyle = this.stroke;
+    ctx.lineWidth = this.lineWidth;
+    ctx.strokeStyle = this.stroke;
+    ctx.fillStyle = this.fill;
+    ctx.stroke();
     ctx.fill();
     ctx.restore();
   },

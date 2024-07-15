@@ -7,7 +7,7 @@
  * @LastEditTime: 2023-07-29 22:24:03
 -->
 <template>
-  <Dropdown @on-click="setLang">
+  <Dropdown placement="bottom-end" @on-click="setLang">
     <Button type="text">
       {{ lang }}
       <Icon type="ios-arrow-down"></Icon>

@@ -3,8 +3,8 @@
  * @version:
  * @Author: June
  * @Date: 2023-04-24 00:25:39
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-06 15:40:37
+ * @LastEditors: June 1601745371@qq.com
+ * @LastEditTime: 2024-06-12 14:12:25
  */
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -19,9 +19,9 @@ import autoprefixer from 'autoprefixer';
 const config = ({ mode }) => {
   const isProd = mode === 'production';
   const envPrefix = 'APP_';
-  const { APP_TITLE = '' } = loadEnv(mode, process.cwd(), envPrefix);
+  const { APP_TITLE = '', APP_BASE_PATH } = loadEnv(mode, process.cwd(), envPrefix);
   return {
-    base: isProd ? '/vue-fabric-editor/' : '/',
+    base: isProd ? APP_BASE_PATH : '/',
     plugins: [
       vue(),
       autoImports({

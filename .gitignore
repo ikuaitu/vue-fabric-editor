@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 dist
+typings/auto-imports.d.ts
 
 # local env files
 .env.local
@@ -25,3 +26,5 @@ pnpm-debug.log*
 yarn.lock
 pnpm-lock.yaml
 package-lock.json
+typings/auto-imports.d.ts
+.eslintrc-auto-import.json

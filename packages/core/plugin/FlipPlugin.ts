@@ -7,15 +7,10 @@ import { SelectMode } from '../eventType';
 const t = (key: string) => key;
 // import event from '@/utils/event/notifier';
 
-export default class FlipPlugin {
-  public canvas: fabric.Canvas;
-  public editor: Editor;
+export default class FlipPlugin implements IPluginTempl {
   static pluginName = 'FlipPlugin';
   static apis = ['flip'];
-  constructor(canvas: fabric.Canvas, editor: Editor) {
-    this.canvas = canvas;
-    this.editor = editor;
-  }
+  constructor(public canvas: fabric.Canvas, public editor: Editor) {}
 
   flip(type: 'X' | 'Y') {
     const activeObject = this.canvas.getActiveObject();

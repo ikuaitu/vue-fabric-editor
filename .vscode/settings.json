@@ -10,5 +10,6 @@
     "i18n-ally.localesPaths": [
         "src/language"
     ],
-    "i18n-ally.sourceLanguage": "zh" // 需要Prettier的配置文件
+    "i18n-ally.sourceLanguage": "zh",
+    "i18n-ally.keystyle": "nested" // 需要Prettier的配置文件
 }

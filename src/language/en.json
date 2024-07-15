@@ -9,6 +9,7 @@
   "grid": "Grid",
   "common_elements": "Common Elements",
   "draw_elements": "Draw Elements",
+  "code_img": "Code Img",
   "color_macthing": "Macthing",
   "background_texture": "Background Texture",
   "picture": "picture",
@@ -38,7 +39,8 @@
     "modalTitle": "WaterMark Setting",
     "setting": {
       "name": "Mark Name",
-      "size": "MarK Size",
+      "size": "Mark Size",
+      "color": "Color",
       "angle": "Mark Angle",
       "position": {
         "label": "Mark Position",
@@ -177,7 +179,10 @@
     "shadow": "Shadow",
     "blur": "Blur",
     "offset_x": "X",
-    "offset_y": "Y"
+    "offset_y": "Y",
+    "borderRadiusX": "radiusX",
+    "borderRadiusY": "radiusY",
+    "rx_ry": "Rounded"
   },
   "setSizeTip": "Resize canvas",
   "tip": "tip",
@@ -185,5 +190,6 @@
   "replaceTip": "Are you sure you want to add to the canvas?",
   "ok": "ok",
   "cancel": "cancel",
-  "cleanUp": "cleanUp"
+  "cleanUp": "cleanUp",
+  "mine": "Mine"
 }

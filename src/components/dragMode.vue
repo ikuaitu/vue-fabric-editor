@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-04-18 08:06:56
  * @LastEditors: 秦少卫
- * @LastEditTime: 2023-07-16 12:23:40
+ * @LastEditTime: 2024-04-24 12:07:49
  * @Description: 拖拽模式
 -->
 
@@ -28,19 +28,6 @@ const switchMode = (val) => {
     canvasEditor.endDring();
   }
 };
-// const handleKeyDown = (e) => {
-//   if (status.value) return;
-//   if (e.code === 'Space') {
-//     status.value = true;
-//     canvas.editor.editorWorkspace.startDring();
-//   }
-// };
-// const handleKeyUp = (e) => {
-//   if (e.code === 'Space') {
-//     status.value = false;
-//     canvas.editor.editorWorkspace.endDring();
-//   }
-// };
 
 onMounted(() => {
   canvasEditor.on('startDring', () => (status.value = true));

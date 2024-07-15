@@ -8,18 +8,14 @@
 
 import { fabric } from 'fabric';
 import Editor from '../Editor';
+import { isGroup, isActiveSelection } from '../utils/utils';
 import { v4 as uuid } from 'uuid';
 type IEditor = Editor;
 
-class GroupPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class GroupPlugin implements IPluginTempl {
   static pluginName = 'GroupPlugin';
   static apis = ['unGroup', 'group'];
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-  }
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   // 拆分组
   unGroup() {
@@ -53,14 +49,15 @@ class GroupPlugin {
 
   contextMenu() {
     const activeObject = this.canvas.getActiveObject();
-    if (activeObject && activeObject.type === 'group') {
+
+    if (isActiveSelection(activeObject)) {
+      return [{ text: '组合', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.group() }];
+    }
+
+    if (isGroup(activeObject)) {
       return [
         { text: '拆分组合', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.unGroup() },
       ];
-    }
-
-    if (this.canvas.getActiveObjects().length > 1) {
-      return [{ text: '组合', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.group() }];
     }
   }
   destroy() {

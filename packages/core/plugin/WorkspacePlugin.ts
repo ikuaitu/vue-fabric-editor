@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:33:58
+ * @LastEditTime: 2024-06-30 20:00:37
  * @Description: 画布区域插件
  */
 
@@ -11,23 +11,32 @@ import Editor from '../Editor';
 import { throttle } from 'lodash-es';
 type IEditor = Editor;
 
-class WorkspacePlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class WorkspacePlugin implements IPluginTempl {
   static pluginName = 'WorkspacePlugin';
   static events = ['sizeChange'];
-  static apis = ['big', 'small', 'auto', 'one', 'setSize'];
+  static apis = [
+    'big',
+    'small',
+    'auto',
+    'one',
+    'setSize',
+    'getWorkspase',
+    'setWorkspaseBg',
+    'setCenterFromObject',
+  ];
   workspaceEl!: HTMLElement;
   workspace: null | fabric.Rect;
+  resizeObserver!: ResizeObserver;
+  coverMask: null | fabric.Rect = null;
   option: any;
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
+  zoomRatio: number;
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.workspace = null;
     this.init({
       width: 900,
       height: 2000,
     });
+    this.zoomRatio = 0.85;
   }
 
   init(option: { width: number; height: number }) {
@@ -50,8 +59,8 @@ class WorkspacePlugin {
       if (workspace) {
         workspace.set('selectable', false);
         workspace.set('hasControls', false);
+        workspace.set('evented', false);
         this.setSize(workspace.width, workspace.height);
-        this.editor.emit('sizeChange', workspace.width, workspace.height);
       }
       resolve('');
     });
@@ -94,6 +103,11 @@ class WorkspacePlugin {
     this.auto();
   }
 
+  // 返回workspace对象
+  getWorkspase() {
+    return this.canvas.getObjects().find((item) => item.id === 'workspace') as fabric.Rect;
+  }
+
   /**
    * 设置画布中心到指定对象中心点上
    * @param {Object} obj 指定的对象
@@ -116,7 +130,8 @@ class WorkspacePlugin {
         this.auto();
       }, 50)
     );
-    resizeObserver.observe(this.workspaceEl);
+    this.resizeObserver = resizeObserver;
+    this.resizeObserver.observe(this.workspaceEl);
   }
 
   setSize(width: number | undefined, height: number | undefined) {
@@ -144,23 +159,16 @@ class WorkspacePlugin {
     this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), scale);
     if (!this.workspace) return;
     this.setCenterFromObject(this.workspace);
+    this.editor.getPlugin('MaskPlugin') && this.editor?.setCoverMask(true);
 
-    // 超出画布不展示
-    this.workspace.clone((cloned: fabric.Rect) => {
-      this.canvas.clipPath = cloned;
-      this.canvas.requestRenderAll();
-    });
     if (cb) cb(this.workspace.left, this.workspace.top);
   }
 
   _getScale() {
-    const viewPortWidth = this.workspaceEl.offsetWidth;
-    const viewPortHeight = this.workspaceEl.offsetHeight;
-    // 按照宽度
-    if (viewPortWidth / viewPortHeight < this.option.width / this.option.height) {
-      return viewPortWidth / this.option.width;
-    } // 按照宽度缩放
-    return viewPortHeight / this.option.height;
+    return fabric.util.findScaleToFit(this.getWorkspase(), {
+      width: this.workspaceEl.offsetWidth,
+      height: this.workspaceEl.offsetHeight,
+    });
   }
 
   // 放大
@@ -185,30 +193,40 @@ class WorkspacePlugin {
   // 自动缩放
   auto() {
     const scale = this._getScale();
-    this.setZoomAuto(scale - 0.08);
+    this.setZoomAuto(scale * this.zoomRatio);
   }
 
   // 1:1 放大
   one() {
-    this.setZoomAuto(0.8 - 0.08);
+    this.setZoomAuto(1 * this.zoomRatio);
     this.canvas.requestRenderAll();
   }
 
+  setWorkspaseBg(color: string) {
+    const workspase = this.getWorkspase();
+    workspase?.set('fill', color);
+  }
+
   _bindWheel() {
-    this.canvas.on('mouse:wheel', function (this: fabric.Canvas, opt) {
+    this.canvas.on('mouse:wheel', (opt) => {
       const delta = opt.e.deltaY;
-      let zoom = this.getZoom();
+      let zoom = this.canvas.getZoom();
       zoom *= 0.999 ** delta;
       if (zoom > 20) zoom = 20;
       if (zoom < 0.01) zoom = 0.01;
-      const center = this.getCenter();
-      this.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
+      const center = this.canvas.getCenter();
+      this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
+
+      this.editor.getPlugin('MaskPlugin') && this.editor?.setCoverMask(true);
+
       opt.e.preventDefault();
       opt.e.stopPropagation();
     });
   }
 
   destroy() {
+    this.resizeObserver.disconnect();
+    this.canvas.off();
     console.log('pluginDestroy');
   }
 }

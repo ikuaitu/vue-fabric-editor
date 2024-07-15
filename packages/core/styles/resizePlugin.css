@@ -1,0 +1,27 @@
+.resize-bar {
+  border-radius: 3px;
+  background-color: rgba(160, 160, 160, 0.6);
+  position: absolute;
+}
+.resize-bar:hover {
+  background-color: #328cff;
+}
+.resize-bar.horizontal {
+  width: 6px;
+  height: 30px;
+}
+.resize-bar.vertical {
+  width: 30px;
+  height: 6px;
+}
+.resize-bar.active {
+  background-color: #328cff;
+}
+#resize-left-bar,
+#resize-right-bar {
+  cursor: ew-resize;
+}
+#resize-top-bar,
+#resize-bottom-bar {
+  cursor: ns-resize;
+}

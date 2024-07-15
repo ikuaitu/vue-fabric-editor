@@ -1,48 +1,54 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2023-03-07 00:00:38
- * @LastEditors: June
- * @LastEditTime: 2023-11-15 12:00:57
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-06-26 14:10:57
  * @Description: file content
 -->
 <!DOCTYPE html>
-<html lang="en" style="overflow: hidden">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="renderer" content="webkit" />
-    <meta name="force-rendering" content="webkit" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <link rel="icon" href="<%- BASE_URL %>favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%- APP_TITLE %></title>
-    <link rel="stylesheet" href="<%- APP_REPO %>font/<%- APP_FONT_CSS_FILE%>" />
-    <style>
-      ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-      }
-      ::-webkit-scrollbar-thumb {
-        border-radius: 8px;
-        background: rgba(0, 0, 0, 0.2);
-      }
-      ::-webkit-scrollbar-track {
-        border-radius: 0;
-        background: rgba(0, 0, 0, 0.1);
-      }
-    </style>
-  </head>
+<html lang="en">
 
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
-  <script>
-    var _hmt = _hmt || [];
-    (function () {
-      var hm = document.createElement('script');
-      hm.src = 'https://hm.baidu.com/hm.js?147609b3a2b7f053b2e7c7331a6c5058';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="renderer" content="webkit" />
+  <meta name="force-rendering" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <link rel="icon" href="<%- BASE_URL %>favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%- APP_TITLE %></title>
+  <meta name="keywords"
+    content="开源在线设计工具,开源图片编辑器,图片编辑,fabric.js图片编辑器,Vue图片编辑器, 海报编辑开源工具, js图片编辑器, 快图设计, vue-fabric-editor" />
+  <meta name="description" content="让企业和开发者轻松构建在线设计工具，简单易用的界面，快速的开发流程，便捷的扩展功能，二次开发毫无压力。" />
+  <style>
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    ::-webkit-scrollbar-track {
+      border-radius: 0;
+      background: rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+<script>
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?147609b3a2b7f053b2e7c7331a6c5058';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
 </html>

@@ -1,15 +1,48 @@
 {
+  "bgSeting": {
+    "size": "尺寸",
+    "color": "颜色",
+    "colorMacthing": "配色",
+    "width": "宽度",
+    "height": "高度"
+  },
+  "attrSeting": {
+    "group": "成组",
+    "unGroup": "拆分组",
+    "flip": {
+      "name": "翻转",
+      "x": "水平翻转",
+      "y": "垂直翻转"
+    },
+    "align": {
+      "name": "对齐",
+      "left": "左对齐",
+      "centerX": "水平居中对齐",
+      "right": "右对齐",
+      "top": "上对齐",
+      "bottom": "下对齐",
+      "centerY": "垂直居中对齐",
+      "averageX": "水平分布",
+      "averageY": "垂直分布"
+    },
+    "centerAlign": {
+      "name": "居中",
+      "centerX": "水平居中",
+      "center": "水平垂直居中",
+      "centerY": "垂直居中"
+    }
+  },
+  "color": "颜色",
+  "textFloat": "小数",
   "templates": "模板",
   "elements": "元素",
+  "font_style": "文字",
   "background": "背景",
-  "size": "尺寸",
-  "width": "宽度",
-  "height": "高度",
   "grid": "网格",
   "placeholder": "请输入",
   "common_elements": "基础要素",
   "draw_elements": "绘制元素",
-  "color_macthing": "配色",
+  "code_img": "条码图片",
   "background_texture": "背景纹理",
   "picture": "图片",
   "everything_is_fine": "万事大吉",
@@ -17,28 +50,60 @@
   "cartoon": "卡通",
   "default_size": "预设尺寸",
   "preview": "预览",
-  "empty": "清空",
-  "keep": "保存",
-  "copy_to_clipboard": "复制到剪切板",
-  "save_as_picture": "保存为图片",
-  "save_as_svg": "保存为SVG",
-  "save_as_json": "保存为JSON",
+  "save": {
+    "empty": "清空",
+    "down": "下载",
+    "save_my_spase": "保存到我的空间",
+    "save_as_picture": "PNG图片",
+    "save_as_svg": "SVG图片",
+    "copy_to_clipboard": "复制到剪切板",
+    "copy_to_clipboardstr": "复制字符串剪切板",
+    "save_as_json": "保存为JSON"
+  },
   "layers": "图层",
+  "my_spase": {
+    "remove_templ": "删除模板",
+    "remove_templTip": "确认删除模板吗？",
+    "remove_file_type": "确认删除文件夹吗？",
+    "remove_file_type_Tip": "确认删除模板吗？"
+  },
   "title_template": "标题模板",
   "insert_svg": "插入SVG元素",
   "select_svg": "选择SVG文件",
   "please_choose": "请选择",
   "string": "字符串",
   "file": "文件",
-  "import_files": "导入文件",
+  "importFiles": {
+    "file": "文件",
+    "createDesign": {
+      "title": "创建设计",
+      "customSize": "自定义尺寸",
+      "systemSize": "系统推荐尺寸",
+      "width": "宽度",
+      "height": "高度",
+      "create": "确定"
+    },
+    "importFiles": "导入文件"
+  },
   "select_json": "选择JSON文件",
   "repleaceImg": "替换图片",
+  "createClip": "添加裁切",
+  "removeClip": "移除裁切",
+  "polygonClip": "多边形",
+  "rectClip": "矩形",
+  "circleClip": "圆",
+  "triangleClip": "三角形",
+  "polygonClipInverted": "多边形【反】",
+  "rectClipInverted": "矩形【反】",
+  "circleClipInverted": "圆【反】",
+  "triangleClipInverted": "三角形【反】",
   "waterMark": {
     "text": "水印",
     "modalTitle": "配置水印",
     "setting": {
       "name": "水印名称",
       "size": "水印大小",
+      "color": "水印颜色",
       "angle": "水印角度",
       "position": {
         "label": "水印位置",
@@ -51,7 +116,7 @@
     }
   },
   "material": {
-    "cartoon": "卡通"
+    "cartoon": "素材"
   },
   "filters": {
     "simple": "简单滤镜",
@@ -84,26 +149,9 @@
   "quick": {
     "del": "删除",
     "copy": "复制",
-    "lock": "锁定"
-  },
-  "flip": {
-    "x": "水平翻转",
-    "y": "垂直翻转"
-  },
-  "center_align": {
-    "centerX": "水平居中",
-    "center": "水平垂直居中",
-    "centerY": "垂直居中"
-  },
-  "group_align": {
-    "left": "左对齐",
-    "centerX": "水平居中对齐",
-    "right": "右对齐",
-    "top": "上对齐",
-    "bottom": "下对齐",
-    "centerY": "垂直居中对齐",
-    "averageX": "水平分布",
-    "averageY": "垂直分布"
+    "lock": "锁定",
+    "hide": "隐藏",
+    "editPoly": "编辑多边形"
   },
   "insertFile": {
     "insert": "插入",
@@ -142,7 +190,6 @@
     "fail_copy": "复制失败"
   },
   "scenary_x": "方案 {number}",
-  "color": "颜色",
   "red_book_vertical": "红书竖版",
   "red_book_horizontal": "红书横版",
   "phone_wallpaper": "手机壁纸",
@@ -166,7 +213,10 @@
     "shadow": "阴影",
     "blur": "模糊",
     "offset_x": "X轴",
-    "offset_y": "Y轴"
+    "offset_y": "Y轴",
+    "borderRadiusX": "圆角水平半径",
+    "borderRadiusY": "圆角垂直半径",
+    "rx_ry": "半径"
   },
   "setSizeTip": "调整画布尺寸",
   "tip": "提示",
@@ -174,5 +224,34 @@
   "replaceTip": "确定要添加到画布中吗？",
   "ok": "确认",
   "cancel": "取消",
-  "cleanUp": "清除"
+  "cleanUp": "清除",
+  "login": {
+    "title": "欢迎使用",
+    "welcome": "欢迎使用快图",
+    "login": "登录",
+    "register": "注册",
+    "identifier": "用户名",
+    "username": "用户名",
+    "password": "密码",
+    "email": "邮箱",
+    "identifierValidate": "请输入用户名",
+    "passwordValidate": "请输入6位以上的密码",
+    "emailValidate": "请输入正确的邮箱地址",
+    "logoutTip": "确定要退出吗？",
+    "logoutSuccessTip": "退出成功"
+  },
+  "myMaterial": {
+    "uploadBtn": "上传素材"
+  },
+  "admin": {
+    "btnTitle": "管理",
+    "setToken": "设置Token",
+    "save": "保存",
+    "create": "新增",
+    "addTempl": "新增模板",
+    "addTemplPlaceholder": "请输入模板名称",
+    "addTemplCheckTip": "模板名称不能为空"
+  },
+  "mine": "我的",
+  "batch": "批量"
 }

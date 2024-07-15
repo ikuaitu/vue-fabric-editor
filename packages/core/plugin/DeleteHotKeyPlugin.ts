@@ -11,19 +11,14 @@ import Editor from '../Editor';
 type IEditor = Editor;
 // import { v4 as uuid } from 'uuid';
 
-class DeleteHotKeyPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class DeleteHotKeyPlugin implements IPluginTempl {
   static pluginName = 'DeleteHotKeyPlugin';
   static apis = ['del'];
-  public hotkeys: string[] = ['backspace'];
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-  }
+  hotkeys: string[] = ['backspace'];
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   // 快捷键扩展回调
-  hotkeyEvent(eventName: string, e: any) {
+  hotkeyEvent(eventName: string, e: KeyboardEvent) {
     if (e.type === 'keydown' && eventName === 'backspace') {
       this.del();
     }

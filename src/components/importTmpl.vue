@@ -2,170 +2,167 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-02-06 16:35:45
+ * @LastEditTime: 2024-06-12 22:07:28
  * @Description: 导入模板
 -->
 
 <template>
   <div>
+    <!-- 搜索组件 -->
     <div class="search-box">
-      <Cascader
-        :data="[allType, ...state.materialTypelist]"
-        v-model="state.materialType"
-        @on-change="handleChange"
-      >
-        <Button icon="ios-menu"></Button>
-      </Cascader>
+      <Select class="select" v-model="typeValue" @on-change="startGetList" :disabled="pageLoading">
+        <Option v-for="item in typeList" :value="item.value" :key="item.value">
+          {{ item.label }}
+        </Option>
+      </Select>
       <Input
         class="input"
-        :placeholder="state.placeholder"
-        v-model="state.search"
+        :placeholder="`在${typeText}中搜索`"
+        v-model="searchKeyWord"
         search
-        @on-change="search"
+        :disabled="pageLoading"
+        @on-search="startGetList"
       />
     </div>
-
-    <div :key="item.value" v-for="item in state.materialist">
-      <Divider plain orientation="left">{{ item.label }}</Divider>
-      <Tooltip
-        :content="info.label"
-        v-for="(info, i) in item.list"
-        :key="`${i}-bai1-button`"
-        placement="top"
+    <!-- 列表 -->
+    <div style="height: calc(100vh - 108px)" id="myTemplBox">
+      <Scroll
+        key="mysscroll"
+        v-if="showScroll"
+        :on-reach-bottom="nextPage"
+        :height="scrollHeight"
+        :distance-to-edge="[-1, -1]"
       >
-        <img
-          class="tmpl-img"
-          :alt="info.label"
-          v-lazy="info.src"
-          @click="beforeClearTip(info.tempUrl)"
-        />
-      </Tooltip>
+        <!-- 列表 -->
+        <div class="list-box">
+          <Tooltip :content="info.name" v-for="info in pageData" :key="info.src" placement="top">
+            <div class="tmpl-img-box">
+              <Image
+                lazy
+                :src="info.previewSrc"
+                fit="contain"
+                height="100%"
+                :alt="info.name"
+                @click="beforeClearTip(info)"
+              />
+            </div>
+          </Tooltip>
+        </div>
+        <Spin size="large" fix :show="pageLoading"></Spin>
+
+        <Divider plain v-if="isDownBottm">已经到底了</Divider>
+      </Scroll>
     </div>
   </div>
 </template>
 
-<script setup name="ImportTmpl" lang="ts">
+<script setup name="ImportTmpl">
 import useSelect from '@/hooks/select';
-import axios from 'axios';
+import usePageList from '@/hooks/pageList';
 import { Spin, Modal } from 'view-ui-plus';
+
 import { useI18n } from 'vue-i18n';
-import { cloneDeep } from 'lodash-es';
-
+import { useRouter, useRoute } from 'vue-router';
+const router = useRouter();
+const route = useRoute();
 const { t } = useI18n();
-const { canvasEditor }: { canvasEditor: any } = useSelect();
+const { canvasEditor } = useSelect();
 
-interface materialTypeI {
-  value: string;
-  label: string;
-  list?: materialItemI[];
-}
-
-interface materialItemI {
-  value: string;
-  label: string;
-  tempUrl: string;
-  src: string;
-}
-
-const allType: materialTypeI = {
-  value: '',
-  label: '全部',
-};
-
-const state = reactive({
-  search: '',
-  placeholder: <undefined | string>'',
-  jsonFile: <any>null,
-  materialType: [''], // 选中分类
-  materialTypelist: <materialTypeI[]>[], // 分类列表
-  materialist: <materialTypeI[]>[], // 列表内容
+const {
+  startPage,
+  typeValue,
+  typeText,
+  typeList,
+  pageLoading,
+  pageData,
+  searchKeyWord,
+  isDownBottm,
+  startGetList,
+  nextPage,
+  showScroll,
+  scrollHeight,
+  getInfo,
+} = usePageList({
+  typeUrl: 'templ-types',
+  listUrl: 'templs',
+  searchTypeKey: 'templ_type',
+  searchWordKey: 'name',
+  pageSize: 10,
+  scrollElement: '#myTemplBox',
+  fields: ['name'],
 });
-
-// 获取素材分类
-canvasEditor.getMaterialType('template').then((list: materialTypeI[]) => {
-  state.materialTypelist = [...list];
-  state.materialist = list;
-});
-
-// 插入文件
-const insertSvgFile = () => {
-  canvasEditor.insertSvgFile(state.jsonFile);
-};
 
 // 替换提示
-const beforeClearTip = (tmplUrl: string) => {
+const beforeClearTip = (info) => {
   Modal.confirm({
     title: t('tip'),
     content: `<p>${t('replaceTip')}</p>`,
     okText: t('ok'),
     cancelText: t('cancel'),
-    onOk: () => getTempData(tmplUrl),
+    onOk: () => getTempData(info),
   });
 };
+
+onMounted(() => {
+  startPage();
+  getTemplInfo();
+});
 
 // 获取模板数据
-const getTempData = (tmplUrl: string) => {
+const getTempData = async (info) => {
   Spin.show({
-    render: (h: any) => h('div', t('alert.loading_data')),
+    render: (h) => h('div', t('alert.loading_data')),
   });
-  const getTemp = axios.get(tmplUrl);
-  getTemp.then((res) => {
-    state.jsonFile = JSON.stringify(res.data);
-    Spin.hide();
-    insertSvgFile();
-  });
-};
-// 切换素材类型
-const handleChange = (e: Event, item: [materialItemI]) => {
-  // 搜索框文字设置
-  const { label, value } = item[0];
-  state.placeholder = label;
-  state.search = '';
-  filterTypeList(value);
-};
-
-// 模板搜索功能
-const filterTypeList = (value: string) => {
-  // 全部类型
-  if (!value) {
-    state.materialist = cloneDeep(state.materialTypelist);
+  const infoRes = await getInfo(info.id);
+  if (route.query.admin) {
+    router.replace('/?tempId=' + info.id + '&admin=true');
   } else {
-    // 当前分类详情
-    const materialTypeInfoList =
-      state.materialTypelist.filter((item) => item.value === value) || [];
-    state.materialist = materialTypeInfoList;
+    router.replace('/?tempId=' + info.id);
   }
-
-  // 展示分类
-  if (state.search) {
-    const list = cloneDeep(state.materialist);
-    // 按照搜索内容展示
-    state.materialist = list.map((item) => {
-      if (item.list) {
-        item.list = item.list.filter((info) => info.label.includes(state.search));
-      }
-      return item;
-    });
-  }
+  canvasEditor.loadJSON(JSON.stringify(infoRes.data.data.attributes.json), Spin.hide);
 };
 
-const search = () => {
-  const [typeValue] = state.materialType;
-  filterTypeList(typeValue);
+const getTemplInfo = async () => {
+  if (route.query.tempId) {
+    try {
+      const infoRes = await getInfo(route.query.tempId);
+      canvasEditor.loadJSON(JSON.stringify(infoRes.data.data.attributes.json), Spin.hide);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };
 </script>
 
 <style scoped lang="less">
 .search-box {
   padding-top: 10px;
+  padding-bottom: 10px;
   display: flex;
   .input {
     margin-left: 10px;
   }
+  .select {
+    width: 100px;
+  }
 }
-.tmpl-img {
-  width: 132px;
+
+.list-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.tmpl-img-box {
+  width: 140px;
   cursor: pointer;
-  margin-right: 5px;
+  border-radius: 5px;
+  overflow: hidden;
+  &:hover {
+    :deep(.ivu-image-img) {
+      opacity: 0.8;
+    }
+  }
 }
 </style>

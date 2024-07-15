@@ -13,16 +13,12 @@ type IEditor = Editor;
 
 import initRuler from '../ruler';
 
-class RulerPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class RulerPlugin implements IPluginTempl {
   static pluginName = 'RulerPlugin';
-  // static events = ['sizeChange'];
+  //  static events = ['sizeChange'];
   static apis = ['hideGuideline', 'showGuideline', 'rulerEnable', 'rulerDisable'];
   ruler: any;
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.init();
   }
 

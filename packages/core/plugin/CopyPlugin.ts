@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:38:37
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-11 12:36:03
+ * @LastEditTime: 2024-06-07 11:25:05
  * @Description: 复制插件
  */
 
@@ -12,17 +12,12 @@ type IEditor = Editor;
 import { v4 as uuid } from 'uuid';
 import { getImgStr } from '../utils/utils';
 
-class CopyPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class CopyPlugin implements IPluginTempl {
   static pluginName = 'CopyPlugin';
   static apis = ['clone'];
-  public hotkeys: string[] = ['ctrl+v', 'ctrl+c'];
-  private cache: null | fabric.ActiveSelection | fabric.Object;
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-    this.cache = null;
+  hotkeys: string[] = ['ctrl+v', 'ctrl+c'];
+  private cache: null | fabric.ActiveSelection | fabric.Object = null;
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.initPaste();
   }
 
@@ -31,6 +26,7 @@ class CopyPlugin {
     // 间距设置
     const grid = 10;
     const canvas = this.canvas;
+    const keys = this.editor.getExtensionKey();
     activeObject?.clone((cloned: fabric.Object) => {
       // 再次进行克隆，处理选择多个对象的情况
       cloned.clone((clonedObj: fabric.ActiveSelection) => {
@@ -54,7 +50,7 @@ class CopyPlugin {
         canvas.setActiveObject(clonedObj);
         canvas.requestRenderAll();
       });
-    });
+    }, keys);
   }
 
   // 单个对象复制
@@ -62,6 +58,7 @@ class CopyPlugin {
     // 间距设置
     const grid = 10;
     const canvas = this.canvas;
+    const keys = this.editor.getExtensionKey();
     activeObject?.clone((cloned: fabric.Object) => {
       if (cloned.left === undefined || cloned.top === undefined) return;
       canvas.discardActiveObject();
@@ -75,7 +72,7 @@ class CopyPlugin {
       canvas.add(cloned);
       canvas.setActiveObject(cloned);
       canvas.requestRenderAll();
-    });
+    }, keys);
   }
 
   // 复制元素
@@ -90,15 +87,20 @@ class CopyPlugin {
   }
 
   // 快捷键扩展回调
-  hotkeyEvent(eventName: string, e: any) {
+  hotkeyEvent(eventName: string, e: KeyboardEvent) {
     if (eventName === 'ctrl+c' && e.type === 'keydown') {
       const activeObject = this.canvas.getActiveObject();
       this.cache = activeObject;
+      // 清空剪切板
+      navigator.clipboard.writeText('');
     }
     if (eventName === 'ctrl+v' && e.type === 'keydown') {
-      if (this.cache) {
-        this.clone(this.cache);
-      }
+      // 确保clone元素操作的执行晚于pasteListener
+      setTimeout(() => {
+        if (this.cache) {
+          this.clone(this.cache);
+        }
+      }, 0);
     }
   }
 
@@ -211,11 +213,8 @@ class CopyPlugin {
         });
       }
     }
-    if (!items.length) {
-      if (this.cache) {
-        this.clone(this.cache);
-      }
-    }
+    // 复制浏览器外的元素时，清空暂存的画布内粘贴元素
+    if (items.length) this.cache = null;
   }
 }
 

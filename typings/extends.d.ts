@@ -4,17 +4,34 @@ declare namespace fabric {
     lowerCanvasEl: HTMLElement;
     wrapperEl: HTMLElement;
     isDragging: boolean;
+    historyProcessing: boolean;
     _currentTransform: unknown;
     extraProps: any;
-    clearHistory(): void;
+    clearHistory(boolean): void;
+    clearUndo(): void;
     _historyNext(): void;
     _historyInit(): void;
+    offHistory(): void;
     _centerObject: (obj: fabric.Object, center: fabric.Point) => fabric.Canvas;
     _setupCurrentTransform(e: Event, target: fabric.Object, alreadySelected: boolean): void;
   }
 
   export interface Control {
     rotate: number;
+  }
+
+  export interface IObjectOptions {
+    /**
+     * 标识
+     */
+    id?: string | undefined;
+  }
+
+  export interface IUtil {
+    findScaleToFit: (
+      source: Record<string, unknown> | fabric.Object,
+      destination: Record<string, unknown> | fabric.Object
+    ) => number;
   }
 
   function ControlMouseEventHandler(

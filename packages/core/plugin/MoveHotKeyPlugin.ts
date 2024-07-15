@@ -11,18 +11,13 @@ import Editor from '../Editor';
 type IEditor = Editor;
 // import { v4 as uuid } from 'uuid';
 
-class MoveHotKeyPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class MoveHotKeyPlugin implements IPluginTempl {
   static pluginName = 'MoveHotKeyPlugin';
-  public hotkeys: string[] = ['left', 'right', 'down', 'up'];
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-  }
+  hotkeys: string[] = ['left', 'right', 'down', 'up'];
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   // 快捷键扩展回调
-  hotkeyEvent(eventName: string, e: any) {
+  hotkeyEvent(eventName: string, e: KeyboardEvent) {
     if (e.type === 'keydown') {
       const { canvas } = this;
       const activeObject = canvas.getActiveObject();

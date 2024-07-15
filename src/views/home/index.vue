@@ -1,82 +1,76 @@
+<!--
+ * @Author: 秦少卫
+ * @Date: 2024-05-17 15:30:21
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-07-06 12:36:48
+ * @Description: file content
+-->
 <template>
   <div class="home">
     <Layout>
       <!-- 头部区域 -->
       <Header v-if="state.show">
-        <!-- logo -->
-        <span class="logo">
+        <div class="left">
+          <logo></logo>
+          <Divider type="vertical" />
+
+          <!-- 导入 -->
+          <import-Json></import-Json>
+          <Divider type="vertical" />
+          <import-file></import-file>
+          <Divider type="vertical" />
+          <Button type="text" to="/template" target="_blank">全部模板</Button>
+          <Divider type="vertical" />
+
+          <myTemplName></myTemplName>
+          <!-- 标尺开关 -->
+          <Tooltip :content="$t('grid')">
+            <iSwitch
+              v-model="state.ruler"
+              @on-change="rulerSwitch"
+              size="small"
+              class="switch"
+            ></iSwitch>
+          </Tooltip>
+          <Divider type="vertical" />
+          <history></history>
+        </div>
+
+        <div class="right">
           <a href="https://github.com/nihaojob/vue-fabric-editor" target="_blank">
-            <Icon type="logo-github" :size="30" />
+            <img
+              src="https://camo.githubusercontent.com/f440bed74efe64ce92599748090837ec92cc33ead4bf29d115d9745af1415c19/68747470733a2f2f62616467656e2e6e65742f6769746875622f73746172732f6e6968616f6a6f622f7675652d6661627269632d656469746f72"
+              alt="vue-fbric-editor"
+            />
           </a>
-        </span>
-
-        <!-- 导入 -->
-        <import-Json></import-Json>
-        <Divider type="vertical" />
-        <import-file></import-file>
-        <Divider type="vertical" />
-        <!-- 标尺开关 -->
-        <Tooltip :content="$t('grid')">
-          <iSwitch
-            v-model="state.ruler"
-            @on-change="rulerSwitch"
-            size="small"
-            class="switch"
-          ></iSwitch>
-        </Tooltip>
-        <Divider type="vertical" />
-        <history></history>
-
-        <div style="float: right">
+          <!-- 管理员模式 -->
+          <admin />
           <!-- 预览 -->
           <previewCurrent />
           <waterMark />
           <save></save>
+          <login></login>
           <lang></lang>
         </div>
       </Header>
       <Content style="display: flex; height: calc(100vh - 64px)">
         <!-- 左侧区域 -->
         <div v-if="state.show" :class="`left-bar ${state.toolsBarShow && 'show-tools-bar'}`">
-          <Menu :active-name="state.menuActive" accordion @on-select="showToolsBar" width="65px">
-            <MenuItem :name="1" class="menu-item">
-              <Icon type="md-book" size="24" />
-              <div>{{ $t('templates') }}</div>
-            </MenuItem>
-            <MenuItem :name="2" class="menu-item">
-              <Icon type="md-images" size="24" />
-              <div>{{ $t('elements') }}</div>
-            </MenuItem>
-            <MenuItem :name="3" class="menu-item">
-              <Icon type="ios-leaf-outline" size="24" />
-              <div>{{ $t('material.cartoon') }}</div>
-            </MenuItem>
-            <MenuItem :name="4" class="menu-item">
-              <Icon type="md-reorder" size="24" />
-              <div>{{ $t('layers') }}</div>
+          <!-- 左侧菜单 -->
+          <Menu :active-name="menuActive" accordion @on-select="showToolsBar" width="65px">
+            <MenuItem v-for="item in leftBar" :key="item.key" :name="item.key" class="menu-item">
+              <Icon :type="item.icon" size="24" />
+              <div>{{ item.name }}</div>
             </MenuItem>
           </Menu>
-
+          <!-- 左侧组件 -->
           <div class="content" v-show="state.toolsBarShow">
-            <!-- 生成模板 -->
-            <div v-show="state.menuActive === 1" class="left-panel">
-              <import-tmpl></import-tmpl>
-            </div>
-            <!-- 常用元素 -->
-            <div v-show="state.menuActive === 2" class="left-panel">
-              <tools></tools>
-              <fontTmpl></fontTmpl>
-            </div>
-            <!-- 卡通素材 -->
-            <div v-show="state.menuActive === 3" class="left-panel">
-              <importSvgEl></importSvgEl>
-            </div>
-            <!-- 图层设置 -->
-            <div v-show="state.menuActive === 4" class="left-panel">
-              <layer></layer>
+            <div class="left-panel">
+              <KeepAlive>
+                <component :is="leftBarComponent[menuActive]"></component>
+              </KeepAlive>
             </div>
           </div>
-
           <!-- 关闭按钮 -->
           <div
             :class="`close-btn left-btn ${state.toolsBarShow && 'left-btn-open'}`"
@@ -91,33 +85,85 @@
             <canvas id="canvas" :class="state.ruler ? 'design-stage-grid' : ''"></canvas>
             <dragMode v-if="state.show"></dragMode>
             <zoom></zoom>
-            <!-- <mouseMenu></mouseMenu> -->
           </div>
         </div>
 
         <!-- 属性区域 380-->
         <div class="right-bar" v-show="state.attrBarShow">
           <div v-if="state.show" style="padding-top: 10px">
-            <!-- 新增字体样式使用 -->
-            <!-- <Button @click="getFontJson" size="small">获取字体数据</Button> -->
-            <set-size></set-size>
-            <bg-bar></bg-bar>
-            <group></group>
-            <replaceImg></replaceImg>
-            <filters></filters>
-            <div class="attr-item">
-              <lock></lock>
-              <dele></dele>
-              <clone></clone>
+            <!-- 未选择元素时 展示背景设置 -->
+            <div v-show="!mixinState.mSelectMode">
+              <set-size></set-size>
+              <bg-bar></bg-bar>
             </div>
-            <!-- 组对齐方式 -->
-            <align></align>
-            <!-- 居中对齐 -->
-            <center-align></center-align>
-            <!-- 翻转 -->
-            <flip></flip>
+
+            <!-- 多选时展示 -->
+            <div v-show="mixinState.mSelectMode === 'multiple'">
+              <!-- 分组 -->
+              <group></group>
+              <!-- <Divider plain></Divider> -->
+              <!-- 组对齐方式 -->
+              <align></align>
+              <!-- 居中对齐 -->
+              <center-align></center-align>
+            </div>
+
+            <div v-show="mixinState.mSelectMode === 'one'" class="attr-item-box">
+              <!-- <h3>快捷操作</h3> -->
+              <!-- 分组 -->
+              <group></group>
+              <!-- <Divider plain></Divider> -->
+              <Divider plain orientation="left">
+                <h4>快捷操作</h4>
+              </Divider>
+              <div class="bg-item" v-show="mixinState.mSelectMode">
+                <lock></lock>
+                <dele></dele>
+                <clone></clone>
+                <hide></hide>
+                <edit></edit>
+              </div>
+              <!-- <Divider plain></Divider> -->
+              <!-- 居中对齐 -->
+              <center-align></center-align>
+              <!-- 替换图片 -->
+              <replaceImg></replaceImg>
+              <!-- 图片裁切 -->
+              <clip-image></clip-image>
+              <!-- 翻转 -->
+              <flip></flip>
+              <!-- 条形码属性 -->
+              <attributeBarcode></attributeBarcode>
+              <!-- 二维码 -->
+              <attributeQrCode></attributeQrCode>
+              <!-- 图片滤镜 -->
+              <filters></filters>
+              <!-- 图片描边 -->
+              <imgStroke />
+              <!-- 颜色 -->
+              <attributeColor></attributeColor>
+              <!-- 字体属性 -->
+              <attributeFont></attributeFont>
+              <!-- 字体小数点 -->
+              <attributeTextFloat></attributeTextFloat>
+              <!-- 文字内容  -->
+              <attribute-text-content></attribute-text-content>
+              <!-- 位置信息 -->
+              <attributePostion></attributePostion>
+              <!-- 阴影 -->
+              <attributeShadow></attributeShadow>
+              <!-- 边框 -->
+              <attributeBorder></attributeBorder>
+              <!-- 圆角 -->
+              <attributeRounded></attributeRounded>
+              <!-- 关联数据 -->
+              <attributeId></attributeId>
+
+              <!-- 新增字体样式使用 -->
+              <Button @click="canvasEditor.getFontJson()" size="small">获取元素数据</Button>
+            </div>
           </div>
-          <attribute v-if="state.show"></attribute>
+          <!-- <attribute v-if="state.show"></attribute> -->
         </div>
         <!-- 右侧关闭按钮 -->
         <div
@@ -133,47 +179,73 @@
 // 导入元素
 import importJson from '@/components/importJSON.vue';
 import importFile from '@/components/importFile.vue';
-import fontTmpl from '@/components/fontTmpl.vue';
+// 路由
+import { useRoute } from 'vue-router';
+
+// import fontTmpl from '@/components/fontTmpl.vue';
 
 // 顶部组件
+import logo from '@/components/logo.vue';
 import align from '@/components/align.vue';
+import myTemplName from '@/components/myTemplName.vue';
 import centerAlign from '@/components/centerAlign.vue';
 import flip from '@/components/flip.vue';
 import previewCurrent from '@/components/previewCurrent';
 import save from '@/components/save.vue';
 import lang from '@/components/lang.vue';
 import clone from '@/components/clone.vue';
+import hide from '@/components/hide.vue';
 import group from '@/components/group.vue';
 import zoom from '@/components/zoom.vue';
 import dragMode from '@/components/dragMode.vue';
 import lock from '@/components/lock.vue';
 import dele from '@/components/del.vue';
-import waterMark from '@/components/waterMark';
+import waterMark from '@/components/waterMark.vue';
+import login from '@/components/login';
+import admin from '@/components/admin';
 // 左侧组件
 import importTmpl from '@/components/importTmpl.vue';
+import fontStyle from '@/components/fontStyle.vue';
+import myMaterial from '@/components/myMaterial/index.vue';
 import tools from '@/components/tools.vue';
-import importSvgEl from '@/components/importSvgEl.vue';
+import material from '@/components/material.vue';
 import bgBar from '@/components/bgBar.vue';
 import setSize from '@/components/setSize.vue';
 import replaceImg from '@/components/replaceImg.vue';
 import filters from '@/components/filters.vue';
-
+import imgStroke from '@/components/imgStroke.vue';
+// import elementData from '@/components/elementData.vue';
 // 右侧组件
 import history from '@/components/history.vue';
 import layer from '@/components/layer.vue';
-import attribute from '@/components/attribute.vue';
+// import attribute from '@/components/attribute.vue';
+import attributePostion from '@/components/attributePostion.vue';
+import attributeId from '@/components/attributeId.vue';
+import attributeShadow from '@/components/attributeShadow.vue';
+import attributeBorder from '@/components/attributeBorder.vue';
+import attributeRounded from '@/components/attributeRounded.vue';
+import attributeFont from '@/components/attributeFont.vue';
+import attributeTextFloat from '@/components/attributeTextFloat.vue';
+import attributeColor from '@/components/attributeColor.vue';
+import attributeBarcode from '@/components/attributeBarcode.vue';
+import attributeQrCode from '@/components/attributeQrCode.vue';
 
 // 功能组件
-// import { downFile } from '@/utils/utils';
 import { fabric } from 'fabric';
 
-const repoSrc = import.meta.env.APP_REPO;
+// hooks
+import useSelectListen from '@/hooks/useSelectListen';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+
+const APIHOST = import.meta.env.APP_APIHOST;
 
 import Editor, {
   DringPlugin,
   AlignGuidLinePlugin,
   ControlsPlugin,
-  ControlsRotatePlugin,
+  // ControlsRotatePlugin,
   CenterAlignPlugin,
   LayerPlugin,
   CopyPlugin,
@@ -184,12 +256,29 @@ import Editor, {
   GroupTextEditorPlugin,
   GroupAlignPlugin,
   WorkspacePlugin,
-  DownFontPlugin,
   HistoryPlugin,
   FlipPlugin,
   RulerPlugin,
   MaterialPlugin,
+  WaterMarkPlugin,
+  FontPlugin,
+  PolygonModifyPlugin,
+  DrawPolygonPlugin,
+  FreeDrawPlugin,
+  PathTextPlugin,
+  PsdPlugin,
+  SimpleClipImagePlugin,
+  BarCodePlugin,
+  QrCodePlugin,
+  ImageStroke,
+  ResizePlugin,
+  LockPlugin,
+  AddBaseTypePlugin,
+  MaskPlugin,
 } from '@kuaitu/core';
+import Edit from '@/components/edit.vue';
+import ClipImage from '@/components/clipImage.vue';
+import AttributeTextContent from '@/components/attributeTextContent.vue';
 
 // 创建编辑器
 const canvasEditor = new Editor();
@@ -203,21 +292,75 @@ const state = reactive({
   ruler: true,
 });
 
+// 左侧菜单渲染
+const menuActive = ref('importTmpl');
+const leftBarComponent = {
+  importTmpl,
+  tools,
+  material,
+  fontStyle,
+  layer,
+  myMaterial,
+};
+
+// fix: 修复vue-i18n function "t" not reactive inside ref object
+// https://github.com/intlify/vue-i18n/issues/1396#issuecomment-1716123143
+const leftBar = reactive([
+  {
+    //模板
+    key: 'importTmpl',
+    name: computed(() => t('templates')),
+    icon: 'md-book',
+  },
+  {
+    //基础元素
+    key: 'tools',
+    name: computed(() => t('elements')),
+    icon: 'md-images',
+  },
+  {
+    //字体样式
+    key: 'fontStyle',
+    name: computed(() => t('font_style')),
+    icon: 'ios-pulse',
+  },
+  {
+    // 图片元素
+    key: 'material',
+    name: computed(() => t('material.cartoon')),
+    icon: 'ios-leaf-outline',
+  },
+  {
+    // 图层
+    key: 'layer',
+    name: computed(() => t('layers')),
+    icon: 'md-reorder',
+  },
+  {
+    // 用户素材
+    key: 'myMaterial',
+    name: computed(() => t('mine')),
+    icon: 'ios-contact-outline',
+  },
+]);
+
 onMounted(() => {
   // 初始化fabric
   const canvas = new fabric.Canvas('canvas', {
     fireRightClick: true, // 启用右键，button的数字为3
     stopContextMenu: true, // 禁止默认右键菜单
     controlsAboveOverlay: true, // 超出clipPath后仍然展示控制条
-    imageSmoothingEnabled: false, // 解决文字导出后不清晰问题
+    // imageSmoothingEnabled: false, // 解决文字导出后不清晰问题
+    preserveObjectStacking: true, // 当选择画布中的对象时，让对象不在顶层。
   });
 
   // 初始化编辑器
   canvasEditor.init(canvas);
   canvasEditor.use(DringPlugin);
+  canvasEditor.use(PolygonModifyPlugin);
   canvasEditor.use(AlignGuidLinePlugin);
   canvasEditor.use(ControlsPlugin);
-  canvasEditor.use(ControlsRotatePlugin);
+  // canvasEditor.use(ControlsRotatePlugin);
   canvasEditor.use(CenterAlignPlugin);
   canvasEditor.use(LayerPlugin);
   canvasEditor.use(CopyPlugin);
@@ -228,42 +371,51 @@ onMounted(() => {
   canvasEditor.use(GroupTextEditorPlugin);
   canvasEditor.use(GroupAlignPlugin);
   canvasEditor.use(WorkspacePlugin);
-  canvasEditor.use(DownFontPlugin);
   canvasEditor.use(HistoryPlugin);
   canvasEditor.use(FlipPlugin);
   canvasEditor.use(RulerPlugin);
-  canvasEditor.use(MaterialPlugin, {
-    repoSrc,
+  canvasEditor.use(DrawPolygonPlugin);
+  canvasEditor.use(FreeDrawPlugin);
+  canvasEditor.use(PathTextPlugin);
+  canvasEditor.use(SimpleClipImagePlugin);
+  canvasEditor.use(BarCodePlugin);
+  canvasEditor.use(QrCodePlugin);
+  canvasEditor.use(FontPlugin, {
+    repoSrc: APIHOST,
   });
+  canvasEditor.use(MaterialPlugin, {
+    repoSrc: APIHOST,
+  });
+  canvasEditor.use(WaterMarkPlugin);
+  canvasEditor.use(PsdPlugin);
+  canvasEditor.use(ImageStroke);
+  canvasEditor.use(ResizePlugin);
+  canvasEditor.use(LockPlugin);
+  canvasEditor.use(AddBaseTypePlugin);
+  canvasEditor.use(MaskPlugin);
 
   state.show = true;
   // 默认打开标尺
   if (state.ruler) {
     canvasEditor.rulerEnable();
   }
+
+  // 有ID时，打开作品面板
+  const route = useRoute();
+  if (route?.query?.id) {
+    menuActive.value = 'myMaterial';
+  }
 });
 
-// 获取字体数据 新增字体样式使用
-// getFontJson() {
-//   const activeObject = this.canvas.getActiveObject();
-//   if (activeObject) {
-//     const json = activeObject.toJSON(['id', 'gradientAngle', 'selectable', 'hasControls']);
-//     console.log(json);
-//     const fileStr = `data:text/json;charset=utf-8,${encodeURIComponent(
-//       JSON.stringify(json, null, '\t')
-//     )}`;
-//     downFile(fileStr, 'font.json');
-//     const dataUrl = activeObject.toDataURL();
-//     downFile(dataUrl, 'font.png');
-//   }
-// },
-
+onUnmounted(() => canvasEditor.destory());
 const rulerSwitch = (val) => {
   if (val) {
     canvasEditor.rulerEnable();
   } else {
     canvasEditor.rulerDisable();
   }
+  // 使标尺开关组件失焦，避免响应键盘的空格事件
+  document.activeElement.blur();
 };
 
 // 隐藏工具条
@@ -272,7 +424,7 @@ const hideToolsBar = () => {
 };
 // 展示工具条
 const showToolsBar = (val) => {
-  state.menuActive = val;
+  menuActive.value = val;
   state.toolsBarShow = true;
 };
 // 属性面板开关
@@ -280,22 +432,13 @@ const switchAttrBar = () => {
   state.attrBarShow = !state.attrBarShow;
 };
 
+const { mixinState } = useSelectListen(canvasEditor);
+
 provide('fabric', fabric);
-// provide('event', event);
 provide('canvasEditor', canvasEditor);
+provide('mixinState', mixinState);
 </script>
 <style lang="less" scoped>
-.logo {
-  width: 30px;
-  height: 30px;
-  display: inline-block;
-  margin-right: 10px;
-  text-align: center;
-  vertical-align: middle;
-  .ivu-icon {
-    vertical-align: super;
-  }
-}
 // 左侧容器
 .left-bar {
   width: 65px;
@@ -310,12 +453,11 @@ provide('canvasEditor', canvasEditor);
 }
 // 右侧容器
 .right-bar {
-  width: 304px; height: 100%; padding: 10px; overflow-y: auto; background: #fff
-  // width: 240px;
-  // height: 100%;
-  // padding: 10px;
-  // overflow-y: auto;
-  // background: #fff;
+  width: 304px;
+  height: 100%;
+  padding: 10px;
+  overflow-y: auto;
+  background: #fff;
 }
 
 // 关闭按钮
@@ -384,13 +526,24 @@ provide('canvasEditor', canvasEditor);
 
 :deep(.ivu-layout-header) {
   --height: 45px;
-  padding: 0 10px;
+  padding: 0 0px;
   border-bottom: 1px solid #eef2f8;
   background: #fff;
   height: var(--height);
   line-height: var(--height);
+  display: flex;
+  justify-content: space-between;
 }
 
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  img {
+    display: block;
+    margin-right: 10px;
+  }
+}
 .home,
 .ivu-layout {
   height: 100vh;
@@ -421,15 +574,16 @@ provide('canvasEditor', canvasEditor);
 
 #workspace {
   flex: 1;
-  width: 100%; position: relative; background: #f1f1f1;
+  width: 100%;
+  position: relative;
+  background: #f1f1f1;
   overflow: hidden;
 }
 
 .content {
   flex: 1;
   width: 220px;
-  padding: 10px;
-  padding-top: 0;
+  padding: 0 10px;
   height: 100%;
   overflow-y: auto;
 }

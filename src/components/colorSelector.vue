@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2023-02-16 22:52:00
- * @LastEditors: June
- * @LastEditTime: 2024-01-31 12:46:50
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-05-21 15:15:04
  * @Description: 颜色选择器
 -->
 <template>
@@ -36,8 +36,8 @@
 </template>
 
 <script setup name="ColorSelector">
-import 'color-gradient-picker-vue3/dist/style.css';
-import gradientColorPicker from 'color-gradient-picker-vue3';
+// import 'color-gradient-picker-vue3/dist/style.css';
+// import gradientColorPicker from 'color-gradient-picker-vue3';
 import { fabric } from 'fabric';
 import useSelect from '@/hooks/select';
 import { debounce } from 'lodash-es';
@@ -177,6 +177,7 @@ const setGradientBar = (val) => {
 // Fabric渐变bar背景设置
 const fabricGradientToBar = (val) => {
   // 百分比排序
+  if (!val?.colorStops) return; // 防止从模板加载后出现colorStops报错
   val.colorStops.sort((a, b) => a.offset - b.offset);
   const str = val.colorStops.map((item) => `${item.color} ${item.offset * 100}%`);
   bgStr.value = `background: linear-gradient(124deg, ${str});`;

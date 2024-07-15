@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-15 22:49:42
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:32:51
+ * @LastEditTime: 2024-07-09 14:12:41
  * @Description: 居中对齐插件
  */
 
@@ -10,16 +10,11 @@ import { fabric } from 'fabric';
 import Editor from '../Editor';
 type IEditor = Editor;
 
-class CenterAlignPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class CenterAlignPlugin implements IPluginTempl {
   static pluginName = 'CenterAlignPlugin';
   static apis = ['centerH', 'center', 'position', 'centerV'];
   // public hotkeys: string[] = ['space'];
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-  }
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   center(workspace: fabric.Rect, object: fabric.Object) {
     const center = workspace.getCenterPoint();
@@ -46,7 +41,6 @@ class CenterAlignPlugin {
     if (anignType.includes(name) && activeObject) {
       const defaultWorkspace = this.canvas.getObjects().find((item) => item.id === 'workspace');
       if (defaultWorkspace) {
-        console.log(this[name]);
         this[name](defaultWorkspace, activeObject);
       }
       this.canvas.renderAll();

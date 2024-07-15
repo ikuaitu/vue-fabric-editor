@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-15 23:23:18
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:33:28
+ * @LastEditTime: 2024-07-06 23:53:42
  * @Description: 图层调整插件
  */
 
@@ -10,23 +10,30 @@ import { fabric } from 'fabric';
 import Editor from '../Editor';
 type IEditor = Editor;
 
-class LayerPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class LayerPlugin implements IPluginTempl {
   static pluginName = 'LayerPlugin';
-  static apis = ['up', 'upTop', 'down', 'downTop'];
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
-  }
+  static apis = ['up', 'down', 'toFront', 'toBack'];
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   _getWorkspace() {
-    return this.canvas.getObjects().find((item) => item.id === 'workspace');
+    const result: Record<'workspace' | 'coverMask', fabric.Object | null> = {
+      workspace: null,
+      coverMask: null,
+    };
+    this.canvas.getObjects().forEach((item) => {
+      if (item.id === 'workspace') {
+        result.workspace = item;
+      } else if (item.id === 'coverMask') {
+        result.coverMask = item;
+      }
+    });
+    return result;
   }
 
   _workspaceSendToBack() {
     const workspace = this._getWorkspace();
-    workspace && workspace.sendToBack();
+    workspace.workspace && workspace.workspace.sendToBack();
+    workspace.coverMask && workspace.coverMask.bringToFront();
   }
 
   up() {
@@ -35,17 +42,6 @@ class LayerPlugin {
       const activeObject = this.canvas.getActiveObjects()[0];
       activeObject && activeObject.bringForward();
       this.canvas.renderAll();
-      this._workspaceSendToBack();
-    }
-  }
-
-  upTop() {
-    const actives = this.canvas.getActiveObjects();
-    if (actives && actives.length === 1) {
-      const activeObject = this.canvas.getActiveObjects()[0];
-      activeObject && activeObject.bringToFront();
-      this.canvas.renderAll();
-      console.log(this);
       this._workspaceSendToBack();
     }
   }
@@ -60,7 +56,17 @@ class LayerPlugin {
     }
   }
 
-  downTop() {
+  toFront() {
+    const actives = this.canvas.getActiveObjects();
+    if (actives && actives.length === 1) {
+      const activeObject = this.canvas.getActiveObjects()[0];
+      activeObject && activeObject.bringToFront();
+      this.canvas.renderAll();
+      this._workspaceSendToBack();
+    }
+  }
+
+  toBack() {
     const actives = this.canvas.getActiveObjects();
     if (actives && actives.length === 1) {
       const activeObject = this.canvas.getActiveObjects()[0];
@@ -80,23 +86,23 @@ class LayerPlugin {
           subitems: [
             {
               text: '上一个',
-              hotkey: 'key',
+              hotkey: '',
               onclick: () => this.up(),
             },
             {
               text: '下一个',
-              hotkey: 'key',
+              hotkey: '',
               onclick: () => this.down(),
             },
             {
               text: '置顶',
-              hotkey: 'key',
-              onclick: () => this.upTop(),
+              hotkey: '',
+              onclick: () => this.toFront(),
             },
             {
               text: '置底',
-              hotkey: 'key',
-              onclick: () => this.downTop(),
+              hotkey: '',
+              onclick: () => this.toBack(),
             },
           ],
         },

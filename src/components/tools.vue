@@ -2,7 +2,7 @@
   <div>
     <Divider plain orientation="left">{{ $t('common_elements') }}</Divider>
     <div class="tool-box">
-      <span @click="() => addText()" :draggable="true" @dragend="onDragend('text')">
+      <span @click="() => addText()" :draggable="true" @dragend="addText">
         <svg
           t="1650875455324"
           class="icon"
@@ -19,7 +19,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="() => addTextBox()" :draggable="true" @dragend="onDragend('textBox')">
+      <span @click="() => addTextBox()" :draggable="true" @dragend="addTextBox">
         <svg
           t="1650854954008"
           class="icon"
@@ -36,7 +36,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="() => addRect()" :draggable="true" @dragend="onDragend('rect')">
+      <span @click="() => addRect()" :draggable="true" @dragend="addRect">
         <svg
           t="1650855811131"
           class="icon"
@@ -53,7 +53,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="() => addCircle()" :draggable="true" @dragend="onDragend('circle')">
+      <span @click="() => addCircle()" :draggable="true" @dragend="addCircle">
         <svg
           t="1650855860236"
           class="icon"
@@ -70,7 +70,7 @@
           ></path>
         </svg>
       </span>
-      <span @click="() => addTriangle()" :draggable="true" @dragend="onDragend('triangle')">
+      <span @click="() => addTriangle()" :draggable="true" @dragend="addTriangle">
         <svg
           t="1650874633978"
           class="icon"
@@ -88,7 +88,7 @@
         </svg>
       </span>
       <!-- 多边形按钮 -->
-      <span @click="() => addPolygon()" :draggable="true" @dragend="onDragend('polygon')">
+      <span @click="() => addPolygon()" :draggable="true" @dragend="addPolygon">
         <svg
           t="1650874633978"
           class="icon"
@@ -109,8 +109,8 @@
     <Divider plain orientation="left">{{ $t('draw_elements') }}</Divider>
     <div class="tool-box">
       <span
-        @click="drawingLineModeSwitch(false)"
-        :class="state.isDrawingLineMode && !state.isArrow && 'bg'"
+        @click="drawingLineModeSwitch('line')"
+        :class="state.isDrawingLineMode && state.lineType === 'line' && 'bg'"
       >
         <svg
           t="1673022047861"
@@ -135,8 +135,8 @@
         </svg>
       </span>
       <span
-        @click="drawingLineModeSwitch(true)"
-        :class="state.isDrawingLineMode && state.isArrow && 'bg'"
+        @click="drawingLineModeSwitch('arrow')"
+        :class="state.isDrawingLineMode && state.lineType === 'arrow' && 'bg'"
       >
         <!-- <svg t="1673022047861" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4206" width="20" height="20"><path d="M187.733333 1024h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM34.133333 989.866667h136.533334v-136.533334H34.133333v136.533334zM1006.933333 204.8h-170.666666c-10.24 0-17.066667-6.826667-17.066667-17.066667v-170.666666c0-10.24 6.826667-17.066667 17.066667-17.066667h170.666666c10.24 0 17.066667 6.826667 17.066667 17.066667v170.666666c0 10.24-6.826667 17.066667-17.066667 17.066667zM853.333333 170.666667h136.533334V34.133333h-136.533334v136.533334z" fill="" p-id="4207"></path><path d="M187.733333 853.333333c-3.413333 0-10.24 0-13.653333-3.413333-6.826667-6.826667-6.826667-17.066667 0-23.893333l648.533333-648.533334c6.826667-6.826667 17.066667-6.826667 23.893334 0s6.826667 17.066667 0 23.893334l-648.533334 648.533333c0 3.413333-6.826667 3.413333-10.24 3.413333z" fill="" p-id="4208"></path></svg> -->
         <svg
@@ -156,96 +156,178 @@
           ></path>
         </svg>
       </span>
+      <span
+        @click="drawingLineModeSwitch('thinTailArrow')"
+        :class="state.isDrawingLineMode && state.lineType === 'thinTailArrow' && 'bg'"
+      >
+        <svg
+          t="1715323097309"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="24572"
+          width="20"
+          height="20"
+        >
+          <path
+            d="M485.954269 735.978673 643.38051 811.107852C688.831327 832.798434 686.17686 860.459274 635.3838 871.903075L81.378406 996.721881C31.19882 1008.027444-1.313538 976.266799 10.130269 925.473745L134.949081 371.468357C146.254656 321.288783 173.611855 317.095036 195.744311 363.471653L270.873453 520.897858 903.670271 62.052983C986.301645 2.136458 1004.805285 20.426857 944.799125 103.181838L485.954269 735.978673Z"
+            fill="#444444"
+            p-id="24573"
+          ></path>
+        </svg>
+      </span>
+      <span
+        @click="drawPolygon"
+        :class="state.isDrawingLineMode && state.lineType === 'polygon' && 'bg'"
+      >
+        <svg
+          t="1650874633978"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="203255"
+          width="26"
+          height="26"
+        >
+          <path
+            d="M161.152 398.016l134.016 412.416h433.664l134.016-412.416L512 143.104 161.152 398.08zM512 64l426.048 309.568-162.752 500.864H248.704L85.952 373.568 512 64z"
+            p-id="203355"
+          ></path>
+        </svg>
+      </span>
+      <span
+        @click="drawPathText"
+        :class="state.isDrawingLineMode && state.lineType === 'pathText' && 'bg'"
+      >
+        <Icon type="logo-tumblr" :size="22" />
+      </span>
+      <span
+        @click="freeDraw"
+        :class="state.isDrawingLineMode && state.lineType === 'freeDraw' && 'bg'"
+      >
+        <Icon type="md-brush" :size="22" />
+      </span>
+    </div>
+    <Divider plain orientation="left">{{ $t('code_img') }}</Divider>
+    <div class="tool-box">
+      <span @click="canvasEditor.addQrCode">
+        <svg
+          t="1717679888665"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          p-id="4558"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+        >
+          <path
+            d="M386.612245 470.204082H177.632653c-45.97551 0-83.591837-37.616327-83.591837-83.591837V177.632653c0-45.97551 37.616327-83.591837 83.591837-83.591837h208.979592c45.97551 0 83.591837 37.616327 83.591837 83.591837v208.979592c0 45.97551-37.616327 83.591837-83.591837 83.591837zM177.632653 135.836735c-22.987755 0-41.795918 18.808163-41.795918 41.795918v208.979592c0 22.987755 18.808163 41.795918 41.795918 41.795918h208.979592c22.987755 0 41.795918-18.808163 41.795918-41.795918V177.632653c0-22.987755-18.808163-41.795918-41.795918-41.795918H177.632653zM846.367347 470.204082h-208.979592c-45.97551 0-83.591837-37.616327-83.591837-83.591837V177.632653c0-45.97551 37.616327-83.591837 83.591837-83.591837h208.979592c45.97551 0 83.591837 37.616327 83.591837 83.591837v208.979592c0 45.97551-37.616327 83.591837-83.591837 83.591837z m-208.979592-334.367347c-22.987755 0-41.795918 18.808163-41.795918 41.795918v208.979592c0 22.987755 18.808163 41.795918 41.795918 41.795918h208.979592c22.987755 0 41.795918-18.808163 41.795918-41.795918V177.632653c0-22.987755-18.808163-41.795918-41.795918-41.795918h-208.979592z"
+            fill="#333333"
+            p-id="4559"
+          ></path>
+          <path
+            d="M773.22449 344.816327h-62.693878c-17.240816 0-31.346939-14.106122-31.346939-31.346939V250.77551c0-17.240816 14.106122-31.346939 31.346939-31.346939h62.693878c17.240816 0 31.346939 14.106122 31.346939 31.346939v62.693878c0 17.240816-14.106122 31.346939-31.346939 31.346939zM313.469388 344.816327H250.77551c-17.240816 0-31.346939-14.106122-31.346939-31.346939V250.77551c0-17.240816 14.106122-31.346939 31.346939-31.346939h62.693878c17.240816 0 31.346939 14.106122 31.346939 31.346939v62.693878c0 17.240816-14.106122 31.346939-31.346939 31.346939zM313.469388 804.571429H250.77551c-17.240816 0-31.346939-14.106122-31.346939-31.346939v-62.693878c0-17.240816 14.106122-31.346939 31.346939-31.346939h62.693878c17.240816 0 31.346939 14.106122 31.346939 31.346939v62.693878c0 17.240816-14.106122 31.346939-31.346939 31.346939zM574.693878 929.959184c-11.493878 0-20.897959-9.404082-20.89796-20.89796v-271.673469c0-45.97551 37.616327-83.591837 83.591837-83.591837h41.795918c45.97551 0 83.591837 37.616327 83.591837 83.591837v62.693878c0 22.987755 18.808163 41.795918 41.795919 41.795918h41.795918c22.987755 0 41.795918-18.808163 41.795918-41.795918v-125.387755c0-11.493878 9.404082-20.897959 20.897959-20.89796s20.897959 9.404082 20.89796 20.89796v125.387755c0 45.97551-37.616327 83.591837-83.591837 83.591836h-41.795918c-45.97551 0-83.591837-37.616327-83.591837-83.591836v-62.693878c0-22.987755-18.808163-41.795918-41.795919-41.795918h-41.795918c-22.987755 0-41.795918 18.808163-41.795918 41.795918v271.673469c0 11.493878-9.404082 20.897959-20.897959 20.89796zM909.061224 929.959184h-167.183673c-11.493878 0-20.897959-9.404082-20.897959-20.89796s9.404082-20.897959 20.897959-20.897959h167.183673c11.493878 0 20.897959 9.404082 20.89796 20.897959s-9.404082 20.897959-20.89796 20.89796z"
+            fill="#333333"
+            p-id="4560"
+          ></path>
+          <path
+            d="M386.612245 929.959184H177.632653c-45.97551 0-83.591837-37.616327-83.591837-83.591837v-208.979592c0-45.97551 37.616327-83.591837 83.591837-83.591837h208.979592c45.97551 0 83.591837 37.616327 83.591837 83.591837v208.979592c0 45.97551-37.616327 83.591837-83.591837 83.591837z m-208.979592-334.367347c-22.987755 0-41.795918 18.808163-41.795918 41.795918v208.979592c0 22.987755 18.808163 41.795918 41.795918 41.795918h208.979592c22.987755 0 41.795918-18.808163 41.795918-41.795918v-208.979592c0-22.987755-18.808163-41.795918-41.795918-41.795918H177.632653z"
+            fill="#333333"
+            p-id="4561"
+          ></path>
+        </svg>
+      </span>
+      <span
+        @click="canvasEditor.addBarcode"
+        :class="state.isDrawingLineMode && state.lineType === 'arrow' && 'bg'"
+      >
+        <svg
+          t="1717679973041"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="5747"
+          width="20"
+          height="20"
+        >
+          <path
+            d="M876.893 63.84h20.44c34.501 0 62.49 30.402 62.49 64.919V229.7h-0.13c0 16.569-11.355 22.409-22.855 22.409s-22.854-7.734-22.854-19.234c0-0.211-3.92-0.373-3.92-0.583v-82.72c0-23-10.56-35.975-33.56-35.975h-61.47c-0.21 0-1.36-2.786-1.555-2.786-11.5 0-21.817-12.213-21.817-23.713s18.885-20.813 18.885-20.813V63.84h66.345zM213.45 66.286V63.84h-86.914c-34.5 0-62.36 30.402-62.36 64.919V229.7c0 16.569 9.33 22.409 20.83 22.409s24.927-8.528 24.927-20.028c0-0.211 4.001 0.421 4.001 0.21v-82.72c0-23 10.432-35.974 33.432-35.974h63.008c0.194 0 0.372-2.786 0.583-2.786 11.5 0 22.06-10.772 22.06-22.263 0-11.5-2.98-22.263-19.567-22.263z m16.587 500.74V246.27h-33.173v530.764h33.173V567.026zM109.933 795.141c0-11.5-11.37-21.576-22.87-21.576s-22.888 3.468-22.888 20.053v105.638c0 34.5 27.86 60.224 62.36 60.224h83.837c0.194 0 0.372 0.679 0.583 0.679 11.5 0 22.06-9.038 22.06-20.538s-2.98-20.538-19.566-20.538v7.224h-66.344v-6.737c-33.173-2.624-33.173-19.923-33.173-41.14v-82.704c0.001-0.213-3.999-0.39-3.999-0.585z m186.448-228.115V246.27h-16.586V694.1h16.586V567.026z m16.585 160.249h-33.172v49.758h33.172v-49.758z m66.344-160.249V246.27h-16.585V694.1h16.585V567.026z m16.586 160.249h-33.171v49.758h33.171v-49.758z m82.931-160.249V246.27h-66.344V694.1h66.344V567.026z m0 210.007v-49.758h-33.173v49.758h33.173z m132.688-210.007V246.27h-49.758V694.1h49.758V567.026z m-82.93 210.007h33.172v-49.758h-33.172v49.758zM661.273 566.41V246.27H644.69V694.1h16.584V566.41z m-33.171 210.623h33.171v-49.758h-33.171v49.758zM744.205 566.41V246.27h-16.587V694.1h16.587V566.41z m-33.173 210.623h33.173v-49.758h-33.173v49.758z m116.103-210.007V246.27h-33.172v530.764h33.172V567.026z m70.198 392.454c34.5 0 62.489-25.723 62.489-60.224V793.618h-0.13c0-16.585-9.33-20.053-20.83-20.053s-24.88 9.688-24.88 21.188c0 0.226-3.918 0.76-3.918 0.97v82.705c0 20.7 0 37.738-33.172 40.978v6.899h-66.345v-7.224s-18.885 9.33-18.885 20.83 10.317 20.246 21.817 20.246c0.193 0 1.344-0.68 1.555-0.68h82.299z"
+            p-id="5748"
+          ></path>
+        </svg>
+      </span>
     </div>
   </div>
 </template>
 
 <script setup name="Tools">
-import { v4 as uuid } from 'uuid';
-// import initializeLineDrawing from '@/core/remove/initializeLineDrawing';
 import { getPolygonVertices } from '@/utils/math';
 import useSelect from '@/hooks/select';
+// import useCalculate from '@/hooks/useCalculate';
+// const { getCanvasBound, isOutsideCanvas } = useCalculate();
+
 import { useI18n } from 'vue-i18n';
 
+const LINE_TYPE = {
+  polygon: 'polygon',
+  freeDraw: 'freeDraw',
+  pathText: 'pathText',
+};
 // 默认属性
 const defaultPosition = { shadow: '', fontFamily: 'arial' };
-// 拖拽属性
-const dragOption = {
-  left: 0,
-  top: 0,
-};
+
 const { t } = useI18n();
 const { fabric, canvasEditor } = useSelect();
 const state = reactive({
   isDrawingLineMode: false,
-  isArrow: false,
+  lineType: false,
 });
-// let drawHandler = null;
 
-const addText = (option) => {
+const addText = (event) => {
+  cancelDraw();
   const text = new fabric.IText(t('everything_is_fine'), {
     ...defaultPosition,
-    ...option,
     fontSize: 80,
-    id: uuid(),
+    fill: '#000000FF',
   });
-  canvasEditor.canvas.add(text);
-  if (!option) {
-    text.center();
-  }
-  canvasEditor.canvas.setActiveObject(text);
+
+  canvasEditor.addBaseType(text, { center: true, event });
 };
 
-// const addImg = (e) => {
-//   const imgEl = e.target.cloneNode(true);
-//   const imgInstance = new fabric.Image(imgEl, {
-//     ...defaultPosition,
-//     id: uuid(),
-//     name: '图片default',
-//   });
-//   canvasEditor.canvas.add(imgInstance);
-//   canvasEditor.canvas.renderAll();
-// };
-
-const addTextBox = (option) => {
+const addTextBox = (event) => {
+  cancelDraw();
   const text = new fabric.Textbox(t('everything_goes_well'), {
     ...defaultPosition,
-    ...option,
     splitByGrapheme: true,
     width: 400,
     fontSize: 80,
-    id: uuid(),
+    fill: '#000000FF',
   });
-  canvasEditor.canvas.add(text);
-  if (!option) {
-    text.center();
-  }
-  canvasEditor.canvas.setActiveObject(text);
+
+  canvasEditor.addBaseType(text, { center: true, event });
 };
 
-const addTriangle = (option) => {
+const addTriangle = (event) => {
+  cancelDraw();
   const triangle = new fabric.Triangle({
     ...defaultPosition,
-    ...option,
     width: 400,
     height: 400,
-    fill: '#92706B',
-    id: uuid(),
+    fill: '#92706BFF',
     name: '三角形',
   });
-  canvasEditor.canvas.add(triangle);
-  if (!option) {
-    triangle.center();
-  }
-  canvasEditor.canvas.setActiveObject(triangle);
+  canvasEditor.addBaseType(triangle, { center: true, event });
 };
 
-const addPolygon = (option) => {
+const addPolygon = (event) => {
+  cancelDraw();
   const polygon = new fabric.Polygon(getPolygonVertices(5, 200), {
     ...defaultPosition,
-    ...option,
-    fill: '#ccc',
-    id: uuid(),
+    fill: '#CCCCCCFF',
     name: '多边形',
   });
   polygon.set({
@@ -258,111 +340,130 @@ const addPolygon = (option) => {
       y: 0,
     },
   });
-  canvasEditor.canvas.add(polygon);
-  if (!option) {
-    polygon.center();
-  }
-  canvasEditor.canvas.setActiveObject(polygon);
+  canvasEditor.addBaseType(polygon, { center: true, event });
 };
 
-const addCircle = (option) => {
+const addCircle = (event) => {
+  cancelDraw();
   const circle = new fabric.Circle({
     ...defaultPosition,
-    ...option,
     radius: 150,
-    fill: '#57606B',
-    id: uuid(),
+    fill: '#57606BFF',
+    // id: uuid(),
     name: '圆形',
   });
-  canvasEditor.canvas.add(circle);
-  if (!option) {
-    circle.center();
-  }
-  canvasEditor.canvas.setActiveObject(circle);
+  canvasEditor.addBaseType(circle, { center: true, event });
 };
 
-const addRect = (option) => {
+const addRect = (event) => {
+  cancelDraw();
   const rect = new fabric.Rect({
     ...defaultPosition,
-    ...option,
-    fill: '#F57274',
+    fill: '#F57274FF',
     width: 400,
     height: 400,
-    id: uuid(),
     name: '矩形',
   });
-  canvasEditor.canvas.add(rect);
-  if (!option) {
-    rect.center();
-  }
-  canvasEditor.canvas.setActiveObject(rect);
-};
-const drawingLineModeSwitch = (isArrow) => {
-  state.isArrow = isArrow;
-  state.isDrawingLineMode = !state.isDrawingLineMode;
-  canvasEditor.setMode(state.isDrawingLineMode);
-  canvasEditor.setArrow(isArrow);
 
+  canvasEditor.addBaseType(rect, { center: true, event });
+};
+const drawPolygon = () => {
+  const onEnd = () => {
+    state.lineType = false;
+    state.isDrawingLineMode = false;
+    ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
+  };
+  if (state.lineType !== LINE_TYPE.polygon) {
+    endConflictTools();
+    endDrawingLineMode();
+    state.lineType = LINE_TYPE.polygon;
+    state.isDrawingLineMode = true;
+    canvasEditor.beginDrawPolygon(onEnd);
+    canvasEditor.endDraw();
+    ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
+  } else {
+    canvasEditor.discardPolygon();
+  }
+};
+
+const drawPathText = () => {
+  if (state.lineType === LINE_TYPE.pathText) {
+    state.lineType = false;
+    state.isDrawingLineMode = false;
+    canvasEditor.endTextPathDraw();
+  } else {
+    endConflictTools();
+    endDrawingLineMode();
+    state.lineType = LINE_TYPE.pathText;
+    state.isDrawingLineMode = true;
+    canvasEditor.startTextPathDraw();
+  }
+};
+
+const freeDraw = () => {
+  if (state.lineType === LINE_TYPE.freeDraw) {
+    canvasEditor.endDraw();
+    state.lineType = false;
+    state.isDrawingLineMode = false;
+  } else {
+    endConflictTools();
+    endDrawingLineMode();
+    state.lineType = LINE_TYPE.freeDraw;
+    state.isDrawingLineMode = true;
+    canvasEditor.startDraw({ width: 20 });
+  }
+};
+
+const endConflictTools = () => {
+  canvasEditor.discardPolygon();
+  canvasEditor.endDraw();
+  canvasEditor.endTextPathDraw();
+};
+const endDrawingLineMode = () => {
+  state.isDrawingLineMode = false;
+  state.lineType = '';
+  canvasEditor.setMode(state.isDrawingLineMode);
+  canvasEditor.setLineType(state.lineType);
+};
+const drawingLineModeSwitch = (type) => {
+  if ([LINE_TYPE.polygon, LINE_TYPE.freeDraw, LINE_TYPE.pathText].includes(state.lineType)) {
+    endConflictTools();
+  }
+  if (state.lineType === type) {
+    state.isDrawingLineMode = false;
+    state.lineType = '';
+  } else {
+    state.isDrawingLineMode = true;
+    state.lineType = type;
+  }
+  canvasEditor.setMode(state.isDrawingLineMode);
+  canvasEditor.setLineType(type);
   // this.canvasEditor.setMode(this.isDrawingLineMode);
   // this.canvasEditor.setArrow(isArrow);
+  ensureObjectSelEvStatus(!state.isDrawingLineMode, !state.isDrawingLineMode);
+};
+
+const ensureObjectSelEvStatus = (evented, selectable) => {
   canvasEditor.canvas.forEachObject((obj) => {
     if (obj.id !== 'workspace') {
-      obj.selectable = !state.isDrawingLineMode;
-      obj.evented = !state.isDrawingLineMode;
+      obj.selectable = selectable;
+      obj.evented = evented;
     }
   });
 };
 
-// 拖拽开始时就记录当前打算创建的元素类型
-const onDragend = (type) => {
-  // todo 拖拽优化 this.canvas.editor.dragAddItem(event, item);
-  switch (type) {
-    case 'text':
-      addText(dragOption);
-      break;
-    case 'textBox':
-      addTextBox(dragOption);
-      break;
-    case 'rect':
-      addRect(dragOption);
-      break;
-    case 'circle':
-      addCircle(dragOption);
-      break;
-    case 'triangle':
-      addTriangle(dragOption);
-      break;
-    case 'polygon':
-      addPolygon(dragOption);
-      break;
-    default:
-  }
+// 退出绘制状态
+const cancelDraw = () => {
+  if (!state.isDrawingLineMode) return;
+  state.isDrawingLineMode = false;
+  state.lineType = '';
+  canvasEditor.setMode(false);
+  endConflictTools();
+  ensureObjectSelEvStatus(true, true);
 };
 
-onMounted(() => {
-  nextTick(() => {
-    // 线条绘制
-    // drawHandler = initializeLineDrawing(canvasEditor.canvas, defaultPosition);
-
-    canvasEditor.canvas.on('drop', (opt) => {
-      // 画布元素距离浏览器左侧和顶部的距离
-      const offset = {
-        left: canvasEditor.canvas.getSelectionElement().getBoundingClientRect().left,
-        top: canvasEditor.canvas.getSelectionElement().getBoundingClientRect().top,
-      };
-
-      // 鼠标坐标转换成画布的坐标（未经过缩放和平移的坐标）
-      const point = {
-        x: opt.e.x - offset.left,
-        y: opt.e.y - offset.top,
-      };
-
-      // 转换后的坐标，restorePointerVpt 不受视窗变换的影响
-      const pointerVpt = canvasEditor.canvas.restorePointerVpt(point);
-      dragOption.left = pointerVpt.x;
-      dragOption.top = pointerVpt.y;
-    });
-  });
+onDeactivated(() => {
+  cancelDraw();
 });
 </script>
 
