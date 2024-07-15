@@ -25,8 +25,14 @@
               </Tooltip>
             </Col>
             <Col span="4">
-              <Button long v-if="item.isLock" icon="md-lock" type="text"></Button>
-              <Button long v-else icon="md-unlock" type="text"></Button>
+              <Button
+                long
+                v-if="item.isLock"
+                @click="doLock(item)"
+                icon="md-lock"
+                type="text"
+              ></Button>
+              <Button long v-else @click="doLock(item)" icon="md-unlock" type="text"></Button>
             </Col>
           </Row>
         </div>
@@ -151,6 +157,12 @@ const getList = () => {
       };
     });
   list.value = uniqBy(unref(list), 'id');
+};
+
+const doLock = (item) => {
+  select(item.id);
+  item.isLock ? canvasEditor.unLock() : canvasEditor.lock();
+  canvasEditor.canvas.discardActiveObject();
 };
 
 onMounted(() => {
