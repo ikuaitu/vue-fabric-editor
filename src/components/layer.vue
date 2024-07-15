@@ -17,12 +17,18 @@
           :key="item.id"
           :class="isSelect(item) && 'active'"
         >
-          <Tooltip :content="item.name || item.text || item.type" placement="left">
-            <div class="ellipsis">
-              <span :class="isSelect(item) && 'active'" v-html="iconType(item.type)"></span>
-              | {{ textType(item.type, item) }}
-            </div>
-          </Tooltip>
+          <Row class="ellipsis">
+            <Col span="20">
+              <Tooltip :content="item.name || item.text || item.type" placement="left">
+                <span :class="isSelect(item) && 'active'" v-html="iconType(item.type)"></span>
+                | {{ textType(item.type, item) }}
+              </Tooltip>
+            </Col>
+            <Col span="4">
+              <Button long v-if="item.isLock" icon="md-lock" type="text"></Button>
+              <Button long v-else icon="md-unlock" type="text"></Button>
+            </Col>
+          </Row>
         </div>
       </div>
       <!-- 层级调整按钮 -->
@@ -135,12 +141,13 @@ const getList = () => {
   ]
     .reverse()
     .map((item) => {
-      const { type, id, name, text } = item;
+      const { type, id, name, text, selectable } = item;
       return {
         type,
         id,
         name,
         text,
+        isLock: !selectable,
       };
     });
   list.value = uniqBy(unref(list), 'id');
