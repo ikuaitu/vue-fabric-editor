@@ -7,7 +7,7 @@ declare namespace fabric {
     historyProcessing: boolean;
     _currentTransform: unknown;
     extraProps: any;
-    clearHistory(): void;
+    clearHistory(boolean): void;
     clearUndo(): void;
     _historyNext(): void;
     _historyInit(): void;
