@@ -234,13 +234,6 @@ pnpm dev
 		</tr>
 		<tr>
             <td align="center">
-                <a href="https://github.com/ByeWord">
-                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
-                    <br />
-                    <sub><b>ByeWord</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/momo2019">
                     <img src="https://avatars.githubusercontent.com/u/26078793?v=4" width="80;" alt="momo2019"/>
                     <br />
@@ -248,10 +241,10 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/wohuweixiya">
-                    <img src="https://avatars.githubusercontent.com/u/86701050?v=4" width="80;" alt="wohuweixiya"/>
+                <a href="https://github.com/ByeWord">
+                    <img src="https://avatars.githubusercontent.com/u/37115721?v=4" width="80;" alt="ByeWord"/>
                     <br />
-                    <sub><b>wohuweixiya</b></sub>
+                    <sub><b>ByeWord</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -262,12 +255,28 @@ pnpm dev
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/wohuweixiya">
+                    <img src="https://avatars.githubusercontent.com/u/86701050?v=4" width="80;" alt="wohuweixiya"/>
+                    <br />
+                    <sub><b>wohuweixiya</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/zjc2233">
+                    <img src="https://avatars.githubusercontent.com/u/43945226?v=4" width="80;" alt="zjc2233"/>
+                    <br />
+                    <sub><b>zjc2233</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/ijry">
                     <img src="https://avatars.githubusercontent.com/u/3102798?v=4" width="80;" alt="ijry"/>
                     <br />
                     <sub><b>ijry</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/makeng">
                     <img src="https://avatars.githubusercontent.com/u/23654388?v=4" width="80;" alt="makeng"/>
@@ -275,8 +284,6 @@ pnpm dev
                     <sub><b>makeng</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/z09176141">
                     <img src="https://avatars.githubusercontent.com/u/49260613?v=4" width="80;" alt="z09176141"/>
@@ -289,13 +296,6 @@ pnpm dev
                     <img src="https://avatars.githubusercontent.com/u/28621500?v=4" width="80;" alt="a847244052"/>
                     <br />
                     <sub><b>a847244052</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/zjc2233">
-                    <img src="https://avatars.githubusercontent.com/u/43945226?v=4" width="80;" alt="zjc2233"/>
-                    <br />
-                    <sub><b>zjc2233</b></sub>
                 </a>
             </td>
             <td align="center">
