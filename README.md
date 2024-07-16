@@ -10,7 +10,7 @@
     <img style='margin:0 5px' src="https://img.shields.io/github/license/nihaojob/vue-fabric-editor" />
 </div>
 
-- [预览](https://nihaojob.github.io/vue-fabric-editor/)
+- [预览](https://ikuaitu.github.io/vue-fabric-editor/#/)
 - [国内 预览](https://www.kuaitu.cc/)
 
 ![image](https://user-images.githubusercontent.com/13534626/230828335-0adee0ae-b951-4171-b6ba-d2b9cd44dd6a.png)
