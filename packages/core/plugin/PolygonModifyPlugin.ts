@@ -1,7 +1,7 @@
 import Editor from '../Editor';
 import { fabric } from 'fabric';
 import { drawImg } from '../utils/utils';
-import edgeImg from '../assets/edgecontrol.svg';
+import edgeImg from '../assets/edgecontrol.svg?url';
 import { noop } from 'lodash-es';
 
 type IEditor = Editor;
