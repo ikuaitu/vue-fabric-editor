@@ -98,7 +98,7 @@ class WorkspacePlugin implements IPluginTempl {
 
     this.workspace = workspace;
     if (this.canvas.clearHistory) {
-      this.canvas.clearHistory();
+      this.canvas.clearHistory(true);
     }
     this.auto();
   }
