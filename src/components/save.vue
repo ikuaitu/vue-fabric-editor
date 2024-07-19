@@ -99,6 +99,8 @@ const saveWith = debounce(function (type) {
  */
 const clear = () => {
   canvasEditor.clear();
+  canvasEditor.canvas.clearHistory(false);
+  canvasEditor.historyUpdate();
 };
 
 const beforeClear = () => {
