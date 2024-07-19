@@ -1,8 +1,7 @@
-import { beforeEach, expect, test } from 'vitest';
+import { beforeEach, expect, test, describe } from 'vitest';
 import { initPlugin } from '../utils/setup.ts';
 import { DringPlugin } from '../../plugin/DringPlugin.ts';
 import { wait, mouseDown, drag } from '../utils/common.ts';
-import { describe } from 'node:test';
 
 describe('canvas:drag', async () => {
   const { pluginInstance, cleanUp } = initPlugin(DringPlugin);
