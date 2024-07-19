@@ -21,8 +21,8 @@ type extendCanvas = {
 
 class HistoryPlugin implements IPluginTempl {
   static pluginName = 'HistoryPlugin';
-  static apis = ['undo', 'redo'];
-  static events = ['historyUpdate'];
+  static apis = ['undo', 'redo', 'historyUpdate'];
+  static events = [];
   hotkeys: string[] = ['ctrl+z', 'ctrl+shift+z', '⌘+z', '⌘+shift+z'];
   constructor(public canvas: fabric.Canvas & extendCanvas, public editor: IEditor) {
     fabric.Canvas.prototype._historyNext = () => {
