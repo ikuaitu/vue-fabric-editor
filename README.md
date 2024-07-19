@@ -58,15 +58,13 @@ pnpm dev
 
 ### 自定义素材
 
-可自定义字体、设计模板、标题模板等，你也可以购买我整理好的字体文件 + 字体文件生成预览图片的示例代码，[购买链接](https://mbd.pub/o/bread/ZZ6cmppq)。
+可自定义字体、设计模板、标题模板，将接口、模板接口替换后即可。
 
 ### 开发者服务
 
-- **微信交流群**：我们组建了 450+人的微信项目交流群，作者和项目维护者活跃在群内，定期解答问题。
-- **知识星球**：沉淀高质量常见问题、最佳实践文档，如跨域、部署、字体素材等问题，长期更新围绕在开源编辑器、fabric.js 的相关资料。
+- **微信交流群**：我们组建了多个微信项目交流群，作者和项目维护者活跃在群内，定期解答问题。
+- **知识星球**：沉淀高质量常见问题、最佳实践文档，如跨域、部署、字体素材等问题，代码示例、长期更新围绕在开源编辑器、fabric.js 的相关资料。
 - **付费咨询**：提供 200 元/小时的咨询服务，帮你快速解决项目中遇到的问题。
-- **fabric.js 代码示例**：[查看](https://mbd.pub/o/bread/ZZ6Vl55u)。
-- **视频教程**：《fabric.js 入门教程》、[《使用 fabric.js 从 0 到 1 构建图片编辑器》](https://www.yuque.com/qinshaowei/fabric/qrdqudwo7sxadr4d?singleDoc#o8m1e)、[《vue-fabric-editor 开发实践》](https://mbd.pub/o/bread/ZZ6Vl5hr)。
 
 ![27d4480f-efa5-4ed3-93ed-d1a755cb41cf](https://github.com/nihaojob/vue-fabric-editor/assets/13534626/25e9075e-f751-4110-aadd-30fe453e02d9)
 
