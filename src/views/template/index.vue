@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-12 22:52:04
+ * @LastEditTime: 2024-07-19 16:37:42
  * @Description: file content
 -->
 <template>
@@ -145,7 +145,8 @@ const getTmplListHandel = async () => {
   Spin.show();
   try {
     const res = await getTmplList(qs.stringify(params));
-
+    templList.value = [];
+    await nextTick();
     total.value = res.data.meta.pagination.total;
     templList.value = res.data.data.map((item) => ({
       id: item.id,
