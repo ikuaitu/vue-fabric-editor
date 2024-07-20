@@ -98,4 +98,8 @@ declare namespace fabric {
   export interface StaticCanvas {
     ruler: InstanceType<typeof CanvasRuler>;
   }
+
+  export interface Object {
+    [key: string]: unknown;
+  }
 }
