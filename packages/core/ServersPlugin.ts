@@ -132,7 +132,9 @@ class ServersPlugin {
         // 加载后钩子
         this.editor.hooksEntity.hookImportAfter.callAsync(jsonFile, () => {
           // 修复导入带水印的json无法清除问题 #359
-          this.editor?.updateDrawStatus(!!temp['overlayImage']);
+          this.editor?.updateDrawStatus &&
+            typeof this.editor.updateDrawStatus === 'function' &&
+            this.editor.updateDrawStatus(!!temp['overlayImage']);
           this.canvas.renderAll();
           callback && callback();
           this.editor.emit('loadJson');
