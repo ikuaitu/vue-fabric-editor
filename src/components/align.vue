@@ -14,44 +14,44 @@
       <!-- 水平对齐 -->
       <Tooltip :content="$t('attrSeting.align.left')">
         <Button @click="left" size="small" type="text">
-          <leftIcon class="icon"></leftIcon>
+          <leftIcon />
         </Button>
       </Tooltip>
       <Tooltip :content="$t('attrSeting.align.centerX')">
         <Button @click="xcenter" size="small" type="text">
-          <centerxIcon class="icon"></centerxIcon>
+          <centerxIcon />
         </Button>
       </Tooltip>
       <Tooltip :content="$t('attrSeting.align.right')">
         <Button @click="right" size="small" type="text">
-          <rightIcon class="icon"></rightIcon>
+          <rightIcon />
         </Button>
       </Tooltip>
       <!-- 垂直对齐 -->
       <Tooltip :content="$t('attrSeting.align.top')">
         <Button @click="top" size="small" type="text">
-          <topIcon class="icon"></topIcon>
+          <topIcon />
         </Button>
       </Tooltip>
       <Tooltip :content="$t('attrSeting.align.centerY')">
         <Button @click="ycenter" size="small" type="text">
-          <centeryIcon class="icon"></centeryIcon>
+          <centeryIcon />
         </Button>
       </Tooltip>
       <Tooltip :content="$t('attrSeting.align.bottom')">
         <Button @click="bottom" size="small" type="text">
-          <bottomIcon class="icon"></bottomIcon>
+          <bottomIcon />
         </Button>
       </Tooltip>
       <!-- 平均对齐 -->
       <Tooltip :content="$t('attrSeting.align.averageX')">
         <Button @click="xequation" size="small" type="text">
-          <sxIcon class="icon"></sxIcon>
+          <sxIcon />
         </Button>
       </Tooltip>
       <Tooltip :content="$t('attrSeting.align.averageY')">
         <Button @click="yequation" size="small" type="text">
-          <syIcon class="icon"></syIcon>
+          <syIcon />
         </Button>
       </Tooltip>
     </div>
@@ -62,17 +62,17 @@
 <script name="Align" setup>
 import useSelect from '@/hooks/select';
 
-import leftIcon from '@/assets/icon/left.svg?component';
-import rightIcon from '@/assets/icon/right.svg?component';
+import leftIcon from '@/assets/icon/left.svg';
+import rightIcon from '@/assets/icon/right.svg';
 
-import topIcon from '@/assets/icon/top.svg?component';
-import bottomIcon from '@/assets/icon/bottom.svg?component';
+import topIcon from '@/assets/icon/top.svg';
+import bottomIcon from '@/assets/icon/bottom.svg';
 
-import sxIcon from '@/assets/icon/sx.svg?component';
-import syIcon from '@/assets/icon/sy.svg?component';
+import sxIcon from '@/assets/icon/sx.svg';
+import syIcon from '@/assets/icon/sy.svg';
 
-import centerxIcon from '@/assets/icon/centerx.svg?component';
-import centeryIcon from '@/assets/icon/centery.svg?component';
+import centerxIcon from '@/assets/icon/centerx.svg';
+import centeryIcon from '@/assets/icon/centery.svg';
 
 const { mixinState, canvasEditor } = useSelect();
 
