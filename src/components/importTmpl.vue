@@ -35,7 +35,7 @@
         ref="masonryRef"
       >
         <template #item="{ item }">
-          <Tooltip :content="item.name" :key="item.src" placement="top">
+          <Tooltip transfer :content="item.name" :key="item.src" placement="top">
             <div class="tmpl-img-box">
               <Image
                 lazy

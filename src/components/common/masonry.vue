@@ -175,7 +175,6 @@ defineExpose({
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
-    padding-top: 45px;
   }
   &-list {
     position: relative;
