@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
+    "outDir": "build",
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
     "module": "esnext",
@@ -26,11 +27,13 @@
   },
   "files": [],
   "include": [
+    "packages/**/*.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
     "typings/**/*.ts",
+    "typings/**/*.d.ts",
     "src/hooks/useMaterial.js",
   ],
   "references": [

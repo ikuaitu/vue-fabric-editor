@@ -7,7 +7,7 @@ declare namespace fabric {
     historyProcessing: boolean;
     _currentTransform: unknown;
     extraProps: any;
-    clearHistory(boolean): void;
+    clearHistory(boolean?): void;
     clearUndo(): void;
     _historyNext(): void;
     _historyInit(): void;
@@ -20,6 +20,32 @@ declare namespace fabric {
     rotate: number;
   }
 
+  export interface Image {
+    extensionType?: string;
+    extension: any;
+  }
+
+  export interface Object {
+    extensionType?: string;
+    extension: any;
+    type: string;
+    height: number;
+    top: number;
+    left: number;
+    lockMovementX: boolean;
+    lockMovementY: boolean;
+    lockRotation: boolean;
+    lockScalingX: boolean;
+    lockScalingY: boolean;
+    forEachObject?: ICollection.forEachObject;
+    fontFamily?: string;
+    _objects?: ICollection.Object[];
+    aCoords?: any;
+    [string]?: any;
+  }
+  export interface Group {
+    _objects: ICollection.Object[];
+  }
   export interface IObjectOptions {
     /**
      * 标识

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-12 22:07:28
+ * @LastEditTime: 2024-07-24 11:28:10
  * @Description: 导入模板
 -->
 
@@ -10,7 +10,12 @@
   <div>
     <!-- 搜索组件 -->
     <div class="search-box">
-      <Select class="select" v-model="typeValue" @on-change="startGetList" :disabled="pageLoading">
+      <Select
+        class="select"
+        v-model="typeValue"
+        @on-change="changeSelectType"
+        :disabled="pageLoading"
+      >
         <Option v-for="item in typeList" :value="item.value" :key="item.value">
           {{ item.label }}
         </Option>
@@ -60,6 +65,7 @@
 import useSelect from '@/hooks/select';
 import usePageList from '@/hooks/pageList';
 import { Spin, Modal } from 'view-ui-plus';
+import { debounce } from 'lodash-es';
 
 import { useI18n } from 'vue-i18n';
 import { useRouter, useRoute } from 'vue-router';
@@ -132,6 +138,10 @@ const getTemplInfo = async () => {
     }
   }
 };
+
+const changeSelectType = debounce(() => {
+  startGetList();
+}, 100);
 </script>
 
 <style scoped lang="less">

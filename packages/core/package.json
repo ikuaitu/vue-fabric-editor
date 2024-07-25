@@ -24,6 +24,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jsdom": "^21.1.6",
+    "@types/qs": "^6.9.15",
     "jsdom": "^24.0.0",
     "vitest": "^1.6.0"
   }

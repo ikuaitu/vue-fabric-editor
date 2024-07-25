@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 19:58:26
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-15 09:34:36
+ * @LastEditTime: 2024-07-22 10:26:59
  * @Description: 二维码生成工具
  */
 
@@ -55,11 +55,11 @@ class QrCodePlugin implements IPluginTempl {
     }
   }
 
-  async _getBase64Str(options: any) {
+  async _getBase64Str(options: any): Promise<string> {
     const qrCode = new QRCodeStyling(options);
     const blob = await qrCode.getRawData('png');
     if (!blob) return '';
-    const base64Str = await blobToBase64(blob);
+    const base64Str = (await blobToBase64(blob)) as string;
     return base64Str || '';
   }
 

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-22 16:19:46
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:33:17
+ * @LastEditTime: 2024-07-22 10:21:05
  * @Description: 组对齐插件
  */
 
@@ -18,18 +18,6 @@ class GroupAlignPlugin implements IPluginTempl {
 
   left() {
     const { canvas } = this;
-    // const activeObject = canvas.getActiveObject();
-    // if (activeObject && activeObject.type === 'activeSelection') {
-    //   const activeSelection = activeObject;
-    //   const activeObjectLeft = -(activeObject.width / 2);
-    //   activeSelection.forEachObject((item) => {
-    //     item.set({
-    //       left: activeObjectLeft,
-    //     });
-    //     item.setCoords();
-    //     canvas.renderAll();
-    //   });
-    // }
 
     const activeObject = canvas.getActiveObject();
     const selectObjects = canvas.getActiveObjects();
@@ -53,18 +41,6 @@ class GroupAlignPlugin implements IPluginTempl {
 
   right() {
     const { canvas } = this;
-    // const activeObject = canvas.getActiveObject();
-    // if (activeObject && activeObject.type === 'activeSelection') {
-    //   const activeSelection = activeObject;
-    //   const activeObjectLeft = activeObject.width / 2;
-    //   activeSelection.forEachObject((item) => {
-    //     item.set({
-    //       left: activeObjectLeft - item.width * item.scaleX,
-    //     });
-    //     item.setCoords();
-    //     canvas.renderAll();
-    //   });
-    // }
 
     const activeObject = canvas.getActiveObject();
     const selectObjects = canvas.getActiveObjects();
@@ -87,17 +63,6 @@ class GroupAlignPlugin implements IPluginTempl {
 
   xcenter() {
     const { canvas } = this;
-    // const activeObject = canvas.getActiveObject();
-    // if (activeObject && activeObject.type === 'activeSelection') {
-    //   const activeSelection = activeObject;
-    //   activeSelection.forEachObject((item) => {
-    //     item.set({
-    //       left: 0 - (item.width * item.scaleX) / 2,
-    //     });
-    //     item.setCoords();
-    //     canvas.renderAll();
-    //   });
-    // }
 
     const activeObject = canvas.getActiveObject();
     const selectObjects = canvas.getActiveObjects();
@@ -120,17 +85,6 @@ class GroupAlignPlugin implements IPluginTempl {
 
   ycenter() {
     const { canvas } = this;
-    // const activeObject = canvas.getActiveObject();
-    // if (activeObject && activeObject.type === 'activeSelection') {
-    //   const activeSelection = activeObject;
-    //   activeSelection.forEachObject((item) => {
-    //     item.set({
-    //       top: 0 - (item.height * item.scaleY) / 2,
-    //     });
-    //     item.setCoords();
-    //     canvas.renderAll();
-    //   });
-    // }
 
     const activeObject = canvas.getActiveObject();
     const selectObjects = canvas.getActiveObjects();
@@ -153,18 +107,6 @@ class GroupAlignPlugin implements IPluginTempl {
 
   top() {
     const { canvas } = this;
-    // const activeObject = canvas.getActiveObject();
-    // if (activeObject && activeObject.type === 'activeSelection') {
-    //   const activeSelection = activeObject;
-    //   const activeObjectTop = -(activeObject.height / 2);
-    //   activeSelection.forEachObject((item) => {
-    //     item.set({
-    //       top: activeObjectTop,
-    //     });
-    //     item.setCoords();
-    //     canvas.renderAll();
-    //   });
-    // }
 
     const activeObject = canvas.getActiveObject();
     const selectObjects = canvas.getActiveObjects();
@@ -187,18 +129,6 @@ class GroupAlignPlugin implements IPluginTempl {
 
   bottom() {
     const { canvas } = this;
-    // const activeObject = canvas.getActiveObject();
-    // if (activeObject && activeObject.type === 'activeSelection') {
-    //   const activeSelection = activeObject;
-    //   const activeObjectTop = activeObject.height / 2;
-    //   activeSelection.forEachObject((item) => {
-    //     item.set({
-    //       top: activeObjectTop - item.height * item.scaleY,
-    //     });
-    //     item.setCoords();
-    //     canvas.renderAll();
-    //   });
-    // }
 
     const activeObject = canvas.getActiveObject();
     const selectObjects = canvas.getActiveObjects();
@@ -221,9 +151,9 @@ class GroupAlignPlugin implements IPluginTempl {
 
   xequation() {
     const { canvas } = this;
-    const activeObject = canvas.getActiveObject();
+    const activeObject = canvas.getActiveObject() as fabric.ActiveSelection;
     // width属性不准确，需要坐标换算
-    function getItemWidth(item) {
+    function getItemWidth(item: fabric.Object) {
       let x1 = Infinity,
         x2 = -Infinity;
       for (const key in item.aCoords) {
@@ -241,7 +171,7 @@ class GroupAlignPlugin implements IPluginTempl {
     function getAllItemHeight() {
       let count = 0;
       if (activeObject) {
-        activeObject.forEachObject((item) => {
+        activeObject.forEachObject((item: fabric.Object) => {
           count += getItemWidth(item);
         });
       }
@@ -258,7 +188,7 @@ class GroupAlignPlugin implements IPluginTempl {
     }
 
     // 获取当前元素之前所有元素的高度
-    function getItemLeft(i) {
+    function getItemLeft(i: number) {
       if (i === 0) return 0;
       let width = 0;
       if (activeObject) {
@@ -275,11 +205,11 @@ class GroupAlignPlugin implements IPluginTempl {
       activeSelection._objects.sort((a, b) => a.left - b.left);
 
       // 平均间距计算
-      const itemSpac = spacWidth();
+      const itemSpac = spacWidth() as number;
       // 组原点高度
       const yHeight = Number(activeObject.width) / 2;
 
-      activeObject.forEachObject((item, i) => {
+      activeObject.forEachObject((item: fabric.Object, i: number) => {
         // 获取当前元素之前所有元素的高度
         const preHeight = getItemLeft(i);
         // 顶部距离 间距 * 索引 + 之前元素高度 - 原点高度
@@ -290,7 +220,7 @@ class GroupAlignPlugin implements IPluginTempl {
 
     const objecs = canvas.getActiveObjects();
     canvas.discardActiveObject();
-    objecs.forEach((item) => {
+    objecs.forEach((item: fabric.Object) => {
       let x = Infinity;
       for (const key in item.aCoords) {
         if (item.aCoords[key].x < x) {
@@ -309,9 +239,12 @@ class GroupAlignPlugin implements IPluginTempl {
 
   yequation() {
     const { canvas } = this;
-    const activeObject = canvas.getActiveObject() || { top: 0, height: 0 };
+    const activeObject = (canvas.getActiveObject() as fabric.ActiveSelection) || {
+      top: 0,
+      height: 0,
+    };
     // width属性不准确，需要坐标换算
-    function getItemHeight(item) {
+    function getItemHeight(item: fabric.Object) {
       let y1 = Infinity,
         y2 = -Infinity;
       for (const key in item.aCoords) {
@@ -327,7 +260,7 @@ class GroupAlignPlugin implements IPluginTempl {
     // 获取所有元素高度
     function getAllItemHeight() {
       let count = 0;
-      activeObject.forEachObject((item) => {
+      activeObject.forEachObject((item: fabric.Object) => {
         count += getItemHeight(item);
       });
       return count;
@@ -340,7 +273,7 @@ class GroupAlignPlugin implements IPluginTempl {
     }
 
     // 获取当前元素之前所有元素的高度
-    function getItemTop(i) {
+    function getItemTop(i: number) {
       if (i === 0) return 0;
       let height = 0;
       for (let index = 0; index < i; index++) {
