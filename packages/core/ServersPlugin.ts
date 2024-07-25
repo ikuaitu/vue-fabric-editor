@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-06 17:24:55
+ * @LastEditTime: 2024-07-25 17:40:14
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -177,6 +177,7 @@ class ServersPlugin {
       'editable',
       'extensionType',
       'extension',
+      'verticalAlign',
     ];
   }
 
