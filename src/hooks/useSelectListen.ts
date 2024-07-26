@@ -11,7 +11,7 @@ import { get } from 'lodash-es';
 
 const { SelectEvent, SelectMode } = EventType;
 
-interface Selector {
+export interface Selector {
   mSelectMode: (typeof SelectMode)[keyof typeof SelectMode];
   mSelectOneType: string | undefined;
   mSelectId: string | undefined;
@@ -30,7 +30,7 @@ export default function useSelectListen(canvasEditor: Editor) {
 
   const selectOne = (e: [fabric.Object]) => {
     state.mSelectMode = SelectMode.ONE;
-    state.mSelectActive = e[0];
+    state.mSelectActive = e;
     if (e[0] && get(e[0], 'clip')) {
       selectCancel();
       // state.mSelectId = get(e[0], 'targetId');

@@ -6,18 +6,17 @@
  * @LastEditors: 秦少卫
  * @LastEditTime: 2024-06-10 20:11:48
  */
-import Editor, { EventType } from '@kuaitu/core';
+import Editor from '@kuaitu/core';
 import { useI18n } from 'vue-i18n';
 
-const { SelectMode } = EventType;
-
-interface Selector {
-  mSelectMode: (typeof SelectMode)[keyof typeof SelectMode];
-  mSelectOneType: string | undefined;
-  mSelectId: string | undefined;
-  mSelectIds: (string | undefined)[];
-  mSelectActive: unknown[];
-}
+import { type Selector } from './useSelectListen';
+// interface Selector {
+//   mSelectMode: (typeof SelectMode)[keyof typeof SelectMode];
+//   mSelectOneType: string | undefined;
+//   mSelectId: string | undefined;
+//   mSelectIds: (string | undefined)[];
+//   mSelectActive: unknown[];
+// }
 
 export default function useSelect() {
   const fabric = inject('fabric');
