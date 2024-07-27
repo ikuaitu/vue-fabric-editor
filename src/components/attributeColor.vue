@@ -40,10 +40,10 @@
         </template>
       </Tooltip>
     </div>
-    <div style="margin: 10px" v-if="!colorShow">
-      <!-- <Upload> -->
-      <Button type="primary" @click="changeTexture">字体纹理</Button>
-      <!-- </Upload> -->
+    <div style="margin: 10px; display: flex" v-if="!colorShow">
+      <Upload action="#" :on-error="updateTexture" style="width: 50%">
+        <Button type="primary">字体纹理</Button>
+      </Upload>
       <!-- 可以自己上传图片作为背景 -->
       <Select
         v-model="fontTextureDirection"
@@ -91,7 +91,6 @@ const fontTextureList = reactive([
     value: 'no-repeat',
   },
 ]);
-
 const fontTextureDirection = ref('repeat');
 const colorshowChange = () => {
   colorShow.value = !colorShow.value;
@@ -114,11 +113,11 @@ const getObjectAttr = (e) => {
   }
 };
 
-const changeTexture = () => {
-  const activeObject = canvasEditor.canvas.getActiveObject();
-  fabric.util.loadImage(
-    'https://img2.baidu.com/it/u=2480481019,3021646555&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=1200',
-    function (img) {
+const updateTexture = (event, file, fileList) => {
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const activeObject = canvasEditor.canvas.getActiveObject();
+    fabric.util.loadImage(e.target.result, function (img) {
       activeObject.set(
         'fill',
         new fabric.Pattern({
@@ -127,8 +126,21 @@ const changeTexture = () => {
         })
       );
       canvasEditor.canvas.renderAll();
-    }
+    });
+  };
+  reader.readAsDataURL(fileList);
+};
+
+const changeTexture = () => {
+  const activeObject = canvasEditor.canvas.getActiveObject();
+  activeObject.set(
+    'fill',
+    new fabric.Pattern({
+      source: activeObject.fill.source,
+      repeat: fontTextureDirection.value,
+    })
   );
+  canvasEditor.canvas.renderAll();
 };
 
 const colorChange = (value) => {
