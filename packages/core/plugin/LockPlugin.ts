@@ -2,26 +2,25 @@
  * @Author: 秦少卫
  * @Date: 2024-07-04 14:27:05
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-06 17:49:01
+ * @LastEditTime: 2024-07-22 10:11:29
  * @Description: 锁定文件
  */
 import { fabric } from 'fabric';
 import type Editor from '../Editor';
 import { SelectMode } from '../eventType';
 
+enum ItypeKey {
+  lockMovementX = 'lockMovementX',
+  lockMovementY = 'lockMovementY',
+  lockRotation = 'lockRotation',
+  lockScalingX = 'lockScalingX',
+  lockScalingY = 'lockScalingY',
+}
+
 export default class LockPlugin implements IPluginTempl {
   static pluginName = 'LockPlugin';
   static apis = ['lock', 'unLock'];
-  lockAttrs: string[];
-  constructor(public canvas: fabric.Canvas, public editor: Editor) {
-    this.lockAttrs = [
-      'lockMovementX',
-      'lockMovementY',
-      'lockRotation',
-      'lockScalingX',
-      'lockScalingY',
-    ];
-  }
+  constructor(public canvas: fabric.Canvas, public editor: Editor) {}
 
   hookImportAfter() {
     this.canvas.forEachObject((obj) => {
@@ -34,13 +33,13 @@ export default class LockPlugin implements IPluginTempl {
   }
 
   lock() {
-    const activeObject = this.canvas.getActiveObject();
+    const activeObject = this.canvas.getActiveObject() as fabric.Object;
     if (activeObject) {
       activeObject.hasControls = false;
       activeObject.selectable = false;
       activeObject.evented = false;
       // 修改默认属性
-      this.lockAttrs.forEach((key) => {
+      Object.values(ItypeKey).forEach((key: ItypeKey) => {
         activeObject[key] = true;
       });
       this.canvas.discardActiveObject().renderAll();
@@ -48,13 +47,13 @@ export default class LockPlugin implements IPluginTempl {
   }
 
   unLock() {
-    const activeObject = this.canvas.getActiveObject();
+    const activeObject = this.canvas.getActiveObject() as fabric.Object;
     if (activeObject) {
       activeObject.hasControls = true;
       activeObject.selectable = true;
       activeObject.evented = true;
       // 修改默认属性
-      this.lockAttrs.forEach((key) => {
+      Object.values(ItypeKey).forEach((key: ItypeKey) => {
         activeObject[key] = false;
       });
       this.canvas.discardActiveObject().renderAll();

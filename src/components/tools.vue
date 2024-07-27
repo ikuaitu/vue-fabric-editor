@@ -197,12 +197,13 @@
           ></path>
         </svg>
       </span>
-      <span
+      <!-- 隐藏功能入口（路径文本） -->
+      <!-- <span
         @click="drawPathText"
         :class="state.isDrawingLineMode && state.lineType === 'pathText' && 'bg'"
       >
         <Icon type="logo-tumblr" :size="22" />
-      </span>
+      </span> -->
       <span
         @click="freeDraw"
         :class="state.isDrawingLineMode && state.lineType === 'freeDraw' && 'bg'"

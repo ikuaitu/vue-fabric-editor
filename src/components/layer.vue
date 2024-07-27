@@ -17,12 +17,22 @@
           :key="item.id"
           :class="isSelect(item) && 'active'"
         >
-          <Tooltip :content="item.name || item.text || item.type" placement="left">
-            <div class="ellipsis">
-              <span :class="isSelect(item) && 'active'" v-html="iconType(item.type)"></span>
-              | {{ textType(item.type, item) }}
-            </div>
-          </Tooltip>
+          <Row class="ellipsis">
+            <Col span="20">
+              <Tooltip :content="item.name || item.text || item.type" placement="left">
+                <span :class="isSelect(item) && 'active'" v-html="iconType(item.type)"></span>
+                | {{ textType(item.type, item) }}
+              </Tooltip>
+            </Col>
+            <Col span="4">
+              <Button
+                long
+                :icon="item.isLock ? 'md-lock' : 'md-unlock'"
+                type="text"
+                @click="doLock(item)"
+              ></Button>
+            </Col>
+          </Row>
         </div>
       </div>
       <!-- 层级调整按钮 -->
@@ -135,15 +145,22 @@ const getList = () => {
   ]
     .reverse()
     .map((item) => {
-      const { type, id, name, text } = item;
+      const { type, id, name, text, selectable } = item;
       return {
         type,
         id,
         name,
         text,
+        isLock: !selectable,
       };
     });
   list.value = uniqBy(unref(list), 'id');
+};
+
+const doLock = (item) => {
+  select(item.id);
+  item.isLock ? canvasEditor.unLock() : canvasEditor.lock();
+  canvasEditor.canvas.discardActiveObject();
 };
 
 onMounted(() => {

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:52:09
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-06 17:24:55
+ * @LastEditTime: 2024-07-25 17:40:14
  * @Description: 内部插件
  */
 import { v4 as uuid } from 'uuid';
@@ -132,7 +132,9 @@ class ServersPlugin {
         // 加载后钩子
         this.editor.hooksEntity.hookImportAfter.callAsync(jsonFile, () => {
           // 修复导入带水印的json无法清除问题 #359
-          this.editor?.updateDrawStatus(!!temp['overlayImage']);
+          this.editor?.updateDrawStatus &&
+            typeof this.editor.updateDrawStatus === 'function' &&
+            this.editor.updateDrawStatus(!!temp['overlayImage']);
           this.canvas.renderAll();
           callback && callback();
           this.editor.emit('loadJson');
@@ -175,6 +177,7 @@ class ServersPlugin {
       'editable',
       'extensionType',
       'extension',
+      'verticalAlign',
     ];
   }
 

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-05 22:21:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-15 10:34:55
+ * @LastEditTime: 2024-07-22 10:24:53
  * @Description: 工具文件
  */
 import { v4 as uuid } from 'uuid';
@@ -130,7 +130,7 @@ export function blobToBase64(blob: Blob) {
   return new Promise((resolve) => {
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      resolve(reader.result);
+      resolve(reader.result as string);
     });
     reader.readAsDataURL(blob);
   });

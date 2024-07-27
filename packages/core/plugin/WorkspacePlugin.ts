@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-30 20:00:37
+ * @LastEditTime: 2024-07-22 10:30:53
  * @Description: 画布区域插件
  */
 
@@ -27,7 +27,6 @@ class WorkspacePlugin implements IPluginTempl {
   workspaceEl!: HTMLElement;
   workspace: null | fabric.Rect;
   resizeObserver!: ResizeObserver;
-  coverMask: null | fabric.Rect = null;
   option: any;
   zoomRatio: number;
   constructor(public canvas: fabric.Canvas, public editor: IEditor) {
@@ -60,7 +59,10 @@ class WorkspacePlugin implements IPluginTempl {
         workspace.set('selectable', false);
         workspace.set('hasControls', false);
         workspace.set('evented', false);
-        this.setSize(workspace.width, workspace.height);
+        if (workspace.width && workspace.height) {
+          this.setSize(workspace.width, workspace.height);
+          this.editor.emit('sizeChange', workspace.width, workspace.height);
+        }
       }
       resolve('');
     });
@@ -134,7 +136,7 @@ class WorkspacePlugin implements IPluginTempl {
     this.resizeObserver.observe(this.workspaceEl);
   }
 
-  setSize(width: number | undefined, height: number | undefined) {
+  setSize(width: number, height: number) {
     this._initBackground();
     this.option.width = width;
     this.option.height = height;
@@ -159,8 +161,12 @@ class WorkspacePlugin implements IPluginTempl {
     this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), scale);
     if (!this.workspace) return;
     this.setCenterFromObject(this.workspace);
-    this.editor.getPlugin('MaskPlugin') && this.editor?.setCoverMask(true);
 
+    // 超出画布不展示
+    this.workspace.clone((cloned: fabric.Rect) => {
+      this.canvas.clipPath = cloned;
+      this.canvas.requestRenderAll();
+    });
     if (cb) cb(this.workspace.left, this.workspace.top);
   }
 
@@ -208,17 +214,14 @@ class WorkspacePlugin implements IPluginTempl {
   }
 
   _bindWheel() {
-    this.canvas.on('mouse:wheel', (opt) => {
+    this.canvas.on('mouse:wheel', function (this: fabric.Canvas, opt) {
       const delta = opt.e.deltaY;
-      let zoom = this.canvas.getZoom();
+      let zoom = this.getZoom();
       zoom *= 0.999 ** delta;
       if (zoom > 20) zoom = 20;
       if (zoom < 0.01) zoom = 0.01;
-      const center = this.canvas.getCenter();
-      this.canvas.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
-
-      this.editor.getPlugin('MaskPlugin') && this.editor?.setCoverMask(true);
-
+      const center = this.getCenter();
+      this.zoomToPoint(new fabric.Point(center.left, center.top), zoom);
       opt.e.preventDefault();
       opt.e.stopPropagation();
     });
