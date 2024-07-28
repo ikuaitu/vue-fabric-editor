@@ -11,6 +11,7 @@
 </div>
 
 - [预览](https://ikuaitu.github.io/vue-fabric-editor/#/)
+- [ElementPlus 版本预览](https://ikuaitu.github.io/element-fabric-editor/#/)
 - [国内 预览](https://www.kuaitu.cc/)
 
 ![image](https://user-images.githubusercontent.com/13534626/230828335-0adee0ae-b951-4171-b6ba-d2b9cd44dd6a.png)
