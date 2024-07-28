@@ -178,6 +178,7 @@ class ServersPlugin {
       'extensionType',
       'extension',
       'verticalAlign',
+      'roundValue',
     ];
   }
 
