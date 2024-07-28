@@ -155,7 +155,6 @@ pnpm dev
 
 ## 管理员
 
-<!-- readme: collaborators -start -->
 <table>
 	<tbody>
 		<tr>
@@ -183,7 +182,6 @@ pnpm dev
 		</tr>
 	<tbody>
 </table>
-<!-- readme: collaborators -end -->
 
 ## 贡献者
 
