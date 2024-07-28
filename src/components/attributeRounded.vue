@@ -19,7 +19,7 @@
           <Form :label-width="40" class="form-wrap">
             <FormItem :label="$t('attributes.rx_ry')">
               <Slider
-                v-model="baseAttr.rx"
+                v-model="baseAttr.roundValue"
                 :max="300"
                 @on-input="(value) => changeCommon(value)"
               ></Slider>
@@ -28,9 +28,9 @@
         </Col>
         <Col :span="6" flex="1">
           <InputNumber
-            v-model="baseAttr.rx"
-            min="0"
-            max="300"
+            v-model="baseAttr.roundValue"
+            :min="0"
+            :max="300"
             @on-change="(value) => changeCommon(value)"
           ></InputNumber>
         </Col>
@@ -51,8 +51,7 @@ const rectType = ['rect'];
 
 // 属性值
 const baseAttr = reactive({
-  rx: 0,
-  ry: 0,
+  roundValue: 0,
 });
 
 // 属性获取
@@ -61,8 +60,7 @@ const getObjectAttr = (e) => {
   // 不是当前obj，跳过
   if (e && e.target && e.target !== activeObject) return;
   if (activeObject) {
-    baseAttr.rx = activeObject.get('rx');
-    baseAttr.ry = activeObject.get('ry');
+    baseAttr.roundValue = activeObject.get('roundValue');
   }
 };
 
@@ -72,6 +70,7 @@ const changeCommon = (value) => {
   if (activeObject) {
     activeObject.set('ry', value);
     activeObject.set('rx', value);
+    activeObject.set('roundValue', value);
     canvasEditor.canvas.renderAll();
   }
 };

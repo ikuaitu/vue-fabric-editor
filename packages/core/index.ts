@@ -41,6 +41,7 @@ export { default as LockPlugin } from './plugin/LockPlugin';
 export { default as AddBaseTypePlugin } from './plugin/AddBaseTypePlugin';
 import EventType from './eventType';
 import Utils from './utils/utils';
+import CustomRect from './objects/CustomRect';
 
-export { EventType, Utils };
+export { EventType, Utils, CustomRect };
 export default Editor;
