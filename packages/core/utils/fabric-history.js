@@ -134,6 +134,9 @@ fabric.Canvas.prototype.redo = function (callback) {
 fabric.Canvas.prototype._loadHistory = function (history, event, callback) {
   var that = this;
 
+  history?.objects?.forEach((item) => {
+    if (item?.id === 'workspace') item.evented = false;
+  });
   this.loadFromJSON(history, function () {
     that.renderAll();
     that.fire(event);
