@@ -1,3 +1,4 @@
+import { values } from 'lodash-es';
 <template>
   <div class="masonry-container" ref="containerRef" @scroll="handleScroll">
     <div class="masonry-list">
@@ -22,7 +23,6 @@
 interface IVirtualWaterFallProps {
   gap: number;
   column: number;
-  bottom: number;
   pageSize: number;
   request?: (page: number, pageSize: number) => Promise<ICardItem[]>;
 }
@@ -140,9 +140,10 @@ const computedCardPos = (list: ICardItem[]) => {
 };
 
 const handleScroll = rafThrottle(() => {
-  const { scrollTop, clientHeight, scrollHeight } = containerRef.value!;
-  const bottom = scrollHeight - clientHeight - scrollTop;
-  if (bottom <= props.bottom) {
+  const { scrollTop, clientHeight } = containerRef.value!;
+  const { minHeight } = minColumn.value;
+
+  if (scrollTop + clientHeight >= minHeight) {
     !dataState.loading && getCardList(dataState.page, props.pageSize);
   }
 }, 50);

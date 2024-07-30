@@ -26,14 +26,7 @@
     </div>
     <!-- 列表 -->
     <div style="height: calc(100vh - 108px)" id="myTemplBox">
-      <masonry
-        :request="getPageData"
-        :gap="9"
-        :page-size="10"
-        :column="column"
-        :bottom="20"
-        ref="masonryRef"
-      >
+      <masonry :request="getPageData" :gap="9" :page-size="10" :column="column" ref="masonryRef">
         <template #item="{ item }">
           <Tooltip transfer :content="item.name" :key="item.src" placement="top">
             <div class="tmpl-img-box">
