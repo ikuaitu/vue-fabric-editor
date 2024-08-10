@@ -34,7 +34,7 @@
 
 <br>
 <p align="center">
-  <a href="https://strapi.io">
+  <a href="" >
     <img src="https://github.com/user-attachments/assets/2a41f5ac-2211-45b8-b683-ffbdf72e6d8b" alt="演示" />
   </a>
 </p>
