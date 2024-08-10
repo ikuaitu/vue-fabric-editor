@@ -7,8 +7,14 @@
  */
 
 import { fabric } from 'fabric';
-import Editor from '../Editor';
-type IEditor = Editor;
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
+
+type IPlugin = Pick<MaskPlugin, 'setCoverMask' | 'workspaceMaskToggle' | 'getworkspaceMaskStatus'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 class MaskPlugin implements IPluginTempl {
   static pluginName = 'MaskPlugin';

@@ -10,8 +10,14 @@ import { v4 as uuid } from 'uuid';
 import { fabric } from 'fabric';
 import Arrow from '../objects/Arrow';
 import ThinTailArrow from '../objects/ThinTailArrow';
-import Editor from '../Editor';
-type IEditor = Editor;
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
+
+type IPlugin = Pick<DrawLinePlugin, 'setLineType' | 'setMode'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 class DrawLinePlugin implements IPluginTempl {
   static pluginName = 'DrawLinePlugin';

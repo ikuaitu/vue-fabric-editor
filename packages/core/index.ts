@@ -42,6 +42,9 @@ export { default as AddBaseTypePlugin } from './plugin/AddBaseTypePlugin';
 import EventType from './eventType';
 import Utils from './utils/utils';
 import CustomRect from './objects/CustomRect';
+// import { extend } from 'dayjs';
 
 export { EventType, Utils, CustomRect };
 export default Editor;
+
+export * from './interface/Editor';

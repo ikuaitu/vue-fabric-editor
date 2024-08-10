@@ -7,10 +7,15 @@
  */
 
 import { fabric } from 'fabric';
-import Editor from '../Editor';
 import JsBarcode from 'jsbarcode';
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
 
-type IEditor = Editor;
+type IPlugin = Pick<BarCodePlugin, 'addBarcode' | 'setBarcode' | 'getBarcodeTypes'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 // 条形码生成参数
 // https://github.com/lindell/JsBarcode/wiki/Options

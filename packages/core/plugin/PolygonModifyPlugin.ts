@@ -1,10 +1,15 @@
-import Editor from '../Editor';
 import { fabric } from 'fabric';
 import { drawImg } from '../utils/utils';
 import edgeImg from '../assets/edgecontrol.svg?url';
 import { noop } from 'lodash-es';
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
 
-type IEditor = Editor;
+type IPlugin = Pick<PolygonModifyPlugin, 'toggleEdit' | 'activeEdit' | 'inActiveEdit'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 export type Options = {
   fill: string;

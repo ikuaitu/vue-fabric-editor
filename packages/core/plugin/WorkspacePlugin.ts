@@ -7,9 +7,25 @@
  */
 
 import { fabric } from 'fabric';
-import Editor from '../Editor';
 import { throttle } from 'lodash-es';
-type IEditor = Editor;
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
+
+type IPlugin = Pick<
+  WorkspacePlugin,
+  | 'big'
+  | 'small'
+  | 'auto'
+  | 'one'
+  | 'setSize'
+  | 'getWorkspase'
+  | 'setWorkspaseBg'
+  | 'setCenterFromObject'
+>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 class WorkspacePlugin implements IPluginTempl {
   static pluginName = 'WorkspacePlugin';

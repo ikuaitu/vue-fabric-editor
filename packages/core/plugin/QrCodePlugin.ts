@@ -7,11 +7,16 @@
  */
 
 import { fabric } from 'fabric';
-import Editor from '../Editor';
 import QRCodeStyling from 'qr-code-styling';
 import { blobToBase64 } from '../utils/utils';
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
 
-type IEditor = Editor;
+type IPlugin = Pick<QrCodePlugin, 'addQrCode' | 'setQrCode' | 'getQrCodeTypes'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 // 二维码生成参数
 

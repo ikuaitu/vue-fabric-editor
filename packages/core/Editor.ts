@@ -3,6 +3,13 @@ import hotkeys from 'hotkeys-js';
 import ContextMenu from './ContextMenu.js';
 import ServersPlugin from './ServersPlugin';
 import { AsyncSeriesHook } from 'tapable';
+import type {
+  IPluginMenu,
+  IPluginClass,
+  IPluginOption,
+  IEditorHooksType,
+  IPluginTempl,
+} from '@kuaitu/core';
 
 import Utils from './utils/utils';
 
@@ -44,10 +51,10 @@ class Editor extends EventEmitter {
   }
 
   // 引入组件
-  use(plugin: IPluginClass, options?: IPluginOption) {
+  use(plugin: IPluginTempl, options?: IPluginOption) {
     if (this._checkPlugin(plugin) && this.canvas) {
       this._saveCustomAttr(plugin);
-      const pluginRunTime = new plugin(this.canvas, this, options || {}) as IPluginClass;
+      const pluginRunTime = new (plugin as IPluginClass)(this.canvas, this, options || {});
       // 添加插件名称
       pluginRunTime.pluginName = plugin.pluginName;
       this.pluginMap[plugin.pluginName] = pluginRunTime;
@@ -73,7 +80,7 @@ class Editor extends EventEmitter {
   }
 
   // 检查组件
-  private _checkPlugin(plugin: IPluginClass) {
+  private _checkPlugin(plugin: IPluginTempl) {
     const { pluginName, events = [], apis = [] } = plugin;
     //名称检查
     if (this.pluginMap[pluginName]) {
@@ -103,7 +110,7 @@ class Editor extends EventEmitter {
           // eslint-disable-next-line prefer-rest-params
           const result = hook.apply(plugin, [...arguments]);
           // hook 兼容非 Promise 返回值
-          return result instanceof Promise ? result : Promise.resolve(result);
+          return (result as any) instanceof Promise ? result : Promise.resolve(result);
         });
       }
     });
@@ -120,7 +127,7 @@ class Editor extends EventEmitter {
   }
 
   // 保存组件自定义事件与API
-  private _saveCustomAttr(plugin: IPluginClass) {
+  private _saveCustomAttr(plugin: IPluginTempl) {
     const { events = [], apis = [] } = plugin;
     this.customApis = this.customApis.concat(apis);
     this.customEvents = this.customEvents.concat(events);

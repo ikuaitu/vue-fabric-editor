@@ -7,10 +7,16 @@
  * @Description: 历史记录插件
  */
 import { fabric } from 'fabric';
-import Editor from '../Editor';
 import '../utils/fabric-history.js';
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
 
-type IEditor = Editor;
+type IPlugin = Pick<HistoryPlugin, 'undo' | 'redo' | 'historyUpdate'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
+
 type extendCanvas = {
   undo: () => void;
   redo: () => void;

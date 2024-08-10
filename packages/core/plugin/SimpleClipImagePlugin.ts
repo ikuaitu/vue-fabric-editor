@@ -1,8 +1,14 @@
 import { fabric } from 'fabric';
-import Editor from '../Editor';
 import { getPolygonVertices } from '../../../src/utils/math';
 import { get, set } from 'lodash-es';
-type IEditor = Editor;
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
+
+type IPlugin = Pick<SimpleClipImagePlugin, 'addClipPathToImage' | 'removeClip'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 const getBounds = (activeObject: fabric.Object) => {
   const { left = 0, top = 0 } = activeObject;
