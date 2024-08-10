@@ -7,10 +7,19 @@
  */
 
 import { fabric } from 'fabric';
-import Editor from '../Editor';
-type IEditor = Editor;
 import axios from 'axios';
 import qs from 'qs';
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
+
+type IPlugin = Pick<
+  MaterialPlugin,
+  'getTemplTypeList' | 'getTemplList' | 'getMaterialTypeList' | 'getMaterialList' | 'getSizeList'
+>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 class MaterialPlugin implements IPluginTempl {
   static pluginName = 'MaterialPlugin';

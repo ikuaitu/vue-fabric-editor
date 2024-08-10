@@ -175,7 +175,7 @@
   </div>
 </template>
 
-<script name="Home" setup>
+<script name="Home" setup lang="ts">
 // 导入元素
 import importJson from '@/components/importJSON.vue';
 import importFile from '@/components/importFile.vue';
@@ -242,6 +242,7 @@ const { t } = useI18n();
 const APIHOST = import.meta.env.APP_APIHOST;
 
 import Editor, {
+  IEditor,
   DringPlugin,
   AlignGuidLinePlugin,
   ControlsPlugin,
@@ -281,7 +282,7 @@ import ClipImage from '@/components/clipImage.vue';
 import AttributeTextContent from '@/components/attributeTextContent.vue';
 
 // 创建编辑器
-const canvasEditor = new Editor();
+const canvasEditor = new Editor() as IEditor;
 
 const state = reactive({
   menuActive: 1,

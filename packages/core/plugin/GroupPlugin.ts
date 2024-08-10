@@ -7,10 +7,16 @@
  */
 
 import { fabric } from 'fabric';
-import Editor from '../Editor';
 import { isGroup, isActiveSelection } from '../utils/utils';
 import { v4 as uuid } from 'uuid';
-type IEditor = Editor;
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
+
+type IPlugin = Pick<GroupPlugin, 'unGroup' | 'group'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 class GroupPlugin implements IPluginTempl {
   static pluginName = 'GroupPlugin';

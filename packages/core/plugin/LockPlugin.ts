@@ -6,8 +6,15 @@
  * @Description: 锁定文件
  */
 import { fabric } from 'fabric';
-import type Editor from '../Editor';
 import { SelectMode } from '../eventType';
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
+
+type IPlugin = Pick<LockPlugin, 'lock' | 'unLock'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 enum ItypeKey {
   lockMovementX = 'lockMovementX',
@@ -20,7 +27,7 @@ enum ItypeKey {
 export default class LockPlugin implements IPluginTempl {
   static pluginName = 'LockPlugin';
   static apis = ['lock', 'unLock'];
-  constructor(public canvas: fabric.Canvas, public editor: Editor) {}
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
 
   hookImportAfter() {
     this.canvas.forEachObject((obj) => {

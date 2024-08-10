@@ -7,9 +7,7 @@
  */
 
 import { fabric } from 'fabric';
-import Editor from '../Editor';
-type IEditor = Editor;
-// import { v4 as uuid } from 'uuid';
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
 
 class MoveHotKeyPlugin implements IPluginTempl {
   static pluginName = 'MoveHotKeyPlugin';

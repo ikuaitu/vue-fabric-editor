@@ -5,13 +5,18 @@
  * @LastEditTime: 2024-06-08 18:31:24
  * @Description: PSD插件
  */
-
 import { fabric } from 'fabric';
-import Editor from '../Editor';
 import { selectFiles } from '../utils/utils';
 import psdToJson from '../utils/psd';
 import Psd from '@webtoon/psd';
-type IEditor = Editor;
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
+
+type IPlugin = Pick<PsdPlugin, 'insertPSD'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 class PsdPlugin implements IPluginTempl {
   static pluginName = 'PsdPlugin';
