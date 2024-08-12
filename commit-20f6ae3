@@ -1,0 +1,25 @@
+From 20f6ae31ed3df3a822095b9a849ddb0b7496bf75 Mon Sep 17 00:00:00 2001
+From: sosel <web@mailberry.com.cn>
+Date: Mon, 12 Aug 2024 11:01:53 +0800
+Subject: Revert "Revert "返回舊版本""
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This reverts commit bb0a2cae9f9d0162129efa556f488aaf98332e55.
+
+diff --git a/README.md b/README.md
+index cb26a29..12d9f56 100644
+--- a/README.md
++++ b/README.md
+@@ -74,7 +74,9 @@ yarn serve
+ 
+ 为非web前端开发人员准备了[部署教程](https://t.zsxq.com/0drqSuyjY)，快速解决你的部署需求，你可以联系我进行**有偿的部署、定制开发**。可以支持原作者。
+ 
+-可能需要更新Node
++可能需要更新Node。
++
++歡迎提出不足。
+ 
+ ### 自定义素材
+ 可自定义字体、设计模板、标题模板等，所有自定义素材在https://github.com/nihaojob/vue-fabric-editor-static 项目中保存。
