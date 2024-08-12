@@ -23,7 +23,6 @@
     "fontfaceobserver": "^2.1.0",
     "hotkeys-js": "^3.8.8",
     "lodash-es": "^4.17.21",
-    "npm": "^10.0.0",
     "number-precision": "^1.6.0",
     "tapable": "^2.2.1",
     "uuid": "^8.3.2",
