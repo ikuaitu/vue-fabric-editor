@@ -167,7 +167,7 @@ pnpm dev
 
 ## 贡献者
 
-<!-- readme: collaborators,contributors -start -->
+<!-- readme: collaborators -start -->
 <table>
 	<tbody>
 		<tr>
