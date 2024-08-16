@@ -94,7 +94,7 @@ pnpm dev
 ## 付费版本
 帮助企业快速搭建在线设计工具，**减少企业研发投入，避免重复造轮子。**
 
-[功能介绍](https://ws0gdejldw.feishu.cn/docx/GKmnddCgFokr4sxFeYNcoql1nAb) · [产品介绍](http://pro.kuaitu.cc/)
+[功能介绍](https://ws0gdejldw.feishu.cn/docx/GKmnddCgFokr4sxFeYNcoql1nAb) · [产品介绍](http://pro.kuaitu.cc/) · [演示](https://www.kuaitu.cc/)
 
 开源版本仅前端代码，付费版本**提供完整的前后端、管理后台，功能完整开箱即用，提供源码授权、支持二次开发**。
 
