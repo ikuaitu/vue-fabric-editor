@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-24 11:28:10
+ * @LastEditTime: 2024-08-16 17:47:21
  * @Description: 导入模板
 -->
 
@@ -97,6 +97,8 @@ const {
   scrollElement: '#myTemplBox',
   fields: ['name'],
 });
+
+typeValue.value = 4;
 
 // 替换提示
 const beforeClearTip = (info) => {
