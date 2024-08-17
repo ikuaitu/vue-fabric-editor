@@ -1,4 +1,4 @@
-
+[English](https://github.com/ikuaitu/vue-fabric-editor/blob/main/README-en.md)| 中文
 <p align="center">
   <a href="https://pro.kuaitu.cc" target="_blank">
     <img src="https://github.com/user-attachments/assets/4e519179-8d19-41cc-ad2b-a1d7ebc63836" width="318px" alt="开源图片编辑器" />
