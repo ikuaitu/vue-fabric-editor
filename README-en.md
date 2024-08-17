@@ -3,7 +3,7 @@ English| [中文](https://github.com/ikuaitu/vue-fabric-editor/blob/main/README.
 
 <p align="center">
   <a href="https://pro.kuaitu.cc" target="_blank">
-    <img src="https://github.com/user-attachments/assets/4e519179-8d19-41cc-ad2b-a1d7ebc63836" width="318px" alt="Open source image editor" />
+	  <img src="https://github.com/user-attachments/assets/aff17bdf-cea6-4b7e-8091-6661ea8c4f69" width="418px" alt="Open source image editor" />
   </a>
 </p>
  
