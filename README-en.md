@@ -99,7 +99,7 @@ The open source version only contains the front-end code, while the paid version
 - **Drag-and-drop design, simple and easy to use**: Suitable for ordinary users, easy to get started without training.
 - **Technical docking, document training**: Provide more support and efficiently complete technical docking.
 - **Customized development, reduced investment**: Support the rapid completion of functional customized development and reduce R&D investment.
-- 
+
 <a href="https://pro.kuaitu.cc" target="_blank">
     <img src="https://github.com/user-attachments/assets/5303395b-247d-45be-a411-ef27a389156c" alt="Open source image editor" />
 </a>
