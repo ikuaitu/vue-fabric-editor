@@ -1,4 +1,4 @@
-English| [中文](https://github.com/nihaojob/vue-fabric-editor/blob/main/README.md)
+English| [中文](https://github.com/ikuaitu/vue-fabric-editor/blob/main/README.md)
 
 
 <p align="center">
