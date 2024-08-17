@@ -118,12 +118,13 @@ This is a technical note I published on the Nuggets community about the editor, 
 
 1. [Use fabric.js to quickly develop an image editor](https://juejin.cn/post/7155040639497797645),
 2. [Detailed implementation of fabric.js developing an image editor](https://juejin.cn/post/7199849226745430076)
-3. [What functions can fabric.js develop an image editor to achieve? Multi-image](https://juejin.cn/post/7222141882515128375)
+3. [What functions can fabric.js develop an image editor to achieve? ](https://juejin.cn/post/7222141882515128375)
 4. [Sharing my open source projects and open source experience](https://juejin.cn/post/7224765991896121401)
-5. [What functions can fabric.js achieve with the Canvas library? [Introduction to animated images](https://juejin.cn/post/7336743827827015731)
+5. [What functions can fabric.js achieve with the Canvas library?](https://juejin.cn/post/7336743827827015731)
 6. [Vue open source image editor](https://juejin.cn/post/7384258569590636595)
 7. [Sharing of personal open source project commercialization experience](https://juejin.cn/post/7400687574967271478)
 8. [Open source fabric.js image editor plug-in architecture](https://juejin.cn/post/7401071861847949339)
+
 Note: If you encounter technical problems, you are expected to use issue Discussion, it is more open and transparent, enough information will make problem solving more efficient, refer to [The wisdom of asking questions](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md#%E6%8F%90%E9%97%AE%E7%9A%84%E6%99%BA%E6%85%A7).
 
 <!-- <img src="https://user-images.githubusercontent.com/13534626/231202488-f35be6bc-617a-412e-831e-b3764466d833.jpeg" width="20%"> -->
