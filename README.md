@@ -140,7 +140,8 @@ pnpm dev
 - [palxiao](https://github.com/palxiao/poster-design/tree/main/packages/color-picker)设计编辑器的渐变组件。
 
 ## 管理员
-
+<!-- readme: collaborators -start -->
+<!-- readme: collaborators -end -->
 
 ## 贡献者
 
