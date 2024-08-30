@@ -141,33 +141,6 @@ pnpm dev
 
 ## 管理员
 
-<table>
-	<tbody>
-		<tr>
-            <td align="center">
-                <a href="https://github.com/nihaojob">
-                    <img src="https://avatars.githubusercontent.com/u/13534626?v=4" width="80;" alt="nihaojob"/>
-                    <br />
-                    <sub><b>nihaojob</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/Qiu-Jun">
-                    <img src="https://avatars.githubusercontent.com/u/24954362?v=4" width="80;" alt="Qiu-Jun"/>
-                    <br />
-                    <sub><b>Qiu-Jun(求职,求内推)</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/wuchenguang1998">
-                    <img src="https://avatars.githubusercontent.com/u/63847336?v=4" width="80;" alt="wuchenguang1998"/>
-                    <br />
-                    <sub><b>wuchenguang1998</b></sub>
-                </a>
-            </td>
-		</tr>
-	<tbody>
-</table>
 
 ## 贡献者
 
