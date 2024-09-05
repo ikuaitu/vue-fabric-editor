@@ -1,9 +1,11 @@
 English| [中文](https://github.com/ikuaitu/vue-fabric-editor/blob/main/README.md)
 
 
+
 <p align="center">
-  <a href="https://pro.kuaitu.cc" target="_blank">
-	  <img src="https://github.com/user-attachments/assets/aff17bdf-cea6-4b7e-8091-6661ea8c4f69" width="418px" alt="Open source image editor" />
+  <a href="https://pro.kuaitu.cc" target="_blank">  
+	  <img src="https://github.com/user-attachments/assets/a0f4b8b8-a8d2-480b-b43e-49c0faaff917" width="418px" alt="Open source image editor" />
+<!-- 	  <img src="https://github.com/user-attachments/assets/aff17bdf-cea6-4b7e-8091-6661ea8c4f69" width="418px" alt="Open source image editor" /> -->
   </a>
 </p>
  
@@ -151,7 +153,7 @@ Note: If you encounter technical problems, you are expected to use issue Discuss
                 <a href="https://github.com/Qiu-Jun">
                     <img src="https://avatars.githubusercontent.com/u/24954362?v=4" width="80;" alt="Qiu-Jun"/>
                     <br />
-                    <sub><b>Qiu-Jun(求职,求内推)</b></sub>
+                    <sub><b>Qiu-Jun</b></sub>
                 </a>
             </td>
             <td align="center">
