@@ -62,6 +62,7 @@ class Editor extends EventEmitter {
       this._bindingHotkeys(pluginRunTime);
       this._bindingApis(pluginRunTime);
     }
+    return this;
   }
 
   destory() {

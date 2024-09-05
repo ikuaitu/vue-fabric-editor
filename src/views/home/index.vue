@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-06 12:36:48
+ * @LastEditors: June 1601745371@qq.com
+ * @LastEditTime: 2024-09-05 13:22:47
  * @Description: file content
 -->
 <template>
@@ -357,43 +357,44 @@ onMounted(() => {
 
   // 初始化编辑器
   canvasEditor.init(canvas);
-  canvasEditor.use(DringPlugin);
-  canvasEditor.use(PolygonModifyPlugin);
-  canvasEditor.use(AlignGuidLinePlugin);
-  canvasEditor.use(ControlsPlugin);
-  // canvasEditor.use(ControlsRotatePlugin);
-  canvasEditor.use(CenterAlignPlugin);
-  canvasEditor.use(LayerPlugin);
-  canvasEditor.use(CopyPlugin);
-  canvasEditor.use(MoveHotKeyPlugin);
-  canvasEditor.use(DeleteHotKeyPlugin);
-  canvasEditor.use(GroupPlugin);
-  canvasEditor.use(DrawLinePlugin);
-  canvasEditor.use(GroupTextEditorPlugin);
-  canvasEditor.use(GroupAlignPlugin);
-  canvasEditor.use(WorkspacePlugin);
-  canvasEditor.use(HistoryPlugin);
-  canvasEditor.use(FlipPlugin);
-  canvasEditor.use(RulerPlugin);
-  canvasEditor.use(DrawPolygonPlugin);
-  canvasEditor.use(FreeDrawPlugin);
-  canvasEditor.use(PathTextPlugin);
-  canvasEditor.use(SimpleClipImagePlugin);
-  canvasEditor.use(BarCodePlugin);
-  canvasEditor.use(QrCodePlugin);
-  canvasEditor.use(FontPlugin, {
-    repoSrc: APIHOST,
-  });
-  canvasEditor.use(MaterialPlugin, {
-    repoSrc: APIHOST,
-  });
-  canvasEditor.use(WaterMarkPlugin);
-  canvasEditor.use(PsdPlugin);
-  canvasEditor.use(ImageStroke);
-  canvasEditor.use(ResizePlugin);
-  canvasEditor.use(LockPlugin);
-  canvasEditor.use(AddBaseTypePlugin);
-  canvasEditor.use(MaskPlugin);
+  canvasEditor
+    .use(DringPlugin)
+    .use(PolygonModifyPlugin)
+    .use(AlignGuidLinePlugin)
+    .use(ControlsPlugin)
+    // .use(ControlsRotatePlugin)
+    .use(CenterAlignPlugin)
+    .use(LayerPlugin)
+    .use(CopyPlugin)
+    .use(MoveHotKeyPlugin)
+    .use(DeleteHotKeyPlugin)
+    .use(GroupPlugin)
+    .use(DrawLinePlugin)
+    .use(GroupTextEditorPlugin)
+    .use(GroupAlignPlugin)
+    .use(WorkspacePlugin)
+    .use(HistoryPlugin)
+    .use(FlipPlugin)
+    .use(RulerPlugin)
+    .use(DrawPolygonPlugin)
+    .use(FreeDrawPlugin)
+    .use(PathTextPlugin)
+    .use(SimpleClipImagePlugin)
+    .use(BarCodePlugin)
+    .use(QrCodePlugin)
+    .use(FontPlugin, {
+      repoSrc: APIHOST,
+    })
+    .use(MaterialPlugin, {
+      repoSrc: APIHOST,
+    })
+    .use(WaterMarkPlugin)
+    .use(PsdPlugin)
+    .use(ImageStroke)
+    .use(ResizePlugin)
+    .use(LockPlugin)
+    .use(AddBaseTypePlugin)
+    .use(MaskPlugin);
 
   state.show = true;
   // 默认打开标尺
