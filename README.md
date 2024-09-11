@@ -87,6 +87,7 @@ pnpm dev
 ## 开发者服务
 
 - **微信交流群**：我们组建了多个微信项目交流群，作者和项目维护者活跃在群内，定期解答问题。
+- **fabric.js 中文教程**：[https://blog.kuaitu.cc](https://blog.kuaitu.cc/)。
 - **知识星球**：长期更新开源编辑器与fabric.js的相关资料，沉淀最佳实践、开发经验分享、代码示例等。
 <img src="https://github.com/nihaojob/vue-fabric-editor/assets/13534626/25e9075e-f751-4110-aadd-30fe453e02d9" width="500px" alt="二维码" />
 
