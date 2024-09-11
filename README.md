@@ -1,15 +1,17 @@
-[English](https://github.com/ikuaitu/vue-fabric-editor/blob/main/README-en.md)| 中文
+English| [中文](https://github.com/ikuaitu/vue-fabric-editor/blob/main/README.md)
+
 <p align="center">
-  <a href="https://pro.kuaitu.cc" target="_blank">
-    <img src="https://github.com/user-attachments/assets/4e519179-8d19-41cc-ad2b-a1d7ebc63836" width="318px" alt="开源图片编辑器" />
+  <a href="https://pro.kuaitu.cc" target="_blank">  
+	  <img src="https://github.com/user-attachments/assets/a0f4b8b8-a8d2-480b-b43e-49c0faaff917" width="418px" alt="Open source image editor" />
+<!-- 	  <img src="https://github.com/user-attachments/assets/aff17bdf-cea6-4b7e-8091-6661ea8c4f69" width="418px" alt="Open source image editor" /> -->
   </a>
 </p>
- 
 
-<h3 align="center">开源图片编辑器 · 插件化架构 · 拖拽式设计 · 功能完善 </h3>
-<p align="center">基于 fabric.js 和 Vue 开发的插件化图片编辑器，可自定义字体、素材、设计模板、右键菜单、快捷键</p>
 
-<p align="center"><a href="https://ikuaitu.github.io/vue-fabric-editor/" target="_blank">演示</a> · <a href="https://ikuaitu.github.io/doc/#/"  target="_blank">文档</a> · <a href="https://www.kuaitu.cc/"  target="_blank">付费版演示</a> · <a href="https://pro.kuaitu.cc/"  target="_blank">付费版介绍</a></p>
+<h3 align="center"> Plugin architecture · Drag-and-drop design · Complete functions </h3>
+<p align="center">Based on fabric.js and Vue developed plug-in image editor, can customize fonts, materials, design templates, right-click menu, shortcut keys</p>
+
+<p align="center"><a href="https://ikuaitu.github.io/vue-fabric-editor/" target="_blank">Preview</a> · <a href="https://ikuaitu.github.io/doc/#/"  target="_blank">Document</a> · <a href="https://www.kuaitu.cc/"  target="_blank">Enterprise Edition Preview</a> · <a href="https://pro.kuaitu.cc/"  target="_blank">Enterprise Edition</a></p>
 <br />
 
 <p align="center">
@@ -39,113 +41,130 @@
   </a>
 </p>
 
-## 简介
-快图设计，vue-fabric-editor 是一款基于 fabric.js 和 Vue 开发的图片编辑器，可自定义字体、素材、设计模板、右键菜单、快捷键。
+## Introduction
 
-[动图介绍](https://juejin.cn/post/7222141882515128375) · [介绍视频](https://www.bilibili.com/video/BV1US421A7TU/?spm_id_from=333.999.0.0)
+Vue-Fabric-Editor is an image editor based on fabric.js and Vue, which can customize fonts, materials, design templates, right-click menus, and shortcut keys.
 
-### 特点
-1. **插件化架构**：可通过插件的进行扩展开发，支持右键菜单和快捷键。
-2. **拖拽式设计**：以轻量、简洁为主的图形编辑器，而非大而全的在线 PS 类的重行设计工具。
-3. **功能完善**：PSD解析、辅助线、历史记录、渐变、自定义字体、裁剪等功能。
+[GIF introduction](https://juejin.cn/post/7222141882515128375) · [Introductory video](https://www.bilibili.com/video/BV1US421A7TU/?spm_id_from=333.999.0.0)
 
-### 已有功能
+### Features
 
-- 导入 JSON、PSD 文件
-- 导出 PNG、SVG、JSON 文件
-- 组合/拆分组合
-- 图层功能
-- 渐变属性
-- 外观属性/字体属性/描边/阴影
-- 撤销/重做
-- 快捷键
-- 右键菜单
-- 辅助线
-- 标尺
-- 自定义字体
-- 自定义模板素材
-- 插入 SVG、图片素材
-- 多元素水平、垂直对齐方式
-- 背景属性设置
-- 箭头/线条
-- 画笔/多边形绘制
-- 二维码/条形码
-- 图片替换/裁剪/滤镜
-- 水印
-- 国际化
+1. **Plug-in architecture**: can be extended and developed through plug-ins, supporting right-click menus and shortcut keys.
+2. **Drag-and-drop design**: a graphic editor that is mainly lightweight and simple, rather than a large and comprehensive online PS-like heavy-line design tool.
+3. **Full-featured**: PSD parsing, auxiliary lines, history, gradients, custom fonts, cropping and other functions.
 
-## 使用
+### Existing features
 
-请先安装 node.js v16，及 pnpm， 然后执行以下命令：
+- Import JSON, PSD files
+- Export PNG, SVG, JSON files
+- Combine/split combinations
+- Layer functions
+- Gradient properties
+- Appearance properties/Font properties/Stroke/Shadow
+- Undo/Redo
+- Shortcuts
+- Right-click menu
+- Auxiliary lines
+- Rulers
+- Custom fonts
+- Custom template materials
+- Insert SVG, image materials
+- Horizontal and vertical alignment of multiple elements
+- Background property settings
+- Arrows/lines
+- Brush/polygon drawing
+- QR code/barcode
+- Image replacement/cropping/filters
+- Watermark
+- Internationalization
+
+## Use
+
+Please install node.js v16 and pnpm first, then execute the following command:
 
 ```
 pnpm i
 pnpm dev
 ```
 
+## Enterprise Edition
 
-## 开发者服务
+Help enterprises quickly build online design tools, **reduce enterprise R&D investment, and avoid reinventing the wheel.**
 
-- **微信交流群**：我们组建了多个微信项目交流群，作者和项目维护者活跃在群内，定期解答问题。
-- **fabric.js 中文教程**：[https://blog.kuaitu.cc](https://blog.kuaitu.cc/)。
-- **知识星球**：长期更新开源编辑器与fabric.js的相关资料，沉淀最佳实践、开发经验分享、代码示例等。
-<img src="https://github.com/nihaojob/vue-fabric-editor/assets/13534626/25e9075e-f751-4110-aadd-30fe453e02d9" width="500px" alt="二维码" />
+[Function Introduction](https://ws0gdejldw.feishu.cn/docx/GKmnddCgFokr4sxFeYNcoql1nAb) · [Product introduction](http://pro.kuaitu.cc/) · [Preview](https://www.kuaitu.cc/)
 
+The open source version only contains the front-end code, while the paid version **provides complete front-end, back-end and management background, with full functionality out of the box, and provides source code authorization and supports secondary development**.
 
-## 付费版本
-帮助企业快速搭建在线设计工具，**减少企业研发投入，避免重复造轮子。**
+- **Ready to use out of the box, full functionality**: Rich design capabilities, providing complete front-end and back-end functions, ready to use after deployment.
+- **Plug-in architecture, easy to expand**: Based on plug-in API, quickly carry out secondary development of the editor.
+- **Batch generation, fast output**: Support batch generation of images through HTTP interface and table files.
+- **Drag-and-drop design, simple and easy to use**: Suitable for ordinary users, easy to get started without training.
+- **Technical docking, document training**: Provide more support and efficiently complete technical docking.
+- **Customized development, reduced investment**: Support the rapid completion of functional customized development and reduce R&D investment.
 
-[功能介绍](https://ws0gdejldw.feishu.cn/docx/GKmnddCgFokr4sxFeYNcoql1nAb) · [产品介绍](http://pro.kuaitu.cc/) · [演示](https://www.kuaitu.cc/)
-
-开源版本仅前端代码，付费版本**提供完整的前后端、管理后台，功能完整开箱即用，提供源码授权、支持二次开发**。
-
-- **开箱即用，功能完整**：设计能力丰富，提供完整前台、后台功能，部署即可使用。
-- **插件架构，扩展方便**：基于插件化API，快速对编辑器进行二次开发。
-- **批量生成，快速出图**：支持通过HTTP接口、表格文件批量生成图片。
-- **拖拽式设计，简单易用**：适合普通用户操作，无需培训轻松上手。
-- **全平台适配**：PC版本、H5版本支持各种应用场景。
-- **技术对接，文档培训**：提供更多的支持，高效完成技术对接。
-- **定制开发，减少投入**：支持快速完成功能定制开发，减少研发投入。
 <a href="https://pro.kuaitu.cc" target="_blank">
-    <img src="https://github.com/user-attachments/assets/5303395b-247d-45be-a411-ef27a389156c" alt="开源图片编辑器" />
+    <img src="https://github.com/user-attachments/assets/5303395b-247d-45be-a411-ef27a389156c" alt="Open source image editor" />
 </a>
 
+## Contribution guide
 
+The project is committed to creating an out-of-the-box web image editor application, and at the same time, it will precipitate an encapsulation layer between the web image editor application and fabric.js. It is expected that the encapsulation layer will be designed for developers and provide a simpler interface so that developers can easily develop image applications.
 
-## 贡献指南
+If you are interested in this matter, we sincerely invite you to join us and grow together. You only need to know simple Git and Javascript syntax.
 
-项目致力于打造一个开箱即用的 web 图片编辑器应用，同时沉淀一个介于 web 图片编辑器应用与 fabric.js 之间的封装层，期望封装层面向开发者设计，提供更简单的接口，让开发者可以轻松的实现图片应用开发。
+### Related Materials
 
-如果你对这件事情感兴趣，真诚的邀请你加入，我们一起成长，你只要会简单的 Git 和 Javascript 语法就可以。
+This is a technical note I published on the Nuggets community about the editor, which will have more details:
 
+1. [Use fabric.js to quickly develop an image editor](https://juejin.cn/post/7155040639497797645),
+2. [Detailed implementation of fabric.js developing an image editor](https://juejin.cn/post/7199849226745430076)
+3. [What functions can fabric.js develop an image editor to achieve? ](https://juejin.cn/post/7222141882515128375)
+4. [Sharing my open source projects and open source experience](https://juejin.cn/post/7224765991896121401)
+5. [What functions can fabric.js achieve with the Canvas library?](https://juejin.cn/post/7336743827827015731)
+6. [Vue open source image editor](https://juejin.cn/post/7384258569590636595)
+7. [Sharing of personal open source project commercialization experience](https://juejin.cn/post/7400687574967271478)
+8. [Open source fabric.js image editor plug-in architecture](https://juejin.cn/post/7401071861847949339)
 
-### 相关资料
-这是我发表在掘金社区关于编辑器的技术笔记，会有更多的细节：
-
-1. [使用 fabric.js 快速开发一个图片编辑器](https://juejin.cn/post/7155040639497797645)，
-2. [fabric.js 开发图片编辑器的细节实现](https://juejin.cn/post/7199849226745430076)
-3. [fabric.js开发图片编辑器可以实现哪些功能？多图](https://juejin.cn/post/7222141882515128375)
-4. [我的开源项目与开源经历分享](https://juejin.cn/post/7224765991896121401)
-5. [Canvas库 fabric.js可以实现哪些功能？ 动图介绍](https://juejin.cn/post/7336743827827015731)
-6. [Vue开源图片编辑器](https://juejin.cn/post/7384258569590636595)
-7. [个人开源项目商业化经验分享](https://juejin.cn/post/7400687574967271478)
-8. [开源fabric.js图片编辑器的插件化架构](https://juejin.cn/post/7401071861847949339)
-
-注：如果遇到技术问题，期望使用 issue 讨论，它更加开放与透明，足够多的信息会让解决问题变得更高效，参考[提问的智慧](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md#%E6%8F%90%E9%97%AE%E7%9A%84%E6%99%BA%E6%85%A7)。
+Note: If you encounter technical problems, you are expected to use issue Discussion, it is more open and transparent, enough information will make problem solving more efficient, refer to [The wisdom of asking questions](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md#%E6%8F%90%E9%97%AE%E7%9A%84%E6%99%BA%E6%85%A7).
 
 <!-- <img src="https://user-images.githubusercontent.com/13534626/231202488-f35be6bc-617a-412e-831e-b3764466d833.jpeg" width="20%"> -->
 
-
-## 致谢
+## Acknowledgements
 
 - [刘明野](https://github.com/liumingye)标尺功能作者。
 - [palxiao](https://github.com/palxiao/poster-design/tree/main/packages/color-picker)设计编辑器的渐变组件。
 
-## 管理员
-<!-- readme: collaborators -start -->
-<!-- readme: collaborators -end -->
+## Administrator
 
-## 贡献者
+<table>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/nihaojob">
+                    <img src="https://avatars.githubusercontent.com/u/13534626?v=4" width="80;" alt="nihaojob"/>
+                    <br />
+                    <sub><b>nihaojob</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/Qiu-Jun">
+                    <img src="https://avatars.githubusercontent.com/u/24954362?v=4" width="80;" alt="Qiu-Jun"/>
+                    <br />
+                    <sub><b>Qiu-Jun</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/wuchenguang1998">
+                    <img src="https://avatars.githubusercontent.com/u/63847336?v=4" width="80;" alt="wuchenguang1998"/>
+                    <br />
+                    <sub><b>wuchenguang1998</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
+</table>
+
+## Collaborators
 
 <!-- readme: collaborators -start -->
 <table>
