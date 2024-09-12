@@ -1,17 +1,16 @@
 English| [中文](https://github.com/ikuaitu/vue-fabric-editor/blob/main/README.md)
 
 <p align="center">
-  <a href="https://pro.kuaitu.cc" target="_blank">  
+  <a href="https://pro.kuaitu.cc/index-en.html" target="_blank">  
 	  <img src="https://github.com/user-attachments/assets/a0f4b8b8-a8d2-480b-b43e-49c0faaff917" width="418px" alt="Open source image editor" />
 <!-- 	  <img src="https://github.com/user-attachments/assets/aff17bdf-cea6-4b7e-8091-6661ea8c4f69" width="418px" alt="Open source image editor" /> -->
   </a>
 </p>
 
-
 <h3 align="center"> Plugin architecture · Drag-and-drop design · Complete functions </h3>
 <p align="center">Based on fabric.js and Vue developed plug-in image editor, can customize fonts, materials, design templates, right-click menu, shortcut keys</p>
 
-<p align="center"><a href="https://ikuaitu.github.io/vue-fabric-editor/" target="_blank">Preview</a> · <a href="https://ikuaitu.github.io/doc/#/"  target="_blank">Document</a> · <a href="https://www.kuaitu.cc/"  target="_blank">Enterprise Edition Preview</a> · <a href="https://pro.kuaitu.cc/"  target="_blank">Enterprise Edition</a></p>
+<p align="center"><a href="https://ikuaitu.github.io/vue-fabric-editor/" target="_blank">Preview</a> · <a href="https://ikuaitu.github.io/doc/#/"  target="_blank">Document</a> · <a href="https://www.kuaitu.cc/"  target="_blank">Enterprise Edition Preview</a> · <a href="https://pro.kuaitu.cc/index-en.html"  target="_blank">Enterprise Edition</a></p>
 <br />
 
 <p align="center">
@@ -91,7 +90,7 @@ pnpm dev
 
 Help enterprises quickly build online design tools, **reduce enterprise R&D investment, and avoid reinventing the wheel.**
 
-[Function Introduction](https://ws0gdejldw.feishu.cn/docx/GKmnddCgFokr4sxFeYNcoql1nAb) · [Product introduction](http://pro.kuaitu.cc/) · [Preview](https://www.kuaitu.cc/)
+[Function Introduction](https://ws0gdejldw.feishu.cn/docx/GKmnddCgFokr4sxFeYNcoql1nAb) · [Product introduction](https://pro.kuaitu.cc/index-en.html) · [Preview](https://www.kuaitu.cc/)
 
 The open source version only contains the front-end code, while the paid version **provides complete front-end, back-end and management background, with full functionality out of the box, and provides source code authorization and supports secondary development**.
 
@@ -102,7 +101,7 @@ The open source version only contains the front-end code, while the paid version
 - **Technical docking, document training**: Provide more support and efficiently complete technical docking.
 - **Customized development, reduced investment**: Support the rapid completion of functional customized development and reduce R&D investment.
 
-<a href="https://pro.kuaitu.cc" target="_blank">
+<a href="https://pro.kuaitu.cc/index-en.html" target="_blank">
     <img src="https://github.com/user-attachments/assets/5303395b-247d-45be-a411-ef27a389156c" alt="Open source image editor" />
 </a>
 
@@ -128,11 +127,6 @@ This is a technical note I published on the Nuggets community about the editor, 
 Note: If you encounter technical problems, you are expected to use issue Discussion, it is more open and transparent, enough information will make problem solving more efficient, refer to [The wisdom of asking questions](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md#%E6%8F%90%E9%97%AE%E7%9A%84%E6%99%BA%E6%85%A7).
 
 <!-- <img src="https://user-images.githubusercontent.com/13534626/231202488-f35be6bc-617a-412e-831e-b3764466d833.jpeg" width="20%"> -->
-
-## Acknowledgements
-
-- [刘明野](https://github.com/liumingye)标尺功能作者。
-- [palxiao](https://github.com/palxiao/poster-design/tree/main/packages/color-picker)设计编辑器的渐变组件。
 
 ## Administrator
 
