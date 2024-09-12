@@ -101,8 +101,9 @@ The open source version only contains the front-end code, while the paid version
 - **Technical docking, document training**: Provide more support and efficiently complete technical docking.
 - **Customized development, reduced investment**: Support the rapid completion of functional customized development and reduce R&D investment.
 
+
 <a href="https://pro.kuaitu.cc/index-en.html" target="_blank">
-    <img src="https://github.com/user-attachments/assets/5303395b-247d-45be-a411-ef27a389156c" alt="Open source image editor" />
+    <img src="https://github.com/user-attachments/assets/514479be-b73e-4170-800d-f8fae4adcd5e" alt="Open source image editor" />
 </a>
 
 ## Contribution guide
