@@ -6,7 +6,7 @@
  * @Description: file content
 -->
 
-[English](https://github.com/ikuaitu/vue-fabric-editor/blob/main/README-en.md)| 中文
+[English](https://github.com/ikuaitu/vue-fabric-editor/blob/main/README.md)| 中文
 
 <p align="center">
   <a href="https://pro.kuaitu.cc" target="_blank">
