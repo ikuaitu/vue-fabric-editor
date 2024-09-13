@@ -1,4 +1,4 @@
-English| [中文](https://github.com/ikuaitu/vue-fabric-editor/blob/main/README.md)
+English| [中文](https://github.com/ikuaitu/vue-fabric-editor/blob/main/README-zh.md)
 
 <p align="center">
   <a href="https://pro.kuaitu.cc/index-en.html" target="_blank">  
