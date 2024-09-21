@@ -1,4 +1,3 @@
-
 <!--
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
@@ -54,7 +53,7 @@
           <lang></lang>
         </div>
       </Header>
-      <Content style="display: flex; height: calc(100vh - 64px); position:relative">
+      <Content style="display: flex; height: calc(100vh - 64px); position: relative">
         <!-- 左侧区域 -->
         <div v-if="state.show" :class="`left-bar ${state.toolsBarShow && 'show-tools-bar'}`">
           <!-- 左侧菜单 -->
