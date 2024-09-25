@@ -234,10 +234,7 @@
           ></path>
         </svg>
       </span>
-      <span
-        @click="canvasEditor.addBarcode"
-        :class="state.isDrawingLineMode && state.lineType === 'arrow' && 'bg'"
-      >
+      <span @click="canvasEditor.addBarcode">
         <svg
           t="1717679973041"
           class="icon"
