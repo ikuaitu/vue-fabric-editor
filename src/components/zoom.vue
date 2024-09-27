@@ -79,5 +79,11 @@ const setViewport = () => {
   position: absolute;
   right: 10px;
   bottom: 10px;
+
+  :deep(.ivu-btn:hover) {
+    svg {
+      fill: #57a3f3;
+    }
+  }
 }
 </style>
