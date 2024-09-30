@@ -85,16 +85,22 @@ fabric.Textbox = fabric.util.createClass(fabric.Textbox, {
       accumulatedSpace = 0;
       line = this._textLines[i];
       currentLineWidth = this.getLineWidth(i);
-      if (currentLineWidth < this.width && (spaces = this.textLines[i].split(''))) {
+      if (
+        currentLineWidth < this.width &&
+        (spaces = this.textLines[i].split('')) &&
+        spaces.length > 1
+      ) {
         numberOfSpaces = spaces.length;
         diffSpace = (this.width - currentLineWidth) / (numberOfSpaces - 1);
         for (var j = 0, jlen = line.length; j <= jlen; j++) {
           charBound = this.__charBounds[i][j];
           // if (this._reSpaceAndTab.test(line[j])) {
-          charBound.width += diffSpace;
-          charBound.kernedWidth += diffSpace;
           charBound.left += accumulatedSpace;
-          accumulatedSpace += diffSpace;
+          if (j < jlen - 1) {
+            charBound.width += diffSpace;
+            charBound.kernedWidth += diffSpace;
+            accumulatedSpace += diffSpace;
+          }
           // } else {
           //   charBound.left += accumulatedSpace;
           // }
