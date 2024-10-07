@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2024-06-10 17:52:40
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-10 19:58:38
+ * @LastEditTime: 2024-10-07 17:37:53
  * @Description: 小数点下标上标
 -->
 
 <template>
-  <div v-if="mixinState.mSelectMode === 'one' && isMatchType" class="attr-item-box">
+  <div v-if="isOne && isMatchType" class="attr-item-box">
     <div class="flex-view">
       <div class="flex-item">
         <span class="label">{{ $t('textFloat') }}</span>
@@ -29,20 +29,18 @@
 <script name="Price" setup>
 import useSelect from '@/hooks/select';
 
-const { mixinState, canvasEditor } = useSelect();
-
 const baseAttr = reactive({
   verticalAlign: 'null',
 });
 
 const matchType = ['i-text', 'textbox', 'text'];
+const { isMatchType, canvasEditor, isOne } = useSelect(matchType);
 
-const isMatchType = computed(() => matchType.includes(mixinState.mSelectOneType));
 const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
   // 不是当前obj，跳过
   if (e && e.target && e.target !== activeObject) return;
-  if (activeObject && matchType.includes(activeObject.type) && activeObject.text.includes('.')) {
+  if (activeObject && isMatchType && activeObject.text.includes('.')) {
     baseAttr.verticalAlign = activeObject.get('verticalAlign');
   }
 };

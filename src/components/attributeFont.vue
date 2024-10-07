@@ -2,15 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2024-05-21 10:35:12
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:43:48
+ * @LastEditTime: 2024-10-07 17:32:41
  * @Description: 字体属性
 -->
 
 <template>
-  <div
-    class="box attr-item-box"
-    v-if="mixinState.mSelectMode === 'one' && textType.includes(mixinState.mSelectOneType)"
-  >
+  <div class="box attr-item-box" v-if="isOne && isMatchType">
     <!-- <h3>字体属性</h3> -->
     <Divider plain orientation="left"><h4>字体属性</h4></Divider>
     <div>
@@ -134,10 +131,11 @@ import { Spin } from 'view-ui-plus';
 import InputNumber from '@/components/inputNumber';
 
 const update = getCurrentInstance();
-const { mixinState, canvasEditor } = useSelect();
 
 // 文字元素
 const textType = ['i-text', 'textbox', 'text'];
+const { canvasEditor, isMatchType, isOne } = useSelect(textType);
+
 // 属性值
 const baseAttr = reactive({
   fontSize: 0,
@@ -173,7 +171,7 @@ const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
   // 不是当前obj，跳过
   if (e && e.target && e.target !== activeObject) return;
-  if (activeObject && textType.includes(activeObject.type)) {
+  if (activeObject && isMatchType) {
     baseAttr.fontSize = activeObject.get('fontSize');
     baseAttr.fontFamily = activeObject.get('fontFamily');
     baseAttr.lineHeight = activeObject.get('lineHeight');

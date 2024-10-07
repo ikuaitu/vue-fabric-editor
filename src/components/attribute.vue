@@ -1,10 +1,10 @@
 <template>
-  <div class="box" v-if="mixinState.mSelectMode === 'one'">
+  <div class="box" v-if="isOne">
     <!-- 通用属性 -->
-    <div v-show="baseType.includes(mixinState.mSelectOneType)">
+    <div v-show="isMatchType">
       <Divider plain orientation="left">{{ $t('attributes.exterior') }}</Divider>
       <!-- 多边形边数 -->
-      <Row v-if="mixinState.mSelectOneType === 'polygon'" :gutter="12">
+      <Row v-if="selectType === 'polygon'" :gutter="12">
         <Col flex="0.5">
           <InputNumber
             v-model="baseAttr.points.length"
@@ -29,15 +29,7 @@ import useSelect from '@/hooks/select';
 import colorSelector from '@/components/colorSelector.vue';
 import { getPolygonVertices } from '@/utils/math';
 import InputNumber from '@/components/inputNumber';
-import { Spin } from 'view-ui-plus';
 
-const update = getCurrentInstance();
-const { mixinState, canvasEditor } = useSelect();
-
-const fontsList = ref([]);
-canvasEditor.getFontList().then((list) => {
-  fontsList.value = list;
-});
 // 通用元素
 const baseType = [
   'text',
@@ -53,6 +45,15 @@ const baseType = [
   'arrow',
   'thinTailArrow',
 ];
+
+const update = getCurrentInstance();
+const { selectType, canvasEditor, isOne, isMatchType } = useSelect(baseType);
+
+const fontsList = ref([]);
+canvasEditor.getFontList().then((list) => {
+  fontsList.value = list;
+});
+
 // 文字元素
 // 通用属性
 const baseAttr = reactive({

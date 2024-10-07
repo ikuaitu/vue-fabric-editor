@@ -2,17 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 20:04:48
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 20:56:55
+ * @LastEditTime: 2024-10-07 17:34:37
  * @Description: 二维码组件
 -->
 
 <template>
-  <div
-    class="box attr-item-box"
-    v-if="
-      mixinState.mSelectMode === 'one' && textType.includes(mixinState.mSelectOneType) && isQrcode
-    "
-  >
+  <div class="box attr-item-box" v-if="isOne && isMatchType && isQrcode">
     <!-- <h3>字体属性</h3> -->
     <Divider plain orientation="left"><h4>二位码属性</h4></Divider>
     <div>
@@ -145,10 +140,9 @@ import InputNumber from '@/components/inputNumber';
 import { toRaw } from 'vue';
 
 const update = getCurrentInstance();
-const { mixinState, canvasEditor } = useSelect();
+const { canvasEditor, isOne, isMatchType } = useSelect(['image']);
 
 // 文字元素
-const textType = ['image'];
 const extensionType = ref('');
 
 const isQrcode = computed(() => extensionType.value === 'qrcode');
@@ -174,11 +168,7 @@ const getObjectAttr = (e) => {
   // 不是当前obj，跳过
   if (e && e.target && e.target !== activeObject) return;
   extensionType.value = activeObject?.extensionType || '';
-  if (
-    activeObject &&
-    textType.includes(activeObject.type) &&
-    activeObject?.extensionType === 'qrcode'
-  ) {
+  if (activeObject && isMatchType && activeObject?.extensionType === 'qrcode') {
     const extension = activeObject.get('extension');
     Object.keys(extension).forEach((key) => {
       baseAttr[key] = extension[key];

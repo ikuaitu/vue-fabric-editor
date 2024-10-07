@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:43:00
+ * @LastEditTime: 2024-10-07 17:21:29
  * @Description: 组合与拆分组合
 -->
 
@@ -56,14 +56,8 @@
 <script setup name="Group">
 import useSelect from '@/hooks/select';
 
-const { mixinState, canvasEditor } = useSelect();
+const { isGroup, isMultiple, canvasEditor } = useSelect();
 
-// 单选且等于组元素
-let isGroup = computed(
-  () => mixinState.mSelectMode === 'one' && mixinState.mSelectOneType === 'group'
-);
-// 是否为多选
-let isMultiple = computed(() => mixinState.mSelectMode === 'multiple');
 // 拆分组
 const unGroup = () => {
   canvasEditor.unGroup();

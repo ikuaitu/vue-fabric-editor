@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-16 15:17:28
+ * @LastEditTime: 2024-10-07 17:26:59
  * @Description: 组合元素对齐
 -->
 
 <template>
-  <div v-if="mixinState.mSelectMode === 'multiple'" class="attr-item-box">
+  <div v-if="isMultiple" class="attr-item-box">
     <!-- <h3>对齐</h3> -->
     <Divider plain orientation="left"><h4>对齐</h4></Divider>
     <div class="bg-item">
@@ -74,7 +74,7 @@ import syIcon from '@/assets/icon/sy.svg';
 import centerxIcon from '@/assets/icon/centerx.svg';
 import centeryIcon from '@/assets/icon/centery.svg';
 
-const { mixinState, canvasEditor } = useSelect();
+const { canvasEditor, isMultiple } = useSelect();
 
 // 左对齐
 const left = () => {

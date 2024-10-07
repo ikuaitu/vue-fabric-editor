@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2024-05-21 10:10:24
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:37:03
+ * @LastEditTime: 2024-10-07 17:18:47
  * @Description: 阴影
 -->
 
 <template>
-  <div class="box attr-item-box" v-if="mixinState.mSelectMode === 'one'">
+  <div class="box attr-item-box" v-if="isOne">
     <!-- <h3>阴影</h3> -->
     <Divider plain orientation="left"><h4>阴影</h4></Divider>
     <!-- 通用属性 -->
@@ -61,7 +61,7 @@ import useSelect from '@/hooks/select';
 import InputNumber from '@/components/inputNumber';
 
 const update = getCurrentInstance();
-const { fabric, mixinState, canvasEditor } = useSelect();
+const { fabric, isOne, canvasEditor } = useSelect();
 
 // 属性值
 const baseAttr = reactive({

@@ -2,17 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2024-06-06 16:27:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-07 21:26:22
+ * @LastEditTime: 2024-10-07 17:30:43
  * @Description: 条形码插件
 -->
 
 <template>
-  <div
-    class="box attr-item-box"
-    v-if="
-      mixinState.mSelectMode === 'one' && textType.includes(mixinState.mSelectOneType) && isBarcode
-    "
-  >
+  <div class="box attr-item-box" v-if="isOne && isMatchType && isBarcode">
     <!-- <h3>字体属性</h3> -->
     <Divider plain orientation="left"><h4>条形码属性</h4></Divider>
     <div>
@@ -114,10 +109,9 @@ import InputNumber from '@/components/inputNumber';
 import { toRaw } from 'vue';
 
 const update = getCurrentInstance();
-const { mixinState, canvasEditor } = useSelect();
+const { isOne, canvasEditor, isMatchType } = useSelect(['image']);
 
 // 文字元素
-const textType = ['image'];
 const extensionType = ref('');
 
 const isBarcode = computed(() => extensionType.value === 'barcode');
@@ -150,11 +144,7 @@ const getObjectAttr = (e) => {
   // 不是当前obj，跳过
   if (e && e.target && e.target !== activeObject) return;
   extensionType.value = activeObject?.extensionType || '';
-  if (
-    activeObject &&
-    textType.includes(activeObject.type) &&
-    activeObject?.extensionType === 'barcode'
-  ) {
+  if (activeObject && isMatchType && activeObject?.extensionType === 'barcode') {
     baseAttr.value = activeObject.get('extension').value;
     baseAttr.format = activeObject.get('extension').format;
     baseAttr.text = activeObject.get('extension').text;

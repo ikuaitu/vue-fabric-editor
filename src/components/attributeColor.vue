@@ -1,20 +1,13 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2024-05-21 10:59:48
- * @LastEditors: June 1601745371@qq.com
- * @LastEditTime: 2024-06-20 17:46:45
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-10-07 17:32:19
  * @Description: 渐变
 -->
 
 <template>
-  <div
-    class="box attr-item-box"
-    v-if="
-      mixinState.mSelectMode === 'one' &&
-      mixinState.mSelectOneType !== 'image' &&
-      mixinState.mSelectOneType !== 'group'
-    "
-  >
+  <div class="box attr-item-box" v-if="isOne && selectType !== 'image' && selectType !== 'group'">
     <Divider plain orientation="left"><h4>颜色</h4></Divider>
     <!-- 通用属性 -->
     <div class="bg-item">
@@ -40,7 +33,7 @@ import colorPicker from './color-picker';
 import { toRaw } from 'vue';
 
 const update = getCurrentInstance();
-const { fabric, mixinState, canvasEditor } = useSelect();
+const { fabric, selectType, canvasEditor, isOne } = useSelect();
 const angleKey = 'gradientAngle';
 // 属性值
 const baseAttr = reactive({
@@ -52,7 +45,7 @@ const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
   // 不是当前obj，跳过
   if (e && e.target && e.target !== activeObject) return;
-  if (activeObject && mixinState.mSelectMode === 'one') {
+  if (activeObject && isOne) {
     const fill = activeObject.get('fill');
     if (typeof fill === 'string') {
       baseAttr.fill = fill;

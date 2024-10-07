@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:46:21
+ * @LastEditTime: 2024-10-07 17:39:38
  * @Description: 多元素或单元素对齐方式
 -->
 
 <template>
-  <div v-if="mixinState.mSelectMode" class="attr-item-box">
+  <div v-if="isSelect" class="attr-item-box">
     <!-- <h3>{{ $t('attrSeting.centerAlign.name') }}</h3> -->
     <Divider plain orientation="left">
       <h4>{{ $t('attrSeting.centerAlign.name') }}</h4>
@@ -15,7 +15,7 @@
     <div class="bg-item">
       <!-- 水平集中 -->
       <Tooltip :content="$t('attrSeting.centerAlign.centerX')">
-        <Button long :disabled="!mixinState.mSelectMode" @click="position('centerH')" type="text">
+        <Button long @click="position('centerH')" type="text">
           <svg
             t="1650442559691"
             class="icon"
@@ -35,7 +35,7 @@
       </Tooltip>
       <!-- 水平垂直居中 -->
       <Tooltip :content="$t('attrSeting.centerAlign.center')">
-        <Button long :disabled="!mixinState.mSelectMode" @click="position('center')" type="text">
+        <Button long @click="position('center')" type="text">
           <svg
             t="1650852784867"
             class="icon"
@@ -56,7 +56,7 @@
       </Tooltip>
       <!-- 垂直居中 -->
       <Tooltip :content="$t('attrSeting.centerAlign.centerY')">
-        <Button long :disabled="!mixinState.mSelectMode" @click="position('centerV')" type="text">
+        <Button long @click="position('centerV')" type="text">
           <svg
             t="1650442510967"
             class="icon"
@@ -81,7 +81,7 @@
 
 <script setup name="CenterAlign">
 import useSelect from '@/hooks/select';
-const { mixinState, canvasEditor } = useSelect();
+const { isSelect, canvasEditor } = useSelect();
 
 const position = (name) => {
   canvasEditor.position(name);

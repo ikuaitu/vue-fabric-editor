@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import useSelect from '@/hooks/select';
-const { mixinState, canvasEditor } = useSelect();
+const { isMatchType, canvasEditor } = useSelect(['polygon']);
 import { Message } from 'view-ui-plus';
 const onEditPolygon = () => {
   const obj = canvasEditor.fabricCanvas?.getActiveObject();
@@ -13,7 +13,7 @@ const onEditPolygon = () => {
 </script>
 
 <template>
-  <Tooltip :content="$t('quick.editPoly')" v-if="mixinState.mSelectOneType === 'polygon'">
+  <Tooltip :content="$t('quick.editPoly')" v-if="isMatchType">
     <Button long @click="onEditPolygon" icon="md-brush" type="text"></Button>
   </Tooltip>
 </template>

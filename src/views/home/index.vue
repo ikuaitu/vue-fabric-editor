@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
- * @LastEditors: June 1601745371@qq.com
- * @LastEditTime: 2024-09-05 13:22:47
+ * @LastEditors: 秦少卫
+ * @LastEditTime: 2024-10-07 17:45:32
  * @Description: file content
 -->
 <template>
@@ -438,7 +438,7 @@ const { mixinState } = useSelectListen(canvasEditor);
 
 provide('fabric', fabric);
 provide('canvasEditor', canvasEditor);
-provide('mixinState', mixinState);
+// provide('mixinState', mixinState);
 </script>
 <style lang="less" scoped>
 // 左侧容器

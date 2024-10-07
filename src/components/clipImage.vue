@@ -1,5 +1,5 @@
 <template>
-  <div v-if="mixinState.mSelectMode === 'one' && type === 'image'" class="attr-item-box">
+  <div v-if="isOne && type === 'image'" class="attr-item-box">
     <div class="bg-item ivu-mb-8">
       <Dropdown style="width: 270px" @on-click="addClipPath">
         <Button type="text" long>{{ $t('createClip') }}</Button>
@@ -24,7 +24,7 @@ import { useI18n } from 'vue-i18n';
 
 const update = getCurrentInstance();
 // const canvasEditor = inject('canvasEditor');
-const { mixinState, canvasEditor } = useSelect();
+const { canvasEditor, isOne } = useSelect();
 const { t } = useI18n();
 const type = ref('');
 const options = [
