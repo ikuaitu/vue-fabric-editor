@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-12 16:48:10
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-06-12 21:51:40
+ * @LastEditTime: 2024-10-07 17:05:39
  * @Description: 幻灯片
 -->
 <template>
@@ -19,15 +19,14 @@
     >
       <CarouselItem class="img-box" v-for="item in banners" :key="item.id">
         <a :href="item.url" target="_blank">
-          <img :src="item.img" :alt="item.title" />
+          <img :src="item.imgUrl" :alt="item.title" />
         </a>
       </CarouselItem>
     </Carousel>
   </div>
 </template>
 <script name="Banner" setup>
-import { getBannerList } from '@/api/material';
-import qs from 'qs';
+import { commonBannerApi } from '@/api/material';
 const setting = reactive({
   autoplay: false,
   autoplaySpeed: 2000,
@@ -37,24 +36,10 @@ const setting = reactive({
   arrow: 'hover',
 });
 
-import { getMaterialInfoUrl } from '@/hooks/usePageList';
-
 const banners = ref([]);
-getBannerList(
-  qs.stringify({
-    populate: {
-      img: '*',
-    },
-  })
-).then((res) => {
-  banners.value = res.data.data.map((item) => {
-    return {
-      id: item.id,
-      title: item.attributes.title,
-      img: getMaterialInfoUrl(item.attributes.img),
-      url: item.attributes.url,
-    };
-  });
+
+commonBannerApi.find({ populate: '*' }).then((res) => {
+  banners.value = res.data;
 });
 </script>
 <style lang="less" scoped>
