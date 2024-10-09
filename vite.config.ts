@@ -3,8 +3,8 @@
  * @version:
  * @Author: June
  * @Date: 2023-04-24 00:25:39
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-16 14:51:54
+ * @LastEditors: June
+ * @LastEditTime: 2024-10-09 23:57:48
  */
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -16,6 +16,7 @@ import autoImports from 'unplugin-auto-import/vite';
 import { resolve } from 'path';
 import autoprefixer from 'autoprefixer';
 import svgLoader from 'vite-svg-loader';
+import viteCompression from 'vite-plugin-compression';
 
 const config = ({ mode }) => {
   const isProd = mode === 'production';
@@ -49,6 +50,14 @@ const config = ({ mode }) => {
         },
       }),
       svgLoader(),
+      viteCompression({
+        verbose: true,
+        disable: false,
+        deleteOriginFile: false,
+        threshold: 5120,
+        algorithm: 'gzip',
+        ext: '.gz',
+      }),
     ],
     build: {
       target: 'es2015',
