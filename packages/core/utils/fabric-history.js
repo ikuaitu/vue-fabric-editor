@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2024-07-09 13:46:14
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-12 21:36:51
+ * @LastEditors: George GeorgeSmith163@163.com
+ * @LastEditTime: 2024-10-11 11:11:11
  * @Description: file content
  */
 /**
@@ -52,8 +52,9 @@ fabric.Canvas.prototype._historyEvents = function () {
  * Initialization of the plugin
  */
 fabric.Canvas.prototype._historyInit = function () {
-  this.historyUndo = [];
-  this.historyRedo = [];
+  this.historyStack = [];
+  this.historyIndex = 0;
+  this.historyMaxLength = 100;
   this.extraProps = [
     'id',
     'gradientAngle',
@@ -65,6 +66,8 @@ fabric.Canvas.prototype._historyInit = function () {
     'extension',
   ];
   this.historyNextState = this._historyNext();
+  // 需要两次操作的标记，为true时表示当前操作记录为最新记录，需要做两步操作，因为最顶层的是当前的最新记录
+  this.isLatestHistoryState = true;
 
   this.on(this._historyEvents());
 };
@@ -83,9 +86,19 @@ fabric.Canvas.prototype._historySaveAction = function (e) {
   if (this.historyProcessing) return;
   if (!e || (e.target && !e.target.excludeFromExport)) {
     const json = this._historyNext();
-    this.historyUndo.push(json);
+    // 当前操作记录非最新记录，更新记录前需要校正历史索引，不然会丢失一个记录。理论上不会超出历史记录上限，不过还是加了限制
+    !this.isLatestHistoryState &&
+      (this.isLatestHistoryState = true) &&
+      this.historyIndex < this.historyMaxLength &&
+      this.historyIndex++;
+    // 每次的最新操作都要清空历史索引之后的记录，防止redo旧记录，不然可能会redo之前某个阶段的操作记录
+    this.historyStack.length > this.historyIndex && this.historyStack.splice(this.historyIndex);
+    // 最多保存 historyMaxLength 条记录
+    if (this.historyIndex >= this.historyMaxLength) this.historyStack.shift();
+    this.historyIndex < this.historyMaxLength && this.historyIndex++;
+    this.historyStack.push(json);
     this.historyNextState = this._historyNext();
-    this.fire('history:append', { json: json });
+    this.fire('history:append', { json });
   }
 };
 
@@ -100,14 +113,16 @@ fabric.Canvas.prototype.undo = function (callback) {
   // To ignore those events, we are setting a flag.
   this.historyProcessing = true;
 
-  const history = this.historyUndo.pop();
+  // 当前操作记录为最新记录，需要恢复两步，因为最顶层的是当前的最新记录
+  this.isLatestHistoryState && --this.historyIndex && (this.isLatestHistoryState = false);
+  const history = this.historyStack[--this.historyIndex];
   if (history) {
     // Push the current state to the redo history
-    this.historyRedo.push(this._historyNext());
     this.historyNextState = history;
     this._loadHistory(history, 'history:undo', callback);
   } else {
     console.log(1111);
+    this.historyIndex < 0 && (this.historyIndex = 0);
     this.historyProcessing = false;
   }
 };
@@ -120,12 +135,14 @@ fabric.Canvas.prototype.redo = function (callback) {
   // Therefore, object:added and object:modified events will triggered again
   // To ignore those events, we are setting a flag.
   this.historyProcessing = true;
-  const history = this.historyRedo.pop();
+  // 当前操作记录不是最新记录（被撤销过），需要恢复两步，抵消最初撤销时撤销两步的操作
+  !this.isLatestHistoryState && ++this.historyIndex && (this.isLatestHistoryState = true);
+  const history = this.historyStack[this.historyIndex];
   if (history) {
     // Every redo action is actually a new action to the undo history
-    this.historyUndo.push(this._historyNext());
     this.historyNextState = history;
     this._loadHistory(history, 'history:redo', callback);
+    this.historyIndex++;
   } else {
     this.historyProcessing = false;
   }
@@ -133,6 +150,10 @@ fabric.Canvas.prototype.redo = function (callback) {
 
 fabric.Canvas.prototype._loadHistory = function (history, event, callback) {
   var that = this;
+
+  // 需要把历史记录中的 workspace 的 evented 属性设置为 false，否则会导致历史记录恢复后，鼠标悬浮 workspace 会出现可操作的样式
+  const workspaceHistory = history.objects?.find((item) => item.id === 'workspace');
+  workspaceHistory && (workspaceHistory.evented = false);
 
   this.loadFromJSON(history, function () {
     that.renderAll();
@@ -147,20 +168,22 @@ fabric.Canvas.prototype._loadHistory = function (history, event, callback) {
  * Clear undo and redo history stacks
  */
 fabric.Canvas.prototype.clearHistory = function (type) {
-  if (!type) {
-    this.historyUndo = [];
-    this.historyRedo = [];
+  const one = this.historyStack.pop();
+  if (!type || !one) {
+    this.historyStack = [];
+    this.historyIndex = 0;
     this.fire('history:clear');
   } else {
-    const one = this.historyUndo.pop();
-    this.historyUndo = [one];
-    this.historyRedo = [];
+    this.historyStack = [one];
+    this.historyIndex = 1;
     this.fire('history:clear');
   }
+  this.isLatestHistoryState = true;
 };
 
 fabric.Canvas.prototype.clearUndo = function () {
-  this.historyUndo = [];
+  this.historyStack = [];
+  this.historyIndex = 0;
 };
 
 /**
@@ -177,14 +200,14 @@ fabric.Canvas.prototype.onHistory = function () {
  */
 
 fabric.Canvas.prototype.canUndo = function () {
-  return this.historyUndo.length > 0;
+  return this.historyIndex > 0;
 };
 
 /**
  * Check if there are actions that can be redone
  */
 fabric.Canvas.prototype.canRedo = function () {
-  return this.historyRedo.length > 0;
+  return this.historyStack.length > this.historyIndex;
 };
 
 /**
