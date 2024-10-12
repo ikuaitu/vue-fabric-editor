@@ -3,7 +3,7 @@
  * @Description:
  * @Date: 2024-09-27 11:31:54
  * @LastEditors: June
- * @LastEditTime: 2024-10-13 01:40:35
+ * @LastEditTime: 2024-10-13 02:00:35
  */
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -15,14 +15,11 @@ import VueLazyLoad from 'vue3-lazyload';
 // 自定义字体文件
 import '@/assets/fonts/font.css';
 
-import { VueMasonryPlugin } from 'vue-masonry';
-
 import i18n from './language/index';
 import 'wc-waterfall';
 
 async function bootstrap() {
   const app = createApp(App);
-  app.use(VueMasonryPlugin);
   app.use(router);
   app.use(i18n);
   app.use(VueLazyLoad, {});
