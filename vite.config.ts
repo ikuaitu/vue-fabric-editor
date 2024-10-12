@@ -4,7 +4,7 @@
  * @Author: June
  * @Date: 2023-04-24 00:25:39
  * @LastEditors: June
- * @LastEditTime: 2024-10-09 23:57:48
+ * @LastEditTime: 2024-10-13 01:39:50
  */
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -25,7 +25,11 @@ const config = ({ mode }) => {
   return {
     base: isProd ? APP_BASE_PATH : '/',
     plugins: [
-      vue(),
+      vue({
+        template: {
+          compilerOptions: { isCustomElement: (tag) => tag.startsWith('wc-') },
+        },
+      }),
       autoImports({
         imports: ['vue'],
         dts: './typings/auto-imports.d.ts',

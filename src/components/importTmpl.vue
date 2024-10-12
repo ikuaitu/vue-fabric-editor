@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-08-16 17:47:21
+ * @LastEditors: June
+ * @LastEditTime: 2024-10-13 01:56:21
  * @Description: 导入模板
 -->
 
@@ -39,7 +39,7 @@
         :distance-to-edge="[-1, -1]"
       >
         <!-- 列表 -->
-        <div class="list-box">
+        <wc-waterfall class="img-box" :gap="10" :cols="2">
           <Tooltip :content="info.name" v-for="info in pageData" :key="info.src" placement="top">
             <div class="tmpl-img-box">
               <Image
@@ -52,7 +52,7 @@
               />
             </div>
           </Tooltip>
-        </div>
+        </wc-waterfall>
         <Spin size="large" fix :show="pageLoading"></Spin>
 
         <Divider plain v-if="isDownBottm">已经到底了</Divider>

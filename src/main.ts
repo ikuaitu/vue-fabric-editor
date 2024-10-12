@@ -1,3 +1,10 @@
+/*
+ * @Author: June
+ * @Description:
+ * @Date: 2024-09-27 11:31:54
+ * @LastEditors: June
+ * @LastEditTime: 2024-10-13 01:40:35
+ */
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
@@ -11,6 +18,7 @@ import '@/assets/fonts/font.css';
 import { VueMasonryPlugin } from 'vue-masonry';
 
 import i18n from './language/index';
+import 'wc-waterfall';
 
 async function bootstrap() {
   const app = createApp(App);
