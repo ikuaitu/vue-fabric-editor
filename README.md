@@ -478,4 +478,4 @@ Note: If you encounter technical problems, you are expected to use issue Discuss
 
 ## License
 
-Licensed under the MIT License.
+Licensed under the [MIT](./LICENSE) License.
