@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-10-07 17:45:32
+ * @LastEditTime: 2024-10-13 17:21:48
  * @Description: file content
 -->
 <template>
@@ -37,11 +37,8 @@
         </div>
 
         <div class="right">
-          <a href="https://github.com/nihaojob/vue-fabric-editor" target="_blank">
-            <img
-              src="https://camo.githubusercontent.com/f440bed74efe64ce92599748090837ec92cc33ead4bf29d115d9745af1415c19/68747470733a2f2f62616467656e2e6e65742f6769746875622f73746172732f6e6968616f6a6f622f7675652d6661627269632d656469746f72"
-              alt="vue-fbric-editor"
-            />
+          <a href="https://pro.kuaitu.cc/" target="_blank" alt="商业版">
+            <img width="15" :src="proIcon" alt="vue-fbric-editor" />
           </a>
           <!-- 管理员模式 -->
           <admin />
@@ -176,6 +173,7 @@
 </template>
 
 <script name="Home" setup lang="ts">
+import proIcon from '@/assets/icon/proIcon.png';
 // 导入元素
 import importJson from '@/components/importJSON.vue';
 import importFile from '@/components/importFile.vue';

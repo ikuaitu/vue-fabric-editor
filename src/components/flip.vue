@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-10-07 17:28:06
+ * @LastEditTime: 2024-10-13 17:14:52
  * @Description: 元素翻转
 -->
 
@@ -41,7 +41,7 @@
         </Button>
       </Tooltip>
       <Tooltip :content="$t('attrSeting.flip.y')">
-        <Button long :disabled="notSelectOneMode()" @click="flip('Y')" type="text">
+        <Button long @click="flip('Y')" type="text">
           <svg
             t="1650443104385"
             class="icon"
