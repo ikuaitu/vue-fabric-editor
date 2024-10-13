@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-06-10 17:52:40
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-10-07 17:37:53
+ * @LastEditTime: 2024-10-13 17:08:59
  * @Description: 小数点下标上标
 -->
 
@@ -40,7 +40,7 @@ const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
   // 不是当前obj，跳过
   if (e && e.target && e.target !== activeObject) return;
-  if (activeObject && isMatchType && activeObject.text.includes('.')) {
+  if (activeObject && isMatchType && activeObject?.text?.includes('.')) {
     baseAttr.verticalAlign = activeObject.get('verticalAlign');
   }
 };
