@@ -2,13 +2,14 @@
  * @Author: 秦少卫
  * @Date: 2024-07-09 13:46:14
  * @LastEditors: George GeorgeSmith163@163.com
- * @LastEditTime: 2024-10-11 11:11:11
+ * @LastEditTime: 2024-10-14 11:33:33
  * @Description: file content
  */
 /**
  * Override the initialize function for the _historyInit();
  */
 import { fabric } from 'fabric';
+import { debounce } from 'lodash-es';
 
 fabric.Canvas.prototype.initialize = (function (originalFn) {
   return function (...args) {
@@ -66,7 +67,7 @@ fabric.Canvas.prototype._historyInit = function () {
     'extension',
   ];
   this.historyNextState = this._historyNext();
-  // 需要两次操作的标记，为true时表示当前操作记录为最新记录，需要做两步操作，因为最顶层的是当前的最新记录
+  // 需要两次操作的标记，为true时表示当前操作记录为最新记录，需要撤销两步，因为最顶层的是当前的最新记录，undo一次后后置为false
   this.isLatestHistoryState = true;
 
   this.on(this._historyEvents());
@@ -86,7 +87,7 @@ fabric.Canvas.prototype._historySaveAction = function (e) {
   if (this.historyProcessing) return;
   if (!e || (e.target && !e.target.excludeFromExport)) {
     const json = this._historyNext();
-    // 当前操作记录非最新记录，更新记录前需要校正历史索引，不然会丢失一个记录。理论上不会超出历史记录上限，不过还是加了限制
+    // 当前操作记录非最新记录，更新记录前需要校正历史索引，不然会丢失一个记录（undo时撤销了两次记录）。理论上不会超出历史记录上限，不过还是加了限制
     !this.isLatestHistoryState &&
       (this.isLatestHistoryState = true) &&
       this.historyIndex < this.historyMaxLength &&
@@ -108,12 +109,13 @@ fabric.Canvas.prototype._historySaveAction = function (e) {
  * Also, pushes into redo history.
  */
 fabric.Canvas.prototype.undo = function (callback) {
+  if (this.historyIndex <= 0) return;
   // The undo process will render the new states of the objects
   // Therefore, object:added and object:modified events will triggered again
   // To ignore those events, we are setting a flag.
   this.historyProcessing = true;
 
-  // 当前操作记录为最新记录，需要恢复两步，因为最顶层的是当前的最新记录
+  // 当前操作记录为最新记录，需要撤销两步，因为最顶层的是当前的最新记录
   this.isLatestHistoryState && --this.historyIndex && (this.isLatestHistoryState = false);
   const history = this.historyStack[--this.historyIndex];
   if (history) {
@@ -131,6 +133,7 @@ fabric.Canvas.prototype.undo = function (callback) {
  * Redo to latest undo history.
  */
 fabric.Canvas.prototype.redo = function (callback) {
+  if (this.historyIndex >= this.historyStack.length) return;
   // The undo process will render the new states of the objects
   // Therefore, object:added and object:modified events will triggered again
   // To ignore those events, we are setting a flag.
@@ -148,10 +151,11 @@ fabric.Canvas.prototype.redo = function (callback) {
   }
 };
 
-fabric.Canvas.prototype._loadHistory = function (history, event, callback) {
+// loadFromJSON 是异步操作，所以加了防抖，不然快速 undo/redo 多次后，可能会在之前的历史上 redo/undo
+fabric.Canvas.prototype._loadHistory = debounce(function (history, event, callback) {
   var that = this;
 
-  // 需要把历史记录中的 workspace 的 evented 属性设置为 false，否则会导致历史记录恢复后，鼠标悬浮 workspace 会出现可操作的样式
+  // 需要把历史记录中的 workspace 的 evented 属性设置为 false，否则会导致历史记录恢复后，鼠标悬浮 workspace 出现可操作的样式
   const workspaceHistory = history.objects?.find((item) => item.id === 'workspace');
   workspaceHistory && (workspaceHistory.evented = false);
 
@@ -162,7 +166,7 @@ fabric.Canvas.prototype._loadHistory = function (history, event, callback) {
 
     if (callback && typeof callback === 'function') callback();
   });
-};
+}, 100);
 
 /**
  * Clear undo and redo history stacks
@@ -182,8 +186,13 @@ fabric.Canvas.prototype.clearHistory = function (type) {
 };
 
 fabric.Canvas.prototype.clearUndo = function () {
-  this.historyStack = [];
-  this.historyIndex = 0;
+  this.historyStack.splice(this.historyIndex);
+};
+
+// 如果在做一些操作之后，需要撤销上一步的操作并刷新历史记录（想在监听modified事件后做些额外的操作并记录操作后的历史），可以调用这个方法
+fabric.Canvas.prototype.refreshHistory = function () {
+  this.historyStack.splice(--this.historyIndex);
+  this._historySaveAction();
 };
 
 /**
