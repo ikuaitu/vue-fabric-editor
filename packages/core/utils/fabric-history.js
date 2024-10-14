@@ -151,7 +151,7 @@ fabric.Canvas.prototype.redo = function (callback) {
   }
 };
 
-// loadFromJSON 是异步操作，所以加了防抖，不然快速 undo/redo 多次后，可能会在之前的历史上 redo/undo
+// loadFromJSON 是异步操作，所以加了防抖，不然当页面复杂且快速 undo/redo 多次后，可能会在之前的历史上 redo/undo
 fabric.Canvas.prototype._loadHistory = debounce(function (history, event, callback) {
   var that = this;
 
@@ -166,7 +166,7 @@ fabric.Canvas.prototype._loadHistory = debounce(function (history, event, callba
 
     if (callback && typeof callback === 'function') callback();
   });
-}, 100);
+}, 50);
 
 /**
  * Clear undo and redo history stacks
