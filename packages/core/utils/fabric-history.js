@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-07-09 13:46:14
  * @LastEditors: George GeorgeSmith163@163.com
- * @LastEditTime: 2024-10-14 11:33:33
+ * @LastEditTime: 2024-10-14 16:16:16
  * @Description: file content
  */
 /**
@@ -69,6 +69,8 @@ fabric.Canvas.prototype._historyInit = function () {
   this.historyNextState = this._historyNext();
   // 需要两次操作的标记，为true时表示当前操作记录为最新记录，需要撤销两步，因为最顶层的是当前的最新记录，undo一次后后置为false
   this.isLatestHistoryState = true;
+  // 正在读取历史记录的标记，为 true 时不允许 undo/redo
+  this.isLoadingHistory = false;
 
   this.on(this._historyEvents());
 };
@@ -109,6 +111,7 @@ fabric.Canvas.prototype._historySaveAction = function (e) {
  * Also, pushes into redo history.
  */
 fabric.Canvas.prototype.undo = function (callback) {
+  if (this.isLoadingHistory) return;
   if (this.historyIndex <= 0) return;
   // The undo process will render the new states of the objects
   // Therefore, object:added and object:modified events will triggered again
@@ -133,6 +136,7 @@ fabric.Canvas.prototype.undo = function (callback) {
  * Redo to latest undo history.
  */
 fabric.Canvas.prototype.redo = function (callback) {
+  if (this.isLoadingHistory) return;
   if (this.historyIndex >= this.historyStack.length) return;
   // The undo process will render the new states of the objects
   // Therefore, object:added and object:modified events will triggered again
@@ -151,8 +155,10 @@ fabric.Canvas.prototype.redo = function (callback) {
   }
 };
 
-// loadFromJSON 是异步操作，所以加了防抖，不然当页面复杂且快速 undo/redo 多次后，可能会在之前的历史上 redo/undo
-fabric.Canvas.prototype._loadHistory = debounce(function (history, event, callback) {
+// loadFromJSON 是异步操作，所以通过 isLoadingHistory = true 表示历史读取中，不可 undo/redo，
+// 不然当页面复杂且快速 undo/redo 多次后，可能会在之前的历史上 redo/undo
+fabric.Canvas.prototype._loadHistory = function (history, event, callback) {
+  this.isLoadingHistory = true;
   var that = this;
 
   // 需要把历史记录中的 workspace 的 evented 属性设置为 false，否则会导致历史记录恢复后，鼠标悬浮 workspace 出现可操作的样式
@@ -163,10 +169,11 @@ fabric.Canvas.prototype._loadHistory = debounce(function (history, event, callba
     that.renderAll();
     that.fire(event);
     that.historyProcessing = false;
+    that.isLoadingHistory = false;
 
     if (callback && typeof callback === 'function') callback();
   });
-}, 50);
+};
 
 /**
  * Clear undo and redo history stacks
@@ -191,6 +198,7 @@ fabric.Canvas.prototype.clearUndo = function () {
 
 // 如果在做一些操作之后，需要撤销上一步的操作并刷新历史记录（想在监听modified事件后做些额外的操作并记录操作后的历史），可以调用这个方法
 fabric.Canvas.prototype.refreshHistory = function () {
+  this.historyProcessing = false;
   this.historyStack.splice(--this.historyIndex);
   this._historySaveAction();
 };
