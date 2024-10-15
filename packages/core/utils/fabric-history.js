@@ -118,7 +118,7 @@ fabric.Canvas.prototype.undo = function (callback) {
   this.historyProcessing = true;
 
   // 当前操作记录为最新记录，需要撤销两步，因为最顶层的是当前的最新记录
-  this.isLatestHistoryState && --this.historyIndex && (this.isLatestHistoryState = false);
+  this.isLatestHistoryState && this.historyIndex-- && (this.isLatestHistoryState = false);
   const history = this.historyStack[--this.historyIndex];
   if (history) {
     // Push the current state to the redo history
