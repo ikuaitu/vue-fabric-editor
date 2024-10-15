@@ -3,7 +3,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-20 13:06:31
  * @LastEditors: George GeorgeSmith163@163.com
- * @LastEditTime: 2024-10-11 11:11:11
+ * @LastEditTime: 2024-10-15 09:35:35
  * @Description: 历史记录插件
  */
 import { fabric } from 'fabric';
@@ -18,12 +18,11 @@ declare module '@kuaitu/core' {
 }
 
 type callback = () => void;
-type IEditor = Editor;
 type extendCanvas = {
   undo: (callback?: callback) => void;
   redo: (callback?: callback) => void;
   clearHistory: () => void;
-  historyStack: any[];
+  historyStack: () => void;
   historyIndex: number;
 };
 
