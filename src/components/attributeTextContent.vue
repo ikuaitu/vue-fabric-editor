@@ -3,7 +3,7 @@ import useSelect from '@/hooks/select';
 import InputNumber from '@/components/inputNumber';
 
 const update = getCurrentInstance();
-const { mixinState, canvasEditor } = useSelect();
+const { canvasEditor, isOne, isMatchType } = useSelect(['i-text']);
 const baseAttr = reactive({
   text: '',
   strokeWidth: 1,
@@ -56,10 +56,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div
-    class="box attr-item-box"
-    v-if="mixinState.mSelectMode === 'one' && mixinState.mSelectOneType === 'i-text'"
-  >
+  <div class="box attr-item-box" v-if="isOne && isMatchType">
     <!-- <h3>数据</h3> -->
     <Divider plain orientation="left"><h4>文本内容</h4></Divider>
 

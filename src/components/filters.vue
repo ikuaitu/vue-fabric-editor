@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2023-04-06 23:04:38
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:51:52
+ * @LastEditTime: 2024-10-07 17:19:51
  * @Description: 图片滤镜
 -->
 
 <template>
-  <div v-if="mixinState.mSelectMode === 'one' && state.type === 'image'" class="box">
+  <div v-if="isOne && state.type === 'image'" class="box">
     <Divider plain orientation="left">
       <h4>图片滤镜</h4>
     </Divider>
@@ -86,7 +86,7 @@
 import useSelect from '@/hooks/select';
 import { uiType, paramsFilters, combinationFilters } from '@/config/constants/filter';
 
-const { fabric, mixinState, canvasEditor } = useSelect();
+const { fabric, isOne, canvasEditor } = useSelect();
 const update = getCurrentInstance();
 // 无参数滤镜
 const noParamsFilters = {

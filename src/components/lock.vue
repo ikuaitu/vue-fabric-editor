@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-06 12:20:00
+ * @LastEditTime: 2024-10-07 17:20:59
  * @Description: 锁定元素
 -->
 
 <template>
-  <Tooltip :content="$t('quick.lock')" v-if="mixinState.mSelectMode === 'one'">
+  <Tooltip :content="$t('quick.lock')" v-if="isOne">
     <Button long v-if="isLock" @click="doLock(false)" icon="md-lock" type="text"></Button>
     <Button long v-else @click="doLock(true)" icon="md-unlock" type="text"></Button>
   </Tooltip>
@@ -17,7 +17,7 @@
 import useSelect from '@/hooks/select';
 import { onBeforeUnmount, onMounted } from 'vue';
 
-const { mixinState, canvasEditor } = useSelect();
+const { canvasEditor, isOne } = useSelect();
 const isLock = ref(false);
 const doLock = (isLock) => {
   isLock ? canvasEditor.lock() : canvasEditor.unLock();

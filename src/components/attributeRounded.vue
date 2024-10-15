@@ -2,14 +2,11 @@
  * @Author: 秦少卫
  * @Date: 2024-05-21 10:18:57
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-26 22:59:26
+ * @LastEditTime: 2024-10-07 17:35:31
  * @Description: 圆角
 -->
 <template>
-  <div
-    class="box attr-item-box"
-    v-if="mixinState.mSelectMode === 'one' && rectType.includes(mixinState.mSelectOneType)"
-  >
+  <div class="box attr-item-box" v-if="isOne && isMatchType">
     <!-- <h3>圆角</h3> -->
     <Divider plain orientation="left"><h4>圆角</h4></Divider>
     <!-- 通用属性 -->
@@ -44,10 +41,7 @@
 import useSelect from '@/hooks/select';
 
 const update = getCurrentInstance();
-const { mixinState, canvasEditor } = useSelect();
-
-// 矩形元素
-const rectType = ['rect'];
+const { canvasEditor, isOne, isMatchType } = useSelect(['rect']);
 
 // 属性值
 const baseAttr = reactive({

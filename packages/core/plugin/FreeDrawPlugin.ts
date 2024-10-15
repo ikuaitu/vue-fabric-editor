@@ -1,8 +1,13 @@
 import { fabric } from 'fabric';
-import Editor from '../Editor';
 import { v4 as uuid } from 'uuid';
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
 
-type IEditor = Editor;
+type IPlugin = Pick<FreeDrawPlugin, 'startDraw' | 'endDraw'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 type DrawOptions = {
   width: number;

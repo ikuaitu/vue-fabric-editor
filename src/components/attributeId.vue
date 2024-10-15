@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2024-05-21 09:53:33
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:36:36
+ * @LastEditTime: 2024-10-07 17:33:27
  * @Description: file content
 -->
 
 <template>
-  <div class="box attr-item-box" v-if="mixinState.mSelectMode === 'one'">
+  <div class="box attr-item-box" v-if="isOne">
     <!-- <h3>数据</h3> -->
     <Divider plain orientation="left"><h4>数据</h4></Divider>
 
@@ -46,7 +46,7 @@
 import useSelect from '@/hooks/select';
 
 const update = getCurrentInstance();
-const { mixinState, canvasEditor } = useSelect();
+const { canvasEditor, isOne } = useSelect();
 
 // 属性值
 const baseAttr = reactive({

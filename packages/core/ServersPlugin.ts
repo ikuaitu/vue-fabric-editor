@@ -8,9 +8,30 @@
 import { v4 as uuid } from 'uuid';
 import { selectFiles, clipboardText, downFile } from './utils/utils';
 import { fabric } from 'fabric';
-import Editor from './Editor';
-type IEditor = Editor;
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
 import { SelectEvent, SelectMode } from './eventType';
+
+type IPlugin = Pick<
+  ServersPlugin,
+  | 'insert'
+  | 'loadJSON'
+  | 'getJson'
+  | 'dragAddItem'
+  | 'clipboard'
+  | 'clipboardBase64'
+  | 'saveJson'
+  | 'saveSvg'
+  | 'saveImg'
+  | 'clear'
+  | 'preview'
+  | 'getSelectMode'
+  | 'getExtensionKey'
+>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 function transformText(objects: any) {
   if (!objects) return;
@@ -23,9 +44,7 @@ function transformText(objects: any) {
   });
 }
 
-class ServersPlugin {
-  public canvas: fabric.Canvas;
-  public editor: IEditor;
+class ServersPlugin implements IPluginTempl {
   public selectedMode: SelectMode;
   static pluginName = 'ServersPlugin';
   static apis = [
@@ -45,9 +64,7 @@ class ServersPlugin {
   ];
   static events = [SelectMode.ONE, SelectMode.MULTI, SelectEvent.CANCEL];
   // public hotkeys: string[] = ['left', 'right', 'down', 'up'];
-  constructor(canvas: fabric.Canvas, editor: IEditor) {
-    this.canvas = canvas;
-    this.editor = editor;
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.selectedMode = SelectMode.EMPTY;
     this._initSelectEvent();
   }

@@ -2,12 +2,12 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:38:38
+ * @LastEditTime: 2024-10-07 17:25:24
  * @Description: 尺寸设置
 -->
 
 <template>
-  <div v-if="!mixinState.mSelectMode" class="attr-item-box">
+  <div v-if="!isSelect" class="attr-item-box">
     <!-- <h3>{{ $t('bgSeting.size') }}</h3> -->
     <Divider plain orientation="left">
       <h4>{{ $t('bgSeting.size') }}</h4>
@@ -36,7 +36,7 @@
 import useSelect from '@/hooks/select';
 import modalSzie from '@/components/common/modalSzie';
 
-const { mixinState, canvasEditor } = useSelect();
+const { isSelect, canvasEditor } = useSelect();
 
 const DefaultSize = {
   width: 900,

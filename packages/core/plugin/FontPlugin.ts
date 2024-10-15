@@ -9,11 +9,16 @@
 // const repoSrc = 'http://localhost:1337';
 import { fabric } from 'fabric';
 import FontFaceObserver from 'fontfaceobserver';
-import Editor from '../Editor';
 import axios from 'axios';
 import { downFile } from '../utils/utils';
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
 
-type IEditor = Editor;
+type IPlugin = Pick<FontPlugin, 'getFontList' | 'loadFont' | 'getFontJson' | 'downFontByJSON'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 interface Font {
   type: string;

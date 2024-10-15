@@ -7,11 +7,10 @@
  */
 
 import { fabric } from 'fabric';
-import Editor from '../Editor';
 import { isGroup } from '../utils/utils';
 import { v4 as uuid } from 'uuid';
 import { pick } from 'lodash-es';
-type IEditor = Editor;
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
 
 class GroupTextEditorPlugin implements IPluginTempl {
   static pluginName = 'GroupTextEditorPlugin';

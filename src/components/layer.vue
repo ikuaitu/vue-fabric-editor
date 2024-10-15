@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-06 17:59:51
+ * @LastEditTime: 2024-10-07 17:20:43
  * @Description: 图层面板
 -->
 
@@ -37,7 +37,7 @@
       </div>
       <!-- 层级调整按钮 -->
       <div class="btn-box">
-        <ButtonGroup v-show="mixinState.mSelectMode === 'one'" size="small">
+        <ButtonGroup v-show="isOne" size="small">
           <Button @click="up"><span v-html="btnIconType('up')"></span></Button>
           <Button @click="down"><span v-html="btnIconType('down')"></span></Button>
           <Button @click="upTop"><span v-html="btnIconType('upTop')"></span></Button>
@@ -54,7 +54,7 @@
 <script setup name="Layer">
 import { uniqBy } from 'lodash-es';
 import useSelect from '@/hooks/select';
-const { canvasEditor, fabric, mixinState } = useSelect();
+const { canvasEditor, isOne, fabric, mixinState } = useSelect();
 
 const list = ref([]);
 

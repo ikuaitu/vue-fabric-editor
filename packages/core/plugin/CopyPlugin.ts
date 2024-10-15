@@ -7,10 +7,16 @@
  */
 
 import { fabric } from 'fabric';
-import Editor from '../Editor';
-type IEditor = Editor;
 import { v4 as uuid } from 'uuid';
 import { getImgStr } from '../utils/utils';
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
+
+type IPlugin = Pick<CopyPlugin, 'clone'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 class CopyPlugin implements IPluginTempl {
   static pluginName = 'CopyPlugin';

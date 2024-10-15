@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!mixinState.mSelectMode">
+  <div v-if="!isSelect">
     <div class="attr-item-box">
       <!-- <h3>{{ $t('bgSeting.color') }}</h3> -->
       <Divider plain orientation="left">
@@ -38,7 +38,7 @@
 // import workspaceMask from './workspaceMask.vue';
 import { ref } from 'vue';
 import useSelect from '@/hooks/select';
-const { mixinState, canvasEditor } = useSelect();
+const { isSelect, canvasEditor } = useSelect();
 
 const colorList = ref([
   '#5F2B63',

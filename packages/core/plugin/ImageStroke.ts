@@ -7,15 +7,21 @@
  * @Description: 图像描边
  */
 import { fabric } from 'fabric';
-import Editor from '../Editor';
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
 
-type IEditor = Editor;
-type IStrokeOps = {
+type IPlugin = Pick<ImageStrokePlugin, 'imageStrokeDraw'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
+
+/*type IStrokeOps = {
   enabled: boolean;
   width: number;
   color: string;
   type: 'destination-out' | 'source-over' | 'source-in';
-};
+};*/
 interface IExtendImage {
   [x: string]: any;
   originWidth?: number;

@@ -1,5 +1,5 @@
 <template>
-  <div class="box" v-if="mixinState.mSelectMode === 'one' && isImage">
+  <div class="box" v-if="isOne && isImage">
     <!-- <Divider plain orientation="left">图像描边</Divider> -->
     <Divider plain orientation="left">
       <h4>图像描边</h4>
@@ -72,7 +72,7 @@ interface IExtendImage {
   originSrc?: string;
 }
 
-const { mixinState, canvasEditor } = useSelect();
+const { isOne, canvasEditor } = useSelect();
 const isImage = ref(false);
 const openImgStroke = ref(false);
 const strokeWidth = ref(5);

@@ -7,13 +7,20 @@
  */
 
 import { fabric } from 'fabric';
-import type Editor from '../Editor';
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
 import { v4 as uuid } from 'uuid';
+
+type IPlugin = Pick<AddBaseTypePlugin, 'addBaseType' | 'createImgByElement'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 export default class AddBaseTypePlugin implements IPluginTempl {
   static pluginName = 'AddBaseTypePlugin';
   static apis = ['addBaseType', 'createImgByElement'];
-  constructor(public canvas: fabric.Canvas, public editor: Editor) {
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
     this.editor = editor;
     this.canvas = canvas;
   }
@@ -61,6 +68,7 @@ export default class AddBaseTypePlugin implements IPluginTempl {
 
   _toScale(item: fabric.Object) {
     const { width } = this.editor.getWorkspase();
+    if (width === undefined) return;
     item.scaleToWidth(width / 2);
   }
 

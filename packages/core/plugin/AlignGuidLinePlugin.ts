@@ -5,11 +5,8 @@
  * @LastEditTime: 2024-04-10 17:32:48
  * @Description: 辅助线功能
  */
-
-import Editor from '../Editor';
-type IEditor = Editor;
-
 import { fabric } from 'fabric';
+import { IEditor, IPluginTempl } from '@kuaitu/core';
 
 declare interface VerticalLine {
   x: number;

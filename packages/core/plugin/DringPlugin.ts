@@ -6,8 +6,14 @@
  * @Description: 拖拽插件
  */
 
-import Editor from '../Editor';
-type IEditor = Editor;
+import { IEditor, IPluginTempl } from '@kuaitu/core';
+
+type IPlugin = Pick<DringPlugin, 'startDring' | 'endDring'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 export class DringPlugin implements IPluginTempl {
   defautOption = {};

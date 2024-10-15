@@ -2,15 +2,15 @@
  * @Author: 秦少卫
  * @Date: 2024-05-21 09:23:36
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-05-21 15:37:27
+ * @LastEditTime: 2024-10-07 17:33:41
  * @Description: file content
 -->
 <template>
-  <div class="box attr-item-box" v-if="mixinState.mSelectMode === 'one'">
+  <div class="box attr-item-box" v-if="isOne">
     <!-- <h3>位置信息</h3> -->
     <Divider plain orientation="left"><h4>位置信息</h4></Divider>
     <!-- 通用属性 -->
-    <div v-show="baseType.includes(mixinState.mSelectOneType)">
+    <div v-show="isMatchType">
       <Row :gutter="10">
         <Col flex="1">
           <InputNumber
@@ -52,7 +52,6 @@ import useSelect from '@/hooks/select';
 import InputNumber from '@/components/inputNumber';
 
 const update = getCurrentInstance();
-const { mixinState, canvasEditor } = useSelect();
 
 // 可修改的元素
 const baseType = [
@@ -69,6 +68,7 @@ const baseType = [
   'arrow',
   'thinTailArrow',
 ];
+const { isMatchType, canvasEditor, isOne } = useSelect(baseType);
 
 // 属性值
 const baseAttr = reactive({
@@ -85,7 +85,7 @@ const getObjectAttr = (e) => {
   const activeObject = canvasEditor.canvas.getActiveObject();
   // 不是当前obj，跳过
   if (e && e.target && e.target !== activeObject) return;
-  if (activeObject && baseType.includes(activeObject.type)) {
+  if (activeObject && isMatchType) {
     baseAttr.opacity = activeObject.get('opacity') * 100;
     baseAttr.left = activeObject.get('left');
     baseAttr.top = activeObject.get('top');

@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-06 12:36:48
+ * @LastEditTime: 2024-10-13 17:21:48
  * @Description: file content
 -->
 <template>
@@ -37,11 +37,8 @@
         </div>
 
         <div class="right">
-          <a href="https://github.com/nihaojob/vue-fabric-editor" target="_blank">
-            <img
-              src="https://camo.githubusercontent.com/f440bed74efe64ce92599748090837ec92cc33ead4bf29d115d9745af1415c19/68747470733a2f2f62616467656e2e6e65742f6769746875622f73746172732f6e6968616f6a6f622f7675652d6661627269632d656469746f72"
-              alt="vue-fbric-editor"
-            />
+          <a href="https://pro.kuaitu.cc/" target="_blank" alt="商业版">
+            <img width="15" :src="proIcon" alt="vue-fbric-editor" />
           </a>
           <!-- 管理员模式 -->
           <admin />
@@ -53,7 +50,7 @@
           <lang></lang>
         </div>
       </Header>
-      <Content style="display: flex; height: calc(100vh - 64px)">
+      <Content style="display: flex; height: calc(100vh - 64px); position: relative">
         <!-- 左侧区域 -->
         <div v-if="state.show" :class="`left-bar ${state.toolsBarShow && 'show-tools-bar'}`">
           <!-- 左侧菜单 -->
@@ -175,7 +172,8 @@
   </div>
 </template>
 
-<script name="Home" setup>
+<script name="Home" setup lang="ts">
+import proIcon from '@/assets/icon/proIcon.png';
 // 导入元素
 import importJson from '@/components/importJSON.vue';
 import importFile from '@/components/importFile.vue';
@@ -242,6 +240,7 @@ const { t } = useI18n();
 const APIHOST = import.meta.env.APP_APIHOST;
 
 import Editor, {
+  IEditor,
   DringPlugin,
   AlignGuidLinePlugin,
   ControlsPlugin,
@@ -281,7 +280,7 @@ import ClipImage from '@/components/clipImage.vue';
 import AttributeTextContent from '@/components/attributeTextContent.vue';
 
 // 创建编辑器
-const canvasEditor = new Editor();
+const canvasEditor = new Editor() as IEditor;
 
 const state = reactive({
   menuActive: 1,
@@ -356,43 +355,44 @@ onMounted(() => {
 
   // 初始化编辑器
   canvasEditor.init(canvas);
-  canvasEditor.use(DringPlugin);
-  canvasEditor.use(PolygonModifyPlugin);
-  canvasEditor.use(AlignGuidLinePlugin);
-  canvasEditor.use(ControlsPlugin);
-  // canvasEditor.use(ControlsRotatePlugin);
-  canvasEditor.use(CenterAlignPlugin);
-  canvasEditor.use(LayerPlugin);
-  canvasEditor.use(CopyPlugin);
-  canvasEditor.use(MoveHotKeyPlugin);
-  canvasEditor.use(DeleteHotKeyPlugin);
-  canvasEditor.use(GroupPlugin);
-  canvasEditor.use(DrawLinePlugin);
-  canvasEditor.use(GroupTextEditorPlugin);
-  canvasEditor.use(GroupAlignPlugin);
-  canvasEditor.use(WorkspacePlugin);
-  canvasEditor.use(HistoryPlugin);
-  canvasEditor.use(FlipPlugin);
-  canvasEditor.use(RulerPlugin);
-  canvasEditor.use(DrawPolygonPlugin);
-  canvasEditor.use(FreeDrawPlugin);
-  canvasEditor.use(PathTextPlugin);
-  canvasEditor.use(SimpleClipImagePlugin);
-  canvasEditor.use(BarCodePlugin);
-  canvasEditor.use(QrCodePlugin);
-  canvasEditor.use(FontPlugin, {
-    repoSrc: APIHOST,
-  });
-  canvasEditor.use(MaterialPlugin, {
-    repoSrc: APIHOST,
-  });
-  canvasEditor.use(WaterMarkPlugin);
-  canvasEditor.use(PsdPlugin);
-  canvasEditor.use(ImageStroke);
-  canvasEditor.use(ResizePlugin);
-  canvasEditor.use(LockPlugin);
-  canvasEditor.use(AddBaseTypePlugin);
-  canvasEditor.use(MaskPlugin);
+  canvasEditor
+    .use(DringPlugin)
+    .use(PolygonModifyPlugin)
+    .use(AlignGuidLinePlugin)
+    .use(ControlsPlugin)
+    // .use(ControlsRotatePlugin)
+    .use(CenterAlignPlugin)
+    .use(LayerPlugin)
+    .use(CopyPlugin)
+    .use(MoveHotKeyPlugin)
+    .use(DeleteHotKeyPlugin)
+    .use(GroupPlugin)
+    .use(DrawLinePlugin)
+    .use(GroupTextEditorPlugin)
+    .use(GroupAlignPlugin)
+    .use(WorkspacePlugin)
+    .use(HistoryPlugin)
+    .use(FlipPlugin)
+    .use(RulerPlugin)
+    .use(DrawPolygonPlugin)
+    .use(FreeDrawPlugin)
+    .use(PathTextPlugin)
+    .use(SimpleClipImagePlugin)
+    .use(BarCodePlugin)
+    .use(QrCodePlugin)
+    .use(FontPlugin, {
+      repoSrc: APIHOST,
+    })
+    .use(MaterialPlugin, {
+      repoSrc: APIHOST,
+    })
+    .use(WaterMarkPlugin)
+    .use(PsdPlugin)
+    .use(ImageStroke)
+    .use(ResizePlugin)
+    .use(LockPlugin)
+    .use(AddBaseTypePlugin)
+    .use(MaskPlugin);
 
   state.show = true;
   // 默认打开标尺
@@ -436,7 +436,7 @@ const { mixinState } = useSelectListen(canvasEditor);
 
 provide('fabric', fabric);
 provide('canvasEditor', canvasEditor);
-provide('mixinState', mixinState);
+// provide('mixinState', mixinState);
 </script>
 <style lang="less" scoped>
 // 左侧容器

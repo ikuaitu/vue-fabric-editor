@@ -7,8 +7,14 @@
  */
 
 import { fabric } from 'fabric';
-import Editor from '../Editor';
-type IEditor = Editor;
+import type { IEditor, IPluginTempl } from '@kuaitu/core';
+
+type IPlugin = Pick<LayerPlugin, 'up' | 'down' | 'toFront' | 'toBack'>;
+
+declare module '@kuaitu/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IEditor extends IPlugin {}
+}
 
 class LayerPlugin implements IPluginTempl {
   static pluginName = 'LayerPlugin';
