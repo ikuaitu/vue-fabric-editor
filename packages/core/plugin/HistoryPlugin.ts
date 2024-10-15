@@ -22,7 +22,7 @@ type extendCanvas = {
   undo: (callback?: callback) => void;
   redo: (callback?: callback) => void;
   clearHistory: () => void;
-  historyStack: () => void;
+  historyStack: any[];
   historyIndex: number;
 };
 
