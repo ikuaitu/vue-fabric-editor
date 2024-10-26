@@ -2,8 +2,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2023-06-20 13:06:31
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-12 21:35:16
+ * @LastEditors: George GeorgeSmith163@163.com
+ * @LastEditTime: 2024-10-15 09:35:35
  * @Description: 历史记录插件
  */
 import { fabric } from 'fabric';
@@ -17,12 +17,13 @@ declare module '@kuaitu/core' {
   interface IEditor extends IPlugin {}
 }
 
+type callback = () => void;
 type extendCanvas = {
-  undo: () => void;
-  redo: () => void;
+  undo: (callback?: callback) => void;
+  redo: (callback?: callback) => void;
   clearHistory: () => void;
-  historyUndo: any[];
-  historyRedo: any[];
+  historyStack: any[];
+  historyIndex: number;
 };
 
 class HistoryPlugin implements IPluginTempl {
@@ -42,15 +43,15 @@ class HistoryPlugin implements IPluginTempl {
       this.historyUpdate();
     });
     window.addEventListener('beforeunload', (e) => {
-      if (this.canvas.historyUndo.length > 0) {
+      if (this.canvas.historyStack.length > 0) {
         (e || window.event).returnValue = '确认离开';
       }
     });
   }
 
   historyUpdate() {
-    const { historyUndo, historyRedo } = this.canvas;
-    this.editor.emit('historyUpdate', historyUndo.length, historyRedo.length);
+    const { historyStack, historyIndex } = this.canvas;
+    this.editor.emit('historyUpdate', historyIndex, historyStack.length - historyIndex);
   }
 
   // 导入模板之后，清理 History 缓存
@@ -61,10 +62,6 @@ class HistoryPlugin implements IPluginTempl {
   }
 
   undo() {
-    // if (this.canvas.historyUndo.length === 1) {
-    //   // this.canvas.clearUndo();
-    //   // this.editor.clear();
-    // }
     this.canvas.undo();
     this.historyUpdate();
   }
