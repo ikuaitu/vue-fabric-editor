@@ -274,6 +274,7 @@ import Editor, {
   LockPlugin,
   AddBaseTypePlugin,
   MaskPlugin,
+  MiddleMousePlugin,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
 import ClipImage from '@/components/clipImage.vue';
@@ -392,6 +393,7 @@ onMounted(() => {
     .use(ResizePlugin)
     .use(LockPlugin)
     .use(AddBaseTypePlugin)
+    .use(MiddleMousePlugin)
     .use(MaskPlugin);
 
   state.show = true;
