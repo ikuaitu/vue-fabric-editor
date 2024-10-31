@@ -8,72 +8,19 @@
 <template>
   <div class="home">
     <Layout>
-      <!-- 头部区域 -->
-      <Header v-if="state.show">
-        <div class="left">
-          <logo></logo>
-          <Divider type="vertical" />
-
-          <!-- 导入 -->
-          <import-Json></import-Json>
-          <Divider type="vertical" />
-          <import-file></import-file>
-          <Divider type="vertical" />
-          <Button type="text" to="/template" target="_blank">全部模板</Button>
-          <Divider type="vertical" />
-
-          <myTemplName></myTemplName>
-          <!-- 标尺开关 -->
-          <Tooltip :content="$t('grid')">
-            <iSwitch
-              v-model="state.ruler"
-              @on-change="rulerSwitch"
-              size="small"
-              class="switch"
-            ></iSwitch>
-          </Tooltip>
-          <Divider type="vertical" />
-          <history></history>
-        </div>
-
-        <div class="right">
-          <a href="https://pro.kuaitu.cc/" target="_blank" alt="商业版">
-            <img width="15" :src="proIcon" alt="vue-fbric-editor" />
-          </a>
-          <!-- 管理员模式 -->
-          <admin />
-          <!-- 预览 -->
-          <previewCurrent />
-          <waterMark />
-          <save></save>
-          <login></login>
-          <lang></lang>
-        </div>
-      </Header>
+      <HomeHeader
+        v-model:ruler="state.ruler"
+        :canvas-editor="canvasEditor"
+        :show="state.show"
+      ></HomeHeader>
       <Content style="display: flex; height: calc(100vh - 64px); position: relative">
-        <!-- 左侧区域 -->
-        <div v-if="state.show" :class="`left-bar ${state.toolsBarShow && 'show-tools-bar'}`">
-          <!-- 左侧菜单 -->
-          <Menu :active-name="menuActive" accordion @on-select="showToolsBar" width="65px">
-            <MenuItem v-for="item in leftBar" :key="item.key" :name="item.key" class="menu-item">
-              <Icon :type="item.icon" size="24" />
-              <div>{{ item.name }}</div>
-            </MenuItem>
-          </Menu>
-          <!-- 左侧组件 -->
-          <div class="content" v-show="state.toolsBarShow">
-            <div class="left-panel">
-              <KeepAlive>
-                <component :is="leftBarComponent[menuActive]"></component>
-              </KeepAlive>
-            </div>
-          </div>
-          <!-- 关闭按钮 -->
-          <div
-            :class="`close-btn left-btn ${state.toolsBarShow && 'left-btn-open'}`"
-            @click="hideToolsBar"
-          ></div>
-        </div>
+        <HomeLeft
+          v-model:menu-active="menuActive"
+          :show="state.show"
+          :tools-bar-show="state.toolsBarShow"
+          @hide-tools-bar="hideToolsBar"
+          @show-tools-bar="showToolsBar"
+        ></HomeLeft>
 
         <!-- 画布区域 -->
         <div id="workspace">
@@ -85,157 +32,30 @@
           </div>
         </div>
 
-        <!-- 属性区域 380-->
-        <div class="right-bar" v-show="state.attrBarShow">
-          <div v-if="state.show" style="padding-top: 10px">
-            <!-- 未选择元素时 展示背景设置 -->
-            <div v-show="!mixinState.mSelectMode">
-              <set-size></set-size>
-              <bg-bar></bg-bar>
-            </div>
-
-            <!-- 多选时展示 -->
-            <div v-show="mixinState.mSelectMode === 'multiple'">
-              <!-- 分组 -->
-              <group></group>
-              <!-- <Divider plain></Divider> -->
-              <!-- 组对齐方式 -->
-              <align></align>
-              <!-- 居中对齐 -->
-              <center-align></center-align>
-            </div>
-
-            <div v-show="mixinState.mSelectMode === 'one'" class="attr-item-box">
-              <!-- <h3>快捷操作</h3> -->
-              <!-- 分组 -->
-              <group></group>
-              <!-- <Divider plain></Divider> -->
-              <Divider plain orientation="left">
-                <h4>快捷操作</h4>
-              </Divider>
-              <div class="bg-item" v-show="mixinState.mSelectMode">
-                <lock></lock>
-                <dele></dele>
-                <clone></clone>
-                <hide></hide>
-                <edit></edit>
-              </div>
-              <!-- <Divider plain></Divider> -->
-              <!-- 居中对齐 -->
-              <center-align></center-align>
-              <!-- 替换图片 -->
-              <replaceImg></replaceImg>
-              <!-- 图片裁切 -->
-              <clip-image></clip-image>
-              <!-- 翻转 -->
-              <flip></flip>
-              <!-- 条形码属性 -->
-              <attributeBarcode></attributeBarcode>
-              <!-- 二维码 -->
-              <attributeQrCode></attributeQrCode>
-              <!-- 图片滤镜 -->
-              <filters></filters>
-              <!-- 图片描边 -->
-              <imgStroke />
-              <!-- 颜色 -->
-              <attributeColor></attributeColor>
-              <!-- 字体属性 -->
-              <attributeFont></attributeFont>
-              <!-- 字体小数点 -->
-              <attributeTextFloat></attributeTextFloat>
-              <!-- 文字内容  -->
-              <attribute-text-content></attribute-text-content>
-              <!-- 位置信息 -->
-              <attributePostion></attributePostion>
-              <!-- 阴影 -->
-              <attributeShadow></attributeShadow>
-              <!-- 边框 -->
-              <attributeBorder></attributeBorder>
-              <!-- 圆角 -->
-              <attributeRounded></attributeRounded>
-              <!-- 关联数据 -->
-              <attributeId></attributeId>
-
-              <!-- 新增字体样式使用 -->
-              <Button @click="canvasEditor.getFontJson()" size="small">获取元素数据</Button>
-            </div>
-          </div>
-          <!-- <attribute v-if="state.show"></attribute> -->
-        </div>
-        <!-- 右侧关闭按钮 -->
-        <div
-          :class="`close-btn right-btn ${state.attrBarShow && 'right-btn-open'}`"
-          @click="switchAttrBar"
-        ></div>
+        <HomeRight
+          :canvas-editor="canvasEditor"
+          :show="state.show"
+          :attr-bar-show="state.attrBarShow"
+          @switch-attr-bar="switchAttrBar"
+        ></HomeRight>
       </Content>
     </Layout>
   </div>
 </template>
 
 <script name="Home" setup lang="ts">
-import proIcon from '@/assets/icon/proIcon.png';
-// 导入元素
-import importJson from '@/components/importJSON.vue';
-import importFile from '@/components/importFile.vue';
 // 路由
 import { useRoute } from 'vue-router';
 
-// import fontTmpl from '@/components/fontTmpl.vue';
-
-// 顶部组件
-import logo from '@/components/logo.vue';
-import align from '@/components/align.vue';
-import myTemplName from '@/components/myTemplName.vue';
-import centerAlign from '@/components/centerAlign.vue';
-import flip from '@/components/flip.vue';
-import previewCurrent from '@/components/previewCurrent';
-import save from '@/components/save.vue';
-import lang from '@/components/lang.vue';
-import clone from '@/components/clone.vue';
-import hide from '@/components/hide.vue';
-import group from '@/components/group.vue';
 import zoom from '@/components/zoom.vue';
 import dragMode from '@/components/dragMode.vue';
-import lock from '@/components/lock.vue';
-import dele from '@/components/del.vue';
-import waterMark from '@/components/waterMark.vue';
-import login from '@/components/login';
-import admin from '@/components/admin';
-// 左侧组件
-import importTmpl from '@/components/importTmpl.vue';
-import fontStyle from '@/components/fontStyle.vue';
-import myMaterial from '@/components/myMaterial/index.vue';
-import tools from '@/components/tools.vue';
-import material from '@/components/material.vue';
-import bgBar from '@/components/bgBar.vue';
-import setSize from '@/components/setSize.vue';
-import replaceImg from '@/components/replaceImg.vue';
-import filters from '@/components/filters.vue';
-import imgStroke from '@/components/imgStroke.vue';
-// import elementData from '@/components/elementData.vue';
-// 右侧组件
-import history from '@/components/history.vue';
-import layer from '@/components/layer.vue';
-// import attribute from '@/components/attribute.vue';
-import attributePostion from '@/components/attributePostion.vue';
-import attributeId from '@/components/attributeId.vue';
-import attributeShadow from '@/components/attributeShadow.vue';
-import attributeBorder from '@/components/attributeBorder.vue';
-import attributeRounded from '@/components/attributeRounded.vue';
-import attributeFont from '@/components/attributeFont.vue';
-import attributeTextFloat from '@/components/attributeTextFloat.vue';
-import attributeColor from '@/components/attributeColor.vue';
-import attributeBarcode from '@/components/attributeBarcode.vue';
-import attributeQrCode from '@/components/attributeQrCode.vue';
+
+import HomeHeader from './header.vue';
+import HomeLeft, { LeftBarComponent } from './left.vue';
+import HomeRight from './right.vue';
 
 // 功能组件
 import { fabric } from 'fabric';
-
-// hooks
-import useSelectListen from '@/hooks/useSelectListen';
-import { useI18n } from 'vue-i18n';
-
-const { t } = useI18n();
 
 const APIHOST = import.meta.env.APP_APIHOST;
 
@@ -275,73 +95,23 @@ import Editor, {
   AddBaseTypePlugin,
   MaskPlugin,
 } from '@kuaitu/core';
-import Edit from '@/components/edit.vue';
-import ClipImage from '@/components/clipImage.vue';
-import AttributeTextContent from '@/components/attributeTextContent.vue';
 
 // 创建编辑器
 const canvasEditor = new Editor() as IEditor;
 
 const state = reactive({
-  menuActive: 1,
+  /** 初始化完成之后再显示 */
   show: false,
+  /** 工具栏是否显示 */
   toolsBarShow: true,
+  /** 属性面板是否显示 */
   attrBarShow: true,
-  select: null,
+  /** 是否显示标尺和背景色 */
   ruler: true,
 });
 
 // 左侧菜单渲染
-const menuActive = ref('importTmpl');
-const leftBarComponent = {
-  importTmpl,
-  tools,
-  material,
-  fontStyle,
-  layer,
-  myMaterial,
-};
-
-// fix: 修复vue-i18n function "t" not reactive inside ref object
-// https://github.com/intlify/vue-i18n/issues/1396#issuecomment-1716123143
-const leftBar = reactive([
-  {
-    //模板
-    key: 'importTmpl',
-    name: computed(() => t('templates')),
-    icon: 'md-book',
-  },
-  {
-    //基础元素
-    key: 'tools',
-    name: computed(() => t('elements')),
-    icon: 'md-images',
-  },
-  {
-    //字体样式
-    key: 'fontStyle',
-    name: computed(() => t('font_style')),
-    icon: 'ios-pulse',
-  },
-  {
-    // 图片元素
-    key: 'material',
-    name: computed(() => t('material.cartoon')),
-    icon: 'ios-leaf-outline',
-  },
-  {
-    // 图层
-    key: 'layer',
-    name: computed(() => t('layers')),
-    icon: 'md-reorder',
-  },
-  {
-    // 用户素材
-    key: 'myMaterial',
-    name: computed(() => t('mine')),
-    icon: 'ios-contact-outline',
-  },
-]);
+const menuActive = ref<LeftBarComponent>('importTmpl');
 
 onMounted(() => {
   // 初始化fabric
@@ -408,23 +178,13 @@ onMounted(() => {
 });
 
 onUnmounted(() => canvasEditor.destory());
-const rulerSwitch = (val) => {
-  if (val) {
-    canvasEditor.rulerEnable();
-  } else {
-    canvasEditor.rulerDisable();
-  }
-  // 使标尺开关组件失焦，避免响应键盘的空格事件
-  document.activeElement.blur();
-};
 
 // 隐藏工具条
 const hideToolsBar = () => {
   state.toolsBarShow = !state.toolsBarShow;
 };
 // 展示工具条
-const showToolsBar = (val) => {
-  menuActive.value = val;
+const showToolsBar = () => {
   state.toolsBarShow = true;
 };
 // 属性面板开关
@@ -432,35 +192,10 @@ const switchAttrBar = () => {
   state.attrBarShow = !state.attrBarShow;
 };
 
-const { mixinState } = useSelectListen(canvasEditor);
-
 provide('fabric', fabric);
 provide('canvasEditor', canvasEditor);
-// provide('mixinState', mixinState);
 </script>
-<style lang="less" scoped>
-// 左侧容器
-.left-bar {
-  width: 65px;
-  height: 100%;
-  background: #fff;
-  display: flex;
-  position: relative;
-
-  &.show-tools-bar {
-    width: 380px;
-  }
-}
-// 右侧容器
-.right-bar {
-  width: 304px;
-  height: 100%;
-  padding: 10px;
-  overflow-y: auto;
-  background: #fff;
-}
-
-// 关闭按钮
+<style lang="less">
 .close-btn {
   width: 20px;
   height: 64px;
@@ -495,35 +230,8 @@ provide('canvasEditor', canvasEditor);
     right: 304px;
   }
 }
-
-// 属性面板样式
-:deep(.attr-item) {
-  position: relative;
-  margin-bottom: 12px;
-  height: 40px;
-  padding: 0 10px;
-  background: #f6f7f9;
-  border: none;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  .ivu-tooltip {
-    text-align: center;
-    flex: 1;
-  }
-}
-
-.ivu-menu-vertical .menu-item {
-  text-align: center;
-  padding: 10px 2px;
-  box-sizing: border-box;
-  font-size: 12px;
-
-  & > i {
-    margin: 0;
-  }
-}
-
+</style>
+<style lang="less" scoped>
 :deep(.ivu-layout-header) {
   --height: 45px;
   padding: 0 0px;
@@ -535,15 +243,6 @@ provide('canvasEditor', canvasEditor);
   justify-content: space-between;
 }
 
-.left,
-.right {
-  display: flex;
-  align-items: center;
-  img {
-    display: block;
-    margin-right: 10px;
-  }
-}
 .home,
 .ivu-layout {
   height: 100vh;
@@ -578,14 +277,6 @@ provide('canvasEditor', canvasEditor);
   position: relative;
   background: #f1f1f1;
   overflow: hidden;
-}
-
-.content {
-  flex: 1;
-  width: 220px;
-  padding: 0 10px;
-  height: 100%;
-  overflow-y: auto;
 }
 
 .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
