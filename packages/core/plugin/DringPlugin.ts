@@ -49,7 +49,8 @@ export class DringPlugin implements IPluginTempl {
     const This = this;
     this.canvas.on('mouse:down', function (this: ExtCanvas, opt) {
       const evt = opt.e;
-      if (evt.altKey || This.dragMode) {
+      // evt.button === 1 为鼠标中键的判断
+      if (evt.altKey || This.dragMode || evt.button === 1) {
         This.canvas.setCursor('grabbing');
         This.canvas.discardActiveObject();
         This._setDring();
