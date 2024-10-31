@@ -100,10 +100,13 @@ import Editor, {
 const canvasEditor = new Editor() as IEditor;
 
 const state = reactive({
+  /** 初始化完成之后再显示 */
   show: false,
+  /** 工具栏是否显示 */
   toolsBarShow: true,
+  /** 属性面板是否显示 */
   attrBarShow: true,
-  select: null,
+  /** 是否显示标尺和背景色 */
   ruler: true,
 });
 
