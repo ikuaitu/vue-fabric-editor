@@ -1,5 +1,5 @@
 <template>
-  <Header v-if="state.show">
+  <Header v-if="$props.show">
     <div class="left">
       <logo></logo>
       <Divider type="vertical" />
@@ -15,12 +15,7 @@
       <myTemplName></myTemplName>
       <!-- 标尺开关 -->
       <Tooltip :content="$t('grid')">
-        <iSwitch
-          v-model="state.ruler"
-          @on-change="rulerSwitch"
-          size="small"
-          class="switch"
-        ></iSwitch>
+        <iSwitch v-model="ruler" @on-change="rulerSwitch" size="small" class="switch"></iSwitch>
       </Tooltip>
       <Divider type="vertical" />
       <history></history>
@@ -42,40 +37,44 @@
   </Header>
 </template>
 
-<script setup>
+<script setup lang="ts" name="HomeHeader">
+import proIcon from '@/assets/icon/proIcon.png';
 import logo from '@/components/logo.vue';
+// 导入元素
 import importJson from '@/components/importJSON.vue';
 import importFile from '@/components/importFile.vue';
 import myTemplName from '@/components/myTemplName.vue';
 import history from '@/components/history.vue';
-import admin from '@/components/admin';
-import previewCurrent from '@/components/previewCurrent';
+import admin from '@/components/admin.vue';
+import previewCurrent from '@/components/previewCurrent.vue';
 import waterMark from '@/components/waterMark.vue';
 import save from '@/components/save.vue';
-import login from '@/components/login';
+import login from '@/components/login.vue';
 import lang from '@/components/lang.vue';
-import { useI18n } from 'vue-i18n';
-import { useRoute } from 'vue-router';
-import { reactive } from 'vue';
+import type { IEditor } from '@kuaitu/core';
 
-const { t } = useI18n();
-const route = useRoute();
-const state = reactive({
-  show: true,
-  ruler: true,
+const props = defineProps<{
+  show: boolean;
+  canvasEditor: IEditor;
+}>();
+
+const ruler = defineModel<boolean>('ruler', {
+  default: true,
 });
 
-const rulerSwitch = (val) => {
+const rulerSwitch = (val: boolean) => {
   if (val) {
-    canvasEditor.rulerEnable();
+    props.canvasEditor.rulerEnable();
   } else {
-    canvasEditor.rulerDisable();
+    props.canvasEditor.rulerDisable();
   }
+  // 使标尺开关组件失焦，避免响应键盘的空格事件
+  // @ts-expect-error type error
   document.activeElement.blur();
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .left,
 .right {
   display: flex;

@@ -1,6 +1,6 @@
 <template>
-  <div class="right-bar" v-show="state.attrBarShow">
-    <div v-if="state.show" style="padding-top: 10px">
+  <div class="right-bar" v-show="$props.attrBarShow">
+    <div v-if="$props.show" style="padding-top: 10px">
       <!-- 未选择元素时 展示背景设置 -->
       <div v-show="!mixinState.mSelectMode">
         <set-size></set-size>
@@ -70,15 +70,19 @@
         <attributeId></attributeId>
 
         <!-- 新增字体样式使用 -->
-        <Button @click="canvasEditor.getFontJson()" size="small">获取元素数据</Button>
+        <Button @click="$props.canvasEditor.getFontJson()" size="small">获取元素数据</Button>
       </div>
     </div>
-    <!-- <attribute v-if="state.show"></attribute> -->
+    <!-- <attribute v-if="$props.show"></attribute> -->
   </div>
+  <!-- 右侧关闭按钮 -->
+  <div
+    :class="`close-btn right-btn ${$props.attrBarShow && 'right-btn-open'}`"
+    @click="emits('switchAttrBar')"
+  ></div>
 </template>
 
-<script setup>
-import { reactive } from 'vue';
+<script setup lang="ts" name="HomeRight">
 import setSize from '@/components/setSize.vue';
 import bgBar from '@/components/bgBar.vue';
 import group from '@/components/group.vue';
@@ -105,29 +109,45 @@ import attributeShadow from '@/components/attributeShadow.vue';
 import attributeBorder from '@/components/attributeBorder.vue';
 import attributeRounded from '@/components/attributeRounded.vue';
 import attributeId from '@/components/attributeId.vue';
+import useSelectListen from '@/hooks/useSelectListen';
+import type { IEditor } from '@kuaitu/core';
 
-const state = reactive({
-  show: true,
-  attrBarShow: true,
-});
+const props = defineProps<{
+  attrBarShow: boolean;
+  show: boolean;
+  canvasEditor: IEditor;
+}>();
 
-const mixinState = reactive({
-  mSelectMode: 'one',
-});
+const emits = defineEmits<{
+  (e: 'switchAttrBar'): void;
+}>();
 
-const canvasEditor = {
-  getFontJson() {
-    console.log('获取元素数据');
-  },
-};
+const { mixinState } = useSelectListen(props.canvasEditor);
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .right-bar {
   width: 304px;
   height: 100%;
   padding: 10px;
   overflow-y: auto;
   background: #fff;
+}
+
+// 属性面板样式
+:deep(.attr-item) {
+  position: relative;
+  margin-bottom: 12px;
+  height: 40px;
+  padding: 0 10px;
+  background: #f6f7f9;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  .ivu-tooltip {
+    text-align: center;
+    flex: 1;
+  }
 }
 </style>

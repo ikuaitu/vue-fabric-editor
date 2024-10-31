@@ -3,6 +3,35 @@
   margin: 20px;
 }
 
+// .logo {
+//   width: 30px;
+//   height: 30px;
+//   display: inline-block;
+//   margin-right: 10px;
+//   text-align: center;
+//   vertical-align: middle;
+//   .ivu-icon {
+//     vertical-align: super;
+//   }
+// }
+
+// 属性面板样式
+// :deep(.attr-item) {
+//   position: relative;
+//   margin-bottom: 12px;
+//   height: 40px;
+//   padding: 0 10px;
+//   background: #f6f7f9;
+//   border: none;
+//   border-radius: 4px;
+//   display: flex;
+//   align-items: center;
+//   .ivu-tooltip {
+//     text-align: center;
+//     flex: 1;
+//   }
+// }
+
 .ivu-menu-vertical .menu-item {
   text-align: center;
   padding: 10px 2px;
@@ -50,6 +79,8 @@
   width: 300px;
   height: 300px;
   margin: 0 auto;
+  // background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVQ4jWNgYGAQIYAJglEDhoUBg9+FowbQ2gAARjwKARjtnN8AAAAASUVORK5CYII=");
+  // background-size: 30px 30px;
 }
 
 #workspace {
@@ -68,21 +99,22 @@
 .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
   background: none;
 }
-
+// 标尺与网格背景
 .switch {
   margin-right: 10px;
 }
-
 .design-stage-point {
   --offsetX: 0px;
   --offsetY: 0px;
   --size: 20px;
   background-size: var(--size) var(--size);
   background-image: radial-gradient(circle, #2f3542 1px, rgba(0, 0, 0, 0) 1px);
-  background-position: var(--offsetX) var (--offsetY);
+  background-position: var(--offsetX) var(--offsetY);
 }
 
 .design-stage-grid {
+  // dom.style.setProperty('--offsetX', `${point.x + e.clientX}px`) 通过修改 偏移量 可实现跟随鼠标效果 --size 则为间距
+  // dom.style.setProperty('--offsetY', `${point.y + e.clientY}px`)
   --offsetX: 0px;
   --offsetY: 0px;
   --size: 16px;
@@ -113,7 +145,6 @@
   z-index: 2;
   background-color: var(--rule4-bg-c);
 }
-
 .coordinates-bar-top {
   cursor: row-resize;
   top: 0;
@@ -126,7 +157,6 @@
   background-size: var(--ruler-space) var(--ruler-h), var(--ruler-tall-space) var(--ruler-tall-h);
   background-position: bottom;
 }
-
 .coordinates-bar-left {
   cursor: col-resize;
   top: var(--ruler-size);
