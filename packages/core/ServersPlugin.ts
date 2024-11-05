@@ -127,6 +127,8 @@ class ServersPlugin implements IPluginTempl {
     // 确保元素存在id
     const temp = typeof jsonFile === 'string' ? JSON.parse(jsonFile) : jsonFile;
     const textPaths: Record<'id' | 'path', any>[] = [];
+    console.log('temp.objects===', temp.objects);
+
     temp.objects.forEach((item: any) => {
       !item.id && (item.id = uuid());
       // 收集所有路径文本元素i-text，并设置path为null
@@ -134,6 +136,8 @@ class ServersPlugin implements IPluginTempl {
         textPaths.push({ id: item.id, path: item.path });
         item.path = null;
       }
+      // 设置erasable属性
+      item.erasable = false;
     });
 
     // hookTransform遍历

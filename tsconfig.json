@@ -13,18 +13,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"],
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
+
   "files": [],
   "include": [
     "packages/**/*.ts",
@@ -34,7 +30,7 @@
     "src/**/*.vue",
     "typings/**/*.ts",
     "typings/**/*.d.ts",
-    "src/hooks/useMaterial.js",
+    "src/hooks/useMaterial.js"
   ],
   "references": [
     {
