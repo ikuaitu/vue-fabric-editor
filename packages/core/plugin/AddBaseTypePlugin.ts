@@ -36,7 +36,8 @@ export default class AddBaseTypePlugin implements IPluginTempl {
     const { event = false, scale = false, center = true } = optons || {};
     item.set({
       id: uuid(),
-    });
+      erasable: false,
+    } as any);
     scale && this._toScale(item);
     event && this._toEvent(item, event);
     this.canvas.add(item);

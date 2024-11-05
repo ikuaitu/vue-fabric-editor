@@ -39,6 +39,8 @@ export { default as ImageStroke } from './plugin/ImageStroke';
 export { default as ResizePlugin } from './plugin/ResizePlugin';
 export { default as LockPlugin } from './plugin/LockPlugin';
 export { default as AddBaseTypePlugin } from './plugin/AddBaseTypePlugin';
+export { default as EarsePlugin } from './plugin/EarsePlugin';
+
 import EventType from './eventType';
 import Utils from './utils/utils';
 import CustomRect from './objects/CustomRect';
