@@ -24,33 +24,32 @@ class EarsePlugin implements IPluginTempl {
     workspace.set({ erasable: false } as any);
     this.canvas.freeDrawingBrush = new fabric.EraserBrush(this.canvas);
     this.canvas.freeDrawingBrush.width = 20; // 画笔宽度
-    this.canvas.requestRenderAll();
   }
   select() {
     this.canvas.isDrawingMode = false;
-    this.editor.emit('modeEvent', 'select');
   }
   erase() {
     this.canvas.isDrawingMode = true;
     this.canvas.freeDrawingBrush.inverted = false; // 复原擦除
-    this.editor.emit('modeEvent', 'earse');
   }
   undoErasing() {
     this.canvas.isDrawingMode = true;
     this.canvas.freeDrawingBrush.inverted = true; // 复原擦除
-    this.editor.emit('modeEvent', 'undoEarse');
   }
   // 快捷键扩展回调
   hotkeyEvent(eventName: string, e: KeyboardEvent) {
     // 擦除功能
     if (eventName === 'e' && e.type === 'keydown') {
       this.erase();
+      this.editor.emit('modeEvent', 'earse');
     } else if (eventName === 'q' && e.type === 'keydown') {
       //复原功能
       this.undoErasing();
+      this.editor.emit('modeEvent', 'undoEarse');
     } else if (eventName === 's' && e.type === 'keydown') {
       // 框选功能
       this.select();
+      this.editor.emit('modeEvent', 'select');
     }
   }
 

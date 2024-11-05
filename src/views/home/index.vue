@@ -16,6 +16,7 @@
 
           <!-- 导入 -->
           <import-Json></import-Json>
+
           <Divider type="vertical" />
           <import-file></import-file>
           <Divider type="vertical" />
@@ -42,6 +43,7 @@
           </a>
           <!-- 管理员模式 -->
           <admin />
+          <selectMode></selectMode>
           <!-- 预览 -->
           <previewCurrent />
           <waterMark />
@@ -129,6 +131,7 @@
               <clip-image></clip-image>
               <!-- 翻转 -->
               <flip></flip>
+              <earse></earse>
               <!-- 条形码属性 -->
               <attributeBarcode></attributeBarcode>
               <!-- 二维码 -->
@@ -201,6 +204,7 @@ import dele from '@/components/del.vue';
 import waterMark from '@/components/waterMark.vue';
 import login from '@/components/login';
 import admin from '@/components/admin';
+import selectMode from '@/components/selectMode.vue';
 // 左侧组件
 import importTmpl from '@/components/importTmpl.vue';
 import fontStyle from '@/components/fontStyle.vue';
@@ -227,6 +231,7 @@ import attributeTextFloat from '@/components/attributeTextFloat.vue';
 import attributeColor from '@/components/attributeColor.vue';
 import attributeBarcode from '@/components/attributeBarcode.vue';
 import attributeQrCode from '@/components/attributeQrCode.vue';
+import earse from '@/components/earse.vue';
 
 // 功能组件
 import { fabric } from 'fabric';
@@ -274,6 +279,7 @@ import Editor, {
   LockPlugin,
   AddBaseTypePlugin,
   MaskPlugin,
+  EarsePlugin,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
 import ClipImage from '@/components/clipImage.vue';
@@ -392,7 +398,8 @@ onMounted(() => {
     .use(ResizePlugin)
     .use(LockPlugin)
     .use(AddBaseTypePlugin)
-    .use(MaskPlugin);
+    .use(MaskPlugin)
+    .use(EarsePlugin);
 
   state.show = true;
   // 默认打开标尺
@@ -451,6 +458,7 @@ provide('canvasEditor', canvasEditor);
     width: 380px;
   }
 }
+
 // 右侧容器
 .right-bar {
   width: 304px;
@@ -507,6 +515,7 @@ provide('canvasEditor', canvasEditor);
   border-radius: 4px;
   display: flex;
   align-items: center;
+
   .ivu-tooltip {
     text-align: center;
     flex: 1;
@@ -539,11 +548,13 @@ provide('canvasEditor', canvasEditor);
 .right {
   display: flex;
   align-items: center;
+
   img {
     display: block;
     margin-right: 10px;
   }
 }
+
 .home,
 .ivu-layout {
   height: 100vh;
@@ -556,6 +567,7 @@ provide('canvasEditor', canvasEditor);
 .canvas-box {
   position: relative;
 }
+
 // 画布内阴影
 .inside-shadow {
   position: absolute;
@@ -591,10 +603,12 @@ provide('canvasEditor', canvasEditor);
 .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
   background: none;
 }
+
 // 标尺
 .switch {
   margin-right: 10px;
 }
+
 // 网格背景
 .design-stage-grid {
   --offsetX: 0px;
