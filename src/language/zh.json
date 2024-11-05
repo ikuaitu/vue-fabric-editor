@@ -6,6 +6,10 @@
     "width": "宽度",
     "height": "高度"
   },
+  "flip": {
+    "x": "水平翻转",
+    "y": "垂直翻转"
+  },
   "attrSeting": {
     "group": "成组",
     "unGroup": "拆分组",
