@@ -44,8 +44,10 @@
 const APP_APIHOST = import.meta.env.APP_APIHOST;
 import { getFileList, uploadImg, createdMaterial, removeMaterial } from '@/api/user';
 import { Utils } from '@kuaitu/core';
+import { INJECT_CANVAS_EDITOR_KEY } from '@/utils/helper';
+
 const { selectFiles } = Utils;
-const canvasEditor = inject('canvasEditor');
+const canvasEditor = inject(INJECT_CANVAS_EDITOR_KEY);
 
 const fileList = ref([]);
 const isLogin = ref(false);

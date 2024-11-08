@@ -23,7 +23,6 @@ import useSelect from '@/hooks/select';
 import { useI18n } from 'vue-i18n';
 
 const update = getCurrentInstance();
-// const canvasEditor = inject('canvasEditor');
 const { canvasEditor, isOne } = useSelect();
 const { t } = useI18n();
 const type = ref('');

@@ -11,13 +11,14 @@ import { useRouter, useRoute } from 'vue-router';
 import { uploadImg, createdTempl, getTmplInfo, updataTempl, removeTempl } from '@/api/user';
 import { Modal } from 'view-ui-plus';
 
+import { INJECT_CANVAS_EDITOR_KEY } from '@/utils/helper';
 import { useI18n } from 'vue-i18n';
 
 export default function useMaterial() {
   const { t } = useI18n();
   const router = useRouter();
   const route = useRoute();
-  const canvasEditor = inject('canvasEditor');
+  const canvasEditor = inject(INJECT_CANVAS_EDITOR_KEY);
 
   // 创建模板
   const createTmpl = async (width, height, parentId = '') => {

@@ -21,7 +21,6 @@ import { Utils } from '@kuaitu/core';
 const { getImgStr, selectFiles, insertImgFile } = Utils;
 
 const update = getCurrentInstance();
-// const canvasEditor = inject('canvasEditor');
 const { canvasEditor, isOne } = useSelect();
 const type = ref('');
 

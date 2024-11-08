@@ -8,15 +8,17 @@
 
 import { inject, computed, reactive, onMounted, onBeforeMount } from 'vue';
 
-import Editor, { EventType } from '@kuaitu/core';
+import { EventType } from '@kuaitu/core';
 const { SelectMode, SelectEvent } = EventType;
 
 import { useI18n } from 'vue-i18n';
+import { INJECT_CANVAS_EDITOR_KEY, INJECT_FABRIC_KEY } from '@/utils/helper';
 
 export default function useSelect(matchType?: Array<string>) {
   const { t } = useI18n();
-  const fabric = inject('fabric');
-  const canvasEditor = inject('canvasEditor') as Editor;
+  const fabric = inject(INJECT_FABRIC_KEY)!;
+
+  const canvasEditor = inject(INJECT_CANVAS_EDITOR_KEY)!;
 
   const state = reactive({
     mSelectMode: SelectMode.EMPTY,

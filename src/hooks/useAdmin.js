@@ -8,11 +8,11 @@
 
 import { updataTempl, uploadImg, deleteImg, getTempl, createdTempl } from '@/api/admin';
 import { Spin } from 'view-ui-plus';
-
 import { useRouter } from 'vue-router';
+import { INJECT_CANVAS_EDITOR_KEY } from '@/utils/helper';
 
 export default function useMaterial() {
-  const canvasEditor = inject('canvasEditor');
+  const canvasEditor = inject(INJECT_CANVAS_EDITOR_KEY);
   const router = useRouter();
   // 画布转图片
   const uploadFileToInfo = async () => {
