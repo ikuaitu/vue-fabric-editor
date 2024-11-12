@@ -58,7 +58,6 @@ module.exports = {
         extendDefaults: true,
       },
     ],
-    'no-prototype-builtins': 'off',
   },
   overrides: [
     {
