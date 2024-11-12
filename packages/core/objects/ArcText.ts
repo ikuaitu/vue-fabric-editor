@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { fabric } from 'fabric';
 import { sectorBoundingBox } from './utils/index'
 const _dimensionAffectingProps = ['curvature', 'fontSize', 'fontWeight', 'fontFamily', 'fontStyle', 'lineHeight', 'text', 'charSpacing', 'textAlign', 'styles', 'color', 'canvas']
@@ -640,22 +641,7 @@ export default fabric.util.createClass(fabric.IText, {
         }
 
     },
-    // 渐变颜色渲染
-    _applyPatternGradientTransformText: function (filler: any) {
-        var pCanvas = fabric.util.createCanvasElement(), pCtx: any,
-            // TODO: verify compatibility with strokeUniform
-            width = this.width + this.strokeWidth, height = this.height + this.strokeWidth;
-        pCanvas.width = width;
-        pCanvas.height = height;
-        pCtx = pCanvas.getContext('2d');
-        pCtx.beginPath(); pCtx.moveTo(0, 0); pCtx.lineTo(width, 0); pCtx.lineTo(width, height);
-        pCtx.lineTo(0, height); pCtx.closePath();
-        pCtx.translate(-this._contentOffsetX, -this._contentOffsetY)
-        pCtx.fillStyle = filler.toLive(pCtx);
-        this._applyPatternGradientTransform(pCtx, filler);
-        pCtx.fill();
-        return pCtx.createPattern(pCanvas, 'no-repeat');
-    },
+
 
     _renderTextCommon(ctx: CanvasRenderingContext2D, method: any) {
 
