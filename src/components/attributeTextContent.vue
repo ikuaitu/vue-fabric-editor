@@ -3,7 +3,7 @@ import useSelect from '@/hooks/select';
 import InputNumber from '@/components/inputNumber';
 
 const update = getCurrentInstance();
-const { canvasEditor, isOne, isMatchType } = useSelect(['i-text']);
+const { canvasEditor, isOne, isMatchType } = useSelect(['i-text', 'arc-text']);
 const baseAttr = reactive({
   text: '',
   strokeWidth: 1,

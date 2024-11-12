@@ -145,6 +145,8 @@
               <attributeTextFloat></attributeTextFloat>
               <!-- 文字内容  -->
               <attribute-text-content></attribute-text-content>
+              <!-- 变形属性 -->
+              <AttributeArcText></AttributeArcText>
               <!-- 位置信息 -->
               <attributePostion></attributePostion>
               <!-- 阴影 -->
@@ -278,6 +280,7 @@ import Editor, {
 import Edit from '@/components/edit.vue';
 import ClipImage from '@/components/clipImage.vue';
 import AttributeTextContent from '@/components/attributeTextContent.vue';
+import AttributeArcText from '@/components/attributeArcText.vue';
 
 // 创建编辑器
 const canvasEditor = new Editor() as IEditor;
@@ -352,7 +355,6 @@ onMounted(() => {
     // imageSmoothingEnabled: false, // 解决文字导出后不清晰问题
     preserveObjectStacking: true, // 当选择画布中的对象时，让对象不在顶层。
   });
-
   // 初始化编辑器
   canvasEditor.init(canvas);
   canvasEditor

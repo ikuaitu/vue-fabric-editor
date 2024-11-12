@@ -133,7 +133,7 @@ import InputNumber from '@/components/inputNumber';
 const update = getCurrentInstance();
 
 // 文字元素
-const textType = ['i-text', 'textbox', 'text'];
+const textType = ['i-text', 'textbox', 'text', 'arc-text'];
 const { canvasEditor, isMatchType, isOne } = useSelect(textType);
 
 // 属性值

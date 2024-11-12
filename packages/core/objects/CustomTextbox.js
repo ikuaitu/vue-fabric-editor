@@ -115,4 +115,4 @@ fabric.Textbox.fromObject = function (options, callback) {
   return callback(new fabric.Textbox(text, options));
 };
 
-export default fabric.Rect;
+export default fabric.Textbox;

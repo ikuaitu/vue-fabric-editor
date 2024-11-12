@@ -67,6 +67,7 @@ const baseType = [
   'line',
   'arrow',
   'thinTailArrow',
+  'arc-text',
 ];
 const { isMatchType, canvasEditor, isOne } = useSelect(baseType);
 
