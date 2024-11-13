@@ -125,6 +125,8 @@
               <center-align></center-align>
               <!-- 替换图片 -->
               <replaceImg></replaceImg>
+              <!-- 裁剪图片 -->
+              <cropperImg></cropperImg>
               <!-- 图片裁切 -->
               <clip-image></clip-image>
               <!-- 翻转 -->
@@ -210,6 +212,7 @@ import material from '@/components/material.vue';
 import bgBar from '@/components/bgBar.vue';
 import setSize from '@/components/setSize.vue';
 import replaceImg from '@/components/replaceImg.vue';
+import cropperImg from '@/components/cropperImg.vue';
 import filters from '@/components/filters.vue';
 import imgStroke from '@/components/imgStroke.vue';
 // import elementData from '@/components/elementData.vue';
@@ -451,6 +454,7 @@ provide('canvasEditor', canvasEditor);
     width: 380px;
   }
 }
+
 // 右侧容器
 .right-bar {
   width: 304px;
@@ -507,6 +511,7 @@ provide('canvasEditor', canvasEditor);
   border-radius: 4px;
   display: flex;
   align-items: center;
+
   .ivu-tooltip {
     text-align: center;
     flex: 1;
@@ -539,11 +544,13 @@ provide('canvasEditor', canvasEditor);
 .right {
   display: flex;
   align-items: center;
+
   img {
     display: block;
     margin-right: 10px;
   }
 }
+
 .home,
 .ivu-layout {
   height: 100vh;
@@ -556,6 +563,7 @@ provide('canvasEditor', canvasEditor);
 .canvas-box {
   position: relative;
 }
+
 // 画布内阴影
 .inside-shadow {
   position: absolute;
@@ -591,10 +599,12 @@ provide('canvasEditor', canvasEditor);
 .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
   background: none;
 }
+
 // 标尺
 .switch {
   margin-right: 10px;
 }
+
 // 网格背景
 .design-stage-grid {
   --offsetX: 0px;
