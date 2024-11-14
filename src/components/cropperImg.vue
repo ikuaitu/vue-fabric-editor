@@ -24,23 +24,22 @@ const cropper = () => {
   const activeObject = canvasEditor.canvas.getActiveObjects()[0];
   if (activeObject && activeObject.type === 'image') {
     console.log('🚀 ~ cropper ~ activeObject:', activeObject);
-    cropperDialogRef.value.open(
-      { img: activeObject.src || activeObject._element.src },
-      async (data) => {
-        console.log('🚀 ~ cropper ~ data:', data);
-        const imgEl = await insertImgFile(data);
-        const width = activeObject.get('width');
-        const height = activeObject.get('height');
-        const scaleX = activeObject.get('scaleX');
-        const scaleY = activeObject.get('scaleY');
-        activeObject.setSrc(imgEl.src, () => {
-          activeObject.set('scaleX', (width * scaleX) / imgEl.width);
-          activeObject.set('scaleY', (height * scaleY) / imgEl.height);
-          canvasEditor.canvas.renderAll();
-        });
-        imgEl.remove();
-      }
-    );
+    cropperDialogRef.value.open({ img: activeObject._element.src }, async (data) => {
+      console.log('🚀 ~ cropper ~ data:', data);
+      const imgEl = await insertImgFile(data);
+      // const width = activeObject.get('width');
+      // const height = activeObject.get('height');
+      // const scaleX = activeObject.get('scaleX');
+      // const scaleY = activeObject.get('scaleY');
+      // console.log('🚀 ~ cropper ~ scaleX:', scaleX);
+      // console.log('🚀 ~ cropper ~ scaleY:', scaleY);
+      activeObject.setSrc(imgEl.src, () => {
+        // activeObject.set('scaleX', scaleX);
+        // activeObject.set('scaleY', scaleY);
+        canvasEditor.canvas.renderAll();
+      });
+      imgEl.remove();
+    });
   }
 };
 

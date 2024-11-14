@@ -101,6 +101,7 @@
           :fixedNumber="fixedRatio"
           centerBox
           :fixedBox="false"
+          full
           @realTime="onPreview"
         />
       </div>
@@ -189,12 +190,12 @@ function changeRatio(ratio?: [number, number]) {
     fixed.value = true;
     fixedRatio.value = ratio;
     // 宽度不变，按照比例修改高度
-    cropperHeight.value = (cropperWidth.value * ratio[1]) / ratio[0];
+    // cropperHeight.value = (cropperWidth.value * ratio[1]) / ratio[0];
   } else {
     fixed.value = false;
   }
   nextTick(() => {
-    cropperRef.value.goAutoCrop(cropperWidth.value, cropperHeight.value);
+    cropperRef.value.goAutoCrop(9999, 9999);
   });
 }
 
