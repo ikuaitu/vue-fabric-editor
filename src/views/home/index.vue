@@ -190,7 +190,7 @@ import align from '@/components/align.vue';
 import myTemplName from '@/components/myTemplName.vue';
 import centerAlign from '@/components/centerAlign.vue';
 import flip from '@/components/flip.vue';
-import previewCurrent from '@/components/previewCurrent';
+import previewCurrent from '@/components/previewCurrent.vue';
 import save from '@/components/save.vue';
 import lang from '@/components/lang.vue';
 import clone from '@/components/clone.vue';
@@ -201,8 +201,8 @@ import dragMode from '@/components/dragMode.vue';
 import lock from '@/components/lock.vue';
 import dele from '@/components/del.vue';
 import waterMark from '@/components/waterMark.vue';
-import login from '@/components/login';
-import admin from '@/components/admin';
+import login from '@/components/login.vue';
+import admin from '@/components/admin.vue';
 // 左侧组件
 import importTmpl from '@/components/importTmpl.vue';
 import fontStyle from '@/components/fontStyle.vue';
@@ -281,6 +281,7 @@ import Editor, {
 import Edit from '@/components/edit.vue';
 import ClipImage from '@/components/clipImage.vue';
 import AttributeTextContent from '@/components/attributeTextContent.vue';
+import { INJECT_CANVAS_EDITOR_KEY, INJECT_FABRIC_KEY } from '@/utils/helper';
 
 // 创建编辑器
 const canvasEditor = new Editor() as IEditor;
@@ -411,14 +412,14 @@ onMounted(() => {
 });
 
 onUnmounted(() => canvasEditor.destory());
-const rulerSwitch = (val) => {
+const rulerSwitch = (val: any) => {
   if (val) {
     canvasEditor.rulerEnable();
   } else {
     canvasEditor.rulerDisable();
   }
   // 使标尺开关组件失焦，避免响应键盘的空格事件
-  document.activeElement.blur();
+  (document.activeElement as any)?.blur?.();
 };
 
 // 隐藏工具条
@@ -426,7 +427,7 @@ const hideToolsBar = () => {
   state.toolsBarShow = !state.toolsBarShow;
 };
 // 展示工具条
-const showToolsBar = (val) => {
+const showToolsBar = (val: any) => {
   menuActive.value = val;
   state.toolsBarShow = true;
 };
@@ -437,8 +438,8 @@ const switchAttrBar = () => {
 
 const { mixinState } = useSelectListen(canvasEditor);
 
-provide('fabric', fabric);
-provide('canvasEditor', canvasEditor);
+provide(INJECT_FABRIC_KEY, fabric);
+provide(INJECT_CANVAS_EDITOR_KEY, canvasEditor);
 // provide('mixinState', mixinState);
 </script>
 <style lang="less" scoped>

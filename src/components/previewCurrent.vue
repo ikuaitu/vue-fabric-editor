@@ -13,9 +13,11 @@
 </template>
 
 <script lang="ts" setup>
+import { INJECT_CANVAS_EDITOR_KEY } from '@/utils/helper';
 import { ImagePreview } from 'view-ui-plus';
 
-const canvasEditor: any = inject('canvasEditor');
+const canvasEditor = inject(INJECT_CANVAS_EDITOR_KEY)!;
+
 const preview = () => {
   canvasEditor.preview().then((dataUrl: string) => {
     // const dataUrl = getImgUrl();

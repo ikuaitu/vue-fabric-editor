@@ -7,8 +7,10 @@
  * @LastEditTime: 2024-05-18 17:28:34
  */
 
+import { INJECT_CANVAS_EDITOR_KEY } from '@/utils/helper';
+
 export default function useCalculate() {
-  const canvasEditor = inject('canvasEditor');
+  const canvasEditor = inject(INJECT_CANVAS_EDITOR_KEY);
 
   // 获取画布的DOMRect对象
   const getCanvasBound = () => canvasEditor.canvas.getSelectionElement().getBoundingClientRect();
