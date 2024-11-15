@@ -36,6 +36,7 @@ const config = ({ mode }) => {
       vueSetupExtend(),
       // 增加下面的配置项,这样在运行时就能检查eslint规范
       eslintPlugin({
+        fix: true,
         include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
       }),
       vueJsx({

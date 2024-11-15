@@ -16,6 +16,7 @@
 
           <!-- 导入 -->
           <import-Json></import-Json>
+
           <Divider type="vertical" />
           <import-file></import-file>
           <Divider type="vertical" />
@@ -42,6 +43,7 @@
           </a>
           <!-- 管理员模式 -->
           <admin />
+          <selectMode></selectMode>
           <!-- 预览 -->
           <previewCurrent />
           <waterMark />
@@ -131,6 +133,7 @@
               <clip-image></clip-image>
               <!-- 翻转 -->
               <flip></flip>
+              <earse></earse>
               <!-- 条形码属性 -->
               <attributeBarcode></attributeBarcode>
               <!-- 二维码 -->
@@ -203,6 +206,7 @@ import dele from '@/components/del.vue';
 import waterMark from '@/components/waterMark.vue';
 import login from '@/components/login';
 import admin from '@/components/admin';
+import selectMode from '@/components/selectMode.vue';
 // 左侧组件
 import importTmpl from '@/components/importTmpl.vue';
 import fontStyle from '@/components/fontStyle.vue';
@@ -230,6 +234,7 @@ import attributeTextFloat from '@/components/attributeTextFloat.vue';
 import attributeColor from '@/components/attributeColor.vue';
 import attributeBarcode from '@/components/attributeBarcode.vue';
 import attributeQrCode from '@/components/attributeQrCode.vue';
+import earse from '@/components/earse.vue';
 
 // 功能组件
 import { fabric } from 'fabric';
@@ -277,6 +282,7 @@ import Editor, {
   LockPlugin,
   AddBaseTypePlugin,
   MaskPlugin,
+  EarsePlugin,
 } from '@kuaitu/core';
 import Edit from '@/components/edit.vue';
 import ClipImage from '@/components/clipImage.vue';
@@ -395,7 +401,8 @@ onMounted(() => {
     .use(ResizePlugin)
     .use(LockPlugin)
     .use(AddBaseTypePlugin)
-    .use(MaskPlugin);
+    .use(MaskPlugin)
+    .use(EarsePlugin);
 
   state.show = true;
   // 默认打开标尺

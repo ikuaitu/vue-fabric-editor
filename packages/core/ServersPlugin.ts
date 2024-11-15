@@ -134,6 +134,8 @@ class ServersPlugin implements IPluginTempl {
         textPaths.push({ id: item.id, path: item.path });
         item.path = null;
       }
+      // 设置erasable属性
+      item.erasable = false;
     });
 
     // hookTransform遍历
