@@ -11,5 +11,8 @@
         "src/language"
     ],
     "i18n-ally.sourceLanguage": "zh",
-    "i18n-ally.keystyle": "nested" // 需要Prettier的配置文件
+    "i18n-ally.keystyle": "nested",
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    } // 需要Prettier的配置文件
 }

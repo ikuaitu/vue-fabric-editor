@@ -87,6 +87,7 @@
   },
   "select_json": "选择JSON文件",
   "repleaceImg": "替换图片",
+  "cropperImg": "裁剪图片",
   "createClip": "添加裁切",
   "removeClip": "移除裁切",
   "polygonClip": "多边形",
