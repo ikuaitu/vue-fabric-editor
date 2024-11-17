@@ -138,7 +138,7 @@ import textAlignJustitfy from '@/assets/icon/attribute/textAlignJustitfy.svg?raw
 const update = getCurrentInstance();
 
 // 文字元素
-const textType = ['i-text', 'textbox', 'text'];
+const textType = ['i-text', 'textbox', 'text', 'arc-text'];
 const { canvasEditor, isMatchType, isOne } = useSelect(textType);
 
 // 属性值

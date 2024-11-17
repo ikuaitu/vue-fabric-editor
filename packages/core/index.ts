@@ -43,9 +43,11 @@ import EventType from './eventType';
 import Utils from './utils/utils';
 import CustomRect from './objects/CustomRect';
 import CustomTextbox from './objects/CustomTextbox';
+import ArcText from './objects/ArcText';
+
 // import { extend } from 'dayjs';
 
-export { EventType, Utils, CustomRect, CustomTextbox };
+export { EventType, Utils, CustomRect, CustomTextbox, ArcText };
 export default Editor;
 
 export * from './interface/Editor';

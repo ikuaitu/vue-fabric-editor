@@ -80,6 +80,7 @@ const addItem = async ({ info: item }) => {
   await canvasEditor.downFontByJSON(JSON.stringify(item.json));
   const el = JSON.parse(JSON.stringify(item.json));
   el.id = uuid();
+
   const elType = capitalizeFirstLetter(el.type);
   new fabric[elType].fromObject(el, (fabricEl) => {
     canvasEditor.addBaseType(fabricEl);

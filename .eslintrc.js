@@ -39,6 +39,25 @@ module.exports = {
     'vue/no-setup-props-destructure': 'off',
     'vuejs-accessibility/anchor-has-content': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
+    'prefer-const': 'off', //如果一个变量从未被重新赋值，那么使用const声明会更好。
+    '@typescript-eslint/ban-ts-comment': 'off', // 关闭禁止ts注释忽略校验
+    '@typescript-eslint/ban-types': [
+      //忽略默认的禁止类型
+      'error',
+      {
+        types: {
+          String: false,
+          Boolean: false,
+          Number: false,
+          Symbol: false,
+          '{}': false,
+          Object: false,
+          object: false,
+          Function: false,
+        },
+        extendDefaults: true,
+      },
+    ],
   },
   overrides: [
     {

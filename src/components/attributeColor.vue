@@ -68,6 +68,7 @@ const colorChange = (value) => {
         activeObject.height,
         value.angle
       );
+
       activeObject.set('fill', currentGradient, value.angle);
       activeObject.set(angleKey, value.angle);
     }

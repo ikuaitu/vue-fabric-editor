@@ -35,8 +35,8 @@ export const getFontStyleTypes = () => instance.get('/api/font-style-types');
 export const getFontStyles = (data: any) => instance.get('/api/font-styles?' + data);
 
 // 获取根据分类获取字体样式列表
-export const getFontStyleListByType = (data: any) =>
-  instance.get('/api/font-styles?' + qs.stringify(data));
+export const getFontStyleListByType = (data: any) => instance.get('/api/font-styles?' + qs.stringify(data));
+
 
 // 获取字体分类分类
 export const getTmplTypes = () => instance.get('/api/templ-types');
