@@ -38,6 +38,8 @@
         <center-align></center-align>
         <!-- 替换图片 -->
         <replaceImg></replaceImg>
+        <!-- 裁剪图片 -->
+        <cropperImg></cropperImg>
         <!-- 图片裁切 -->
         <clip-image></clip-image>
         <!-- 翻转 -->
@@ -94,6 +96,7 @@ import clone from '@/components/clone.vue';
 import hide from '@/components/hide.vue';
 import edit from '@/components/edit.vue';
 import replaceImg from '@/components/replaceImg.vue';
+import cropperImg from '@/components/cropperImg.vue';
 import clipImage from '@/components/clipImage.vue';
 import flip from '@/components/flip.vue';
 import attributeBarcode from '@/components/attributeBarcode.vue';
