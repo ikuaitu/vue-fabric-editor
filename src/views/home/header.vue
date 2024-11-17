@@ -1,5 +1,5 @@
 <template>
-  <Header v-if="$props.show">
+  <Header>
     <div class="left">
       <logo></logo>
       <Divider type="vertical" />
@@ -54,7 +54,6 @@ import lang from '@/components/lang.vue';
 import type { IEditor } from '@kuaitu/core';
 
 const props = defineProps<{
-  show: boolean;
   canvasEditor: IEditor;
 }>();
 

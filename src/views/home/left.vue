@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$props.show" :class="`left-bar ${$props.toolsBarShow && 'show-tools-bar'}`">
+  <div :class="`left-bar ${toolsBarShow && 'show-tools-bar'}`">
     <!-- 左侧菜单 -->
     <Menu :active-name="menuActive" accordion @on-select="showToolsBar" width="65px">
       <MenuItem v-for="item in leftBar" :key="item.key" :name="item.key" class="menu-item">
@@ -8,7 +8,7 @@
       </MenuItem>
     </Menu>
     <!-- 左侧组件 -->
-    <div class="content" v-show="$props.toolsBarShow">
+    <div class="content" v-show="toolsBarShow">
       <div class="left-panel">
         <KeepAlive>
           <component :is="leftBarComponent[menuActive]"></component>
@@ -17,8 +17,8 @@
     </div>
     <!-- 关闭按钮 -->
     <div
-      :class="`close-btn left-btn ${$props.toolsBarShow && 'left-btn-open'}`"
-      @click="emits('hideToolsBar')"
+      :class="`close-btn left-btn ${toolsBarShow && 'left-btn-open'}`"
+      @click="toolsBarShow = !toolsBarShow"
     ></div>
   </div>
 </template>
@@ -35,10 +35,8 @@ import myMaterial from '@/components/myMaterial/index.vue';
 
 const { t } = useI18n();
 
-defineProps<{
-  show: boolean;
-  toolsBarShow: boolean;
-}>();
+/** 工具栏是否显示 */
+const toolsBarShow = ref(true);
 
 const leftBarComponent = {
   importTmpl,
@@ -91,14 +89,9 @@ const leftBar = reactive([
   },
 ]);
 
-const emits = defineEmits<{
-  (e: 'hideToolsBar'): void;
-  (e: 'showToolsBar'): void;
-}>();
-
 const showToolsBar = (val: LeftBarComponent) => {
   menuActive.value = val;
-  emits('showToolsBar');
+  toolsBarShow.value = true;
 };
 </script>
 

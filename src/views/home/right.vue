@@ -1,6 +1,6 @@
 <template>
-  <div class="right-bar" v-show="$props.attrBarShow">
-    <div v-if="$props.show" style="padding-top: 10px">
+  <div class="right-bar" v-show="attrBarShow">
+    <div style="padding-top: 10px">
       <!-- 未选择元素时 展示背景设置 -->
       <div v-show="!mixinState.mSelectMode">
         <set-size></set-size>
@@ -79,8 +79,8 @@
   </div>
   <!-- 右侧关闭按钮 -->
   <div
-    :class="`close-btn right-btn ${$props.attrBarShow && 'right-btn-open'}`"
-    @click="emits('switchAttrBar')"
+    :class="`close-btn right-btn ${attrBarShow && 'right-btn-open'}`"
+    @click="attrBarShow = !attrBarShow"
   ></div>
 </template>
 
@@ -116,14 +116,11 @@ import useSelectListen from '@/hooks/useSelectListen';
 import type { IEditor } from '@kuaitu/core';
 
 const props = defineProps<{
-  attrBarShow: boolean;
-  show: boolean;
   canvasEditor: IEditor;
 }>();
 
-const emits = defineEmits<{
-  (e: 'switchAttrBar'): void;
-}>();
+/** 属性面板是否显示 */
+const attrBarShow = ref(true);
 
 const { mixinState } = useSelectListen(props.canvasEditor);
 </script>

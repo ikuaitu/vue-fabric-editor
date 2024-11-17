@@ -9,18 +9,12 @@
   <div class="home">
     <Layout>
       <HomeHeader
+        v-if="state.show"
         v-model:ruler="state.ruler"
         :canvas-editor="canvasEditor"
-        :show="state.show"
       ></HomeHeader>
       <Content style="display: flex; height: calc(100vh - 64px); position: relative">
-        <HomeLeft
-          v-model:menu-active="menuActive"
-          :show="state.show"
-          :tools-bar-show="state.toolsBarShow"
-          @hide-tools-bar="hideToolsBar"
-          @show-tools-bar="showToolsBar"
-        ></HomeLeft>
+        <HomeLeft v-if="state.show" v-model:menu-active="menuActive"></HomeLeft>
 
         <!-- 画布区域 -->
         <div id="workspace">
@@ -32,12 +26,7 @@
           </div>
         </div>
 
-        <HomeRight
-          :canvas-editor="canvasEditor"
-          :show="state.show"
-          :attr-bar-show="state.attrBarShow"
-          @switch-attr-bar="switchAttrBar"
-        ></HomeRight>
+        <HomeRight v-if="state.show" :canvas-editor="canvasEditor"></HomeRight>
       </Content>
     </Layout>
   </div>
@@ -102,10 +91,6 @@ const canvasEditor = new Editor() as IEditor;
 const state = reactive({
   /** 初始化完成之后再显示 */
   show: false,
-  /** 工具栏是否显示 */
-  toolsBarShow: true,
-  /** 属性面板是否显示 */
-  attrBarShow: true,
   /** 是否显示标尺和背景色 */
   ruler: true,
 });
@@ -178,19 +163,6 @@ onMounted(() => {
 });
 
 onUnmounted(() => canvasEditor.destory());
-
-// 隐藏工具条
-const hideToolsBar = () => {
-  state.toolsBarShow = !state.toolsBarShow;
-};
-// 展示工具条
-const showToolsBar = () => {
-  state.toolsBarShow = true;
-};
-// 属性面板开关
-const switchAttrBar = () => {
-  state.attrBarShow = !state.attrBarShow;
-};
 
 provide('fabric', fabric);
 provide('canvasEditor', canvasEditor);
