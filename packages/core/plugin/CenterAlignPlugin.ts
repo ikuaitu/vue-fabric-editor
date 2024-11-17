@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2023-06-15 22:49:42
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-09 14:12:41
+ * @LastEditors: bigFace2019 599069310@qq.com
+ * @LastEditTime: 2024-11-03 20:39:43
  * @Description: 居中对齐插件
  */
 
@@ -59,7 +59,7 @@ class CenterAlignPlugin implements IPluginTempl {
       return [
         {
           text: '水平垂直居中',
-          hotkey: 'Ctrl+V',
+          hotkey: '',
           disabled: false,
           onclick: () => this.position('center'),
         },

@@ -1,8 +1,8 @@
 /*
  * @Author: 秦少卫
  * @Date: 2023-06-20 12:57:35
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-04-10 17:33:02
+ * @LastEditors: bigFace2019 599069310@qq.com
+ * @LastEditTime: 2024-11-03 20:38:33
  * @Description: 删除快捷键
  */
 
@@ -42,7 +42,10 @@ class DeleteHotKeyPlugin implements IPluginTempl {
   contextMenu() {
     const activeObject = this.canvas.getActiveObject();
     if (activeObject) {
-      return [null, { text: '删除', hotkey: 'Ctrl+V', disabled: false, onclick: () => this.del() }];
+      return [
+        null,
+        { text: '删除', hotkey: 'Backspace', disabled: false, onclick: () => this.del() },
+      ];
     }
   }
 
