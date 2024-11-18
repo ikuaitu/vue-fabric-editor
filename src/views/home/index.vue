@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-05-17 15:30:21
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-10-13 17:21:48
+ * @LastEditTime: 2024-11-18 10:30:30
  * @Description: file content
 -->
 <template>
@@ -208,7 +208,6 @@ provide('canvasEditor', canvasEditor);
   background: #f1f1f1;
   overflow: hidden;
 }
-
 
 // 标尺
 .switch {
