@@ -184,6 +184,7 @@ provide('canvasEditor', canvasEditor);
 .canvas-box {
   position: relative;
 }
+
 // 画布内阴影
 .inside-shadow {
   position: absolute;
@@ -208,10 +209,12 @@ provide('canvasEditor', canvasEditor);
   overflow: hidden;
 }
 
+
 // 标尺
 .switch {
   margin-right: 10px;
 }
+
 // 网格背景
 .design-stage-grid {
   --offsetX: 0px;

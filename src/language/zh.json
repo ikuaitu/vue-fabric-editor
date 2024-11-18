@@ -6,6 +6,10 @@
     "width": "宽度",
     "height": "高度"
   },
+  "flip": {
+    "x": "水平翻转",
+    "y": "垂直翻转"
+  },
   "attrSeting": {
     "group": "成组",
     "unGroup": "拆分组",
@@ -87,6 +91,7 @@
   },
   "select_json": "选择JSON文件",
   "repleaceImg": "替换图片",
+  "cropperImg": "裁剪图片",
   "createClip": "添加裁切",
   "removeClip": "移除裁切",
   "polygonClip": "多边形",

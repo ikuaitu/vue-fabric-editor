@@ -1,6 +1,7 @@
 import { fabric } from 'fabric';
 import { SelectMode } from '../eventType';
 import type { IEditor, IPluginTempl } from '@kuaitu/core';
+import i18n from "@/language";
 
 type IPlugin = Pick<FlipPlugin, 'flip'>;
 
@@ -9,7 +10,6 @@ declare module '@kuaitu/core' {
   interface IEditor extends IPlugin {}
 }
 
-const t = (key: string) => key;
 // import event from '@/utils/event/notifier';
 
 export default class FlipPlugin implements IPluginTempl {
@@ -34,12 +34,12 @@ export default class FlipPlugin implements IPluginTempl {
           hotkey: '❯',
           subitems: [
             {
-              text: t('flip.x'),
+              text: i18n.global.t('flip.x'),
               hotkey: '|',
               onclick: () => this.flip('X'),
             },
             {
-              text: t('flip.y'),
+              text: i18n.global.t('flip.y'),
               hotkey: '-',
               onclick: () => this.flip('Y'),
             },
