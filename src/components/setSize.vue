@@ -1,8 +1,8 @@
 <!--
  * @Author: 秦少卫
  * @Date: 2022-09-03 19:16:55
- * @LastEditors: 秦少卫
- * @LastEditTime: 2024-10-07 17:25:24
+ * @LastEditors: June
+ * @LastEditTime: 2024-11-22 15:28:43
  * @Description: 尺寸设置
 -->
 
@@ -38,18 +38,16 @@ import modalSzie from '@/components/common/modalSzie';
 
 const { isSelect, canvasEditor } = useSelect();
 
-const DefaultSize = {
-  width: 900,
-  height: 1200,
-};
-
 const modalSizeRef = ref(null);
 
-let width = ref(DefaultSize.width);
-let height = ref(DefaultSize.height);
+const width = ref(0);
+const height = ref(0);
 
 onMounted(() => {
-  canvasEditor.setSize(width.value, height.value);
+  const size = canvasEditor.getWorkspase();
+  const { width: w, height: h } = size || {};
+  width.value = w;
+  height.value = h;
   canvasEditor.on('sizeChange', (w, h) => {
     width.value = w;
     height.value = h;
