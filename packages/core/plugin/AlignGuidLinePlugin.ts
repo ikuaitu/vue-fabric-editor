@@ -39,6 +39,10 @@ class AlignGuidLinePlugin implements IPluginTempl {
     const This = this;
     let viewportTransform: number[] | undefined;
     let zoom = 1;
+    let activeWidth = 0;
+    let activeHeight = 0;
+    let activeLeft = 0;
+    let activeTop = 0;
 
     function drawVerticalLine(coords: VerticalLine) {
       drawLine(
@@ -76,15 +80,25 @@ class AlignGuidLinePlugin implements IPluginTempl {
       return false;
     }
 
-    const verticalLines: VerticalLine[] = [];
-    const horizontalLines: HorizontalLine[] = [];
+    let verticalLines: VerticalLine[] = [];
+    let horizontalLines: HorizontalLine[] = [];
 
-    canvas.on('mouse:down', () => {
+    canvas.on('mouse:down', (e) => {
       viewportTransform = canvas.viewportTransform;
       zoom = canvas.getZoom();
+      try {
+        if (e) {
+          activeLeft = e.target.left;
+          activeTop = e.target.top;
+          activeWidth = e.target.getScaledWidth();
+          activeHeight = e.target.getScaledHeight();
+        }
+      } catch (e) {}
     });
 
     canvas.on('object:moving', (e) => {
+
+
       if (viewportTransform === undefined || e.target === undefined) return;
 
       const activeObject = e.target;
@@ -93,16 +107,23 @@ class AlignGuidLinePlugin implements IPluginTempl {
       const activeObjectLeft = activeObjectCenter.x;
       const activeObjectTop = activeObjectCenter.y;
       const activeObjectBoundingRect = activeObject.getBoundingRect();
-      const activeObjectHeight = activeObjectBoundingRect.height / viewportTransform[3];
-      const activeObjectWidth = activeObjectBoundingRect.width / viewportTransform[0];
+      const activeObjectHeight = activeObject.getScaledHeight();
+      const activeObjectWidth = activeObject.getScaledWidth();
       let horizontalInTheRange = false;
       let verticalInTheRange = false;
       const transform = canvas._currentTransform;
 
-      if (!transform) return;
+      //到达位置
+      let reachLeft = false; //左
+      let reachTop = false; //上
 
-      // It should be trivial to DRY this up by encapsulating (repeating) creation of x1, x2, y1, and y2 into functions,
-      // but we're not doing it here for perf. reasons -- as this a function that's invoked on every mouse move
+      //距离
+      let _elReachLeft = 0; //左距离
+      let _elReachTop = 0; //上距离
+
+      activeObject.set('hasControls', false);
+
+      if (!transform) return;
 
       for (let i = canvasObjects.length; i--; ) {
         // eslint-disable-next-line no-continue
@@ -124,8 +145,10 @@ class AlignGuidLinePlugin implements IPluginTempl {
         const objectWidth = objectBoundingRect.width / viewportTransform[0];
 
         // snap by the horizontal center line
+        //水平中心线
         if (isInRange(objectLeft, activeObjectLeft)) {
           verticalInTheRange = true;
+          verticalLines = [];
           verticalLines.push({
             x: objectLeft,
             y1:
@@ -144,51 +167,11 @@ class AlignGuidLinePlugin implements IPluginTempl {
           );
         }
 
-        // snap by the left edge
-        if (isInRange(objectLeft - objectWidth / 2, activeObjectLeft - activeObjectWidth / 2)) {
-          verticalInTheRange = true;
-          verticalLines.push({
-            x: objectLeft - objectWidth / 2,
-            y1:
-              objectTop < activeObjectTop
-                ? objectTop - objectHeight / 2 - aligningLineOffset
-                : objectTop + objectHeight / 2 + aligningLineOffset,
-            y2:
-              activeObjectTop > objectTop
-                ? activeObjectTop + activeObjectHeight / 2 + aligningLineOffset
-                : activeObjectTop - activeObjectHeight / 2 - aligningLineOffset,
-          });
-          activeObject.setPositionByOrigin(
-            new fabric.Point(objectLeft - objectWidth / 2 + activeObjectWidth / 2, activeObjectTop),
-            'center',
-            'center'
-          );
-        }
-
-        // snap by the right edge
-        if (isInRange(objectLeft + objectWidth / 2, activeObjectLeft + activeObjectWidth / 2)) {
-          verticalInTheRange = true;
-          verticalLines.push({
-            x: objectLeft + objectWidth / 2,
-            y1:
-              objectTop < activeObjectTop
-                ? objectTop - objectHeight / 2 - aligningLineOffset
-                : objectTop + objectHeight / 2 + aligningLineOffset,
-            y2:
-              activeObjectTop > objectTop
-                ? activeObjectTop + activeObjectHeight / 2 + aligningLineOffset
-                : activeObjectTop - activeObjectHeight / 2 - aligningLineOffset,
-          });
-          activeObject.setPositionByOrigin(
-            new fabric.Point(objectLeft + objectWidth / 2 - activeObjectWidth / 2, activeObjectTop),
-            'center',
-            'center'
-          );
-        }
-
         // snap by the vertical center line
+        //垂直中心线
         if (isInRange(objectTop, activeObjectTop)) {
           horizontalInTheRange = true;
+          horizontalLines = [];
           horizontalLines.push({
             y: objectTop,
             x1:
@@ -206,10 +189,59 @@ class AlignGuidLinePlugin implements IPluginTempl {
             'center'
           );
         }
+        // snap by the left edge
+        //左边线
+        if (isInRange(objectLeft - objectWidth / 2, activeObjectLeft - activeObjectWidth / 2)) {
+          verticalInTheRange = true;
+          verticalLines = [];
+          reachLeft = true;
+          verticalLines.push({
+            x: objectLeft - objectWidth / 2,
+            y1:
+              objectTop < activeObjectTop
+                ? objectTop - objectHeight / 2 - aligningLineOffset
+                : objectTop + objectHeight / 2 + aligningLineOffset,
+            y2:
+              activeObjectTop > objectTop
+                ? activeObjectTop + activeObjectHeight / 2 + aligningLineOffset
+                : activeObjectTop - activeObjectHeight / 2 - aligningLineOffset,
+          });
+          _elReachLeft = objectLeft - objectWidth / 2 + activeObjectWidth / 2;
+          let x = objectLeft - objectWidth / 2 + activeObjectWidth / 2;
+          let y = reachTop ? _elReachTop : activeObjectTop;
+
+          activeObject.setPositionByOrigin(new fabric.Point(x, y), 'center', 'center');
+        }
+
+        // snap by the right edge
+        //右边线
+        if (isInRange(objectLeft + objectWidth / 2, activeObjectLeft + activeObjectWidth / 2)) {
+          reachLeft = true;
+          verticalInTheRange = true;
+          verticalLines = [];
+          verticalLines.push({
+            x: objectLeft + objectWidth / 2,
+            y1:
+              objectTop < activeObjectTop
+                ? objectTop - objectHeight / 2 - aligningLineOffset
+                : objectTop + objectHeight / 2 + aligningLineOffset,
+            y2:
+              activeObjectTop > objectTop
+                ? activeObjectTop + activeObjectHeight / 2 + aligningLineOffset
+                : activeObjectTop - activeObjectHeight / 2 - aligningLineOffset,
+          });
+          _elReachLeft = objectLeft + objectWidth / 2 - activeObjectWidth / 2;
+          let x = objectLeft + objectWidth / 2 - activeObjectWidth / 2;
+          let y = reachTop ? _elReachTop : activeObjectTop;
+          activeObject.setPositionByOrigin(new fabric.Point(x, y), 'center', 'center');
+        }
 
         // snap by the top edge
+        //上边线
         if (isInRange(objectTop - objectHeight / 2, activeObjectTop - activeObjectHeight / 2)) {
+          reachTop = true;
           horizontalInTheRange = true;
+          horizontalLines = [];
           horizontalLines.push({
             y: objectTop - objectHeight / 2,
             x1:
@@ -221,19 +253,19 @@ class AlignGuidLinePlugin implements IPluginTempl {
                 ? activeObjectLeft + activeObjectWidth / 2 + aligningLineOffset
                 : activeObjectLeft - activeObjectWidth / 2 - aligningLineOffset,
           });
-          activeObject.setPositionByOrigin(
-            new fabric.Point(
-              activeObjectLeft,
-              objectTop - objectHeight / 2 + activeObjectHeight / 2
-            ),
-            'center',
-            'center'
-          );
+          _elReachTop = objectTop - objectHeight / 2 + activeObjectHeight / 2;
+          let x = reachLeft ? _elReachLeft : activeObjectLeft;
+          let y = objectTop - objectHeight / 2 + activeObjectHeight / 2;
+          activeObject.setPositionByOrigin(new fabric.Point(x, y), 'center', 'center');
         }
 
         // snap by the bottom edge
+        //底边线
         if (isInRange(objectTop + objectHeight / 2, activeObjectTop + activeObjectHeight / 2)) {
+          reachTop = true;
+
           horizontalInTheRange = true;
+          horizontalLines = [];
           horizontalLines.push({
             y: objectTop + objectHeight / 2,
             x1:
@@ -245,14 +277,100 @@ class AlignGuidLinePlugin implements IPluginTempl {
                 ? activeObjectLeft + activeObjectWidth / 2 + aligningLineOffset
                 : activeObjectLeft - activeObjectWidth / 2 - aligningLineOffset,
           });
-          activeObject.setPositionByOrigin(
-            new fabric.Point(
-              activeObjectLeft,
-              objectTop + objectHeight / 2 - activeObjectHeight / 2
-            ),
-            'center',
-            'center'
-          );
+          _elReachTop = objectTop + objectHeight / 2 - activeObjectHeight / 2;
+          let x = reachLeft ? _elReachLeft : activeObjectLeft;
+          let y = objectTop + objectHeight / 2 - activeObjectHeight / 2;
+          activeObject.setPositionByOrigin(new fabric.Point(x, y), 'center', 'center');
+        }
+
+        //左边线和右边线
+        if (isInRange(objectLeft - objectWidth / 2, activeObjectLeft + activeObjectWidth / 2)) {
+          reachLeft = true;
+          verticalInTheRange = true;
+          verticalInTheRange = [];
+          verticalLines.push({
+            x: objectLeft - objectWidth / 2,
+            y1:
+              objectTop < activeObjectTop
+                ? objectTop - objectHeight / 2 - aligningLineOffset
+                : objectTop + objectHeight / 2 + aligningLineOffset,
+            y2:
+              activeObjectTop > objectTop
+                ? activeObjectTop + activeObjectHeight / 2 + aligningLineOffset
+                : activeObjectTop - activeObjectHeight / 2 - aligningLineOffset,
+          });
+
+          _elReachLeft = objectLeft - objectWidth / 2 - activeObjectWidth / 2;
+          let x = objectLeft - objectWidth / 2 - activeObjectWidth / 2;
+          let y = activeObjectTop;
+
+          activeObject.setPositionByOrigin(new fabric.Point(x, y), 'center', 'center');
+        }
+        //右边线和左边线
+        if (isInRange(objectLeft + objectWidth / 2, activeObjectLeft - activeObjectWidth / 2)) {
+          reachLeft = true;
+          verticalInTheRange = true;
+          verticalInTheRange = [];
+          verticalLines.push({
+            x: objectLeft + objectWidth / 2,
+            y1:
+              objectTop < activeObjectTop
+                ? objectTop - objectHeight / 2 - aligningLineOffset
+                : objectTop + objectHeight / 2 + aligningLineOffset,
+            y2:
+              activeObjectTop > objectTop
+                ? activeObjectTop + activeObjectHeight / 2 + aligningLineOffset
+                : activeObjectTop - activeObjectHeight / 2 - aligningLineOffset,
+          });
+          _elReachLeft = objectLeft + objectWidth / 2 + activeObjectWidth / 2;
+
+          let x = objectLeft + objectWidth / 2 + activeObjectWidth / 2;
+          let y = activeObjectTop;
+
+          activeObject.setPositionByOrigin(new fabric.Point(x, y), 'center', 'center');
+        }
+        //上边线和下边线
+        if (isInRange(objectTop - objectHeight / 2, activeObjectTop + activeObjectHeight / 2)) {
+          reachTop = true;
+          horizontalInTheRange = true;
+          horizontalLines = [];
+          horizontalLines.push({
+            y: objectTop - objectHeight / 2,
+            x1:
+              objectLeft < activeObjectLeft
+                ? objectLeft - objectWidth / 2 - aligningLineOffset
+                : objectLeft + objectWidth / 2 + aligningLineOffset,
+            x2:
+              activeObjectLeft > objectLeft
+                ? activeObjectLeft + activeObjectWidth / 2 + aligningLineOffset
+                : activeObjectLeft - activeObjectWidth / 2 - aligningLineOffset,
+          });
+          _elReachTop = objectTop - objectHeight / 2 - activeObjectHeight / 2;
+
+          let x = reachLeft ? _elReachLeft : activeObjectLeft;
+          let y = objectTop - objectHeight / 2 - activeObjectHeight / 2;
+          activeObject.setPositionByOrigin(new fabric.Point(x, y), 'center', 'center');
+        }
+        //下边线和上变线
+        if (isInRange(objectTop + objectHeight / 2, activeObjectTop - activeObjectHeight / 2)) {
+          reachTop = true;
+          horizontalInTheRange = true;
+          horizontalLines = [];
+          horizontalLines.push({
+            y: objectTop + objectHeight / 2,
+            x1:
+              objectLeft < activeObjectLeft
+                ? objectLeft - objectWidth / 2 - aligningLineOffset
+                : objectLeft + objectWidth / 2 + aligningLineOffset,
+            x2:
+              activeObjectLeft > objectLeft
+                ? activeObjectLeft + activeObjectWidth / 2 + aligningLineOffset
+                : activeObjectLeft - activeObjectWidth / 2 - aligningLineOffset,
+          });
+          _elReachTop = objectTop + objectHeight / 2 + activeObjectHeight / 2;
+          let x = reachLeft ? _elReachLeft : activeObjectLeft;
+          let y = objectTop + objectHeight / 2 + activeObjectHeight / 2;
+          activeObject.setPositionByOrigin(new fabric.Point(x, y), 'center', 'center');
         }
       }
 
@@ -277,16 +395,395 @@ class AlignGuidLinePlugin implements IPluginTempl {
       }
     });
 
+
+    canvas.on('object:scaling', (e) => {
+
+
+      if (viewportTransform === undefined || e.target === undefined) return;
+
+      const activeObject = e.target;
+      const canvasObjects = canvas.getObjects();
+      const activeObjectCenter = activeObject.getCenterPoint();
+      const activeObjectLeft = activeObjectCenter.x;
+      const activeObjectTop = activeObjectCenter.y;
+      const activeObjectBoundingRect = activeObject.getBoundingRect();
+      const activeObjectHeight = activeObject.getScaledHeight();
+      const activeObjectWidth = activeObject.getScaledWidth();
+      let horizontalInTheRange = false;
+      let verticalInTheRange = false;
+      const transform = canvas._currentTransform;
+
+      activeObject.set('hasControls', false);
+      if (!transform) return;
+
+      for (let i = canvasObjects.length; i--; ) {
+        // eslint-disable-next-line no-continue
+        if (canvasObjects[i] === activeObject) continue;
+
+        // 排除辅助线
+        if (
+          activeObject instanceof fabric.GuideLine &&
+          canvasObjects[i] instanceof fabric.GuideLine
+        ) {
+          continue;
+        }
+
+        const objectCenter = canvasObjects[i].getCenterPoint();
+        const objectLeft = objectCenter.x;
+        const objectTop = objectCenter.y;
+        const objectBoundingRect = canvasObjects[i].getBoundingRect();
+        const objectHeight = objectBoundingRect.height / viewportTransform[3];
+        const objectWidth = objectBoundingRect.width / viewportTransform[0];
+
+        // snap by the horizontal center line
+        //水平中心线
+        if (isInRange(objectLeft, activeObjectLeft)) {
+          verticalInTheRange = true;
+          verticalLines = [];
+          verticalLines.push({
+            x: objectLeft,
+            y1:
+              objectTop < activeObjectTop
+                ? objectTop - objectHeight / 2 - aligningLineOffset
+                : objectTop + objectHeight / 2 + aligningLineOffset,
+            y2:
+              activeObjectTop > objectTop
+                ? activeObjectTop + activeObjectHeight / 2 + aligningLineOffset
+                : activeObjectTop - activeObjectHeight / 2 - aligningLineOffset,
+          });
+        }
+
+        // snap by the left edge
+        //左边线
+        if (isInRange(objectLeft - objectWidth / 2, activeObjectLeft - activeObjectWidth / 2)) {
+          verticalInTheRange = true;
+          verticalLines = [];
+          verticalLines.push({
+            x: objectLeft - objectWidth / 2,
+            y1:
+              objectTop < activeObjectTop
+                ? objectTop - objectHeight / 2 - aligningLineOffset
+                : objectTop + objectHeight / 2 + aligningLineOffset,
+            y2:
+              activeObjectTop > objectTop
+                ? activeObjectTop + activeObjectHeight / 2 + aligningLineOffset
+                : activeObjectTop - activeObjectHeight / 2 - aligningLineOffset,
+          });
+
+          let leftRight = new Map([
+            ['bl', 1],
+            ['ml', 1],
+            ['tl', 1],
+          ]);
+          if (leftRight.get(e.transform.corner)) {
+            activeObject.setPositionByOrigin(
+              new fabric.Point(
+                objectLeft - objectWidth / 2 + activeObjectWidth / 2,
+                activeObjectTop
+              ),
+              'center',
+              'center'
+            );
+
+            activeObject.set(
+              'scaleX',
+              ((activeLeft - (objectLeft - objectWidth / 2) + activeWidth) * activeObject.scaleX) /
+              activeObject.getScaledWidth()
+            );
+            break;
+          }
+        }
+
+        // snap by the right edge
+        //右边线
+        if (isInRange(objectLeft + objectWidth / 2, activeObjectLeft + activeObjectWidth / 2)) {
+          verticalInTheRange = true;
+          verticalLines = [];
+          verticalLines.push({
+            x: objectLeft + objectWidth / 2,
+            y1:
+              objectTop < activeObjectTop
+                ? objectTop - objectHeight / 2 - aligningLineOffset
+                : objectTop + objectHeight / 2 + aligningLineOffset,
+            y2:
+              activeObjectTop > objectTop
+                ? activeObjectTop + activeObjectHeight / 2 + aligningLineOffset
+                : activeObjectTop - activeObjectHeight / 2 - aligningLineOffset,
+          });
+
+          let Right = new Map([
+            ['mr', 1],
+            ['tr', 1],
+            ['br', 1],
+          ]);
+
+          if (Right.get(e.transform.corner)) {
+            activeObject.set(
+              'scaleX',
+              ((objectLeft + objectWidth / 2 - (activeLeft + activeWidth) + activeWidth) *
+                activeObject.scaleX) /
+              activeObject.getScaledWidth()
+            );
+            break;
+          }
+        }
+
+        // snap by the vertical center line
+        //垂直中心线
+        if (isInRange(objectTop, activeObjectTop)) {
+          horizontalInTheRange = true;
+          horizontalLines = [];
+          horizontalLines.push({
+            y: objectTop,
+            x1:
+              objectLeft < activeObjectLeft
+                ? objectLeft - objectWidth / 2 - aligningLineOffset
+                : objectLeft + objectWidth / 2 + aligningLineOffset,
+            x2:
+              activeObjectLeft > objectLeft
+                ? activeObjectLeft + activeObjectWidth / 2 + aligningLineOffset
+                : activeObjectLeft - activeObjectWidth / 2 - aligningLineOffset,
+          });
+        }
+
+        // snap by the top edge
+        if (isInRange(objectTop - objectHeight / 2, activeObjectTop - activeObjectHeight / 2)) {
+          horizontalInTheRange = true;
+          horizontalLines = [];
+          horizontalLines.push({
+            y: objectTop - objectHeight / 2,
+            x1:
+              objectLeft < activeObjectLeft
+                ? objectLeft - objectWidth / 2 - aligningLineOffset
+                : objectLeft + objectWidth / 2 + aligningLineOffset,
+            x2:
+              activeObjectLeft > objectLeft
+                ? activeObjectLeft + activeObjectWidth / 2 + aligningLineOffset
+                : activeObjectLeft - activeObjectWidth / 2 - aligningLineOffset,
+          });
+
+          let bottomRight = new Map([
+            ['tr', 1],
+            ['tl', 1],
+            ['mt', 1],
+          ]);
+
+          if (bottomRight.get(e.transform.corner)) {
+            activeObject.setPositionByOrigin(
+              new fabric.Point(
+                activeObjectLeft,
+                objectTop - objectHeight / 2 + activeObjectHeight / 2
+              ),
+              'center',
+              'center'
+            );
+
+            activeObject.set(
+              'scaleY',
+              ((activeTop + activeHeight - (objectTop - objectHeight / 2)) * activeObject.scaleY) /
+              activeObject.getScaledHeight()
+            );
+            break;
+          }
+        }
+
+        // snap by the bottom edge
+        if (isInRange(objectTop + objectHeight / 2, activeObjectTop + activeObjectHeight / 2)) {
+          horizontalInTheRange = true;
+          horizontalLines = [];
+          horizontalLines.push({
+            y: objectTop + objectHeight / 2,
+            x1:
+              objectLeft < activeObjectLeft
+                ? objectLeft - objectWidth / 2 - aligningLineOffset
+                : objectLeft + objectWidth / 2 + aligningLineOffset,
+            x2:
+              activeObjectLeft > objectLeft
+                ? activeObjectLeft + activeObjectWidth / 2 + aligningLineOffset
+                : activeObjectLeft - activeObjectWidth / 2 - aligningLineOffset,
+          });
+
+          let bottom = new Map([
+            ['mb', 1],
+            ['bl', 1],
+            ['br', 1],
+          ]);
+          if (bottom.get(e.transform.corner)) {
+            activeObject.set(
+              'scaleY',
+              ((objectTop + objectHeight / 2 - (activeTop + activeHeight) + activeHeight) *
+                activeObject.scaleY) /
+              activeObject.getScaledHeight()
+            );
+            break;
+          }
+        }
+
+        //左边线和右边线
+        if (isInRange(objectLeft - objectWidth / 2, activeObjectLeft + activeObjectWidth / 2)) {
+          verticalInTheRange = true;
+          verticalLines = [];
+          verticalLines.push({
+            x: objectLeft - objectWidth / 2,
+            y1:
+              objectTop < activeObjectTop
+                ? objectTop - objectHeight / 2 - aligningLineOffset
+                : objectTop + objectHeight / 2 + aligningLineOffset,
+            y2:
+              activeObjectTop > objectTop
+                ? activeObjectTop + activeObjectHeight / 2 + aligningLineOffset
+                : activeObjectTop - activeObjectHeight / 2 - aligningLineOffset,
+          });
+
+          let right = new Map([
+            ['mr', 1],
+            ['tr', 1],
+            ['br', 1],
+          ]);
+          if (right.get(e.transform.corner)) {
+            activeObject.set(
+              'scaleX',
+              ((objectLeft - objectWidth / 2 - activeObject.left) * activeObject.scaleX) /
+              activeObject.getScaledWidth()
+            );
+            break;
+          }
+        }
+        //右边线和左边线
+        if (isInRange(objectLeft + objectWidth / 2, activeObjectLeft - activeObjectWidth / 2)) {
+          verticalInTheRange = true;
+          verticalLines = [];
+          verticalLines.push({
+            x: objectLeft + objectWidth / 2,
+            y1:
+              objectTop < activeObjectTop
+                ? objectTop - objectHeight / 2 - aligningLineOffset
+                : objectTop + objectHeight / 2 + aligningLineOffset,
+            y2:
+              activeObjectTop > objectTop
+                ? activeObjectTop + activeObjectHeight / 2 + aligningLineOffset
+                : activeObjectTop - activeObjectHeight / 2 - aligningLineOffset,
+          });
+
+          let leftRight = new Map([
+            ['bl', 1],
+            ['ml', 1],
+            ['tl', 1],
+          ]);
+          if (leftRight.get(e.transform.corner)) {
+            activeObject.setPositionByOrigin(
+              new fabric.Point(
+                objectLeft + objectWidth / 2 + activeObjectWidth / 2,
+                activeObjectTop
+              ),
+              'center',
+              'center'
+            );
+
+            activeObject.set(
+              'scaleX',
+              ((activeLeft + activeWidth - (objectLeft + objectWidth / 2)) * activeObject.scaleX) /
+              activeObject.getScaledWidth()
+            );
+            break;
+          }
+        }
+        //上边线和下边线
+        if (isInRange(objectTop - objectHeight / 2, activeObjectTop + activeObjectHeight / 2)) {
+          horizontalInTheRange = true;
+          horizontalLines = [];
+          horizontalLines.push({
+            y: objectTop - objectHeight / 2,
+            x1:
+              objectLeft < activeObjectLeft
+                ? objectLeft - objectWidth / 2 - aligningLineOffset
+                : objectLeft + objectWidth / 2 + aligningLineOffset,
+            x2:
+              activeObjectLeft > objectLeft
+                ? activeObjectLeft + activeObjectWidth / 2 + aligningLineOffset
+                : activeObjectLeft - activeObjectWidth / 2 - aligningLineOffset,
+          });
+
+          let bottom = new Map([
+            ['mb', 1],
+            ['bl', 1],
+            ['br', 1],
+          ]);
+          if (bottom.get(e.transform.corner)) {
+            activeObject.set(
+              'scaleY',
+              ((objectTop - objectHeight / 2 - activeObject.top) * activeObject.scaleY) /
+              activeObject.getScaledHeight()
+            );
+            break;
+          }
+        }
+        //下边线和上变线
+        if (isInRange(objectTop + objectHeight / 2, activeObjectTop - activeObjectHeight / 2)) {
+          horizontalInTheRange = true;
+          horizontalLines = [];
+          horizontalLines.push({
+            y: objectTop + objectHeight / 2,
+            x1:
+              objectLeft < activeObjectLeft
+                ? objectLeft - objectWidth / 2 - aligningLineOffset
+                : objectLeft + objectWidth / 2 + aligningLineOffset,
+            x2:
+              activeObjectLeft > objectLeft
+                ? activeObjectLeft + activeObjectWidth / 2 + aligningLineOffset
+                : activeObjectLeft - activeObjectWidth / 2 - aligningLineOffset,
+          });
+
+          let bottomRight = new Map([
+            ['tr', 1],
+            ['tl', 1],
+            ['mt', 1],
+          ]);
+
+          if (bottomRight.get(e.transform.corner)) {
+            activeObject.setPositionByOrigin(
+              new fabric.Point(
+                activeObjectLeft,
+                objectTop + objectHeight / 2 + activeObjectHeight / 2
+              ),
+              'center',
+              'center'
+            );
+
+            activeObject.set(
+              'scaleY',
+              ((activeTop + activeHeight - (objectTop + objectHeight / 2)) * activeObject.scaleY) /
+              activeObject.getScaledHeight()
+            );
+
+            break;
+          }
+        }
+      }
+
+      if (!horizontalInTheRange) {
+        horizontalLines.length = 0;
+      }
+
+      if (!verticalInTheRange) {
+        verticalLines.length = 0;
+      }
+    });
     canvas.on('after:render', () => {
       ctx.save();
       ctx.beginPath();
       ctx.lineWidth = This.defautOption.width;
       ctx.strokeStyle = This.defautOption.color;
+
       for (let i = verticalLines.length; i--; ) {
-        drawVerticalLine(verticalLines[i]);
+        if (verticalLines[i]) {
+          drawVerticalLine(verticalLines[i]);
+        }
       }
       for (let j = horizontalLines.length; j--; ) {
-        drawHorizontalLine(horizontalLines[j]);
+        if (horizontalLines[j]) {
+          drawHorizontalLine(horizontalLines[j]);
+        }
       }
       ctx.stroke();
       ctx.restore();
@@ -296,7 +793,11 @@ class AlignGuidLinePlugin implements IPluginTempl {
       horizontalLines.length = 0;
     });
 
-    canvas.on('mouse:up', () => {
+    canvas.on('mouse:up', (e) => {
+      const activeObject = e.target;
+      if (activeObject && activeObject.selectable && !activeObject.lockRotation) {
+        activeObject.set('hasControls', true);
+      }
       verticalLines.length = 0;
       horizontalLines.length = 0;
       canvas.renderAll();
