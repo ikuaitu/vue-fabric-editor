@@ -78,5 +78,10 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "pnpm": {
+    "overrides": {
+      "@jridgewell/gen-mapping": "0.3.5"
+    }
   }
 }
