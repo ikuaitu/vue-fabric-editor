@@ -7,7 +7,7 @@
 -->
 
 <template>
-  <Tooltip :content="$t('quick.lock')" v-if="isOne">
+  <Tooltip :content="isLock ? $t('quick.unlock') : $t('quick.lock')" v-if="isOne">
     <Button long v-if="isLock" @click="doLock(false)" icon="md-lock" type="text"></Button>
     <Button long v-else @click="doLock(true)" icon="md-unlock" type="text"></Button>
   </Tooltip>
@@ -24,7 +24,7 @@ const doLock = (isLock) => {
 };
 
 const handleSelected = (items) => {
-  isLock.value = !items[0].selectable;
+  isLock.value = items[0].lockMovementX;
 };
 
 onMounted(() => {

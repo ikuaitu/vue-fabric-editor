@@ -6,8 +6,11 @@
  * @Description: 锁定文件
  */
 import { fabric } from 'fabric';
-import { SelectMode } from '../eventType';
+import { SelectEvent, SelectMode } from '../eventType';
 import type { IEditor, IPluginTempl } from '@kuaitu/core';
+import lockImg from '../assets/lock.svg?url';
+// import lockImg from '../assets/rotateicon.svg?url';
+// import unlockImg from '../assets/unlock.svg?url'
 
 type IPlugin = Pick<LockPlugin, 'lock' | 'unLock'>;
 
@@ -24,13 +27,100 @@ enum ItypeKey {
   lockScalingY = 'lockScalingY',
 }
 
+enum IControlKey {
+  bl = 'bl',
+  br = 'br',
+  mb = 'mb',
+  ml = 'ml',
+  mr = 'mr',
+  mt = 'mt',
+  tl = 'tl',
+  tr = 'tr',
+  mtr = 'mtr',
+  lock = 'lock',
+}
+
 export default class LockPlugin implements IPluginTempl {
   static pluginName = 'LockPlugin';
   static apis = ['lock', 'unLock'];
-  constructor(public canvas: fabric.Canvas, public editor: IEditor) {}
+  constructor(public canvas: fabric.Canvas, public editor: IEditor) {
+    this.init();
+  }
+
+  init() {
+    const imgEl = document.createElement('img');
+    imgEl.src = lockImg;
+    const that = this;
+    function renderIcon(
+      ctx: CanvasRenderingContext2D,
+      left: number,
+      top: number,
+      styleOverride: any,
+      fabricObject: fabric.Object
+    ) {
+      const iconWith = 25;
+      ctx.save();
+      ctx.translate(left, top);
+      const angle = fabricObject.angle as number;
+      ctx.rotate(fabric.util.degreesToRadians(angle));
+      ctx.drawImage(imgEl, -iconWith / 2, -iconWith / 2, iconWith, iconWith);
+      ctx.restore();
+    }
+
+    function unLockObject(eventData: any, transform: any): boolean {
+      that.unLock();
+      return true;
+    }
+
+    fabric.Object.prototype.controls.lock = new fabric.Control({
+      x: 0.5,
+      y: 0.5,
+      offsetY: 0,
+      cursorStyle: 'pointer',
+      mouseUpHandler: unLockObject,
+      render: renderIcon,
+    });
+
+    fabric.Textbox.prototype.controls.lock = new fabric.Control({
+      x: 0.5,
+      y: 0.5,
+      offsetY: 0,
+      cursorStyle: 'pointer',
+      mouseUpHandler: unLockObject,
+      render: renderIcon,
+    });
+    this.canvas.on('selection:created', () => this.renderCornerByActiveObj());
+    this.canvas.on('selection:updated', () => this.renderCornerByActiveObj());
+  }
+
+  controlCornersVisible(obj: fabric.Object) {
+    const isLocked = obj.lockMovementX;
+    Object.values(IControlKey).forEach((key: IControlKey) => {
+      if (key === IControlKey.lock) {
+        obj.setControlVisible(key, isLocked);
+      } else {
+        obj.setControlVisible(key, !isLocked);
+      }
+    });
+  }
+
+  renderCornerByActiveObj() {
+    const actives = this.canvas
+      .getActiveObjects()
+      .filter((item) => !(item instanceof fabric.GuideLine));
+    if (actives && actives.length === 1) {
+      const active = actives[0];
+      this.controlCornersVisible(active);
+    } else if (actives && actives.length > 1) {
+      const active = this.canvas.getActiveObject();
+      if (active) {
+        this.controlCornersVisible(active);
+      }
+    }
+  }
 
   hookImportAfter() {
-    this.canvas.forEachObject((obj) => {
+    this.canvas.forEachObject((obj: fabric.Object) => {
       if (obj.hasControls === false && obj.selectable === false) {
         this.canvas.setActiveObject(obj);
         this.lock();
@@ -42,14 +132,13 @@ export default class LockPlugin implements IPluginTempl {
   lock() {
     const activeObject = this.canvas.getActiveObject() as fabric.Object;
     if (activeObject) {
-      activeObject.hasControls = false;
-      activeObject.selectable = false;
-      activeObject.evented = false;
       // 修改默认属性
       Object.values(ItypeKey).forEach((key: ItypeKey) => {
         activeObject[key] = true;
       });
-      this.canvas.discardActiveObject().renderAll();
+      this.controlCornersVisible(activeObject);
+      this.canvas.renderAll();
+      this.editor.emit(SelectEvent.ONE, [activeObject]);
     }
   }
 
@@ -63,7 +152,9 @@ export default class LockPlugin implements IPluginTempl {
       Object.values(ItypeKey).forEach((key: ItypeKey) => {
         activeObject[key] = false;
       });
-      this.canvas.discardActiveObject().renderAll();
+      this.controlCornersVisible(activeObject);
+      this.canvas.renderAll();
+      this.editor.emit(SelectEvent.ONE, [activeObject]);
     }
   }
 
