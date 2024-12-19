@@ -91,6 +91,55 @@ export default class LockPlugin implements IPluginTempl {
     });
     this.canvas.on('selection:created', () => this.renderCornerByActiveObj());
     this.canvas.on('selection:updated', () => this.renderCornerByActiveObj());
+
+    // 鼠标框选不能多选锁定元素
+    (fabric.Canvas.prototype as any)._groupSelectedObjects = function (e: any) {
+      const group = this._collectObjects(e);
+      let aGroup;
+
+      for (let i = group.length - 1; i >= 0; i--) {
+        if (group[i].lockMovementX) {
+          group.splice(i, 1);
+        }
+      }
+
+      // do not create group for 1 element only
+      if (group.length === 1) {
+        this.setActiveObject(group[0], e);
+      } else if (group.length > 1) {
+        aGroup = new fabric.ActiveSelection(group.reverse(), {
+          canvas: this,
+        });
+        this.setActiveObject(aGroup, e);
+      }
+    };
+
+    // shift+左键点选不能多选锁定元素
+    (fabric.Canvas.prototype as any)._handleGrouping = function (e: any, target: fabric.Object) {
+      const activeObject = this._activeObject;
+      // avoid multi select when shift click on a corner
+      if (activeObject.__corner) {
+        return;
+      }
+
+      if (target.lockMovementX) return;
+      if (activeObject.lockMovementX) return;
+
+      if (target === activeObject) {
+        // if it's a group, find target again, using activeGroup objects
+        target = this.findTarget(e, true);
+        // if even object is not found or we are on activeObjectCorner, bail out
+        if (!target || !target.selectable) {
+          return;
+        }
+        if (target.lockMovementX) return;
+      }
+      if (activeObject && activeObject.type === 'activeSelection') {
+        this._updateActiveSelection(target, e);
+      } else {
+        this._createActiveSelection(target, e);
+      }
+    };
   }
 
   controlCornersVisible(obj: fabric.Object) {
