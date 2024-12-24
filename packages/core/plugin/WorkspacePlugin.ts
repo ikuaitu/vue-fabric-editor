@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2023-06-27 12:26:41
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-07-22 10:30:53
+ * @LastEditTime: 2024-12-24 13:13:06
  * @Description: 画布区域插件
  */
 
@@ -49,7 +49,7 @@ class WorkspacePlugin implements IPluginTempl {
     this.workspace = null;
     this.init({
       width: 900,
-      height: 2000,
+      height: 1200,
     });
     this.zoomRatio = 0.85;
   }
