@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Canvas, Point, IEvent } from 'fabric/fabric-impl';
 import { fabric } from 'fabric';
-import { getGap, mergeLines, darwRect, darwText, darwLine, drawMask } from './utils';
+import { getGap, mergeLines, drawRect, drawText, drawLine, drawMask } from './utils';
 import { throttle } from 'lodash-es';
 import { setupGuideLine } from './guideline';
 
@@ -276,7 +276,7 @@ class CanvasRuler {
 
     // 标尺背景
     const canvasSize = this.getSize();
-    darwRect(this.ctx, {
+    drawRect(this.ctx, {
       left: 0,
       top: 0,
       width: isHorizontal ? canvasSize.width : this.options.ruleSize,
@@ -298,7 +298,7 @@ class CanvasRuler {
       const textY = isHorizontal
         ? this.options.ruleSize / 2 - this.options.fontSize / 2 - 4
         : position + textLength;
-      darwText(this.ctx, {
+      drawText(this.ctx, {
         text: textValue,
         left: textX,
         top: textY,
@@ -314,7 +314,7 @@ class CanvasRuler {
       const top = isHorizontal ? this.options.ruleSize - 8 : position;
       const width = isHorizontal ? 0 : 8;
       const height = isHorizontal ? 8 : 0;
-      darwLine(this.ctx, {
+      drawLine(this.ctx, {
         left,
         top,
         width,
@@ -366,7 +366,7 @@ class CanvasRuler {
 
         // 高亮遮罩
         highlightColor.setAlpha(0.5);
-        darwRect(this.ctx, {
+        drawRect(this.ctx, {
           left: isHorizontal ? rect.left : this.options.ruleSize - 8,
           top: isHorizontal ? this.options.ruleSize - 8 : rect.top,
           width: isHorizontal ? rect.width : 8,
@@ -382,7 +382,7 @@ class CanvasRuler {
           angle: isHorizontal ? 0 : -90,
         };
 
-        darwText(this.ctx, {
+        drawText(this.ctx, {
           ...textOpt,
           text: leftTextVal,
           left: isHorizontal ? rect.left - 2 : pad,
@@ -391,7 +391,7 @@ class CanvasRuler {
         });
 
         if (!isSameText) {
-          darwText(this.ctx, {
+          drawText(this.ctx, {
             ...textOpt,
             text: rightTextVal,
             left: isHorizontal ? rect.left + rect.width + 2 : pad,
@@ -411,14 +411,14 @@ class CanvasRuler {
           stroke: highlightColor.toRgba(),
         };
 
-        darwLine(this.ctx, {
+        drawLine(this.ctx, {
           ...lineOpt,
           left: isHorizontal ? rect.left : this.options.ruleSize - lineSize,
           top: isHorizontal ? this.options.ruleSize - lineSize : rect.top,
         });
 
         if (!isSameText) {
-          darwLine(this.ctx, {
+          drawLine(this.ctx, {
             ...lineOpt,
             left: isHorizontal ? rect.left + rect.width : this.options.ruleSize - lineSize,
             top: isHorizontal ? this.options.ruleSize - lineSize : rect.top + rect.height,
