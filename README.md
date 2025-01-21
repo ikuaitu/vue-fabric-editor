@@ -155,6 +155,18 @@ pnpm dev
     <img src="https://www.sunmao-design.top/sunmao/admin/assets/logo.896aa176.png" width="50px" alt="开源图片编辑器" />    
 </a>
 
+<a href="https://github.com/rubickCenter/rubick" target="_blank">
+    <img src="https://raw.githubusercontent.com/rubickCenter/rubick/refs/heads/master/public/logo.png" width="50px" alt="开源图片编辑器" />    
+</a>
+
+<a href="https://github.com/leaferjs/leafer-ui" target="_blank">
+    <img src="https://camo.githubusercontent.com/fa5caad6d33f50061448c5c059b53a0bfd002c34dca0e5a051f48aec5f8fe896/68747470733a2f2f7777772e6c65616665726a732e636f6d2f696d6167652f6c65616665726a732e6a70673f643d31313236
+" width="50px" alt="开源图片编辑器" />    
+</a>
+
+
+
+
 ## 管理员
 
 <!-- readme: collaborators -start -->
