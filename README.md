@@ -160,9 +160,9 @@ pnpm dev
 </a>
 
 <a href="https://github.com/leaferjs/leafer-ui" target="_blank">
-    <img src="https://camo.githubusercontent.com/fa5caad6d33f50061448c5c059b53a0bfd002c34dca0e5a051f48aec5f8fe896/68747470733a2f2f7777772e6c65616665726a732e636f6d2f696d6167652f6c65616665726a732e6a70673f643d31313236
-" width="50px" alt="开源图片编辑器" />    
+    <img src="https://github.com/user-attachments/assets/0c6ed3c4-bc2b-49fb-854d-f9ed75a96121" width="50px" alt="开源图片编辑器" />    
 </a>
+
 
 
 
