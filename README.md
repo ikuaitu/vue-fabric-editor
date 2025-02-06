@@ -17,7 +17,7 @@
 <h3 align="center">开源图片编辑器 · 插件化架构 · 拖拽式设计 · 功能完善 </h3>
 <p align="center">基于 fabric.js 和 Vue 开发的插件化图片编辑器，可自定义字体、素材、设计模板、右键菜单、快捷键</p>
 
-<p align="center"><a href="https://ikuaitu.github.io/vue-fabric-editor/" target="_blank">演示</a> · <a href="https://ikuaitu.github.io/doc/#/"  target="_blank">文档</a> · <a href="https://www.kuaitu.cc/"  target="_blank">付费版演示</a> · <a href="https://pro.kuaitu.cc/"  target="_blank">付费版介绍</a></p>
+<p align="center"><a href="https://ikuaitu.github.io/vue-fabric-editor/" target="_blank">演示</a> · <a href="https://ikuaitu.github.io/doc/#/"  target="_blank">文档</a> · <a href="https://www.kuaitu.cc/"  target="_blank">商业版演示</a> · <a href="https://pro.kuaitu.cc/"  target="_blank">商业版介绍</a></p>
 <br />
 
 <p align="center">
