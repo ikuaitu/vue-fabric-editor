@@ -15,7 +15,7 @@ jobs:
       - name: Build
         run: |
           npm i -g pnpm
-          pnpm install --lockfile-only
+          pnpm install
           pnpm build
 
       - name: Deploy
