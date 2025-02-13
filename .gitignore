@@ -22,9 +22,8 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-.npmrc
 yarn.lock
-pnpm-lock.yaml
+# pnpm-lock.yaml # https://github.com/ikuaitu/vue-fabric-editor/issues/554
 package-lock.json
 typings/auto-imports.d.ts
 .eslintrc-auto-import.json
