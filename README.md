@@ -86,7 +86,7 @@
 
 ## 使用
 
-请先安装 node.js v16，及 pnpm， 然后执行以下命令：
+请先安装 node.js v18-v20，及 pnpm， 然后执行以下命令：
 
 ```
 pnpm i
