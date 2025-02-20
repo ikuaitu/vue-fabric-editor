@@ -160,7 +160,7 @@ Note: If you encounter technical problems, you are expected to use issue Discuss
 
 ## Collaborators
 
-<!-- readme: collaborators -start -->
+<!-- readme: collaborators,contributors -start -->
 <table>
 	<tbody>
 		<tr>

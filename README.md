@@ -2,7 +2,7 @@
  * @Author: 秦少卫
  * @Date: 2024-09-11 17:07:42
  * @LastEditors: 秦少卫
- * @LastEditTime: 2024-12-27 20:03:53
+ * @LastEditTime: 2025-02-20 14:10:05
  * @Description: file content
 -->
 
@@ -163,18 +163,16 @@ pnpm dev
     <img src="https://github.com/user-attachments/assets/0c6ed3c4-bc2b-49fb-854d-f9ed75a96121" width="50px" alt="开源图片编辑器" />    
 </a>
 
-
-
-
-
 ## 管理员
 
 <!-- readme: collaborators -start -->
+
 <!-- readme: collaborators -end -->
 
 ## 贡献者
 
-<!-- readme: collaborators -start -->
+<!-- readme: collaborators,contributors -start -->
+
 <table>
 	<tbody>
 		<tr>
