@@ -86,12 +86,18 @@
 
 ## 使用
 
-请先安装 node.js v18-v20，及 pnpm， 然后执行以下命令：
+请先安装 node.js v18-v20，及 pnpm 8.4.0， 然后执行以下命令：
 
-```
+```shell
+// 安装pnpm
+npm install -g pnpm@8.4.0
+
+// 中国使用淘宝代理
+// npm install -g pnpm@8.4.0 --registry=https://registry.npmmirror.com
 pnpm i
 pnpm dev
 ```
+重要：必须使用pnpm 8.x，高版本pnpm会导致依赖不一致出现页面运行报错。
 
 ## 开发者服务
 
