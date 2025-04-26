@@ -43,9 +43,9 @@ export default class AddBaseTypePlugin implements IPluginTempl {
     if (!event && center) {
       this._toCenter(item);
     }
-    this.canvas.refreshHistory();
     this.canvas.setActiveObject(item);
     this.canvas.renderAll();
+    this.editor.saveState();
   }
 
   _toEvent(item: fabric.Object, event: DragEvent) {

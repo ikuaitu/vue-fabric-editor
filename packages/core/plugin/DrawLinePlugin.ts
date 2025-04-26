@@ -126,6 +126,8 @@ class DrawLinePlugin implements IPluginTempl {
       this.lineToDraw.setCoords();
       this.isDrawingLine = false;
       canvas.discardActiveObject();
+      canvas.renderAll();
+      this.editor.saveState();
     });
   }
 

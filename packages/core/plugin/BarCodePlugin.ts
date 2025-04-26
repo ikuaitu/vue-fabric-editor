@@ -77,6 +77,8 @@ class BarCodePlugin implements IPluginTempl {
         this.canvas.add(imgEl);
         this.canvas.setActiveObject(imgEl);
         this.editor.position('center');
+        this.canvas.renderAll();
+        this.editor.saveState();
       },
       { crossOrigin: 'anonymous' }
     );
