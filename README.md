@@ -17,7 +17,8 @@
 <h3 align="center">开源图片编辑器 · 插件化架构 · 拖拽式设计 · 功能完善 </h3>
 <p align="center">基于 fabric.js 和 Vue 开发的插件化图片编辑器，可自定义字体、素材、设计模板、右键菜单、快捷键</p>
 
-<p align="center"><a href="https://ikuaitu.github.io/vue-fabric-editor/" target="_blank">演示</a> · <a href="https://ikuaitu.github.io/doc/#/"  target="_blank">文档</a> · <a href="https://www.kuaitu.cc/"  target="_blank">商业版演示</a> · <a href="https://pro.kuaitu.cc/"  target="_blank">商业版介绍</a></p>
+<p align="center"><a href="https://ikuaitu.github.io/vue-fabric-editor/" target="_blank">演示</a> · <a href="https://ikuaitu.github.io/doc/#/"  target="_blank">文档</a> · <a href="https://www.kuaitu.cc/"  target="_blank">商业版演示</a> · <a href="https://pro.kuaitu.cc/"  target="_blank">商业版介绍</a>
+· <a href="https://new.kuaitu.cc/#/store"  target="_blank">商品DIY设计器</a> · <a href="https://ws0gdejldw.feishu.cn/docx/P8ZGdHQ9OoGxcaxyFYecXwO9nig?from=from_copylink"  target="_blank">DIY产品介绍</a></p>
 <br />
 
 <p align="center">
@@ -124,6 +125,14 @@ pnpm dev
   <a href="https://pro.kuaitu.cc" target="_blank">
   <img src="https://github.com/user-attachments/assets/5303395b-247d-45be-a411-ef27a389156c" alt="开源图片编辑器" />
   </a>
+  
+## 商品/服装DIY设计器
+
+<a href="https://new.kuaitu.cc/#/store"  target="_blank">商品DIY设计器</a> · <a href="https://ws0gdejldw.feishu.cn/docx/P8ZGdHQ9OoGxcaxyFYecXwO9nig?from=from_copylink"  target="_blank">DIY产品介绍</a></p>
+
+![image](https://github.com/user-attachments/assets/c00fcf50-4a71-4d0a-8f3c-78ac45324672)
+
+
 
 ## 贡献指南
 
