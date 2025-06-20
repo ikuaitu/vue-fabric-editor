@@ -115,6 +115,11 @@ const config = ({ mode }) => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/fontFile/, ''),
         },
+        '/baiduApi': {
+          target: 'https://api.fanyi.baidu.com',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/baiduApi/, ''),
+        },
       },
     },
     preview: {
