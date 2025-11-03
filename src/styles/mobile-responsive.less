@@ -1,0 +1,304 @@
+/**
+ * Mobile Responsive Styles
+ * Part of Issue #556 - Mobile Integration
+ * 
+ * This file contains responsive CSS for mobile devices
+ * Breakpoints:
+ * - Mobile: < 768px
+ * - Tablet: 768px - 1024px
+ * - Desktop: > 1024px
+ */
+
+/* ==================== Mobile Breakpoints ==================== */
+
+/* Small Mobile Devices (< 480px) */
+@media only screen and (max-width: 479px) {
+  /* Container adjustments */
+  .container {
+    width: 100% !important;
+    margin: 10px 5px !important;
+    padding: 0 5px !important;
+  }
+
+  /* Header adjustments */
+  :deep(.ivu-layout-header) {
+    --height: 50px !important;
+    padding: 0 8px !important;
+    font-size: 14px !important;
+  }
+
+  /* Canvas adjustments */
+  #canvas {
+    width: 100% !important;
+    max-width: 320px !important;
+    height: auto !important;
+    min-height: 320px !important;
+  }
+
+  /* Workspace adjustments */
+  #workspace {
+    padding: 5px !important;
+  }
+
+  /* Content panel adjustments */
+  .content {
+    width: 100% !important;
+    padding: 8px !important;
+    max-height: 50vh !important;
+  }
+
+  /* Menu items */
+  .ivu-menu-vertical .menu-item {
+    padding: 8px 4px !important;
+    font-size: 11px !important;
+  }
+
+  /* Attribute items */
+  div.attr-item-box {
+    padding: 5px !important;
+    
+    h3 {
+      font-size: 14px !important;
+      padding-bottom: 8px !important;
+    }
+
+    .bg-item {
+      padding: 4px !important;
+      font-size: 12px !important;
+    }
+  }
+
+  /* Hide non-essential elements on very small screens */
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+/* Mobile Devices (480px - 767px) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .container {
+    width: 95% !important;
+    margin: 15px 10px !important;
+  }
+
+  :deep(.ivu-layout-header) {
+    --height: 50px !important;
+    padding: 0 10px !important;
+  }
+
+  #canvas {
+    width: 100% !important;
+    max-width: 450px !important;
+    height: auto !important;
+    min-height: 450px !important;
+  }
+
+  .content {
+    width: 100% !important;
+    padding: 10px !important;
+  }
+
+  .ivu-menu-vertical .menu-item {
+    padding: 10px 5px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* Tablet Devices (768px - 1024px) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    width: 80% !important;
+    margin: 20px 15px !important;
+  }
+
+  #canvas {
+    width: 100% !important;
+    max-width: 600px !important;
+    height: auto !important;
+  }
+
+  .content {
+    width: 250px !important;
+  }
+}
+
+/* ==================== Touch Device Optimizations ==================== */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch target sizes */
+  button,
+  .ivu-btn,
+  .menu-item,
+  a {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    padding: 10px !important;
+  }
+
+  /* Increase spacing for touch */
+  .ivu-menu-vertical .menu-item {
+    margin-bottom: 5px !important;
+  }
+
+  /* Remove hover effects on touch devices */
+  *:hover {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Improve scrolling */
+  .content,
+  #workspace {
+    -webkit-overflow-scrolling: touch !important;
+    scroll-behavior: smooth !important;
+  }
+}
+
+/* ==================== Landscape Orientation ==================== */
+
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+  .home,
+  .ivu-layout {
+    height: auto !important;
+    min-height: 100vh !important;
+  }
+
+  :deep(.ivu-layout-header) {
+    --height: 40px !important;
+  }
+
+  #canvas {
+    max-height: 60vh !important;
+  }
+
+  .content {
+    max-height: 40vh !important;
+  }
+}
+
+/* ==================== Mobile-Specific Utilities ==================== */
+
+/* Prevent text selection on mobile */
+@media only screen and (max-width: 767px) {
+  .no-select-mobile {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+  }
+
+  /* Prevent zoom on input focus */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Improve button spacing */
+  .ivu-btn-group .ivu-btn {
+    margin: 2px !important;
+  }
+
+  /* Stack buttons vertically on mobile */
+  .button-group-mobile {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  /* Full width modals on mobile */
+  .ivu-modal {
+    width: 95% !important;
+    max-width: 95% !important;
+    margin: 10px auto !important;
+  }
+
+  /* Adjust modal content */
+  .ivu-modal-body {
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+  }
+}
+
+/* ==================== Safe Area Support (Notch) ==================== */
+
+@supports (padding: max(0px)) {
+  @media only screen and (max-width: 767px) {
+    :deep(.ivu-layout-header) {
+      padding-left: max(10px, env(safe-area-inset-left)) !important;
+      padding-right: max(10px, env(safe-area-inset-right)) !important;
+    }
+
+    .content {
+      padding-left: max(10px, env(safe-area-inset-left)) !important;
+      padding-right: max(10px, env(safe-area-inset-right)) !important;
+      padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+    }
+
+    .home,
+    .ivu-layout {
+      padding-top: env(safe-area-inset-top) !important;
+    }
+  }
+}
+
+/* ==================== Performance Optimizations ==================== */
+
+@media only screen and (max-width: 767px) {
+  /* Reduce animations on mobile */
+  * {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+
+  /* Optimize rendering */
+  .canvas-box,
+  #canvas {
+    will-change: transform !important;
+    transform: translateZ(0) !important;
+  }
+
+  /* Reduce shadow complexity */
+  .inside-shadow {
+    box-shadow: inset 0 0 5px 1px #0000001f !important;
+  }
+}
+
+/* ==================== Accessibility ==================== */
+
+@media only screen and (max-width: 767px) {
+  /* Increase contrast for mobile */
+  .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
+    background: #f0f0f0 !important;
+  }
+
+  /* Improve focus visibility */
+  *:focus {
+    outline: 2px solid #2d8cf0 !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Improve readability */
+  body,
+  .content,
+  .container {
+    line-height: 1.6 !important;
+  }
+}
+
+/* ==================== Print Styles ==================== */
+
+@media print {
+  /* Hide non-essential elements */
+  :deep(.ivu-layout-header),
+  .ivu-menu,
+  .content {
+    display: none !important;
+  }
+
+  /* Optimize canvas for printing */
+  #canvas {
+    width: 100% !important;
+    max-width: 100% !important;
+    page-break-inside: avoid !important;
+  }
+}
