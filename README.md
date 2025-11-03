@@ -132,6 +132,11 @@ pnpm dev
 
 ![image](https://github.com/user-attachments/assets/c00fcf50-4a71-4d0a-8f3c-78ac45324672)
 
+## 二次元设计器
+吧唧/亚克力设计器
+![20251103174139](https://github.com/user-attachments/assets/fbad98cb-24ff-431d-b4b7-314a4e1360e3)
+
+
 
 
 ## 贡献指南
