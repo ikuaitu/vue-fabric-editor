@@ -76,7 +76,7 @@
         />
       </Content>
       <Footer class="layout-footer-center">
-        2024 &copy; 北京迅单科技有限公司 京ICP备2022034407号-2
+        {{ year }} &copy; 北京迅单科技有限公司 京ICP备2022034407号-2
       </Footer>
     </Layout>
   </div>
@@ -102,6 +102,8 @@ import { getTmplTypes, getTmplList } from '@/api/material';
 
 // 分类列表
 const typeList = ref([]);
+// 备案年份
+const year = ref(new Date().getFullYear());
 const getTypeListHandel = async () => {
   const res = await getTmplTypes();
   typeList.value = res.data.data.map((item) => {
@@ -238,7 +240,6 @@ const toInfo = (info) => {
       width: 100%;
       border-radius: 10px;
       &:hover {
-        // animation: 3s linear 1s slidein;
         transform: scale(1.02);
       }
     }
