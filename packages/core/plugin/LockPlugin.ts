@@ -181,6 +181,12 @@ export default class LockPlugin implements IPluginTempl {
   lock() {
     const activeObject = this.canvas.getActiveObject() as fabric.Object;
     if (activeObject) {
+      // 确保 extension 对象存在
+      if (!activeObject.extension) {
+        activeObject.extension = {}
+      }
+      // 在 extension 中设置锁定状态
+      activeObject.extension.isLocked = true
       // 修改默认属性
       Object.values(ItypeKey).forEach((key: ItypeKey) => {
         activeObject[key] = true;
@@ -197,6 +203,10 @@ export default class LockPlugin implements IPluginTempl {
       activeObject.hasControls = true;
       activeObject.selectable = true;
       activeObject.evented = true;
+      // 清除 extension 中的锁定状态
+      if (activeObject.extension) {
+        activeObject.extension.isLocked = false
+      }
       // 修改默认属性
       Object.values(ItypeKey).forEach((key: ItypeKey) => {
         activeObject[key] = false;
