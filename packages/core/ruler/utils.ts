@@ -49,7 +49,7 @@ const mergeLines = (rect: Rect[], isHorizontal: boolean) => {
   return mergedLines;
 };
 
-const darwLine = (
+const drawLine = (
   ctx: CanvasRenderingContext2D,
   options: {
     left: number;
@@ -71,7 +71,7 @@ const darwLine = (
   ctx.restore();
 };
 
-const darwText = (
+const drawText = (
   ctx: CanvasRenderingContext2D,
   options: {
     left: number;
@@ -98,7 +98,7 @@ const darwText = (
   ctx.restore();
 };
 
-const darwRect = (
+const drawRect = (
   ctx: CanvasRenderingContext2D,
   options: {
     left: number;
@@ -147,7 +147,7 @@ const drawMask = (
   gradient.addColorStop(0.33, backgroundColor);
   gradient.addColorStop(0.67, backgroundColor);
   gradient.addColorStop(1, transparentColor.toRgba());
-  darwRect(ctx, {
+  drawRect(ctx, {
     left,
     top,
     width,
@@ -157,4 +157,4 @@ const drawMask = (
   ctx.restore();
 };
 
-export { getGap, mergeLines, darwRect, darwText, darwLine, drawMask };
+export { getGap, mergeLines, drawRect, drawText, drawLine, drawMask };
