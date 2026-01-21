@@ -77,7 +77,10 @@ class ImageStrokePlugin implements IPluginTempl {
     if (!ctx) return;
     // 描边等于0 说明关闭了开关或者不需要描边  直接从原图绘制
     if (strokeWidth === 0) {
+      const { scaleX, scaleY, width, height } = activeObject;
       activeObject.setSrc(src, () => {
+        activeObject.set('scaleX', (width! * scaleX!) / (activeObject.width || 1));
+        activeObject.set('scaleY', (height! * scaleY!) / (activeObject.height || 1));
         activeObject.canvas?.renderAll();
       });
       return;
@@ -107,7 +110,10 @@ class ImageStrokePlugin implements IPluginTempl {
     const res = canvas?.toDataURL();
     canvas = null;
     if (!res) return;
+    const { scaleX, scaleY, width, height } = activeObject;
     activeObject.setSrc(res, () => {
+      activeObject.set('scaleX', (width! * scaleX!) / (activeObject.width || 1));
+      activeObject.set('scaleY', (height! * scaleY!) / (activeObject.height || 1));
       activeObject.canvas?.renderAll();
     });
   }
