@@ -134,6 +134,14 @@ class ServersPlugin implements IPluginTempl {
         textPaths.push({ id: item.id, path: item.path });
         item.path = null;
       }
+      // 设置锁定对象
+      if(item.extension?.isLocked) {
+        item.lockMovementX = true
+        item.lockMovementY = true
+        item.lockRotation = true
+        item.lockScalingX = true
+        item.lockScalingY = true
+      }
     });
 
     // hookTransform遍历
