@@ -133,8 +133,23 @@ pnpm dev
 ![image](https://github.com/user-attachments/assets/c00fcf50-4a71-4d0a-8f3c-78ac45324672)
 
 ## 二次元设计器
-吧唧/亚克力设计器
+吧唧/亚克力设计器 二次元自印小程序商城
 ![20251103174139](https://github.com/user-attachments/assets/fbad98cb-24ff-431d-b4b7-314a4e1360e3)
+<img width="2506" height="864" alt="image" src="https://github.com/user-attachments/assets/06f53e9e-7511-4b8f-b5c4-3840a8502651" />
+<img width="2596" height="1092" alt="image" src="https://github.com/user-attachments/assets/27f79026-0d21-4688-a65c-ec06e5fed451" />
+<img width="2544" height="918" alt="image" src="https://github.com/user-attachments/assets/cdd5645e-f11d-4f11-8292-88b90300d3e2" />
+
+## 定制开发案例
+面料印花
+<img width="2684" height="1294" alt="image" src="https://github.com/user-attachments/assets/7c465f96-8f99-410b-812f-1bc1958a1c81" />
+丝巾设计试戴
+<img width="2386" height="950" alt="image" src="https://github.com/user-attachments/assets/d441540f-316f-415a-af9f-f0cfdf191a56" />
+工艺仿真
+<img width="2528" height="862" alt="image" src="https://github.com/user-attachments/assets/2d78111f-4b09-4aa1-8d13-d088d79b8dcf" />
+参数化盒型
+<img width="2532" height="974" alt="image" src="https://github.com/user-attachments/assets/496dcdbc-3b21-4d23-a24d-a13becd3e0f5" />
+各类DIY设计器
+<img width="2192" height="712" alt="image" src="https://github.com/user-attachments/assets/85a8f443-3b64-4c9c-b7d0-313e0d771212" />
 
 
 
