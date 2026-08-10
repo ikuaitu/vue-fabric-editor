@@ -157,7 +157,8 @@
     "lock": "锁定",
     "unlock": "解锁",
     "hide": "隐藏",
-    "editPoly": "编辑多边形"
+    "editPoly": "编辑多边形",
+    "translate": "翻译"
   },
   "insertFile": {
     "insert": "插入",

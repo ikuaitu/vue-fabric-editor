@@ -8,7 +8,7 @@ import hide from '@/components/hide.vue';
 import group from '@/components/group.vue';
 import lock from '@/components/lock.vue';
 import dele from '@/components/del.vue';
-
+import translate from '@/components/translate.vue';
 import bgBar from '@/components/bgBar.vue';
 import setSize from '@/components/setSize.vue';
 import replaceImg from '@/components/replaceImg.vue';
@@ -78,6 +78,7 @@ const switchAttrBar = () => {
           <clone></clone>
           <hide></hide>
           <edit></edit>
+          <translate></translate>
         </div>
         <!-- <Divider plain></Divider> -->
         <!-- 居中对齐 -->
