@@ -73,6 +73,7 @@ import Editor, {
   LockPlugin,
   AddBaseTypePlugin,
   MaskPlugin,
+  MiddleMousePlugin,
 } from '@kuaitu/core';
 
 const APIHOST = import.meta.env.APP_APIHOST;
@@ -135,6 +136,7 @@ onMounted(() => {
     .use(ResizePlugin)
     .use(LockPlugin)
     .use(AddBaseTypePlugin)
+    .use(MiddleMousePlugin)
     .use(MaskPlugin);
 
   state.show = true;
